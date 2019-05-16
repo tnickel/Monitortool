@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.7.1.v3738a.jar"/>
+	<classpathentry kind="lib" path="C:/external_libs/jfreechart-1.0.11-demo_paid/lib/jcommon-1.0.14.jar"/>
+	<classpathentry kind="lib" path="C:/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.7.2.v3740f.jar"/>
+	<classpathentry kind="lib" path="lib/appFramework-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/miglayout-3.5.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Libs">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/external_libs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/external_libs/appFramework-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

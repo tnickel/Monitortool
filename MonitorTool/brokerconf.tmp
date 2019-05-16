@@ -1,0 +1,491 @@
+<data.Metatraderlist>
+  <metaliste>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_alpari</networkshare>
+      <brokername>alpari</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>c:/forex/Strategien_ImEinsatz/</mqlquellverz>
+      <connectedBroker>ThinkForex8</connectedBroker>
+      <desciption></desciption>
+      <infostring>FST daily</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-10-10 16:28:03</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex</networkshare>
+      <brokername>ThinkForex</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz></mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption></desciption>
+      <infostring>EURUSD 1H bar</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-09-21 06:56:00</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex2</networkshare>
+      <brokername>ThinkForex2</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz></mqlquellverz>
+      <connectedBroker>x</connectedBroker>
+      <desciption></desciption>
+      <infostring>GPBUSD 1H bar</infostring>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-11-05 00:00:42</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex3</networkshare>
+      <brokername>ThinkForex3</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\ThinkForex3</mqlquellverz>
+      <connectedBroker>x</connectedBroker>
+      <desciption>B23: EURUSD M5 Think REaltick,EOB (4-50 SL)&#xd;
+Buildingblocks teilaktiviert, 1.5 Spread, 0.3 Slippage, 0 Stop&#xd;
+22.10.12-9.11.12-16.11.12&#xd;
+Step1) Random Generation (only 70000)&#xd;
+Step2) Genetic Weiterentwicklung&#xd;
+Step3) Hand aussortiert</desciption>
+      <infostring>Realtick Thinkforex M5 EOB</infostring>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-12-31 16:10:01</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex4</networkshare>
+      <brokername>ThinkForex4</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\ThinkForex4</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Mit Realtickdatan von Thinkforex berechnet&#xd;
+1 Monat (jeweils 2wo ISS/OSS)&#xd;
+EURUSD M5&#xd;
+&#xd;
++B29 FxopenNM&#xd;
+Alle Buildingblocks aktiviert</desciption>
+      <infostring>1Mon Realtick M5 Thinkforex</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2012-11-19 08:20:21</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex5</networkshare>
+      <brokername>ThinkForex5</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz></mqlquellverz>
+      <connectedBroker>x</connectedBroker>
+      <desciption></desciption>
+      <infostring>Connected Signalprovider</infostring>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-11-21 09:46:50</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex6</networkshare>
+      <brokername>ThinkForex6</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\ThinkForex6</mqlquellverz>
+      <connectedBroker>x</connectedBroker>
+      <desciption>1.1.09-15.02.12 Berechnung&#xd;
+15.02.12-30.10.12 Forwardtest</desciption>
+      <infostring>GBPUSD H1 auf Tagesbasis</infostring>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-11-22 15:00:10</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//tnickel-laptop/MT4_Lap_AT4</networkshare>
+      <brokername>Lap_AT4</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz></mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>FST 1-5 Min 11...xx</desciption>
+      <infostring>1 Monat Demoaccount</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>30</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2012-12-28 02:21:55</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_atlife</networkshare>
+      <brokername>realdepot</brokername>
+      <accounttype>2</accounttype>
+      <mqlquellverz>c:\forex\Strategien_ImEinsatz\GeneticBuilder</mqlquellverz>
+      <connectedBroker>x</connectedBroker>
+      <desciption></desciption>
+      <infostring></infostring>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2011-12-28 14:51:19</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_C8_AT_Perm1</networkshare>
+      <brokername>C8_AT_Perm1</brokername>
+      <accounttype>0</accounttype>
+      <connectedBroker>x</connectedBroker>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-07-27 08:32:57</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_C8_AT_Perm2</networkshare>
+      <brokername>C8_AT_Perm2</brokername>
+      <accounttype>0</accounttype>
+      <connectedBroker>x</connectedBroker>
+      <storetrades>false</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-07-26 08:58:21</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_C8_AT_subPerm22</networkshare>
+      <brokername>C8_AT_subPerm22</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>c:\forex\Strategien_ImEinsatz\GeneticBuilder</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>A42 EURUSD H1, ActiveTrades von ActiveTrades gel. daten&#xd;
+2.01.2009-24.02.2011-4.04.2012&#xd;
+Spread 2,5, 1 Min data slow&#xd;
+&#xd;
+Aussortierung:&#xd;
+1) Finale Aussortierung&#xd;
+-Betrachte alle Strategien mit guter Stabilität (Iss)&#xd;
+-ausserdem guten Nettoprofit (OSS)&#xd;
+-&gt; Markiere mit x&#xd;
+&#xd;
+2) forwardtest mit realdaten (13.07-4.10)&#xd;
+-&gt; Schreibe hinter dem x weiviel profit rauskam&#xd;
+&#xd;
+3) forwardtest mit realdaten des letzten monats 4.10-19.11&#xd;
+-&gt;&#xd;
+</desciption>
+      <infostring></infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-07-26 08:58:21</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_fxopen2</networkshare>
+      <brokername>fxopen2</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Fxopen2</mqlquellverz>
+      <connectedBroker>ThinkForex8</connectedBroker>
+      <desciption></desciption>
+      <infostring></infostring>
+      <storetrades>false</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+      <datumDesErstenTrades>2012-10-18 11:09:27</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex7</networkshare>
+      <brokername>ThinkForex7</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\ThinkForex7</mqlquellverz>
+      <connectedBroker>ThinkForex8</connectedBroker>
+      <desciption>A50 EURUSD H1, Duka, OpenBar&#xd;
+B26 EURUSD M1, Think Realtick&#xd;
+B28 GBPUSD H1, Duka, OpenBar (stark aussortiert)</desciption>
+      <infostring>A50,B26,B28</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2012-11-28 15:18:09</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_ThinkForex8</networkshare>
+      <brokername>ThinkForex8</brokername>
+      <accounttype>2</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\ThinkForex8</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Demoaccount der zu Testzwecken als Realaccount configuriert wird.</desciption>
+      <infostring></infostring>
+      <storetrades>true</storetrades>
+      <validitydays>999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.0</lotsize>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_Alpari2</networkshare>
+      <brokername>Alpari2</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Alpari2</mqlquellverz>
+      <connectedBroker>Pepper2</connectedBroker>
+      <desciption>Account für Testzwecke Installationstest</desciption>
+      <infostring></infostring>
+      <daxname>_DE30</daxname>
+      <storetrades>true</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2012-12-24 01:00:02</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_AtMon1</networkshare>
+      <brokername>AtMon1</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\AtMon1</mqlquellverz>
+      <connectedBroker>realdepot</connectedBroker>
+      <desciption>-ActiveTrades Demoaccount um dax futures zu testen&#xd;
+-B44 EURUSD M15 auf ATrealtickdaten</desciption>
+      <infostring>1 Monats Demoaccount DaxStrategien+B44</infostring>
+      <daxname>Ger30Mar13</daxname>
+      <storetrades>true</storetrades>
+      <validitydays>30</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.04</lotsize>
+      <datumDesErstenTrades>2013-01-10 08:54:29</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_FxOpenNM</networkshare>
+      <brokername>FxOpenNM</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FxopenNM</mqlquellverz>
+      <connectedBroker>Pepper2</connectedBroker>
+      <desciption>Broker dessen daten nicht in der Datenbank gespeichert werden da zu oft getraded wird</desciption>
+      <infostring>High freq broker</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>9999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2012-12-11 18:59:04</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_Pepper1</networkshare>
+      <brokername>Pepper1</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Pepper1</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption></desciption>
+      <infostring>Peperstone ECN</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>30</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2013-01-07 00:23:15</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_Pepper2</networkshare>
+      <brokername>Pepper2</brokername>
+      <accounttype>2</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Pepper2</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption></desciption>
+      <infostring>//Core8/MT4_Pepper2</infostring>
+      <daxname></daxname>
+      <storetrades>true</storetrades>
+      <validitydays>30</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2013-01-14 10:17:15</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_PepperLife</networkshare>
+      <brokername>PepperLife</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\PepperLIFE</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption></desciption>
+      <infostring></infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2012-12-31 18:10:03</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_FxOpen</networkshare>
+      <brokername>FxOpen</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Fxopen</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Strategien mit grösseren Spread, EOB</desciption>
+      <infostring></infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2012-12-28 15:45:01</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_finfx</networkshare>
+      <brokername>Finfx</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FinFx</mqlquellverz>
+      <connectedBroker>Pepper2</connectedBroker>
+      <desciption>Demokonto für den Echttest</desciption>
+      <infostring>Entwicklungsbroker für den Echtest</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2013-01-21 00:02:45</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Tnickel-Laptop//MT4_Alpari2</networkshare>
+      <brokername>LapAlpari2</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_LAPTOP\Alpari2</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Strategien haben gut im Walkforward abgeschnitten</desciption>
+      <infostring>Walkforward</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>0</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2012-10-01 13:12:23</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>//Core8/MT4_finfx2</networkshare>
+      <brokername>FinFx2</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FinFx2</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Walkforward getestete STrategien</desciption>
+      <infostring>Walkforward</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>\\I7\MT4_FxOpen3</networkshare>
+      <brokername>fxopen3</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Fxopen3</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>eine Strategie aus B29 wurde optimiert und hier wurden die optimierungen installiert</desciption>
+      <infostring>B29 Optimiert</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>1</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+      <datumDesErstenTrades>2013-01-16 11:46:55</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>\\Core8\MT4_Pepper3</networkshare>
+      <brokername>Pepper3</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz>C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\Pepper3</mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption></desciption>
+      <infostring>H1 beste strategien</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>0</installationstatus>
+      <on>1</on>
+      <lotsize>0.01</lotsize>
+      <datumDesErstenTrades>2013-01-15 18:37:20</datumDesErstenTrades>
+    </data.Metaconfig>
+    <data.Metaconfig>
+      <networkshare>\\Core8\MT4_FinFx3</networkshare>
+      <brokername>FinFx3</brokername>
+      <accounttype>0</accounttype>
+      <mqlquellverz></mqlquellverz>
+      <connectedBroker></connectedBroker>
+      <desciption>Broker für den Rausch scalper</desciption>
+      <infostring>Development Broker</infostring>
+      <daxname></daxname>
+      <storetrades>false</storetrades>
+      <validitydays>99999999</validitydays>
+      <warningflag>0</warningflag>
+      <installationstatus>0</installationstatus>
+      <on>1</on>
+      <lotsize>0.1</lotsize>
+    </data.Metaconfig>
+  </metaliste>
+</data.Metatraderlist>
