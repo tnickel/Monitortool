@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="mainPackageClassDiagram" foregroundRGB="255,255,255" id="{UMLID=_ggEowjJBEd2ZOb6R4LLjLA,JavaID=mainPackage}" metadata="uml2-1.0" initialized="true" tag="1000" key="323030373036323920416E616C797365722F74686F6D61732E6E69636B656C">
+  <children xsi:type="editmodel:ClassEditModel" name="Tasks" location="362,50" size="266,253" stereotype="" id="{UMLID=_rktS4EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks}" runTimeClassModel="BuildKurswerteDB(),SucheNeueThreadsAusBesteAkts(),DownloadAllThreads(),Build_db_thread_big_liste(Ljava.lang.String;),MakePrimedata(),p,froot,BewerteBesteUser(),kurswerte,BerechneBreakIndexAusBesteAkts(),Tasks()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="85,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="froot" id="{UMLID=_rlTIwUE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#froot}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="p" id="{UMLID=_rlTIwEE_Ed2QEt4PQwMG0Q,JavaID=hilfsklasse/Prop@p+mainPackage/Tasks@ownedEnd|hilfsklasse/Prop#p}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="kurswerte" id="{UMLID=_rlTIwkE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#kurswerte}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="245,144">
+      <children xsi:type="editmodel:MethodEditModel" name="Tasks" id="{UMLID=_rlmqwkE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#Tasks()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="DownloadAllThreads" id="{UMLID=_rlmqwUE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#DownloadAllThreads()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="MakePrimedata" id="{UMLID=_rlmqyEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#MakePrimedata()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="Build_db_thread_big_liste" id="{UMLID=_rlmqxEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#Build_db_thread_big_liste(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="SucheNeueThreadsAusBesteAkts" id="{UMLID=_rlmqx0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#SucheNeueThreadsAusBesteAkts()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="BuildKurswerteDB" id="{UMLID=_rlmqw0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#BuildKurswerteDB()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="BerechneBreakIndexAusBesteAkts" id="{UMLID=_rlTIxUE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#BerechneBreakIndexAusBesteAkts()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="BewerteBesteUser" id="{UMLID=_rlmqwEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks#BewerteBesteUser()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" size="2,1" autoLocated="true" id="{UMLID=_rmWRokE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/Tasks->hilfsklasse/Tools}" source="//@children.0" target="//@children.3" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" location="605,144" size="105,32" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="266,126" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,126"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" ShowInnerEntity="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="DownloadUserinfo" location="312,384" size="184,240" stereotype="" id="{UMLID=_rrHc4EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo}" runTimeClassModel="i,AddNewUsers(),flength,j,p,froot,WriteUserstore(),DownloadUserinfo(),Ustore,trys">
+    <children xsi:type="editmodel:CompartmentEditModel" size="67,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="i" id="{UMLID=_rrQm0EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#i}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="j" id="{UMLID=_rrQm0kE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#j}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="trys" id="{UMLID=_rraX0EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#trys}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="flength" id="{UMLID=_rrQm0UE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#flength}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="froot" id="{UMLID=_rrQm1EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#froot}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="p" id="{UMLID=_rrQm00E_Ed2QEt4PQwMG0Q,JavaID=hilfsklasse/Prop@p+mainPackage/DownloadUserinfo@ownedEnd|hilfsklasse/Prop#p}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="Ustore" id="{UMLID=_rrQm1UE_Ed2QEt4PQwMG0Q,JavaID=stores/UserDB@Ustore+mainPackage/DownloadUserinfo@ownedEnd|stores/UserDB#Ustore}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="144,54">
+      <children xsi:type="editmodel:MethodEditModel" name="DownloadUserinfo" id="{UMLID=_rraX0kE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#DownloadUserinfo()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="AddNewUsers" id="{UMLID=_rraX00E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#AddNewUsers()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="WriteUserstore" id="{UMLID=_rraX0UE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/DownloadUserinfo#WriteUserstore()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" ShowInnerEntity="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AnalysePostings" location="50,50" size="262,353" stereotype="" id="{UMLID=_rtDWkEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings}" runTimeClassModel="PostingThreadName,threadanzahl,filtere_neue_threads_aus_postings(Ljava.lang.String;),writePostingThreads(Ljava.lang.String;I),LadeAlleKurse(Ljava.lang.String;I),addPostingThreads(Ljava.lang.String;),rootpath,p,maxthreadanz,AnalysePostings(),ThreadId,useranz,checkAvailableCount(Ljava.lang.String;),downloader,post,ThreadIdZugriffe">
+    <children xsi:type="editmodel:CompartmentEditModel" size="146,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="useranz" id="{UMLID=_rtpMc0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#useranz}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="threadanzahl" id="{UMLID=_rtgCg0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#threadanzahl}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="maxthreadanz" id="{UMLID=_rtpMckE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#maxthreadanz}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="p" id="{UMLID=_rtpMcUE_Ed2QEt4PQwMG0Q,JavaID=hilfsklasse/Prop@p+mainPackage/AnalysePostings@ownedEnd|hilfsklasse/Prop#p}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="rootpath" id="{UMLID=_rtpMcEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#rootpath}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="downloader" id="{UMLID=_rtpMe0E_Ed2QEt4PQwMG0Q,JavaID=internetPackage/DownloadManager@downloader+mainPackage/AnalysePostings@ownedEnd|internetPackage/DownloadManager#downloader}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="post" id="{UMLID=_rtpMekE_Ed2QEt4PQwMG0Q,JavaID=hilfsklasse/Posting@post+mainPackage/AnalysePostings@ownedEnd|hilfsklasse/Posting#post}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="PostingThreadName" id="{UMLID=_rtgCgEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#PostingThreadName}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ThreadId" id="{UMLID=_rtpMd0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#ThreadId}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ThreadIdZugriffe" id="{UMLID=_rtpMdEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#ThreadIdZugriffe}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="241,108">
+      <children xsi:type="editmodel:MethodEditModel" name="AnalysePostings" id="{UMLID=_rty9c0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#AnalysePostings()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="checkAvailableCount" id="{UMLID=_rt8udUE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#checkAvailableCount(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addPostingThreads" id="{UMLID=_rty9dEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#addPostingThreads(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="writePostingThreads" id="{UMLID=_rt8ucEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#writePostingThreads(Ljava.lang.String;I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="filtere_neue_threads_aus_postings" id="{UMLID=_rty9cEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#filtere_neue_threads_aus_postings(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LadeAlleKurse" id="{UMLID=_rty9d0E_Ed2QEt4PQwMG0Q,JavaID=mainPackage/AnalysePostings#LadeAlleKurse(Ljava.lang.String;I)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" ShowInnerEntity="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.0" name="Tools" location="678,50" size="176,266" stereotype="" id="{UMLID=_Dhp8MTJCEd2ZOb6R4LLjLA,JavaID=hilfsklasse/Tools}" runTimeClassModel="nteilstring(Ljava.lang.String;Ljava.lang.String;I),Tools(),get_aktdate(),get_year(Ljava.lang.String;),countZeichen(Ljava.lang.String;Ljava.lang.String;),get_month(Ljava.lang.String;),get_date_string(J),get_aktdate_str(),get_day(Ljava.lang.String;),get_mindate(),is_zahl(Ljava.lang.String;),get_date_milisec(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="139,216"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MainClass" location="546,384" size="119,68" stereotype="" id="{UMLID=_r0pzYEE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/MainClass}" runTimeClassModel="main([Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="69,18"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" name="GC" location="50,384" size="212,218" id="{UMLID=_r3ed4EE_Ed2QEt4PQwMG0Q,JavaID=mainPackage/GC}" runTimeClassModel="MODE_OBSERVETHREAD,MODE_ONLYBREAKID,maxthreads,TDBLIMIT,MODE_OBSERVEUSER,MODE_ALLUSER,OBSERVERLIMIT,MAXWEBSIDES,USERLIMIT">
+    <children xsi:type="editmodel:CompartmentEditModel" size="191,162"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=7" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showMethods="true" showAttributes="true" showLiterlas="true" showInnerEntity="true"/>
+</editmodel:ClassDiagramEditModel>

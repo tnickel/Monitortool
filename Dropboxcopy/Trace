@@ -1,0 +1,33 @@
+09:53:45_217(main): Falscher Verzeichnissaufbau userdir<C:\Users\tnickel\workspace\Dropboxcopy>
+09:55:30_926(main): Falscher Verzeichnissaufbau userdir<C:\Users\tnickel\workspace\Dropboxcopy>
+09:56:55_285(main): Falscher Verzeichnissaufbau userdir<C:\Users\tnickel\workspace\Dropboxcopy>
+09:57:26_556(main): Falscher Verzeichnissaufbau userdir<c:\\>
+20:12:00_161(main): Error: metatrader.exe missing
+20:12:16_567(main): Error: metatrader.exe missing
+20:12:24_208(main): Error: metatrader.exe missing
+20:28:45_463(main): Error: metatrader.exe missing
+20:29:10_482(main): Error: metatrader.exe missing
+20:30:04_856(main): Error: metatrader.exe missing metatraderexe<C:\Forex\FST\Forex Strategy Trader\Forex Strategy Trader.exe>
+20:30:39_646(main): Error: metatrader.exe missing metatraderexe<C:\Forex\FST\Forex Strategy Trader\Forex Strategy Trader.exe>
+20:30:58_854(main): Error: metatrader.exe missing metatraderexe<C:\Forex\FST\Forex Strategy Trader\Forex Strategy Trader.exe>
+20:32:37_385(main): Error: metatrader.exe missing metatraderexe<C:\Forex\FST\Forex Strategy Trader\Forex Strategy Trader.exe>
+12:46:24_825(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:48:28_256(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:50:51_508(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:53:41_965(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:53:55_132(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:53:56_522(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+12:56:04_534(main): Error: trader.exe missing traderexe<C:\Users\tnickel\Dropbox\MonitorCom\COMMCHANNEL>
+16:40:48_037(main): Error: internal error 123344
+16:40:59_562(main): Error: internal error 123344
+16:41:18_362(main): Error: internal error 123344
+12:59:18_478(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\TickDataExportEA USDJPY M1 0.chr> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDJPY M1 0.chr>
+13:01:49_071(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\TickDataExportEA USDCHF M1 0.chr> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDCHF M1 0.chr>
+13:06:34_942(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\TickDataExportEA SILVER M1 0.chr> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA SILVER M1 0.chr>
+16:41:58_865(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\experts\3125.del> to<C:\Forex\MT4\AtTestmon1\deleted\3125.del>
+16:45:20_796(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\experts\TickDataExportEA USDJPY M1 3125.mq4> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDJPY M1 3125.mq4>
+09:33:34_848(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\experts\1.del> to<C:\Forex\MT4\AtTestmon1\deleted\1.del>
+09:34:08_103(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\experts\TickDataExportEA USDCHF M1 1.mq4> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDCHF M1 1.mq4>
+09:34:37_181(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\1.del> to<C:\Forex\MT4\AtTestmon1\deleted\1.del>
+09:34:38_069(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\3125.del> to<C:\Forex\MT4\AtTestmon1\deleted\3125.del>
+09:34:49_597(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\TickDataExportEA USDJPY M1 1.chr> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDJPY M1 1.chr>

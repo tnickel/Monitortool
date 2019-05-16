@@ -1,0 +1,1 @@
+c:\programme\java\jdk1.6.0_11\bin\jarsigner.exe f:\offline\analyser\bin\applets\UserInfoApplet.jar tnickel
