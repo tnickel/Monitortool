@@ -1,8 +1,13 @@
 package StartFrame;
 
 
-import java.awt.Color;
 import java.io.File;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 
 import data.DropActor;
 import data.DropGlobalVar;
