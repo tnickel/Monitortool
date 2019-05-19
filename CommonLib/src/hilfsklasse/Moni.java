@@ -1,11 +1,10 @@
 package hilfsklasse;
 
 
+import com.jamonapi.MonitorFactory;
+
 import ComData.GC;
 import ComData.Inf;
-
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
 
 public class Moni
 {

@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import swingtest.UI;
+
 public class Tracer
 {
 	// 0 for no tracing,
