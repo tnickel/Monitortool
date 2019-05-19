@@ -1,0 +1,7 @@
+*.dll
+*.class
+*.log
+*.jar
+*.ucd
+trace
+*.bak
