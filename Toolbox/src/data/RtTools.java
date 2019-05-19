@@ -1,21 +1,19 @@
 package data;
 
+import java.io.File;
+
+import org.eclipse.swt.widgets.Display;
+
+import Metriklibs.FileAccessDyn;
 import gui.Mbox;
 import gui.Viewer;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import hiflsklasse.Tradestatistik;
-
-import java.io.File;
-
 import montool.MonDia;
-
-import org.eclipse.swt.widgets.Display;
-
 import work.JToolboxProgressWin;
 import xml.TnParser;
-import Metriklibs.FileAccessDyn;
 
 public class RtTools
 {

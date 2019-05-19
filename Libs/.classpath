@@ -2,15 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/external_libs/xstream-distribution-1.4.5-bin/xstream-1.4.5/lib/xstream-1.4.5.jar"/>
-	<classpathentry kind="lib" path="C:/external_libs/jfreechart-1.0.11-demo_paid.zip"/>
-	<classpathentry kind="lib" path="C:/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
-	<classpathentry kind="lib" path="C:/external_libs/xstream-distribution-1.4.3-bin.zip"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.7.2.v3740f.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.7.1.v3738a.jar"/>
-	<classpathentry kind="lib" path="C:/external_libs/swt-3.5.1-win32-win32-x86.zip"/>
-	<classpathentry kind="lib" path="C:/external_libs/jnlp.jar"/>
-	<classpathentry kind="lib" path="C:/external_libs/miglayout-3.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/jfreechart-1.0.11-demo.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/swt-3.5.1-win32-win32-x86.zip"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/xstream-distribution-1.4.5-bin.zip"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/jnlp.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/miglayout-3.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/xstream-distribution-1.4.5-bin/xstream-1.4.5/lib/xstream-1.4.5.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/xstream-distribution-1.4.5-bin/xstream-1.4.5/lib/xstream-benchmark-1.4.5.jar"/>
+	<classpathentry kind="lib" path="C:/git/external_libs/xstream-distribution-1.4.5-bin/xstream-1.4.5/lib/xstream-hibernate-1.4.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

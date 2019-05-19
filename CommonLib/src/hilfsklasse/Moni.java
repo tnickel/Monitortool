@@ -1,7 +1,13 @@
 package hilfsklasse;
 
 
-import com.jamonapi.MonitorFactory;
+
+
+
+
+import org.eclipse.swt.widgets.Monitor;
+
+
 
 import ComData.GC;
 import ComData.Inf;

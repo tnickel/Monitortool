@@ -1,23 +1,17 @@
 package StartFrame;
 
-import gui.Mbox;
-import hilfsklasse.FileAccess;
-import hilfsklasse.Swttool;
 
+import java.awt.Color;
 import java.io.File;
-
-import mtools.DisTool;
-import mtools.Mlist;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 
 import data.DropActor;
 import data.DropGlobalVar;
 import data.DropconfList;
+import gui.Mbox;
+import hilfsklasse.FileAccess;
+import hilfsklasse.Swttool;
+import mtools.DisTool;
+import mtools.Mlist;
 
 public class StartDropBoxCopyWork
 {

@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import swingtest.UI;
+
 
 public class Tracer
 {
@@ -122,10 +122,6 @@ public class Tracer
 				m_traceStream = null;
 			}
 		}
-		if (nLevel == 10)
-		{
-			UI ui = new UI();
-			ui.FehlermeldungStop(strMsg);
-		}
+		
 	}
 }

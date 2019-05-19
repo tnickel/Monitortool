@@ -1,35 +1,19 @@
 package StartFrame;
 
-import ftool.DropUpdater;
-import gui.Mbox;
-import hilfsklasse.Tracer;
-import mtools.Mlist;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 
-import swtDropwindow.EditConfig;
+
+
 
 import com.cloudgarden.resource.SWTResourceManager;
 
 import data.DropGlobalVar;
 import data.DropRootpath;
+import ftool.DropUpdater;
+import gui.Mbox;
+import hilfsklasse.Tracer;
+import mtools.Mlist;
+import swtDropwindow.EditConfig;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
