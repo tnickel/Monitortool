@@ -5,10 +5,4 @@
 *.ucd
 trace
 *.bak
-*.dat
-*.xml
-*.prefs
-.plugins
-*.tree
-.classpath
 .gitignore
