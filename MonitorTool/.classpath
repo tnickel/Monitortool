@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/appFramework-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/miglayout-3.5.5.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Libs">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/external_libs"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/jfreechart-1.0.11-demo.jar"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/iText-2.1.3.jar"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jcommon-1.0.14.jar"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11.jar"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11-applet-demo.jar"/>
-	<classpathentry kind="lib" path="C:/git/external_libs/swt-3.5.1-win32-win32-x86.zip"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/CommonLib"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/jfreechart-1.0.11-demo_paid/jfreechart-1.0.11-demo.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/iText-2.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jcommon-1.0.14.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/jfreechart-1.0.11-demo_paid/lib/jfreechart-1.0.11-applet-demo.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/miglayout-3.5.5.jar"/>
+	<classpathentry kind="lib" path="D:/git/external_libs/appFramework-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse-java-oxygen-3a-win32-x86_64/eclipse/plugins/org.eclipse.swt.win32.win32.x86_64_3.106.3.v20180329-0507.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Libs"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

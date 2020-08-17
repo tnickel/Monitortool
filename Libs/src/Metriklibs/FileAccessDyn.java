@@ -1,9 +1,5 @@
 package Metriklibs;
 
-import hiflsklasse.FileAccess;
-import hiflsklasse.Inf;
-import hiflsklasse.Tracer;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +11,8 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
+
+import hiflsklasse.Tracer;
 
 public class FileAccessDyn
 {

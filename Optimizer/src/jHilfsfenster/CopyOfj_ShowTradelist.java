@@ -10,12 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import data.Tradeliste;
 import jhilf.ColoredTableCellRendererCompare;
 import jhilf.JTableTool;
-
-import org.jdesktop.application.SingleFrameApplication;
-
-import data.Tradeliste;
 
 
 /**

@@ -1,13 +1,13 @@
 package Metriklibs;
 
-import gui.Viewer;
-import hiflsklasse.Inf;
-import hiflsklasse.Tracer;
-
 import java.io.File;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Display;
+
+import gui.Viewer;
+import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
 
 
 public class CorrelationResultliste

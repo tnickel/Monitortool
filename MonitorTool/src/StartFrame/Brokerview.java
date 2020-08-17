@@ -1,16 +1,9 @@
 package StartFrame;
 
-import gui.Mbox;
-import hiflsklasse.FileAccess;
-import hiflsklasse.Inf;
-import hiflsklasse.Swttool;
-import hiflsklasse.Tools;
-import hiflsklasse.Tracer;
+
 
 import java.io.File;
 import java.util.HashSet;
-
-import mtools.Mlist;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -22,6 +15,13 @@ import org.eclipse.swt.widgets.TableItem;
 import data.Metaconfig;
 import data.Metatraderlist;
 import data.Rootpath;
+import gui.Mbox;
+import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
+import hiflsklasse.Swttool;
+import hiflsklasse.Tools;
+import hiflsklasse.Tracer;
+import mtools.Mlist;
 
 public class Brokerview
 {

@@ -1,14 +1,6 @@
 package start;
 
-import gui.Guitools;
-import gui.Mbox;
-import hiflsklasse.FileAccess;
-import hiflsklasse.SG;
-import hiflsklasse.Tracer;
-
 import java.io.File;
-
-import montool.MonDia;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -32,21 +24,26 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import pricedataseries.PriceDataSeries;
-import work.CommentWork;
-import cluster.Cluster;
-
 import com.cloudgarden.resource.SWTResourceManager;
 
+import cluster.Cluster;
 import data.Commentflags;
 import data.Conf100Tools;
 import data.Endtestdata;
-import data.FilterTools;
 import data.GlobToolbox;
 import data.Metriktools;
 import data.RtTools;
+import data.SqWorkflow;
 import data.Toolboxconf;
 import data.TradefilterVerarbeitung;
+import gui.Guitools;
+import gui.Mbox;
+import hiflsklasse.FileAccess;
+import hiflsklasse.SG;
+import hiflsklasse.Tracer;
+import montool.MonDia;
+import pricedataseries.PriceDataSeries;
+import work.CommentWork;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -233,7 +230,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private String filter_indir_glob=null;
 	private String filter_outdir_glob=null;
 	private String filter_keyword_glob=null;
-	private FilterTools filtertools= new FilterTools();
+	private SqWorkflow sqworkflow= new SqWorkflow();
 	
 	//golbal Tradelistenverarbeitung
 	TradefilterVerarbeitung trverarbeit = new TradefilterVerarbeitung();
@@ -1355,7 +1352,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					cTabItem7 = new CTabItem(cTabFolder1, SWT.NONE);
-					cTabItem7.setText("cFilter");
+					cTabItem7.setText("Sq4.X Workflow Modifierer");
 					{
 						composite13 = new Composite(cTabFolder1, SWT.NONE);
 						composite13.setLayout(null);
@@ -1397,9 +1394,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7calc.setText("filter");
+								button7calc.setText("SQ Workflow");
 								button7calc.setBounds(405, 194, 112, 30);
-								button7calc.setToolTipText("Filtertools is a special filter who look for strategies with special keywords.\r\n\r\nStep1:\r\nput all *.str and all *.txt files into the sourcedir\r\n\r\nStep2:\r\ndefine filterkeyword\r\n\r\nStep3: \r\nKlick button filter\r\n\r\nAll *.txt will be checked if the *.txt-file contains the keyword. If this keyword is available the *.str- file and *.txt file will be copied into the destination directory.\r\n\r\nIf the keyword is missing, nothing with this strategy will be done.\r\n");
+								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
 								button7calc.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt) {
 										button7calcWidgetSelected(evt);
@@ -2068,7 +2065,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void button7calcWidgetSelected(SelectionEvent evt) {
 		System.out.println("button7calc.widgetSelected CalcCfilter, event="+evt);
-		filtertools.calcFilter();
+		sqworkflow.calcFilter();
 	}
 
 }

@@ -1,14 +1,16 @@
 package hilfsklasse;
 
+import javax.swing.table.TableColumn;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+
+import com.lowagie.text.Table;
 
 import ComData.Tools;
 import ComData.ToolsException;
+import jdk.nashorn.tools.Shell;
 
 public class Swttool
 {

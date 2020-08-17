@@ -1,22 +1,20 @@
 package gui;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+
 import hiflsklasse.FileAccess;
 import hiflsklasse.GC;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.ToolsException;
 import hiflsklasse.Tracer;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 
 public class SwtTools
 {

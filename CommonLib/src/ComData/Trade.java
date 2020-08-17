@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import datefunkt.Mondate;
+
 public class Trade  implements Comparable<Trade> 
 {
 	private int magic = 0;

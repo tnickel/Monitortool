@@ -1,13 +1,12 @@
 package Metriklibs;
 
-import hiflsklasse.Inf;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
 
 import data.CorelSetting;
+import hiflsklasse.Inf;
 
 public class Filterzeitraum
 {

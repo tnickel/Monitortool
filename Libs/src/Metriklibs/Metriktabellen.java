@@ -1,8 +1,8 @@
 package Metriklibs;
 
-import hiflsklasse.Tracer;
-
 import java.util.ArrayList;
+
+import hiflsklasse.Tracer;
 
 public class Metriktabellen
 {

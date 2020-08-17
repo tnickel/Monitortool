@@ -1,11 +1,5 @@
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import javax.swing.WindowConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 
 /**

@@ -1,9 +1,5 @@
 package tcp;
 
-import gui.JLibsProgressWin;
-import hiflsklasse.SG;
-import hiflsklasse.Tracer;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +13,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import gui.JLibsProgressWin;
+import hiflsklasse.SG;
+import hiflsklasse.Tracer;
 
 public class TcpProtokoll
 {

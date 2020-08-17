@@ -1,11 +1,5 @@
 package gui;
 
-import hiflsklasse.FileAccess;
-import hiflsklasse.GC;
-import hiflsklasse.Inf;
-import hiflsklasse.Tools;
-import hiflsklasse.Tracer;
-
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -21,6 +15,12 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
+import hiflsklasse.FileAccess;
+import hiflsklasse.GC;
+import hiflsklasse.Inf;
+import hiflsklasse.Tools;
+import hiflsklasse.Tracer;
 
 public class Viewer extends SwtTools
 {

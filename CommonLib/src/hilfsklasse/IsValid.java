@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import ComData.FileAccess;
 import ComData.GC;
 import ComData.Inf;
-import objects.Obj;
 import objects.ThreadDbObj;
+
 
 public class IsValid
 {

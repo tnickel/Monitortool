@@ -5,9 +5,7 @@ package hilfsklasse;
 
 
 
-import org.eclipse.swt.widgets.Monitor;
-
-
+import com.jamonapi.MonitorFactory;
 
 import ComData.GC;
 import ComData.Inf;

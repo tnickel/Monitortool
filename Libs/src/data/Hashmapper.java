@@ -1,8 +1,8 @@
 package data;
 
-import hiflsklasse.Tracer;
-
 import java.util.HashMap;
+
+import hiflsklasse.Tracer;
 
 public class Hashmapper
 {

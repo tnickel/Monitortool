@@ -1,11 +1,11 @@
 package gui;
 
-import hiflsklasse.Tracer;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+
+import hiflsklasse.Tracer;
 
 public class DisTool
 {

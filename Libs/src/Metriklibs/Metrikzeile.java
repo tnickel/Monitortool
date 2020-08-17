@@ -1,9 +1,9 @@
 package Metriklibs;
 
-import hiflsklasse.Tracer;
-
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import hiflsklasse.Tracer;
 
 
 public class Metrikzeile
