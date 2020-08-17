@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -41,6 +43,7 @@ import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import work.CommentWork;
@@ -205,6 +208,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Label label23;
+	private Text workmodtext2;
 	private Button button7calc;
 	private Label label22;
 	private Text text4filterkeyword;
@@ -1384,17 +1389,17 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4filterkeyword = new Text(group2filter, SWT.NONE);
-								text4filterkeyword.setText("keywords");
+								text4filterkeyword.setText("EURUSD");
 								text4filterkeyword.setBounds(8, 140, 235, 30);
 							}
 							{
 								label22 = new Label(group2filter, SWT.NONE);
-								label22.setText("keywords");
-								label22.setBounds(261, 140, 98, 30);
+								label22.setText("Currency1");
+								label22.setBounds(255, 140, 98, 30);
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7calc.setText("SQ Workflow");
+								button7calc.setText("Gen SQ Workflow");
 								button7calc.setBounds(405, 194, 112, 30);
 								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
 								button7calc.addSelectionListener(new SelectionAdapter() {
@@ -1402,6 +1407,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 										button7calcWidgetSelected(evt);
 									}
 								});
+							}
+							{
+								workmodtext2 = new Text(group2filter, SWT.NONE);
+								workmodtext2.setText("GBPUSD");
+								workmodtext2.setBounds(8, 182, 235, 30);
+							}
+							{
+								label23 = new Label(group2filter, SWT.NONE);
+								label23.setText("Currency2");
+								label23.setBounds(255, 182, 60, 30);
 							}
 						}
 					}
@@ -2065,7 +2080,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void button7calcWidgetSelected(SelectionEvent evt) {
 		System.out.println("button7calc.widgetSelected CalcCfilter, event="+evt);
-		sqworkflow.calcFilter();
+		sqworkflow.calcFilter(FilterSourceDir,text4filterdestdir,text4filterkeyword,workmodtext2);
 	}
 
 }
