@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -13,12 +14,16 @@ import hiflsklasse.Tracer;
 
 public class ProjZipper
 {
-	//class to handle ziped project files
+	//class to handle zipped project files
+	//this class handle only one project.cfx
+	//this class has all function for zipping and unzipping
+	
 	//source https://www.straub.as/java/io/io10.html
 	private ZipFile zipFile_glob=null;
 	private String zipfilename_glob=null;
 	private byte[] buffer_glob=null;
 	private BufferedReader br_glob = null;
+	private String bufferstring_glob=null;
 	
 	public ProjZipper(String filename)
 	{
@@ -64,7 +69,7 @@ public class ProjZipper
 	
 	private void ReadMemBinaer(ZipEntry zipEntry)
 	{
-		
+		//the zipped file will be endcoded and stored as bytearry in memory
 		BufferedInputStream bis = null;
 		try
 		{
@@ -76,6 +81,7 @@ public class ProjZipper
 		      buffer_glob = new byte[avail] ;
 		      bis.read(buffer_glob, 0, avail) ;
 		   }
+		  
 		  
 		}
 		catch(IOException ex)
@@ -93,11 +99,11 @@ public class ProjZipper
 			   Tracer.WriteTrace(10, "zipentry<"+zipEntry.getName()+"> not found in <"+zipfilename_glob+"> cant close");
 		   }
 		}
-		//error
 		
 	}
   public void writeFile(String fileNameoutput)
   {
+	//the unzipped bytearry will be stored as plain text on harddisk
 	BufferedOutputStream bos = null;
 	try
 	{

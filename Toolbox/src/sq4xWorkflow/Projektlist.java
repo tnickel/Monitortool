@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import hiflsklasse.FileAccess;
+import hiflsklasse.Tracer;
 
 
 
@@ -23,6 +24,8 @@ public class Projektlist
 			String fnam=rootverz+"\\"+dirnam+"\\project.cfx";
 			File ffnam=new File(fnam);
 
+			Tracer.WriteTrace(20, "I:Projectlist work file <"+fnam+">");
+			
 			//if it is workflow projekt than add this to list
 			if(ffnam.length()>30000)
 			{
