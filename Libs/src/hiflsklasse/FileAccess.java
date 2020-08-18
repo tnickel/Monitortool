@@ -321,7 +321,9 @@ public class FileAccess
 
 		try
 		{
-			if ((filename.contains(".gzip") == true)||((filename.contains(".zip")==true)))
+			if (	(filename.contains(".gzip") == true)
+				||	(filename.contains(".zip")==true) 
+				||  (filename.contains(".cfx")==true))
 			{
 
 				if (format != null)
