@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -41,6 +43,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqWorkflow;
@@ -206,7 +209,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
-	private Button setconfigfile;
+	private Label label22;
 	private Button button7calc;
 	private Text text4filterkeyword;
 	private Button button7setdestdir;
@@ -1239,7 +1242,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
 							group2filter.setText("Filter");
-							group2filter.setBounds(5, 5, 936, 278);
+							group2filter.setBounds(7, 6, 996, 278);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("filtersourcedir"));
@@ -1247,8 +1250,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								button7set = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7set.setText("set sourcedir");
-								button7set.setBounds(772, 25, 140, 30);
+								button7set.setText("set source workflow dir");
+								button7set.setBounds(772, 25, 203, 30);
 								button7set.addSelectionListener(new SelectionAdapter()
 								{
 									public void widgetSelected(SelectionEvent evt)
@@ -1265,7 +1268,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button7setdestdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7setdestdir.setText("set destinationdir");
-								button7setdestdir.setBounds(772, 85, 139, 30);
+								button7setdestdir.setBounds(772, 85, 203, 32);
 								button7setdestdir.addSelectionListener(new SelectionAdapter()
 								{
 									public void widgetSelected(SelectionEvent evt)
@@ -1276,7 +1279,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4filterkeyword = new Text(group2filter, SWT.NONE);
-								text4filterkeyword.setText(Toolboxconf.getPropAttribute("filterconffile"));
+								text4filterkeyword.setText(Toolboxconf.getPropAttribute("anzmon"));
 								text4filterkeyword.setBounds(8, 140, 758, 30);
 							}
 							{
@@ -1293,16 +1296,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								setconfigfile = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								setconfigfile.setText("setconfigfile");
-								setconfigfile.setBounds(772, 140, 139, 30);
-								setconfigfile.addSelectionListener(new SelectionAdapter()
-								{
-									public void widgetSelected(SelectionEvent evt)
-									{
-										setconfigfileWidgetSelected(evt);
-									}
-								});
+								label22 = new Label(group2filter, SWT.NONE);
+								label22.setText("anz months back");
+								label22.setBounds(778, 135, 133, 30);
 							}
 						}
 					}
@@ -1949,6 +1945,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		System.out.println("button7calc.widgetSelected CalcCfilter, event=" + evt);
 		sqworkflow.setSourcedir(FilterSourceDir.getText());
 		sqworkflow.setDestdir(text4filterdestdir.getText());
+		String anzmon=text4filterkeyword.getText();
+		sqworkflow.setParameter(anzmon);
+		Toolboxconf.setPropAttribute("anzmon", anzmon);
 		sqworkflow.calcFilter();
 	}
 
@@ -1991,24 +1990,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("filterdestdir", destdir);
 	}
 
-	private void setconfigfileWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("setconfigfile.widgetSelected, event=" + evt);
-		
-		// get configfile from configfile
-
-		String cf = Toolboxconf.getPropAttribute("filterconffile");
-
-		// ask user for conffile
-		String conffile = SWTwindow.FileDialog(getDisplay(), cf);
-		if(conffile==null)
-			conffile=cf;
-		
-		sqworkflow.setConfigfile(conffile);
-		// show new destdir
-		text4filterkeyword.setText(conffile);
-		// set new destdir in configfile
-		Toolboxconf.setPropAttribute("filterconffile", conffile);
-	}
+	
 
 }

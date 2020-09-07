@@ -71,6 +71,8 @@ public class Inf
 		}
 		return true;
 	}
+	
+	
 	public void AppendMemFileDelimiter(String mem)
 	{
 		
