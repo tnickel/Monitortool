@@ -29,23 +29,12 @@ public class SqWorkflow
 	
 	public void calcFilter()
 	{
-		// read the projekt in memory
-		try
-		{
-			DecimalFormat df = new DecimalFormat("00000");
-			
-			ProjectFile psq = new ProjectFile(sourcedir_g + "\\project.cfx");
-			//String rootdir = sourcedir_g.substring(0, sourcedir_g.lastIndexOf("\\"));
-			psq.modifyProject(parameter_g);
-			psq.saveTmpProjectfile();
-			for (int i = 0; i < 3; i++)
-				psq.copyToSq(destdir_g, "AutoGenWorkflow" + df.format(i));
-			
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		ProjectFile psq = new ProjectFile(sourcedir_g + "\\project.cfx");
+		psq.modifyProject(parameter_g);
+		psq.saveTmpProjectfile();
+		psq.copyToSq(destdir_g, "blup");
+		
 	}
 	
 }

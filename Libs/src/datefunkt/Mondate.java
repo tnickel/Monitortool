@@ -92,4 +92,5 @@ public class Mondate
 		int sekunden=(int)(zeitdiff);
 		return sekunden;
 	}
+	
 }
