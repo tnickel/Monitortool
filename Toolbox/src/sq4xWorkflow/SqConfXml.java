@@ -40,7 +40,7 @@ public class SqConfXml extends SqString
 			if(setupdate==null)
 				break;
 			SqDate sd=new SqDate(setupdate);
-			String moddate=sd.StringGetModDateString(30);
+			String moddate=sd.StringGetModDateString(days);
 			mem_g=mem_g.replace(setupdate, moddate);
 		}
 	

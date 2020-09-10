@@ -209,6 +209,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button collectresultsbutton;
+	private Label label24;
+	private Text outputname;
+	private Label label23;
+	private Text steps;
 	private Label label22;
 	private Button button7calc;
 	private Text text4filterkeyword;
@@ -1242,7 +1247,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
 							group2filter.setText("Filter");
-							group2filter.setBounds(7, 6, 996, 278);
+							group2filter.setBounds(12, 0, 996, 427);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("filtersourcedir"));
@@ -1279,13 +1284,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4filterkeyword = new Text(group2filter, SWT.NONE);
-								text4filterkeyword.setText(Toolboxconf.getPropAttribute("anzmon"));
-								text4filterkeyword.setBounds(8, 140, 758, 30);
+								text4filterkeyword.setText(Toolboxconf.getPropAttribute("anzdays"));
+								text4filterkeyword.setBounds(8, 140, 68, 30);
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7calc.setText("Gen SQ Workflow");
-								button7calc.setBounds(8, 202, 903, 30);
+								button7calc.setBounds(772, 218, 203, 79);
 								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
 								button7calc.addSelectionListener(new SelectionAdapter()
 								{
@@ -1297,8 +1302,33 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label22 = new Label(group2filter, SWT.NONE);
-								label22.setText("anz months back");
-								label22.setBounds(778, 135, 133, 30);
+								label22.setText("anz days back");
+								label22.setBounds(88, 140, 153, 30);
+							}
+							{
+								steps = new Text(group2filter, SWT.NONE);
+								steps.setText(Toolboxconf.getPropAttribute("steps"));
+								steps.setBounds(253, 140, 43, 30);
+							}
+							{
+								label23 = new Label(group2filter, SWT.NONE);
+								label23.setText("steps");
+								label23.setBounds(302, 140, 60, 30);
+							}
+							{
+								outputname = new Text(group2filter, SWT.NONE);
+								outputname.setText(Toolboxconf.getPropAttribute("outputname"));
+								outputname.setBounds(8, 182, 288, 30);
+							}
+							{
+								label24 = new Label(group2filter, SWT.NONE);
+								label24.setText("generated workflow name");
+								label24.setBounds(302, 182, 381, 30);
+							}
+							{
+								collectresultsbutton = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								collectresultsbutton.setText("collect results");
+								collectresultsbutton.setBounds(772, 320, 203, 88);
 							}
 						}
 					}
@@ -1940,14 +1970,20 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 
 	private void button7calcWidgetSelected(SelectionEvent evt)
 	{
-		//calc button used !!
+		//calc button used !! ************************************
 		
 		System.out.println("button7calc.widgetSelected CalcCfilter, event=" + evt);
 		sqworkflow.setSourcedir(FilterSourceDir.getText());
 		sqworkflow.setDestdir(text4filterdestdir.getText());
-		String anzmon=text4filterkeyword.getText();
-		sqworkflow.setParameter(anzmon);
-		Toolboxconf.setPropAttribute("anzmon", anzmon);
+		sqworkflow.setSteps(steps.getText());
+		sqworkflow.setOutputname_g(outputname.getText());
+		sqworkflow.setAnzDays(text4filterkeyword.getText());
+
+		
+		Toolboxconf.setPropAttribute("steps", steps.getText());
+		Toolboxconf.setPropAttribute("anzdays",text4filterkeyword.getText());
+		Toolboxconf.setPropAttribute("outputname", outputname.getText());
+
 		sqworkflow.calcFilter();
 	}
 

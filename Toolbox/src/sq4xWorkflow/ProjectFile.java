@@ -57,9 +57,10 @@ public class ProjectFile
 		
 	}
 	
-	public void modifyProject(String parameter)
+	public void modifyProject(int daysback_i)
 	{
 		memstring_mod_g = new String(memstring_org_g);
+		
 		
 		// jetzt wird das datum gesucht und entsprechend modifiziert
 		// Suche <Project name="EURUSD - H1 -2year NEW" version="126.2189">
@@ -72,10 +73,10 @@ public class ProjectFile
 
 		
 		sxml.setSearchpattern("<Setup dateFrom="," test");
-		memstring_mod_g=sxml.modifyAllPatterns(30);
+		memstring_mod_g=sxml.modifyAllPatterns(daysback_i);
 		
 		sxml.setSearchpattern("<Range dateFrom="," />");
-		memstring_mod_g=sxml.modifyAllPatterns(30);
+		memstring_mod_g=sxml.modifyAllPatterns(daysback_i);
 		
 		
 		//replace back X@X 
