@@ -57,7 +57,7 @@ public class ProjectFile
 		
 	}
 	
-	public void modifyProject(int daysback_i)
+	public void modifyProject(int daysoffset_i)
 	{
 		memstring_mod_g = new String(memstring_org_g);
 		
@@ -73,10 +73,10 @@ public class ProjectFile
 
 		
 		sxml.setSearchpattern("<Setup dateFrom="," test");
-		memstring_mod_g=sxml.modifyAllPatterns(daysback_i);
+		memstring_mod_g=sxml.modifyAllPatterns(daysoffset_i);
 		
 		sxml.setSearchpattern("<Range dateFrom="," />");
-		memstring_mod_g=sxml.modifyAllPatterns(daysback_i);
+		memstring_mod_g=sxml.modifyAllPatterns(daysoffset_i);
 		
 		
 		//replace back X@X 
@@ -116,10 +116,10 @@ public class ProjectFile
 		
 	}
 	
-	public void copyToSq(String projroot, String destname) 
+	public void copyToSq(String sqrootdir, String destname) 
 	{
-		
-		String newdir = projroot + "\\" + destname;
+		//das fertig generierte wird in die sq verzeichnisse kopiert
+		String newdir = sqrootdir + "\\user\\projects\\" + destname;
 		File dirname_f = new File(newdir);
 		if (dirname_f.isDirectory())
 			Tracer.WriteTrace(10, "E:directory <" + dirname_f.getAbsolutePath() + ">already exists");

@@ -33,7 +33,9 @@ public class SqConfXml extends SqString
 	{
 		//suche <Setup dateFrom="2003.5.5" dateTo="2018.03.19" testPrecision="2"
 		//Rückgabewert="2003.5.5" dateTo="2018.03.19"
-
+		//days>0 dann addieren (gehe in die zukunft -> nach rechts)
+		//days<0 dann subtrahieren (gehe in die vergangenheit-> links)
+		
 		while(5==5)
 		{
 			String setupdate=super.getNextSuchwort(mem_g);

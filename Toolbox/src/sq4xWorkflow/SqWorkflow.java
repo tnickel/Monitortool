@@ -12,59 +12,107 @@ public class SqWorkflow
 // destdir: this the targetdir of the modified files
 // configfile: In this file are the actions what the workflowclass has to do.
 {
-	private String sourcedir_g, destdir_g,outputname_g;
-	private int steps_g, anzdays_g;
+	private String masterfile_g, sqrootdir_g,outputname_g,resultdir_g;
+	private int backcount_g, futurecount_g,stepvalue_g;
 	
-	public void setAnzDays(String parameter)
-	{
-		this.anzdays_g = Integer.valueOf(parameter);
-	}
 	
-	public void setSteps(String steps)
+	
+	public void setMasterfile(String masterfile_g)
 	{
-		this.steps_g = Integer.valueOf(steps);
+		this.masterfile_g = masterfile_g;
 	}
 
+
+	public void setSqrootdir(String sqrootdir_g)
+	{
+		this.sqrootdir_g = sqrootdir_g;
+	}
+
+
+	public void setResultdir(String resultdir_g)
+	{
+		this.resultdir_g = resultdir_g;
+	}
+
+
+	public void setBackcount(String days)
+	{
+		//negative for the past
+		this.backcount_g = Integer.valueOf(days);
+	}
+
+
+	public void setFuturecount(String days)
+	{
+		this.futurecount_g = Integer.valueOf(days);
+	}
+
+
+	public void setStepvalue(String steps)
+	{
+		this.stepvalue_g = Integer.valueOf(steps);
+	}
+
+
+	
 
 	public void setOutputname_g(String outputname)
 	{
 		this.outputname_g = outputname;
 	}
 
-	public void setSourcedir(String sourcedir)
-	{
-		this.sourcedir_g = sourcedir;
-	}
-	
-	public void setDestdir(String destdir)
-	{
-		this.destdir_g = destdir;
-	}
-	
+
+
 	public void calcFilter()
-	{
-		int daysbackcounter=0;
+	{	
+		int offset=0;
 		//some initialisation progressslider and dfformat
-		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) steps_g);
-		DecimalFormat df = new DecimalFormat("0000");
+		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) Math.abs((futurecount_g-backcount_g)));
+		
 		
 		//start new projectfile
-		ProjectFile psq = new ProjectFile(sourcedir_g + "\\project.cfx");
-		for(int i=0; i<steps_g; i++)
+		Tracer.WriteTrace(20, "I:read masterfile<"+masterfile_g+">");
+		ProjectFile psq = new ProjectFile(masterfile_g );
+		for(int i=-backcount_g,loopcount=0; i<=futurecount_g; i++,loopcount++)
 		{
-			jp.update(i);
+			jp.update(loopcount);
 			//modify project
-			psq.modifyProject(daysbackcounter);
+			
+			offset=i*stepvalue_g;
+			psq.modifyProject(offset);
 			//save projekt
 			psq.saveTmpProjectfile();
-			String wfname=outputname_g+"_-"+df.format(daysbackcounter);
+			
+			String workflowname=calcWorkflowname(i, offset);
+			
 			//copy to destination
-			psq.copyToSq(destdir_g, wfname);
-			daysbackcounter=daysbackcounter+anzdays_g;
-			Tracer.WriteTrace(20, "I:generated workflow <"+wfname+">");
+			psq.copyToSq(sqrootdir_g, workflowname);
+			
+			Tracer.WriteTrace(20, "I:generated workflow <"+workflowname+">");
 		}
 		jp.end();
-		Tracer.WriteTrace(10, "ready");
+		
+	}
+	public void collectResults()
+	{
+		SqResults sr=new SqResults();
+		sr.setResultdir(resultdir_g);
+		sr.setSqRoodir(sqrootdir_g);
+		sr.collectResults();
+		
+		
+	}
+	
+	private  String calcWorkflowname(int index, int offset)
+	{
+		DecimalFormat df = new DecimalFormat("00000");
+		String wfname=null;
+		if(index<0)
+		   wfname=outputname_g+"_-"+df.format(offset);
+		else
+			wfname=outputname_g+"_+"+df.format(offset);
+		
+		return wfname;
 	}
 	
 }
