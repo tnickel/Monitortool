@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
-  <directoryPresets config="C:/Users/Thomas Nickel/Google Drive/United Generation 2019/development/Toolbox" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="C:/Users/Thomas Nickel/Google Drive/United Generation 2019/development/Toolbox" compression="0" shortName="Toolbox" publisherWeb="https://monitortool.jimdofree.com/" version="1.0.0" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk8/jdk8u265-b01_openj9-0.21.0" />
-  </application>
+  <directoryPresets config="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox" />
+  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="C:/Users/Thomas Nickel/Google Drive/United Generation 2019/development/Toolbox" compression="0" shortName="Toolbox" publisherWeb="https://monitortool.jimdofree.com/" version="1.0.0" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <files>
+    <mountPoints>
+      <mountPoint id="115" />
+    </mountPoints>
+    <entries>
+      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/jre1.8.0_251" entryMode="subdir" subDirectory="jre1.8.0_251" />
+      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/doku" entryMode="subdir" subDirectory="doku" />
+      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/data" entryMode="subdir" subDirectory="data" />
+      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/bin" entryMode="subdir" subDirectory="bin" />
+    </entries>
+  </files>
   <installerGui>
     <applications>
       <application id="installer" beanClass="com.install4j.runtime.beans.applications.InstallerApplication">
@@ -78,6 +87,7 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="requestFocus" type="boolean" value="true" />
                 </serializedBean>
+                <initScript>configurationObject.setText("c:\\forex\\toolbox");</initScript>
                 <externalParametrizationPropertyNames>
                   <propertyName>suggestAppDir</propertyName>
                   <propertyName>validateApplicationId</propertyName>
@@ -112,19 +122,53 @@ return console.askOkCancel(message, true);
               </formComponent>
             </formComponents>
           </screen>
+          <screen id="212" beanClass="com.install4j.runtime.beans.screens.AdditionalConfirmationsScreen" rollbackBarrierExitCode="0">
+            <formComponents>
+              <formComponent id="213" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
+                <serializedBean>
+                  <property name="labelText" type="string">${form:confirmationMessage}</property>
+                </serializedBean>
+                <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent name="Add a desktop link" id="214" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+                <serializedBean>
+                  <property name="checkboxText" type="string">${i18n:CreateDesktopIcon}</property>
+                  <property name="initiallySelected" type="boolean" value="true" />
+                  <property name="variableName" type="string">createDesktopLinkAction</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
           <screen id="15" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true" rollbackBarrierExitCode="0">
             <actions>
               <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
-              <action id="18" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action id="116" beanClass="com.install4j.runtime.beans.actions.text.ReplaceInstallerVariablesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="askQuit">
                 <serializedBean>
-                  <property name="uninstallerMenuName" type="string">${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</property>
+                  <property name="failIfNoReplacement" type="boolean" value="true" />
+                  <property name="files" type="array" class="java.io.File" length="1">
+                    <element index="0">
+                      <object class="java.io.File">
+                        <string>${installer:sys.installationDir}/bin/starttoolbox.bat</string>
+                      </object>
+                    </element>
+                  </property>
                 </serializedBean>
-                <condition>!context.getBooleanVariable("sys.programGroupDisabled")</condition>
               </action>
               <action id="19" beanClass="com.install4j.runtime.beans.actions.desktop.RegisterAddRemoveAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="itemName" type="string">${compiler:sys.fullName} ${compiler:sys.version}</property>
                 </serializedBean>
+              </action>
+              <action id="211" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
+                <serializedBean>
+                  <property name="file">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/starttoolbox.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">${compiler:sys.fullName}</property>
+                </serializedBean>
+                <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
               </action>
             </actions>
             <formComponents>
@@ -419,7 +463,7 @@ return console.askYesNo(message, true);
   </installerGui>
   <mediaSets>
     <windows name="Windows" id="58">
-      <jreBundle usePack200="false" jreBundleSource="generated" manualJreEntry="true" />
+      <jreBundle usePack200="false" jreBundleSource="preCreated" includedJre="C:/Users/Thomas Nickel/.install4j8/jres/windows-amd64-1.8.0_251.tar.gz" manualJreEntry="true" />
     </windows>
   </mediaSets>
 </install4j>
