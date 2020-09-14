@@ -2,6 +2,8 @@ package start;
 
 import java.io.File;
 import java.util.function.Consumer;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -42,6 +44,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqWorkflow;
@@ -59,9 +62,9 @@ import work.CommentWork;
  */
 public class StartToolbox extends org.eclipse.swt.widgets.Composite
 {
-
+	
 	private Menu menu1;
-
+	
 	private Label CTlabel2stabilminval;
 	private Text CTtext1stabilminval;
 	private Button CTbutton2stabilitaet;
@@ -193,7 +196,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private Button CTbutton1setdir;
 	private Text CTtext2verzeichniss;
 	private Text CTtext1prefix;
-
+	
 	private Composite composite1;
 	private Metriktools metriktools = new Metriktools();
 	private Conf100Tools conf100tools = new Conf100Tools();
@@ -230,7 +233,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem openFileMenuItem;
 	private Menu fileMenu;
 	private MenuItem fileMenuItem;
-
+	
 	private CommentWork cw_glob = null;
 	private Commentflags cf_glob = null;
 	private Endtestdata enddata_glob = null;
@@ -242,23 +245,23 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private String filter_outdir_glob = null;
 	private String filter_keyword_glob = null;
 	private SqWorkflow sqworkflow = new SqWorkflow();
-
+	
 	// golbal Tradelistenverarbeitung
 	TradefilterVerarbeitung trverarbeit = new TradefilterVerarbeitung();
-
+	
 	{
 		// Register as a resource user - SWTResourceManager will
 		// handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
-
+	
 	public StartToolbox(Composite parent, int style)
 	{
 		super(parent, style);
 		Toolboxconf tc = new Toolboxconf(GlobToolbox.getRootpath());
 		initGUI();
 	}
-
+	
 	/**
 	 * Initializes the GUI.
 	 */
@@ -274,6 +277,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setBounds(12, 20, 1500, 753);
 				{
+					
 					cTabItem5 = new CTabItem(cTabFolder1, SWT.NONE);
 					cTabItem5.setText("commenttool");
 					{
@@ -289,8 +293,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							CTbutton1setdir = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							CTbutton1setdir.setText("SetDirectory");
 							CTbutton1setdir.setBounds(473, 25, 129, 22);
-							CTbutton1setdir.addSelectionListener(new SelectionAdapter()
-							{
+							CTbutton1setdir.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									CTbutton1setdirWidgetSelected(evt);
@@ -315,8 +318,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button1 = new Button(composite2, SWT.CHECK | SWT.LEFT);
 								button1.setText("max dd from high");
 								button1.setBounds(54, 16, 135, 18);
-								button1.addSelectionListener(new SelectionAdapter()
-								{
+								button1.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1WidgetSelected(evt);
@@ -327,8 +329,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button2 = new Button(composite2, SWT.CHECK | SWT.LEFT);
 								button2.setText("max dd% from high");
 								button2.setBounds(54, 46, 156, 30);
-								button2.addSelectionListener(new SelectionAdapter()
-								{
+								button2.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button2WidgetSelected(evt);
@@ -339,8 +340,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button1werteeinzelaus300 = new Button(composite2, SWT.PUSH | SWT.CENTER);
 								button1werteeinzelaus300.setText("WerteEinzeltradesAus MaxDD300");
 								button1werteeinzelaus300.setBounds(275, 123, 237, 44);
-								button1werteeinzelaus300.addSelectionListener(new SelectionAdapter()
-								{
+								button1werteeinzelaus300.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1werteeinzelaus300WidgetSelected(evt);
@@ -356,8 +356,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button3 = new Button(composite2, SWT.CHECK | SWT.LEFT);
 								button3.setText("max dd from start");
 								button3.setBounds(54, 82, 131, 19);
-								button3.addSelectionListener(new SelectionAdapter()
-								{
+								button3.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button3WidgetSelected(evt);
@@ -369,8 +368,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button4.setText("trail min");
 								button4.setBounds(58, 111, 70, 30);
 								button4.setSelection(true);
-								button4.addSelectionListener(new SelectionAdapter()
-								{
+								button4.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button4WidgetSelected(evt);
@@ -417,8 +415,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button5 = new Button(composite2, SWT.CHECK | SWT.LEFT);
 								button5.setText("use maxdd budget with trail");
 								button5.setBounds(289, 50, 185, 30);
-								button5.addSelectionListener(new SelectionAdapter()
-								{
+								button5.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button5WidgetSelected(evt);
@@ -434,8 +431,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button1calcEndtestgraphic = new Button(composite3, SWT.PUSH | SWT.CENTER);
 								button1calcEndtestgraphic.setText("WerteEinzeltradesAus");
 								button1calcEndtestgraphic.setBounds(220, 20, 237, 45);
-								button1calcEndtestgraphic.addSelectionListener(new SelectionAdapter()
-								{
+								button1calcEndtestgraphic.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1calcEndtestgraphicWidgetSelected(evt);
@@ -455,8 +451,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 									button1calcNettoprofits.setEnabled(true);
 								else
 									button1calcNettoprofits.setEnabled(false);
-								button1calcNettoprofits.addSelectionListener(new SelectionAdapter()
-								{
+								button1calcNettoprofits.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1calcNettoprofitsWidgetSelected(evt);
@@ -471,8 +466,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 									button1deleteEndtest.setEnabled(true);
 								else
 									button1deleteEndtest.setEnabled(false);
-								button1deleteEndtest.addSelectionListener(new SelectionAdapter()
-								{
+								button1deleteEndtest.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1deleteEndtestWidgetSelected(evt);
@@ -487,8 +481,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 									button1generateEndtest.setEnabled(false);
 								else
 									button1generateEndtest.setEnabled(true);
-								button1generateEndtest.addSelectionListener(new SelectionAdapter()
-								{
+								button1generateEndtest.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button1generateEndtestWidgetSelected(evt);
@@ -500,8 +493,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button5IsNettoprofit.setText("IS Nettoprofit");
 								button5IsNettoprofit.setSelection(true);
 								button5IsNettoprofit.setBounds(15, 39, 96, 17);
-								button5IsNettoprofit.addSelectionListener(new SelectionAdapter()
-								{
+								button5IsNettoprofit.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button5IsNettoprofitWidgetSelected(evt);
@@ -512,8 +504,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button5OssNettoprofit = new Button(composite4, SWT.RADIO | SWT.LEFT);
 								button5OssNettoprofit.setText("OSS Nettoprofit");
 								button5OssNettoprofit.setBounds(120, 41, 109, 17);
-								button5OssNettoprofit.addSelectionListener(new SelectionAdapter()
-								{
+								button5OssNettoprofit.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button5OssNettoprofitWidgetSelected(evt);
@@ -524,8 +515,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button5NetProfitRobust = new Button(composite4, SWT.RADIO | SWT.LEFT);
 								button5NetProfitRobust.setText("NettoprofitRobust");
 								button5NetProfitRobust.setBounds(237, 43, 128, 17);
-								button5NetProfitRobust.addSelectionListener(new SelectionAdapter()
-								{
+								button5NetProfitRobust.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button5NetProfitRobustWidgetSelected(evt);
@@ -571,8 +561,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								CTbutton3clean = new Button(composite5, SWT.PUSH | SWT.CENTER);
 								CTbutton3clean.setText("CleanAllComments");
 								CTbutton3clean.setBounds(12, 16, 422, 30);
-								CTbutton3clean.addSelectionListener(new SelectionAdapter()
-								{
+								CTbutton3clean.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										CTbutton3cleanWidgetSelected(evt);
@@ -587,8 +576,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								CTbutton4addComment = new Button(composite5, SWT.PUSH | SWT.CENTER);
 								CTbutton4addComment.setText("AddComment");
 								CTbutton4addComment.setBounds(12, 147, 129, 22);
-								CTbutton4addComment.addSelectionListener(new SelectionAdapter()
-								{
+								CTbutton4addComment.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										CTbutton4addCommentWidgetSelected(evt);
@@ -614,13 +602,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								CTbutton2stabilitaet = new Button(composite5, SWT.CHECK | SWT.LEFT);
 								CTbutton2stabilitaet.setText("Stabil");
 								CTbutton2stabilitaet.setBounds(195, 88, 91, 24);
-
+								
 							}
 							{
 								CTbutton1netprofit = new Button(composite5, SWT.CHECK | SWT.LEFT);
 								CTbutton1netprofit.setText("NetProfit");
 								CTbutton1netprofit.setBounds(195, 60, 99, 22);
-
+								
 							}
 							{
 								CTlabel1 = new Label(composite5, SWT.NONE);
@@ -645,14 +633,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								CTtext1prefix = new Text(composite6, SWT.BORDER);
 								CTtext1prefix.setBounds(5, 5, 170, 26);
-								CTtext1prefix.addTraverseListener(new TraverseListener()
-								{
+								CTtext1prefix.addTraverseListener(new TraverseListener() {
 									public void keyTraversed(TraverseEvent evt)
 									{
 										CTtext1prefixKeyTraversed(evt);
 									}
 								});
-
+								
 							}
 							{
 								CTlabel1 = new Label(composite6, SWT.NONE);
@@ -663,8 +650,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								CTbutton2 = new Button(composite6, SWT.PUSH | SWT.CENTER);
 								CTbutton2.setText("RenameAllFiles");
 								CTbutton2.setBounds(328, 9, 129, 26);
-								CTbutton2.addSelectionListener(new SelectionAdapter()
-								{
+								CTbutton2.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										CTRenameFiles2WidgetSelected(evt);
@@ -705,8 +691,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6conf100 = new Button(group11, SWT.PUSH | SWT.CENTER);
 								button6conf100.setText("*.csv Quelldir1 conf100");
 								button6conf100.setBounds(377, 20, 131, 25);
-								button6conf100.addSelectionListener(new SelectionAdapter()
-								{
+								button6conf100.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6Widgetconf100Selected(evt);
@@ -722,8 +707,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7conf50 = new Button(group11, SWT.PUSH | SWT.CENTER);
 								button7conf50.setText("*.csv Quelldir2 conf50");
 								button7conf50.setBounds(377, 57, 131, 24);
-								button7conf50.addSelectionListener(new SelectionAdapter()
-								{
+								button7conf50.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button7conf50WidgetSelected(evt);
@@ -739,8 +723,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button8zielmetrik = new Button(group11, SWT.PUSH | SWT.CENTER);
 								button8zielmetrik.setText("set Zielmetriktable");
 								button8zielmetrik.setBounds(377, 93, 131, 24);
-								button8zielmetrik.addSelectionListener(new SelectionAdapter()
-								{
+								button8zielmetrik.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button8ZielmetrikWidgetSelected(evt);
@@ -751,8 +734,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button9calculate = new Button(group11, SWT.PUSH | SWT.CENTER);
 								button9calculate.setText("calculate");
 								button9calculate.setBounds(448, 197, 60, 30);
-								button9calculate.addSelectionListener(new SelectionAdapter()
-								{
+								button9calculate.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button9calculateWidgetSelected(evt);
@@ -799,8 +781,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6set100sourcedir = new Button(group1conf100_50, SWT.PUSH | SWT.CENTER);
 								button6set100sourcedir.setText("set conf100_50 Sourcedir");
 								button6set100sourcedir.setBounds(312, 47, 179, 30);
-								button6set100sourcedir.addSelectionListener(new SelectionAdapter()
-								{
+								button6set100sourcedir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6set100sourcedirWidgetSelected(evt);
@@ -816,8 +797,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6conf100_50destin = new Button(group1conf100_50, SWT.PUSH | SWT.CENTER);
 								button6conf100_50destin.setText("conf100_50 Destinationdir");
 								button6conf100_50destin.setBounds(312, 102, 179, 30);
-								button6conf100_50destin.addSelectionListener(new SelectionAdapter()
-								{
+								button6conf100_50destin.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6conf100_50destinWidgetSelected(evt);
@@ -828,8 +808,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6calc100 = new Button(group1conf100_50, SWT.PUSH | SWT.CENTER);
 								button6calc100.setText("calc");
 								button6calc100.setBounds(429, 170, 60, 30);
-								button6calc100.addSelectionListener(new SelectionAdapter()
-								{
+								button6calc100.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6calc100WidgetSelected(evt);
@@ -873,8 +852,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6set_rt_sourcedir = new Button(group1, SWT.PUSH | SWT.CENTER);
 								button6set_rt_sourcedir.setText("set RT sourcedir");
 								button6set_rt_sourcedir.setBounds(333, 29, 124, 20);
-								button6set_rt_sourcedir.addSelectionListener(new SelectionAdapter()
-								{
+								button6set_rt_sourcedir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6set_rt_sourcedirWidgetSelected(evt);
@@ -885,8 +863,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6setRT_destdir = new Button(group1, SWT.PUSH | SWT.CENTER);
 								button6setRT_destdir.setText("set RT destdir");
 								button6setRT_destdir.setBounds(333, 55, 124, 19);
-								button6setRT_destdir.addSelectionListener(new SelectionAdapter()
-								{
+								button6setRT_destdir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6setRT_destdirWidgetSelected(evt);
@@ -902,8 +879,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6calcRtFilter = new Button(group1, SWT.PUSH | SWT.CENTER);
 								button6calcRtFilter.setText("calcRtFilter");
 								button6calcRtFilter.setBounds(491, 375, 113, 30);
-								button6calcRtFilter.addSelectionListener(new SelectionAdapter()
-								{
+								button6calcRtFilter.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6calcRtFilterWidgetSelected(evt);
@@ -1060,8 +1036,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							clusterStrDestdir = new Button(composite10, SWT.PUSH | SWT.CENTER);
 							clusterStrDestdir.setText("SetClusterDestdir");
 							clusterStrDestdir.setBounds(268, 100, 144, 30);
-							clusterStrDestdir.addSelectionListener(new SelectionAdapter()
-							{
+							clusterStrDestdir.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									clusterStrDestdirWidgetSelected(evt);
@@ -1072,8 +1047,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							ClusterSourceDir = new Button(composite10, SWT.PUSH | SWT.CENTER);
 							ClusterSourceDir.setText("SetClusterSourceDir");
 							ClusterSourceDir.setBounds(268, 47, 144, 30);
-							ClusterSourceDir.addSelectionListener(new SelectionAdapter()
-							{
+							ClusterSourceDir.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									ClusterSourceDirWidgetSelected(evt);
@@ -1084,8 +1058,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							Cluster_StartGeneration = new Button(composite10, SWT.PUSH | SWT.CENTER);
 							Cluster_StartGeneration.setText("Start Clustering");
 							Cluster_StartGeneration.setBounds(228, 195, 184, 30);
-							Cluster_StartGeneration.addSelectionListener(new SelectionAdapter()
-							{
+							Cluster_StartGeneration.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									Cluster_StartGenerationWidgetSelected(evt);
@@ -1120,8 +1093,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							button6tradefilterrootdir = new Button(composite11, SWT.PUSH | SWT.CENTER);
 							button6tradefilterrootdir.setText("set tradefilterrootdir");
 							button6tradefilterrootdir.setBounds(722, 96, 172, 30);
-							button6tradefilterrootdir.addSelectionListener(new SelectionAdapter()
-							{
+							button6tradefilterrootdir.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									button6tradefilterrootdirWidgetSelected(evt);
@@ -1132,8 +1104,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							button6calcmatchingtable = new Button(composite11, SWT.PUSH | SWT.CENTER);
 							button6calcmatchingtable.setText("show matchingtable");
 							button6calcmatchingtable.setBounds(722, 143, 172, 30);
-							button6calcmatchingtable.addSelectionListener(new SelectionAdapter()
-							{
+							button6calcmatchingtable.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									button6calcmatchingtableWidgetSelected(evt);
@@ -1144,8 +1115,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							button6filterstrategies = new Button(composite11, SWT.PUSH | SWT.CENTER);
 							button6filterstrategies.setText("filter strategies");
 							button6filterstrategies.setBounds(722, 190, 172, 30);
-							button6filterstrategies.addSelectionListener(new SelectionAdapter()
-							{
+							button6filterstrategies.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									button6filterstrategiesWidgetSelected(evt);
@@ -1156,8 +1126,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							button6cleartradefilter = new Button(composite11, SWT.PUSH | SWT.CENTER);
 							button6cleartradefilter.setText("clear strategies");
 							button6cleartradefilter.setBounds(722, 238, 172, 30);
-							button6cleartradefilter.addSelectionListener(new SelectionAdapter()
-							{
+							button6cleartradefilter.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
 									button6cleartradefilterWidgetSelected(evt);
@@ -1187,8 +1156,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6pdc = new Button(priceDataSeries, SWT.PUSH | SWT.CENTER);
 								button6pdc.setText("set input File");
 								button6pdc.setBounds(395, 25, 109, 30);
-								button6pdc.addSelectionListener(new SelectionAdapter()
-								{
+								button6pdc.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6pdcWidgetSelected(evt);
@@ -1204,8 +1172,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button6 = new Button(priceDataSeries, SWT.PUSH | SWT.CENTER);
 								button6.setText("set output File");
 								button6.setBounds(395, 61, 109, 30);
-								button6.addSelectionListener(new SelectionAdapter()
-								{
+								button6.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button6WidgetSelected(evt);
@@ -1227,8 +1194,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7pdc = new Button(priceDataSeries, SWT.PUSH | SWT.CENTER);
 								button7pdc.setText("convert");
 								button7pdc.setBounds(395, 187, 104, 63);
-								button7pdc.addSelectionListener(new SelectionAdapter()
-								{
+								button7pdc.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button7pdcWidgetSelected(evt);
@@ -1238,9 +1204,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						}
 					}
 				}
+				
 				{
 					cTabItem7 = new CTabItem(cTabFolder1, SWT.NONE);
-					cTabItem7.setText("Sq4.X Workflow Modifierer");
+					cTabItem7.setText("Sq4.X Workflow Generator");
 					{
 						composite13 = new Composite(cTabFolder1, SWT.NONE);
 						composite13.setLayout(null);
@@ -1259,8 +1226,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7set = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7set.setText("set Masterfile");
 								button7set.setBounds(1066, 25, 203, 30);
-								button7set.addSelectionListener(new SelectionAdapter()
-								{
+								button7set.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button7setWidgetSelected(evt);
@@ -1276,8 +1242,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7setdestdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7setdestdir.setText("set SQ Rootdir");
 								button7setdestdir.setBounds(1066, 85, 203, 32);
-								button7setdestdir.addSelectionListener(new SelectionAdapter()
-								{
+								button7setdestdir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button7setdestdirWidgetSelected(evt);
@@ -1294,8 +1259,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7calc.setText("Gen SQ Workflow");
 								button7calc.setBounds(1066, 140, 203, 79);
 								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
-								button7calc.addSelectionListener(new SelectionAdapter()
-								{
+								button7calc.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
 										button7calcWidgetSelected(evt);
@@ -1332,7 +1296,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								collectresultsbutton.setText("collect results");
 								collectresultsbutton.setBounds(1066, 314, 203, 88);
 								collectresultsbutton.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+									public void widgetSelected(SelectionEvent evt)
+									{
 										collectresultsbuttonWidgetSelected(evt);
 									}
 									
@@ -1340,7 +1305,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4resultdir = new Text(group2filter, SWT.NONE);
-								text4resultdir.setText("c:\\tmp\\results");
+								text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
 								text4resultdir.setBounds(12, 331, 834, 30);
 							}
 							{
@@ -1358,9 +1323,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7.setText("set resultdir");
 								button7.setBounds(858, 331, 109, 30);
 								button7.addSelectionListener(new SelectionAdapter() {
-									public void widgetDefaultSelected(SelectionEvent evt) {
-										button7WidgetDefaultSelected(evt);
+									public void widgetSelected(SelectionEvent evt)
+									{
+										button7WidgetSelected(evt);
 									}
+									
 								});
 							}
 						}
@@ -1424,18 +1391,18 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			}
 			postinit();
 			this.layout();
-
+			
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void postinit()
 	{
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
-
+		
 		if (button1calcNettoprofits.isEnabled() == true)
 		{
 			button5IsNettoprofit.setEnabled(false);
@@ -1449,11 +1416,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			button5NetProfitRobust.setEnabled(true);
 			button5calcAutomaticNettoprofit.setEnabled(true);
 		}
-
+		
 		int mode = enddata_glob.getMode();
 		setGlobalMode(mode);
 	}
-
+	
 	private void setGlobalMode(int mode)
 	{
 		button5IsNettoprofit.setSelection(false);
@@ -1467,16 +1434,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		else if (mode == 3)
 			button5NetProfitRobust.setSelection(true);
 	}
-
+	
 	private void init()
 	{
-
+		
 		cw_glob = new CommentWork();
 		cf_glob = new Commentflags();
 		enddata_glob = new Endtestdata();
-
+		
 	}
-
+	
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite
 	 * inside a new Shell.
@@ -1484,7 +1451,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	public static void main(String[] args)
 	{
 		Display display = Display.getDefault();
-
+		
 		String userdir = System.getProperty("user.dir");
 		if (args.length > 0)
 			if (args[0] != null)
@@ -1494,10 +1461,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			Tracer.WriteTrace(10, "Falscher Verzeichnissaufbau userdir<" + userdir + ">");
 			System.exit(0);
 		}
-
+		
 		userdir = userdir.substring(0, userdir.lastIndexOf("\\"));
 		GlobToolbox.setRootpath(userdir);
-
+		
 		Shell shell = new Shell(display);
 		StartToolbox inst = new StartToolbox(shell, SWT.NULL);
 		Point size = inst.getSize();
@@ -1513,17 +1480,17 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V0.127");
-
+		shell.setText("Toolbox V1.00");
+		
 		while (!shell.isDisposed())
 		{
-
+			
 			if (!display.readAndDispatch())
-
+				
 				display.sleep();
 		}
 	}
-
+	
 	// ***************************************************************************
 	// CommentTool CT
 	// ***************************************************************************
@@ -1534,36 +1501,36 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String dirname = cw_glob.selectDirectory();
 		CTtext2verzeichniss.setText(dirname);
 	}
-
+	
 	private void CTtext1prefixKeyTraversed(TraverseEvent evt)
 	{
 		System.out.println("CTtext1prefix.keyTraversed, event=" + evt);
 		// TODO add your code for CTtext1prefix.keyTraversed
 		cw_glob.setFileprefix(CTtext1prefix.getText());
 	}
-
+	
 	private void CTRenameFiles2WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("CTbutton2.widgetSelected, event=" + evt);
 		cw_glob.setFileprefix(CTtext1prefix.getText());
 		cw_glob.renameAllFiles();
 	}
-
+	
 	private void CTbutton4addCommentWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("CTbutton4.widgetSelected, event=" + evt);
 		// add Comment wurde gedrückt
-
+		
 		if (CTbutton1netprofit.getSelection() == true)
 			cf_glob.setButtonprofit(1);
 		else
 			cf_glob.setButtonprofit(0);
-
+		
 		if (CTbutton2stabilitaet.getSelection() == true)
 			cf_glob.setButtonstabilitaet(1);
 		else
 			cf_glob.setButtonstabilitaet(0);
-
+		
 		cf_glob.setPrefix(CTtext3prefix.getText());
 		cf_glob.setNetprofitminval(SG.get_float_zahl(CTtext1netprofitminval.getText(), 5));
 		cf_glob.setStabilminval(SG.get_float_zahl(CTtext1stabilminval.getText(), 5));
@@ -1571,7 +1538,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		cf_glob.setStabilitaet(CTbutton2stabilitaet.getSelection());
 		cw_glob.addComment(cf_glob);
 	}
-
+	
 	private void CTbutton3cleanWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("CTbutton3clean.widgetSelected, event=" + evt);
@@ -1579,37 +1546,37 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// clean all comments
 		cw_glob.cleanComments();
 	}
-
+	
 	private void button1calcNettoprofitsWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1calcNettoprofits.widgetSelected, event=" + evt);
 		// calc Nettoprofitsummen
-
+		
 		cw_glob.calcNettoprofits();
 	}
-
+	
 	private void button1deleteEndtestWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1deleteEndtest.widgetSelected, event=" + evt);
 		// TODO add your code for button1deleteEndtest.widgetSelected
 		cw_glob.deleteEndtest();
-
+		
 		button1deleteEndtest.setEnabled(false);
 		button1generateEndtest.setEnabled(true);
 		button5calcAutomaticNettoprofit.setEnabled(false);
 		button1calcNettoprofits.setEnabled(false);
-
+		
 		button5IsNettoprofit.setEnabled(true);
 		button5OssNettoprofit.setEnabled(true);
 		button5NetProfitRobust.setEnabled(true);
 	}
-
+	
 	private void button1generateEndtestWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1generateEndtest.widgetSelected, event=" + evt);
 		// Hier wird der Endtest generiert
 		System.out.println("************************************************** button generate endtest");
-
+		
 		int mode = 0;
 		if (button5IsNettoprofit.getSelection() == true)
 			mode = 1;
@@ -1617,7 +1584,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			mode = 2;
 		else if (button5NetProfitRobust.getSelection() == true)
 			mode = 3;
-
+		
 		cw_glob.generateEndtest(mode, SG.get_zahl(text1confidenz.getText()));
 		button1deleteEndtest.setEnabled(true);
 		button1generateEndtest.setEnabled(false);
@@ -1627,20 +1594,20 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		button5OssNettoprofit.setEnabled(false);
 		button5NetProfitRobust.setEnabled(false);
 	}
-
+	
 	private void button1calcEndtestgraphicWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1calcEndtestgraphic.widgetSelected, event=" + evt);
 		// TODO add your code for button1calcEndtestgraphic.widgetSelected
 		cw_glob.calcEndtestGraphic();
 	}
-
+	
 	private void button1werteeinzelaus300WidgetSelected(SelectionEvent evt)
 	{
-
+		
 		System.out.println("button1werteeinzelaus300.widgetSelected, event=" + evt);
 		// TODO add your code for button1werteeinzelaus300.widgetSelected
-
+		
 		int maxddval = 0, maxddproz = 0, maxddfromstart = 0;
 		int budget = 0, maxddbudget = 0;
 		if (button1.getSelection() == true)
@@ -1670,21 +1637,21 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 				return;
 			}
 		}
-
+		
 		int trailflag = 0;
 		if (button4.getSelection() == true)
 			trailflag = 1;
-
+		
 		if (button5.getSelection() == true)
 		{
 			budget = SG.get_zahl(text1budget.getText());
 			maxddbudget = SG.get_zahl(text1maxdd.getText());
 		}
-
+		
 		cw_glob.calcEndtestGraphic300(maxddval, maxddproz, maxddfromstart, trailflag,
 				SG.get_zahl(text1maxddtrail.getText()), SG.get_zahl(text1ndays.getText()), budget, maxddbudget);
 	}
-
+	
 	private void button1WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1.widgetSelected, event=" + evt);
@@ -1693,26 +1660,26 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		button5.setSelection(false);
 		setButton300();
 	}
-
+	
 	private void setButton300()
 	{
-
+		
 		if ((button1.getSelection() == false) && (button2.getSelection() == false) && (button3.getSelection() == false)
 				&& (button4.getSelection() == false) && (button5.getSelection() == false))
 			button1werteeinzelaus300.setEnabled(false);
 		else
 			button1werteeinzelaus300.setEnabled(true);
 	}
-
+	
 	private void button2WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button2.widgetSelected, event=" + evt);
 		// maxddprozent
-
+		
 		button5.setSelection(false);
 		setButton300();
 	}
-
+	
 	private void button3WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button3.widgetSelected, event=" + evt);
@@ -1721,7 +1688,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		setButton300();
 		// TODO add your code for button3.widgetSelected
 	}
-
+	
 	private void button4WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button4.widgetSelected, event=" + evt);
@@ -1729,7 +1696,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		button5.setSelection(false);
 		setButton300();
 	}
-
+	
 	private void button5IsNettoprofitWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button5IsNettoprofit.widgetSelected, event=" + evt);
@@ -1737,7 +1704,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
 	}
-
+	
 	private void button5OssNettoprofitWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button5OssNettoprofit.widgetSelected, event=" + evt);
@@ -1745,7 +1712,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
 	}
-
+	
 	private void button5NetProfitRobustWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button5NetProfitRobust.widgetSelected, event=" + evt);
@@ -1753,7 +1720,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		text1confidenz.setEnabled(true);
 		label8.setEnabled(true);
 	}
-
+	
 	private void button5WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button5.widgetSelected, event=" + evt);
@@ -1764,7 +1731,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		button4.setSelection(false);
 		setButton300();
 	}
-
+	
 	private void button6Widgetconf100Selected(SelectionEvent evt)
 	{
 		System.out.println("button6.widgetSelected, event=" + evt);
@@ -1772,7 +1739,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String path = metriktools.setConf100quelle();
 		text1conf100.setText(path);
 	}
-
+	
 	private void button7conf50WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button7.widgetSelected, event=" + evt);
@@ -1780,7 +1747,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String path = metriktools.setConf50quelle();
 		text2conf50.setText(path);
 	}
-
+	
 	private void button8ZielmetrikWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button8.widgetSelected, event=" + evt);
@@ -1788,14 +1755,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String path = metriktools.setZieltable();
 		text3zielmetrik.setText(path);
 	}
-
+	
 	private void button9calculateWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button9calculate.widgetSelected, event=" + evt);
 		// button calc
 		metriktools.calcSave(text1attributname.getText());
 	}
-
+	
 	private void button6set100sourcedirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6set100sourcedir.widgetSelected, event=" + evt);
@@ -1803,7 +1770,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String quelldir = conf100tools.setQuelldir();
 		text1_confsource.setText(quelldir);
 	}
-
+	
 	private void button6conf100_50destinWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6conf100_50destin.widgetSelected, event=" + evt);
@@ -1811,41 +1778,41 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String zieldir = conf100tools.setZieldir();
 		conf100_50destinationdir.setText(zieldir);
 	}
-
+	
 	private void button6calc100WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6calc100.widgetSelected, event=" + evt);
 		// TODO add your code for button6calc100.widgetSelected
 		conf100tools.filter(text2maxddrobustdiff.getText());
 	}
-
+	
 	private void button6set_rt_sourcedirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6set_rt_sourcedir.widgetSelected, event=" + evt);
 		String quelldir_gui = Guitools.Text_GetMessageText(rt_sourcedir);
 		String quelldir = rttools.setQuelldirRequester(quelldir_gui);
-
+		
 		if (quelldir == null)
 			quelldir = quelldir_gui;
-
+		
 		int n = FileAccess.countDirectoryContent(new File(quelldir));
 		label17rtsourcedir.setText(String.valueOf(n));
 		rt_sourcedir.setText(quelldir);
-
+		
 	}
-
+	
 	private void button6setRT_destdirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6setRT_destdir.widgetSelected, event=" + evt);
 		String zieldir_gui = Guitools.Text_GetMessageText(rt_destdir);
 		String zieldir = rttools.setZieldirRequester(zieldir_gui);
-
+		
 		if (zieldir == null)
 			zieldir = zieldir_gui;
-
+		
 		rt_destdir.setText(zieldir);
 	}
-
+	
 	private void button6calcRtFilterWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6calcRtFilter.widgetSelected, event=" + evt);
@@ -1854,10 +1821,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		float maxddrobust_faktor = SG.get_float_zahl(faktorMaxDrawdownRobust.getText(), 5);
 		int maxlosses = SG.get_zahl(text1maxlosses.getText());
 		float longshortfaktor_faktor = SG.get_float_zahl(text1faktor.getText(), 2);
-
+		
 		String sourcedir = Guitools.Text_GetMessageText(rt_sourcedir);
 		String destdir = Guitools.Text_GetMessageText(rt_destdir);
-
+		
 		File sdir = new File(sourcedir);
 		if (sdir.exists() == false)
 		{
@@ -1875,39 +1842,39 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		boolean cut2yearsflag = button6cut2years.getSelection();
 		boolean longshortflag = button6longshort.getSelection();
 		boolean showtableresultflag = button6showtable.getSelection();
-
+		
 		rttools.setMaxlosses_glob(maxlosses);
 		rttools.setMaxdrawdown_faktor_glob(maxddrobust_faktor);
 		rttools.setLongshort_faktor_glob(longshortfaktor_faktor);
-
+		
 		// die config speichern
-
+		
 		Toolboxconf.setPropAttribute("maxlosses", String.valueOf(maxlosses));
 		Toolboxconf.setPropAttribute("maxddrobust_faktor", String.valueOf(maxddrobust_faktor));
-
+		
 		// die attribute in der config speichern
 		Toolboxconf.setPropAttribute("rt_sourcedir", sourcedir);
 		Toolboxconf.setPropAttribute("rt_destdir", destdir);
-
+		
 		// die attribute in der struktur speichern
 		rttools.setQuelldir_glob(sourcedir);
 		rttools.setZieldir_glob(destdir);
-
+		
 		rttools.setEquityfaktor_glob(Float.valueOf(text1equityfaktor.getText()));
 		boolean lastyearsflag = button6Lastyearsflag.getSelection();
-
+		
 		boolean xauusdflag = button6deleteifequal.getSelection();
 		// hier wird gefiltert
 		rttools.filter(rtcheck, eqcheck, lastyearsflag, cut2yearsflag, longshortflag, showtableresultflag, xauusdflag);
-
+		
 		// die Zahlen aktualisieren
 		int n = FileAccess.countDirectoryContent(new File(rttools.getQuelldir_glob()));
 		label17rtsourcedir.setText(String.valueOf(n));
 		n = FileAccess.countDirectoryContent(new File(rttools.getZieldir_glob()));
 		label17rtdestdir.setText(String.valueOf(n));
-
+		
 	}
-
+	
 	private void Cluster_StartGenerationWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("Cluster_StartGeneration.widgetSelected, event=" + evt);
@@ -1915,95 +1882,95 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// Start clustering
 		Cluster.genCluster(clustersourcedir_glob, clusterdestdir_glob);
 	}
-
+	
 	private void ClusterSourceDirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("ClusterSourceDir.widgetSelected, event=" + evt);
-
+		
 		clustersourcedir_glob = rttools.setQuelldirRequester("E:\\Fuer Thomas2");
 		cluster_strsourcedir.setText(clustersourcedir_glob);
-
+		
 	}
-
+	
 	private void clusterStrDestdirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("clusterStrDestdir.widgetSelected, event=" + evt);
 		clusterdestdir_glob = rttools.setQuelldirRequester("E:\\Fuer Thomas2");
 		ClusterDestDir.setText(clusterdestdir_glob);
 	}
-
+	
 	private void button6filterstrategiesWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6filterstrategies.widgetSelected, event=" + evt);
 		trverarbeit.copyGoodResultfiles(text1.getText(), Float.valueOf(text1proz.getText()));
 	}
-
+	
 	private void button6calcmatchingtableWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6calcmatchingtable.widgetSelected, event=" + evt);
 		trverarbeit.calcShowResulttable(text1.getText());
 	}
-
+	
 	private void button6tradefilterrootdirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6tradefilterrootdir.widgetSelected, event=" + evt);
 		String quelldir_gui = Guitools.Text_GetMessageText(text1);
 		String quelldir = rttools.setQuelldirRequester(quelldir_gui);
-
+		
 		if (quelldir == null)
 			quelldir = quelldir_gui;
-
+		
 		text1.setText(quelldir);
 	}
-
+	
 	private void button6cleartradefilterWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6cleartradefilter.widgetSelected, event=" + evt);
 		trverarbeit.delall(text1.getText());
 	}
-
+	
 	private void button6pdcWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6pdc.widgetSelected, event=" + evt);
 		// set inputfile pdc_inputfile_glob;
 		String quelldir_gui = Guitools.Text_GetMessageText(text2);
 		String quelldir = MonDia.FileDialog(getDisplay(), quelldir_gui);
-
+		
 		if (quelldir == null)
 			quelldir = quelldir_gui;
-
+		
 		text2.setText("F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_part.csv");
 		pdc_inputfile_glob = quelldir;
 	}
-
+	
 	private void button6WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button6.widgetSelected, event=" + evt);
 		// set pdc_outputfile_glob;
 		String quelldir_gui = Guitools.Text_GetMessageText(text3pdc);
 		String quelldir = MonDia.FileDialog(getDisplay(), quelldir_gui);
-
+		
 		if (quelldir == null)
 			quelldir = quelldir_gui;
-
+		
 		text3pdc.setText("F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_out.csv");
 		pdc_outputfile_glob = quelldir;
 	}
-
+	
 	private void button7pdcWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button7pdc.widgetSelected, event=" + evt);
-
+		
 		// pdc convert data
 		// PriceDataSeries.PriceGmtConvertion(Integer.valueOf(text3.getText()),
 		// pdc_inputfile_glob, pdc_outputfile_glob);
 		PriceDataSeries.PriceGmtConvertion(Integer.valueOf(text3.getText()),
 				"F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_part.csv", "F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_out.csv");
 	}
-
+	
 	private void button7calcWidgetSelected(SelectionEvent evt)
 	{
-		//calc button used !! ************************************
+		// calc button used !! ************************************
 		
 		System.out.println("button7calc.widgetSelected CalcCfilter, event=" + evt);
 		sqworkflow.setMasterfile(FilterSourceDir.getText());
@@ -2012,28 +1979,27 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqworkflow.setFuturecount(text4stepsfuture.getText());
 		sqworkflow.setOutputname_g(outputname.getText());
 		sqworkflow.setStepvalue(text4filterkeyword.getText());
-
 		
 		Toolboxconf.setPropAttribute("backcount", steps.getText());
 		Toolboxconf.setPropAttribute("futurecount", text4stepsfuture.getText());
-		Toolboxconf.setPropAttribute("anzdays",text4filterkeyword.getText());
+		Toolboxconf.setPropAttribute("anzdays", text4filterkeyword.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
-
+		
 		sqworkflow.calcFilter();
 	}
-
+	
 	private void button7setWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button7set.widgetSelected, event=" + evt);
-
+		
 		// get sourcedir from configfile
 		String sd = Toolboxconf.getPropAttribute("masterfile");
-
+		
 		// ask user for sourcedir
 		String masterfile = SWTwindow.FileDialog(getDisplay(), sd);
-
-		if(masterfile==null)
-			masterfile=sd;
+		
+		if (masterfile == null)
+			masterfile = sd;
 		sqworkflow.setMasterfile(masterfile);
 		
 		// show new sourcedir
@@ -2041,25 +2007,26 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// set new sourcedir in configfile
 		Toolboxconf.setPropAttribute("masterfile", masterfile);
 	}
-
+	
 	private void button7setdestdirWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button7setdestdir.widgetSelected, event=" + evt);
 		// get sqrootdir from configfile
-
+		
 		String dd = Toolboxconf.getPropAttribute("sqrootdir");
-
+		
 		// ask user for destdir
 		String sqrootdir = SWTwindow.DirDialog(getDisplay(), dd);
-		if(sqrootdir==null)
-			sqrootdir=dd;
+		if (sqrootdir == null)
+			sqrootdir = dd;
 		
-		//check sqrootdir
-		String licfile=sqrootdir+"\\licenceFile.lic";
-		File sqr=new File(licfile);
-		if(sqr.exists()==false)
+		// check sqrootdir
+		String licfile = sqrootdir + "\\licenceFile.lic";
+		File sqr = new File(licfile);
+		if (sqr.exists() == false)
 		{
-			Tracer.WriteTrace(10, "This is not an valid SQ installation licenseFile.lic is missing under <"+licfile+">");
+			Tracer.WriteTrace(10,
+					"This is not an valid SQ installation licenseFile.lic is missing under <" + licfile + ">");
 			return;
 		}
 		sqworkflow.setSqrootdir(sqrootdir);
@@ -2070,17 +2037,28 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("sqrootdir", sqrootdir);
 	}
 	
+	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
+		
+		sqworkflow.setResultdir(text4resultdir.getText());
+		sqworkflow.setSqrootdir(text4filterdestdir.getText());
+		Toolboxconf.setPropAttribute("resultdir", text4resultdir.getText());
+		// collect results
+		sqworkflow.collectResults();
+		Tracer.WriteTrace(10, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
+	}
 	
-	
-	private void button7WidgetDefaultSelected(SelectionEvent evt) {
-		System.out.println("button7.widgetDefaultSelected, event="+evt);
-		//set resultdir
+	private void button7WidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button7.widgetSelected, event=" + evt);
+		// set resultdir
 		String dd = Toolboxconf.getPropAttribute("resultdir");
-
+		
 		// ask user for destdir
 		String resultdir = SWTwindow.DirDialog(getDisplay(), dd);
-		if(resultdir==null)
-			resultdir=dd;
+		if (resultdir == null)
+			resultdir = dd;
 		
 		sqworkflow.setResultdir(resultdir);
 		// show new resultdir
@@ -2089,14 +2067,4 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("resultdir", resultdir);
 	}
 	
-	private void collectresultsbuttonWidgetSelected(SelectionEvent evt) {
-		System.out.println("collectresultsbutton.widgetSelected, event="+evt);
-		
-		sqworkflow.setResultdir(text4resultdir.getText());
-		sqworkflow.setSqrootdir(text4filterdestdir.getText());
-		//collect results
-		sqworkflow.collectResults();
-		Tracer.WriteTrace(10, "I:all results collected and stored under <"+text4resultdir.getText()+">");
-	}
-
 }
