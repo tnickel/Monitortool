@@ -12,7 +12,7 @@ public class SqWorkflow
 // destdir: this the targetdir of the modified files
 // configfile: In this file are the actions what the workflowclass has to do.
 {
-	private String masterfile_g, sqrootdir_g,outputname_g,resultdir_g;
+	private String masterfile_g, sqrootdir_g,outputname_g,resultdir_g,shareddrive_g;
 	private int backcount_g, futurecount_g,stepvalue_g;
 	
 	
@@ -34,7 +34,10 @@ public class SqWorkflow
 		this.resultdir_g = resultdir_g;
 	}
 
-
+	public void setSharedDrive(String dir)
+	{
+		this.shareddrive_g=dir;
+	}
 	public void setBackcount(String days)
 	{
 		//negative for the past
@@ -100,6 +103,11 @@ public class SqWorkflow
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
 		
+		//verzeichnissstruktur in googledrive herstellen
+		
+		//results kopieren
+		
+		//masterfile kopieren
 		
 	}
 	

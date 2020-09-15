@@ -8,6 +8,7 @@ import hiflsklasse.FileAccess;
 
 public class SqResults
 {
+	//sammelt die resultate ein und kopier die in das resultdir
 	private String resultdir_g, sqroodir_g;
 	
 	SqResults()
@@ -16,11 +17,13 @@ public class SqResults
 	
 	public void setResultdir(String resultdir)
 	{
+		//dies ist das zielverzeichniss wo das hin son
 		this.resultdir_g = resultdir;
 	}
 	
 	public void setSqRoodir(String sqroodir)
 	{
+		//hier ist das rootverzeichniss des sq
 		this.sqroodir_g = sqroodir;
 	}
 	
@@ -54,5 +57,9 @@ public class SqResults
 				}
 			}
 		}
+	}
+	public void collectMasterfile()
+	{
+		
 	}
 }
