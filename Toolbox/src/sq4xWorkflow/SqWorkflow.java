@@ -1,5 +1,6 @@
 package sq4xWorkflow;
 
+import java.io.File;
 import java.text.DecimalFormat;
 
 import hiflsklasse.Tracer;
@@ -68,6 +69,8 @@ public class SqWorkflow
 
 	public void calcFilter()
 	{	
+		//Hier wird die workflowgenerierung druchgeführt
+		
 		int offset=0;
 		//some initialisation progressslider and dfformat
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) Math.abs((futurecount_g-backcount_g)));
@@ -98,17 +101,29 @@ public class SqWorkflow
 	}
 	public void collectResults()
 	{
+		//die normalen results in das erste Zielverzeichniss
 		SqResults sr=new SqResults();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
 		
 		//verzeichnissstruktur in googledrive herstellen
+		String wfdir=shareddrive_g+"\\"+outputname_g;
+		String portfolios=wfdir+"\\portfolios";
+		File wfdir_f=new File(wfdir);
+		if(wfdir_f.exists()==false)
+			wfdir_f.mkdir();
+		File wfport_f=new File(portfolios);
+		if(wfport_f.exists()==false)
+			wfport_f.mkdir();
 		
-		//results kopieren
-		
+		//results in portfolios ins googledrive kopieren
+		SqResults gr=new SqResults();
+		gr.setResultdir(portfolios);
+		gr.setSqRoodir(sqrootdir_g);
+		gr.collectResults();
 		//masterfile kopieren
-		
+		gr.copyMasterfile(masterfile_g,wfdir);
 	}
 	
 	private  String calcWorkflowname(int index, int offset)

@@ -41,6 +41,7 @@ import data.TradefilterVerarbeitung;
 import gui.Guitools;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
@@ -210,6 +211,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Text text4infotext;
 	private Label label26;
 	private Button button8shareddirectory;
 	private Text text4shareddrive;
@@ -1219,7 +1221,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
 							group2filter.setText("Filter");
-							group2filter.setBounds(0, -6, 1577, 427);
+							group2filter.setBounds(0, -6, 1577, 691);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
@@ -1355,6 +1357,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label26.setText("(should be uniqe !!)");
 								label26.setBounds(533, 182, 157, 30);
 							}
+							{
+								text4infotext = new Text(group2filter, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+								text4infotext.setText("infotext");
+								text4infotext.setBounds(12, 426, 807, 208);
+							}
 						}
 					}
 				}
@@ -1425,6 +1432,30 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void postinit()
 	{
+		
+		//set infotext
+		String sd=text4shareddrive.getText();
+		String outname=outputname.getText();
+		if((sd!=null)&&(outname!=null))
+		{
+			String fname=sd+"\\"+outname+"\\info.txt";
+			if (new File(fname).exists())
+			{
+				Inf inf=new Inf();
+				inf.setFilename(fname);
+				
+				while( String s=inf.readZeile())
+				{
+					String s=inf.readZeile();
+					if(s==null)
+						break;
+					text4infotext.setText("hallo\nhallo2\n");
+				}
+			}
+		}
+		
+		
+		
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
 		
@@ -1444,6 +1475,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		int mode = enddata_glob.getMode();
 		setGlobalMode(mode);
+	
 	}
 	
 	private void setGlobalMode(int mode)
@@ -2010,6 +2042,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("anzdays", text4filterkeyword.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
 		
+		
 		sqworkflow.calcFilter();
 	}
 	
@@ -2064,11 +2097,19 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
+				
+		//button collect results !!!!!!!!!!!!
 		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
 		
 		sqworkflow.setResultdir(text4resultdir.getText());
 		sqworkflow.setSqrootdir(text4filterdestdir.getText());
+		sqworkflow.setSharedDrive(text4shareddrive.getText());
+		sqworkflow.setOutputname_g(outputname.getText());
+		sqworkflow.setMasterfile(FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("resultdir", text4resultdir.getText());
+		Toolboxconf.setPropAttribute("shareddrive", text4shareddrive.getText());
+		Toolboxconf.setPropAttribute("outputname", outputname.getText());
+		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		// collect results
 		sqworkflow.collectResults();
 		Tracer.WriteTrace(10, "I:all results collected and stored under <" + text4resultdir.getText() + ">");

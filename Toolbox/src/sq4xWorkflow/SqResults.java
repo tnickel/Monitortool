@@ -58,8 +58,20 @@ public class SqResults
 			}
 		}
 	}
-	public void collectMasterfile()
+	public void copyMasterfile(String masterfile,String destdir)
 	{
 		
+		File f1=new File(masterfile);
+		String masterfilename=f1.getName();
+		
+		File f2=new File(destdir+"\\"+masterfilename);
+		try
+		{
+			Filefunkt.copyFileUsingChannel(f1,f2);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
