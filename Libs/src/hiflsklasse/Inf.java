@@ -137,6 +137,38 @@ public class Inf
 		}
 	}
 
+	public String readZeilen()
+	{
+		//liest alle zeilen und liefert einen string zurück
+		//wird für das swt mulilinetextobjekt benötigt
+		
+		String sumstr="";
+		if (br == null)
+			br = FileAccess.ReadFileOpen(filename_glob);
+		String str="";
+	
+		try
+		{
+			while(str!=null)
+			{
+			 str = new String(br.readLine());
+			 sumstr=sumstr+str+"\n";
+			}
+			return sumstr;
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+
+			return null;
+		} catch (NullPointerException e)
+		{
+			// TODO Auto-generated catch block
+
+			return sumstr;
+		}
+		
+	}
+	
 	public String readZeile(String format)
 	{
 		if (br == null)

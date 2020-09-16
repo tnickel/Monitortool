@@ -1,7 +1,6 @@
 package start;
 
 import java.io.File;
-import java.util.function.Consumer;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 
@@ -9,6 +8,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -41,13 +42,13 @@ import data.TradefilterVerarbeitung;
 import gui.Guitools;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
-import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
 import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
+import sq4xWorkflow.SqGoogle;
 import sq4xWorkflow.SqWorkflow;
 import work.CommentWork;
 
@@ -211,6 +212,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button button8loadinfomessage;
+	private Label label27;
+	private Button button8saveinfomassage;
 	private Text text4infotext;
 	private Label label26;
 	private Button button8shareddirectory;
@@ -1299,7 +1303,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								collectresultsbutton = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								collectresultsbutton.setText("collect results");
-								collectresultsbutton.setBounds(1347, 301, 203, 88);
+								collectresultsbutton.setBounds(1347, 325, 203, 88);
 								collectresultsbutton.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1327,7 +1331,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button7 = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7.setText("set resultdir");
 								button7.setBounds(825, 331, 173, 30);
-								button7.setToolTipText("The generated portfolios will be collected out of the SQ directoy and will be stored in this directory");
+								button7.setToolTipText(
+										"The generated portfolios will be collected out of the SQ directoy and will be stored in this directory");
 								button7.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1345,9 +1350,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button8shareddirectory = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button8shareddirectory.setText("set shared drive");
 								button8shareddirectory.setBounds(825, 373, 173, 30);
-								button8shareddirectory.setToolTipText("This can be googledrive. In this drive a directorystructure with generated workflowname will be stored. All results will be stored in this drive.");
+								button8shareddirectory.setToolTipText(
+										"This can be googledrive. In this drive a directorystructure with generated workflowname will be stored. All results will be stored in this drive.");
 								button8shareddirectory.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+									public void widgetSelected(SelectionEvent evt)
+									{
 										button8shareddirectoryWidgetSelected(evt);
 									}
 								});
@@ -1358,9 +1365,49 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label26.setBounds(533, 182, 157, 30);
 							}
 							{
-								text4infotext = new Text(group2filter, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-								text4infotext.setText("infotext");
-								text4infotext.setBounds(12, 426, 807, 208);
+								text4infotext = new Text(group2filter,
+										SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+								//read infomessage and show in multilinebox
+								text4infotext.setText(Toolboxconf.getPropAttribute("infotext"));
+								
+								text4infotext.setBounds(12, 425, 807, 208);
+								text4infotext.addFocusListener(new FocusAdapter() {
+									public void focusGained(FocusEvent evt) {
+										text4infotextFocusGained(evt);
+									}
+								});
+								text4infotext.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										text4infotextWidgetSelected(evt);
+									}
+								});
+
+							}
+							{
+								button8saveinfomassage = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8saveinfomassage.setText("save");
+								button8saveinfomassage.setBounds(825, 603, 60, 30);
+								button8saveinfomassage.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8saveinfomassageWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								label27 = new Label(group2filter, SWT.NONE);
+								label27.setText("please add additional description to this box above");
+								label27.setBounds(12, 639, 813, 30);
+							}
+							{
+								button8loadinfomessage = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8loadinfomessage.setText("load");
+								button8loadinfomessage.setSize(60, 30);
+								button8loadinfomessage.setBounds(825, 425, 60, 30);
+								button8loadinfomessage.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8loadinfomessageWidgetSelected(evt);
+									}
+								});
 							}
 						}
 					}
@@ -1433,26 +1480,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private void postinit()
 	{
 		
-		//set infotext
-		String sd=text4shareddrive.getText();
-		String outname=outputname.getText();
-		if((sd!=null)&&(outname!=null))
-		{
-			String fname=sd+"\\"+outname+"\\info.txt";
-			if (new File(fname).exists())
-			{
-				Inf inf=new Inf();
-				inf.setFilename(fname);
-				
-				while( String s=inf.readZeile())
-				{
-					String s=inf.readZeile();
-					if(s==null)
-						break;
-					text4infotext.setText("hallo\nhallo2\n");
-				}
-			}
-		}
+		// set infotext
+		String sd = text4shareddrive.getText();
+		String outname = outputname.getText();
+		
 		
 		
 		
@@ -1475,7 +1506,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		int mode = enddata_glob.getMode();
 		setGlobalMode(mode);
-	
+		
 	}
 	
 	private void setGlobalMode(int mode)
@@ -1537,7 +1568,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.01");
+		shell.setText("Toolbox V1.02");
 		
 		while (!shell.isDisposed())
 		{
@@ -2041,8 +2072,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("futurecount", text4stepsfuture.getText());
 		Toolboxconf.setPropAttribute("anzdays", text4filterkeyword.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
-		
-		
+		SqGoogle.WriteInfomessage(text4infotext.getText());
 		sqworkflow.calcFilter();
 	}
 	
@@ -2097,8 +2127,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
-				
-		//button collect results !!!!!!!!!!!!
+		
+		// button collect results !!!!!!!!!!!!
 		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
 		
 		sqworkflow.setResultdir(text4resultdir.getText());
@@ -2110,6 +2140,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("shareddrive", text4shareddrive.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
+		SqGoogle.WriteInfomessage(text4infotext.getText());
 		// collect results
 		sqworkflow.collectResults();
 		Tracer.WriteTrace(10, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
@@ -2133,21 +2164,46 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("resultdir", resultdir);
 	}
 	
-	private void button8shareddirectoryWidgetSelected(SelectionEvent evt) {
-		System.out.println("button8shareddirectory.widgetSelected, event="+evt);
+	private void button8shareddirectoryWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button8shareddirectory.widgetSelected, event=" + evt);
 		// set resultdir
-				String dd = Toolboxconf.getPropAttribute("shareddrive");
-				
-				// ask user for shareddrive
-				String resultdir = SWTwindow.DirDialog(getDisplay(), dd);
-				if (resultdir == null)
-					resultdir = dd;
-				
-				sqworkflow.setSharedDrive(resultdir);
-				// show new resultdir
-				text4shareddrive.setText(resultdir);
-				// set new resultdir in configfile
-				Toolboxconf.setPropAttribute("shareddrive", resultdir);
+		String dd = Toolboxconf.getPropAttribute("shareddrive");
+		
+		// ask user for shareddrive
+		String resultdir = SWTwindow.DirDialog(getDisplay(), dd);
+		if (resultdir == null)
+			resultdir = dd;
+		
+		sqworkflow.setSharedDrive(resultdir);
+		// show new resultdir
+		text4shareddrive.setText(resultdir);
+		// set new resultdir in configfile
+		Toolboxconf.setPropAttribute("shareddrive", resultdir);
+	}
+	
+	private void button8saveinfomassageWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8saveinfomassage.widgetSelected, event="+evt);
+		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
+		SqGoogle.WriteInfomessage(text4infotext.getText());
+	}
+	
+	private void text4infotextWidgetSelected(SelectionEvent evt) {
+		System.out.println("text4infotext.widgetSelected, event="+evt);
+		Tracer.WriteTrace(10, "widget selected");
+		
+	}
+	
+	private void button8loadinfomessageWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8loadinfomessage.widgetSelected, event="+evt);
+		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
+	}
+	
+	private void text4infotextFocusGained(FocusEvent evt) {
+		System.out.println("text4infotext.focusGained, event="+evt);
+		//xxx die folgezeile verursacht ein Problem im jigloo builder, ist diese zeile vorhanden können in der oberfläche nicht mehr
+		//alle events konfiguriert werden
+		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
 	}
 
 }
