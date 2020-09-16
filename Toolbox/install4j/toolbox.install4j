@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
   <directoryPresets config="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="C:/Users/Thomas Nickel/Google Drive/United Generation 2019/development/Toolbox" compression="0" shortName="Toolbox" publisherWeb="https://monitortool.jimdofree.com/" version="1.0.0" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="C:/Users/Thomas Nickel/Google Drive/United Generation 2019/development/Toolbox" compression="0" shortName="Toolbox" publisherWeb="https://monitortool.jimdofree.com/" version="1.0.2" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="115" />
@@ -10,7 +10,7 @@
       <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/jre1.8.0_251" entryMode="subdir" subDirectory="jre1.8.0_251" />
       <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/doku" entryMode="subdir" subDirectory="doku" />
       <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/data" entryMode="subdir" subDirectory="data" />
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/bin" entryMode="subdir" subDirectory="bin" />
+      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/bin" entryMode="subdir" subDirectory="bin" excludeSuffixes="*.conf" />
     </entries>
   </files>
   <installerGui>
