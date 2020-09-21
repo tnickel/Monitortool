@@ -1568,7 +1568,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.02");
+		shell.setText("Toolbox V1.03");
 		
 		while (!shell.isDisposed())
 		{
@@ -2143,7 +2143,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		SqGoogle.WriteInfomessage(text4infotext.getText());
 		// collect results
 		sqworkflow.collectResults();
-		Tracer.WriteTrace(10, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
+		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
 	
 	private void button7WidgetSelected(SelectionEvent evt)
