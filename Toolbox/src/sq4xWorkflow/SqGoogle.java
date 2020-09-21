@@ -9,12 +9,11 @@ import hiflsklasse.Tracer;
 
 public class SqGoogle
 {
-	private static String googlepath_g=null;
-	private static String outname_g=null;
+	
+	
 	static public String ReadInfomessage(String googlepath, String outname)
 	{
-		googlepath_g=googlepath;
-		outname_g=outname;
+		
 		if ((googlepath != null) && (outname != null))
 		{
 			String fname = googlepath + "\\" + outname + "\\info.txt";
@@ -28,13 +27,16 @@ public class SqGoogle
 				return s;
 			}
 		}
-		return "";
+		return "empty";
 	}
-	static public void WriteInfomessage(String text)
+	static public void WriteInfomessage(String googlepath,String outname,String text)
 	{
-		String fname1 = googlepath_g + "\\" + outname_g + "\\info.txt";
-		String fname2 = googlepath_g + "\\" + outname_g + "\\info_.txt";
-
+		String fname1 = googlepath + "\\" + outname + "\\info.txt";
+		String fname2 = googlepath + "\\" + outname + "\\info_.txt";
+		File fdir= new File(googlepath + "\\" + outname);
+		if(fdir.exists()==false)
+			fdir.mkdir();
+		
 		//die alte kopie löschen
 		File fnam2=new File(fname2);
 		if(fnam2.exists())
