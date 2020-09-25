@@ -10,6 +10,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -214,7 +216,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem saveFileMenuItem;
 	private Button button8setbackupdrive;
 	private Text text4backupdrive;
-	private Button button8loadinfomessage;
 	private Label label27;
 	private Button button8saveinfomassage;
 	private Text text4infotext;
@@ -1296,6 +1297,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								outputname = new Text(group2filter, SWT.NONE);
 								outputname.setText(Toolboxconf.getPropAttribute("outputname"));
 								outputname.setBounds(8, 182, 288, 30);
+								outputname.addModifyListener(new ModifyListener() {
+									public void modifyText(ModifyEvent evt) {
+										outputnameModifyText(evt);
+									}
+								});
 							}
 							{
 								label24 = new Label(group2filter, SWT.NONE);
@@ -1402,17 +1408,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label27 = new Label(group2filter, SWT.NONE);
 								label27.setText("please add additional description to this box above");
 								label27.setBounds(12, 790, 813, 30);
-							}
-							{
-								button8loadinfomessage = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button8loadinfomessage.setText("load");
-								button8loadinfomessage.setBounds(825, 544, 60, 30);
-								button8loadinfomessage.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt)
-									{
-										button8loadinfomessageWidgetSelected(evt);
-									}
-								});
 							}
 							{
 								text4backupdrive = new Text(group2filter, SWT.NONE);
@@ -1586,7 +1581,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.03");
+		shell.setText("Toolbox V1.0.43");
 		
 		while (!shell.isDisposed())
 		{
@@ -2090,6 +2085,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("futurecount", text4stepsfuture.getText());
 		Toolboxconf.setPropAttribute("anzdays", text4filterkeyword.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
+		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
+		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		sqworkflow.calcFilter();
 	}
@@ -2160,6 +2157,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("infotext", text4infotext.getText());
+		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
+		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		// collect results
 		sqworkflow.collectResults();
@@ -2250,4 +2249,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("backupdrive", backupdrive);
 	}
 	
+	private void outputnameModifyText(ModifyEvent evt) {
+		System.out.println("outputname.modifyText, event="+evt);
+		//workflowname has changed, than check directory and load description window
+		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
+	}
+
 }

@@ -104,7 +104,8 @@ public class SqWorkflow
 		sr.collectResults();
 		
 		//copy to goggledrive
-		copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
+		if(shareddrive_g!=null)
+			copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
 		
 		//copy to backupdrive
 		if(backupdrive_g!=null)

@@ -61,26 +61,22 @@ public class ProjectFile
 	{
 		memstring_mod_g = new String(memstring_org_g);
 		
-		
 		// jetzt wird das datum gesucht und entsprechend modifiziert
 		// Suche <Project name="EURUSD - H1 -2year NEW" version="126.2189">
 		
 		SqConfXml sxml = new SqConfXml(memstring_mod_g);
-		sxml.setSearchpattern("<Project name=\"","\"");
+		sxml.setSearchpattern("<Project name=\"", "\"");
 		String projektname = sxml.getProjectName();
 		Tracer.WriteTrace(20, "projektname=" + projektname);
 		
-
+		sxml.setSearchpattern("<Setup dateFrom=", " test");
+		memstring_mod_g = sxml.modifyAllPatterns(daysoffset_i);
 		
-		sxml.setSearchpattern("<Setup dateFrom="," test");
-		memstring_mod_g=sxml.modifyAllPatterns(daysoffset_i);
+		sxml.setSearchpattern("<Range dateFrom=", " />");
+		memstring_mod_g = sxml.modifyAllPatterns(daysoffset_i);
 		
-		sxml.setSearchpattern("<Range dateFrom="," />");
-		memstring_mod_g=sxml.modifyAllPatterns(daysoffset_i);
-		
-		
-		//replace back X@X 
-		memstring_mod_g=SqDate.replaceBack(memstring_mod_g);
+		// replace back X@X
+		memstring_mod_g = SqDate.replaceBack(memstring_mod_g);
 		
 	}
 	
@@ -116,20 +112,26 @@ public class ProjectFile
 		
 	}
 	
-	public void copyToSq(String sqrootdir, String destname) 
+	public void copyToSq(String sqrootdir, String destname)
 	{
-		//das fertig generierte wird in die sq verzeichnisse kopiert
+		// das fertig generierte wird in die sq verzeichnisse kopiert
 		String newdir = sqrootdir + "\\user\\projects\\" + destname;
 		File dirname_f = new File(newdir);
-		if (dirname_f.isDirectory())
-			Tracer.WriteTrace(10, "E:directory <" + dirname_f.getAbsolutePath() + ">already exists");
-		if (dirname_f.mkdir() == false)
-			Tracer.WriteTrace(10, "E:can´t create directory <+dirname_f.getAbsolutePath()+>");
 		
+		
+		if (dirname_f.isDirectory() == false)
+		{
+			if (dirname_f.mkdir() == false)
+				Tracer.WriteTrace(10, "E:can´t create directory <+dirname_f.getAbsolutePath()+>");
+		}
 		File tmpcfx_f = new File(tmpcfx);
 		File destfile_f = new File(newdir + "\\project.cfx");
 		try
 		{
+			//overwrite existing file
+			if(destfile_f.exists())
+				destfile_f.delete();
+			
 			Filefunkt.copyFileUsingChannel(tmpcfx_f, destfile_f);
 		} catch (IOException e)
 		{

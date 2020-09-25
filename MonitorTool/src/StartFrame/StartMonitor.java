@@ -1678,7 +1678,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			GlobalVar.setServerip1(serverip2);
 		GlobalVar.setServerip2(serverip2);
 		Shell shell = new Shell(dis_glob);
-		Updater.checkNewUpdate();
+		//Updater.checkNewUpdate();
 		Lic lic = new Lic();
 		shell.setText(GlobalVar.calcHeadline());
 
