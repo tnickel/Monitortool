@@ -237,6 +237,7 @@ public class Inf
 	}
 	
 	
+	
 	public String readMemFile(long maxlen)
 	{
 		int n = 0,lenz=0;

@@ -23,8 +23,6 @@ public class SqString
 	
 	public String getNextSuchwort(String mem)
 	{
-		
-		
 		try
 		{
 			int index1 = mem.indexOf(suchwort1, lastpos);

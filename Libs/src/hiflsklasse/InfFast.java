@@ -71,6 +71,32 @@ public class InfFast
 		return mem;
 
 	}
+	
+	public StringBuffer readMemFileDelimter(int maxline)
+	{
+		//Hier wird das File in den Speicher gelesen, und auch gleichzeitig ein delimter gesetzt
+		//delimiter="@//nl"
+		int n = 0;
+		StringBuffer zeile = null, mem = null;
+		while ((zeile = readZeile()) != null)
+		{
+			if(maxline>0)
+				if(n>maxline)
+					break;
+			
+			
+			n++;
+			if (mem == null)
+				mem = new StringBuffer(zeile);
+			else
+				mem = mem.append(GC.delimiter+zeile);
+			// System.out.println("lese zeile<"+n+">");
+		}
+		this.close();
+		return mem;
+
+	}
+	
 	public void close()
 	{
 

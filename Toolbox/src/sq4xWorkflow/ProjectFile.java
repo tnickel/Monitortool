@@ -7,6 +7,7 @@ import FileTools.Filefunkt;
 import FileTools.ProjZipper;
 import FileTools.Zipper;
 import hiflsklasse.Inf;
+import hiflsklasse.InfFast;
 import hiflsklasse.Tracer;
 
 public class ProjectFile
@@ -17,8 +18,8 @@ public class ProjectFile
 	ProjZipper pz = null;
 	private String projectfile_g = "";
 	// private String membin_glob="";
-	private String memstring_org_g = "";
-	private String memstring_mod_g = "";
+	private String memstring_org_g = null;
+	private String memstring_mod_g = null;
 	private Inf inf_glob = new Inf();
 	private String configxml = "c:\\tmp\\config.xml";
 	private String configxml2 = "c:\\tmp\\config2.xml";

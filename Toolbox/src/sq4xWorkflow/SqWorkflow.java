@@ -35,7 +35,10 @@ public class SqWorkflow
 	{
 		this.shareddrive_g = dir;
 	}
-	
+	public String getSharedDrive()
+	{
+		return this.shareddrive_g;
+	}
 	public void setBackupDrive(String dir)
 	{
 		this.backupdrive_g = dir;
@@ -57,19 +60,37 @@ public class SqWorkflow
 		this.stepvalue_g = Integer.valueOf(steps);
 	}
 	
-	public void setOutputname_g(String outputname)
+	public void setOutputname(String outputname)
 	{
 		this.outputname_g = outputname;
 	}
-	
+	public boolean checkEmptyShareddrive()
+	{
+		//true: if directory don´t exists or is empty
+		//false: if directory contains files or other contents
+		
+		//check if googledir is empty
+		File sdf=new File(shareddrive_g+"\\"+this.outputname_g+"\\portfolios");
+		//if directory not exists-> empty = true
+		if(sdf.isDirectory()==false)
+			return true;
+
+		//if directory is empty=>true
+		if(sdf.listFiles()==null)
+			return true;
+		
+		return false;
+		
+	}
 	public void calcFilter()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
 		
 		int offset = 0;
 		// some initialisation progressslider and dfformat
+		int anzsteps=Math.abs(futurecount_g)+Math.abs(backcount_g)+1;
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0,
-				(int) Math.abs((futurecount_g - backcount_g)));
+				(int) anzsteps);
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
@@ -77,6 +98,7 @@ public class SqWorkflow
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
 		{
 			jp.update(loopcount);
+			
 			// modify project
 			
 			offset = i * stepvalue_g;

@@ -19,6 +19,7 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -214,18 +215,27 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
-	private Button button8setbackupdrive;
+	private Composite composite16;
+	private Composite composite15;
+	private Button button8clearprojectdir;
+	private Button button8showprojectdir;
+	private Label label28;
+	private Text text4resultdir;
+	private Text text4shareddrive;
 	private Text text4backupdrive;
+	private Button button7;
+	private Button button8shareddirectory;
+	private Button button8setbackupdrive;
+	private Button button8showResultdir;
+	private Button button8showshareddir;
+	private Button button8showbackupdir;
+	private Composite composite14;
 	private Label label27;
 	private Button button8saveinfomassage;
 	private Text text4infotext;
 	private Label label26;
-	private Button button8shareddirectory;
-	private Text text4shareddrive;
-	private Button button7;
 	private Label label25;
 	private Text text4stepsfuture;
-	private Text text4resultdir;
 	private Button collectresultsbutton;
 	private Label label24;
 	private Text outputname;
@@ -282,12 +292,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			init();
-			this.setSize(1683, 921);
+			this.setSize(1683, 976);
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			this.setLayout(null);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
-				cTabFolder1.setBounds(12, 20, 1639, 870);
+				
+				cTabFolder1.setBounds(12, 19, 1639, 870);
 				{
 					
 					cTabItem5 = new CTabItem(cTabFolder1, SWT.NONE);
@@ -1218,8 +1229,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 				}
 				
 				{
+					
 					cTabItem7 = new CTabItem(cTabFolder1, SWT.NONE);
 					cTabItem7.setText("Sq4.X Workflow Generator");
+					
 					{
 						composite13 = new Composite(cTabFolder1, SWT.NONE);
 						composite13.setLayout(null);
@@ -1227,17 +1240,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
-							group2filter.setText("Filter");
-							group2filter.setBounds(5, -2, 1577, 838);
+							group2filter.setBounds(46, 7, 1577, 914);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
-								FilterSourceDir.setBounds(8, 25, 1333, 30);
+								FilterSourceDir.setBounds(8, 40, 1130, 30);
 							}
 							{
 								button7set = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7set.setText("set Masterfile");
-								button7set.setBounds(1347, 30, 203, 30);
+								button7set.setText("Step1: set Masterfile");
+								button7set.setBounds(1170, 40, 285, 72);
 								button7set.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1248,12 +1260,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4filterdestdir = new Text(group2filter, SWT.NONE);
 								text4filterdestdir.setText(Toolboxconf.getPropAttribute("sqrootdir"));
-								text4filterdestdir.setBounds(8, 85, 1333, 30);
+								text4filterdestdir.setBounds(12, 183, 811, 30);
 							}
 							{
 								button7setdestdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7setdestdir.setText("set SQ Rootdir");
-								button7setdestdir.setBounds(1347, 85, 203, 32);
+								button7setdestdir.setBounds(829, 183, 203, 32);
 								button7setdestdir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1264,12 +1276,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4filterkeyword = new Text(group2filter, SWT.NONE);
 								text4filterkeyword.setText(Toolboxconf.getPropAttribute("anzdays"));
-								text4filterkeyword.setBounds(8, 140, 68, 30);
+								text4filterkeyword.setBounds(12, 238, 68, 30);
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7calc.setText("Gen SQ Workflow");
-								button7calc.setBounds(1347, 129, 203, 79);
+								button7calc.setText("Step2 Generate SQ Workflow");
+								button7calc.setBounds(1170, 501, 285, 79);
 								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
 								button7calc.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
@@ -1280,23 +1292,23 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label22 = new Label(group2filter, SWT.NONE);
-								label22.setText("days increment");
-								label22.setBounds(88, 140, 153, 30);
+								label22.setText("decrement");
+								label22.setBounds(92, 238, 153, 30);
 							}
 							{
 								steps = new Text(group2filter, SWT.NONE);
 								steps.setText(Toolboxconf.getPropAttribute("backcount"));
-								steps.setBounds(253, 140, 43, 30);
+								steps.setBounds(257, 238, 43, 30);
 							}
 							{
 								label23 = new Label(group2filter, SWT.NONE);
 								label23.setText("steps back");
-								label23.setBounds(302, 140, 98, 30);
+								label23.setBounds(306, 238, 98, 30);
 							}
 							{
 								outputname = new Text(group2filter, SWT.NONE);
 								outputname.setText(Toolboxconf.getPropAttribute("outputname"));
-								outputname.setBounds(8, 182, 288, 30);
+								outputname.setBounds(12, 280, 288, 30);
 								outputname.addModifyListener(new ModifyListener() {
 									public void modifyText(ModifyEvent evt) {
 										outputnameModifyText(evt);
@@ -1306,12 +1318,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label24 = new Label(group2filter, SWT.NONE);
 								label24.setText("generated workflow name");
-								label24.setBounds(302, 182, 219, 30);
+								label24.setBounds(306, 280, 219, 30);
 							}
 							{
 								collectresultsbutton = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								collectresultsbutton.setText("collect results");
-								collectresultsbutton.setBounds(1347, 664, 203, 88);
+								collectresultsbutton.setText("Step3 collect/store results");
+								collectresultsbutton.setBounds(1170, 731, 285, 88);
 								collectresultsbutton.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1321,56 +1333,19 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								text4resultdir = new Text(group2filter, SWT.NONE);
-								text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
-								text4resultdir.setBounds(12, 403, 807, 30);
-							}
-							{
 								text4stepsfuture = new Text(group2filter, SWT.NONE);
 								text4stepsfuture.setText(Toolboxconf.getPropAttribute("futurecount"));
-								text4stepsfuture.setBounds(424, 140, 41, 30);
+								text4stepsfuture.setBounds(428, 238, 41, 30);
 							}
 							{
 								label25 = new Label(group2filter, SWT.NONE);
 								label25.setText("steps future");
-								label25.setBounds(477, 140, 106, 30);
-							}
-							{
-								button7 = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7.setText("set resultdir");
-								button7.setBounds(825, 403, 173, 30);
-								button7.setToolTipText(
-										"The generated portfolios will be collected out of the SQ directoy and will be stored in this directory");
-								button7.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt)
-									{
-										button7WidgetSelected(evt);
-									}
-									
-								});
-							}
-							{
-								text4shareddrive = new Text(group2filter, SWT.NONE);
-								text4shareddrive.setText(Toolboxconf.getPropAttribute("shareddrive"));
-								text4shareddrive.setBounds(12, 450, 807, 30);
-							}
-							{
-								button8shareddirectory = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button8shareddirectory.setText("set shared drive");
-								button8shareddirectory.setBounds(825, 450, 173, 30);
-								button8shareddirectory.setToolTipText(
-										"This can be googledrive. In this drive a directorystructure with generated workflowname will be stored. All results will be stored in this drive.");
-								button8shareddirectory.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt)
-									{
-										button8shareddirectoryWidgetSelected(evt);
-									}
-								});
+								label25.setBounds(481, 238, 106, 30);
 							}
 							{
 								label26 = new Label(group2filter, SWT.NONE);
 								label26.setText("(should be uniqe !!)");
-								label26.setBounds(533, 182, 157, 30);
+								label26.setBounds(537, 280, 157, 30);
 							}
 							{
 								text4infotext = new Text(group2filter,
@@ -1378,7 +1353,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								// read infomessage and show in multilinebox
 								text4infotext.setText(Toolboxconf.getPropAttribute("infotext"));
 								
-								text4infotext.setBounds(12, 544, 807, 208);
+								text4infotext.setBounds(12, 322, 807, 208);
 								text4infotext.addFocusListener(new FocusAdapter() {
 									public void focusGained(FocusEvent evt)
 									{
@@ -1396,7 +1371,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button8saveinfomassage = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button8saveinfomassage.setText("save");
-								button8saveinfomassage.setBounds(825, 722, 60, 30);
+								button8saveinfomassage.setBounds(1179, 837, 60, 30);
 								button8saveinfomassage.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1407,23 +1382,134 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label27 = new Label(group2filter, SWT.NONE);
 								label27.setText("please add additional description to this box above");
-								label27.setBounds(12, 790, 813, 30);
+								label27.setBounds(12, 536, 813, 30);
 							}
 							{
-								text4backupdrive = new Text(group2filter, SWT.NONE);
-								text4backupdrive.setText(Toolboxconf.getPropAttribute("backupdrive"));
-								text4backupdrive.setBounds(12, 496, 807, 30);
+								composite14 = new Composite(group2filter, SWT.BORDER);
+								GridLayout composite14Layout = new GridLayout();
+								composite14Layout.makeColumnsEqualWidth = true;
+								composite14.setLayout(composite14Layout);
+								composite14.setBounds(-3, 17, 1154, 97);
+								composite14.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
+							}
+							{
+								button8showbackupdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8showbackupdir.setText("show dir");
+								button8showbackupdir.setBounds(1030, 747, 114, 30);
+								button8showbackupdir.setImage(SWTResourceManager.getImage("start/resources/icons/open.png"));
+								button8showbackupdir.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8showbackupdirWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button8showshareddir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8showshareddir.setText("show dir");
+								button8showshareddir.setBounds(1030, 701, 114, 30);
+								button8showshareddir.setImage(SWTResourceManager.getImage("start/resources/icons/open.png"));
+								button8showshareddir.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8showshareddirWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button8showResultdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8showResultdir.setText("show dir");
+								button8showResultdir.setBounds(1030, 654, 114, 30);
+								button8showResultdir.setImage(SWTResourceManager.getImage("start/resources/icons/open.png"));
+								button8showResultdir.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8showResultdirWidgetSelected(evt);
+									}
+								});
 							}
 							{
 								button8setbackupdrive = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button8setbackupdrive.setText("set backupdrive");
-								button8setbackupdrive.setBounds(825, 496, 173, 30);
+								button8setbackupdrive.setText("set backupdrive **");
+								button8setbackupdrive.setBounds(821, 747, 203, 30);
 								button8setbackupdrive.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt)
-									{
+									public void widgetSelected(SelectionEvent evt) {
 										button8setbackupdriveWidgetSelected(evt);
 									}
 								});
+							}
+							{
+								button8shareddirectory = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8shareddirectory.setText("set shared drive **");
+								button8shareddirectory.setBounds(821, 701, 203, 30);
+								button8shareddirectory.setToolTipText("This can be googledrive. In this drive a directorystructure with generated workflowname will be stored. All results will be stored in this drive.");
+								button8shareddirectory.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8shareddirectoryWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button7 = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button7.setText("set resultdir");
+								button7.setBounds(821, 654, 203, 30);
+								button7.setToolTipText("The generated portfolios will be collected out of the SQ directoy and will be stored in this directory");
+								button7.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button7WidgetSelected(evt);
+									}
+								});
+							}
+							{
+								text4backupdrive = new Text(group2filter, SWT.NONE);
+								text4backupdrive.setBounds(8, 747, 807, 30);
+							}
+							{
+								text4shareddrive = new Text(group2filter, SWT.NONE);
+								text4shareddrive.setBounds(8, 701, 807, 30);
+							}
+							{
+								text4resultdir = new Text(group2filter, SWT.NONE);
+								text4resultdir.setBounds(8, 654, 807, 30);
+							}
+							{
+								label28 = new Label(group2filter, SWT.NONE);
+								label28.setText("==>set output directorys");
+								label28.setBounds(12, 617, 242, 25);
+							}
+							{
+								button8showprojectdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8showprojectdir.setText("show projectdir");
+								button8showprojectdir.setBounds(829, 227, 203, 30);
+								button8showprojectdir.setBackgroundImage(SWTResourceManager.getImage("start/resources/icons/open.png"));
+								button8showprojectdir.setImage(SWTResourceManager.getImage("start/resources/icons/open.png"));
+								button8showprojectdir.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8showprojectdirWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button8clearprojectdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8clearprojectdir.setText("clear projectdir");
+								button8clearprojectdir.setBounds(829, 269, 203, 30);
+								button8clearprojectdir.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8clearprojectdirWidgetSelected(evt);
+									}
+								});
+
+							}
+							{
+								composite16 = new Composite(group2filter, SWT.BORDER);
+								GridLayout composite16Layout = new GridLayout();
+								composite16Layout.makeColumnsEqualWidth = true;
+								composite16.setLayout(composite16Layout);
+								composite16.setBounds(-95, 611, 1252, 208);
+							}
+							{
+								composite15 = new Composite(group2filter, SWT.BORDER);
+								GridLayout composite15Layout = new GridLayout();
+								composite15Layout.makeColumnsEqualWidth = true;
+								composite15.setLayout(composite15Layout);
+								composite15.setBounds(-3, 174, 1158, 406);
 							}
 						}
 					}
@@ -1499,9 +1585,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// set infotext
 		String sd = text4shareddrive.getText();
 		String outname = outputname.getText();
+		sqworkflow.setSharedDrive(sd);
 		
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
+		cTabFolder1.setSelection(cTabItem7);
 		
 		if (button1calcNettoprofits.isEnabled() == true)
 		{
@@ -1543,6 +1631,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		cf_glob = new Commentflags();
 		enddata_glob = new Endtestdata();
 		
+		
 	}
 	
 	/**
@@ -1581,7 +1670,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.0.43");
+		shell.setText("Toolbox V1.0.44");
 		
 		while (!shell.isDisposed())
 		{
@@ -2078,7 +2167,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqworkflow.setSqrootdir(text4filterdestdir.getText());
 		sqworkflow.setBackcount(steps.getText());
 		sqworkflow.setFuturecount(text4stepsfuture.getText());
-		sqworkflow.setOutputname_g(outputname.getText());
+		sqworkflow.setOutputname(outputname.getText());
 		sqworkflow.setStepvalue(text4filterkeyword.getText());
 		
 		Toolboxconf.setPropAttribute("backcount", steps.getText());
@@ -2088,6 +2177,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
 		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
+
+		if(sqworkflow.checkEmptyShareddrive()==false)
+		{	
+			Mbox.Infobox("E: directory <"+text4shareddrive.getText()+"\\"+outputname.getText()+"> should be empty");
+			return;
+		}	
+		
+		
 		sqworkflow.calcFilter();
 	}
 	
@@ -2150,7 +2247,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqworkflow.setSqrootdir(text4filterdestdir.getText());
 		sqworkflow.setSharedDrive(text4shareddrive.getText());
 		sqworkflow.setBackupDrive(text4backupdrive.getText());
-		sqworkflow.setOutputname_g(outputname.getText());
+		sqworkflow.setOutputname(outputname.getText());
 		sqworkflow.setMasterfile(FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("resultdir", text4resultdir.getText());
 		Toolboxconf.setPropAttribute("shareddrive", text4shareddrive.getText());
@@ -2252,7 +2349,42 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private void outputnameModifyText(ModifyEvent evt) {
 		System.out.println("outputname.modifyText, event="+evt);
 		//workflowname has changed, than check directory and load description window
-		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
+		String genworkflowname=outputname.getText();
+		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), genworkflowname));
+		sqworkflow.setOutputname(genworkflowname);
+		
+		if(sqworkflow.checkEmptyShareddrive()==false)
+		{	
+			Mbox.Infobox("E: directory <"+text4shareddrive.getText()+"\\"+genworkflowname+"> should be empty");
+			return;
+		}	
+		
+		
+	}
+	
+	private void button8showResultdirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8showResultdir.widgetSelected, event="+evt);
+		//TODO add your code for button8showResultdir.widgetSelected
+	}
+	
+	private void button8showshareddirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8showshareddir.widgetSelected, event="+evt);
+		//TODO add your code for button8showshareddir.widgetSelected
+	}
+	
+	private void button8showbackupdirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8showbackupdir.widgetSelected, event="+evt);
+		//TODO add your code for button8showbackupdir.widgetSelected
+	}
+	
+	private void button8showprojectdirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8showprojectdir.widgetSelected, event="+evt);
+		//TODO add your code for button8showprojectdir.widgetSelected
+	}
+	
+	private void button8clearprojectdirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button8clearprojectdir.widgetSelected, event="+evt);
+		//TODO add your code for button8clearprojectdir.widgetSelected
 	}
 
 }
