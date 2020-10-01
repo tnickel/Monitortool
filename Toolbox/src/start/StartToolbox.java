@@ -1244,11 +1244,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
-							group2filter.setBounds(12, 6, 1599, 823);
+							group2filter.setBounds(0, 6, 1611, 823);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
-								FilterSourceDir.setBounds(8, 40, 1130, 30);
+								FilterSourceDir.setBounds(18, 40, 1120, 30);
 							}
 							{
 								button7set = new Button(group2filter, SWT.PUSH | SWT.CENTER);
@@ -1394,7 +1394,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite14Layout = new GridLayout();
 								composite14Layout.makeColumnsEqualWidth = true;
 								composite14.setLayout(composite14Layout);
-								composite14.setBounds(0, 17, 1151, 97);
+								composite14.setBounds(6, 17, 1145, 97);
 								composite14.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 							}
 							{
@@ -1476,17 +1476,17 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4backupdrive = new Text(group2filter, SWT.NONE);
 								text4backupdrive.setText(Toolboxconf.getPropAttribute("backupdrive"));
-								text4backupdrive.setBounds(8, 747, 807, 30);
+								text4backupdrive.setBounds(12, 747, 803, 30);
 							}
 							{
 								text4shareddrive = new Text(group2filter, SWT.NONE);
 								text4shareddrive.setText(Toolboxconf.getPropAttribute("shareddrive"));
-								text4shareddrive.setBounds(8, 701, 807, 30);
+								text4shareddrive.setBounds(11, 701, 804, 30);
 							}
 							{
 								text4resultdir = new Text(group2filter, SWT.NONE);
 								text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
-								text4resultdir.setBounds(8, 654, 807, 30);
+								text4resultdir.setBounds(12, 654, 803, 30);
 							}
 							{
 								label28 = new Label(group2filter, SWT.NONE);
@@ -1525,14 +1525,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite16Layout = new GridLayout();
 								composite16Layout.makeColumnsEqualWidth = true;
 								composite16.setLayout(composite16Layout);
-								composite16.setBounds(-386, 610, 1536, 208);
+								composite16.setBounds(7, 607, 1144, 208);
 							}
 							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
-								composite15.setBounds(0, 162, 1152, 406);
+								composite15.setBounds(6, 162, 1146, 406);
 							}
 						}
 					}
