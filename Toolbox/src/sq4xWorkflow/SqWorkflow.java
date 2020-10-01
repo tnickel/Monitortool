@@ -25,12 +25,18 @@ public class SqWorkflow
 	{
 		this.sqrootdir_g = sqrootdir_g;
 	}
-	
+	public String getSqRootdir()
+	{
+		return this.sqrootdir_g;
+	}
 	public void setResultdir(String resultdir_g)
 	{
 		this.resultdir_g = resultdir_g;
 	}
-	
+	public String getResultdir()
+	{
+		return this.resultdir_g;
+	}
 	public void setSharedDrive(String dir)
 	{
 		this.shareddrive_g = dir;
@@ -43,7 +49,10 @@ public class SqWorkflow
 	{
 		this.backupdrive_g = dir;
 	}
-	
+	public String getBackupDrive()
+	{
+		return this.backupdrive_g;
+	}
 	public void setBackcount(String days)
 	{
 		// negative for the past
