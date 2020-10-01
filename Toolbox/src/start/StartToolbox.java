@@ -219,8 +219,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
-	private Composite composite16;
 	private Composite composite15;
+	private Label label29anzfiles;
+	private Composite composite16;
 	private Button button8clearprojectdir;
 	private Button button8showprojectdir;
 	private Label label28;
@@ -1528,11 +1529,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								composite16.setBounds(7, 607, 1144, 208);
 							}
 							{
+								label29anzfiles = new Label(group2filter, SWT.NONE);
+								refreshProjectfilesanzahl();
+								label29anzfiles.setBounds(1071, 237, 49, 20);
+							}
+							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
-								composite15.setBounds(6, 162, 1146, 406);
+								composite15.setBounds(7, 145, 1145, 436);
 							}
 						}
 					}
@@ -1700,7 +1706,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.0.45");
+		shell.setText("Toolbox V1.1.00");
 		
 		while (!shell.isDisposed())
 		{
@@ -2202,19 +2208,19 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqworkflow.setSharedDrive(text4shareddrive.getText());
 		sqworkflow.setBackupDrive(text4backupdrive.getText());
 		
-	
-		
 		Toolboxconf.setPropAttribute("backcount", steps.getText());
 		Toolboxconf.setPropAttribute("futurecount", text4stepsfuture.getText());
 		Toolboxconf.setPropAttribute("anzdays", text4filterkeyword.getText());
 		Toolboxconf.setPropAttribute("outputname", outputname.getText());
 		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
 		Toolboxconf.setPropAttribute("shareddrive", text4shareddrive.getText());
-		Toolboxconf.setPropAttribute("backupdrive", text4shareddrive.getText());
+		Toolboxconf.setPropAttribute("backupdrive", text4backupdrive.getText());
 		Toolboxconf.setPropAttribute("resultdir", text4resultdir.getText());
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("sqrootdir", text4filterdestdir.getText());
-
+		Toolboxconf.setPropAttribute("anzprojectfiles", label29anzfiles.getText());
+		refreshProjectfilesanzahl();
+		
 		
 	}
 	private void button7calcWidgetSelected(SelectionEvent evt)
@@ -2234,6 +2240,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		}
 		
 		sqworkflow.calcFilter();
+		refreshProjectfilesanzahl();
 	}
 	
 	
@@ -2284,6 +2291,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		text4filterdestdir.setText(sqrootdir);
 		// set new destdir in configfile
 		Toolboxconf.setPropAttribute("sqrootdir", sqrootdir);
+		label29anzfiles.setText(String.valueOf(sqworkflow.getAnzProjectfiles()));
 	}
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
@@ -2297,6 +2305,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		// collect results
 		sqworkflow.collectResults();
+		refreshProjectfilesanzahl();
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
 	
@@ -2447,7 +2456,27 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button8clearprojectdir.widgetSelected, event=" + evt);
 		// TODO add your code for button8clearprojectdir.widgetSelected
-		Tracer.WriteTrace(10, "not implemented");
+		sqworkflow.deleteProjectfiles();
+		refreshProjectfilesanzahl();
 	}
 	
+	
+	
+	private void refreshProjectfilesanzahl()
+	{
+		//falls kein rootdir gesetzt
+		if(sqworkflow.getSqRootdir()==null)
+		{
+			String rt=text4filterdestdir.getText();
+			if(rt!=null)
+				sqworkflow.setSqrootdir(rt);
+			else
+			{
+				rt=Toolboxconf.getPropAttribute("sqrootdir");
+				sqworkflow.setSqrootdir(rt);
+			}
+		}
+		label29anzfiles.setText(String.valueOf(sqworkflow.getAnzProjectfiles()));
+		Display.getDefault().readAndDispatch();
+	}
 }

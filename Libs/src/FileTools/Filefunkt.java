@@ -114,4 +114,18 @@ public class Filefunkt
 			destChannel.close();
 		}
 	}
+	
+	public static void deleteSubDir(File path,String keyword)
+	{
+		//löscht alle unterverzeichnisse wenn im path ein bestimmtes keyword drin ist
+		for (File file : path.listFiles())
+		{
+			if (file.isDirectory())
+				deleteSubDir(file,keyword);
+			if(path.getAbsolutePath().contains(keyword))
+				file.delete();
+		}
+		
+	}
+	
 }

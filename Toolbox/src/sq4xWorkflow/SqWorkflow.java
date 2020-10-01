@@ -3,6 +3,7 @@ package sq4xWorkflow;
 import java.io.File;
 import java.text.DecimalFormat;
 
+import FileTools.Filefunkt;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
@@ -90,6 +91,30 @@ public class SqWorkflow
 		
 		return false;
 		
+	}
+	public int getAnzProjectfiles()
+	{
+		if(sqrootdir_g==null)
+			return -1;
+		
+		File dir=new File(sqrootdir_g+"\\user\\projects");
+		String[] dirl=dir.list();
+		int fileanz=dirl.length;
+		return fileanz;
+	}
+
+	public void deleteProjectfiles()
+	{
+		// check if rootdir is correct
+		File ll=new File(sqrootdir_g+"\\licenceFile.lic");
+		if(ll.exists()==false)
+			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath= <"+sqrootdir_g+">");
+		
+		if(sqrootdir_g.length()<5)
+			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath, rootpathlength<5= <"+sqrootdir_g+">");
+		
+		File dir=new File(sqrootdir_g+"\\user\\projects");
+		Filefunkt.deleteSubDir(dir,sqrootdir_g);
 	}
 	public void calcFilter()
 	{
