@@ -91,4 +91,20 @@ public class SqResults
 			e.printStackTrace();
 		}
 	}
+	public void copyResultfile(String resultfile,String destdir)
+{
+		
+		File f1=new File(resultfile);
+		String masterfilename=f1.getName();
+		
+		File f2=new File(destdir+"\\"+masterfilename);
+		try
+		{
+			Filefunkt.copyFileUsingChannel(f1,f2);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -7,7 +7,7 @@ import FileTools.Filefunkt;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqWorkflow
+public class SqWorkflow extends Sq
 // this class read all Project workflows and work with it
 // sourcedir: directory of the sourcedir of all workflows,this file will never
 // modified
@@ -154,11 +154,25 @@ public class SqWorkflow
 	public void collectResults()
 	{
 		// die normalen results in das erste Zielverzeichniss vom SQ
-		SqResults sr = new SqResults();
+/*		SqResults sr = new SqResults();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
 		
+		
+	*/	
+		//get resultrootpath out of resultdir
+		String resultroothpath=getSqRootpath(resultdir_g);
+		
+		
+		SqExporter se=new SqExporter();
+		se.setSqRootpath(resultroothpath);
+		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
+		se.exportDatabase();
+		
+		SqDatabase sb=new SqDatabase(se.getDatabankfile());
+
+		/*
 		//copy to goggledrive
 		if(shareddrive_g!=null)
 			copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
@@ -166,9 +180,9 @@ public class SqWorkflow
 		//copy to backupdrive
 		if(backupdrive_g!=null)
 			copyDrive(sqrootdir_g,backupdrive_g,outputname_g,masterfile_g);
-		
-	
+*/
 	}
+	
 	
 	private void copyDrive(String sqrootdir,String shareddrive,String outputname,String masterfile)
 	{
@@ -198,6 +212,9 @@ public class SqWorkflow
 
 		// masterfile kopieren
 		gr.copyMasterfile(masterfile, shareddrive+"\\" + outputname);
+		
+		// results aus tmp kopieren
+		gr.copyResultfile("c:\\tmp\\DatabankExport.csv",shareddrive+"\\" + outputname);
 	}
 	
 	private String calcWorkflowname(int index, int offset)
