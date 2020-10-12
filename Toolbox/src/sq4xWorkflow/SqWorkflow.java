@@ -3,7 +3,10 @@ package sq4xWorkflow;
 import java.io.File;
 import java.text.DecimalFormat;
 
+import org.eclipse.swt.widgets.Display;
+
 import FileTools.Filefunkt;
+import gui.Viewer;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
@@ -154,13 +157,13 @@ public class SqWorkflow extends Sq
 	public void collectResults()
 	{
 		// die normalen results in das erste Zielverzeichniss vom SQ
-/*		SqResults sr = new SqResults();
+		SqResults sr = new SqResults();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
 		
 		
-	*/	
+	
 		//get resultrootpath out of resultdir
 		String resultroothpath=getSqRootpath(resultdir_g);
 		
@@ -170,9 +173,12 @@ public class SqWorkflow extends Sq
 		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
 		se.exportDatabase();
 		
-		SqDatabase sb=new SqDatabase(se.getDatabankfile());
+		SqDatabase sb=new SqDatabase();
+		sb.SqReadBaseList(se.getDatabankfile());
+		sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+		
 
-		/*
+		
 		//copy to goggledrive
 		if(shareddrive_g!=null)
 			copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
@@ -180,7 +186,10 @@ public class SqWorkflow extends Sq
 		//copy to backupdrive
 		if(backupdrive_g!=null)
 			copyDrive(sqrootdir_g,backupdrive_g,outputname_g,masterfile_g);
-*/
+		
+		Viewer v=new Viewer();
+		v.viewTableExtFile(Display.getCurrent(), "c:\\tmp\\DatabankExportResultlist.csv");
+
 	}
 	
 	

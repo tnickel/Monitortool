@@ -11,12 +11,12 @@ public class SqExporter
 //export a database and calc some values, average profit, average stability etc.
 // and show the results
 //-project action=status name=Builder
-//-databank action=export project=Builder name=Results file=c:/data/DatabankExport.csv
+//-databank action=export project=Builder name=Results file=c:/tmp/DatabankExport.csv
 {
 	private String SqRootpath=null;
 	private String SqWorkflowDir=null;
 	private String tmp_exportbatch="c:\\tmp\\exportbatch.txt";
-	private String databankfile="c:/tmp/DatabankExport.csv";
+	private String databankfile="c:\\tmp\\DatabankExport.csv";
 
 	public String getSqRootpath()
 	{
