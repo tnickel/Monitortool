@@ -220,6 +220,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
 	private Composite composite15;
+	private Text text4workflowstore;
 	private Label label29anzfiles;
 	private Composite composite16;
 	private Button button8clearprojectdir;
@@ -1359,7 +1360,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								// read infomessage and show in multilinebox
 								text4infotext.setText(Toolboxconf.getPropAttribute("infotext"));
 								
-								text4infotext.setBounds(12, 322, 807, 208);
+								text4infotext.setBounds(12, 322, 807, 189);
 								text4infotext.addFocusListener(new FocusAdapter() {
 									public void focusGained(FocusEvent evt)
 									{
@@ -1388,7 +1389,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label27 = new Label(group2filter, SWT.NONE);
 								label27.setText("please add additional description to this box above");
-								label27.setBounds(12, 536, 813, 30);
+								label27.setBounds(12, 511, 813, 30);
 							}
 							{
 								composite14 = new Composite(group2filter, SWT.BORDER);
@@ -1491,8 +1492,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label28 = new Label(group2filter, SWT.NONE);
-								label28.setText("==>set output directorys");
-								label28.setBounds(12, 617, 242, 25);
+								label28.setText("Collect the portfolios from Step2 =\"SQ rootdir/usr/projects/<...>/databanks/portfolio\" and store this to this directorys below");
+								label28.setBounds(12, 617, 1126, 25);
 							}
 							{
 								button8showprojectdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
@@ -1530,15 +1531,21 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label29anzfiles = new Label(group2filter, SWT.NONE);
-								refreshProjectfilesanzahl();
+								refreshProjectfilesanzahlMessages();
 								label29anzfiles.setBounds(1071, 237, 49, 20);
+							}
+							{
+								text4workflowstore = new Text(group2filter, SWT.NONE);
+								text4workflowstore.setText("The workflow will be stored under SQ Rootdir/user/projects");
+								text4workflowstore.setBounds(12, 547, 809, 30);
+								text4workflowstore.setEditable(false);
 							}
 							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
-								composite15.setBounds(7, 145, 1145, 436);
+								composite15.setBounds(7, 154, 1144, 424);
 							}
 						}
 					}
@@ -1706,7 +1713,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.1.02");
+		shell.setText("Toolbox V1.1.03");
 		
 		while (!shell.isDisposed())
 		{
@@ -2219,7 +2226,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("sqrootdir", text4filterdestdir.getText());
 		Toolboxconf.setPropAttribute("anzprojectfiles", label29anzfiles.getText());
-		refreshProjectfilesanzahl();
+
+		text4workflowstore.setText("The workflow will be stored in "+sqworkflow.getSqRootdir()+"\\user\\projects");
+		refreshProjectfilesanzahlMessages();
 		
 		
 	}
@@ -2240,7 +2249,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		}
 		
 		sqworkflow.calcFilter();
-		refreshProjectfilesanzahl();
+		refreshProjectfilesanzahlMessages();
 	}
 	
 	
@@ -2305,7 +2314,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		// collect results
 		sqworkflow.collectResults();
-		refreshProjectfilesanzahl();
+		refreshProjectfilesanzahlMessages();
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
 	
@@ -2457,12 +2466,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		System.out.println("button8clearprojectdir.widgetSelected, event=" + evt);
 		// TODO add your code for button8clearprojectdir.widgetSelected
 		sqworkflow.deleteProjectfiles();
-		refreshProjectfilesanzahl();
+		refreshProjectfilesanzahlMessages();
 	}
 	
 	
 	
-	private void refreshProjectfilesanzahl()
+	private void refreshProjectfilesanzahlMessages()
 	{
 		//falls kein rootdir gesetzt
 		if(sqworkflow.getSqRootdir()==null)
@@ -2477,6 +2486,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			}
 		}
 		label29anzfiles.setText(String.valueOf(sqworkflow.getAnzProjectfiles()));
+		
+		
+		
 		Display.getDefault().readAndDispatch();
 	}
 }
