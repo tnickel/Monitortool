@@ -7,11 +7,7 @@ import java.io.InputStreamReader;
 import hiflsklasse.GC;
 import hiflsklasse.Inf;
 
-public class SqExporter
-//export a database and calc some values, average profit, average stability etc.
-// and show the results
-//-project action=status name=Builder
-//-databank action=export project=Builder name=Results file=c:/tmp/DatabankExport.csv
+public class SqExporterBatch
 {
 	private String SqRootpath=null;
 	private String SqWorkflowDir=null;

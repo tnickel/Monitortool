@@ -1,10 +1,5 @@
 package Start;
 
-import gui.Mbox;
-import hiflsklasse.Tracer;
-import jHilfsfenster.JShowIndikator;
-import jHilfsfenster.SelectFile2Strategy;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -42,19 +37,23 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.xml.ws.Action;
 
-import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
-import work1.FrameWorker;
-import work1.GuiWorker;
 import charttool.StaticMultiProfitPanel;
 import data.Algoliste;
 import data.Config;
 import data.OptimizeResultliste;
 import data.Timefilter;
 import data.Tradeliste;
+import gui.Mbox;
+import hiflsklasse.Tracer;
+import jHilfsfenster.JShowIndikator;
+import jHilfsfenster.SelectFile2Strategy;
+import work1.FrameWorker;
+import work1.GuiWorker;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

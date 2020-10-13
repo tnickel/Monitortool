@@ -70,7 +70,11 @@ public class SqBaseElem
 	{
 		//realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
 		//cleanname="Q63 GBPUSD L3_+00000";
-		String subnam=strategyname.substring(0,strategyname.indexOf("Merged portfolio"));
+		String subnam=null;
+		if(strategyname.contains("Merged portfolio"))
+			subnam=strategyname.substring(0,strategyname.indexOf("Merged portfolio"));
+		else
+			subnam=strategyname;
 		
 		return subnam;
 		

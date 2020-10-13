@@ -10,7 +10,7 @@ import gui.Viewer;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqWorkflow extends Sq
+public class SqProjects extends Sq
 // this class read all Project workflows and work with it
 // sourcedir: directory of the sourcedir of all workflows,this file will never
 // modified
@@ -156,13 +156,11 @@ public class SqWorkflow extends Sq
 	
 	public void collectResults()
 	{
-		// die normalen results in das erste Zielverzeichniss vom SQ
+		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
 		SqResults sr = new SqResults();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
-		
-		
 	
 		//get resultrootpath out of resultdir
 		String resultroothpath=getSqRootpath(resultdir_g);
@@ -170,7 +168,7 @@ public class SqWorkflow extends Sq
 		//Datenbank wird exportiert
 		//wird mit cli befehlen gemacht siehe
 		//https://strategyquant.com/doc/cli-command-line/introduction-to-cli/
-		SqExporter se=new SqExporter();
+		SqExporterBatch se=new SqExporterBatch();
 		se.setSqRootpath(resultroothpath);
 		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
 		se.exportDatabase();
@@ -179,8 +177,6 @@ public class SqWorkflow extends Sq
 		SqDatabaseHandler sb=new SqDatabaseHandler();
 		sb.SqReadBaseList(se.getDatabankfile());
 		sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
-		
-
 		
 		//copy to goggledrive
 		if(shareddrive_g!=null)

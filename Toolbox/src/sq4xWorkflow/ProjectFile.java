@@ -12,7 +12,7 @@ import hiflsklasse.Tracer;
 
 public class ProjectFile
 {
-	// diese Klasse kümmert sich um ein einzelnes File, lesen, modifizieren und
+	// diese Klasse kümmert sich um ein einzelnes Projektfile, lesen, modifizieren und
 	// speichern
 	// das File wird im tmp-verzeichniss abgelegt.
 	ProjZipper pz = null;
