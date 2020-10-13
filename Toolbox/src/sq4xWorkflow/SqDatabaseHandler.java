@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
-public class SqDatabase extends SqBaseList
+public class SqDatabaseHandler extends SqBaseList
 {
 	
 	//übernimmt das handling mit DatabankExport.csv
-	SqDatabase()
+	SqDatabaseHandler()
 	{
 		
 		

@@ -35,16 +35,17 @@ public class SqBaseList
 		for (int i = 0; i < anzheaderparts; i++)
 		{
 			String elemstr = headerparts[i];
-			if (elemstr.contains("Net profit (OOS)"))
+			if (elemstr.contains("Net profit (Portfolio, OOS)"))
 				indexNetprofit = i;
-			else if (elemstr.contains("Profit factor (OOS)"))
+			else if (elemstr.contains("Profit factor (Portfolio, OOS)"))
 				indexPf = i;
-			else if (elemstr.contains("Stability (OOS)"))
+			else if (elemstr.contains("Stability (Portfolio, OOS)"))
 				indexStabil = i;
-			else if (elemstr.contains("Ret/DD Ratio (OOS)"))
+			else if (elemstr.contains("Ret/DD Ratio (Portfolio, OOS)"))
 				indexRetDD = i;
 		}
-		
+		if((indexNetprofit==0)||(indexPf==0)||(indexStabil==0)||(indexRetDD==0))
+		   Tracer.WriteTrace(10, "keywort not found-> show in header");
 		// lese alle weiteren Zeilen und baue die baselist auf
 		
 		zeile = inf.readZeile();

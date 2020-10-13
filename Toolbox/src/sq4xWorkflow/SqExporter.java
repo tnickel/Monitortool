@@ -67,7 +67,7 @@ public class SqExporter
 		Inf inf=new Inf();
 		inf.setFilename(tmp_exportbatch);
 		inf.writezeile("-project action=status name=Retester");
-		inf.writezeile("-databank action=export project=Retester name=Results file="+databankfile);
+		inf.writezeile("-databank action=export project=Retester name=Results file="+databankfile +" view=\"Default - Portfolio\"");
 		inf.close();
 		execExport();
 		

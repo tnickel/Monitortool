@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class SqBaseElem
 {
-	// dieses ist ein listenelement
+	// dieses ist ein listenelement der Datenbasis
 	// dies beinhaltet
 	// "Net profit (OOS)"
 	// "Profit factor (OOS)"

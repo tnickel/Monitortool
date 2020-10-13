@@ -1,8 +1,6 @@
 package start;
 
 import java.io.File;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -19,7 +17,6 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -49,14 +46,10 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
-import hiflsklasse.Viewer;
-
-import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
 import sq4xWorkflow.SqWorkflow;
-import swtHilfsfenster.SwtShowFile;
 import work.CommentWork;
 
 /**
@@ -220,6 +213,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
 	private Composite composite15;
+	private Button button8;
 	private Text text4workflowstore;
 	private Label label29anzfiles;
 	private Composite composite16;
@@ -1375,21 +1369,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 								
 							}
-							{
-								button8saveinfomassage = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button8saveinfomassage.setText("save");
-								button8saveinfomassage.setBounds(1179, 837, 60, 30);
-								button8saveinfomassage.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt)
-									{
-										button8saveinfomassageWidgetSelected(evt);
-									}
-								});
-							}
+							
 							{
 								label27 = new Label(group2filter, SWT.NONE);
 								label27.setText("please add additional description to this box above");
-								label27.setBounds(12, 511, 813, 30);
+								label27.setBounds(12, 511, 701, 30);
 							}
 							{
 								composite14 = new Composite(group2filter, SWT.BORDER);
@@ -1541,11 +1525,21 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								text4workflowstore.setEditable(false);
 							}
 							{
+								button8 = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button8.setText("save");
+								button8.setBounds(759, 511, 60, 30);
+								button8.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button8WidgetSelected(evt);
+									}
+								});
+							}
+							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
-								composite15.setBounds(7, 154, 1144, 424);
+								composite15.setBounds(8, 166, 819, 416);
 							}
 						}
 					}
@@ -1617,6 +1611,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void postinit()
 	{
+		// den inittimer auf 3 sekunden setzen
+		Display.getDefault().timerExec(300, inittimer);
 		//text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
 		//text4shareddrive.setText(Toolboxconf.getPropAttribute("shareddrive"));
 		//text4backupdrive.setText(Toolboxconf.getPropAttribute("backupdrive"));
@@ -1714,6 +1710,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		}
 		shell.open();
 		shell.setText("Toolbox V1.1.03");
+		
+		
 		
 		while (!shell.isDisposed())
 		{
@@ -2248,7 +2246,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			return;
 		}
 		
-		sqworkflow.calcFilter();
+		sqworkflow.genWorkflow();
 		refreshProjectfilesanzahlMessages();
 	}
 	
@@ -2354,12 +2352,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("shareddrive", resultdir);
 	}
 	
-	private void button8saveinfomassageWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("button8saveinfomassage.widgetSelected, event=" + evt);
-		Toolboxconf.setPropAttribute("INFOTEXT", text4infotext.getText());
-		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
-	}
+	
 	
 	private void text4infotextWidgetSelected(SelectionEvent evt)
 	{
@@ -2468,7 +2461,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqworkflow.deleteProjectfiles();
 		refreshProjectfilesanzahlMessages();
 	}
-	
+
 	
 	
 	private void refreshProjectfilesanzahlMessages()
@@ -2486,9 +2479,22 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			}
 		}
 		label29anzfiles.setText(String.valueOf(sqworkflow.getAnzProjectfiles()));
-		
-		
-		
-		Display.getDefault().readAndDispatch();
 	}
+	
+	private void button8WidgetSelected(SelectionEvent evt) {
+		System.out.println("button8.widgetSelected, event="+evt);
+		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
+	}
+	final  Runnable inittimer = new Runnable()
+	{
+		public void run()
+		{
+			
+			System.out.println("inittimer run once");
+			text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
+				
+		}
+	};
+
+	
 }

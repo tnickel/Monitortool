@@ -119,7 +119,7 @@ public class SqWorkflow extends Sq
 		File dir=new File(sqrootdir_g+"\\user\\projects");
 		Filefunkt.deleteSubDir(dir,sqrootdir_g);
 	}
-	public void calcFilter()
+	public void genWorkflow()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
 		
@@ -167,13 +167,16 @@ public class SqWorkflow extends Sq
 		//get resultrootpath out of resultdir
 		String resultroothpath=getSqRootpath(resultdir_g);
 		
-		
+		//Datenbank wird exportiert
+		//wird mit cli befehlen gemacht siehe
+		//https://strategyquant.com/doc/cli-command-line/introduction-to-cli/
 		SqExporter se=new SqExporter();
 		se.setSqRootpath(resultroothpath);
 		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
 		se.exportDatabase();
 		
-		SqDatabase sb=new SqDatabase();
+		//baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
+		SqDatabaseHandler sb=new SqDatabaseHandler();
 		sb.SqReadBaseList(se.getDatabankfile());
 		sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
 		
@@ -187,6 +190,7 @@ public class SqWorkflow extends Sq
 		if(backupdrive_g!=null)
 			copyDrive(sqrootdir_g,backupdrive_g,outputname_g,masterfile_g);
 		
+		//zeige verkleinerte resultliste
 		Viewer v=new Viewer();
 		v.viewTableExtFile(Display.getCurrent(), "c:\\tmp\\DatabankExportResultlist.csv");
 
