@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import hiflsklasse.GC;
 import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
 
 public class SqExporterBatch
 {
@@ -71,13 +72,14 @@ public class SqExporterBatch
 	private void execExport()
 	{
 		//sqcli.exe -run file=C:/exportbatch.txt
+		String cmd=null;
 		
 		try
 		{
-			String cmd = SqRootpath+"\\sqcli.exe"+ " -run file="+tmp_exportbatch;
+			cmd = SqRootpath+"\\sqcli.exe"+ " -run file="+tmp_exportbatch;
 			String line = null;
 
-			System.out.println("zeile<" + cmd + ">");
+			Tracer.WriteTrace(20,"Exportdatabase cli cmd<" + cmd + ">");
 			Process p = Runtime.getRuntime().exec(cmd);
 
 			BufferedReader lsOut = new BufferedReader(new InputStreamReader(
@@ -88,6 +90,7 @@ public class SqExporterBatch
 			}
 		} catch (Exception e)
 		{
+			Tracer.WriteTrace(10, "E:export database exception cmd<"+cmd+">");
 			System.err.println("ls error " + e);
 		}
 	}

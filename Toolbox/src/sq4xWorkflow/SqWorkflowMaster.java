@@ -10,7 +10,8 @@ import gui.Viewer;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqProjects extends Sq
+public class SqWorkflowMaster extends Sq
+// this is the masterclass for all sq4x handling
 // this class read all Project workflows and work with it
 // sourcedir: directory of the sourcedir of all workflows,this file will never
 // modified
@@ -131,7 +132,7 @@ public class SqProjects extends Sq
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
-		ProjectFile psq = new ProjectFile(masterfile_g);
+		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain(masterfile_g);
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
 		{
 			jp.update(loopcount);
@@ -157,7 +158,7 @@ public class SqProjects extends Sq
 	public void collectResults()
 	{
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
-		SqResults sr = new SqResults();
+		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
@@ -214,7 +215,7 @@ public class SqProjects extends Sq
 			wfport_f.mkdir();
 		
 		// results in portfolios ins googledrive kopieren
-		SqResults gr = new SqResults();
+		SqCollectStoreResultsMain gr = new SqCollectStoreResultsMain();
 		gr.setResultdir(portfolios);
 		gr.setSqRoodir(sqrootdir);
 		gr.collectResults();
@@ -224,6 +225,8 @@ public class SqProjects extends Sq
 		
 		// results aus tmp kopieren
 		gr.copyResultfile("c:\\tmp\\DatabankExport.csv",shareddrive+"\\" + outputname);
+		gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv",shareddrive+"\\" + outputname);
+		
 	}
 	
 	private String calcWorkflowname(int index, int offset)

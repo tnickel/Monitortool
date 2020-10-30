@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 public class SqSumWorkflow
 {
-	
+	//was ist in der Arrayliste gespeichert ?
+	//in al ist die Gesammtliste für die Tabelle gepseichert
+	//Ein SqSumElem ist ein Summenelement für einen einzelen workflow
+	//die al-liste beinhaltet alle workflows
 	private ArrayList<SqSumElem> al = new  ArrayList<SqSumElem>();
+	
 	  
 	public SqSumWorkflow()
 	{
@@ -13,10 +17,12 @@ public class SqSumWorkflow
 	
 	public int getSize()
 	{
+		//liefert die anzahl der verschiedenen workflows zurück
 		return al.size();
 	}
 	private int getIndex(String nam)
 	{
+		//der index für einen bestimmten workflow wird ermittelt
 		if(al==null)
 			return -1;
 		int anz=al.size();
@@ -33,6 +39,8 @@ public class SqSumWorkflow
 	
 	public void add(SqBaseElem se)
 	{
+		//ein neuer Workflow wird aufgenommen falls noch nicht vorhanden
+		//wenn vorhanden dann werden die statistikwerte addiert
 		SqSumElem sume=null;
 		
 		// add a new SqBaseElem to sumlist
@@ -61,13 +69,14 @@ public class SqSumWorkflow
 
 	public SqSumElem getElem(int index)
 	{
+		//holt einen bestimmten workflow aus der liste
 		return al.get(index);
 	}
 	
 	
 	
 	public void showList()
-	//liste ausgeben
+	//gibt die liste aller workflows aus
 	{
 		int anz=al.size();
 		if(anz==0)

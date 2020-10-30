@@ -49,7 +49,7 @@ import hiflsklasse.Tracer;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
-import sq4xWorkflow.SqProjects;
+import sq4xWorkflow.SqWorkflowMaster;
 import work.CommentWork;
 
 /**
@@ -266,7 +266,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private String filter_indir_glob = null;
 	private String filter_outdir_glob = null;
 	private String filter_keyword_glob = null;
-	private SqProjects sqprojects = new SqProjects();
+	private SqWorkflowMaster sqprojects = new SqWorkflowMaster();
 	
 	// golbal Tradelistenverarbeitung
 	TradefilterVerarbeitung trverarbeit = new TradefilterVerarbeitung();
@@ -1681,6 +1681,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		Display display = Display.getDefault();
 		
+		
+		
 		String userdir = System.getProperty("user.dir");
 		if (args.length > 0)
 			if (args[0] != null)
@@ -1693,7 +1695,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		userdir = userdir.substring(0, userdir.lastIndexOf("\\"));
 		GlobToolbox.setRootpath(userdir);
-		
+		Tracer.WriteTrace(20, "I:start toolbox userdir=<"+userdir+">");
 		Shell shell = new Shell(display);
 		StartToolbox inst = new StartToolbox(shell, SWT.NULL);
 		Point size = inst.getSize();
@@ -1709,7 +1711,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.1.1");
+		shell.setText("Toolbox V1.1.4");
 		
 		
 		

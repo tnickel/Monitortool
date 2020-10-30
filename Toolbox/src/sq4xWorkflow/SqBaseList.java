@@ -7,6 +7,7 @@ import java.util.Collections;
 import comperatoren.SqBaseElemComperator;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
+import statistic.Statistics;
 
 public class SqBaseList
 {
@@ -29,7 +30,7 @@ public class SqBaseList
 	
 	public void SqReadBaseList(String fnam)
 	{
-		// liste wird eingelesen und aufgebaut
+		// liste mit den Resultaten wird eingelesen und aufgebaut
 		
 		Inf inf = new Inf();
 		inf.setFilename(fnam);
@@ -77,6 +78,7 @@ public class SqBaseList
 			SqBaseElem be = baselist.get(i);
 			sumsum.add(be);
 		}
+		//show list on screen
 		sumsum.showList();
 	}
 	
@@ -128,14 +130,16 @@ public class SqBaseList
 		inf.writezeile(zeile);
 		zeile="overall average results="+"#"+calcAvrNettoprofit()+"#"+calcAvrProfitfaktor()+"#"+calcAvrStability()+"#"+calcAvrRetDD();
 		inf.writezeile(zeile);
+		zeile="overall standart deviation="+"#"+calcStddevNettoprofit()+"#"+calcStddevProfitfaktor()+"#"+calcStddevStability()+"#"+calcStddevRetDD();
+		inf.writezeile(zeile);
 		inf.close();
 		
 	}
 	
-	public float calcAvrNettoprofit()
+	public double calcAvrNettoprofit()
 	{
 		int anz = baselist.size();
-		float sum = 0;
+		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
@@ -144,10 +148,10 @@ public class SqBaseList
 		return (sum / anz);
 	}
 	
-	public float calcAvrRetDD()
+	public double calcAvrRetDD()
 	{
 		int anz = baselist.size();
-		float sum = 0;
+		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
@@ -156,10 +160,10 @@ public class SqBaseList
 		return (sum / anz);
 	}
 	
-	public float calcAvrProfitfaktor()
+	public double calcAvrProfitfaktor()
 	{
 		int anz = baselist.size();
-		float sum = 0;
+		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
@@ -168,10 +172,10 @@ public class SqBaseList
 		return (sum / anz);
 	}
 	
-	public float calcAvrStability()
+	public double calcAvrStability()
 	{
 		int anz = baselist.size();
-		float sum = 0;
+		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
@@ -179,5 +183,51 @@ public class SqBaseList
 		}
 		return (sum / anz);
 	}
+	public double calcStddevNettoprofit()
+	{
+		double[] dl=new double[10000];
+		int anz = baselist.size();
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem be = baselist.get(i);
+			dl[i]=be.getNetprofit();
+		}
+		return(Statistics.stddv(dl));
+	}
 	
+	public double calcStddevRetDD()
+	{
+		double[] dl=new double[10000];
+		int anz = baselist.size();
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem be = baselist.get(i);
+			dl[i]=be.getRetdd();
+		}
+		return(Statistics.stddv(dl));
+	}
+	
+	public double calcStddevProfitfaktor()
+	{
+		double[] dl=new double[10000];
+		int anz = baselist.size();
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem be = baselist.get(i);
+			dl[i]=be.getProfitfaktor();
+		}
+		return(Statistics.stddv(dl));
+	}
+	
+	public double calcStddevStability()
+	{
+		double[] dl=new double[10000];
+		int anz = baselist.size();
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem be = baselist.get(i);
+			dl[i]=be.getStability();
+		}
+		return(Statistics.stddv(dl));
+	}
 }

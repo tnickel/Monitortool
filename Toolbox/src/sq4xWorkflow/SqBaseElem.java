@@ -11,10 +11,10 @@ public class SqBaseElem
 	// "Stability (OOS)"
 	// "Ret/DD Ratio (OOS)"
 	private String strategyname = null;
-	private float netprofit = 0;
-	private float profitfaktor = 0;
-	private float stability = 0;
-	private float retdd = 0;
+	private double netprofit = 0;
+	private double profitfaktor = 0;
+	private double stability = 0;
+	private double retdd = 0;
 	
 	public String getStrategyname()
 	{
@@ -26,42 +26,42 @@ public class SqBaseElem
 		this.strategyname = strategyname;
 	}
 	
-	public float getNetprofit()
+	public double getNetprofit()
 	{
 		return netprofit;
 	}
 	
-	public void setNetprofit(float netprofit)
+	public void setNetprofit(double netprofit)
 	{
 		this.netprofit = netprofit;
 	}
 	
-	public float getProfitfaktor()
+	public double getProfitfaktor()
 	{
 		return profitfaktor;
 	}
 	
-	public void setProfitfaktor(float profitfaktor)
+	public void setProfitfaktor(double profitfaktor)
 	{
 		this.profitfaktor = profitfaktor;
 	}
 	
-	public float getStability()
+	public double getStability()
 	{
 		return stability;
 	}
 	
-	public void setStability(float stability)
+	public void setStability(double stability)
 	{
 		this.stability = stability;
 	}
 	
-	public float getRetdd()
+	public double getRetdd()
 	{
 		return retdd;
 	}
 	
-	public void setRetdd(float retdd)
+	public void setRetdd(double retdd)
 	{
 		this.retdd = retdd;
 	}

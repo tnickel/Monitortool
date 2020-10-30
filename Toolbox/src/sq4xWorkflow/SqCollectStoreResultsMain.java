@@ -9,18 +9,19 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqResults
+public class SqCollectStoreResultsMain
 {
 	//Klasse die für das Resulthandling verantwortlich ist
+	//das ist die Klasse für collectStoreResults
 	private String resultdir_g, sqroodir_g;
 	
-	SqResults()
+	SqCollectStoreResultsMain()
 	{
 	}
 	
 	public void setResultdir(String resultdir)
 	{
-		//dies ist das zielverzeichniss wo das hin son
+		//dies ist das zielverzeichniss wo das hin soll
 		this.resultdir_g = resultdir;
 	}
 	

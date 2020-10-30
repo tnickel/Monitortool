@@ -2,7 +2,7 @@ package sq4xWorkflow;
 
 public class SqSumElem
 {
-	//dies element addiert die statistikwerte der gleichen Zeilen
+	//dies element addiert die statistikwerte der gleichen Zeilen(also hier ist immer ein bestimmter workflow drin)
 	//eine Zeile ist gleich wenn der "cleanName" gleich ist. Das ist der Name für den jeweiligen workflow
 	private SqBaseElem baseelem;
 	private int anzvalues;
@@ -25,6 +25,7 @@ public class SqSumElem
 	}
 	public void addBaseelem(SqBaseElem be)
 	{
+		//nimmt einen neuen workflow auf
 		//prüfe nach ob überhaupt ein baeelem da ist
 		if(baseelem==null)
 			baseelem=new SqBaseElem();
@@ -34,21 +35,22 @@ public class SqSumElem
 		baseelem.setRetdd(baseelem.getRetdd()+be.getRetdd());
 		baseelem.setStability(baseelem.getStability()+be.getStability());
 		baseelem.setStrategyname(be.getCleanName());
+		//erhöht die anzahl der gespeicherten durchläufe im workflow
 		anzvalues++;
 	}
-	public float getNetprofit()
+	public double getNetprofit()
 	{
 		return((baseelem.getNetprofit()));
 	}
-	public float getAvrProfitfaktor()
+	public double getAvrProfitfaktor()
 	{
 		return((baseelem.getProfitfaktor())/anzvalues);
 	}
-	public float getAvrRetdd()
+	public double getAvrRetdd()
 	{
 	  return((baseelem.getRetdd())/anzvalues);
 	}
-	public float getAvrStability()
+	public double getAvrStability()
 	{
 		return ((baseelem.getStability())/anzvalues);
 	}
