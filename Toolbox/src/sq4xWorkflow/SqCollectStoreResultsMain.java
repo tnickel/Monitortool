@@ -9,18 +9,19 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqResults
+public class SqCollectStoreResultsMain
 {
-	//sammelt die resultate ein und kopier die in das resultdir
+	//Klasse die für das Resulthandling verantwortlich ist
+	//das ist die Klasse für collectStoreResults
 	private String resultdir_g, sqroodir_g;
 	
-	SqResults()
+	SqCollectStoreResultsMain()
 	{
 	}
 	
 	public void setResultdir(String resultdir)
 	{
-		//dies ist das zielverzeichniss wo das hin son
+		//dies ist das zielverzeichniss wo das hin soll
 		this.resultdir_g = resultdir;
 	}
 	
@@ -32,17 +33,30 @@ public class SqResults
 	
 	public void collectResults()
 	{
-		//resultdir ist der verzeichniss wo alles gesammelt wird
+		//Hier werden alle results des SQ-Generator gesammelt.
+		//Hierzu muss man in allen projekten in das Portfolioverzeichniss schauen und die
+		//portfolios einsammeln. Beim Einsammeln muss der Projektname mit in den Portfolionamen mit
+		//aufgenommen werden.
+		
+		//resultdir ist der verzeichniss wo alles gesammelte abgelegt wird
 		//jedes result bekommt im Namen den Projektnamen
 		//z.B. Q63 GBPUSD L0_+00000_portfolio.sqx
 		File resultdir_f=new File(resultdir_g);
 		if(resultdir_f.exists()==false)
 			resultdir_f.mkdir();
+		else
+		{
+			//Resultdir schon da, dann lösche den Inhalt
+			if(resultdir_f.getAbsolutePath().length()<5)
+				Tracer.WriteTrace(10, "E:error resultdir not set or name to short <5 <"+resultdir_f.getAbsolutePath()+">");
+			Filefunkt.deleteSubDir(resultdir_f,"databanks");
+		}
 		
-		//gehe durch alle verzeichnisse 
+		//gehe durch alle verzeichnisse des SQ-Generator
 		FileAccess.initFileSystemList(sqroodir_g+ "\\user\\Projects\\", 0);
 		int anz = FileAccess.holeFileAnz();
 
+		//Der Progressslider zeigt das was aufgesammelt wird
 		JToolboxProgressWin jp = new JToolboxProgressWin("store results to "+resultdir_g, 0,
 				(int) Math.abs((anz)));
 		for (int i = 0; i < anz; i++)

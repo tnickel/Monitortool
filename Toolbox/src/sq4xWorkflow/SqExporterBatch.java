@@ -6,17 +6,14 @@ import java.io.InputStreamReader;
 
 import hiflsklasse.GC;
 import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
 
-public class SqExporter
-//export a database and calc some values, average profit, average stability etc.
-// and show the results
-//-project action=status name=Builder
-//-databank action=export project=Builder name=Results file=c:/data/DatabankExport.csv
+public class SqExporterBatch
 {
 	private String SqRootpath=null;
 	private String SqWorkflowDir=null;
 	private String tmp_exportbatch="c:\\tmp\\exportbatch.txt";
-	private String databankfile="c:/tmp/DatabankExport.csv";
+	private String databankfile="c:\\tmp\\DatabankExport.csv";
 
 	public String getSqRootpath()
 	{
@@ -67,7 +64,7 @@ public class SqExporter
 		Inf inf=new Inf();
 		inf.setFilename(tmp_exportbatch);
 		inf.writezeile("-project action=status name=Retester");
-		inf.writezeile("-databank action=export project=Retester name=Results file="+databankfile);
+		inf.writezeile("-databank action=export project=Retester name=Results file="+databankfile +" view=\"Default - Portfolio\"");
 		inf.close();
 		execExport();
 		
@@ -75,13 +72,14 @@ public class SqExporter
 	private void execExport()
 	{
 		//sqcli.exe -run file=C:/exportbatch.txt
+		String cmd=null;
 		
 		try
 		{
-			String cmd = SqRootpath+"\\sqcli.exe"+ " -run file="+tmp_exportbatch;
+			cmd = SqRootpath+"\\sqcli.exe"+ " -run file="+tmp_exportbatch;
 			String line = null;
 
-			System.out.println("zeile<" + cmd + ">");
+			Tracer.WriteTrace(20,"Exportdatabase cli cmd<" + cmd + ">");
 			Process p = Runtime.getRuntime().exec(cmd);
 
 			BufferedReader lsOut = new BufferedReader(new InputStreamReader(
@@ -92,6 +90,7 @@ public class SqExporter
 			}
 		} catch (Exception e)
 		{
+			Tracer.WriteTrace(10, "E:export database exception cmd<"+cmd+">");
 			System.err.println("ls error " + e);
 		}
 	}

@@ -3,11 +3,15 @@ package sq4xWorkflow;
 import java.io.File;
 import java.text.DecimalFormat;
 
+import org.eclipse.swt.widgets.Display;
+
 import FileTools.Filefunkt;
+import gui.Viewer;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
-public class SqWorkflow extends Sq
+public class SqWorkflowMaster extends Sq
+// this is the masterclass for all sq4x handling
 // this class read all Project workflows and work with it
 // sourcedir: directory of the sourcedir of all workflows,this file will never
 // modified
@@ -116,7 +120,7 @@ public class SqWorkflow extends Sq
 		File dir=new File(sqrootdir_g+"\\user\\projects");
 		Filefunkt.deleteSubDir(dir,sqrootdir_g);
 	}
-	public void calcFilter()
+	public void genWorkflow()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
 		
@@ -128,7 +132,7 @@ public class SqWorkflow extends Sq
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
-		ProjectFile psq = new ProjectFile(masterfile_g);
+		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain(masterfile_g);
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
 		{
 			jp.update(loopcount);
@@ -153,26 +157,28 @@ public class SqWorkflow extends Sq
 	
 	public void collectResults()
 	{
-		// die normalen results in das erste Zielverzeichniss vom SQ
-/*		SqResults sr = new SqResults();
+		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
+		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
-		
-		
-	*/	
+	
 		//get resultrootpath out of resultdir
 		String resultroothpath=getSqRootpath(resultdir_g);
 		
-		
-		SqExporter se=new SqExporter();
+		//Datenbank wird exportiert
+		//wird mit cli befehlen gemacht siehe
+		//https://strategyquant.com/doc/cli-command-line/introduction-to-cli/
+		SqExporterBatch se=new SqExporterBatch();
 		se.setSqRootpath(resultroothpath);
 		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
 		se.exportDatabase();
 		
-		SqDatabase sb=new SqDatabase(se.getDatabankfile());
-
-		/*
+		//baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
+		SqDatabaseHandler sb=new SqDatabaseHandler();
+		sb.SqReadBaseList(se.getDatabankfile());
+		sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+		
 		//copy to goggledrive
 		if(shareddrive_g!=null)
 			copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
@@ -180,7 +186,11 @@ public class SqWorkflow extends Sq
 		//copy to backupdrive
 		if(backupdrive_g!=null)
 			copyDrive(sqrootdir_g,backupdrive_g,outputname_g,masterfile_g);
-*/
+		
+		//zeige verkleinerte resultliste
+		Viewer v=new Viewer();
+		v.viewTableExtFile(Display.getCurrent(), "c:\\tmp\\DatabankExportResultlist.csv");
+
 	}
 	
 	
@@ -205,7 +215,7 @@ public class SqWorkflow extends Sq
 			wfport_f.mkdir();
 		
 		// results in portfolios ins googledrive kopieren
-		SqResults gr = new SqResults();
+		SqCollectStoreResultsMain gr = new SqCollectStoreResultsMain();
 		gr.setResultdir(portfolios);
 		gr.setSqRoodir(sqrootdir);
 		gr.collectResults();
@@ -215,6 +225,8 @@ public class SqWorkflow extends Sq
 		
 		// results aus tmp kopieren
 		gr.copyResultfile("c:\\tmp\\DatabankExport.csv",shareddrive+"\\" + outputname);
+		gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv",shareddrive+"\\" + outputname);
+		
 	}
 	
 	private String calcWorkflowname(int index, int offset)

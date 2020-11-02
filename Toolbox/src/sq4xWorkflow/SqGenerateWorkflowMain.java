@@ -10,9 +10,9 @@ import hiflsklasse.Inf;
 import hiflsklasse.InfFast;
 import hiflsklasse.Tracer;
 
-public class ProjectFile
+public class SqGenerateWorkflowMain
 {
-	// diese Klasse kümmert sich um ein einzelnes File, lesen, modifizieren und
+	// diese Klasse kümmert sich um ein einzelnes Projektfile, lesen, modifizieren und
 	// speichern
 	// das File wird im tmp-verzeichniss abgelegt.
 	ProjZipper pz = null;
@@ -25,12 +25,12 @@ public class ProjectFile
 	private String configxml2 = "c:\\tmp\\config2.xml";
 	private String tmpcfx = "c:\\tmp\\project.cfx";
 	
-	public ProjectFile()
+	public SqGenerateWorkflowMain()
 	{
 		
 	}
 	
-	public ProjectFile(String fnam)
+	public SqGenerateWorkflowMain(String fnam)
 	{
 		projectfile_g = fnam;
 		loadProjectfile();
