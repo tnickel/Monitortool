@@ -17,27 +17,27 @@ public class Statistics {
 	}
 
 	// Berechnet den Mittelwert der Arrayeintraege
-	public static double mean(double[] a) {
+	public static double mean(double[] a,int count ) {
 		double sum = 0.0;
-		for (int i = 0; i < a.length; i++) {
+		for (int i = 0; i < count; i++) {
 			sum = sum + a[i];
 		}
-		return sum/a.length;
+		return sum/count;
 	}
 
 	// Berechnet die korrigierte Stichprobenvarianz
-	public static double var(double[] a) {
-		double m = mean(a);
+	public static double var(double[] a,int count) {
+		double m = mean(a,count);
 		double sum = 0.0;
-		for (int i = 0; i < a.length; i++) {
+		for (int i = 0; i < count; i++) {
 			sum = sum + (a[i] - m) * (a[i] - m);
 		}
-		return sum / (a.length - 1);
+		return sum / (count);
 	}
 
 	// Berechnet die Standardabweichung
-	public static double stddv(double[] a) {
-		return Math.sqrt(var(a));
+	public static double stddv(double[] a,int count) {
+		return Math.sqrt(var(a,count));
 	}
 
 	// Ermittelt die Position des kleinsten Wertes 
@@ -84,9 +84,9 @@ public class Statistics {
 
 	// Gibt zunaechst die Arraylaenge und dann die 
 	// einzelnen Arrayeintrage auf der Konsole aus
-	public static void printArray(double[] a) {
-		System.out.println(a.length);
-		for(int i = 0; i < a.length; i++) {
+	public static void printArray(double[] a,int count) {
+		System.out.println(count);
+		for(int i = 0; i < count; i++) {
 			System.out.println(" " + a[i]);
 		}
 		System.out.println("");

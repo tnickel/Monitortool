@@ -18,10 +18,10 @@ public class SqDatabaseHandler extends SqBaseList
 	void calcResults(String fnam)
 	{
 		super.SqReadBaseList(fnam); 
-		double np=super.calcAvrNettoprofit();
-		double retdd=super.calcAvrRetDD();
-		double pf=super.calcAvrProfitfaktor();
-		double stabil=super.calcAvrStability();
+		double np=super.calcAvrNettoprofit(null);
+		double retdd=super.calcAvrRetDD(null);
+		double pf=super.calcAvrProfitfaktor(null);
+		double stabil=super.calcAvrStability(null);
 
 		Tracer.WriteTrace(10, "show results retdd="+retdd+" pf="+pf+"  stabil="+stabil);
 		

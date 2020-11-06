@@ -11,12 +11,15 @@ import statistic.Statistics;
 
 public class SqBaseList
 {
+	// In der Baselist sind alle Baselemems. Ein Baseelem ist eine Zeile aus dem sq
+	// Exportierten datenfile
 	// baut die ganze Liste für DatabankExport.csv auf
-	// es werden aber nur die relevanten daten in die liste mit aufgenommen, wie netprofit, profitfaktor etc.
+	// es werden aber nur die relevanten daten in die liste mit aufgenommen, wie
+	// netprofit, profitfaktor etc.
 	private ArrayList<SqBaseElem> baselist = new ArrayList<SqBaseElem>();
-
-	//die sumsumliste beinhaltet die ergebnisse für einen bestimmten workflow
-	private SqSumWorkflow sumsum = new SqSumWorkflow();
+	
+	// die sumsumliste beinhaltet die ergebnisse für einen bestimmten workflow
+	private SqSumWorkflow sumWorkflow = new SqSumWorkflow();
 	
 	private String sqbasefile = "c:/tmp/SqBaselist.csv";
 	int indexNetprofit = 0;
@@ -52,7 +55,7 @@ public class SqBaseList
 		if ((indexNetprofit == 0) || (indexPf == 0) || (indexStabil == 0) || (indexRetDD == 0))
 			Tracer.WriteTrace(10, "keywort not found-> show in header");
 		// lese alle weiteren Zeilen und baue die baselist auf
-		
+		// in der Baselist sind alle Zeilen drin
 		zeile = inf.readZeile();
 		while (zeile != null)
 		{
@@ -70,20 +73,24 @@ public class SqBaseList
 		SqBaseElemComperator c = new SqBaseElemComperator();
 		Collections.sort(baselist, c);
 		
-		// die summenliste aufbauen
+		// die SumWorkflowlist aufbauen, diese Liste beinhaltet die Informationen für
+		// einen bestimmten workflow
 		int anz = baselist.size();
 		for (int i = 0; i < anz; i++)
 		{
 			// die Zeilensummen für die Statistische Auswertung addieren.
 			SqBaseElem be = baselist.get(i);
-			sumsum.add(be);
+			sumWorkflow.add(be);
 		}
-		//show list on screen
-		sumsum.showList();
+		// show list on screen
+		sumWorkflow.showList();
 	}
 	
 	public void writeResultlist(String sqbasefile)
 	{
+		// die Resultate der Baselist müssen auf platte und müssen auch als HTML
+		// angezeigt werden
+		
 		String cleanname = null, lastcleanname = null;
 		String zeile = null;
 		
@@ -112,122 +119,206 @@ public class SqBaseList
 					+ sbe.getStability() + "#" + sbe.getRetdd();
 			inf.writezeile(zeile);
 		}
+		
 		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
-		zeile = "\"average results per workflow\"#0.0#0.0#0.0#0.0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
-		anz = sumsum.getSize();
+		zeile = "average results  #0.0#0.0#0.0#0.0";
+		inf.writezeile(zeile);
 		for (int i = 0; i < anz; i++)
 		{
-			SqSumElem su = sumsum.getElem(i);
-			zeile = su.getBaseelem().getStrategyname() + "#" + su.getNetprofit() + "#"
-					+ su.getAvrProfitfaktor() + "#" + su.getAvrStability() + "#" + su.getAvrRetdd();
+			SqBaseElem sbe = baselist.get(i);
+			cleanname = sbe.getCleanName();
+			
+			if (cleanname.equals(lastcleanname) == true)
+				continue;
+			lastcleanname = cleanname;
+			zeile = "average results <" + cleanname + ">=" + "#" + calcAvrNettoprofit(cleanname) + "#"
+					+ calcAvrProfitfaktor(cleanname) + "#" + calcAvrStability(cleanname) + "#"
+					+ calcAvrRetDD(cleanname);
+			inf.writezeile(zeile);
+			
+		}
+		zeile = "#0.0#0.0#0.0#0.0";
+		inf.writezeile(zeile);
+		zeile = "standart deviation  #0.0#0.0#0.0#0.0";
+		inf.writezeile(zeile);
+		
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem sbe = baselist.get(i);
+			cleanname = sbe.getCleanName();
+			
+			if (cleanname.equals(lastcleanname) == true)
+				continue;
+			lastcleanname = cleanname;
+			
+			zeile = "standart deviation <" + cleanname + ">=" + "#" + calcStddevNettoprofit(cleanname) + "#"
+					+ calcStddevProfitfaktor(cleanname) + "#" + calcStddevStability(cleanname) + "#"
+					+ calcStddevRetDD(cleanname);
 			inf.writezeile(zeile);
 		}
+		
 		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
-		zeile = "\"\"#0.0#0.0#0.0#0.0";
+		zeile = "#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
-		zeile="overall average results="+"#"+calcAvrNettoprofit()+"#"+calcAvrProfitfaktor()+"#"+calcAvrStability()+"#"+calcAvrRetDD();
+		zeile = "overall average results=" + "#" + calcAvrNettoprofit(null) + "#" + calcAvrProfitfaktor(null) + "#"
+				+ calcAvrStability(null) + "#" + calcAvrRetDD(null);
 		inf.writezeile(zeile);
-		zeile="overall standart deviation="+"#"+calcStddevNettoprofit()+"#"+calcStddevProfitfaktor()+"#"+calcStddevStability()+"#"+calcStddevRetDD();
+		zeile = "overall standart deviation=" + "#" + calcStddevNettoprofit(null) + "#" + calcStddevProfitfaktor(null)
+				+ "#" + calcStddevStability(null) + "#" + calcStddevRetDD(null);
 		inf.writezeile(zeile);
 		inf.close();
 		
 	}
 	
-	public double calcAvrNettoprofit()
+	public double calcAvrNettoprofit(String cleanname)
 	{
 		int anz = baselist.size();
+		// count the amount of cleannames
+		int anzc = 0;
 		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			sum = sum + be.getNetprofit();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				sum = sum + be.getNetprofit();
+				anzc++;
+			}
 		}
-		return (sum / anz);
+		return (sum / anzc);
 	}
 	
-	public double calcAvrRetDD()
+	public double calcAvrRetDD(String cleanname)
 	{
 		int anz = baselist.size();
+		// count the amount of cleannames
+		int anzc = 0;
 		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			sum = sum + be.getRetdd();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				sum = sum + be.getRetdd();
+				anzc++;
+			}
 		}
-		return (sum / anz);
+		return (sum / anzc);
 	}
 	
-	public double calcAvrProfitfaktor()
+	public double calcAvrProfitfaktor(String cleanname)
 	{
 		int anz = baselist.size();
+		// count the amount of cleannames
+		int anzc = 0;
 		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			sum = sum + be.getProfitfaktor();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				sum = sum + be.getProfitfaktor();
+				anzc++;
+			}
 		}
-		return (sum / anz);
+		return (sum / anzc);
 	}
 	
-	public double calcAvrStability()
+	public double calcAvrStability(String cleanname)
 	{
 		int anz = baselist.size();
+		// count the amount of cleannames
+		int anzc = 0;
 		double sum = 0;
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			sum = sum + be.getStability();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				sum = sum + be.getStability();
+				anzc++;
+			}
 		}
-		return (sum / anz);
-	}
-	public double calcStddevNettoprofit()
-	{
-		double[] dl=new double[10000];
-		int anz = baselist.size();
-		for (int i = 0; i < anz; i++)
-		{
-			SqBaseElem be = baselist.get(i);
-			dl[i]=be.getNetprofit();
-		}
-		return(Statistics.stddv(dl));
+		return (sum / anzc);
 	}
 	
-	public double calcStddevRetDD()
+	public double calcStddevNettoprofit(String cleanname)
 	{
-		double[] dl=new double[10000];
+		
+		double[] dl = new double[10000];
+		int dlcount=0;
+		Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+">");
 		int anz = baselist.size();
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			dl[i]=be.getRetdd();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				dl[dlcount] = be.getNetprofit();
+				Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+"> c:<"+dlcount+"> NetProfit<"+be.getNetprofit()+">");
+				dlcount++;
+			}
 		}
-		return(Statistics.stddv(dl));
+		
+		//Statistics.printArray(dl,dlcount);
+		double stdnetprofit=Statistics.stddv(dl,dlcount);
+		//Tracer.WriteTrace(10, "stdnetprof="+stdnetprofit);
+		return (stdnetprofit);
 	}
 	
-	public double calcStddevProfitfaktor()
+	public double calcStddevRetDD(String cleanname)
 	{
-		double[] dl=new double[10000];
+		double[] dl = new double[10000];
+		int dlcount = 0;
 		int anz = baselist.size();
+		
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			dl[i]=be.getProfitfaktor();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				dl[dlcount] = be.getRetdd();
+				dlcount++;
+			}
 		}
-		return(Statistics.stddv(dl));
+		return (Statistics.stddv(dl,dlcount));
 	}
 	
-	public double calcStddevStability()
+	public double calcStddevProfitfaktor(String cleanname)
 	{
-		double[] dl=new double[10000];
+		double[] dl = new double[10000];
+		int dlcount = 0;
 		int anz = baselist.size();
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem be = baselist.get(i);
-			dl[i]=be.getStability();
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				dl[dlcount] = be.getProfitfaktor();
+				dlcount++;
+			}
 		}
-		return(Statistics.stddv(dl));
+		return (Statistics.stddv(dl,dlcount));
+	}
+	
+	public double calcStddevStability(String cleanname)
+	{
+		double[] dl = new double[10000];
+		int dlcount = 0;
+		int anz = baselist.size();
+		for (int i = 0; i < anz; i++)
+		{
+			SqBaseElem be = baselist.get(i);
+			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
+			{
+				dl[dlcount] = be.getStability();
+				dlcount++;
+			}
+		}
+		return (Statistics.stddv(dl,dlcount));
 	}
 }

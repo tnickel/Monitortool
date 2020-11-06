@@ -103,6 +103,12 @@ public class Filefunkt
 	{
 		FileChannel sourceChannel = null;
 		FileChannel destChannel = null;
+		
+		if(source.exists()==false)
+		{
+			Tracer.WriteTrace(20, "E:file <"+source.getAbsolutePath()+"> don´t exists");
+			return;
+		}
 		try
 		{
 			sourceChannel = new FileInputStream(source).getChannel();

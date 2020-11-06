@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -46,6 +48,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -212,11 +215,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Composite composite16;
+	private Button button9showresults;
+	private Button button9backupdrive;
+	private Button button9shareddrive;
 	private Composite composite15;
 	private Button button8;
 	private Text text4workflowstore;
 	private Label label29anzfiles;
-	private Composite composite16;
 	private Button button8clearprojectdir;
 	private Button button8showprojectdir;
 	private Label label28;
@@ -1425,7 +1431,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button8setbackupdrive = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button8setbackupdrive.setText("set backupdrive **");
-								button8setbackupdrive.setBounds(821, 747, 203, 30);
+								button8setbackupdrive.setBounds(821, 747, 168, 30);
 								button8setbackupdrive.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1436,7 +1442,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button8shareddirectory = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button8shareddirectory.setText("set shared drive **");
-								button8shareddirectory.setBounds(821, 701, 203, 30);
+								button8shareddirectory.setBounds(821, 701, 168, 30);
 								button8shareddirectory.setToolTipText(
 										"This can be googledrive. In this drive a directorystructure with generated workflowname will be stored. All results will be stored in this drive.");
 								button8shareddirectory.addSelectionListener(new SelectionAdapter() {
@@ -1449,7 +1455,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button7 = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7.setText("set resultdir");
-								button7.setBounds(821, 654, 203, 30);
+								button7.setBounds(821, 654, 168, 30);
 								button7.setToolTipText(
 										"The generated portfolios will be collected out of the SQ directoy and will be stored in this directory");
 								button7.addSelectionListener(new SelectionAdapter() {
@@ -1476,7 +1482,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label28 = new Label(group2filter, SWT.NONE);
-								label28.setText("Collect the portfolios from Step2 =\"SQ rootdir/usr/projects/<...>/databanks/portfolio\" and store this to this directorys below");
+								label28.setText(
+										"Collect the portfolios from Step2 =\"SQ rootdir/usr/projects/<...>/databanks/portfolio\" and store this to this directorys below");
 								label28.setBounds(12, 617, 1126, 25);
 							}
 							{
@@ -1507,20 +1514,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								
 							}
 							{
-								composite16 = new Composite(group2filter, SWT.BORDER);
-								GridLayout composite16Layout = new GridLayout();
-								composite16Layout.makeColumnsEqualWidth = true;
-								composite16.setLayout(composite16Layout);
-								composite16.setBounds(7, 607, 1144, 208);
-							}
-							{
 								label29anzfiles = new Label(group2filter, SWT.NONE);
 								refreshProjectfilesanzahlMessages();
 								label29anzfiles.setBounds(1071, 237, 49, 20);
 							}
 							{
 								text4workflowstore = new Text(group2filter, SWT.NONE);
-								text4workflowstore.setText("The workflow will be stored under SQ Rootdir/user/projects");
+								text4workflowstore
+										.setText("The workflow will be stored under SQ Rootdir/user/projects");
 								text4workflowstore.setBounds(12, 547, 809, 30);
 								text4workflowstore.setEditable(false);
 							}
@@ -1529,7 +1530,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button8.setText("save");
 								button8.setBounds(759, 511, 60, 30);
 								button8.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+									public void widgetSelected(SelectionEvent evt)
+									{
 										button8WidgetSelected(evt);
 									}
 								});
@@ -1540,6 +1542,46 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
 								composite15.setBounds(8, 166, 819, 416);
+							}
+							{
+								button9shareddrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								button9shareddrive.setBounds(992, 706, 26, 25);
+								button9shareddrive.setSelection(true);
+								button9shareddrive.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt)
+									{
+										button9shareddriveWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button9backupdrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								button9backupdrive.setBounds(991, 752, 27, 25);
+								button9backupdrive.setSelection(true);
+								button9backupdrive.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt)
+									{
+										button9backupdriveWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								button9showresults = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								button9showresults.setText("Show Results");
+								button9showresults.setBounds(821, 781, 108, 30);
+								button9showresults.setSelection(true);
+								button9showresults.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button9showresultsWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								composite16 = new Composite(group2filter, SWT.BORDER);
+								GridLayout composite16Layout = new GridLayout();
+								composite16Layout.makeColumnsEqualWidth = true;
+								composite16.setLayout(composite16Layout);
+								composite16.setBounds(8, 613, 1146, 203);
 							}
 						}
 					}
@@ -1613,19 +1655,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		// den inittimer auf 3 sekunden setzen
 		Display.getDefault().timerExec(300, inittimer);
-		//text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
-		//text4shareddrive.setText(Toolboxconf.getPropAttribute("shareddrive"));
-		//text4backupdrive.setText(Toolboxconf.getPropAttribute("backupdrive"));
-				
+		// text4resultdir.setText(Toolboxconf.getPropAttribute("resultdir"));
+		// text4shareddrive.setText(Toolboxconf.getPropAttribute("shareddrive"));
+		// text4backupdrive.setText(Toolboxconf.getPropAttribute("backupdrive"));
+		
 		// set infotext
 		String sd = text4shareddrive.getText();
 		String outname = outputname.getText();
 		sqprojects.setSharedDrive(sd);
-		
-		
-		
-		
-		
 		
 		text1confidenz.setEnabled(false);
 		label8.setEnabled(false);
@@ -1681,8 +1718,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		Display display = Display.getDefault();
 		
-		
-		
 		String userdir = System.getProperty("user.dir");
 		if (args.length > 0)
 			if (args[0] != null)
@@ -1695,7 +1730,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		userdir = userdir.substring(0, userdir.lastIndexOf("\\"));
 		GlobToolbox.setRootpath(userdir);
-		Tracer.WriteTrace(20, "I:start toolbox userdir=<"+userdir+">");
+		Tracer.WriteTrace(20, "I:start toolbox userdir=<" + userdir + ">");
 		Shell shell = new Shell(display);
 		StartToolbox inst = new StartToolbox(shell, SWT.NULL);
 		Point size = inst.getSize();
@@ -1711,9 +1746,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.1.4");
-		
-		
+		shell.setText("Toolbox V1.1.6");
 		
 		while (!shell.isDisposed())
 		{
@@ -2201,10 +2234,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 				"F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_part.csv", "F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_out.csv");
 	}
 	
-	
 	private void getInterfaceData()
 	{
-		//get all the data from interface to sqworkflow
+		// get all the data from interface to sqworkflow
 		sqprojects.setMasterfile(FilterSourceDir.getText());
 		sqprojects.setSqrootdir(text4filterdestdir.getText());
 		sqprojects.setBackcount(steps.getText());
@@ -2226,12 +2258,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("sqrootdir", text4filterdestdir.getText());
 		Toolboxconf.setPropAttribute("anzprojectfiles", label29anzfiles.getText());
-
-		text4workflowstore.setText("The workflow will be stored in "+sqprojects.getSqRootdir()+"\\user\\projects");
+		
+		text4workflowstore.setText("The workflow will be stored in " + sqprojects.getSqRootdir() + "\\user\\projects");
 		refreshProjectfilesanzahlMessages();
 		
-		
 	}
+	
 	private void button7calcWidgetSelected(SelectionEvent evt)
 	{
 		// calc button used !! ************************************
@@ -2251,7 +2283,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqprojects.genWorkflow();
 		refreshProjectfilesanzahlMessages();
 	}
-	
 	
 	private void button7setWidgetSelected(SelectionEvent evt)
 	{
@@ -2308,12 +2339,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		// button collect results !!!!!!!!!!!!
 		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
+		// get all information from the visual interface
 		getInterfaceData();
 		
 		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
-		// collect results
-		sqprojects.collectResults();
+		// collect all results and write infos in file
+		sqprojects.collectResults(button8shareddirectory.getSelection(),button9backupdrive.getSelection(),button9showresults.getSelection());
 		refreshProjectfilesanzahlMessages();
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
@@ -2353,8 +2385,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// set new resultdir in configfile
 		Toolboxconf.setPropAttribute("shareddrive", resultdir);
 	}
-	
-	
 	
 	private void text4infotextWidgetSelected(SelectionEvent evt)
 	{
@@ -2448,11 +2478,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button8showrootdir.widgetSelected, event=" + evt);
 		// TODO add your code for button8showprojectdir.widgetSelected
-		//get all data from interface into sqworkflow
+		// get all data from interface into sqworkflow
 		getInterfaceData();
 		Shell shell = new Shell(Display.getDefault());
 		FileDialog dialog = new FileDialog(shell, SWT.DefaultSelection);
-		dialog.setFilterPath(sqprojects.getSqRootdir()+"\\user\\projects");
+		dialog.setFilterPath(sqprojects.getSqRootdir() + "\\user\\projects");
 		dialog.open();
 	}
 	
@@ -2463,40 +2493,61 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqprojects.deleteProjectfiles();
 		refreshProjectfilesanzahlMessages();
 	}
-
-	
 	
 	private void refreshProjectfilesanzahlMessages()
 	{
-		//falls kein rootdir gesetzt
-		if(sqprojects.getSqRootdir()==null)
+		// falls kein rootdir gesetzt
+		if (sqprojects.getSqRootdir() == null)
 		{
-			String rt=text4filterdestdir.getText();
-			if(rt!=null)
+			String rt = text4filterdestdir.getText();
+			if (rt != null)
 				sqprojects.setSqrootdir(rt);
 			else
 			{
-				rt=Toolboxconf.getPropAttribute("sqrootdir");
+				rt = Toolboxconf.getPropAttribute("sqrootdir");
 				sqprojects.setSqrootdir(rt);
 			}
 		}
 		label29anzfiles.setText(String.valueOf(sqprojects.getAnzProjectfiles()));
 	}
 	
-	private void button8WidgetSelected(SelectionEvent evt) {
-		System.out.println("button8.widgetSelected, event="+evt);
+	private void button8WidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button8.widgetSelected, event=" + evt);
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 	}
-	final  Runnable inittimer = new Runnable()
+	
+	private void button9shareddriveWidgetSelected(SelectionEvent evt)
 	{
+		System.out.println("button9shareddrive.widgetSelected, event=" + evt);
+		// TODO add your code for button9shareddrive.widgetSelected
+		Boolean sel = button9shareddrive.getSelection();
+		text4shareddrive.setEnabled(sel);
+		button8shareddirectory.setEnabled(sel);
+	}
+	
+	private void button9backupdriveWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button9backupdrive.widgetSelected, event=" + evt);
+		// TODO add your code for button9backupdrive.widgetSelected
+		Boolean sel = button9backupdrive.getSelection();
+		text4backupdrive.setEnabled(sel);
+		button8setbackupdrive.setEnabled(sel);
+	}
+	
+	private void button9showresultsWidgetSelected(SelectionEvent evt) {
+		System.out.println("button9showresults.widgetSelected, event="+evt);
+		//TODO add your code for button9showresults.widgetSelected
+	}
+
+	final Runnable inittimer = new Runnable() {
 		public void run()
 		{
 			
 			System.out.println("inittimer run once");
 			text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), outputname.getText()));
-				
+			
 		}
 	};
-
 	
 }

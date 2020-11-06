@@ -62,7 +62,7 @@ public class SqSumWorkflow
 			sume=new SqSumElem();
 			//packe das neue base elem hinzu
 			sume.addBaseelem(se);
-			//und packe das ganze in die hashtable
+			//und packe das ganze in die liste
 			al.add(sume);
 		}
 	}

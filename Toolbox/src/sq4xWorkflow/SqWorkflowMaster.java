@@ -30,34 +30,42 @@ public class SqWorkflowMaster extends Sq
 	{
 		this.sqrootdir_g = sqrootdir_g;
 	}
+	
 	public String getSqRootdir()
 	{
 		return this.sqrootdir_g;
 	}
+	
 	public void setResultdir(String resultdir_g)
 	{
 		this.resultdir_g = resultdir_g;
 	}
+	
 	public String getResultdir()
 	{
 		return this.resultdir_g;
 	}
+	
 	public void setSharedDrive(String dir)
 	{
 		this.shareddrive_g = dir;
 	}
+	
 	public String getSharedDrive()
 	{
 		return this.shareddrive_g;
 	}
+	
 	public void setBackupDrive(String dir)
 	{
 		this.backupdrive_g = dir;
 	}
+	
 	public String getBackupDrive()
 	{
 		return this.backupdrive_g;
 	}
+	
 	public void setBackcount(String days)
 	{
 		// negative for the past
@@ -78,57 +86,59 @@ public class SqWorkflowMaster extends Sq
 	{
 		this.outputname_g = outputname;
 	}
+	
 	public boolean checkEmptyShareddrive()
 	{
-		//true: if directory don´t exists or is empty
-		//false: if directory contains files or other contents
+		// true: if directory don´t exists or is empty
+		// false: if directory contains files or other contents
 		
-		//check if googledir is empty
-		File sdf=new File(shareddrive_g+"\\"+this.outputname_g+"\\portfolios");
-		//if directory not exists-> empty = true
-		if(sdf.isDirectory()==false)
+		// check if googledir is empty
+		File sdf = new File(shareddrive_g + "\\" + this.outputname_g + "\\portfolios");
+		// if directory not exists-> empty = true
+		if (sdf.isDirectory() == false)
 			return true;
-
-		//if directory is empty=>true
-		if(sdf.listFiles()==null)
+		
+		// if directory is empty=>true
+		if (sdf.listFiles() == null)
 			return true;
 		
 		return false;
 		
 	}
+	
 	public int getAnzProjectfiles()
 	{
-		if(sqrootdir_g==null)
+		if (sqrootdir_g == null)
 			return -1;
 		
-		File dir=new File(sqrootdir_g+"\\user\\projects");
-		String[] dirl=dir.list();
-		int fileanz=dirl.length;
+		File dir = new File(sqrootdir_g + "\\user\\projects");
+		String[] dirl = dir.list();
+		int fileanz = dirl.length;
 		return fileanz;
 	}
-
+	
 	public void deleteProjectfiles()
 	{
 		// check if rootdir is correct
-		File ll=new File(sqrootdir_g+"\\licenceFile.lic");
-		if(ll.exists()==false)
-			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath= <"+sqrootdir_g+">");
+		File ll = new File(sqrootdir_g + "\\licenceFile.lic");
+		if (ll.exists() == false)
+			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath= <" + sqrootdir_g + ">");
 		
-		if(sqrootdir_g.length()<5)
-			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath, rootpathlength<5= <"+sqrootdir_g+">");
+		if (sqrootdir_g.length() < 5)
+			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath, rootpathlength<5= <" + sqrootdir_g + ">");
 		
-		File dir=new File(sqrootdir_g+"\\user\\projects");
-		Filefunkt.deleteSubDir(dir,sqrootdir_g);
+		File dir = new File(sqrootdir_g + "\\user\\projects");
+		Filefunkt.deleteSubDir(dir, sqrootdir_g);
 	}
+	
 	public void genWorkflow()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
 		
 		int offset = 0;
 		// some initialisation progressslider and dfformat
-		int anzsteps=Math.abs(futurecount_g)+Math.abs(backcount_g)+1;
-		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0,
-				(int) anzsteps);
+		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
+		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
@@ -155,61 +165,67 @@ public class SqWorkflowMaster extends Sq
 		
 	}
 	
-	public void collectResults()
+	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag)
 	{
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
 		sr.collectResults();
-	
-		//get resultrootpath out of resultdir
-		String resultroothpath=getSqRootpath(resultdir_g);
 		
-		//Datenbank wird exportiert
-		//wird mit cli befehlen gemacht siehe
-		//https://strategyquant.com/doc/cli-command-line/introduction-to-cli/
-		SqExporterBatch se=new SqExporterBatch();
-		se.setSqRootpath(resultroothpath);
-		se.setSqWorkflowDir(resultroothpath+"\\user\\projects");
-		se.exportDatabase();
+		// get resultrootpath out of resultdir
+		String resultroothpath = getSqRootpath(resultdir_g);
 		
-		//baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
-		SqDatabaseHandler sb=new SqDatabaseHandler();
-		sb.SqReadBaseList(se.getDatabankfile());
-		sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+		// Datenbank wird exportiert
+		// wird mit cli befehlen gemacht siehe
+		// https://strategyquant.com/doc/cli-command-line/introduction-to-cli/
 		
-		//copy to goggledrive
-		if(shareddrive_g!=null)
-			copyDrive(sqrootdir_g,shareddrive_g, outputname_g,masterfile_g);
+		if (showresultsflag == true)
+		{
+			SqExporterBatch se = new SqExporterBatch();
+			se.setSqRootpath(resultroothpath);
+			se.setSqWorkflowDir(resultroothpath + "\\user\\projects");
+			se.exportDatabase();
+			
+			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
+			SqDatabaseHandler sb = new SqDatabaseHandler();
+			sb.SqReadBaseList(se.getDatabankfile());
+			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+		}
+		// copy the results to goggledrive
+		if ((shareddrive_g != null) && (copygoogledriveflag == true))
+			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag);
 		
-		//copy to backupdrive
-		if(backupdrive_g!=null)
-			copyDrive(sqrootdir_g,backupdrive_g,outputname_g,masterfile_g);
+		// copy the results to backupdrive
+		if ((backupdrive_g != null) && (copybackupflag == true))
+			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag);
 		
-		//zeige verkleinerte resultliste
-		Viewer v=new Viewer();
-		v.viewTableExtFile(Display.getCurrent(), "c:\\tmp\\DatabankExportResultlist.csv");
-
+		// zeige verkleinerte resultliste
+		if (showresultsflag == true)
+		{
+			Viewer v = new Viewer();
+			v.viewTableExtFile(Display.getCurrent(), "c:\\tmp\\DatabankExportResultlist.csv");
+		}
+		
 	}
 	
-	
-	private void copyDrive(String sqrootdir,String shareddrive,String outputname,String masterfile)
+	private void copyDrive(String sqrootdir, String shareddrive, String outputname, String masterfile,
+			Boolean showresultsflag)
 	{
-		//sqrootdir: is the path to the sq, this is the rootpath
-		//shareddrive: is the path to the backup/shared-drive
-		//outputname: is the uniqe name for the workflow e.g. Q52 EURUSD H1
+		// sqrootdir: is the path to the sq, this is the rootpath
+		// shareddrive: is the path to the backup/shared-drive
+		// outputname: is the uniqe name for the workflow e.g. Q52 EURUSD H1
 		
 		// verzeichnissstruktur in googledrive herstellen
 		String destdir = shareddrive + "\\" + outputname;
 		String portfolios = destdir + "\\portfolios";
-
-		//check if destdir exists
+		
+		// check if destdir exists
 		File wfdir_f = new File(destdir);
 		if (wfdir_f.exists() == false)
 			wfdir_f.mkdir();
 		
-		//make dir portfolios for storing all portfolios
+		// make dir portfolios for storing all portfolios
 		File wfport_f = new File(portfolios);
 		if (wfport_f.exists() == false)
 			wfport_f.mkdir();
@@ -219,13 +235,16 @@ public class SqWorkflowMaster extends Sq
 		gr.setResultdir(portfolios);
 		gr.setSqRoodir(sqrootdir);
 		gr.collectResults();
-
+		
 		// masterfile kopieren
-		gr.copyMasterfile(masterfile, shareddrive+"\\" + outputname);
+		gr.copyMasterfile(masterfile, shareddrive + "\\" + outputname);
 		
 		// results aus tmp kopieren
-		gr.copyResultfile("c:\\tmp\\DatabankExport.csv",shareddrive+"\\" + outputname);
-		gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv",shareddrive+"\\" + outputname);
+		if (showresultsflag == true)
+		{
+			gr.copyResultfile("c:\\tmp\\DatabankExport.csv", shareddrive + "\\" + outputname);
+			gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv", shareddrive + "\\" + outputname);
+		}
 		
 	}
 	
