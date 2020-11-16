@@ -104,31 +104,24 @@ return console.askOkCancel(message, true);
               </formComponent>
             </formComponents>
           </screen>
-          <screen id="12" beanClass="com.install4j.runtime.beans.screens.ComponentsScreen" rollbackBarrierExitCode="0">
-            <formComponents>
-              <formComponent id="13" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent">
-                <serializedBean>
-                  <property name="labelText" type="string">${i18n:SelectComponentsLabel2}</property>
-                </serializedBean>
-                <visibilityScript>!context.isConsole()</visibilityScript>
-              </formComponent>
-              <formComponent id="14" beanClass="com.install4j.runtime.beans.formcomponents.ComponentSelectorComponent" useExternalParametrization="true" externalParametrizationName="Installation Components" externalParametrizationMode="include">
-                <serializedBean>
-                  <property name="fillVertical" type="boolean" value="true" />
-                </serializedBean>
-                <externalParametrizationPropertyNames>
-                  <propertyName>selectionChangedScript</propertyName>
-                </externalParametrizationPropertyNames>
-              </formComponent>
-            </formComponents>
-          </screen>
           <screen id="212" beanClass="com.install4j.runtime.beans.screens.AdditionalConfirmationsScreen" rollbackBarrierExitCode="0">
             <formComponents>
-              <formComponent id="213" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
+              <formComponent id="213" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10" useExternalParametrization="true" externalParametrizationName="Install SQx">
                 <serializedBean>
                   <property name="labelText" type="string">${form:confirmationMessage}</property>
                 </serializedBean>
                 <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent name="Copy and Configure SQx" id="294" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent" useExternalParametrization="true" externalParametrizationName="titel">
+                <serializedBean>
+                  <property name="checkboxText" type="string">Copy and configure SQx</property>
+                  <property name="variableName" type="string">installsqx</property>
+                </serializedBean>
+              </formComponent>
+              <formComponent id="295" beanClass="com.install4j.runtime.beans.formcomponents.FileChooserComponent">
+                <serializedBean>
+                  <property name="variableName" type="string">fileSQx</property>
+                </serializedBean>
               </formComponent>
               <formComponent name="Add a desktop link" id="214" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
                 <serializedBean>

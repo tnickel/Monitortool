@@ -46,7 +46,7 @@ public class MqlSqPatcher extends Patcher
 	public boolean patchLotsizeSq4x(Ea ea, Metaconfig meRealconf)
 	{
 		// falls globale config gewünscht
-		String lotkeyword = "extern double Lots = ";
+		String lotkeyword = "extern double mmLots = ";
 		double lotsize = meRealconf.getLotsize();
 
 		for (int i = 0; i < 20000; i++)

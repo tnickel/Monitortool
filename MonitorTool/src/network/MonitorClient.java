@@ -77,12 +77,10 @@ public class MonitorClient
 			sb.append(args[i] + ' ');
 		}
 		String werte = sb.toString().trim();
+
+		/* try to connect to server
 		try
 		{
-
-			// Irrelevanter Thread zur Illustrierung der Nebenläufigkeit der
-			// Abarbeitung
-
 			Thread t1 = new Thread(new MonitorClientThread());
 			t1.start();
 
@@ -90,6 +88,7 @@ public class MonitorClient
 		{
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	void worker() throws Exception
