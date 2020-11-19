@@ -123,7 +123,7 @@ public class SqGenerateWorkflowMain
 		if (dirname_f.isDirectory() == false)
 		{
 			if (dirname_f.mkdir() == false)
-				Tracer.WriteTrace(10, "E:can´t create directory <+dirname_f.getAbsolutePath()+>");
+				Tracer.WriteTrace(10, "E:can´t create directory <"+dirname_f.getAbsolutePath()+">");
 		}
 		File tmpcfx_f = new File(tmpcfx);
 		File destfile_f = new File(newdir + "\\project.cfx");
@@ -132,7 +132,7 @@ public class SqGenerateWorkflowMain
 			//overwrite existing file
 			if(destfile_f.exists())
 				destfile_f.delete();
-			
+			Tracer.WriteTrace(20, "I:I will copy <"+tmpcfx_f.getAbsolutePath()+"> to <"+destfile_f.getAbsolutePath()+">");
 			Filefunkt.copyFileUsingChannel(tmpcfx_f, destfile_f);
 		} catch (IOException e)
 		{
