@@ -112,7 +112,11 @@ public class SqWorkflowMaster extends Sq
 			return -1;
 		
 		File dir = new File(sqrootdir_g + "\\user\\projects");
+				
 		String[] dirl = dir.list();
+
+		if((dirl==null)||(dirl.length<1))
+			return -1;
 		int fileanz = dirl.length;
 		return fileanz;
 	}

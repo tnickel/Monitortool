@@ -119,6 +119,7 @@ public class MqlSqPatcher extends Patcher
 
 	protected void patchInitSq4x()
 	{
+		addIncludes();
 		// falls der initpatch schon drin ist dann mache nix
 		for (int i = 0; i < 20000; i++)
 		{
@@ -148,8 +149,17 @@ public class MqlSqPatcher extends Patcher
 				// {" [klammer ist in nächster zeile]
 				addInitpatch(i + 1);
 				return;
+			}else if ((zeilenspeicher[i].contains("int OnInit()"))
+					&& (zeilenspeicher[i ].contains("{")))
+			{
+				// fall c)  init sieht so aus "int OnInit() {"
+				// {" [klammer ist gleiche zeile]
+				addInitpatch(i );
+				return;
 			}
-		}
+		}	
+		Tracer.WriteTrace(10, "E: patcher cant find init() in mq4-file--> stop"); 
+		
 	}
 
 	protected void addIncludes()
