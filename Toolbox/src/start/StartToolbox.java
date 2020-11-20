@@ -1541,7 +1541,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
-								composite15.setBounds(8, 166, 819, 416);
+								composite15.setBounds(8, 166, 1143, 416);
 							}
 							{
 								button9shareddrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
@@ -1581,7 +1581,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite16Layout = new GridLayout();
 								composite16Layout.makeColumnsEqualWidth = true;
 								composite16.setLayout(composite16Layout);
-								composite16.setBounds(8, 613, 1146, 203);
+								composite16.setBounds(7, 611, 1144, 210);
 							}
 						}
 					}
@@ -2345,7 +2345,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		// collect all results and write infos in file
-		sqprojects.collectResults(button8shareddirectory.getSelection(),button9backupdrive.getSelection(),button9showresults.getSelection());
+		
+		sqprojects.collectResults(button9shareddrive.getSelection(),button9backupdrive.getSelection(),button9showresults.getSelection());
 		refreshProjectfilesanzahlMessages();
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}

@@ -251,7 +251,7 @@ public class SqBaseList
 		
 		double[] dl = new double[10000];
 		int dlcount=0;
-		Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+">");
+		//Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+">");
 		int anz = baselist.size();
 		for (int i = 0; i < anz; i++)
 		{
@@ -259,7 +259,7 @@ public class SqBaseList
 			if ((cleanname == null) || (be.getCleanName().contains(cleanname)))
 			{
 				dl[dlcount] = be.getNetprofit();
-				Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+"> c:<"+dlcount+"> NetProfit<"+be.getNetprofit()+">");
+				//Tracer.WriteTrace(20, "I:calc StddevNettoprofit <"+cleanname+"> c:<"+dlcount+"> NetProfit<"+be.getNetprofit()+">");
 				dlcount++;
 			}
 		}

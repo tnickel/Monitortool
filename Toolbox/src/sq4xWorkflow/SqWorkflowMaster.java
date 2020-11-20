@@ -186,6 +186,7 @@ public class SqWorkflowMaster extends Sq
 		
 		if (showresultsflag == true)
 		{
+			//die results werden auch angezeigt
 			SqExporterBatch se = new SqExporterBatch();
 			se.setSqRootpath(resultroothpath);
 			se.setSqWorkflowDir(resultroothpath + "\\user\\projects");
@@ -198,12 +199,16 @@ public class SqWorkflowMaster extends Sq
 		}
 		// copy the results to goggledrive
 		if ((shareddrive_g != null) && (copygoogledriveflag == true))
+		{
+			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to shared drive<\"+sharedrive_g+\">");
 			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag);
-		
+		}
 		// copy the results to backupdrive
 		if ((backupdrive_g != null) && (copybackupflag == true))
+		{
+			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to backup drive<\"+backupdrive_g+\">");
 			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag);
-		
+		}
 		// zeige verkleinerte resultliste
 		if (showresultsflag == true)
 		{
@@ -227,12 +232,14 @@ public class SqWorkflowMaster extends Sq
 		// check if destdir exists
 		File wfdir_f = new File(destdir);
 		if (wfdir_f.exists() == false)
-			wfdir_f.mkdir();
+			if(wfdir_f.mkdir()==false)
+				Tracer.WriteTrace(10, "E: can´t create directory <"+wfdir_f.getPath()+"> --> stop");
 		
 		// make dir portfolios for storing all portfolios
 		File wfport_f = new File(portfolios);
 		if (wfport_f.exists() == false)
-			wfport_f.mkdir();
+			if(wfport_f.mkdir()==false)
+				Tracer.WriteTrace(10, "E: can´t create directory <"+wfport_f.getPath()+"> --> stop");
 		
 		// results in portfolios ins googledrive kopieren
 		SqCollectStoreResultsMain gr = new SqCollectStoreResultsMain();

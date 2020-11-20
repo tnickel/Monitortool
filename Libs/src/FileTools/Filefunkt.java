@@ -31,7 +31,7 @@ public class Filefunkt
 		if ((files == null) || (quelle.getName().contains("Builder")) || (quelle.getName().contains("Retester"))
 				|| (quelle.getName().contains("Optimizer")))
 		{
-			Tracer.WriteTrace(20, "I:I don´t collect <" + quelle.getAbsolutePath() + ">");
+			Tracer.WriteTrace(50, "I:I don´t collect <" + quelle.getAbsolutePath() + ">");
 			return;
 		}
 		for (File file : files)
