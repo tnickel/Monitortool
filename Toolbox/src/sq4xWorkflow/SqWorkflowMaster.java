@@ -186,7 +186,7 @@ public class SqWorkflowMaster extends Sq
 		
 		if (showresultsflag == true)
 		{
-			//die results werden auch angezeigt
+			//die results werden exportiert
 			SqExporterBatch se = new SqExporterBatch();
 			se.setSqRootpath(resultroothpath);
 			se.setSqWorkflowDir(resultroothpath + "\\user\\projects");
