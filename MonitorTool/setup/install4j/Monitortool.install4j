@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
-  <directoryPresets config="//ds918/Forex/tmp" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.2.0.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <directoryPresets config="D:/git/Monitortool/MonitorTool/setup" />
+  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="0" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.45" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
-      <mountPoint id="115" />
+      <mountPoint id="58" />
     </mountPoints>
     <entries>
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/jre1.8.0_251" entryMode="subdir" subDirectory="jre1.8.0_251" />
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/doku" entryMode="subdir" subDirectory="doku" />
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/data" entryMode="subdir" subDirectory="data" />
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/SqConfig" entryMode="subdir" subDirectory="SqConfig" />
-      <dirEntry mountPoint="115" file="C:/Users/Thomas Nickel/Dropbox/Forex 2013/Toolbox/bin" entryMode="subdir" subDirectory="bin" excludeSuffixes="*.conf" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/bin" overrideUninstallMode="true" entryMode="subdir" subDirectory="bin" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/jre1.8.0_251" entryMode="subdir" subDirectory="jre1.8.0_251" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/conf" entryMode="subdir" subDirectory="conf" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/data" overrideUninstallMode="true" entryMode="subdir" subDirectory="data" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/license" overrideUninstallMode="true" entryMode="subdir" subDirectory="license" />
+      <dirEntry mountPoint="58" file="D:/git/Monitortool/MonitorTool/setup/doku" overrideUninstallMode="true" entryMode="subdir" subDirectory="doku" />
     </entries>
   </files>
   <installerGui>
@@ -26,54 +27,6 @@
         </startup>
         <screens>
           <screen id="2" beanClass="com.install4j.runtime.beans.screens.WelcomeScreen" styleId="41" rollbackBarrierExitCode="0">
-            <styleOverrides>
-              <styleOverride name="Customize banner image" enabled="true">
-                <group id="640" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
-                  <serializedBean>
-                    <property name="backgroundColor">
-                      <object class="java.awt.Color">
-                        <int>255</int>
-                        <int>255</int>
-                        <int>255</int>
-                        <int>255</int>
-                      </object>
-                    </property>
-                    <property name="borderSides">
-                      <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
-                        <property name="bottom" type="boolean" value="true" />
-                      </object>
-                    </property>
-                    <property name="imageEdgeBackgroundColor">
-                      <object class="java.awt.Color">
-                        <int>25</int>
-                        <int>143</int>
-                        <int>220</int>
-                        <int>255</int>
-                      </object>
-                    </property>
-                    <property name="imageEdgeBorder" type="boolean" value="true" />
-                    <property name="imageFile">
-                      <object class="com.install4j.api.beans.ExternalFile">
-                        <string>D:/git/Monitortool/Toolbox/install4j/pictures/toolbox.PNG</string>
-                      </object>
-                    </property>
-                    <property name="insets">
-                      <object class="java.awt.Insets">
-                        <int>5</int>
-                        <int>10</int>
-                        <int>10</int>
-                        <int>10</int>
-                      </object>
-                    </property>
-                  </serializedBean>
-                  <externalParametrizationPropertyNames>
-                    <propertyName>imageAnchor</propertyName>
-                    <propertyName>imageEdgeBackgroundColor</propertyName>
-                    <propertyName>imageFile</propertyName>
-                  </externalParametrizationPropertyNames>
-                </group>
-              </styleOverride>
-            </styleOverrides>
             <actions>
               <action id="7" beanClass="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction" rollbackBarrierExitCode="0" multiExec="true">
                 <serializedBean>
@@ -136,7 +89,7 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="requestFocus" type="boolean" value="true" />
                 </serializedBean>
-                <initScript>configurationObject.setText("c:\\forex\\toolbox");</initScript>
+                <initScript>configurationObject.setText("c:\\forex\\monitortool");</initScript>
                 <externalParametrizationPropertyNames>
                   <propertyName>suggestAppDir</propertyName>
                   <propertyName>validateApplicationId</propertyName>
@@ -153,82 +106,33 @@ return console.askOkCancel(message, true);
               </formComponent>
             </formComponents>
           </screen>
-          <screen id="212" beanClass="com.install4j.runtime.beans.screens.AdditionalConfirmationsScreen" rollbackBarrierExitCode="0">
+          <screen id="12" beanClass="com.install4j.runtime.beans.screens.ComponentsScreen" rollbackBarrierExitCode="0">
             <formComponents>
-              <formComponent id="213" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10" useExternalParametrization="true" externalParametrizationName="Install SQx">
+              <formComponent id="13" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent">
+                <serializedBean>
+                  <property name="labelText" type="string">${i18n:SelectComponentsLabel2}</property>
+                </serializedBean>
+                <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent id="14" beanClass="com.install4j.runtime.beans.formcomponents.ComponentSelectorComponent" useExternalParametrization="true" externalParametrizationName="Installation Components" externalParametrizationMode="include">
+                <serializedBean>
+                  <property name="fillVertical" type="boolean" value="true" />
+                </serializedBean>
+                <externalParametrizationPropertyNames>
+                  <propertyName>selectionChangedScript</propertyName>
+                </externalParametrizationPropertyNames>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="62" beanClass="com.install4j.runtime.beans.screens.AdditionalConfirmationsScreen" rollbackBarrierExitCode="0">
+            <formComponents>
+              <formComponent id="63" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
                 <serializedBean>
                   <property name="labelText" type="string">${form:confirmationMessage}</property>
                 </serializedBean>
                 <visibilityScript>!context.isConsole()</visibilityScript>
               </formComponent>
-              <formComponent name="Copy and Configure SQx" id="294" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent" useExternalParametrization="true" externalParametrizationName="titel">
-                <serializedBean>
-                  <property name="checkboxText" type="string">Copy SqX to Master/Generator/Results</property>
-                  <property name="coupledComponentIds">
-                    <add type="string">378</add>
-                    <add type="string">376</add>
-                    <add type="string">465</add>
-                  </property>
-                  <property name="variableName" type="string">InstallSqx</property>
-                </serializedBean>
-              </formComponent>
-              <formComponent id="378" beanClass="com.install4j.runtime.beans.formcomponents.LabelComponent">
-                <serializedBean>
-                  <property name="labelText" type="string">Set Rootdirectory of StrategyQuantX which should be copied</property>
-                </serializedBean>
-              </formComponent>
-              <formComponent id="376" beanClass="com.install4j.runtime.beans.formcomponents.DirectoryChooserComponent">
-                <serializedBean>
-                  <property name="validationScript">
-                    <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">String sqroot=(String)context.getVariable("SqRootDirectory");
-return true;
-/*
-File sqroot_f=new File(sqroot);
-if(sqroot_f.isDirectory()==false)
- {
-   Util.showMessage("E: not a valid directory &lt;"+sqroot_f.getPath()+"&gt;");
-   return false;
- }
- 
-String license="licenceFile.lic";
-File lic_f=new File(sqroot+"\\licenseFile.lic");
-if(lic_f.isFile()==false)
- {
-   Util.showMessage("E: licenseFile.lic is missing in &lt;"+sqroot_f.getPath()+"&gt;");
-   return false;
- }
- 
- 
- 
- return true;
- */</property>
-                    </object>
-                  </property>
-                  <property name="variableName" type="string">SqRootDirectory</property>
-                </serializedBean>
-              </formComponent>
-              <group id="465" beanClass="com.install4j.runtime.beans.groups.HorizontalFormComponentGroup">
-                <beans>
-                  <formComponent id="466" beanClass="com.install4j.runtime.beans.formcomponents.NumberSpinnerComponent">
-                    <serializedBean>
-                      <property name="initialValue" type="int" value="56" />
-                      <property name="labelText" type="string">Config SQ memory</property>
-                      <property name="maxValue" type="int" value="128" />
-                      <property name="minValue" type="int" value="8" />
-                      <property name="stepSize" type="int" value="4" />
-                      <property name="variableName" type="string">SqMemory</property>
-                    </serializedBean>
-                  </formComponent>
-                  <formComponent id="467" beanClass="com.install4j.runtime.beans.formcomponents.LabelComponent">
-                    <serializedBean>
-                      <property name="labelText" type="string">GB</property>
-                    </serializedBean>
-                  </formComponent>
-                </beans>
-              </group>
-              <formComponent id="468" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" />
-              <formComponent name="Add a desktop link" id="214" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+              <formComponent name="Add a desktop link" id="64" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
                 <serializedBean>
                   <property name="checkboxText" type="string">${i18n:CreateDesktopIcon}</property>
                   <property name="initiallySelected" type="boolean" value="true" />
@@ -239,244 +143,28 @@ if(lic_f.isFile()==false)
           </screen>
           <screen id="15" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true" rollbackBarrierExitCode="0">
             <actions>
-              <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
-              <action id="116" beanClass="com.install4j.runtime.beans.actions.text.ReplaceInstallerVariablesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="askQuit">
+              <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" commentSet="true" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
+              <action id="18" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="failIfNoReplacement" type="boolean" value="true" />
-                  <property name="files" type="array" class="java.io.File" length="2">
-                    <element index="0">
-                      <object class="java.io.File">
-                        <string>${installer:sys.installationDir}/bin/starttoolbox.bat</string>
-                      </object>
-                    </element>
-                    <element index="1">
-                      <object class="java.io.File">
-                        <string>${installer:sys.installationDir}/bin/starttoolbox_debug.bat</string>
-                      </object>
-                    </element>
-                  </property>
+                  <property name="uninstallerMenuName" type="string">${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</property>
                 </serializedBean>
+                <condition>!context.getBooleanVariable("sys.programGroupDisabled")</condition>
               </action>
               <action id="19" beanClass="com.install4j.runtime.beans.actions.desktop.RegisterAddRemoveAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="itemName" type="string">${compiler:sys.fullName} ${compiler:sys.version}</property>
                 </serializedBean>
               </action>
-              <group name="InstallSqX" id="469" beanClass="com.install4j.runtime.beans.groups.ActionGroup">
-                <serializedBean>
-                  <property name="conditionExpression">
-                    <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">return(context.getBooleanVariable("InstallSqx"));
-  </property>
-                    </object>
-                  </property>
-                </serializedBean>
-                <beans>
-                  <action name="Copy 1 Masterfile" id="461" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/1 Master</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:SqRootDirectory}</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                      <property name="showProgress" type="boolean" value="true" />
-                      <property name="uninstallMode" type="enum" class="com.install4j.api.context.UninstallMode" value="NEVER" />
-                    </serializedBean>
-                  </action>
-                  <action name="Copy 2 Generator" id="554" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/2 Generator</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:SqRootDirectory}</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                      <property name="showProgress" type="boolean" value="true" />
-                      <property name="uninstallMode" type="enum" class="com.install4j.api.context.UninstallMode" value="NEVER" />
-                    </serializedBean>
-                  </action>
-                  <action name="Copy 3 Results" id="555" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/3 Results</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:SqRootDirectory}</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                      <property name="showProgress" type="boolean" value="true" />
-                      <property name="uninstallMode" type="enum" class="com.install4j.api.context.UninstallMode" value="NEVER" />
-                    </serializedBean>
-                  </action>
-                  <action name="1 Masterfile" id="211" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="file">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/1 Master/StrategyQuantX.exe</string>
-                        </object>
-                      </property>
-                      <property name="name" type="string">Toolbox 1 SQ Master</property>
-                    </serializedBean>
-                    <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
-                  </action>
-                  <action name="2 Generator" id="556" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="file">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/2 Generator/StrategyQuantX.exe</string>
-                        </object>
-                      </property>
-                      <property name="name" type="string">Toolbox 2 SQ Generator</property>
-                    </serializedBean>
-                    <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
-                  </action>
-                  <action name="3 Results" id="557" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
-                    <serializedBean>
-                      <property name="file">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/3 Results/StrategyQuantX.exe</string>
-                        </object>
-                      </property>
-                      <property name="name" type="string">Toolbox 3 SQ Results</property>
-                    </serializedBean>
-                    <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
-                  </action>
-                  <action name="modify configfile" id="470" beanClass="com.install4j.runtime.beans.actions.text.ModifyTextFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true" failureStrategy="askQuit">
-                    <serializedBean>
-                      <property name="files" type="array" class="java.io.File" length="2">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig/sqcli.config</string>
-                          </object>
-                        </element>
-                        <element index="1">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig/StrategyQuantX_nocheck.l4j.ini</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="replaceValue" type="string">${installer:SqMemory}</property>
-                      <property name="searchValue" type="string">@@@</property>
-                    </serializedBean>
-                  </action>
-                  <action name="copy configs to SQ-dirs" id="553" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/1 Master</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                    </serializedBean>
-                  </action>
-                  <action name="copy configs to SQ-dirs" id="558" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/2 Generator</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                    </serializedBean>
-                  </action>
-                  <action name="copy configs to SQ-dirs" id="559" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/3 Results</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
-                    </serializedBean>
-                  </action>
-                  <action name="copy toolbox.conf" id="560" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                    <serializedBean>
-                      <property name="destinationFile">
-                        <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/bin</string>
-                        </object>
-                      </property>
-                      <property name="files" type="array" class="java.io.File" length="1">
-                        <element index="0">
-                          <object class="java.io.File">
-                            <string>${installer:sys.installationDir}/SqConfig/toolbox.conf</string>
-                          </object>
-                        </element>
-                      </property>
-                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="NEVER" />
-                    </serializedBean>
-                  </action>
-                </beans>
-              </group>
-              <action name="Toolbox" id="462" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
+              <action id="61" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="file">
                     <object class="java.io.File">
-                      <string>${installer:sys.installationDir}/bin/starttoolbox.bat</string>
+                      <string>${installer:sys.installationDir}/bin/startmonitor.bat</string>
                     </object>
                   </property>
                   <property name="name" type="string">${compiler:sys.fullName}</property>
                 </serializedBean>
                 <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
-              </action>
-              <action name="copy toolbox.conf" id="562" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                <serializedBean>
-                  <property name="destinationFile">
-                    <object class="java.io.File">
-                      <string>${installer:sys.installationDir}/bin</string>
-                    </object>
-                  </property>
-                  <property name="files" type="array" class="java.io.File" length="1">
-                    <element index="0">
-                      <object class="java.io.File">
-                        <string>${installer:sys.installationDir}/SqConfig/toolbox.conf</string>
-                      </object>
-                    </element>
-                  </property>
-                  <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="NEVER" />
-                </serializedBean>
               </action>
             </actions>
             <formComponents>
@@ -558,7 +246,7 @@ return console.askYesNo(message, true);
         </screens>
       </application>
     </applications>
-    <styles defaultStyleId="41">
+    <styles defaultStyleId="35">
       <style name="Standard" id="35" beanClass="com.install4j.runtime.beans.styles.FormStyle">
         <formComponents>
           <formComponent name="Header" id="36" beanClass="com.install4j.runtime.beans.styles.NestedStyleComponent" insetTop="0" insetBottom="0">
@@ -567,13 +255,6 @@ return console.askYesNo(message, true);
             </serializedBean>
           </formComponent>
           <group name="Main" id="37" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup">
-            <serializedBean>
-              <property name="imageFile">
-                <object class="com.install4j.api.beans.ExternalFile">
-                  <string>D:/git/Monitortool/Toolbox/install4j/pictures/toolbox.PNG</string>
-                </object>
-              </property>
-            </serializedBean>
             <beans>
               <formComponent id="38" beanClass="com.install4j.runtime.beans.styles.ContentComponent" insetTop="10" insetLeft="20" insetBottom="10" insetRight="20" />
               <formComponent name="Watermark" id="39" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" insetTop="0" insetLeft="5" insetBottom="0" useExternalParametrization="true" externalParametrizationName="Custom watermark" externalParametrizationMode="include">
@@ -777,8 +458,8 @@ return console.askYesNo(message, true);
     </styles>
   </installerGui>
   <mediaSets>
-    <windows name="Windows" id="58">
-      <jreBundle usePack200="false" jreBundleSource="preCreated" includedJre="C:/Users/Thomas Nickel/.install4j8/jres/windows-amd64-1.8.0_251.tar.gz" manualJreEntry="true" />
+    <windows name="Windows" id="59">
+      <jreBundle jreBundleSource="preCreated" includedJre="windows-amd64-1.8.0_251" />
     </windows>
   </mediaSets>
 </install4j>

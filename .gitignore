@@ -6,3 +6,5 @@
 trace
 *.bak
 .gitignore
+*.png
+jre1.8.0_251/

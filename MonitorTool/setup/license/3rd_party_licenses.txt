@@ -1,0 +1,173 @@
+
+--------------------------------------------------------------------------------
+This software contains unmodified binary redistributions for JIDE Common Layer (Open Source Project) (http://www.jidesoft.com/products/oss.htm),
+JIDE Common Layer is dual-licensed. The two licenses are GPL with classpath exception and free commercial license.
+An original copy of the license agreement can be found at: http://www.jidesoft.com/purchase/SLA.htm
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: Apache Commons Net (http://commons.apache.org/net/)
+
+Copyright 2011 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+This software contains unmodified binary redistributions for H2 database engine (http://www.h2database.com/),
+which is dual licensed and available under a modified version of the MPL 1.1 (Mozilla Public License)
+or under the (unmodified) EPL 1.0 (Eclipse Public License).
+An original copy of the license agreement can be found at: http://www.h2database.com/html/license.html
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: JCommon Java library (http://www.jfree.org/jcommon/)
+which is licensed under the terms of the GNU Lesser General Public Licence (LGPL) version 2.1 or later.
+An original copy of the license agreement can be found at: http://www.gnu.org/licenses/lgpl.html
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: JFreeChart Java library (http://www.jfree.org/jfreechart/) 
+JFreeChart is "open source" or, more specifically, free software. It is distributed under the terms of the GNU Lesser General Public Licence (LGPL), which permits use in proprietary applications.
+An original copy of the license agreement can be found at: http://www.gnu.org/licenses/lgpl.html
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: JCalendar Java library (http://www.toedter.com/en/jcalendar/index.html)
+JCalendar is "open source" or, more specifically, free software. It is distributed under the terms of the GNU Lesser General Public Licence (LGPL), which permits use in proprietary applications.
+An original copy of the license agreement can be found at: http://www.toedter.com/en/jcalendar/license.html
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: JDOM Java library (http://www.jdom.org).
+JDOM is available under an Apache-style open source license below: 
+<pre>
+Copyright (C) 2000-2004 Jason Hunter & Brett McLaughlin.
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions, and the following disclaimer.
+ 
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions, and the disclaimer that follows 
+    these conditions in the documentation and/or other materials 
+    provided with the distribution.
+
+ 3. The name "JDOM" must not be used to endorse or promote products
+    derived from this software without prior written permission.  For
+    written permission, please contact <request_AT_jdom_DOT_org>.
+ 
+ 4. Products derived from this software may not be called "JDOM", nor
+    may "JDOM" appear in their name, without prior written permission
+    from the JDOM Project Management <request_AT_jdom_DOT_org>.
+ 
+ In addition, we request (but do not require) that you include in the 
+ end-user documentation provided with the redistribution and/or in the 
+ software itself an acknowledgement equivalent to the following:
+     "This product includes software developed by the
+      JDOM Project (http://www.jdom.org/)."
+ Alternatively, the acknowledgment may be graphical using the logos 
+ available at http://www.jdom.org/images/logos.
+
+ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED.  IN NO EVENT SHALL THE JDOM AUTHORS OR THE PROJECT
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+
+ This software consists of voluntary contributions made by many 
+ individuals on behalf of the JDOM Project and was originally 
+ created by Jason Hunter <jhunter_AT_jdom_DOT_org> and
+ Brett McLaughlin <brett_AT_jdom_DOT_org>.  For more information
+ on the JDOM Project, please see <http://www.jdom.org/>.
+</pre>  
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: JavaHelp Java library (http://javahelp.java.net)
+JavaHelp is licensed under GNU General Public License - Version 2 with the class path exception.
+An original copy of the license agreement can be found at: http://javahelp.java.net/license.txt
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: TA-Lib Java library (http://ta-lib.org/index.html)
+TA-Lib is available under a BSD License allowing it to be integrated in your own open-source or commercial application, the text of the license is below:
+BSD 
+
+Copyright (c) 2011, TicTacTec 
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the TicTacTec  nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: Uncommons Maths (http://maths.uncommons.org/)
+Uncommons Maths is Open Source software, free to download and use subject to the terms of the Apache Software Licence, Version 2.0.
+An original copy of the license agreement can be found at: http://commons.apache.org/net/license.html
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+The following software may be included in this product: Watchmaker Framework (http://watchmaker.uncommons.org/)
+Watchmaker Framework is Open Source software, free to download and use subject to the terms of the Apache Software Licence, Version 2.0.
+An original copy of the license agreement can be found at: http://commons.apache.org/net/license.html
+--------------------------------------------------------------------------------

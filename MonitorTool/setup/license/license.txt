@@ -1,0 +1,36 @@
+Software License Agreement
+
+Monitor Tool, Beta Version
+Copyright (c) 2014 Thomas Nickel - All rights reserved.
+
+This monitortool is distributed as freeware version. You can use this software for private use.
+
+Carefully read this license agreement before using the product. Using the product indicates that you have read this license agreement and agree to its terms.
+
+By using the product you accept the following License Agreement. If you do not agree to the conditions of this license, delete the product from your system.
+
+This User License entitles you to use a full set of product functionality for an unlimited time on any single computer without purchasing a license key. The software is in use when it is either loaded into RAM or installed into the hard disk or other permanent memory. The product functionality provided by the User license is described in the Users Guide.
+
+Disassembling, reverse engineering, modification and distribution of this software is not allowed without an explicit written permission.
+
+INTELLECTUAL PROPERTY. 
+You agree not to modify, adapt, translate, decompile, reverse engineer, disassemble or otherwise attempt to derive source code from the Software.
+
+OTHER RESTRICTIONS
+
+This License Agreement is your proof of license to exercise the rights granted herein and must be retained by you. LICENSEE may not rent or lease the Product. LICENSEE may not reverse engineer, decompile or disassemble the software program except to the extent such foregoing restriction is expressly prohibited by applicable law.
+
+NO WARRANTY. ANY USE BY LICENSEE IS AT THE LICENSEE'S OWN RISK. PRODUCT IS PROVIDED FOR USE "AS IS" WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE AUTHOR DISCLAIMS ALL WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. THE AUTHOR IS NOT OBLIGATED TO PROVIDE ANY UPDATES TO THE PRODUCT.
+
+USAGE STATISTICS
+This version is a beta version. We want to improve this software.
+You allow us to collect anonymous usage statistics to help us to provide a better quality product. The information collected is not used to identify or contact you. The monitortool connect to a update server to get new updates and send protokollfiles,data and anonymous user information to this server.  If you set a valid email adress in file/config/emailadress this email adress is sent to the server. This email can be used to give you additional information for product improvement and other documentation. If you dont want this email-service you can leave this field empty. 
+This software modify data in the metatrader directorys. Some information will be send anonymous to the update server.
+All information who was sent to the updateserver will only used to improve the monitortool and not given to a third person.
+
+NO LIABILITY FOR CONSEQUENTIAL DAMAGES
+
+In no event shall the author be liable for any damages whatsoever (including, without limitation, incidental, direct, indirect and consequential damages, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use or inability to use this product, even if advised of the possibility of such damages. Because some states/countries do not allow the exclusion or limitation of liability for consequential or incidental damages, the above limitation may not apply to you.
+
+contact:
+Monitortool@gmx.de

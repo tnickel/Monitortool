@@ -234,6 +234,7 @@ public class SwtEditBrokerConfig
 		{
 			lotsize = new Text(sh, SWT.NONE);
 			lotsize.setBounds(937, 12, 60, 23);
+			lotsize.setEditable(false);
 
 			if (me_glob.getLotsize() != 0)
 				lotsize.setText(String.valueOf(me_glob.getLotsize()));

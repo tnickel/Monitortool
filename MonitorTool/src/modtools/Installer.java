@@ -232,7 +232,7 @@ public class Installer
 		if (dis.getActiveShell() == null)
 		{
 			Tracer.WriteTrace(20, "internal 5544jj shell=null");
-
+			return;
 		}
 		Mbox.Infobox("installation ready");
 	}
@@ -288,6 +288,9 @@ public class Installer
 			// den mqlnamen bestimmen
 			mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
 
+			// Den quellnamen renamen das Keyword Strategy muss raus
+			renameQuellnamFiles(metaconfig.getMqlquellverz()+"\\"+mqlnam);
+			
 			Tracer.WriteTrace(20, "mqlquellnam<" + mqlquellnam
 					+ "> mqlquellverz<" + mqlquellverz + "> zielshare<"
 					+ metaconfig.getMqldata() + "> zwischenspeichernam<"
@@ -332,6 +335,20 @@ public class Installer
 			loescheMqlCache(metarealconfig.getMqldata());
 	}
 
+	private void renameQuellnamFiles(String fnamsource)
+	{
+		if(fnamsource.contains("Strategy"))
+		{
+			File fnamsource_f=new File(fnamsource+".mq4");
+			File fnamdest_f=new File(fnamsource.replace("Strategy","")+".mq4");
+			if(fnamsource_f.renameTo(fnamdest_f)==false)
+				Tracer.WriteTrace(10, "E: can´t rename file <"+fnamsource_f.getAbsolutePath()+"> to <"+fnamdest_f.getAbsolutePath()+">");
+			
+			Tracer.WriteTrace(20, "I:renamed Strategyname from<"+fnamsource_f.getAbsolutePath()+"> to<"+fnamdest_f.getAbsolutePath()+">" );
+		}
+	}
+	
+	
 	private void loescheMqlCache(String verz)
 	{
 		String cachenam = verz + "\\experts\\mqlcache.dat";

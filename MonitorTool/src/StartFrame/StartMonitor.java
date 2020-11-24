@@ -1646,12 +1646,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		LockTradeliste us = new LockTradeliste();
 		String userdir = System.getProperty("user.dir");
 		String version = "Version V0.44xx";
-		String serverip2 = "85.214.70.177"; // strato03
+		//String serverip2 = "85.214.70.177"; // strato03
 		// String serverip2= "85.214.73.81"; //strato02
-		String serverip1 = "127.0.0.1";
+		//String serverip1 = "127.0.0.1";
 		// String serverip1= "85.214.70.177";
 		String updatemessage = "";
-		System.out.println("akueller pfad=" + userdir);
+		
 		dis_glob = new Display();// Display.getDefault();
 
 		if (args.length > 0)
@@ -1671,12 +1671,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		GlobalVar gv = new GlobalVar();
 		GlobalVar.setSilentmode(1);
 
+		Tracer.WriteTrace(20, "I: rootpath="+userdir);
+		
 		// falls auf dem lokalen pc (tnickel-pc) ein testserver läuft
+		/*
 		if (Sys.getHostname().equalsIgnoreCase("tnickel-pc") == true)
 			GlobalVar.setServerip1(serverip1);
 		else
 			GlobalVar.setServerip1(serverip2);
 		GlobalVar.setServerip2(serverip2);
+		*/
 		Shell shell = new Shell(dis_glob);
 		//Updater.checkNewUpdate();
 		Lic lic = new Lic();

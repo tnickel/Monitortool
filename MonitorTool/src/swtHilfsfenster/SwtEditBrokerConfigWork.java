@@ -41,7 +41,7 @@ public class SwtEditBrokerConfigWork
 						tv.getEaliste(), tv);
 
 			tv.getEaliste().store(0);
-			System.out.println("Es wurde installiert !!");
+			System.out.println("Es wurden EAs installiert !!");
 		} else
 			Tracer.WriteTrace(10,
 					"W: it is not allowd to install something because the not modifyflag ist set");

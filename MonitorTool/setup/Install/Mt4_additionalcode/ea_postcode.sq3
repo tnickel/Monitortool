@@ -1,0 +1,114 @@
+bool initlotconfig(string mn)
+{
+ int handle=0;
+ string magno=mn;
+ string such=magno;
+ //gen configfile magno.lot if not available
+ 
+ if(checkfile(such+".lot")==0)
+{
+     handle=FileOpen(such+".lot", FILE_CSV|FILE_WRITE);
+     if(handle>0)
+        {
+
+            if(FileWriteString(handle,"\Install\Mt4_additionalcode SQ 3.8.2 \n")==false)
+              Log("Error cant write file <"+such+".lot>");       
+
+            if(FileWriteString(handle,"UseMoneyManagement = false\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+            
+            if(FileWriteString(handle,"Lots = 0.01\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+
+            if(FileWriteString(handle,"RiskInPercent = 1.0\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+
+            if(FileWriteString(handle,"MaximumLots = 5\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+
+            if(FileWriteString(handle,"UseFixedMoney = false\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+       
+        
+            if(FileWriteString(handle,"RiskInMoney = 100.0\n")==false)
+              Log("Error cant write file <"+such+".lot>");
+       
+         
+         FileClose(handle);
+        }
+      else
+        Log("ERROR cant create file <"+such+".lot>");
+ }
+}
+
+
+bool lotconfig(string mn)
+{
+ string magno=mn;
+ string such=magno;
+ int handle=0;
+ string filelots_str=NULL;
+ string line_str=NULL;
+ int i=0;
+ double lots_val=0.01;
+
+initlotconfig( mn);
+ //falls eine lotsize im file
+ if(checkfile(such+".lot")==1)
+   {
+       handle=FileOpen(such+".lot", FILE_CSV|FILE_READ);
+       if(handle>0)
+        {
+         while(!FileIsEnding(handle))
+         {
+            line_str=FileReadString(handle);
+            lotconfigmem[i]=line_str;
+            i++;
+         }
+         FileClose(handle);
+        }
+       for(i=0; i<20; i++)
+         {
+           line_str=lotconfigmem[i];
+
+           if(StringFind(line_str,"UseMoneyManagement",0)>=0)
+             {
+              if(StringFind(line_str,"true",0)>=0)
+                  UseMoneyManagement=true;
+              else
+                  UseMoneyManagement=false;
+             }      
+           if(StringFind(line_str,"UseFixedMoney",0)>=0)
+             {
+              if(StringFind(line_str,"true",0)>=0)
+                  UseFixedMoney=true;
+              else
+                  UseFixedMoney=false;
+             }       
+
+ 	   if(StringFind(line_str,"MaximumLots",0)>=0)
+               MaximumLots=extract_doubleval(line_str,0,5,MagicNumber);
+           else if(StringFind(line_str,"Lots",0)>=0)
+               Lots=extract_doubleval(line_str,0,5,MagicNumber);
+
+           if(StringFind(line_str,"RiskInPercent",0)>=0)
+               RiskInPercent=extract_doubleval(line_str,0,2,MagicNumber);
+
+          
+
+           if(StringFind(line_str,"RiskInMoney",0)>=0)
+               RiskInMoney=extract_doubleval(line_str,0,200,MagicNumber);
+        }
+       }
+	Log("use *.lot ---config ***********************");
+       	Log("UseMoneyManagement="+UseMoneyManagement);
+	Log("UseFixedMoney="+UseFixedMoney);
+	Log("Lots="+Lots);
+	Log("RiskInPercent="+RiskInPercent);
+	Log("MaximumLots="+MaximumLots);
+	Log("RiskInMoney="+RiskInMoney);
+
+       //dann zeige die aktuelle lotsize an
+       DisplayText("lotsline", 60, 500, "lots= "+Lots, 9, "Verdana", Gold);
+   	return(true);
+}

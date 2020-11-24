@@ -1,0 +1,245 @@
+V0.45 (24.11.2020)
+-Update for Strategyquant 4.130 R1
+
+V0.4361 (9.10.2015)
+-buxfixing autoconfig für den portablen mode
+
+V4.436 (6.10.2015)
+-add metatrader portable startmetatrader_portable.bat
+-add portable start in the config
+-add wastedir in the files directory (wastedir store the deleted historyexporter)
+-update historyexporter.mq4
+-Implement OnStart in historyexporter.mq4 (increase speed, only every 30 seconds the history will be checked)
+-implement history_expset_ in Monitortool (make system more stable, filter double trades out)
+-implement myfxbookfilter "history_expired_myfxbook_<name>.csv" (trades from myfxbook can be imported)
+-improve compare Trades (same trades will be marked green, same ranges grey)
+-implement import *.strfiles in compare trades (we can compare trades with *.str (SQ) and *.html files from metatrader)
+-improve Tickdataexporter (summerize 50 Ticks and write them as bulk)
+
+
+V4.404 Anpassung Mt600+
+
+V0.400 Serverversion vom Monitortool
+-Updates werden automatisch vom Server geladen
+-Es gibt jetzt einen Development und einen Release- Channel, der ist in der config einstellbar
+-License Information, das Verzeichniss /info bitte von Hand kopieren da sonst keine Lizenzinformation angezeigt wird.
+
+V0.394
+Zum Server werden jetzt Name und emailadresse übertragen
+
+
+V0.393
+-tradelisten zum server
+-bug im beenden behoben
+
+V0.389
+-Errorhandling im historyexporter verbessert (auch kaputte files werden jetzt verarbeitet)
+-Speicherhandling verbessert(export tradeliste)
+-Änderung des patchens des init() im Metatrader
+-anpassung der init()-funktion, es wird jetzt ein Print stat Log für die Randomfunktion verwendet
+
+V0.388
+-Zuordnung monitortool <-> dropboxtool durch gleiche lizenzid
+
+
+V0.387
+-comparetradelist fehlerbehebung (jetzt sollte nix mehr abstürzen)
+
+V0.386
+-showallprofit, flag für best 100
+-comparetradeliste (graphik bleibt jetzt auch bei Fensterveränderung bestehen)
+-comparetradeliste (fehlerbehebung, jetzt werden die angwählten EAS richtig dargestellt)
+
+V0.385
+-Änderung in der forget old ea eingabe, bitte Einabe mit Return abschliessen
+
+V0.384
+-konfigurierbarer forget old ea
+-damit nicht alle metatrader zur gleichen zeit starten und einen kontext busy verursachen wurde ein zufallssleep eingebaut
+
+V0.383
+-Fehlerbehbung deletefunktion
+
+V0.382
+-delete funktion
+
+V0.381
+-Mache symbole GOLD, Silver installierbar
+
+V0.380 
+-Fehlerkorrektur install myfxbook auf Realaccounts
+-lic.xml file hinzugefügt. Bitte in monitor/conf/ ablegen damit man die vollversion hat
+
+V0.379 (Fehlerkorrektur Ausschaltung,Tradecheck)
+-Fehlerkorrektur Auschaltung
+-//###Tradecheck(Wenn man dies Schlüsselwort in den mql-Quellcode einbaut weiss das Monitortool wo es die Abschaltung einbauen soll)
+
+V0.378 (Installverzeichniss bitte ebenfalls updaten)
+-Support für myfxbook 
+
+
+V0.377
+-Reload all Data/show all data (nur beim Reload wird alles von Platte neu eingelesen)
+
+V0.376
+-Fehlerbehebung Absturz compareTradelist
+-mql-protection Erweiterung für IrisFx
+-verbesserte Fehlermeldungen bei der Installation
+-Profitfator, Drawdownanzeige
+-initRealaccount überarbeitet, es wird nachgefragt ob die Lotsize geloescht werden soll
+
+V0.375
+-Tradefiltererweiterung bzgl. Mintrades
+
+V0.374
+-Gelbe Info über den EA namen (Man möchte wissen welcher EA installiert sein sollte)
+-Überwachung der Metatrader, wenn ein Logfile eine Stunde lang nicht beschrieben wurde wird davon ausgegangen das
+der Metatrader nicht mehr läuft. Die last response time wird in der Brokerübersicht angezeigt.
+
+V0.373
+-Anzeige der korrekten Pips
+-Anzeige der korrekten Traderichtung
+
+V0.372
+-Anzeige des Währungspärchens (historyexporter und monitorlib updaten)
+-Anzeige und konfiguration der lotsize auf Realaccount
+- Fehlerbehebung installation eines einzelnen EAs. (löschen des mqlcache.dat)
+- verbesserter Tickdataexporter (der speichert jetzt auch die Millisekunden)
+
+V0.371
+-Verbesserung mql-Deprotection
+
+V0.370
+-Korretur der Gewinne, Es wurde vergessen Swap und Provision abzuziehen
+-Robin Vol installierbar (verbesserung der mql-protection umgehung)
+
+V0.369
+-close hedge by # durch close hedge by @ ersetzen
+-Verbesserte Autoinstall (Jetzt nur noch <Währungspaar> <Timeframe> im Namen)
+-Compiler compiliert jetzt auch decompilierte EA´s (ist ein erster Test)
+
+V0.368
+-AUDNZD erweiterung
+
+V0.367
+-delete mqlcache
+-Filterung von *.exe bei der Installation
+-Erweiterung des Tradefilters um profit10,profit30, profitall
+
+V0.362
+-Fehlerbehebung beim installieren
+
+V0.361 
+-fehlerbehbung show backtest
+-backtest mit neuer calculation
+-tradefiltererweiterung (automatic=1)
+
+V0.360
+-Export von EA+Tradeliste möglich
+-Tradeliste kann gleich beim install mitinstalliert werden
+(Man kann so einfacher ea´s mit Tradeliste weitergeben)
+
+V0.355
+-Erweiterung der Comparefunktion
+
+V0.354
+-Erweiterung für die Automatikversion vom 4IndiEa
+
+V0.353
+-Fehlerkorrektur magiclist
+
+V0.352
+-LateSwitchOnGD (Schaltet die Automatik erst ein wenn der GDx unterschritten worden ist)
+
+V0.351
+-ShowBacktest beschleunigt
+
+V0.350
+- Ticketnummer anzeigen(erledigt)
+- filterung über info1 und info2(erledigt)
+- showbacktest (mit gifbild) (erledigt)
+- comparetradeliste mit magicnumbern(erledigt) 
+- bug sell buy (erledigt)
+- gdx bug (erledigt)
+- magicnummern zusammenfügen 1001=2005,2006,2007(erledigt)
+
+V0.341
+-Bugfix Abschaltautomatik 
+-Bugfix GDX
+-Bugfix Tabellenanzeige
+
+
+V0.34
+-man kann jetzt die Brokertable umsortieren
+-Tabellenzeile wird rot markiert wenn ea-automatic angeschaltet ist und der ea nicht profitabel ist
+d.h. 10T,30T und gesammtgewinn minus und >5 Trades
+-Erweiterung mit Terminal Restart
+(bitte das install-Verzeichniss von Hand updaten)
+
+V0.33
+set instfrom implementiert (Realbroker und Demobroker können jetzt nachträglich verknüpft werden)
+
+V0.32
+-Sortfunktion konfigurierbar
+-Fehlerbehebung in der Config EA
+
+V0.31
+-tradefilter funktion
+
+V0.30
+-compare Funktion (wird noch verfeinert)
+
+-Rundung auf 2 Stellen bei Tradetabellen
+
+V0.293
+Aenderung:
+-setze forget30days als default
+
+-Erweiterung Anzeige des Backtests
+(Es wird der Backtest vom EA automatisch gesucht, wird dieser gefunden wird er angezeigt, wenn nicht
+wird nach dem Backtest gefragt)
+
+V0.292
+Fehlerbehebung:
+Führende Nullen in der Magic entfernen, so das maximale Ziffernlänge 9 erreicht wird
+
+---------------------------------------------
+12.04.2013(V0.291)
+Feature:
+-H4, Daily Timeframe integriert
+-Export, Import, delete History
+-Anzeige der neuen Versionsnummer im Update. Bitte erst updaten wenn die Nummer auch höher ist
+Vorher sind zwar auch updates da wenn dies angezeigt wird, die sind aber noch nicht freigegeben.
+-anz incomming Trades, anz Ea´s korrigiert
+-Erweiterung der Tradelistenanzeige, (Richtung, durration)
+
+Fehlerbehebungen:
+-Fehler in der Abschaltautomatik behoben
+-Fehler in der Installation behoben (_Strategie)
+-GB-Defaultlotangaben angepasst bei GeneticBuilder Strategien
+
+
+-------------------------------------------
+9.04.2013 (V0.290)
+-Fehlerbehebung bei der Lotsizeangabe
+-Anpassung Fenster, grösse etc.
+-Variable Schriftgrösse für mittlere Tabelle (+/-) button
+-Summierte Profitanzeige (show sel Profits)
+-Die selektion der einzelnen EAs wurde angepasst
+(Sel One Mode)
+-Fehlerbehebung in der Config EA
+
+--------------------------------------------------------
+6.04.2013
+-magics dürfen maximal 9 Stellen haben, warnung bei übergrösse
+-Bugs in erweiterter Abschaltautomatik behoben
+-Verbesserung der Tradelistendarstellung
+
+--------------------------------------------------------
+2.04.2013
+-ConfigEA/Controll Logik ist jetzt soweit umgesetzt,
+aber noch nicht getestet
+-lotsize auf Realaccounts koennen jetzt frei gewaehlt werden
+-Eas koennen mit einer Favorite Nummber versehen werden, im Tradefilter kann diese selektiert werde.
+Es koennen somit bestimmte EA-Gruppen angezeigt werden
+(Ist noch nicht komplett umgesetzt)
