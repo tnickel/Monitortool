@@ -223,6 +223,9 @@ public class FileAccessDyn
 	{
 		String retstr = null;
 
+		if(name==null)
+			Tracer.WriteTrace(10, "E: internal error 1725 name==null");
+		
 		if (name.contains("?") == true)
 		{
 			while (name.contains("?") == true)

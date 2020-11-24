@@ -3,6 +3,9 @@ package gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+
+import hiflsklasse.Tracer;
 
 public class Mbox
 {
@@ -11,11 +14,18 @@ public class Mbox
 		if(infostring ==null)
 			infostring="empty";
 		
-		MessageBox infoBox = new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_INFORMATION);
+		Display display=Display.getDefault();
+		Shell shell=display.getActiveShell();
+		
+		if(shell!=null)
+		{
+		MessageBox infoBox = new MessageBox(shell, SWT.ICON_INFORMATION);
         infoBox.setText("About Launcher");
         infoBox.setMessage(infostring);
         infoBox.open();
-
+		}
+		else
+			Tracer.WriteTrace(10, "Info: <"+infostring+">");
 	}
 }
 	/*public class Mbox extends org.eclipse.swt.widgets.Dialog {

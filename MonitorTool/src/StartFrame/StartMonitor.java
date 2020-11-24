@@ -1575,9 +1575,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		if ((GlobalVar.getNetzwerkshareprefix() == null)
 				|| (GlobalVar.getNetzwerkshareprefix().length() < 2))
 		{
-			Mbox.Infobox("Please set Config");
 			SwtEditGlobalConfig sc = new SwtEditGlobalConfig();
+			Mbox.Infobox("Please set Config");
 			sc.init(dis_glob);
+			
+			
+			
 			String headline = GlobalVar.calcHeadline();
 
 			if (dis_glob.getActiveShell() != null)
@@ -1646,10 +1649,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		LockTradeliste us = new LockTradeliste();
 		String userdir = System.getProperty("user.dir");
 		String version = "Version V0.44xx";
-		//String serverip2 = "85.214.70.177"; // strato03
-		// String serverip2= "85.214.73.81"; //strato02
-		//String serverip1 = "127.0.0.1";
-		// String serverip1= "85.214.70.177";
+		
+		 String serverip2= "127.0.0.1"; 
+		String serverip1 = "127.0.0.1";
+		 
 		String updatemessage = "";
 		
 		dis_glob = new Display();// Display.getDefault();
@@ -1674,15 +1677,15 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		Tracer.WriteTrace(20, "I: rootpath="+userdir);
 		
 		// falls auf dem lokalen pc (tnickel-pc) ein testserver läuft
-		/*
+		
 		if (Sys.getHostname().equalsIgnoreCase("tnickel-pc") == true)
 			GlobalVar.setServerip1(serverip1);
 		else
 			GlobalVar.setServerip1(serverip2);
 		GlobalVar.setServerip2(serverip2);
-		*/
+		
 		Shell shell = new Shell(dis_glob);
-		//Updater.checkNewUpdate();
+		Updater.checkNewUpdate();
 		Lic lic = new Lic();
 		shell.setText(GlobalVar.calcHeadline());
 
@@ -1696,7 +1699,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		}
 
 		// den alten update sync freigeben
-		// us.delSync();
+		 //us.delSync();
 
 		MonitorClient.main(new String[]
 		{ "start client" });
