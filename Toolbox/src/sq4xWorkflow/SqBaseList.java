@@ -38,6 +38,10 @@ public class SqBaseList
 		Inf inf = new Inf();
 		inf.setFilename(fnam);
 		String zeile = inf.readZeile();
+		
+		if(zeile==null)
+			Tracer.WriteTrace(10, "E: SQbaselist defect file<"+fnam+"> -->stop");
+		
 		String[] headerparts = zeile.split(";");
 		int anzheaderparts = headerparts.length;
 		for (int i = 0; i < anzheaderparts; i++)

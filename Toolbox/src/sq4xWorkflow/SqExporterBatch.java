@@ -68,13 +68,25 @@ public class SqExporterBatch
 		jp.update(50);
 		Inf inf = new Inf();
 		inf.setFilename(tmp_exportbatch);
-		inf.writezeile("-project action=status name=Retester");
+		inf.writezeile("-project action=status name=Retester > C:\\tmp\\response.txt");
 		inf.writezeile("-databank action=export project=Retester name=Results file=" + databankfile
 				+ " view=\"Default - Portfolio\"");
 		inf.close();
 		execExport();
 		jp.update(100);
 		jp.end();
+		
+		String fnam="C:\\tmp\\response.txt";
+		File fnam_f=new File(fnam);
+		if(fnam_f.exists())
+			fnam_f.delete();
+		
+		inf=new Inf();
+		inf.setFilename(fnam);
+		String mem=inf.readMemFile();
+		inf.close();
+		if(mem.contains("Synchronization finished")==false)
+			Tracer.WriteTrace(10, "E: error with strategyquant database export see logfile <"+fnam+">");
 		
 	}
 	

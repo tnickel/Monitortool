@@ -138,6 +138,11 @@ public class SqWorkflowMaster extends Sq
 	public void genWorkflow()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
+		File tmpdir_f=new File("c:\tmp");
+		if(tmpdir_f.exists()==false)
+			if(tmpdir_f.mkdir()==false)
+				Tracer.WriteTrace(10, "E:error can´t generate c:\tmp - directory --> stop");
+		
 		
 		int offset = 0;
 		// some initialisation progressslider and dfformat
@@ -152,7 +157,6 @@ public class SqWorkflowMaster extends Sq
 			jp.update(loopcount);
 			
 			// modify project
-			
 			offset = i * stepvalue_g;
 			psq.modifyProject(offset);
 			// save projekt
