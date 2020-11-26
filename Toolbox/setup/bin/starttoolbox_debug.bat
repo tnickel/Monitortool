@@ -1,0 +1,2 @@
+set java="${installer:sys.installationDir}\jre1.8.0_251\bin\java.exe"
+      %java% -Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y -jar  ${installer:sys.installationDir}\bin\toolbox.jar  2> error.txt
