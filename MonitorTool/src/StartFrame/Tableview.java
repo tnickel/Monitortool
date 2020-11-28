@@ -355,6 +355,8 @@ public class Tableview extends TableViewBasic
 
 	public void ShowProfitTable()
 	{
+		//Die Profittable ist die grosse Tabelle im Hauptscreen in der Mitte
+		
 		ProgressBar pb = progressbar_glob;
 		Table table = table2_glob;
 		Display dis = display_glob;

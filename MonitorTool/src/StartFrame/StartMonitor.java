@@ -1889,7 +1889,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.initTargetBrokerCombo(combo_targetbroker);
 
 	
-			smw.exportAllTradelistEncryped();
+		smw.exportAllTradelistEncryped();
 
 		getAllData.setEnabled(true);
 	}

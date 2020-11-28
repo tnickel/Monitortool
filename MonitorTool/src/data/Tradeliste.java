@@ -856,6 +856,8 @@ public class Tradeliste
 	public void ShowTradeTable(Display dis, Table table, String brokername,
 			int maxentrys, Tradeliste tl, Tradefilter tf, int forceflag)
 	{
+		//Hier wird eine Tabelle aufgebaut
+		//
 		// brokername: falls gesetzt wird nur ein bestimmter broker angezeigt
 		org.eclipse.swt.graphics.Color red = dis.getSystemColor(SWT.COLOR_RED);
 		org.eclipse.swt.graphics.Color green = dis

@@ -320,9 +320,18 @@ public class Ea implements Comparable<Ea>
 			{
 				Inf inf = new Inf();
 				inf.setFilename(fnam);
-				String val=inf.readZeile();
-				inf.close();
-				return (val);
+				String mem=inf.readMemFile();
+				if(mem.contains("mmLotsIfNoMM" )==true)
+				{	//den vorderen Teil abschneiden
+					mem=mem.substring(mem.indexOf("mmLotsIfNoMM =")+14);
+					//den hinteren teil abschneiden
+					mem=mem.substring(0,mem.indexOf(";"));
+					
+					
+					return (mem);
+				}
+				else
+					 return "...";
 			}
 		
 		return "...";
