@@ -138,10 +138,10 @@ public class SqWorkflowMaster extends Sq
 	public void genWorkflow()
 	{
 		// Hier wird die workflowgenerierung druchgeführt
-		File tmpdir_f=new File("c:\tmp");
+		File tmpdir_f=new File("c:\\tmp");
 		if(tmpdir_f.exists()==false)
 			if(tmpdir_f.mkdir()==false)
-				Tracer.WriteTrace(10, "E:error can´t generate c:\tmp - directory --> stop");
+				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
 		
 		
 		int offset = 0;
