@@ -58,9 +58,17 @@ public class SqExporterBatch
 	
 	public void exportDatabase()
 	{
+		File respfile_f=new File("C:\\tmp\\response.txt");
+		
+		//delete old exportbatch.txt
 		File export_f = new File(tmp_exportbatch);
 		if (export_f.exists())
-			export_f.delete();
+			if(export_f.delete()==false)
+				Tracer.WriteTrace(10, "E: can´t delete file <"+export_f.getPath()+"> --> stop");
+		
+		if(respfile_f.exists())
+			if(respfile_f.delete()==false)
+				Tracer.WriteTrace(10, "E: can´t delete file <"+respfile_f.getPath()+"> --> stop");
 		
 		// Der Progressslider zeigt das was aufgesammelt wird
 		JToolboxProgressWin jp = new JToolboxProgressWin("export results", 0, 100);
@@ -68,7 +76,7 @@ public class SqExporterBatch
 		jp.update(50);
 		Inf inf = new Inf();
 		inf.setFilename(tmp_exportbatch);
-		inf.writezeile("-project action=status name=Retester > C:\\tmp\\response.txt");
+		inf.writezeile("-project action=status name=Retester > "+respfile_f.getPath());
 		inf.writezeile("-databank action=export project=Retester name=Results file=" + databankfile
 				+ " view=\"Default - Portfolio\"");
 		inf.close();
@@ -76,17 +84,14 @@ public class SqExporterBatch
 		jp.update(100);
 		jp.end();
 		
-		String fnam="C:\\tmp\\response.txt";
-		File fnam_f=new File(fnam);
-		if(fnam_f.exists())
-			fnam_f.delete();
+		
 		
 		inf=new Inf();
-		inf.setFilename(fnam);
+		inf.setFilename(respfile_f.getPath());
 		String mem=inf.readMemFile();
 		inf.close();
 		if(mem.contains("Synchronization finished")==false)
-			Tracer.WriteTrace(10, "E: error with strategyquant database export see logfile <"+fnam+">");
+			Tracer.WriteTrace(10, "E: error with strategyquant database export see logfile <"+respfile_f.getPath()+">");
 		
 	}
 	
