@@ -53,7 +53,7 @@ public class SqGenerateWorkflowMain
 		pz.writeFile(configxml);
 		Inf inf = new Inf();
 		inf.setFilename(configxml);
-		memstring_org_g = inf.readMemFileDelimter(60000);
+		memstring_org_g = inf.readMemFileDelimter(200000);
 		inf.close();
 		
 	}

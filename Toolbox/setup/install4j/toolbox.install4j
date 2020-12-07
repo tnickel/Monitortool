@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.8" transformSequenceNumber="8">
-  <directoryPresets config="D:/git/Monitortool/Toolbox/setup/install4j/pictures" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.2.2.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <directoryPresets config="D:/git/Monitortool/Toolbox/setup" />
+  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.2.4.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="115" />
@@ -12,6 +12,7 @@
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Toolbox/setup/data" entryMode="subdir" subDirectory="data" />
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Toolbox/setup/SqConfig" entryMode="subdir" subDirectory="SqConfig" />
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Toolbox/setup/bin" entryMode="subdir" subDirectory="bin" excludeSuffixes="*.conf" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Toolbox/setup/ExampleMasterfiles" entryMode="subdir" subDirectory="ExampleMasterfiles" />
     </entries>
   </files>
   <installerGui>
@@ -208,6 +209,13 @@ if(lic_f.isFile()==false)
                   <property name="variableName" type="string">SqRootDirectory</property>
                 </serializedBean>
               </formComponent>
+              <formComponent name="Copy SQ userdata too" id="1022" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+                <serializedBean>
+                  <property name="checkboxText" type="string">Copy SQ userdirectory</property>
+                  <property name="helpText" type="string">We need to copy the "$SqRoootdir\\user"-data only if we make a first installation.</property>
+                  <property name="variableName" type="string">SQ.copyUserdata</property>
+                </serializedBean>
+              </formComponent>
               <group id="465" beanClass="com.install4j.runtime.beans.groups.HorizontalFormComponentGroup">
                 <beans>
                   <formComponent id="466" beanClass="com.install4j.runtime.beans.formcomponents.NumberSpinnerComponent">
@@ -228,6 +236,14 @@ if(lic_f.isFile()==false)
                 </beans>
               </group>
               <formComponent id="468" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" />
+              <formComponent name="add example masterfiles" id="921" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+                <serializedBean>
+                  <property name="checkboxText" type="string">Add example masterfiles to Toolbox 1 SQ Master</property>
+                  <property name="initiallySelected" type="boolean" value="true" />
+                  <property name="variableName" type="string">AddExampleMastefiles</property>
+                </serializedBean>
+              </formComponent>
+              <formComponent id="922" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" />
               <formComponent name="Add a desktop link" id="214" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
                 <serializedBean>
                   <property name="checkboxText" type="string">${i18n:CreateDesktopIcon}</property>
@@ -294,6 +310,26 @@ return true; </property>
                           <string>${installer:sys.installationDir}/SQ/1 Master</string>
                         </object>
                       </property>
+                      <property name="directoryFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string" />
+                        </object>
+                      </property>
+                      <property name="fileFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string">//check if we need userdata
+if(context.getBooleanVariable("SQ.copyUserdata")==false)
+   {
+      
+      //we don´t need to copy userdata  
+      if(file.getAbsolutePath().contains("user")==true)
+        return false;
+   }
+   
+return true;
+</property>
+                        </object>
+                      </property>
                       <property name="files" type="array" class="java.io.File" length="1">
                         <element index="0">
                           <object class="java.io.File">
@@ -313,6 +349,24 @@ return true; </property>
                           <string>${installer:sys.installationDir}/SQ/2 Generator</string>
                         </object>
                       </property>
+                      <property name="directoryFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string" />
+                        </object>
+                      </property>
+                      <property name="fileFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string">//check if we need userdata
+if(context.getBooleanVariable("SQ.copyUserdata")==false)
+   {
+      //we don´t need to copy userdata  
+      if(file.getPath().contains("user")==true)
+        return false;
+   }
+return true;
+</property>
+                        </object>
+                      </property>
                       <property name="files" type="array" class="java.io.File" length="1">
                         <element index="0">
                           <object class="java.io.File">
@@ -330,6 +384,24 @@ return true; </property>
                       <property name="destinationFile">
                         <object class="java.io.File">
                           <string>${installer:sys.installationDir}/SQ/3 Results</string>
+                        </object>
+                      </property>
+                      <property name="directoryFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string" />
+                        </object>
+                      </property>
+                      <property name="fileFilter">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <property name="value" type="string">//check if we need userdata
+if(context.getBooleanVariable("SQ.copyUserdata")==false)
+   {
+      //we don´t need to copy userdata  
+      if(file.getPath().contains("user")==true)
+        return false;
+   }
+return true;
+</property>
                         </object>
                       </property>
                       <property name="files" type="array" class="java.io.File" length="1">
@@ -473,6 +545,23 @@ return true;</property>
                       </property>
                     </serializedBean>
                   </action>
+                  <action name="copy toolbox.conf" id="923" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                    <serializedBean>
+                      <property name="destinationFile">
+                        <object class="java.io.File">
+                          <string>${installer:sys.installationDir}/bin</string>
+                        </object>
+                      </property>
+                      <property name="files" type="array" class="java.io.File" length="1">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>${installer:sys.installationDir}/SqConfig/toolbox.conf</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
+                    </serializedBean>
+                  </action>
                 </beans>
               </group>
               <action name="Toolbox" id="462" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
@@ -503,6 +592,35 @@ return true;</property>
                   <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="NEVER" />
                 </serializedBean>
               </action>
+              <group name="copy ExampleMasterfiles" id="925" beanClass="com.install4j.runtime.beans.groups.ActionGroup">
+                <serializedBean>
+                  <property name="conditionExpression">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">return(context.getBooleanVariable("AddExampleMastefiles"));</property>
+                    </object>
+                  </property>
+                </serializedBean>
+                <beans>
+                  <action id="924" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                    <serializedBean>
+                      <property name="destinationFile">
+                        <object class="java.io.File">
+                          <string>${installer:sys.installationDir}/sq/1 Master/user/projects</string>
+                        </object>
+                      </property>
+                      <property name="files" type="array" class="java.io.File" length="1">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>${installer:sys.installationDir}/ExampleMasterfiles</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="ALWAYS" />
+                      <property name="showProgress" type="boolean" value="true" />
+                    </serializedBean>
+                  </action>
+                </beans>
+              </group>
             </actions>
             <formComponents>
               <formComponent id="16" beanClass="com.install4j.runtime.beans.formcomponents.ProgressComponent">
