@@ -1298,7 +1298,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								label22 = new Label(group2filter, SWT.NONE);
-								label22.setText("decrement");
+								label22.setText("delta days");
 								label22.setBounds(92, 238, 153, 30);
 							}
 							{
@@ -1314,7 +1314,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								outputname = new Text(group2filter, SWT.NONE);
 								outputname.setText(Toolboxconf.getPropAttribute("outputname"));
-								outputname.setBounds(12, 280, 288, 30);
+								outputname.setBounds(12, 280, 417, 30);
 								outputname.addModifyListener(new ModifyListener() {
 									public void modifyText(ModifyEvent evt)
 									{
@@ -1325,11 +1325,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label24 = new Label(group2filter, SWT.NONE);
 								label24.setText("generated workflow name");
-								label24.setBounds(306, 280, 219, 30);
+								label24.setBounds(435, 280, 219, 30);
 							}
 							{
 								collectresultsbutton = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								collectresultsbutton.setText("Step3 collect/store results");
+								collectresultsbutton.setText("Step3 collect results");
 								collectresultsbutton.setBounds(1170, 731, 285, 88);
 								collectresultsbutton.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
@@ -1352,7 +1352,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label26 = new Label(group2filter, SWT.NONE);
 								label26.setText("(should be uniqe !!)");
-								label26.setBounds(537, 280, 157, 30);
+								label26.setBounds(660, 280, 157, 30);
 							}
 							{
 								text4infotext = new Text(group2filter,
@@ -1537,13 +1537,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								composite15 = new Composite(group2filter, SWT.BORDER);
-								GridLayout composite15Layout = new GridLayout();
-								composite15Layout.makeColumnsEqualWidth = true;
-								composite15.setLayout(composite15Layout);
-								composite15.setBounds(8, 166, 1143, 416);
-							}
-							{
 								button9shareddrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
 								button9shareddrive.setBounds(992, 706, 26, 25);
 								button9shareddrive.setSelection(true);
@@ -1568,10 +1561,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button9showresults = new Button(group2filter, SWT.CHECK | SWT.LEFT);
 								button9showresults.setText("Show Results");
-								button9showresults.setBounds(821, 781, 108, 30);
+								button9showresults.setBounds(821, 781, 161, 30);
 								button9showresults.setSelection(true);
 								button9showresults.addSelectionListener(new SelectionAdapter() {
-									public void widgetSelected(SelectionEvent evt) {
+									public void widgetSelected(SelectionEvent evt)
+									{
 										button9showresultsWidgetSelected(evt);
 									}
 								});
@@ -1581,7 +1575,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite16Layout = new GridLayout();
 								composite16Layout.makeColumnsEqualWidth = true;
 								composite16.setLayout(composite16Layout);
-								composite16.setBounds(7, 611, 1144, 210);
+								composite16.setBounds(7, 605, 1144, 210);
+							}
+							{
+								composite15 = new Composite(group2filter, SWT.BORDER);
+								GridLayout composite15Layout = new GridLayout();
+								composite15Layout.makeColumnsEqualWidth = true;
+								composite15.setLayout(composite15Layout);
+								composite15.setBounds(7, 167, 1143, 416);
 							}
 						}
 					}
@@ -1746,7 +1747,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.2.2");
+		shell.setText("Toolbox V1.2.5");
 		
 		while (!shell.isDisposed())
 		{
@@ -2302,6 +2303,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		FilterSourceDir.setText(masterfile);
 		// set new sourcedir in configfile
 		Toolboxconf.setPropAttribute("masterfile", masterfile);
+		
+		// extract parendir from masterfile
+		File masterfile_f = new File(masterfile);
+		String pd = masterfile_f.getParent();
+		if ((pd != null) && (pd.contains("\\")))
+		{
+			String noutdir=pd.substring(pd.lastIndexOf("\\")+1);
+			outputname.setText(noutdir);
+			ModifiedOutputDirectory();
+		}
 	}
 	
 	private void button7setdestdirWidgetSelected(SelectionEvent evt)
@@ -2342,12 +2353,15 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// get all information from the visual interface
 		getInterfaceData();
 		
-		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
+
 		// collect all results and write infos in file
-		
-		sqprojects.collectResults(button9shareddrive.getSelection(),button9backupdrive.getSelection(),button9showresults.getSelection());
+		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
+				button9showresults.getSelection());
 		refreshProjectfilesanzahlMessages();
+		
+		if(button9shareddrive.getSelection())
+			Toolboxconf.backupToolboxconf(text4shareddrive.getText()+"\\"+outputname.getText());
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
 	
@@ -2432,6 +2446,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("outputname.modifyText, event=" + evt);
 		// workflowname has changed, than check directory and load description window
+		ModifiedOutputDirectory();
+	}
+	
+	private void ModifiedOutputDirectory()
+	{
 		String genworkflowname = outputname.getText();
 		text4infotext.setText(SqGoogle.ReadInfomessage(text4shareddrive.getText(), genworkflowname));
 		sqprojects.setOutputname(genworkflowname);
@@ -2536,11 +2555,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		button8setbackupdrive.setEnabled(sel);
 	}
 	
-	private void button9showresultsWidgetSelected(SelectionEvent evt) {
-		System.out.println("button9showresults.widgetSelected, event="+evt);
-		//TODO add your code for button9showresults.widgetSelected
+	private void button9showresultsWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button9showresults.widgetSelected, event=" + evt);
+		// TODO add your code for button9showresults.widgetSelected
 	}
-
+	
 	final Runnable inittimer = new Runnable() {
 		public void run()
 		{

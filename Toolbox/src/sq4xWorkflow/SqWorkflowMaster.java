@@ -166,7 +166,6 @@ public class SqWorkflowMaster extends Sq
 			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, workflowname);
-			
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
 		jp.end();
@@ -175,6 +174,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag)
 	{
+		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
 		sr.setResultdir(resultdir_g);

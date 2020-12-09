@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import hiflsklasse.FileAccess;
+
 public class Toolboxconf
 {
 	static private Properties p = new Properties();
@@ -15,7 +17,7 @@ public class Toolboxconf
 	{
 		
 		//hier wird die config eingelesen
-		conffile_glob = path+"\\bin\\toobox.conf";
+		conffile_glob = path+"\\bin\\toolbox.conf";
 
 		File tconffile= new File(conffile_glob);
 		if(tconffile.exists()==false)
@@ -75,5 +77,9 @@ public class Toolboxconf
 		{
 			return ("");
 		}
+	}
+	public static void backupToolboxconf(String targetdir)
+	{
+		FileAccess.copyFile(conffile_glob, targetdir+"\\toolbox.conf");
 	}
 }

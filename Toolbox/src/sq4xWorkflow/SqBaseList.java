@@ -146,6 +146,8 @@ public class SqBaseList
 		}
 		zeile = "#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
+
+		/*
 		zeile = "standart deviation  #0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
 		
@@ -163,7 +165,7 @@ public class SqBaseList
 					+ calcStddevRetDD(cleanname);
 			inf.writezeile(zeile);
 		}
-		
+		*/
 		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
 		inf.writezeile(zeile);
 		zeile = "#0.0#0.0#0.0#0.0";
