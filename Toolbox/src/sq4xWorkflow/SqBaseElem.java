@@ -16,6 +16,8 @@ public class SqBaseElem
 	private double stability = 0;
 	private double retdd = 0;
 	
+	
+	
 	public String getStrategyname()
 	{
 		return strategyname;
@@ -66,6 +68,11 @@ public class SqBaseElem
 		this.retdd = retdd;
 	}
 	
+	
+	
+
+	
+
 	public String getCleanName()
 	{
 		//realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"

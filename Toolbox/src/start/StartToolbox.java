@@ -1747,7 +1747,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.5");
+		shell.setText("Toolbox V1.2.6");
 		
 		while (!shell.isDisposed())
 		{

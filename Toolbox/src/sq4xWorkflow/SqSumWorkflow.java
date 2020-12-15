@@ -2,6 +2,10 @@ package sq4xWorkflow;
 
 import java.util.ArrayList;
 
+import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
+
 public class SqSumWorkflow
 {
 	//was ist in der Arrayliste gespeichert ?
@@ -9,10 +13,15 @@ public class SqSumWorkflow
 	//Ein SqSumElem ist ein Summenelement für einen einzelen workflow
 	//die al-liste beinhaltet alle workflows
 	private ArrayList<SqSumElem> al = new  ArrayList<SqSumElem>();
-	
+	private String sqrootdir_g;
 	  
 	public SqSumWorkflow()
 	{
+	}
+	
+	public void setSqRootdir(String sqrootdir)
+	{
+		sqrootdir_g=sqrootdir;
 	}
 	
 	public int getSize()
@@ -50,6 +59,7 @@ public class SqSumWorkflow
 		int index=getIndex(nam);
 		if(index>-1)
 		{
+			//falls für den Workflow schon das element drin ist
 			//dann hole das objekt aus der list
 			sume=al.get(index);
 			//und addiere das neue element zur hashtable
@@ -57,13 +67,18 @@ public class SqSumWorkflow
 		}
 		else
 		{
+			//es ist noch kein element für den workflow erzeugt worden, dann mache das
+			//bestimme aber auch gleichzeitig die anz der gesammttrades für den workflow
+			//diese gesammtanzahl der trades kann man aus den logfiles extrahieren.
+			//hier wird für das erste element einfach mal aus allen logfiles die tradeanzahl ermittelt
 			//new first element
 			//dann erzeuge einen neuen sqSum-Eintrag
 			sume=new SqSumElem();
 			//packe das neue base elem hinzu
 			sume.addBaseelem(se);
-			//und packe das ganze in die liste
+			
 			al.add(sume);
+			
 		}
 	}
 
@@ -89,6 +104,63 @@ public class SqSumWorkflow
 		}
 		
 	}
-
+	public int calcAnzTradesAusLogfile(String cleanname)
+	{
+		String workflowdir=sqrootdir_g+"\\user\\projects\\"+cleanname.replace("\"", "");
+		int anz=collectAllTradesFromLogfiles(workflowdir);
+		return anz;
+	}
+	private int collectAllTradesFromLogfiles(String workflowdir)
+	{
+		//zählt wieviel strategien generiert wurden
+		//diese informationen werden aus den logfiles bsp:
+		//C:\\forex\\toolbox\\SQ\\1 Master\\user\\projects\\Q67 GBPUSD H1_all_blocks\\log
+		//geholt
+		//es werden alle trades für einen bestimmten workflow aufsummiert
+		//ein workflow kann ja mehrmals durchlaufen werden
+		int stratcount=0;
+		FileAccess.initFileSystemList(workflowdir+"\\log", 1);
+		int anz = FileAccess.holeFileAnz();
+		if (anz > 0)
+		{	
+			for (int i = 0; i < anz; i++)
+			{
+				String fnam=workflowdir+"\\log\\"+FileAccess.holeFileSystemName();
+				if(fnam.contains(".log"))
+				{
+					Inf inf=new Inf();
+					inf.setFilename(fnam);
+					String mem=inf.readMemFile(50000);
+					stratcount=stratcount+extractAnzStrategien( mem, fnam);
+					inf.close();
+				}
+			}
+			return stratcount;
+		}
+		Tracer.WriteTrace(20, "I: no logfiles in <" + workflowdir+"\\log" + ">");
+		return 0;
+	}
+	private int extractAnzStrategien(String mem,String fnam)
+	{
+		
+		//this text will be searched
+		//'Portfolio created from 47 strategies'
 	
+		if((mem==null)||(mem.contains("Portfolio created from ")==false))
+		{
+			Tracer.WriteTrace(20, "W:cant find string 'Portfolio created from' in <"+fnam+">" );
+			return 0;
+		}
+		String memsub=mem.substring(mem.indexOf("Portfolio created from ")+23);
+		
+		
+		if((memsub==null)||(memsub.contains(" strategies")==false))
+		{
+			Tracer.WriteTrace(20, "W:cant find string ' strategies' after string 'Portfolio created from' in <"+fnam+">" );
+			return 0;
+		}
+		memsub=memsub.substring(0,memsub.indexOf(" strategies"));
+		int val=Integer.valueOf(memsub);
+		return val;
+	}
 }

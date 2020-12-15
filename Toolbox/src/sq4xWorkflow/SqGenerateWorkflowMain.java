@@ -6,6 +6,7 @@ import java.io.IOException;
 import FileTools.Filefunkt;
 import FileTools.ProjZipper;
 import FileTools.Zipper;
+import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.InfFast;
 import hiflsklasse.Tracer;
@@ -141,5 +142,9 @@ public class SqGenerateWorkflowMain
 		}
 		
 	}
-	
+	public void cleanLogfiles(String sqrootdir, String destname)
+	{
+		File logdir_f = new File(sqrootdir + "\\user\\projects\\" + destname+"\\log");
+		FileAccess.deleteDirectoryContentPostfix(logdir_f, ".log");
+	}
 }

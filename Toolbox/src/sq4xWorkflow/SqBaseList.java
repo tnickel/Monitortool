@@ -31,8 +31,9 @@ public class SqBaseList
 	{
 	}
 	
-	public void SqReadBaseList(String fnam)
+	public void SqReadBaseList(String fnam,String sqrootdir)
 	{
+		sumWorkflow.setSqRootdir(sqrootdir);
 		// liste mit den Resultaten wird eingelesen und aufgebaut
 		
 		Inf inf = new Inf();
@@ -70,6 +71,7 @@ public class SqBaseList
 			be.setStability(Float.valueOf(parts[indexStabil].replace("\"", "")));
 			be.setRetdd(Float.valueOf(parts[indexRetDD].replace("\"", "")));
 			be.setStrategyname(parts[0]);
+			
 			baselist.add(be);
 			zeile = inf.readZeile();
 		}
@@ -107,7 +109,13 @@ public class SqBaseList
 		inf.setFilename(sqbasefile);
 		// gen resultlist in file in tmp
 		int anz = baselist.size();
-		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD");
+		
+		if(anz==0)
+		{
+			Tracer.WriteTrace(10, "I: no data in SQ3, list is empty");
+			return;
+		}
+		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD#trades");
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem sbe = baselist.get(i);
@@ -115,20 +123,20 @@ public class SqBaseList
 			if (cleanname.equals(lastcleanname) == false)
 			{
 				// falls sich der cleanname geändert hat füge Leerzeile ein und gehe weiter
-				zeile = "\"===================================================================================== \"#0.0#0.0#0.0#0.0";
+				zeile = "\"===================================================================================== \"#0.0#0.0#0.0#0.0#0";
 				inf.writezeile(zeile);
 			}
 			lastcleanname = cleanname;
 			zeile = sbe.getStrategyname() + "#" + sbe.getNetprofit() + "#" + sbe.getProfitfaktor() + "#"
-					+ sbe.getStability() + "#" + sbe.getRetdd();
+					+ sbe.getStability() + "#" + sbe.getRetdd()+"#0";
 			inf.writezeile(zeile);
 		}
-		
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
+		lastcleanname="";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
-		zeile = "average results  #0.0#0.0#0.0#0.0";
+		zeile = "average results  #0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
 		for (int i = 0; i < anz; i++)
 		{
@@ -140,11 +148,11 @@ public class SqBaseList
 			lastcleanname = cleanname;
 			zeile = "average results <" + cleanname + ">=" + "#" + calcAvrNettoprofit(cleanname) + "#"
 					+ calcAvrProfitfaktor(cleanname) + "#" + calcAvrStability(cleanname) + "#"
-					+ calcAvrRetDD(cleanname);
+					+ calcAvrRetDD(cleanname)+"#"+sumWorkflow.calcAnzTradesAusLogfile(cleanname);
 			inf.writezeile(zeile);
 			
 		}
-		zeile = "#0.0#0.0#0.0#0.0";
+		zeile = "#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
 
 		/*
@@ -166,15 +174,15 @@ public class SqBaseList
 			inf.writezeile(zeile);
 		}
 		*/
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
-		zeile = "#0.0#0.0#0.0#0.0";
+		zeile = "#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
 		zeile = "overall average results=" + "#" + calcAvrNettoprofit(null) + "#" + calcAvrProfitfaktor(null) + "#"
-				+ calcAvrStability(null) + "#" + calcAvrRetDD(null);
+				+ calcAvrStability(null) + "#" + calcAvrRetDD(null)+"#0";
 		inf.writezeile(zeile);
 		zeile = "overall standart deviation=" + "#" + calcStddevNettoprofit(null) + "#" + calcStddevProfitfaktor(null)
-				+ "#" + calcStddevStability(null) + "#" + calcStddevRetDD(null);
+				+ "#" + calcStddevStability(null) + "#" + calcStddevRetDD(null)+"#0";
 		inf.writezeile(zeile);
 		inf.close();
 		
@@ -327,4 +335,5 @@ public class SqBaseList
 		}
 		return (Statistics.stddv(dl,dlcount));
 	}
+	
 }

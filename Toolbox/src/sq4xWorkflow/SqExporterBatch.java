@@ -76,6 +76,7 @@ public class SqExporterBatch
 		jp.update(50);
 		Inf inf = new Inf();
 		inf.setFilename(tmp_exportbatch);
+		inf.writezeile("::hint run 'sqcli.exe -run file=C:/commands.txt' from SQ3results -Strategyquant");
 		inf.writezeile("-project action=status name=Retester > "+respfile_f.getPath());
 		inf.writezeile("-databank action=export project=Retester name=Results file=" + databankfile
 				+ " view=\"Default - Portfolio\"");
@@ -84,7 +85,8 @@ public class SqExporterBatch
 		jp.update(100);
 		jp.end();
 		
-		
+		if(respfile_f.exists()==false)
+			Tracer.WriteTrace(10, "E: license problem with Toolbox3 SQ Results, please start/stop this SQ -> END Monitortool");
 		
 		inf=new Inf();
 		inf.setFilename(respfile_f.getPath());

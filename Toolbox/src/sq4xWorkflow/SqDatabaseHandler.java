@@ -7,17 +7,17 @@ import hiflsklasse.Tracer;
 
 public class SqDatabaseHandler extends SqBaseList
 {
-	
+	private String sqrootdir_g=null;
 	//übernimmt das handling mit DatabankExport.csv
-	SqDatabaseHandler()
+	SqDatabaseHandler(String root)
 	{
-		
+		sqrootdir_g=root;
 		
 	}
 	
 	void calcResults(String fnam)
 	{
-		super.SqReadBaseList(fnam); 
+		super.SqReadBaseList(fnam,sqrootdir_g); 
 		double np=super.calcAvrNettoprofit(null);
 		double retdd=super.calcAvrRetDD(null);
 		double pf=super.calcAvrProfitfaktor(null);

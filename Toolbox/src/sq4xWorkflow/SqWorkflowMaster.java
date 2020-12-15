@@ -166,6 +166,7 @@ public class SqWorkflowMaster extends Sq
 			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, workflowname);
+			psq.cleanLogfiles(sqrootdir_g, workflowname);
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
 		jp.end();
@@ -197,8 +198,8 @@ public class SqWorkflowMaster extends Sq
 			se.exportDatabase();
 			
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
-			SqDatabaseHandler sb = new SqDatabaseHandler();
-			sb.SqReadBaseList(se.getDatabankfile());
+			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
+			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g);
 			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
 		}
 		// copy the results to goggledrive
