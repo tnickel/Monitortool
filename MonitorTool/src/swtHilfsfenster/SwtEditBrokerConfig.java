@@ -469,55 +469,7 @@ public class SwtEditBrokerConfig
 
 	private void initLic()
 	{
-		if (5 == 5)
-		{
-			// freeware version, am meisten löschen
-			if (Lic.getlic() == 0)
-			{
-				GbAutomaticaccountflag.setVisible(false);
-				lotsize.setVisible(false);
-
-				MqlQuellverzeichniss.setVisible(false);
-				setquellverz.setVisible(false);
-				installEas.setVisible(false);
-				label9.setVisible(false);
-			}
-
-			if ((Lic.getlic() == 0) || (Lic.getlic() == 1))
-			{
-				forexstrategytraderdir.setVisible(false);
-				SetFstDir.setVisible(false);
-				daxname.setVisible(false);
-				label7.setVisible(false);
-				label3.setVisible(false);
-				combo1.setVisible(false);
-				installonrealaccount.setVisible(false);
-				removefromreal.setVisible(false);
-
-				
-				storable.setVisible(false);
-
-				label1.setVisible(false);
-
-				button1usemagiclist.setVisible(false);
-				magiclist.setVisible(false);
-				button1instmyfxbookea.setVisible(false);
-				insttickdataexporter.setVisible(false);
-			
-
-				GenNewMetatraderaccount.setVisible(false);
-				button1usemagiclist.setVisible(false);
-				magiclist.setVisible(false);
-				button1instmyfxbookea.setVisible(false);
-				insttickdataexporter.setVisible(false);
-			
-
-				
-				validitydays.setVisible(false);
-				label8.setVisible(false);
-				insthistoryexporter.setVisible(false);
-			}
-		}
+		
 	}
 
 	private void refreshbuttons()

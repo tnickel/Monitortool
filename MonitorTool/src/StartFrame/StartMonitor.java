@@ -199,7 +199,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			this.setSize(1358, 799);
+			this.setSize(1922, 984);
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
@@ -207,9 +207,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2 = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2LData = new FormData();
-				button2LData.left =  new FormAttachment(0, 1000, 12);
-				button2LData.top =  new FormAttachment(0, 1000, 614);
-				button2LData.width = 143;
+				button2LData.left =  new FormAttachment(0, 1000, 10);
+				button2LData.top =  new FormAttachment(0, 1000, 747);
+				button2LData.width = 224;
 				button2LData.height = 20;
 				button2.setLayoutData(button2LData);
 				button2.setText("cut trades before");
@@ -224,10 +224,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				text1from = new Text(this, SWT.NONE);
 				FormData text1fromLData = new FormData();
-				text1fromLData.left =  new FormAttachment(0, 1000, 155);
-				text1fromLData.top =  new FormAttachment(0, 1000, 614);
-				text1fromLData.width = 73;
-				text1fromLData.height = 20;
+				text1fromLData.left =  new FormAttachment(0, 1000, 32);
+				text1fromLData.top =  new FormAttachment(0, 1000, 775);
+				text1fromLData.width = 93;
+				text1fromLData.height = 22;
 				text1from.setLayoutData(text1fromLData);
 				text1from.setText("01.01.2013");
 			}
@@ -235,9 +235,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2showtradelistportfolio = new Button(this, SWT.PUSH
 						| SWT.CENTER);
 				FormData button2showtradelistportfolioLData = new FormData();
-				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 453);
-				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 653);
-				button2showtradelistportfolioLData.width = 184;
+				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 463);
+				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 792);
+				button2showtradelistportfolioLData.width = 198;
 				button2showtradelistportfolioLData.height = 27;
 				button2showtradelistportfolio.setLayoutData(button2showtradelistportfolioLData);
 				button2showtradelistportfolio
@@ -261,10 +261,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2stopmt = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2stopmtLData = new FormData();
-				button2stopmtLData.left =  new FormAttachment(0, 1000, 1233);
-				button2stopmtLData.top =  new FormAttachment(0, 1000, 509);
-				button2stopmtLData.width = 63;
-				button2stopmtLData.height = 24;
+				button2stopmtLData.left =  new FormAttachment(0, 1000, 1701);
+				button2stopmtLData.top =  new FormAttachment(0, 1000, 590);
+				button2stopmtLData.width = 84;
+				button2stopmtLData.height = 18;
 				button2stopmt.setLayoutData(button2stopmtLData);
 				button2stopmt.setText("stop all MT");
 				button2stopmt.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
@@ -279,10 +279,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2startmetatrader = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2startmetatraderLData = new FormData();
-				button2startmetatraderLData.left =  new FormAttachment(0, 1000, 1179);
-				button2startmetatraderLData.top =  new FormAttachment(0, 1000, 509);
-				button2startmetatraderLData.width = 48;
-				button2startmetatraderLData.height = 20;
+				button2startmetatraderLData.left =  new FormAttachment(0, 1000, 1632);
+				button2startmetatraderLData.top =  new FormAttachment(0, 1000, 590);
+				button2startmetatraderLData.width = 69;
+				button2startmetatraderLData.height = 18;
 				button2startmetatrader.setLayoutData(button2startmetatraderLData);
 				button2startmetatrader.setText("start MT");
 				button2startmetatrader.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
@@ -298,9 +298,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2importall = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2importallLData = new FormData();
-				button2importallLData.left =  new FormAttachment(0, 1000, 857);
-				button2importallLData.top =  new FormAttachment(0, 1000, 760);
-				button2importallLData.width = 302;
+				button2importallLData.left =  new FormAttachment(0, 1000, 463);
+				button2importallLData.top =  new FormAttachment(0, 1000, 902);
+				button2importallLData.width = 417;
 				button2importallLData.height = 27;
 				button2importall.setLayoutData(button2importallLData);
 				button2importall
@@ -316,10 +316,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2exportall = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2exportallLData = new FormData();
-				button2exportallLData.left =  new FormAttachment(0, 1000, 857);
-				button2exportallLData.top =  new FormAttachment(0, 1000, 727);
-				button2exportallLData.width = 108;
-				button2exportallLData.height = 27;
+				button2exportallLData.left =  new FormAttachment(0, 1000, 673);
+				button2exportallLData.top =  new FormAttachment(0, 1000, 860);
+				button2exportallLData.width = 207;
+				button2exportallLData.height = 30;
 				button2exportall.setLayoutData(button2exportallLData);
 				button2exportall.setText("export all trades");
 				button2exportall.addSelectionListener(new SelectionAdapter()
@@ -333,8 +333,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2autoconfig = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2autoconfigLData = new FormData();
-				button2autoconfigLData.left =  new FormAttachment(0, 1000, 1221);
-				button2autoconfigLData.top =  new FormAttachment(0, 1000, 328);
+				button2autoconfigLData.left =  new FormAttachment(0, 1000, 1802);
+				button2autoconfigLData.top =  new FormAttachment(0, 1000, 590);
 				button2autoconfigLData.width = 69;
 				button2autoconfigLData.height = 18;
 				button2autoconfig.setLayoutData(button2autoconfigLData);
@@ -351,10 +351,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				statustext = new Text(this, SWT.NONE);
 				FormData statustextLData = new FormData();
-				statustextLData.left =  new FormAttachment(0, 1000, 435);
-				statustextLData.top =  new FormAttachment(0, 1000, 24);
+				statustextLData.left =  new FormAttachment(0, 1000, 749);
+				statustextLData.top =  new FormAttachment(0, 1000, 18);
 				statustextLData.width = 152;
-				statustextLData.height = 20;
+				statustextLData.height = 26;
 				statustext.setLayoutData(statustextLData);
 				statustext.setText(GlobalVar.getIpmessage());
 				statustext.setEditable(false);
@@ -363,8 +363,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2showallprotfolio = new Button(this, SWT.PUSH
 						| SWT.CENTER);
 				FormData button2showallprotfolioLData = new FormData();
-				button2showallprotfolioLData.left =  new FormAttachment(0, 1000, 248);
-				button2showallprotfolioLData.top =  new FormAttachment(0, 1000, 614);
+				button2showallprotfolioLData.left =  new FormAttachment(0, 1000, 246);
+				button2showallprotfolioLData.top =  new FormAttachment(0, 1000, 747);
 				button2showallprotfolioLData.width = 117;
 				button2showallprotfolioLData.height = 30;
 				button2showallprotfolio.setLayoutData(button2showallprotfolioLData);
@@ -381,9 +381,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2best100 = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2best100LData = new FormData();
-				button2best100LData.left =  new FormAttachment(0, 1000, 371);
-				button2best100LData.top =  new FormAttachment(0, 1000, 622);
-				button2best100LData.width = 76;
+				button2best100LData.left =  new FormAttachment(0, 1000, 369);
+				button2best100LData.top =  new FormAttachment(0, 1000, 755);
+				button2best100LData.width = 88;
 				button2best100LData.height = 20;
 				button2best100.setLayoutData(button2best100LData);
 				button2best100.setText("best100");
@@ -392,8 +392,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				label3 = new Label(this, SWT.NONE);
 				FormData label3LData = new FormData();
-				label3LData.left =  new FormAttachment(0, 1000, 1056);
-				label3LData.top =  new FormAttachment(0, 1000, 509);
+				label3LData.left =  new FormAttachment(0, 1000, 1091);
+				label3LData.top =  new FormAttachment(0, 1000, 642);
 				label3LData.width = 30;
 				label3LData.height = 20;
 				label3.setLayoutData(label3LData);
@@ -402,8 +402,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				text1days = new Text(this, SWT.MULTI | SWT.WRAP);
 				FormData text1daysLData = new FormData();
-				text1daysLData.left =  new FormAttachment(0, 1000, 980);
-				text1daysLData.top =  new FormAttachment(0, 1000, 509);
+				text1daysLData.left =  new FormAttachment(0, 1000, 1015);
+				text1daysLData.top =  new FormAttachment(0, 1000, 642);
 				text1daysLData.width = 62;
 				text1daysLData.height = 20;
 				text1days.setLayoutData(text1daysLData);
@@ -424,9 +424,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2delete = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2deleteLData = new FormData();
-				button2deleteLData.left =  new FormAttachment(0, 1000, 1146);
-				button2deleteLData.top =  new FormAttachment(0, 1000, 727);
-				button2deleteLData.width = 141;
+				button2deleteLData.left =  new FormAttachment(0, 1000, 892);
+				button2deleteLData.top =  new FormAttachment(0, 1000, 860);
+				button2deleteLData.width = 295;
 				button2deleteLData.height = 30;
 				button2delete.setLayoutData(button2deleteLData);
 				button2delete.setText("delete selected EAs");
@@ -442,9 +442,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2newcal = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2newcalLData = new FormData();
-				button2newcalLData.left =  new FormAttachment(0, 1000, 563);
-				button2newcalLData.top =  new FormAttachment(0, 1000, 591);
-				button2newcalLData.width = 74;
+				button2newcalLData.left =  new FormAttachment(0, 1000, 579);
+				button2newcalLData.top =  new FormAttachment(0, 1000, 766);
+				button2newcalLData.width = 88;
 				button2newcalLData.height = 20;
 				button2newcal.setLayoutData(button2newcalLData);
 				button2newcal.setText("new cal");
@@ -452,8 +452,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				buttonExportTradelist = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttonExportTradelistLData = new FormData();
-				buttonExportTradelistLData.left =  new FormAttachment(0, 1000, 990);
-				buttonExportTradelistLData.top =  new FormAttachment(0, 1000, 651);
+				buttonExportTradelistLData.left =  new FormAttachment(0, 1000, 1025);
+				buttonExportTradelistLData.top =  new FormAttachment(0, 1000, 784);
 				buttonExportTradelistLData.width = 109;
 				buttonExportTradelistLData.height = 30;
 				buttonExportTradelist.setLayoutData(buttonExportTradelistLData);
@@ -471,9 +471,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				buttondown = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttondownLData = new FormData();
-				buttondownLData.left =  new FormAttachment(0, 1000, 1296);
-				buttondownLData.top =  new FormAttachment(0, 1000, 266);
-				buttondownLData.width = 32;
+				buttondownLData.left =  new FormAttachment(0, 1000, 1823);
+				buttondownLData.top =  new FormAttachment(0, 1000, 534);
+				buttondownLData.width = 48;
 				buttondownLData.height = 19;
 				buttondown.setLayoutData(buttondownLData);
 				buttondown.setText("down");
@@ -489,9 +489,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				buttonup = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttonupLData = new FormData();
-				buttonupLData.left =  new FormAttachment(0, 1000, 1296);
-				buttonupLData.top =  new FormAttachment(0, 1000, 242);
-				buttonupLData.width = 21;
+				buttonupLData.left =  new FormAttachment(0, 1000, 1823);
+				buttonupLData.top =  new FormAttachment(0, 1000, 510);
+				buttonupLData.width = 48;
 				buttonupLData.height = 18;
 				buttonup.setLayoutData(buttonupLData);
 				buttonup.setText("up");
@@ -507,10 +507,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				sortcriteria = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData sortcriteriaLData = new FormData();
-				sortcriteriaLData.left =  new FormAttachment(0, 1000, 601);
-				sortcriteriaLData.top =  new FormAttachment(0, 1000, 24);
-				sortcriteriaLData.width = 110;
-				sortcriteriaLData.height = 18;
+				sortcriteriaLData.left =  new FormAttachment(0, 1000, 917);
+				sortcriteriaLData.top =  new FormAttachment(0, 1000, 18);
+				sortcriteriaLData.width = 124;
+				sortcriteriaLData.height = 28;
 				sortcriteria.setLayoutData(sortcriteriaLData);
 				sortcriteria.setText("set sort criteria");
 				sortcriteria.addSelectionListener(new SelectionAdapter()
@@ -524,8 +524,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showbacktest = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showbacktestLData = new FormData();
-				showbacktestLData.left =  new FormAttachment(0, 1000, 453);
-				showbacktestLData.top =  new FormAttachment(0, 1000, 581);
+				showbacktestLData.left =  new FormAttachment(0, 1000, 463);
+				showbacktestLData.top =  new FormAttachment(0, 1000, 755);
 				showbacktestLData.width = 110;
 				showbacktestLData.height = 30;
 				showbacktest.setLayoutData(showbacktestLData);
@@ -541,9 +541,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				removeimported = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData removeimportedLData = new FormData();
-				removeimportedLData.left =  new FormAttachment(0, 1000, 857);
-				removeimportedLData.top =  new FormAttachment(0, 1000, 687);
-				removeimportedLData.width = 275;
+				removeimportedLData.left =  new FormAttachment(0, 1000, 892);
+				removeimportedLData.top =  new FormAttachment(0, 1000, 820);
+				removeimportedLData.width = 307;
 				removeimportedLData.height = 28;
 				removeimported.setLayoutData(removeimportedLData);
 				removeimported.setText("Remove Imported Out Of Database");
@@ -558,8 +558,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				importtradelisten = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData importeasLData = new FormData();
-				importeasLData.left =  new FormAttachment(0, 1000, 857);
-				importeasLData.top =  new FormAttachment(0, 1000, 651);
+				importeasLData.left =  new FormAttachment(0, 1000, 892);
+				importeasLData.top =  new FormAttachment(0, 1000, 784);
 				importeasLData.width = 127;
 				importeasLData.height = 30;
 				importtradelisten.setLayoutData(importeasLData);
@@ -575,9 +575,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				exportEa = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData exporteaLData = new FormData();
-				exporteaLData.left =  new FormAttachment(0, 1000, 971);
-				exporteaLData.top =  new FormAttachment(0, 1000, 727);
-				exporteaLData.width = 169;
+				exporteaLData.left =  new FormAttachment(0, 1000, 673);
+				exporteaLData.top =  new FormAttachment(0, 1000, 820);
+				exporteaLData.width = 207;
 				exporteaLData.height = 30;
 				exportEa.setLayoutData(exporteaLData);
 				exportEa.setText("Export 1EA+Tradelist");
@@ -592,9 +592,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showselprofits = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showselprofitsLData = new FormData();
-				showselprofitsLData.left =  new FormAttachment(0, 1000, 453);
-				showselprofitsLData.top =  new FormAttachment(0, 1000, 616);
-				showselprofitsLData.width = 184;
+				showselprofitsLData.left =  new FormAttachment(0, 1000, 246);
+				showselprofitsLData.top =  new FormAttachment(0, 1000, 792);
+				showselprofitsLData.width = 211;
 				showselprofitsLData.height = 30;
 				showselprofits.setLayoutData(showselprofitsLData);
 				showselprofits.setText("show sel profits (portfolio)");
@@ -609,9 +609,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				selonlyone = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData selonlyoneLData = new FormData();
-				selonlyoneLData.left =  new FormAttachment(0, 1000, 273);
-				selonlyoneLData.top =  new FormAttachment(0, 1000, 509);
-				selonlyoneLData.width = 110;
+				selonlyoneLData.left =  new FormAttachment(0, 1000, 463);
+				selonlyoneLData.top =  new FormAttachment(0, 1000, 642);
+				selonlyoneLData.width = 186;
 				selonlyoneLData.height = 20;
 				selonlyone.setLayoutData(selonlyoneLData);
 				selonlyone.setText("SelOneMode");
@@ -620,8 +620,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				fontminus = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData fontminusLData = new FormData();
-				fontminusLData.left =  new FormAttachment(0, 1000, 1065);
-				fontminusLData.top =  new FormAttachment(0, 1000, 535);
+				fontminusLData.left =  new FormAttachment(0, 1000, 1100);
+				fontminusLData.top =  new FormAttachment(0, 1000, 668);
 				fontminusLData.width = 20;
 				fontminusLData.height = 20;
 				fontminus.setLayoutData(fontminusLData);
@@ -637,8 +637,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				fontplus = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData fontplusLData = new FormData();
-				fontplusLData.left =  new FormAttachment(0, 1000, 1047);
-				fontplusLData.top =  new FormAttachment(0, 1000, 535);
+				fontplusLData.left =  new FormAttachment(0, 1000, 1082);
+				fontplusLData.top =  new FormAttachment(0, 1000, 668);
 				fontplusLData.width = 19;
 				fontplusLData.height = 20;
 				fontplus.setLayoutData(fontplusLData);
@@ -654,8 +654,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				settradefilter = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData settradefilterLData = new FormData();
-				settradefilterLData.left =  new FormAttachment(0, 1000, 953);
-				settradefilterLData.top =  new FormAttachment(0, 1000, 575);
+				settradefilterLData.left =  new FormAttachment(0, 1000, 1082);
+				settradefilterLData.top =  new FormAttachment(0, 1000, 708);
 				settradefilterLData.width = 31;
 				settradefilterLData.height = 20;
 				settradefilter.setLayoutData(settradefilterLData);
@@ -671,9 +671,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				tradefilter = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData tradefilterLData = new FormData();
-				tradefilterLData.left =  new FormAttachment(0, 1000, 857);
-				tradefilterLData.top =  new FormAttachment(0, 1000, 575);
-				tradefilterLData.width = 90;
+				tradefilterLData.left =  new FormAttachment(0, 1000, 892);
+				tradefilterLData.top =  new FormAttachment(0, 1000, 708);
+				tradefilterLData.width = 178;
 				tradefilterLData.height = 20;
 				tradefilter.setLayoutData(tradefilterLData);
 				tradefilter.setText("tradefilter");
@@ -688,8 +688,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				loadexpiredhistory = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData loadexpiredhistoryLData = new FormData();
-				loadexpiredhistoryLData.left =  new FormAttachment(0, 1000, 857);
-				loadexpiredhistoryLData.top =  new FormAttachment(0, 1000, 543);
+				loadexpiredhistoryLData.left =  new FormAttachment(0, 1000, 892);
+				loadexpiredhistoryLData.top =  new FormAttachment(0, 1000, 676);
 				loadexpiredhistoryLData.width = 156;
 				loadexpiredhistoryLData.height = 20;
 				loadexpiredhistory.setLayoutData(loadexpiredhistoryLData);
@@ -706,8 +706,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				comparetradelist = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData comparetradelistLData = new FormData();
-				comparetradelistLData.left =  new FormAttachment(0, 1000, 453);
-				comparetradelistLData.top =  new FormAttachment(0, 1000, 503);
+				comparetradelistLData.left =  new FormAttachment(0, 1000, 463);
+				comparetradelistLData.top =  new FormAttachment(0, 1000, 683);
 				comparetradelistLData.width = 149;
 				comparetradelistLData.height = 30;
 				comparetradelist.setLayoutData(comparetradelistLData);
@@ -723,8 +723,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				setinstfrom = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData setinstfromLData = new FormData();
-				setinstfromLData.left =  new FormAttachment(0, 1000, 643);
-				setinstfromLData.top =  new FormAttachment(0, 1000, 614);
+				setinstfromLData.left =  new FormAttachment(0, 1000, 673);
+				setinstfromLData.top =  new FormAttachment(0, 1000, 747);
 				setinstfromLData.width = 207;
 				setinstfromLData.height = 30;
 				setinstfrom.setLayoutData(setinstfromLData);
@@ -740,10 +740,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				searchbutton = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2LData = new FormData();
-				button2LData.left =  new FormAttachment(0, 1000, 1195);
-				button2LData.top =  new FormAttachment(0, 1000, 642);
-				button2LData.width = 54;
-				button2LData.height = 20;
+				button2LData.left =  new FormAttachment(0, 1000, 1230);
+				button2LData.top =  new FormAttachment(0, 1000, 775);
+				button2LData.width = 92;
+				button2LData.height = 31;
 				searchbutton.setLayoutData(button2LData);
 				searchbutton.setText("search");
 				searchbutton.setSelection(true);
@@ -757,8 +757,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData searchLData = new FormData();
-				searchLData.left =  new FormAttachment(0, 1000, 1144);
-				searchLData.top =  new FormAttachment(0, 1000, 616);
+				searchLData.left =  new FormAttachment(0, 1000, 1179);
+				searchLData.top =  new FormAttachment(0, 1000, 749);
 				searchLData.width = 95;
 				searchLData.height = 20;
 				search = new Text(this, SWT.NONE);
@@ -767,8 +767,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showonofflog = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showonofflogLData = new FormData();
-				showonofflogLData.left =  new FormAttachment(0, 1000, 1247);
-				showonofflogLData.top =  new FormAttachment(0, 1000, 535);
+				showonofflogLData.left =  new FormAttachment(0, 1000, 1282);
+				showonofflogLData.top =  new FormAttachment(0, 1000, 668);
 				showonofflogLData.width = 49;
 				showonofflogLData.height = 20;
 				showonofflog.setLayoutData(showonofflogLData);
@@ -786,8 +786,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				checkallbroker = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData checkallbrokerLData = new FormData();
-				checkallbrokerLData.left =  new FormAttachment(0, 1000, 967);
-				checkallbrokerLData.top =  new FormAttachment(0, 1000, 328);
+				checkallbrokerLData.left =  new FormAttachment(0, 1000, 1357);
+				checkallbrokerLData.top =  new FormAttachment(0, 1000, 590);
 				checkallbrokerLData.width = 18;
 				checkallbrokerLData.height = 17;
 				checkallbroker.setLayoutData(checkallbrokerLData);
@@ -797,8 +797,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData checkallLData = new FormData();
 				checkallLData.width = 19;
 				checkallLData.height = 21;
-				checkallLData.left =  new FormAttachment(0, 1000, 248);
-				checkallLData.top =  new FormAttachment(0, 1000, 509);
+				checkallLData.left =  new FormAttachment(0, 1000, 391);
+				checkallLData.top =  new FormAttachment(0, 1000, 642);
 				toggleallprofits.setLayoutData(checkallLData);
 				toggleallprofits.addSelectionListener(new SelectionAdapter()
 				{
@@ -811,10 +811,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				clr = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData clrLData = new FormData();
-				clrLData.top =  new FormAttachment(0, 1000, 563);
+				clrLData.top =  new FormAttachment(0, 1000, 696);
 				clrLData.width = 18;
 				clrLData.height = 20;
-				clrLData.left =  new FormAttachment(0, 1000, 1278);
+				clrLData.left =  new FormAttachment(0, 1000, 1313);
 				clr.setLayoutData(clrLData);
 				clr.setText("clr");
 				clr.setFont(SWTResourceManager.getFont("Segoe UI", 6, 0, false,
@@ -830,8 +830,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				checkGd20 = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData checkGd20LData = new FormData();
-				checkGd20LData.left =  new FormAttachment(0, 1000, 1092);
-				checkGd20LData.top =  new FormAttachment(0, 1000, 509);
+				checkGd20LData.left =  new FormAttachment(0, 1000, 1127);
+				checkGd20LData.top =  new FormAttachment(0, 1000, 642);
 				checkGd20LData.width = 81;
 				checkGd20LData.height = 20;
 				checkGd20.setLayoutData(checkGd20LData);
@@ -848,10 +848,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				lifecheck = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData lifecheckLData = new FormData();
-				lifecheckLData.left =  new FormAttachment(0, 1000, 1253);
-				lifecheckLData.top =  new FormAttachment(0, 1000, 606);
-				lifecheckLData.width = 73;
-				lifecheckLData.height = 30;
+				lifecheckLData.left =  new FormAttachment(0, 1000, 1230);
+				lifecheckLData.top =  new FormAttachment(0, 1000, 812);
+				lifecheckLData.width = 92;
+				lifecheckLData.height = 36;
 				lifecheck.setLayoutData(lifecheckLData);
 				lifecheck.setText("Lifecheck");
 				lifecheck
@@ -868,8 +868,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				copyea = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData copyeaLData = new FormData();
-				copyeaLData.left =  new FormAttachment(0, 1000, 1042);
-				copyeaLData.top =  new FormAttachment(0, 1000, 614);
+				copyeaLData.left =  new FormAttachment(0, 1000, 1077);
+				copyeaLData.top =  new FormAttachment(0, 1000, 747);
 				copyeaLData.width = 90;
 				copyeaLData.height = 30;
 				copyea.setLayoutData(copyeaLData);
@@ -885,18 +885,18 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				combo_targetbroker = new Combo(this, SWT.NONE);
 				FormData targetbrokerLData = new FormData();
-				targetbrokerLData.left =  new FormAttachment(0, 1000, 857);
-				targetbrokerLData.top =  new FormAttachment(0, 1000, 614);
+				targetbrokerLData.left =  new FormAttachment(0, 1000, 892);
+				targetbrokerLData.top =  new FormAttachment(0, 1000, 747);
 				targetbrokerLData.width = 140;
-				targetbrokerLData.height = 28;
+				targetbrokerLData.height = 33;
 				combo_targetbroker.setLayoutData(targetbrokerLData);
 				combo_targetbroker.setText("select target broker");
 			}
 			{
 				configea = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData configeaLData = new FormData();
-				configeaLData.left =  new FormAttachment(0, 1000, 643);
-				configeaLData.top =  new FormAttachment(0, 1000, 651);
+				configeaLData.left =  new FormAttachment(0, 1000, 673);
+				configeaLData.top =  new FormAttachment(0, 1000, 784);
 				configeaLData.width = 207;
 				configeaLData.height = 30;
 				configea.setLayoutData(configeaLData);
@@ -912,9 +912,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showbroker = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showbrokerLData = new FormData();
-				showbrokerLData.left =  new FormAttachment(0, 1000, 804);
+				showbrokerLData.left =  new FormAttachment(0, 1000, 1170);
 				showbrokerLData.top =  new FormAttachment(0, 1000, 18);
-				showbrokerLData.width = 155;
+				showbrokerLData.width = 176;
 				showbrokerLData.height = 30;
 				showbroker.setLayoutData(showbrokerLData);
 				showbroker.setText("show files on broker");
@@ -929,10 +929,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				sync = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData syncLData = new FormData();
-				syncLData.left =  new FormAttachment(0, 1000, 717);
+				syncLData.left =  new FormAttachment(0, 1000, 1047);
 				syncLData.top =  new FormAttachment(0, 1000, 18);
-				syncLData.width = 81;
-				syncLData.height = 24;
+				syncLData.width = 111;
+				syncLData.height = 30;
 				sync.setLayoutData(syncLData);
 				sync.setText("sync broker");
 				sync.addSelectionListener(new SelectionAdapter()
@@ -946,8 +946,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				installautoea = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData installautoeaLData = new FormData();
-				installautoeaLData.left =  new FormAttachment(0, 1000, 643);
-				installautoeaLData.top =  new FormAttachment(0, 1000, 509);
+				installautoeaLData.left =  new FormAttachment(0, 1000, 673);
+				installautoeaLData.top =  new FormAttachment(0, 1000, 642);
 				installautoeaLData.width = 207;
 				installautoeaLData.height = 30;
 				installautoea.setLayoutData(installautoeaLData);
@@ -963,8 +963,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				automaticOnOff = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData automaticOnOffLData = new FormData();
-				automaticOnOffLData.left =  new FormAttachment(0, 1000, 643);
-				automaticOnOffLData.top =  new FormAttachment(0, 1000, 543);
+				automaticOnOffLData.left =  new FormAttachment(0, 1000, 673);
+				automaticOnOffLData.top =  new FormAttachment(0, 1000, 676);
 				automaticOnOffLData.width = 207;
 				automaticOnOffLData.height = 30;
 				automaticOnOff.setLayoutData(automaticOnOffLData);
@@ -979,8 +979,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData progressBar2LData = new FormData();
-				progressBar2LData.left =  new FormAttachment(0, 1000, 1068);
-				progressBar2LData.top =  new FormAttachment(0, 1000, 27);
+				progressBar2LData.left =  new FormAttachment(0, 1000, 1500);
+				progressBar2LData.top =  new FormAttachment(0, 1000, 28);
 				progressBar2LData.width = 169;
 				progressBar2LData.height = 18;
 				progressBar2 = new ProgressBar(this, SWT.NONE);
@@ -989,8 +989,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				stop = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData stopLData = new FormData();
-				stopLData.left =  new FormAttachment(0, 1000, 1250);
-				stopLData.top =  new FormAttachment(0, 1000, 4);
+				stopLData.left =  new FormAttachment(0, 1000, 2097);
+				stopLData.top =  new FormAttachment(0, 1000, 7);
 				stopLData.width = 36;
 				stopLData.height = 23;
 				stop.setLayoutData(stopLData);
@@ -1007,8 +1007,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				loop = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData loopLData = new FormData();
-				loopLData.left =  new FormAttachment(0, 1000, 1195);
-				loopLData.top =  new FormAttachment(0, 1000, 6);
+				loopLData.left =  new FormAttachment(0, 1000, 1579);
+				loopLData.top =  new FormAttachment(0, 1000, 7);
 				loopLData.width = 49;
 				loopLData.height = 21;
 				loop.setLayoutData(loopLData);
@@ -1024,7 +1024,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData intervallLData = new FormData();
-				intervallLData.left =  new FormAttachment(0, 1000, 1067);
+				intervallLData.left =  new FormAttachment(0, 1000, 1491);
 				intervallLData.top =  new FormAttachment(0, 1000, 7);
 				intervallLData.width = 19;
 				intervallLData.height = 20;
@@ -1034,10 +1034,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData messagelistLData = new FormData();
-				messagelistLData.top =  new FormAttachment(0, 1000, 352);
-				messagelistLData.width = 297;
-				messagelistLData.height = 120;
-				messagelistLData.left =  new FormAttachment(0, 1000, 965);
+				messagelistLData.top =  new FormAttachment(0, 1000, 620);
+				messagelistLData.width = 427;
+				messagelistLData.height = 304;
+				messagelistLData.left =  new FormAttachment(0, 1000, 1357);
 				messagelist = new List(this, SWT.H_SCROLL | SWT.V_SCROLL
 						| SWT.BORDER);
 				messagelist.setLayoutData(messagelistLData);
@@ -1047,8 +1047,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				manualonoff = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData manualonoffLData = new FormData();
-				manualonoffLData.left =  new FormAttachment(0, 1000, 643);
-				manualonoffLData.top =  new FormAttachment(0, 1000, 579);
+				manualonoffLData.left =  new FormAttachment(0, 1000, 673);
+				manualonoffLData.top =  new FormAttachment(0, 1000, 712);
 				manualonoffLData.width = 207;
 				manualonoffLData.height = 30;
 				manualonoff.setLayoutData(manualonoffLData);
@@ -1064,9 +1064,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button1 = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button1LData = new FormData();
-				button1LData.left =  new FormAttachment(0, 1000, 1296);
-				button1LData.top =  new FormAttachment(0, 1000, 291);
-				button1LData.width = 37;
+				button1LData.left =  new FormAttachment(0, 1000, 1824);
+				button1LData.top =  new FormAttachment(0, 1000, 559);
+				button1LData.width = 47;
 				button1LData.height = 19;
 				button1.setLayoutData(button1LData);
 				button1.setText("on/off");
@@ -1083,10 +1083,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				saveandexit = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData saveandexitLData = new FormData();
-				saveandexitLData.left =  new FormAttachment(0, 1000, 1165);
-				saveandexitLData.top =  new FormAttachment(0, 1000, 760);
-				saveandexitLData.width = 123;
-				saveandexitLData.height = 37;
+				saveandexitLData.left =  new FormAttachment(0, 1000, 892);
+				saveandexitLData.top =  new FormAttachment(0, 1000, 902);
+				saveandexitLData.width = 430;
+				saveandexitLData.height = 52;
 				saveandexit.setLayoutData(saveandexitLData);
 				saveandexit.setText("save and exit");
 				saveandexit.addSelectionListener(new SelectionAdapter()
@@ -1099,8 +1099,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData showallprofitLData = new FormData();
-				showallprofitLData.left =  new FormAttachment(0, 1000, 248);
-				showallprofitLData.top =  new FormAttachment(0, 1000, 579);
+				showallprofitLData.left =  new FormAttachment(0, 1000, 246);
+				showallprofitLData.top =  new FormAttachment(0, 1000, 712);
 				showallprofitLData.width = 117;
 				showallprofitLData.height = 30;
 				showallprofit = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -1117,8 +1117,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				forgetoldeas = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData forgetoldeasLData = new FormData();
-				forgetoldeasLData.left =  new FormAttachment(0, 1000, 857);
-				forgetoldeasLData.top =  new FormAttachment(0, 1000, 509);
+				forgetoldeasLData.left =  new FormAttachment(0, 1000, 892);
+				forgetoldeasLData.top =  new FormAttachment(0, 1000, 642);
 				forgetoldeasLData.width = 117;
 				forgetoldeasLData.height = 24;
 				forgetoldeas.setLayoutData(forgetoldeasLData);
@@ -1129,27 +1129,27 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				label4 = new Label(this, SWT.NONE);
 				FormData label4LData = new FormData();
 				label4LData.left =  new FormAttachment(0, 1000, 375);
-				label4LData.top =  new FormAttachment(0, 1000, 24);
+				label4LData.top =  new FormAttachment(0, 1000, 18);
 				label4LData.width = 54;
-				label4LData.height = 20;
+				label4LData.height = 26;
 				label4.setLayoutData(label4LData);
 				label4.setText("# eas");
 			}
 			{
 				FormData anzeasLData = new FormData();
 				anzeasLData.left =  new FormAttachment(0, 1000, 320);
-				anzeasLData.top =  new FormAttachment(0, 1000, 24);
+				anzeasLData.top =  new FormAttachment(0, 1000, 18);
 				anzeasLData.width = 48;
-				anzeasLData.height = 20;
+				anzeasLData.height = 26;
 				anzeas = new Text(this, SWT.NONE);
 				anzeas.setLayoutData(anzeasLData);
 			}
 			{
 				FormData anzincommingtradesLData = new FormData();
 				anzincommingtradesLData.left =  new FormAttachment(0, 1000, 126);
-				anzincommingtradesLData.top =  new FormAttachment(0, 1000, 24);
+				anzincommingtradesLData.top =  new FormAttachment(0, 1000, 18);
 				anzincommingtradesLData.width = 102;
-				anzincommingtradesLData.height = 20;
+				anzincommingtradesLData.height = 26;
 				anzincommingtrades = new Text(this, SWT.NONE);
 				anzincommingtrades.setLayoutData(anzincommingtradesLData);
 			}
@@ -1158,25 +1158,25 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				progressBar1sideLData.left =  new FormAttachment(0, 1000, 12);
 				progressBar1sideLData.top =  new FormAttachment(0, 1000, 51);
 				progressBar1sideLData.width = 18;
-				progressBar1sideLData.height = 446;
+				progressBar1sideLData.height = 579;
 				progressBar1side = new ProgressBar(this, SWT.VERTICAL);
 				progressBar1side.setLayoutData(progressBar1sideLData);
 			}
 			{
 				label1 = new Label(this, SWT.NONE);
 				FormData label1LData = new FormData();
-				label1LData.left =  new FormAttachment(0, 1000, 30);
-				label1LData.top =  new FormAttachment(0, 1000, 24);
-				label1LData.width = 90;
-				label1LData.height = 20;
+				label1LData.left =  new FormAttachment(0, 1000, 12);
+				label1LData.top =  new FormAttachment(0, 1000, 18);
+				label1LData.width = 108;
+				label1LData.height = 26;
 				label1.setLayoutData(label1LData);
 				label1.setText("All Trades");
 			}
 			{
 				showprofit = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showprofitLData = new FormData();
-				showprofitLData.left =  new FormAttachment(0, 1000, 453);
-				showprofitLData.top =  new FormAttachment(0, 1000, 545);
+				showprofitLData.left =  new FormAttachment(0, 1000, 463);
+				showprofitLData.top =  new FormAttachment(0, 1000, 719);
 				showprofitLData.width = 110;
 				showprofitLData.height = 30;
 				showprofit.setLayoutData(showprofitLData);
@@ -1192,9 +1192,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				deletebroker = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData deletebrokerLData = new FormData();
-				deletebrokerLData.left =  new FormAttachment(0, 1000, 1139);
-				deletebrokerLData.top =  new FormAttachment(0, 1000, 328);
-				deletebrokerLData.width = 70;
+				deletebrokerLData.left =  new FormAttachment(0, 1000, 1531);
+				deletebrokerLData.top =  new FormAttachment(0, 1000, 590);
+				deletebrokerLData.width = 95;
 				deletebrokerLData.height = 18;
 				deletebroker.setLayoutData(deletebrokerLData);
 				deletebroker.setText("delete broker");
@@ -1210,9 +1210,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				addbroker = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData addbrokerLData = new FormData();
-				addbrokerLData.left =  new FormAttachment(0, 1000, 1069);
-				addbrokerLData.top =  new FormAttachment(0, 1000, 328);
-				addbrokerLData.width = 70;
+				addbrokerLData.left =  new FormAttachment(0, 1000, 1453);
+				addbrokerLData.top =  new FormAttachment(0, 1000, 590);
+				addbrokerLData.width = 78;
 				addbrokerLData.height = 18;
 				addbroker.setLayoutData(addbrokerLData);
 				addbroker.setText("add broker");
@@ -1229,9 +1229,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showopenorders = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData showopenordersLData = new FormData();
-				showopenordersLData.left =  new FormAttachment(0, 1000, 12);
-				showopenordersLData.top =  new FormAttachment(0, 1000, 589);
-				showopenordersLData.width = 142;
+				showopenordersLData.left =  new FormAttachment(0, 1000, 10);
+				showopenordersLData.top =  new FormAttachment(0, 1000, 722);
+				showopenordersLData.width = 224;
 				showopenordersLData.height = 20;
 				showopenorders.setLayoutData(showopenordersLData);
 				showopenorders.setText("show open orders");
@@ -1240,8 +1240,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showTradeliste = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showTradelisteLData = new FormData();
-				showTradelisteLData.left =  new FormAttachment(0, 1000, 248);
-				showTradelisteLData.top =  new FormAttachment(0, 1000, 543);
+				showTradelisteLData.left =  new FormAttachment(0, 1000, 246);
+				showTradelisteLData.top =  new FormAttachment(0, 1000, 676);
 				showTradelisteLData.width = 117;
 				showTradelisteLData.height = 30;
 				showTradeliste.setLayoutData(showTradelisteLData);
@@ -1258,8 +1258,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				configbroker = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData confLData = new FormData();
-				confLData.left =  new FormAttachment(0, 1000, 990);
-				confLData.top =  new FormAttachment(0, 1000, 328);
+				confLData.left =  new FormAttachment(0, 1000, 1380);
+				confLData.top =  new FormAttachment(0, 1000, 590);
 				confLData.width = 73;
 				confLData.height = 18;
 				configbroker.setLayoutData(confLData);
@@ -1276,10 +1276,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData table3LData = new FormData();
-				table3LData.left =  new FormAttachment(0, 1000, 965);
-				table3LData.top =  new FormAttachment(0, 1000, 51);
-				table3LData.width = 300;
-				table3LData.height = 246;
+				table3LData.left =  new FormAttachment(0, 1000, 1357);
+				table3LData.top =  new FormAttachment(0, 1000, 49);
+				table3LData.width = 430;
+				table3LData.height = 505;
 				table3 = new Table(this, SWT.FULL_SELECTION | SWT.H_SCROLL
 						| SWT.V_SCROLL | SWT.BORDER);
 				table3.setLayoutData(table3LData);
@@ -1311,8 +1311,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				broker = new Label(this, SWT.NONE);
 				FormData brokerLData = new FormData();
-				brokerLData.left =  new FormAttachment(0, 1000, 12);
-				brokerLData.top =  new FormAttachment(0, 1000, 509);
+				brokerLData.left =  new FormAttachment(0, 1000, 10);
+				brokerLData.top =  new FormAttachment(0, 1000, 642);
 				brokerLData.width = 224;
 				brokerLData.height = 20;
 				broker.setLayoutData(brokerLData);
@@ -1321,9 +1321,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				nocanceled = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData nocanceledLData = new FormData();
-				nocanceledLData.left =  new FormAttachment(0, 1000, 12);
-				nocanceledLData.top =  new FormAttachment(0, 1000, 563);
-				nocanceledLData.width = 150;
+				nocanceledLData.left =  new FormAttachment(0, 1000, 10);
+				nocanceledLData.top =  new FormAttachment(0, 1000, 696);
+				nocanceledLData.width = 224;
 				nocanceledLData.height = 20;
 				nocanceled.setLayoutData(nocanceledLData);
 				nocanceled.setText("no canceled orders");
@@ -1332,12 +1332,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				profitnormalisierung = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData profitnormalisierungLData = new FormData();
-				profitnormalisierungLData.left =  new FormAttachment(0, 1000, 12);
-				profitnormalisierungLData.top =  new FormAttachment(0, 1000, 535);
+				profitnormalisierungLData.left =  new FormAttachment(0, 1000, 10);
+				profitnormalisierungLData.top =  new FormAttachment(0, 1000, 668);
 				profitnormalisierungLData.width = 224;
 				profitnormalisierungLData.height = 20;
 				profitnormalisierung.setLayoutData(profitnormalisierungLData);
-				profitnormalisierung.setText("0.1 Lot Profitnormalisierung");
+				profitnormalisierung.setText("0.1 Lot Profitnorm");
 				profitnormalisierung.setEnabled(true);
 				profitnormalisierung.setSelection(true);
 				profitnormalisierung
@@ -1353,10 +1353,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData table2LData = new FormData();
-				table2LData.width = 692;
-				table2LData.height = 421;
-				table2LData.top =  new FormAttachment(0, 1000, 51);
-				table2LData.left =  new FormAttachment(0, 1000, 242);
+				table2LData.width = 934;
+				table2LData.height = 544;
+				table2LData.top =  new FormAttachment(0, 1000, 54);
+				table2LData.left =  new FormAttachment(0, 1000, 387);
 				table2 = new Table(this, SWT.CHECK | SWT.FULL_SELECTION
 						| SWT.BORDER);
 				table2.setLayoutData(table2LData);
@@ -1380,8 +1380,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData table1LData = new FormData();
-				table1LData.width = 179;
-				table1LData.height = 421;
+				table1LData.width = 313;
+				table1LData.height = 549;
 				table1LData.top =  new FormAttachment(0, 1000, 51);
 				table1LData.left =  new FormAttachment(0, 1000, 32);
 				table1 = new Table(this, SWT.FULL_SELECTION | SWT.H_SCROLL
@@ -1394,10 +1394,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				getAllData = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData getDataLData = new FormData();
-				getDataLData.left =  new FormAttachment(0, 1000, 965);
-				getDataLData.top =  new FormAttachment(0, 1000, 12);
-				getDataLData.width = 102;
-				getDataLData.height = 30;
+				getDataLData.left =  new FormAttachment(0, 1000, 1358);
+				getDataLData.top =  new FormAttachment(0, 1000, 7);
+				getDataLData.width = 127;
+				getDataLData.height = 38;
 				getAllData.setLayoutData(getDataLData);
 				getAllData.setText("reloadAllData");
 				getAllData.addSelectionListener(new SelectionAdapter()
@@ -1412,16 +1412,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				label5 = new Label(this, SWT.NONE);
 				FormData label5LData = new FormData();
 				label5LData.left =  new FormAttachment(0, 1000, 242);
-				label5LData.top =  new FormAttachment(0, 1000, 24);
+				label5LData.top =  new FormAttachment(0, 1000, 18);
 				label5LData.width = 72;
-				label5LData.height = 20;
+				label5LData.height = 26;
 				label5.setLayoutData(label5LData);
 				label5.setText("Overview");
 			}
 			{
 				label2 = new Label(this, SWT.NONE);
 				FormData label2LData = new FormData();
-				label2LData.left =  new FormAttachment(0, 1000, 1094);
+				label2LData.left =  new FormAttachment(0, 1000, 1520);
 				label2LData.top =  new FormAttachment(0, 1000, 7);
 				label2LData.width = 53;
 				label2LData.height = 20;

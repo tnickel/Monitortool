@@ -123,7 +123,7 @@ public class Tracer
 		if (nLevel == 10)
 		{
 			UI ui = new UI();
-			ui.FehlermeldungStop(strMsg);
+			ui.FehlermeldungStop(strMsg,"");
 		}
 	}
 }

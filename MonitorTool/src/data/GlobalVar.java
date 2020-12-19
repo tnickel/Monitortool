@@ -22,8 +22,10 @@ public class GlobalVar
 	public GlobalVar()
 	{
 		if(FileAccess.FileAvailable(conffnam)==false)
+		{
+			gc.setPortableflag(1);
 			return;
-		
+		}
 		Inf inf = new Inf();
 		inf.setFilename(conffnam);
 
@@ -234,7 +236,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.451");
+		return("Monitortool V0.455");
 	}
 	
 	public static String calcHeadline()

@@ -3,6 +3,7 @@ package swtHilfsfenster;
 import gui.Dialog;
 import gui.Mbox;
 import hiflsklasse.SG;
+import hiflsklasse.Tracer;
 import modtools.Installer;
 import mtools.DisTool;
 
@@ -161,7 +162,7 @@ public class SwtEditGlobalConfig
 			group1.setBounds(12, 175, 259, 80);
 			{
 				defaultgd = new Text(group1, SWT.BORDER);
-				defaultgd.setBounds(8, 25, 28, 23);
+				defaultgd.setBounds(8, 25, 28, 29);
 				defaultgd.setText("5");
 				if (GlobalVar.getDefaultGd() != 0)
 					defaultgd.setText(String.valueOf(GlobalVar.getDefaultGd()));
@@ -188,14 +189,14 @@ public class SwtEditGlobalConfig
 			{
 				secondgd = new Text(group2, SWT.BORDER);
 				secondgd.setText("9");
-				secondgd.setBounds(8, 25, 28, 21);
+				secondgd.setBounds(8, 25, 28, 27);
 				if (GlobalVar.getSecondGd() != 0)
 					secondgd.setText((String.valueOf(GlobalVar.getSecondGd())));
 			}
 			{
 				label4 = new Label(group2, SWT.NONE);
 				label4.setText("second gd");
-				label4.setBounds(48, 25, 71, 21);
+				label4.setBounds(48, 25, 121, 21);
 			}
 		}
 		{
@@ -209,12 +210,12 @@ public class SwtEditGlobalConfig
 							.getShowMaxTradetablesize()));
 				else
 					tradetablesize.setText("100");
-				tradetablesize.setBounds(8, 25, 33, 20);
+				tradetablesize.setBounds(8, 25, 33, 27);
 			}
 			{
 				label6 = new Label(group3, SWT.NONE);
 				label6.setText("show max tradetablesize");
-				label6.setBounds(53, 25, 167, 20);
+				label6.setBounds(53, 25, 178, 20);
 			}
 		}
 
@@ -293,7 +294,7 @@ public class SwtEditGlobalConfig
 		{
 			sernumber = new Text(sh, SWT.BORDER);
 			sernumber.setText(String.valueOf(GlobalVar.getSernumber()));
-			sernumber.setBounds(12, 126, 130, 23);
+			sernumber.setBounds(12, 126, 130, 31);
 			sernumber.setEditable(false);
 		}
 
@@ -362,7 +363,7 @@ public class SwtEditGlobalConfig
 		}
 		{
 			text1maxpongtime = new Text(sh, SWT.NONE);
-			text1maxpongtime.setBounds(18, 344, 24, 20);
+			text1maxpongtime.setBounds(18, 344, 30, 24);
 			if(GlobalVar.getMaxpongtime()>0)
 				text1maxpongtime.setText(String.valueOf(GlobalVar.getMaxpongtime()));
 			else
@@ -371,7 +372,7 @@ public class SwtEditGlobalConfig
 		{
 			label12maxpongtime = new Label(sh, SWT.NONE);
 			label12maxpongtime.setText("max pongtime sec.");
-			label12maxpongtime.setBounds(54, 344, 133, 20);
+			label12maxpongtime.setBounds(54, 344, 176, 36);
 		}
 		{
 			button1autostart = new Button(sh, SWT.CHECK | SWT.LEFT);
@@ -402,7 +403,7 @@ public class SwtEditGlobalConfig
 				
 				button1portable = new Button(group4, SWT.RADIO | SWT.LEFT);
 				button1portable.setText("start mt portable");
-				button1portable.setBounds(7, 62, 156, 30);
+				button1portable.setBounds(7, 62, 179, 30);
 				button1portable.setSelection(true);
 				if(GlobalVar.getPortableflag()==0)
 					button1portable.setSelection(false);
@@ -434,6 +435,9 @@ public class SwtEditGlobalConfig
 
 	private void init()
 	{
+		
+	
+		
 		if (5 == 5)
 		{
 			// freeware version
@@ -558,6 +562,7 @@ public class SwtEditGlobalConfig
 
 	private void setnetworkpathWidgetSelected(SelectionEvent evt)
 	{
+		String metatradermasterdir=null;
 		System.out.println("setnetworkpath.widgetSelected, event=" + evt);
 		// set default destination networkdir
 		String dirnam = Dialog
@@ -565,18 +570,21 @@ public class SwtEditGlobalConfig
 
 		// prüft ob dies ein Metatraderrootverzeichniss ist
 		Installer inst = new Installer();
-		if (inst.checkMetatraderrootverz(dirnam) == false)
+		if ((metatradermasterdir=inst.checkMetatraderrootverz(dirnam)) == null)
 		{
-			Mbox.Infobox("Error: this is not a metatraderrootverz, I cant find a terminal.exe");
+			Mbox.Infobox("Error: this is not a metatraderrootdirectory, I cant find a terminal.exe");
 			return;
 		}
 
 		// falls cancel dann wird nix geändert
-		if (dirnam != null)
-			networkshareprefix.setText(dirnam);
+		if (metatradermasterdir != null)
+			networkshareprefix.setText(metatradermasterdir);
 		DisTool.UpdateDisplay();
 	}
 
+	
+	
+	
 	private void defaultgdWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("defaultgd.widgetSelected, event=" + evt);
