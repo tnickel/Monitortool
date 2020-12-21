@@ -11,65 +11,84 @@ public class MqlPatch extends MqlSqPatcher
 	// klasse die das mql-file patched
 	// zb. magicnumber setzten etc...
 
-	String expertname = null;
+	String expertname_glob = null;
 	
 	public String getExpertname()
 	{
-		return expertname;
+		return expertname_glob;
 	}
 
 	public void setExpertname(String expertname)
 	{
-		this.expertname = expertname;
+		this.expertname_glob = expertname;
 	}
 
 	public int getPeriod()
 	{
+		//expertname_glob=Q67 EURUSD M15 3.100.112.mq4
+		
 		String[] periodenzeichen =
 		{ "M15", "H1", "M1", "M5", "M30", "H4", "D1" };
 		Integer[] frame =
 		{ 15, 60, 1, 5, 30, 240, 1440 };
-
+		
+		
+		if(expertname_glob.endsWith(".mq4")==false)
+		{
+			Tracer.WriteTrace(10, "expertname should end with .mq4 but I got <"+expertname_glob+">");
+			return 0;
+		}
+		
+		String[] parts = expertname_glob.split(" ");
+		int anzp=parts.length;
+		if(anzp<3)
+		{
+			Tracer.WriteTrace(10, "wrong format expertname should have [Currencystring] [Timeframe] [Magic].mq4 \n for example 'Q67 EURUSD M15 3.100.112.mq4'");
+		}
+	
+		String period_found=parts[anzp-2];
+		
+		if(period_found==null)
+		{
+			Tracer.WriteTrace(10, "problem with period in <"+expertname_glob+"> -> STOP");
+			return 0;
+		}
+		
 		int anz = periodenzeichen.length;
 		for (int i = 0; i < anz; i++)
 		{
-			if (expertname.contains(periodenzeichen[i]))
+			if (period_found.contains(periodenzeichen[i]))
 				return frame[i];
 		}
 		
-		Mbox.Infobox("Unbekannte Periode");
-		Tracer.WriteTrace(10, "Error:unbekannte periode");
+		Tracer.WriteTrace(10, "found no symbol in <"+expertname_glob+">");
 		return 0;
 	}
 
 	public String getSymbol(Metaconfig meconfig)
 	{
-		String daxsymbol = meconfig.getDaxname();
-
-		String[] symbol =
-		{ "USDJPY", "EURUSD", "GBPUSD", "DAX", "USDCHF", "AUDUSD", "USDCAD",
-				"EURGBP", "EURAUD", "EURCHF", "EURJPY", "GBPCHF", "AUDCAD",
-				"EURCAD", "NZDUSD", "CADCHF", "GBPCAD", "CADJPY", "AUDNZD",
-				"AUDCHF", "GOLD", "SILVER", "XAGUSD", "XAUUSD","AUDCHF","AUDJPY","AUDNZD","CADCHF","CHFJPY","EURNZD","GBPAUD",
-				"GBPCAD","GBPCHF","GBPJPY","GBPNZD","NZDCAD","NZDCHF","NZDJPY"};
-
-		int anz = symbol.length;
-
-		for (int i = 0; i < anz; i++)
+		//expertname_glob=Q67 EURUSD M15 3.100.112.mq4
+		if(expertname_glob.endsWith(".mq4")==false)
 		{
-			String suchsymbol = symbol[i];
-			if (expertname.contains(suchsymbol))
-			{
-				// falls der dax configuriert ist wird für den Future das
-				// brokerspzifische zeichen verwendet
-				if (suchsymbol.equalsIgnoreCase("DAX"))
-					return daxsymbol;
-
-				return symbol[i];
-			}
+			Tracer.WriteTrace(10, "expertname should end with .mq4 but I got <"+expertname_glob+">");
+			return null;
 		}
 		
-		Tracer.WriteTrace(10, "Kein symbol gefunden");
+		String[] parts = expertname_glob.split(" ");
+		int anzp=parts.length;
+		if(anzp<3)
+		{
+			Tracer.WriteTrace(10, "wrong format expertname should have [Currencystring] [Timeframe] [Magic].mq4 \n for example 'Q67 EURUSD M15 3.100.112.mq4'");
+		}
+	
+		String currency=parts[anzp-3];
+		
+		if(currency!=null)
+		{
+			return currency;
+		}
+		
+		Tracer.WriteTrace(10, "found no symbol in <"+expertname_glob+">");
 		return null;
 	}
 
@@ -80,6 +99,16 @@ public class MqlPatch extends MqlSqPatcher
 		else
 			return(patchLotsizeSq3(ea, meRealconf));
 			
+	}
+	
+	public boolean patchComment(Ea ea)
+	{
+		if(isSq4x==1)
+			return(patchCommentSq4x(ea));
+		else
+			return(patchCommentSq3(ea));
+		
+		
 	}
 	public boolean patchInit()
 	{
@@ -103,7 +132,7 @@ public class MqlPatch extends MqlSqPatcher
 	}
 	public boolean isDaxEA()
 	{
-		if (expertname.contains("DAX"))
+		if (expertname_glob.contains("DAX"))
 			// if (zeilenspeicher[1].contains("DAX"))
 			return true;
 		else
@@ -125,9 +154,9 @@ public class MqlPatch extends MqlSqPatcher
 	public void addAbschaltAutomatic(String kennung)
 	{
 		if(isSq4x==1)
-			addAbschaltAutomaticSq4x(kennung,expertname);
+			addAbschaltAutomaticSq4x(kennung,expertname_glob);
 		else
-			addAbschaltAutomaticSq3(kennung,expertname);
+			addAbschaltAutomaticSq3(kennung,expertname_glob);
 			
 	}
 	protected void addPostcode(String postfilename)

@@ -59,8 +59,6 @@ public class SwtEditBrokerConfig
 	private Button storable;
 	private Button removefromreal;
 	private Button installonrealaccount;
-	private Label label7;
-	private Text daxname;
 	private Label label4;
 	private Label label3;
 	private Text MqlQuellverzeichniss;
@@ -270,17 +268,6 @@ public class SwtEditBrokerConfig
 		
 		
 		
-		{
-			daxname = new Text(sh, SWT.NONE);
-			daxname.setBounds(7, 340, 243, 30);
-			if (me_glob.getDaxname() != null)
-				daxname.setText(me_glob.getDaxname());
-		}
-		{
-			label7 = new Label(sh, SWT.NONE);
-			label7.setText("Dax Name");
-			label7.setBounds(256, 340, 82, 30);
-		}
 		
 		
 		{
@@ -500,8 +487,7 @@ public class SwtEditBrokerConfig
 		lotsize.setVisible(true);
 
 		Swttool.wupdate(dis_glob);
-		daxname.setVisible(true);
-
+		
 		// brokerid
 
 		label9.setVisible(true);
@@ -607,7 +593,7 @@ public class SwtEditBrokerConfig
 			Tracer.WriteTrace(10, "Keine losize");
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 
-		me_glob.setDaxname(daxname.getText());
+		
 		me_glob.setInsttickdataexporter(insttickdataexporter.getSelection());
 		me_glob.setInsthistoryexporter(insthistoryexporter.getSelection());
 	

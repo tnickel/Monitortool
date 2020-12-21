@@ -609,6 +609,7 @@ public class Installer
 		// abschaltautomatik hinzufügen
 		mqlpatch.addAbschaltAutomatic("");
 		mqlpatch.patchLotsize(ea, meRealconf);
+		mqlpatch.patchComment(ea);
 		
 		if (mqlpatch.isDaxEA() == true)
 			mqlpatch.patchDaxEA();
@@ -677,6 +678,7 @@ public class Installer
 		mqlpatch.patchVariables();
 		mqlpatch.patchGBMeta600();
 		mqlpatch.patchSleeptimemod();
+		mqlpatch.patchComment(ea);
 		
 		if (realpatchflag == 1)
 		{
