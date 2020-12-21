@@ -8,3 +8,4 @@ trace
 .gitignore
 *.png
 jre1.8.0_251/
+*.cfx

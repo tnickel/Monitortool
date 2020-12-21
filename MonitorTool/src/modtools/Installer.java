@@ -217,11 +217,31 @@ public class Installer
 			profiler = new Profiler(metarealconfig);
 		
 		String cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
-		
 		Tracer.WriteTrace(20, "Rootpath<" + Rootpath.getRootpath() + "> mqlquellverz<" + mqlquellverz + ">");
-		// hole die Mq4-files ins temporäre install verzeichniss
+		
+		//Remove substring "Strategy" out of quellname
 		fadyn.initFileSystemList(mqlquellverz, 1);
 		int anz = fadyn.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			String mqlquellnam = fadyn.holeFileSystemName();
+			if ((mqlquellnam.endsWith(".mq4")) || (mqlquellnam.endsWith(".sqx")))
+			{
+				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
+				// den mqlnamen bestimmen
+				if(mqlquellnam.endsWith(".mq4"))
+					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
+				if(mqlquellnam.endsWith(".sqx"))
+					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".sqx"));
+
+				// Den quellnamen renamen das Keyword Strategy muss raus
+				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam);
+			}
+		}
+		
+		// hole die Mq4-files ins temporäre install verzeichniss
+		fadyn.initFileSystemList(mqlquellverz, 1);
+		anz = fadyn.holeFileAnz();
 		progressBar1.setMinimum(0);
 		progressBar1.setMaximum(anz - 1);
 		for (int i = 0; i < anz; i++)
@@ -244,11 +264,6 @@ public class Installer
 			if (mqlquellnam.contains(".mq4") == false)
 				continue;
 			
-			// den mqlnamen bestimmen
-			mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
-			
-			// Den quellnamen renamen das Keyword Strategy muss raus
-			renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam);
 			
 			Tracer.WriteTrace(20, "mqlquellnam<" + mqlquellnam + "> mqlquellverz<" + mqlquellverz + "> zielshare<"
 					+ metaconfig.getMqldata() + "> zwischenspeichernam<" + zwischenspeichernam + ">");
@@ -1090,11 +1105,11 @@ public class Installer
 		// wenn das verzeichniss ok ist ist wird das verzeichniss zurückgemeldet
 		// wenn es nicht ok ist wird es versucht zu korregieren und dann zurückgemeldet
 		// null: im fehlerfall
-
-		String fnam=null;
-		File fnamf=null;
 		
-		//check1
+		String fnam = null;
+		File fnamf = null;
+		
+		// check1
 		FileAccessDyn fdyn = new FileAccessDyn();
 		fdyn.initFileSystemList(verz, 0);
 		int anz = fdyn.holeFileAnz();
@@ -1108,23 +1123,22 @@ public class Installer
 				return verz;
 		}
 		
-		//check2
-		fnam = verz +  "\\terminal.exe";
+		// check2
+		fnam = verz + "\\terminal.exe";
 		fnamf = new File(fnam);
-		//we choose wrong directory, I will correct this
-
-		if(fnamf.exists())
+		// we choose wrong directory, I will correct this
+		
+		if (fnamf.exists())
 		{
-			//hier wird \\terminal.exe und das verzeichnis davor weggecutted umd auf das 
-			//rootverzeichnis zu kommen
-			int index1=0;
-			int index2=fnam.lastIndexOf("\\");
-			fnam=fnam.substring(index1,index2);
-			index2=fnam.lastIndexOf("\\");
-			fnam=fnam.substring(index1,index2);
+			// hier wird \\terminal.exe und das verzeichnis davor weggecutted umd auf das
+			// rootverzeichnis zu kommen
+			int index1 = 0;
+			int index2 = fnam.lastIndexOf("\\");
+			fnam = fnam.substring(index1, index2);
+			index2 = fnam.lastIndexOf("\\");
+			fnam = fnam.substring(index1, index2);
 			return fnam;
 		}
-		
 		
 		return null;
 		
