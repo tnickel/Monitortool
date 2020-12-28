@@ -76,7 +76,9 @@ public class SqExporterBatch
 		jp.update(50);
 		Inf inf = new Inf();
 		inf.setFilename(tmp_exportbatch);
-		inf.writezeile("::hint run 'sqcli.exe -run file=C:/commands.txt' from SQ3results -Strategyquant");
+
+		//this is not a batchfile .txt, so this file don´t understand REM
+		//inf.writezeile("REM hint run 'sqcli.exe -run file=C:\\tmp\\exportbatch.txt' from SQ3results -Strategyquant");
 		inf.writezeile("-project action=status name=Retester > "+respfile_f.getPath());
 		inf.writezeile("-databank action=export project=Retester name=Results file=" + databankfile
 				+ " view=\"Default - Portfolio\"");
