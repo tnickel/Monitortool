@@ -11,17 +11,10 @@ void initlotconfig(string mn)
         {
  	    if(FileWriteString(handle,"\Install\Mt4_additionalcode SQ 4.X \n")==false)
               Log("Error cant write file <"+such+".lot>");         
-
-            if(FileWriteString(handle,"extern double mmRiskPercent = 1.0;\n")==false)
-              Log("Error cant write file <"+such+".lot>");
-            if(FileWriteString(handle,"extern int mmDecimals = 1;\n")==false)
-              Log("Error cant write file <"+such+".lot>");
-            if(FileWriteString(handle,"extern int mmStopLossPips = 200;\n")==false)
-              Log("Error cant write file <"+such+".lot>");
+           
             if(FileWriteString(handle,"extern double mmLotsIfNoMM = 0.01;\n")==false)
               Log("Error cant write file <"+such+".lot>");
-            if(FileWriteString(handle,"extern double mmMaxLots = 0.1;\n")==false)
-              Log("Error cant write file <"+such+".lot>");
+ 
          
          FileClose(handle);
         }
@@ -64,25 +57,15 @@ bool lotconfig(string mn)
          {
            line_str=lotconfigmem[i];
 
-           if(StringFind(line_str,"mmRiskPercent",0)>=0)
-  		mmRiskPercent=extract_doubleval(line_str,0,5,MagicNumber);
-           if(StringFind(line_str,"mmDecimals",0)>=0)
-  		mmDecimals=extract_doubleval(line_str,0,3,MagicNumber);
-	   if(StringFind(line_str,"mmStopLossPips",0)>=0)
-  		mmStopLossPips=extract_doubleval(line_str,0,500,MagicNumber);
 	   if(StringFind(line_str,"mmLotsIfNoMM",0)>=0)
   		mmLots=extract_doubleval(line_str,0,5,MagicNumber);
-	   if(StringFind(line_str,"mmMaxLots",0)>=0)
-  		mmMaxLots=extract_doubleval(line_str,0,5,MagicNumber);
+
          }
     
 	Log("use *.lot ---config ***********************");
 
-       	Log("mmRiskPercent ="+mmRiskPercent);
-	Log("mmDecimals="+mmDecimals);
-	Log("mmStopLossPips="+mmStopLossPips);
+
 	Log("mmLotsIfNoMM="+mmLotsIfNoMM);
-	Log("mmMaxLots="+mmMaxLots);
 
        //dann zeige die aktuelle lotsize an
        DisplayText("lotsline", 60, 500, "lots= "+mmLots, 9, "Verdana", Gold);

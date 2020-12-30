@@ -29,6 +29,8 @@ public class eaclass
 
 		keyword = keyword.replace(".", "");
 		keyword = keyword.replace("_", "");
+		keyword = keyword.replace("(", "");
+		keyword = keyword.replace(")", "");
 
 		// die führenden nullen entfernen
 		while ((keyword.startsWith("0")) || (keyword.startsWith(" ")))

@@ -36,8 +36,6 @@ public class SwtEditGlobalConfig
 {
 	private Display dis_glob = null;
 	int exitflag = 0;
-	private Label label2;
-	private Label label1;
 	private Label label11;
 	private Button askforupdate;
 	private Group group4;
@@ -74,10 +72,6 @@ public class SwtEditGlobalConfig
 	private Text secondgd;
 	private Label label3;
 	private Text defaultgd;
-	private Button setnetworkpath;
-	private Button setsourcedir;
-	private Text networkshareprefix;
-	private Text mqlsourcedir;
 	private Button okbutton;
 
 	public void init(Display dis)
@@ -104,56 +98,6 @@ public class SwtEditGlobalConfig
 				}
 			});
 		}
-		{
-			mqlsourcedir = new Text(sh, SWT.NONE);
-			String t0 = GlobalVar.getMqlsourcedirprefix();
-			if (t0 != null)
-				mqlsourcedir.setText(t0);
-			mqlsourcedir.setBounds(12, 41, 655, 21);
-		}
-		{
-			label2 = new Label(sh, SWT.NONE);
-			label2.setText("sourcedir root");
-			label2.setBounds(673, 42, 145, 22);
-		}
-		{
-			networkshareprefix = new Text(sh, SWT.NONE);
-			String t1 = (String) GlobalVar.getNetzwerkshareprefix();
-			if (t1 != null)
-				networkshareprefix.setText(t1);
-			else
-				networkshareprefix.setText("");
-			networkshareprefix.setBounds(12, 68, 655, 23);
-		}
-		{
-			label1 = new Label(sh, SWT.NONE);
-			label1.setText("metatrader root");
-			label1.setBounds(673, 68, 157, 30);
-		}
-		{
-			setsourcedir = new Button(sh, SWT.PUSH | SWT.CENTER);
-			setsourcedir.setText("set");
-			setsourcedir.setBounds(842, 41, 60, 22);
-			setsourcedir.addSelectionListener(new SelectionAdapter()
-			{
-				public void widgetSelected(SelectionEvent evt)
-				{
-					setsourcedirWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			setnetworkpath = new Button(sh, SWT.PUSH | SWT.CENTER);
-			setnetworkpath.setText("set");
-			setnetworkpath.setBounds(842, 68, 60, 23);
-			setnetworkpath.addSelectionListener(new SelectionAdapter()
-			{
-				public void widgetSelected(SelectionEvent evt)
-				{
-					setnetworkpathWidgetSelected(evt);
-				}
-			});
-		}
 
 		{
 			group1 = new Group(sh, SWT.NONE);
@@ -177,7 +121,7 @@ public class SwtEditGlobalConfig
 			{
 				label3 = new Label(group1, SWT.NONE);
 				label3.setText("default gd");
-				label3.setBounds(42, 25, 76, 23);
+				label3.setBounds(42, 25, 107, 23);
 			}
 
 		}
@@ -215,7 +159,7 @@ public class SwtEditGlobalConfig
 			{
 				label6 = new Label(group3, SWT.NONE);
 				label6.setText("show max tradetablesize");
-				label6.setBounds(53, 25, 178, 20);
+				label6.setBounds(53, 25, 194, 20);
 			}
 		}
 
@@ -342,7 +286,7 @@ public class SwtEditGlobalConfig
 		{
 			label7 = new Label(sh, SWT.NONE);
 			label7.setText("serialnumber");
-			label7.setBounds(148, 126, 91, 23);
+			label7.setBounds(148, 126, 123, 23);
 		}
 		{
 			button1freeware = new Button(sh, SWT.RADIO | SWT.LEFT);
@@ -443,9 +387,7 @@ public class SwtEditGlobalConfig
 			// freeware version
 			if (Lic.getlic() == 0)
 			{
-				mqlsourcedir.setVisible(false);
-				label2.setVisible(false);
-				setsourcedir.setVisible(false);
+				
 				GlobalVar.setUpdatechannel("freeware");
 			}
 
@@ -472,8 +414,7 @@ public class SwtEditGlobalConfig
 	{
 		System.out.println("okbutton.widgetSelected, event=" + evt);
 		// save
-		GlobalVar.setMqlsourcedirprefix(mqlsourcedir.getText());
-		GlobalVar.setNetworkshareprefix(networkshareprefix.getText());
+		
 
 		GlobalVar.setDefaultGd(SG.get_zahl(defaultgd.getText()));
 		GlobalVar.setSecondGd(SG.get_zahl(secondgd.getText()));
@@ -509,12 +450,7 @@ public class SwtEditGlobalConfig
 			return;
 		}
 
-		if ((networkshareprefix.getText() == null)
-				|| (networkshareprefix.getText().length() < 2))
-		{
-			Mbox.Infobox("please set Metatrader root. As example c:/forex/mt4.....");
-			return;
-		}
+		
 
 		if (development.getSelection() == true)
 			GlobalVar.setUpdatechannel("development");
@@ -547,40 +483,9 @@ public class SwtEditGlobalConfig
 
 	}
 
-	private void setsourcedirWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("setsourcedir.widgetSelected, event=" + evt);
-		// set default sourcedir
-		String dirnam = Dialog.DirDialog(dis_glob, mqlsourcedir.getText());
+	
 
-		// falls cancel dann wird nix geändert
-		if (dirnam != null)
-			mqlsourcedir.setText(dirnam);
-		DisTool.UpdateDisplay();
-
-	}
-
-	private void setnetworkpathWidgetSelected(SelectionEvent evt)
-	{
-		String metatradermasterdir=null;
-		System.out.println("setnetworkpath.widgetSelected, event=" + evt);
-		// set default destination networkdir
-		String dirnam = Dialog
-				.DirDialog(dis_glob, networkshareprefix.getText());
-
-		// prüft ob dies ein Metatraderrootverzeichniss ist
-		Installer inst = new Installer();
-		if ((metatradermasterdir=inst.checkMetatraderrootverz(dirnam)) == null)
-		{
-			Mbox.Infobox("Error: this is not a metatraderrootdirectory, I cant find a terminal.exe");
-			return;
-		}
-
-		// falls cancel dann wird nix geändert
-		if (metatradermasterdir != null)
-			networkshareprefix.setText(metatradermasterdir);
-		DisTool.UpdateDisplay();
-	}
+	
 
 	
 	

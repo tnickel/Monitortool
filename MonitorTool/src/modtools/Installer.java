@@ -611,8 +611,7 @@ public class Installer
 		mqlpatch.patchLotsize(ea, meRealconf);
 		mqlpatch.patchComment(ea);
 		
-		if (mqlpatch.isDaxEA() == true)
-			mqlpatch.patchDaxEA();
+	
 		
 		mqlpatch.patchSleeptimemod();
 		// add the postcode from mt4_additional code to every ea
@@ -687,15 +686,14 @@ public class Installer
 		} else
 			mqlpatch.patchLotsize(ea, meconf);
 		
-		if (mqlpatch.isDaxEA() == true)
-			mqlpatch.patchDaxEA();
+		//wirte the file with the lotsize
+		genLotfile(magic,ea,meconf);
 			
 		// add the postcode from mt4_additional code to every ea
 		// sq3.8.2=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq3
 		// sq4=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq4
 		String postfilename = Rootpath.getRootpath() + "\\install\\Mt4_additionalcode\\ea_postcode";
 		mqlpatch.addPostcode(postfilename);
-		
 		mqlpatch.writeMemFile(mqlziel);
 		
 		if (realpatchflag == 1)
@@ -716,6 +714,28 @@ public class Installer
 		Mlist.add("I: write mql-file <" + quellnam + ">", 1);
 		
 		return mqlpatch;
+	}
+	
+	//wirte the lotfile in ...\mt4\<Brokername>\\MQL4\\Files\\<magic>.lot
+	private void genLotfile(int magic,Ea ea, Metaconfig meconf)
+	{
+		double lotsize=meconf.getLotsize();
+		String zielverzexpert = meconf.getExpertdata();
+		String zielFiles=zielverzexpert.replace("Experts", "Files");
+		
+		String zf=zielFiles+"\\"+magic+".lot";
+		File zff=new File(zf);
+		if(zff.exists()==true)
+			if(zff.delete()==false)
+				Tracer.WriteTrace(10, "E: can´t delete file <"+zf+"> -->STOP");	
+		Inf inf=new Inf();
+		inf.setFilename(zf);
+		inf.writezeile("\\Install\\Mt4_additionalcode SQ 4.X" );
+		inf.writezeile("extern double mmLotsIfNoMM = "+lotsize+";");
+		inf.close();
+		return;
+		
+		
 	}
 	
 	public void copyEA(int magic, String quellverz, String zielverz)

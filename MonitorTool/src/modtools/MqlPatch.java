@@ -206,12 +206,7 @@ public class MqlPatch extends MqlSqPatcher
 
 	
 
-	public void patchDaxEA()
-	{
-		//gelöscht
-		
-		
-	}
+
 
 	private boolean isTradeEobEA()
 	{

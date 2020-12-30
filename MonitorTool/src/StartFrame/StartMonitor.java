@@ -90,8 +90,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button button2showtradelistportfolio;
 	private Button button2stopmt;
 	private Button button2startmetatrader;
-	private Button button2importall;
-	private Button button2exportall;
 	private Button button2autoconfig;
 	private Text statustext;
 	private Button button2showallprotfolio;
@@ -100,15 +98,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Text text1days;
 	private Button button2delete;
 	private Button button2newcal;
-	private Button buttonExportTradelist;
 	private Button buttondown;
 	private Button buttonup;
 	private Button sortcriteria;
 	private Button showbacktest;
-	private Button removeimported;
 	private MenuItem menuItem1;
-	private Button importtradelisten;
-	private Button exportEa;
 	private Button showselprofits;
 	private Button selonlyone;
 	private Button fontminus;
@@ -124,8 +118,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button checkallbroker;
 	private Button toggleallprofits;
 	private Button clr;
-	private Button copyea;
-	private Combo combo_targetbroker;
 	private Button configea;
 	private Button showbroker;
 	private Button sync;
@@ -154,6 +146,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button showopenorders;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Button button3replacesymbols;
 	private Button showTradeliste;
 	private Button configbroker;
 	private Table table3;
@@ -204,6 +197,18 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
+			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button3replacesymbols = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button3replacesymbolsLData = new FormData();
+				button3replacesymbolsLData.left =  new FormAttachment(0, 1000, 246);
+				button3replacesymbolsLData.top =  new FormAttachment(0, 1000, 855);
+				button3replacesymbolsLData.width = 217;
+				button3replacesymbolsLData.height = 35;
+				button3replacesymbols.setLayoutData(button3replacesymbolsLData);
+				button3replacesymbols.setText("replace all symbols");
+				button3replacesymbols.setToolTipText("replace symbols, the configfile is in \r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\\\rreplacesymbols.txt\r\n\r\nexample of replacesymbols.txt\r\nag2102,ag2115\r\r\n ");
+			}
 			{
 				button2 = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2LData = new FormData();
@@ -236,8 +241,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						| SWT.CENTER);
 				FormData button2showtradelistportfolioLData = new FormData();
 				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 463);
-				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 792);
-				button2showtradelistportfolioLData.width = 198;
+				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 784);
+				button2showtradelistportfolioLData.width = 204;
 				button2showtradelistportfolioLData.height = 27;
 				button2showtradelistportfolio.setLayoutData(button2showtradelistportfolioLData);
 				button2showtradelistportfolio
@@ -296,41 +301,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						});
 			}
 			{
-				button2importall = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData button2importallLData = new FormData();
-				button2importallLData.left =  new FormAttachment(0, 1000, 463);
-				button2importallLData.top =  new FormAttachment(0, 1000, 902);
-				button2importallLData.width = 417;
-				button2importallLData.height = 27;
-				button2importall.setLayoutData(button2importallLData);
-				button2importall
-						.setText("import all trades (only for viewing)");
-				button2importall.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						button2importallWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				button2exportall = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData button2exportallLData = new FormData();
-				button2exportallLData.left =  new FormAttachment(0, 1000, 673);
-				button2exportallLData.top =  new FormAttachment(0, 1000, 860);
-				button2exportallLData.width = 207;
-				button2exportallLData.height = 30;
-				button2exportall.setLayoutData(button2exportallLData);
-				button2exportall.setText("export all trades");
-				button2exportall.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						button2exportallWidgetSelected(evt);
-					}
-				});
-			}
-			{
 				button2autoconfig = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2autoconfigLData = new FormData();
 				button2autoconfigLData.left =  new FormAttachment(0, 1000, 1802);
@@ -365,7 +335,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData button2showallprotfolioLData = new FormData();
 				button2showallprotfolioLData.left =  new FormAttachment(0, 1000, 246);
 				button2showallprotfolioLData.top =  new FormAttachment(0, 1000, 747);
-				button2showallprotfolioLData.width = 117;
+				button2showallprotfolioLData.width = 183;
 				button2showallprotfolioLData.height = 30;
 				button2showallprotfolio.setLayoutData(button2showallprotfolioLData);
 				button2showallprotfolio.setText("show all portfolio");
@@ -381,12 +351,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2best100 = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2best100LData = new FormData();
-				button2best100LData.left =  new FormAttachment(0, 1000, 369);
-				button2best100LData.top =  new FormAttachment(0, 1000, 755);
-				button2best100LData.width = 88;
-				button2best100LData.height = 20;
+				button2best100LData.left =  new FormAttachment(0, 1000, 246);
+				button2best100LData.top =  new FormAttachment(0, 1000, 784);
+				button2best100LData.width = 183;
+				button2best100LData.height = 29;
 				button2best100.setLayoutData(button2best100LData);
-				button2best100.setText("best100");
+				button2best100.setText("show only best100");
 				button2best100.setSelection(true);
 			}
 			{
@@ -425,7 +395,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2delete = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2deleteLData = new FormData();
 				button2deleteLData.left =  new FormAttachment(0, 1000, 892);
-				button2deleteLData.top =  new FormAttachment(0, 1000, 860);
+				button2deleteLData.top =  new FormAttachment(0, 1000, 784);
 				button2deleteLData.width = 295;
 				button2deleteLData.height = 30;
 				button2delete.setLayoutData(button2deleteLData);
@@ -443,30 +413,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2newcal = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2newcalLData = new FormData();
 				button2newcalLData.left =  new FormAttachment(0, 1000, 579);
-				button2newcalLData.top =  new FormAttachment(0, 1000, 766);
+				button2newcalLData.top =  new FormAttachment(0, 1000, 755);
 				button2newcalLData.width = 88;
 				button2newcalLData.height = 20;
 				button2newcal.setLayoutData(button2newcalLData);
 				button2newcal.setText("new cal");
-			}
-			{
-				buttonExportTradelist = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData buttonExportTradelistLData = new FormData();
-				buttonExportTradelistLData.left =  new FormAttachment(0, 1000, 1025);
-				buttonExportTradelistLData.top =  new FormAttachment(0, 1000, 784);
-				buttonExportTradelistLData.width = 109;
-				buttonExportTradelistLData.height = 30;
-				buttonExportTradelist.setLayoutData(buttonExportTradelistLData);
-				buttonExportTradelist.setText("Export Tradelist");
-				buttonExportTradelist.setEnabled(false);
-				buttonExportTradelist
-						.addSelectionListener(new SelectionAdapter()
-						{
-							public void widgetSelected(SelectionEvent evt)
-							{
-								buttonExportTradelistWidgetSelected(evt);
-							}
-						});
 			}
 			{
 				buttondown = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -525,7 +476,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				showbacktest = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showbacktestLData = new FormData();
 				showbacktestLData.left =  new FormAttachment(0, 1000, 463);
-				showbacktestLData.top =  new FormAttachment(0, 1000, 755);
+				showbacktestLData.top =  new FormAttachment(0, 1000, 747);
 				showbacktestLData.width = 110;
 				showbacktestLData.height = 30;
 				showbacktest.setLayoutData(showbacktestLData);
@@ -539,65 +490,14 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 			{
-				removeimported = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData removeimportedLData = new FormData();
-				removeimportedLData.left =  new FormAttachment(0, 1000, 892);
-				removeimportedLData.top =  new FormAttachment(0, 1000, 820);
-				removeimportedLData.width = 307;
-				removeimportedLData.height = 28;
-				removeimported.setLayoutData(removeimportedLData);
-				removeimported.setText("Remove Imported Out Of Database");
-				removeimported.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						removeimportedWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				importtradelisten = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData importeasLData = new FormData();
-				importeasLData.left =  new FormAttachment(0, 1000, 892);
-				importeasLData.top =  new FormAttachment(0, 1000, 784);
-				importeasLData.width = 127;
-				importeasLData.height = 30;
-				importtradelisten.setLayoutData(importeasLData);
-				importtradelisten.setText("Import Tradelist");
-				importtradelisten.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						importeasWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				exportEa = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData exporteaLData = new FormData();
-				exporteaLData.left =  new FormAttachment(0, 1000, 673);
-				exporteaLData.top =  new FormAttachment(0, 1000, 820);
-				exporteaLData.width = 207;
-				exporteaLData.height = 30;
-				exportEa.setLayoutData(exporteaLData);
-				exportEa.setText("Export 1EA+Tradelist");
-				exportEa.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						exporteaWidgetSelected(evt);
-					}
-				});
-			}
-			{
 				showselprofits = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showselprofitsLData = new FormData();
 				showselprofitsLData.left =  new FormAttachment(0, 1000, 246);
-				showselprofitsLData.top =  new FormAttachment(0, 1000, 792);
-				showselprofitsLData.width = 211;
+				showselprofitsLData.top =  new FormAttachment(0, 1000, 819);
+				showselprofitsLData.width = 217;
 				showselprofitsLData.height = 30;
 				showselprofits.setLayoutData(showselprofitsLData);
-				showselprofits.setText("show sel profits (portfolio)");
+				showselprofits.setText("show sel profits/portfolio");
 				showselprofits.addSelectionListener(new SelectionAdapter()
 				{
 					public void widgetSelected(SelectionEvent evt)
@@ -656,8 +556,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData settradefilterLData = new FormData();
 				settradefilterLData.left =  new FormAttachment(0, 1000, 1082);
 				settradefilterLData.top =  new FormAttachment(0, 1000, 708);
-				settradefilterLData.width = 31;
-				settradefilterLData.height = 20;
+				settradefilterLData.width = 38;
+				settradefilterLData.height = 27;
 				settradefilter.setLayoutData(settradefilterLData);
 				settradefilter.setText("set");
 				settradefilter.addSelectionListener(new SelectionAdapter()
@@ -674,7 +574,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				tradefilterLData.left =  new FormAttachment(0, 1000, 892);
 				tradefilterLData.top =  new FormAttachment(0, 1000, 708);
 				tradefilterLData.width = 178;
-				tradefilterLData.height = 20;
+				tradefilterLData.height = 27;
 				tradefilter.setLayoutData(tradefilterLData);
 				tradefilter.setText("tradefilter");
 				tradefilter.addSelectionListener(new SelectionAdapter()
@@ -707,7 +607,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				comparetradelist = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData comparetradelistLData = new FormData();
 				comparetradelistLData.left =  new FormAttachment(0, 1000, 463);
-				comparetradelistLData.top =  new FormAttachment(0, 1000, 683);
+				comparetradelistLData.top =  new FormAttachment(0, 1000, 676);
 				comparetradelistLData.width = 149;
 				comparetradelistLData.height = 30;
 				comparetradelist.setLayoutData(comparetradelistLData);
@@ -740,9 +640,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				searchbutton = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2LData = new FormData();
-				button2LData.left =  new FormAttachment(0, 1000, 1230);
-				button2LData.top =  new FormAttachment(0, 1000, 775);
-				button2LData.width = 92;
+				button2LData.left =  new FormAttachment(0, 1000, 1082);
+				button2LData.top =  new FormAttachment(0, 1000, 747);
+				button2LData.width = 105;
 				button2LData.height = 31;
 				searchbutton.setLayoutData(button2LData);
 				searchbutton.setText("search");
@@ -757,10 +657,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData searchLData = new FormData();
-				searchLData.left =  new FormAttachment(0, 1000, 1179);
-				searchLData.top =  new FormAttachment(0, 1000, 749);
-				searchLData.width = 95;
-				searchLData.height = 20;
+				searchLData.left =  new FormAttachment(0, 1000, 892);
+				searchLData.top =  new FormAttachment(0, 1000, 747);
+				searchLData.width = 168;
+				searchLData.height = 28;
 				search = new Text(this, SWT.NONE);
 				search.setLayoutData(searchLData);
 			}
@@ -832,7 +732,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData checkGd20LData = new FormData();
 				checkGd20LData.left =  new FormAttachment(0, 1000, 1127);
 				checkGd20LData.top =  new FormAttachment(0, 1000, 642);
-				checkGd20LData.width = 81;
+				checkGd20LData.width = 98;
 				checkGd20LData.height = 20;
 				checkGd20.setLayoutData(checkGd20LData);
 				checkGd20.setText("CheckAllGd20");
@@ -848,10 +748,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				lifecheck = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData lifecheckLData = new FormData();
-				lifecheckLData.left =  new FormAttachment(0, 1000, 1230);
-				lifecheckLData.top =  new FormAttachment(0, 1000, 812);
+				lifecheckLData.left =  new FormAttachment(0, 1000, 1239);
+				lifecheckLData.top =  new FormAttachment(0, 1000, 747);
 				lifecheckLData.width = 92;
-				lifecheckLData.height = 36;
+				lifecheckLData.height = 31;
 				lifecheck.setLayoutData(lifecheckLData);
 				lifecheck.setText("Lifecheck");
 				lifecheck
@@ -864,33 +764,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						lifecheckWidgetSelected(evt);
 					}
 				});
-			}
-			{
-				copyea = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData copyeaLData = new FormData();
-				copyeaLData.left =  new FormAttachment(0, 1000, 1077);
-				copyeaLData.top =  new FormAttachment(0, 1000, 747);
-				copyeaLData.width = 90;
-				copyeaLData.height = 30;
-				copyea.setLayoutData(copyeaLData);
-				copyea.setText("copy EA");
-				copyea.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						copyeaWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				combo_targetbroker = new Combo(this, SWT.NONE);
-				FormData targetbrokerLData = new FormData();
-				targetbrokerLData.left =  new FormAttachment(0, 1000, 892);
-				targetbrokerLData.top =  new FormAttachment(0, 1000, 747);
-				targetbrokerLData.width = 140;
-				targetbrokerLData.height = 33;
-				combo_targetbroker.setLayoutData(targetbrokerLData);
-				combo_targetbroker.setText("select target broker");
 			}
 			{
 				configea = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -979,8 +852,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData progressBar2LData = new FormData();
-				progressBar2LData.left =  new FormAttachment(0, 1000, 1500);
-				progressBar2LData.top =  new FormAttachment(0, 1000, 28);
+				progressBar2LData.left =  new FormAttachment(0, 1000, 1491);
+				progressBar2LData.top =  new FormAttachment(0, 1000, 27);
 				progressBar2LData.width = 169;
 				progressBar2LData.height = 18;
 				progressBar2 = new ProgressBar(this, SWT.NONE);
@@ -1085,7 +958,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData saveandexitLData = new FormData();
 				saveandexitLData.left =  new FormAttachment(0, 1000, 892);
 				saveandexitLData.top =  new FormAttachment(0, 1000, 902);
-				saveandexitLData.width = 430;
+				saveandexitLData.width = 439;
 				saveandexitLData.height = 52;
 				saveandexit.setLayoutData(saveandexitLData);
 				saveandexit.setText("save and exit");
@@ -1101,7 +974,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showallprofitLData = new FormData();
 				showallprofitLData.left =  new FormAttachment(0, 1000, 246);
 				showallprofitLData.top =  new FormAttachment(0, 1000, 712);
-				showallprofitLData.width = 117;
+				showallprofitLData.width = 183;
 				showallprofitLData.height = 30;
 				showallprofit = new Button(this, SWT.PUSH | SWT.CENTER);
 				showallprofit.setLayoutData(showallprofitLData);
@@ -1176,7 +1049,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				showprofit = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showprofitLData = new FormData();
 				showprofitLData.left =  new FormAttachment(0, 1000, 463);
-				showprofitLData.top =  new FormAttachment(0, 1000, 719);
+				showprofitLData.top =  new FormAttachment(0, 1000, 712);
 				showprofitLData.width = 110;
 				showprofitLData.height = 30;
 				showprofit.setLayoutData(showprofitLData);
@@ -1242,7 +1115,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showTradelisteLData = new FormData();
 				showTradelisteLData.left =  new FormAttachment(0, 1000, 246);
 				showTradelisteLData.top =  new FormAttachment(0, 1000, 676);
-				showTradelisteLData.width = 117;
+				showTradelisteLData.width = 183;
 				showTradelisteLData.height = 30;
 				showTradeliste.setLayoutData(showTradelisteLData);
 				showTradeliste.setText("show tradelist");
@@ -1571,12 +1444,13 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	
 	private void checkconfig()
 	{
+	
+		
 		// das konfigmenue aufrufen falls noch keine config gesetzt ist
-		if ((GlobalVar.getNetzwerkshareprefix() == null)
-				|| (GlobalVar.getNetzwerkshareprefix().length() < 2))
+		if ((GlobalVar.getEmail() == null)
+				|| (GlobalVar.getEmail().length() < 2))
 		{
 			SwtEditGlobalConfig sc = new SwtEditGlobalConfig();
-			Mbox.Infobox("Please set Config");
 			sc.init(dis_glob);
 			
 			
@@ -1616,10 +1490,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				manualonoff.setVisible(false);
 				setinstfrom.setVisible(false);
 				configea.setVisible(false);
-				importtradelisten.setVisible(false);
-				buttonExportTradelist.setVisible(false);
-				exportEa.setVisible(false);
-				removeimported.setVisible(false);
+				
 
 				lifecheck.setVisible(false);
 				checkGd20.setVisible(false);
@@ -1627,8 +1498,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				label2.setVisible(false);
 				progressBar2.setVisible(false);
 				sync.setVisible(false);
-				combo_targetbroker.setVisible(false);
-				copyea.setVisible(false);
+				
 
 				button2showallprotfolio.setVisible(false);
 				checkallbroker.setVisible(false);
@@ -1796,10 +1666,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			sync.setEnabled(true);
 			setinstfrom.setEnabled(false);
 			configea.setEnabled(false);
-			exportEa.setEnabled(false);
-			importtradelisten.setEnabled(false);
-			removeimported.setEnabled(false);
-			buttonExportTradelist.setEnabled(false);
+			
 		}
 		if (mode == 1)
 		{
@@ -1817,17 +1684,15 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			// falls realbroker
 			if (smw.isSelectedBroker(2) == true)
 			{
-				exportEa.setEnabled(false);
+				
 				setinstfrom.setEnabled(true);
 			} else
 			{
-				exportEa.setEnabled(true);
+				
 				setinstfrom.setEnabled(false);
 			}
 
-			buttonExportTradelist.setEnabled(true);
-			importtradelisten.setEnabled(true);
-			removeimported.setEnabled(true);
+			
 		}
 		Tradeanzahl ta = smw.calcTradeanzahl();
 		anzincommingtrades.setText(String.valueOf(ta.getAnztrades()));
@@ -1886,7 +1751,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		tradefilterrefresh();
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
 				anzincommingtrades, anzeas, broker, 1, 1);
-		smw.initTargetBrokerCombo(combo_targetbroker);
+		
 
 	
 		smw.exportAllTradelistEncryped();
@@ -2176,8 +2041,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("copyea.widgetSelected, event=" + evt);
 		// copy ea
-		String zielbrokername = combo_targetbroker.getText();
-		smw.copyEA(zielbrokername);
+		
 	}
 
 	private void lifecheckWidgetSelected(SelectionEvent evt)
