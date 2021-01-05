@@ -1,21 +1,7 @@
 package StartFrame;
 
-import gui.Mbox;
-import hiflsklasse.Archive;
-import hiflsklasse.FileAccess;
-import hiflsklasse.Tracer;
-import hiflsklasse.Viewer;
-
 import java.io.File;
 import java.util.ArrayList;
-
-import modtools.Autoconfig;
-import modtools.Installer;
-import modtools.MetaStarter;
-import montool.MonDia;
-import mtools.DisTool;
-import mtools.Mlist;
-import network.Crypto;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
@@ -28,6 +14,33 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import Metriklibs.FileAccessDyn;
+import Sync.LockTradeliste;
+import charttool.Profitanzeige;
+import charttool.ShowAllProfitsConfig;
+import data.Ea;
+import data.GlobalVar;
+import data.Metaconfig;
+import data.Profit;
+import data.Rootpath;
+import data.SymbolReplaceList;
+import data.Trade;
+import data.Tradeanzahl;
+import data.Tradeliste;
+import eaAutTools.AutomaticCheck;
+import filter.Tradefilter;
+import gui.Mbox;
+import hiflsklasse.Archive;
+import hiflsklasse.FileAccess;
+import hiflsklasse.Tracer;
+import hiflsklasse.Viewer;
+import modtools.Autoconfig;
+import modtools.Installer;
+import modtools.MetaStarter;
+import montool.MonDia;
+import mtools.DisTool;
+import mtools.Mlist;
+import network.Crypto;
 import swingHilfsfenster.ShowUebersicht;
 import swtHilfsfenster.SwtCompareTradelist;
 import swtHilfsfenster.SwtConfigEa;
@@ -39,21 +52,6 @@ import swtHilfsfenster.SwtShowFile;
 import swtHilfsfenster.SwtShowTradeliste;
 import swtHilfsfenster.SwtTransferUserdata;
 import swtHilfsfenster.TradeFilterConfig;
-import Metriklibs.FileAccessDyn;
-import Sync.LockTradeliste;
-import charttool.Profitanzeige;
-import charttool.ShowAllProfits;
-import charttool.ShowAllProfitsConfig;
-import data.Ea;
-import data.GlobalVar;
-import data.Metaconfig;
-import data.Profit;
-import data.Rootpath;
-import data.Trade;
-import data.Tradeanzahl;
-import data.Tradeliste;
-import eaAutTools.AutomaticCheck;
-import filter.Tradefilter;
 
 public class StartMonitorWork
 {
@@ -889,5 +887,10 @@ public class StartMonitorWork
 		Installer inst = new Installer();
 		inst.convertToPortable(Display.getDefault(),brokerview_glob);
 	}
-	
+	public void replaceAllSymbols()
+	{
+		SymbolReplaceList s=new SymbolReplaceList();
+		
+		
+	}
 }

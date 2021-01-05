@@ -236,7 +236,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.458");
+		return("Monitortool V0.460");
 	}
 	
 	public static String calcHeadline()
@@ -282,7 +282,11 @@ public class GlobalVar
 	{
 		gc.setPortableflag(val);
 	}
-	
+	public static String getRootpath()
+	{
+		
+		return(Rootpath.getRootpath());
+	}
 	static public void save()
 	{
 		Inf inf = new Inf();

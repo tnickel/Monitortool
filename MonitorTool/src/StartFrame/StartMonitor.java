@@ -208,6 +208,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button3replacesymbols.setLayoutData(button3replacesymbolsLData);
 				button3replacesymbols.setText("replace all symbols");
 				button3replacesymbols.setToolTipText("replace symbols, the configfile is in \r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\\\rreplacesymbols.txt\r\n\r\nexample of replacesymbols.txt\r\nag2102,ag2115\r\r\n ");
+				button3replacesymbols.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						button3replacesymbolsWidgetSelected(evt);
+					}
+				});
 			}
 			{
 				button2 = new Button(this, SWT.CHECK | SWT.LEFT);
@@ -2407,6 +2412,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		//so all metatrader can be converted to portable version
 		
 		smw.convertToPortable();
+	}
+	
+	private void button3replacesymbolsWidgetSelected(SelectionEvent evt) {
+		System.out.println("button3replacesymbols.widgetSelected, event="+evt);
+		//replace all symbols
+		smw.replaceAllSymbols();
 	}
 
 }

@@ -1,3 +1,9 @@
+V0.458 (Betaversion) (30.12.2020)
+-Refresh userinterface
+-make eas with symbols installable (shares)
+-make lotsize configurable
+-some bugfixes
+
 V0.45 (24.11.2020)
 -Update for Strategyquant 4.130 R1
 
