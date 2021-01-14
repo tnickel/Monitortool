@@ -156,6 +156,7 @@ public class SwtEditBrokerConfig
 			Monitoraccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
 			Monitoraccountflag.setText("MonitorAccount");
 			Monitoraccountflag.setBounds(7, 3, 167, 30);
+			Monitoraccountflag.setVisible(false);
 			Monitoraccountflag.setSelection(true);
 			Monitoraccountflag.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
@@ -279,6 +280,7 @@ public class SwtEditBrokerConfig
 			magiclist.setBounds(806, 201, 225, 130);
 			magiclist.setToolTipText(
 					"Example: the magic numbers 172 contains the 501.... 504 magic numbers.\r\n172=501,502,503,504");
+			magiclist.setVisible(false);
 			if (me.getMagicliststring() != null)
 				magiclist.setText(me.getMagicliststring());
 			magiclist.setEnabled(me.isMagiclistactive());
@@ -287,6 +289,7 @@ public class SwtEditBrokerConfig
 			button1usemagiclist = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1usemagiclist.setText("use magiclist");
 			button1usemagiclist.setBounds(806, 175, 197, 30);
+			button1usemagiclist.setVisible(false);
 			button1usemagiclist.setSelection(me.isMagiclistactive());
 			
 			button1usemagiclist.addSelectionListener(new SelectionAdapter() {
@@ -342,6 +345,7 @@ public class SwtEditBrokerConfig
 			button1HandInstalled.setBounds(452, 4, 186, 30);
 			button1HandInstalled.setToolTipText(
 					"!! if this flag is set, this installation never changed by the monitortool. All changes have to by handisch !!!!");
+			button1HandInstalled.setVisible(false);
 			button1HandInstalled.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -376,7 +380,7 @@ public class SwtEditBrokerConfig
 		int type = me_glob.getAccounttype();
 		
 		Monitoraccountflag.setSelection(false);
-		GbAutomaticaccountflag.setSelection(false);
+		GbAutomaticaccountflag.setSelection(true);
 		
 		if (type == 0)
 			Monitoraccountflag.setSelection(true);
@@ -552,7 +556,7 @@ public class SwtEditBrokerConfig
 		me_glob.setAccounttype(1);
 		Monitoraccountflag.setSelection(false);
 		GbAutomaticaccountflag.setSelection(true);
-		
+		button1HandInstalled.setSelection(false);
 		refreshbuttons();
 	}
 	
@@ -569,6 +573,7 @@ public class SwtEditBrokerConfig
 		work.installDemoEas(dis_glob, progressBar1, me_glob, metatraderrealconfig, MqlQuellverzeichniss.getText(),
 				tableview_glob);
 		bv_glob.SaveBrokerTable();
+		
 		return true;
 	}
 	
@@ -650,8 +655,10 @@ public class SwtEditBrokerConfig
 		
 		
 		System.out.println("fnam=" + fnam);
-		
 		MqlQuellverzeichniss.setText(fnam);
+		me_glob.setMqlquellverz(fnam);
+		
+		
 		return;
 	}
 	
@@ -767,8 +774,11 @@ public class SwtEditBrokerConfig
 		System.out.println("button1HandInstalled.widgetSelected, event=" + evt);
 		
 		if (button1HandInstalled.getSelection() == true)
+		{
 			me_glob.setOnlyhandinstalled(1);
-		else
+			GbAutomaticaccountflag.setSelection(false);
+		}
+			else
 			me_glob.setOnlyhandinstalled(0);
 	}
 	

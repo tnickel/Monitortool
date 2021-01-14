@@ -69,6 +69,8 @@ public class MqlSqPatcher extends Patcher
 
 	public boolean patchCommentSq4x(Ea ea)
 	{
+		String eafilename=ea.getEafilename();
+		eafilename=eafilename.replace(".mq4","");
 		//extern string CustomComment = "Q67_EURUSD_M15Strategy_4_35_155";
 		String kw = "extern string CustomComment = ";
 		for (int i = 0; i < 20000; i++)
@@ -80,7 +82,7 @@ public class MqlSqPatcher extends Patcher
 			if (zeilenspeicher[i].contains(kw))
 			{
 				String mem=zeilenspeicher[i];
-				String comment=mem.substring(mem.indexOf("\"")+1,mem.lastIndexOf("\""));
+				String comment=eafilename;
 				comment=comment.replace("Strategy", "");
 				
 				zeilenspeicher[i] = "extern string CustomComment = "+"\""+comment+"\";";

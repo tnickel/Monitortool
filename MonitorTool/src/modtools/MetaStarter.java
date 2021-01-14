@@ -115,6 +115,7 @@ public class MetaStarter
 
 	static public void StopAllMetatrader(Brokerview brokerview)
 	{
+		startedbymonitortool = 0;
 		int anz = brokerview.getAnz();
 		for (int i = 0; i < anz; i++)
 		{
@@ -123,6 +124,14 @@ public class MetaStarter
 		}
 	}
 
+	static public boolean CheckMetatraderRunning()
+	{
+		if(startedbymonitortool ==1)
+			return true;
+		else
+			return false;
+	}
+	
 	static public void KillAllMetatrader()
 	{
 		// kill all metatrader wird nur ausgeführt wenn die metatrader auch

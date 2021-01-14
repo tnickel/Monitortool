@@ -207,7 +207,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button3replacesymbolsLData.height = 35;
 				button3replacesymbols.setLayoutData(button3replacesymbolsLData);
 				button3replacesymbols.setText("replace all symbols");
-				button3replacesymbols.setToolTipText("replace symbols, the configfile is in \r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\\\rreplacesymbols.txt\r\n\r\nexample of replacesymbols.txt\r\nag2102,ag2115\r\r\n ");
+				button3replacesymbols.setToolTipText("replace symbols, the configfile is in \r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\\\rreplacesymbols.txt\r\n\r\nexample of replacesymbols.txt\r\nag2102,ag2115\r\r\n\r\nAll metatrader are killed in this action, because symbole replacement can only done without a running metatrader ");
 				button3replacesymbols.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						button3replacesymbolsWidgetSelected(evt);
@@ -863,6 +863,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				progressBar2LData.height = 18;
 				progressBar2 = new ProgressBar(this, SWT.NONE);
 				progressBar2.setLayoutData(progressBar2LData);
+				progressBar2.setVisible(false);
 			}
 			{
 				stop = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -892,6 +893,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				loop.setLayoutData(loopLData);
 				loop.setText("START");
 				loop.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
+				loop.setVisible(false);
 				loop.addSelectionListener(new SelectionAdapter()
 				{
 					public void widgetSelected(SelectionEvent evt)
@@ -909,6 +911,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				intervall = new Text(this, SWT.NONE);
 				intervall.setLayoutData(intervallLData);
 				intervall.setText("50");
+				intervall.setVisible(false);
 			}
 			{
 				FormData messagelistLData = new FormData();
@@ -1305,6 +1308,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				label2LData.height = 20;
 				label2.setLayoutData(label2LData);
 				label2.setText("intervall");
+				label2.setVisible(false);
 			}
 			{
 				menu1 = new Menu(getShell(), SWT.BAR);
@@ -1427,6 +1431,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			
 			doAutostart();
 			
+			Display.getDefault().timerExec(200, reloadAllData);
+			
 			this.layout();
 		} catch (Exception e)
 		{
@@ -1446,6 +1452,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		}
 	}
 	
+	
+	Runnable reloadAllData = new Runnable()
+	 {
+	   public void run()
+	   {
+	    System.out.println("ReloadAllData");
+	    getAllDataWidget();
+	   
+	   }
+	 };
 	
 	private void checkconfig()
 	{
@@ -1915,6 +1931,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void addbrokerWidgetSelected(SelectionEvent evt)
 	{
+		MetaStarter.KillAllMetatrader();
 		// add new broker
 		System.out.println("addbroker.widgetSelected, event=" + evt);
 		smw.addnewbroker(table3);

@@ -1,6 +1,7 @@
 package modtools;
 
 import gui.Mbox;
+import hiflsklasse.Tracer;
 
 public class ChrFile extends Patcher
 {
@@ -54,6 +55,34 @@ public class ChrFile extends Patcher
 		}
 	}
 
+	public String getOrginalSymbol()
+	{
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz-1; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			
+			if((zeile0!=null)&&(zeile0.length()>10)&&(zeile0.contains("description=") == true))
+			{   
+				//description=Q67 GBPUSD H1 4.62.126
+				String part=zeile0.substring(zeile0.indexOf("description=")+12);
+				String[] parts = zeile0.split(" ");
+	
+				if(parts.length<3)
+					return null;
+				
+				int pos=parts.length-3;
+				
+				return(parts[pos]);
+				
+			}
+		}
+		//symbol not found
+		return null;
+		
+	}
+	
+	
 	public boolean setAttribute(String attribvorher, String attribnachher)
 	{
 		System.out.println("attribvorh<" + attribvorher + "> nachher<"

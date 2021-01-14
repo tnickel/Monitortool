@@ -7,6 +7,7 @@ import java.util.Collections;
 
 public class Metatraderlist
 {
+	//contol the metaconfigs for the differnt brokers
 	private ArrayList<Metaconfig> metaliste = new ArrayList<Metaconfig>();
 
 	public void deleteelem(String name)
@@ -82,8 +83,9 @@ public class Metatraderlist
 			} else
 			// mt5xx alte version
 			{
-				if (metc.getNetworkshare_INSTALLDIR().equalsIgnoreCase(
-						expertdirectory) == true)
+				Tracer.WriteTrace(10, "E:Mt5xx not supported !!!--> stop");
+				/*if (metc.getNetworkshare_INSTALLDIR().equalsIgnoreCase(
+						expertdirectory) == true)*/
 					return metc;
 			}
 		}

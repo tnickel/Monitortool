@@ -208,8 +208,11 @@ public class StartMonitorWork
 
 	public void editconfig(Table table3)
 	{
+		
+		MetaStarter.KillAllMetatrader();
 		// metatraderconfig holen
 		Metaconfig me = brokerview_glob.getMetaconfig(glob_selectedBrokerShare);
+		
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
 		sc.init(display_glob, me, brokerview_glob, 0, tv_glob);
 		buildBrokerliste(table3, 0);
@@ -868,6 +871,7 @@ public class StartMonitorWork
 		// hier werden alle Metatrader automatisch konfiguriert
 		// die neuen werden als Demokonto hinzugefügt
 
+		MetaStarter.KillAllMetatrader();
 		// das metatraderrootverzeichniss holen
 		Autoconfig autoconf = new Autoconfig();
 		autoconf.configAllMetatrader(brokerview_glob);
@@ -889,7 +893,11 @@ public class StartMonitorWork
 	}
 	public void replaceAllSymbols()
 	{
-		SymbolReplaceList s=new SymbolReplaceList();
+		
+		MetaStarter.KillAllMetatrader();
+		SymbolReplaceList s=new SymbolReplaceList(brokerview_glob);
+		s.ReplaceAllSymbols();
+		s.ShowReplaceResults();
 		
 		
 	}

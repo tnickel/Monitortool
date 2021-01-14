@@ -25,6 +25,7 @@ import mtools.Mlist;
 
 public class Brokerview
 {
+	//this is the main call of all brokers, this class controll all broker
 	private Metatraderlist metatraderlist = new Metatraderlist();
 
 	public void LoadBrokerTable()
@@ -226,6 +227,8 @@ public class Brokerview
 
 	public void ShowBrokerTable(Display dis, Table table, int forceflag)
 	{
+		//built the swt-table which show all broker
+		
 		Color gray = dis.getSystemColor(SWT.COLOR_GRAY);
 		Color red = dis.getSystemColor(SWT.COLOR_RED);
 		Color yellow = dis.getSystemColor(SWT.COLOR_DARK_YELLOW);
@@ -357,7 +360,7 @@ public class Brokerview
 		}
 	}
 
-	private void postprocess()
+	private synchronized void  postprocess()
 	{
 		// die config abspeichern
 
@@ -373,16 +376,7 @@ public class Brokerview
 		inf.saveXST(metatraderlist);
 		inf.close();
 
-		// prüfe ob tmp-file >= länge von dem alten file
-		/*if (fnam.exists() && fnamtmp.exists())
-			if (fnamtmp.length() + 30000 < fnam.length())
-			{
-				Tracer.WriteTrace(10,
-						"Error: internal length protection brokerconf.xml len1<"
-								+ fnamtmp.length() + "> len2<" + fnam.length()
-								+ ">");
-				System.exit(0);
-			}*/
+		
 
 		// das alte löschen
 		if (fnamold.exists())
