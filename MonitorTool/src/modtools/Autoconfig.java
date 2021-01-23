@@ -44,7 +44,16 @@ public class Autoconfig
 		{
 			String metapath=metatraderroot+"\\"+fadyn.holeFileSystemName();
 			File terminalexe=new File(metapath+"\\terminal.exe");
-		   if(terminalexe.exists())
+			File switchoff=new File(metapath+"\\off.txt");
+
+			if(switchoff.exists()==true)
+			{
+				Tracer.WriteTrace(20, "I:I don´t add metatrader <"+terminalexe.getAbsolutePath()+"> because if found <"+switchoff.getAbsolutePath()+"> ");
+				continue;
+				
+			}		
+			
+			if(terminalexe.exists())
 			{
 				//prüft nach ob das terminal.exe schon konfiguriert ist
 				if(checkBrokerIsConfigured(brokerview,metapath)==true)

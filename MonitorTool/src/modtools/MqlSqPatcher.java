@@ -47,8 +47,10 @@ public class MqlSqPatcher extends Patcher
 	{
 		// falls globale config gewünscht
 		String lotkeyword = "extern double mmLots = ";
+		String lotkeyword2= "extern double mmLotsIfNoMM = ";
+							 
 		double lotsize = meRealconf.getLotsize();
-
+		
 		for (int i = 0; i < 20000; i++)
 		{
 			// System.out.println("i="+i+" zeile<"+zeilenspeicher[i]+">");
@@ -60,9 +62,15 @@ public class MqlSqPatcher extends Patcher
 				zeilenspeicher[i] = (lotkeyword + lotsize + ";");
 				return true;
 			}
+			else if (zeilenspeicher[i].contains(lotkeyword2))
+			{
+				Tracer.WriteTrace(10, "E: memory management not supported use Fixed size for lots");
+				zeilenspeicher[i] = (lotkeyword2 + lotsize + ";");
+				return true;
+			}
 		}
 
-		Mbox.Infobox("attrib <" + lotkeyword + "> not found in file <"
+		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword2+">not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 	}
