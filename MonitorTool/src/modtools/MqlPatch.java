@@ -94,8 +94,16 @@ public class MqlPatch extends MqlSqPatcher
 
 	public boolean patchLotsize(Ea ea, Metaconfig meRealconf)
 	{
-		if(isSq4x==1)
+		if(isSq4x==2)
+			return(patchLotsizeExpertStudio(ea,meRealconf));
+		
+		else if(isSq4x==1)
 			return(patchLotsizeSq4x( ea,  meRealconf));
+		else if(isSq4x==3) //in fsb we don´t patch lotsize
+		{
+			Tracer.WriteTrace(20, "I:This is an FSB ea we don´t patch lotsize"+ea.getEafilename());
+			return true;
+		}
 		else
 			return(patchLotsizeSq3(ea, meRealconf));
 			
@@ -103,7 +111,9 @@ public class MqlPatch extends MqlSqPatcher
 	
 	public boolean patchComment(Ea ea)
 	{
-		if(isSq4x==1)
+		if(isSq4x==2)
+			return(patchCommentExpertStudio(ea));
+		else if(isSq4x==1)
 			return(patchCommentSq4x(ea));
 		else
 			return(patchCommentSq3(ea));
@@ -112,17 +122,21 @@ public class MqlPatch extends MqlSqPatcher
 	}
 	public boolean patchInit()
 	{
+		//sq4 and Ea Studio same inits
 		if(isSq4x==1)
 			patchInitSq4x();
-		else
+		else if(isSq4x==0)
 			patchInitSq3();
-			
+		else if(isSq4x==2)
+			patchInitStudioBuilder();
 		return true;
 	}
 
 	public boolean patchVariables()
 	{
-		if(isSq4x==1)
+		if(isSq4x==2)
+			addVariablesExpertStudio();
+		else if(isSq4x==1)
 			addVariablesSq4();
 		else
 			addVariablesSq3();

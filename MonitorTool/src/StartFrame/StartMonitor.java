@@ -308,7 +308,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2autoconfig = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2autoconfigLData = new FormData();
-				button2autoconfigLData.left =  new FormAttachment(0, 1000, 1802);
+				button2autoconfigLData.left =  new FormAttachment(0, 1000, 1834);
 				button2autoconfigLData.top =  new FormAttachment(0, 1000, 590);
 				button2autoconfigLData.width = 69;
 				button2autoconfigLData.height = 18;
@@ -427,8 +427,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				buttondown = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttondownLData = new FormData();
-				buttondownLData.left =  new FormAttachment(0, 1000, 1823);
-				buttondownLData.top =  new FormAttachment(0, 1000, 534);
+				buttondownLData.left =  new FormAttachment(0, 1000, 1428);
+				buttondownLData.top =  new FormAttachment(0, 1000, 620);
 				buttondownLData.width = 48;
 				buttondownLData.height = 19;
 				buttondown.setLayoutData(buttondownLData);
@@ -445,8 +445,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				buttonup = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttonupLData = new FormData();
-				buttonupLData.left =  new FormAttachment(0, 1000, 1823);
-				buttonupLData.top =  new FormAttachment(0, 1000, 510);
+				buttonupLData.left =  new FormAttachment(0, 1000, 1380);
+				buttonupLData.top =  new FormAttachment(0, 1000, 620);
 				buttonupLData.width = 48;
 				buttonupLData.height = 18;
 				buttonup.setLayoutData(buttonupLData);
@@ -915,9 +915,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				FormData messagelistLData = new FormData();
-				messagelistLData.top =  new FormAttachment(0, 1000, 620);
-				messagelistLData.width = 427;
-				messagelistLData.height = 304;
+				messagelistLData.top =  new FormAttachment(0, 1000, 662);
+				messagelistLData.width = 518;
+				messagelistLData.height = 262;
 				messagelistLData.left =  new FormAttachment(0, 1000, 1357);
 				messagelist = new List(this, SWT.H_SCROLL | SWT.V_SCROLL
 						| SWT.BORDER);
@@ -945,8 +945,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button1 = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button1LData = new FormData();
-				button1LData.left =  new FormAttachment(0, 1000, 1824);
-				button1LData.top =  new FormAttachment(0, 1000, 559);
+				button1LData.left =  new FormAttachment(0, 1000, 1856);
+				button1LData.top =  new FormAttachment(0, 1000, 614);
 				button1LData.width = 47;
 				button1LData.height = 19;
 				button1.setLayoutData(button1LData);
@@ -1159,7 +1159,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData table3LData = new FormData();
 				table3LData.left =  new FormAttachment(0, 1000, 1357);
 				table3LData.top =  new FormAttachment(0, 1000, 49);
-				table3LData.width = 430;
+				table3LData.width = 521;
 				table3LData.height = 505;
 				table3 = new Table(this, SWT.FULL_SELECTION | SWT.H_SCROLL
 						| SWT.V_SCROLL | SWT.BORDER);

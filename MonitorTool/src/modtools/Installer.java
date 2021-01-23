@@ -692,6 +692,7 @@ public class Installer
 		// add the postcode from mt4_additional code to every ea
 		// sq3.8.2=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq3
 		// sq4=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq4
+		// sea=Studio Expert Advisor
 		String postfilename = Rootpath.getRootpath() + "\\install\\Mt4_additionalcode\\ea_postcode";
 		mqlpatch.addPostcode(postfilename);
 		mqlpatch.writeMemFile(mqlziel);

@@ -236,12 +236,12 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.464");
+		return("Monitortool V0.470");
 	}
 	
 	public static String calcHeadline()
 	{
-		String headline=calcVersionstring()+" (c) Thomas Nickel         license<"+Lic.getlicstring()+">        updatechannel<"+GlobalVar.getUpdatechannel()+">";
+		String headline=calcVersionstring()+" (c) Thomas Nickel         license<"+Lic.getlicstring()+">        updatechannel<"+GlobalVar.getUpdatechannel()+"> <"+GlobalVar.getRootpath()+"> ";
 		return headline;
 	}
 	

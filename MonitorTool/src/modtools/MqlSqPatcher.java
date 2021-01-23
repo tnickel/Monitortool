@@ -74,7 +74,33 @@ public class MqlSqPatcher extends Patcher
 				+ ea.getEafilename() + ">");
 		return false;
 	}
+	public boolean patchLotsizeExpertStudio(Ea ea, Metaconfig meRealconf)
+	{
+		// falls globale config gewünscht
+		String lotkeyword = "static input double Entry_Amount =";
+		String lotkeywordrepl="extern double Entry_Amount =";
+		
+							 
+		double lotsize = meRealconf.getLotsize();
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			// System.out.println("i="+i+" zeile<"+zeilenspeicher[i]+">");
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			if (zeilenspeicher[i].contains(lotkeyword))
+			{
+				zeilenspeicher[i] = (lotkeywordrepl + lotsize + "; //Entry lots");
+				return true;
+			}
+			
+		}
 
+		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
+				+ ea.getEafilename() + ">");
+		return false;
+	}
 	public boolean patchCommentSq4x(Ea ea)
 	{
 		String eafilename=ea.getEafilename();
@@ -100,6 +126,11 @@ public class MqlSqPatcher extends Patcher
 		Mbox.Infobox("attrib <" + kw + "> not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
+		
+	}
+	public boolean patchCommentExpertStudio(Ea ea)
+	{
+		return true;
 		
 	}
 	public boolean patchCommentSq3(Ea ea)
@@ -131,29 +162,35 @@ public class MqlSqPatcher extends Patcher
 					&& (zeilenspeicher[i].contains("{")))
 			{
 				// fall a) init sieht so aus "init () {"
-				addInitpatch(i);
+				addInitpatch(i,"sq3");
 				return;
 			} else if ((zeilenspeicher[i].contains("int init()"))
 					&& (zeilenspeicher[i + 1].contains("{")))
 			{
 				// fall b) init sieht so aus "init ()
 				// {" [klammer ist in nächster zeile]
-				addInitpatch(i + 1);
+				addInitpatch(i + 1,"sq3");
 				return;
 			}
 		}
 	}
 
-	private void addInitpatch(int ind)
+	private void addInitpatch(int ind,String vers)
 	{
+		String mn="";
+		if(vers.contains("sq3")||vers.contains("sq4"))
+			mn="MagicNumber";
+		else
+			mn="Magic_Number";
+		
 		// warte 0 bis 150 sekunden
-		addnewline(ind + 1, "   MathSrand(TimeLocal()+(MagicNumber+4)*5);");
+		addnewline(ind + 1, "   MathSrand(TimeLocal()+("+mn+"+4)*5);");
 		addnewline(ind + 2, "   int rand_val=MathRand();");
 		addnewline(ind + 3,
 				"   Print(\"init wait \"+((rand_val)/1000)*10+\" secs\");");
 		addnewline(ind + 4, "   Sleep(rand_val*10);");
 		addnewline(ind + 5, "//patch lotsize");
-		addnewline(ind + 6, "if(lotconfig(IntegerToString(MagicNumber,0,0))==false)");
+		addnewline(ind + 6, "if(lotconfig(IntegerToString("+mn+",0,0))==false)");
 		addnewline(ind + 7, "Alert(\"Error cant ptch lotsize\");");
 	}
 
@@ -180,28 +217,68 @@ public class MqlSqPatcher extends Patcher
 					&& (zeilenspeicher[i].contains("{")))
 			{
 				// fall a) init sieht so aus "init () {"
-				addInitpatch(i);
+				addInitpatch(i,"sq4");
 				return;
 			} else if ((zeilenspeicher[i].contains("int init()"))
 					&& (zeilenspeicher[i + 1].contains("{")))
 			{
 				// fall b) init sieht so aus "init ()
 				// {" [klammer ist in nächster zeile]
-				addInitpatch(i + 1);
+				addInitpatch(i + 1,"sq4");
 				return;
 			}else if ((zeilenspeicher[i].contains("int OnInit()"))
 					&& (zeilenspeicher[i ].contains("{")))
 			{
 				// fall c)  init sieht so aus "int OnInit() {"
 				// {" [klammer ist gleiche zeile]
-				addInitpatch(i );
+				addInitpatch(i,"sq4" );
+				return;
+			}else if ((zeilenspeicher[i].contains("int OnInit()"))
+					&& (zeilenspeicher[i+1 ].contains("{")))
+			{
+				// fall c)  init sieht so aus "int OnInit() {"
+				// {" [klammer ist in folgezeile]
+				addInitpatch(i+1 ,"sq4");
 				return;
 			}
 		}	
 		Tracer.WriteTrace(10, "E: patcher cant find init() in mq4-file--> stop"); 
 		
 	}
+	
+	protected void patchInitStudioBuilder()
+	{
+		addIncludes();
+		// falls der initpatch schon drin ist dann mache nix
+		for (int i = 0; i < 20000; i++)
+		{
+			if (zeilenspeicher[i] == null)
+				continue;
+			if ((zeilenspeicher[i]
+					.contains("MathSrand(TimeLocal()+(Magic_Number+4)*5);") == true))
+				return;
+		}
 
+		for (int i = 0; i < 20000; i++)
+		{
+			// System.out.println("i="+i+" zeile<"+zeilenspeicher[i]+">");
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			
+			if ((zeilenspeicher[i].contains("int OnInit()"))
+					&& (zeilenspeicher[i+1 ].contains("{")))
+			{
+				// fall c)  init sieht so aus "int OnInit() {"
+				// {" [klammer ist in folgezeile]
+				addInitpatch(i+1 ,"studio");
+				return;
+			}
+		}	
+		Tracer.WriteTrace(10, "E: patcher cant find init() in mq4-file--> stop"); 
+		
+	}
+	
 	protected void addIncludes()
 	{
 		if (checkKeyword("#include <monitorlib.mqh>") == false)
@@ -432,7 +509,12 @@ public class MqlSqPatcher extends Patcher
 		if(isSq3Ea()==true)
 			fname=fname+".sq3";
 		else
+			if (isSq4Ea()==true)
 			fname=fname+".sq4";
+		else if (isSq4x==2)
+			fname=fname+".sea";
+		else
+			return;
 		
 		if(FileAccess.FileAvailable(fname)==false)
 			Tracer.WriteTrace(10, "E:File missing <"+fname+"> --> stop");

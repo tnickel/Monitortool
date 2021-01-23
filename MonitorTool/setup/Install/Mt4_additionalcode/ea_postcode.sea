@@ -1,0 +1,75 @@
+void initlotconfig(string mn)
+{
+ int handle=0;
+ string magno=mn;
+ string such=magno;
+ //gen configfile magno.lot if not available
+ if(checkfile(such+".lot")==0)
+ {
+     handle=FileOpen(such+".lot", FILE_CSV|FILE_WRITE);
+     if(handle>0)
+        {
+ 	    if(FileWriteString(handle,"\Install\Mt4_additionalcode StudioBuilder \n")==false)
+              Print("Error cant write file <"+such+".lot>");         
+           
+            if(FileWriteString(handle,"extern double mmLotsIfNoMM = 0.01;\n")==false)
+              Print("Error cant write file <"+such+".lot>");
+ 
+         
+         FileClose(handle);
+        }
+      else
+        Print("ERROR cant create file <"+such+".lot>");
+ }
+}
+
+
+bool lotconfig(string mn)
+{
+ //return true: falls magic.lot vorhanden
+ //return false: falls kein magic.lot vorhanden
+ string magno=mn;
+ string such=magno;
+ int handle=0;
+ string filelots_str=NULL;
+ string line_str=NULL;
+ int i=0;
+ double lots_val=0.01;
+
+ initlotconfig(mn);
+
+ //falls eine lotconfig für eine bestimmte magic vorhanden ist, dann lese die werte aus dem file
+ if(checkfile(such+".lot")==1)
+   {
+       handle=FileOpen(such+".lot", FILE_CSV|FILE_READ);
+       if(handle>0)
+        {
+         while(!FileIsEnding(handle))
+          {
+            line_str=FileReadString(handle);
+            lotconfigmem[i]=line_str;
+            i++;
+          }
+          FileClose(handle);
+        }
+       	//betrachte die nächste zeile
+	for(i=0; i<20; i++)
+         {
+           line_str=lotconfigmem[i];
+
+	   if(StringFind(line_str,"mmLotsIfNoMM",0)>=0)
+  		Entry_Amount=extract_doubleval(line_str,0,5,Magic_Number);
+
+         }
+    
+	Print("use *.lot ---config ***********************");
+
+
+	Print("mmLotsIfNoMM="+Entry_Amount);
+
+       //dann zeige die aktuelle lotsize an
+       DisplayText("lotsline", 60, 500, "lots= "+Entry_Amount, 9, "Verdana", Gold);
+   	return(true);
+  }
+  return false;		
+}
