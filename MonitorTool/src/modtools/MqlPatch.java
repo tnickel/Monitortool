@@ -96,7 +96,8 @@ public class MqlPatch extends MqlSqPatcher
 	{
 		if(isSq4x==2)
 			return(patchLotsizeExpertStudio(ea,meRealconf));
-		
+		else if(isSq4x==4)
+			return(patchLotsizeExpertStudioPortfolio(ea,meRealconf));
 		else if(isSq4x==1)
 			return(patchLotsizeSq4x( ea,  meRealconf));
 		else if(isSq4x==3) //in fsb we don´t patch lotsize
@@ -134,7 +135,9 @@ public class MqlPatch extends MqlSqPatcher
 
 	public boolean patchVariables()
 	{
-		if(isSq4x==2)
+		if(isSq4x==4)
+			addVariablesExpertStudioPortfolio();
+		else if(isSq4x==2)
 			addVariablesExpertStudio();
 		else if(isSq4x==1)
 			addVariablesSq4();

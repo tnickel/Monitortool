@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.9" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/MonitorTool/setup" />
-  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.470" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.480" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="58" />

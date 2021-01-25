@@ -1743,8 +1743,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		Date aktdate = Mondate.getAktDate();
 
 		
-		MonitorClient.main(new String[]
-		{ "start client" });
+		/*MonitorClient.main(new String[]
+		{ "start client" }); */
 
 		// alle aktivierten Broker laden
 		getAllData();
@@ -1772,10 +1772,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		tradefilterrefresh();
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
 				anzincommingtrades, anzeas, broker, 1, 1);
-		
-
 	
-		smw.exportAllTradelistEncryped();
+		//smw.exportAllTradelistEncryped();
 
 		getAllData.setEnabled(true);
 	}

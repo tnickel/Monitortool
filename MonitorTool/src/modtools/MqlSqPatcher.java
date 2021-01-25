@@ -101,6 +101,33 @@ public class MqlSqPatcher extends Patcher
 				+ ea.getEafilename() + ">");
 		return false;
 	}
+	public boolean patchLotsizeExpertStudioPortfolio(Ea ea, Metaconfig meRealconf)
+	{
+		// falls globale config gewünscht
+		String lotkeyword = "static input double Entry_Amount      =";
+		String lotkeywordrepl="extern double Entry_Amount      =";
+		
+							 
+		double lotsize = meRealconf.getLotsize();
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			// System.out.println("i="+i+" zeile<"+zeilenspeicher[i]+">");
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			if (zeilenspeicher[i].contains(lotkeyword))
+			{
+				zeilenspeicher[i] = (lotkeywordrepl + lotsize + "; //Entry lots");
+				return true;
+			}
+			
+		}
+
+		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
+				+ ea.getEafilename() + ">");
+		return false;
+	}
 	public boolean patchCommentSq4x(Ea ea)
 	{
 		String eafilename=ea.getEafilename();

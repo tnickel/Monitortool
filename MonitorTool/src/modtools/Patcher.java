@@ -35,7 +35,7 @@ public class Patcher
 				isSq4x = 1;
 				Tracer.WriteTrace(20, "I: this mal4 file is 'SQ version 3.9/4.X' <"+fnam+">");
 			}
-			else if ((checkKeyword("EA Studio Expert Advisor") == true))
+			else if (checkKeyword("EA Studio Expert Advisor") == true)
 			{
 				isSq4x = 2;
 				Tracer.WriteTrace(20, "I: this mql4 file is 'EA Studio Expert Advisor' <"+fnam+">");
@@ -44,6 +44,11 @@ public class Patcher
 			{
 				isSq4x = 3;
 				Tracer.WriteTrace(20, "I: this mql4 file is 'FSB Expert Advisor' <"+fnam+">");
+			}
+			else if  ((checkKeyword("EA Studio Portfolio Expert Advisor") == true))
+			{
+				isSq4x = 4;
+				Tracer.WriteTrace(20, "I: this mql4 file is 'EA Studio Portfolio Expert Advisor' <"+fnam+">");
 			}
 			else if((fnam.contains("chart")))
 				isSq4x=-1;        
@@ -62,6 +67,8 @@ public class Patcher
 			return false;
 		else if(isSq4x==3)
 			return false;
+		else if(isSq4x==4)
+			return false;
 		else
 			Tracer.WriteTrace(10, "E:Patcher version not initialilizied");
 		return false;
@@ -76,6 +83,8 @@ public class Patcher
 		else if(isSq4x==2)
 			return false;
 		else if(isSq4x==3)
+			return false;
+		else if(isSq4x==4)
 			return false;
 		else
 			Tracer.WriteTrace(10, "E:Patcher version not initialilizied");
@@ -121,6 +130,8 @@ public class Patcher
 			setMagicEaStudio(magic);
 		else if(isSq4x==3)
 			setMagicFSB(magic);
+		else if(isSq4x==4)
+			setMagicEaStudioPortfolio(magic);
 	}
 
 	private void setMagicEaStudio(int magic)
@@ -137,6 +148,24 @@ public class Patcher
 				}
 		}
 		Tracer.WriteTrace(10, "Error: EaStudio keine Magicnumber im mql-File<"
+				+ filename_glob + "> gefunden--> STOP");
+		
+	}
+	private void setMagicEaStudioPortfolio(int magic)
+	{
+		//static input int    Base_Magic_Number = 100;  // Base Magic Number
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile = zeilenspeicher[i];
+			if (zeile != null)
+				if (zeile.contains("static input int    Base_Magic_Number") == true)
+				{
+					zeilenspeicher[i] = "static input int    Base_Magic_Number = "+magic+";";
+					return;
+				}
+		}
+		Tracer.WriteTrace(10, "Error: EaStudioPortfolio keine Magicnumber im mql-File<"
 				+ filename_glob + "> gefunden--> STOP");
 		
 	}
@@ -226,6 +255,24 @@ public class Patcher
 					 return;
 				}
 		}
+		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+	}
+	protected void addVariablesExpertStudioPortfolio()
+	{
+		int anz = zeilenspeicher.length;
+		String keyword="bool     setProtectionSeparately = false;";
+		                
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile = zeilenspeicher[i];
+			if (zeile != null)
+				if (zeile.contains(keyword) == true)
+				{
+					 addnewline(i+1,"string lotconfigmem[100];");
+					 return;
+				}
+		}
+		
 		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
 	}
 	
