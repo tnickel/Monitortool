@@ -118,7 +118,9 @@ public class TableViewBasic
 			// nur die neuen aufnehmen
 			if (zeil.contains(("Deposit")) == false)
 			{
+				
 				tl.addTradeElem(tr);
+				
 				// Magiclistenbearbeitung, es wird überprüft ob ersatzmagics
 				// vorhanden sind
 				if (mc.isMagiclistactive())

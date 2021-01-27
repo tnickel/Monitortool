@@ -154,6 +154,8 @@ public class Tableview extends TableViewBasic
 	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag,
 			int showflag)
 	{
+		// Hier werden die Trades für einen Broker eingelesen
+		
 		// nocanceledflag: falls dies flag gesetzt ist werden keine canceled
 		// orders angezeigt
 		// normflag:falls normflag =true werden die gewinne auf 0.1 Lot
@@ -200,9 +202,10 @@ public class Tableview extends TableViewBasic
 			Tracer.WriteTrace(20, "W:no file <"+fnam2+"> and no file<"+fnam5+">");
 			return;
 		}
+		
 		maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders,
 				normflag, mc, tf_glob);
-
+		
 		if (showopenorders == true)
 			readTradesFile(tl, fnam3, nocanceledflag, showopenorders, normflag,
 					mc, tf_glob);
@@ -261,10 +264,10 @@ public class Tableview extends TableViewBasic
 	}
 
 	public void ShowTradeTable(Display dis, Table table, String brokername,
-			int maxentrys, int forceflag)
+			int maxentrys, int forcesortflag)
 	{
 		tl.ShowTradeTable(dis, table, brokername, maxentrys, tl, tf_glob,
-				forceflag);
+				forcesortflag);
 	}
 
 	public void CalcProfitTable(String brokername, int tradefilterflag)
@@ -356,7 +359,7 @@ public class Tableview extends TableViewBasic
 	public void ShowProfitTable()
 	{
 		//Die Profittable ist die grosse Tabelle im Hauptscreen in der Mitte
-		
+		Tracer.WriteTrace(50, "Show Profittable for debug");
 		ProgressBar pb = progressbar_glob;
 		Table table = table2_glob;
 		Display dis = display_glob;

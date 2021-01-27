@@ -29,7 +29,7 @@ public class SwtEditBrokerConfigWork
 		if (dialog.open() != 32)
 			return false;
 
-		if (checkFileanz(mqlquellverz, 98) == false)
+		if (checkFileanz(mqlquellverz, 100) == false)
 			return false;
 
 		if (metaconfig.getOnlyhandinstalled() == 0)

@@ -1474,8 +1474,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			SwtEditGlobalConfig sc = new SwtEditGlobalConfig();
 			sc.init(dis_glob);
 			
-			
-			
 			String headline = GlobalVar.calcHeadline();
 
 			if (dis_glob.getActiveShell() != null)
@@ -1754,9 +1752,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void getAllData()
 	{
 		// fourceflag= wenn forceflag =1 wird die anzeige aktuallisiert
-		
-		
-
+		// und alles neu geladen
 		
 
 		// beim ersten mal

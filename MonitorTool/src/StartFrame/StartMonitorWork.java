@@ -109,8 +109,9 @@ public class StartMonitorWork
 
 	public void loadallbroker(Display dis, Table table1, Table table2,
 			Table table3, Tradefilter tf, Text anzincommingtrades, Text anzeas,
-			org.eclipse.swt.widgets.Label broker, int showflag, int forceflag)
+			org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag)
 	{
+		//forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
 		// dis.getActiveShell().setCursor(new Cursor(Display.getCurrent(),
 		// SWT.CURSOR_WAIT));
@@ -118,10 +119,10 @@ public class StartMonitorWork
 		// 0.1 umgerechnet
 
 
-		buildBrokerliste(table3, forceflag);
+		buildBrokerliste(table3, forceloadflag);
 		broker.setText("load all active broker");
 
-		tv_glob.init(dis, brokerview_glob, tf, table2, pb1_glob,forceflag);
+		tv_glob.init(dis, brokerview_glob, tf, table2, pb1_glob,forceloadflag); //forceflag auf 1 gesetzt
 		int anz = brokerview_glob.getAnz();
 
 		pb1_glob.setMinimum(0);
@@ -129,7 +130,7 @@ public class StartMonitorWork
 
 		pb1_glob.setOrientation(1);
 
-		if (forceflag == 1)
+		if (forceloadflag == 1)
 			for (int i = 0; i < anz; i++)
 			{
 				Metaconfig mc = brokerview_glob.getElem(i);
@@ -140,8 +141,11 @@ public class StartMonitorWork
 				Tracer.WriteTrace(20,
 						"Info: try to read <" + mc.getBrokername() + "> on <"+tv_glob.getFiledata(mc)+">");
 				if (mc.getOn() == 1)
+				{
 					tv_glob.LoadTradeTable(mc, dis, 0, showflag);
-
+					Tracer.WriteTrace(20, "tradeanzahl in globtradeliste="+tv_glob.calcTradeanzahl().getAnztrades());
+					
+				}
 			}
 
 		// pongcheck
@@ -155,30 +159,32 @@ public class StartMonitorWork
 		
 		Tracer.WriteTrace(20, "Info: TradeTable anzeigen");
 		tv_glob.ShowTradeTable(display_glob, table1, null,
-				GlobalVar.getShowMaxTradetablesize(), forceflag);
+				GlobalVar.getShowMaxTradetablesize(), forceloadflag);
 		tv_glob.CalcProfitTable(null, 1);
 
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
 		tv_glob.ShowProfitTable();
 		tv_glob.showCounter(anzincommingtrades, anzeas);
 
-		if (forceflag == 1)
+		if (forceloadflag == 1)
 			brokerview_glob.SaveBrokerTable();
 		Tracer.WriteTrace(20, "Info: speichern");
 		DisTool.arrowCursor();
 	}
 
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1,
-			Table table2, Table table3, Display dis, int showflag, int forceflag)
+			Table table2, Table table3, Display dis, int showflag, int forceloadflag)
 	{
 
+		//dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
 
+		
 		// die Tradetable für einen bestimmten Broker laden
 		tv_glob.LoadTradeTable(mc, dis, 0, showflag);
 		// die Tradetable für einen bestimmten broker anzeigen
 		tv_glob.ShowTradeTable(dis, table1, brokername,
-				GlobalVar.getShowMaxTradetablesize(), forceflag);
+				GlobalVar.getShowMaxTradetablesize(), forceloadflag);
 		// die profittable für einen bestimmten broker berechnen
 		tv_glob.CalcProfitTable(brokername, 1);
 		// die profittabelle anzeigen
@@ -188,7 +194,7 @@ public class StartMonitorWork
 
 	public void brokerselected(String name, Tradefilter tf, Table table1,
 			Table table2, Table table3, org.eclipse.swt.widgets.Label broker,
-			Display dis, int showflag, int forceflag)
+			Display dis, int showflag, int forceloadflag)
 	{
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
@@ -200,7 +206,8 @@ public class StartMonitorWork
 		// hier werden die trades geladen
 		// if (me.getInstallationstatus() != 0)
 
-		workTrades(me, tf, table1, table2, table3, dis, showflag, forceflag);
+		//hier wird die Ealiste für das mittlere Fenster aufgebaut
+		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag);
 
 		brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
@@ -327,6 +334,11 @@ public class StartMonitorWork
 		// die tradeliste für einen bestimmten ea generieren und anzeigen
 		Profit pro = selectedProfitelem_glob;
 
+		if(pro==null)
+		{
+			Tracer.WriteTrace(10, "E:no element selected");
+			return;
+		}
 		// die aktuelle profitliste laden
 		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()),
 				pro.getBroker());
@@ -769,6 +781,13 @@ public class StartMonitorWork
 	public void showBacktest(boolean forceflag)
 	{
 		Profit pro = selectedProfitelem_glob;
+		
+		if(pro==null)
+		{
+			Tracer.WriteTrace(10, "E:no element selected");
+			return;
+		}
+		
 		Ea ea = tv_glob.getEaliste().getEa(pro.getMagic(), pro.getBroker());
 		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(pro
 				.getBroker());

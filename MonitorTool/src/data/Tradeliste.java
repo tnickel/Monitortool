@@ -68,6 +68,7 @@ public class Tradeliste
 	{
 		if (tradelistennamx == null)
 			tradelistenam = Rootpath.rootpath + "\\data\\tradeliste.xml";
+		
 	}
 
 	public static String getTradelistenam()
@@ -126,6 +127,7 @@ public class Tradeliste
 				return;
 
 			tradeliste.clear();
+			transactionmenge.clear();
 			// tradeliste laden
 			Inf inf = new Inf();
 			inf.setFilename(tradelistenam);
@@ -507,8 +509,7 @@ public class Tradeliste
 			return true;
 		} else
 		{
-			// updateElem(elem);
-			// suche den trade und nimm neu auf
+			Tracer.WriteTrace(20, "I:broker<"+broker+"> trade schon drin trans<"+trans+">");
 			return false;
 		}
 	}
@@ -854,11 +855,12 @@ public class Tradeliste
 	}
 
 	public void ShowTradeTable(Display dis, Table table, String brokername,
-			int maxentrys, Tradeliste tl, Tradefilter tf, int forceflag)
+			int maxentrys, Tradeliste tl, Tradefilter tf, int forcesortflag)
 	{
 		//Hier wird eine Tabelle aufgebaut
 		//
 		// brokername: falls gesetzt wird nur ein bestimmter broker angezeigt
+		// forceflag: if 1 than table will be sorted
 		org.eclipse.swt.graphics.Color red = dis.getSystemColor(SWT.COLOR_RED);
 		org.eclipse.swt.graphics.Color green = dis
 				.getSystemColor(SWT.COLOR_GREEN);
@@ -883,7 +885,7 @@ public class Tradeliste
 
 		// absteigend sortieren
 
-		if (forceflag == 1)
+		if (forcesortflag == 1)
 		{
 			Tracer.WriteTrace(20, "sorting table");
 			tl.sortliste();

@@ -1896,12 +1896,12 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 		} else
 			Tracer.WriteTrace(10, "error internal jdfjfj");
 
-		int forceflag = 0;
+		int forceloadflag = 0;
 		if (loadallbrokerflag == 0)
-			forceflag = 1;
+			forceloadflag = 1;
 
 		smw.brokerselected(name, tf, table1, table2, table3, broker, dis_glob,
-				1, forceflag);
+				1, forceloadflag);
 
 		DisTool.arrowCursor();
 		setBrokermode(1);
