@@ -1,19 +1,19 @@
 package data;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import Metriklibs.FileAccessDyn;
+import StartFrame.Brokerview;
+import datefunkt.Mondate;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Tracer;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import modtools.ChrFile;
 import mtools.Mlist;
-import Metriklibs.FileAccessDyn;
-import StartFrame.Brokerview;
 
 public class Ealiste
 {
@@ -306,6 +306,7 @@ public class Ealiste
 	public void deleteEaFilesystem(Brokerview brokerview, int magic,
 			String broker)
 	{
+		//hier wird der ea mit der magic gelöscht
 		Metaconfig meconf = brokerview.getMetaconfigByBrokername(broker);
 
 		// 1) installations verzeichnisse holen
@@ -355,6 +356,12 @@ public class Ealiste
 			FilesLoeschen(appdata + "\\profiles\\default", appdata, plist,
 					magic);
 		}
+		// 5) den <magic>.del eintrag im files verzeichniss machen
+		String fnam=appdata+"\\mql4\\files\\"+magic+".del";
+		Inf inf= new Inf();
+		inf.setFilename(fnam);
+		inf.writezeile("deleted on"+Mondate.getAktDate());
+		inf.close();
 	
 	}
 

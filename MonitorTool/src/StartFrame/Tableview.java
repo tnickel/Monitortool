@@ -400,7 +400,8 @@ public class Tableview extends TableViewBasic
 			gew10 = prof.getZehntagegewinn();
 			gew30 = prof.getDreizigtragegewinn();
 			gewall = prof.getGesgewinn();
-
+			
+			
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 
 			String comment = prof.getComment();// tl.getComment(prof.getMagic());
@@ -816,6 +817,9 @@ public class Tableview extends TableViewBasic
 			int magic = profelem.getMagic();
 			String broker = profelem.getBroker();
 
+			if(magic==89905379)
+				Tracer.WriteTrace(20, "found magic2");
+				
 			// baut eine Profitliste auf, wo nur ein bestimmter Ea vorkommt
 			Tradeliste eatl = new Tradeliste(null);
 
@@ -1174,8 +1178,11 @@ public class Tableview extends TableViewBasic
 					continue;
 				}
 				deleteEaFilesystem(brokerview_glob, magic, prof.getBroker());
+				tl.deleteMagic(magic, prof.getBroker());
 			}
 		}
+		//speichere die verkleinerte Tradeliste
+		tl.store(null);
 	}
 
 	private void deleteEaFilesystem(Brokerview bv, int magic, String broker)

@@ -107,6 +107,8 @@ public class TableViewBasic
 			if (tr.getMagic() < 0)
 				continue;
 
+			
+			
 			// hier wird geschaut ob das anfangsdatum gefiltert wird
 			if(tf.checkTradeIsToOld(tr)==true)
 				continue;

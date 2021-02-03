@@ -527,6 +527,26 @@ public class Tradeliste
 		return false;
 	}
 
+	public boolean deleteMagic(int magic,String brokername)
+	{
+		//löscht eine magic aus der tradeliste für einen broker
+		int anz=tradeliste.size();
+		Tracer.WriteTrace(10, "laenge vorher="+tradeliste.size());
+		
+		for(int i=0; i<anz; i++)
+		{
+			Trade tr=tradeliste.get(i);
+			if((tr.getMagic()==magic) && (tr.getBroker().equals(brokername)))
+			{
+				tradeliste.remove(i);
+				anz--;
+			}
+			
+		}
+		Tracer.WriteTrace(10, "laenge nachher="+tradeliste.size());
+		return true;
+	}
+	
 	public Trade getelem(int index)
 	{
 		return (tradeliste.get(index));
@@ -565,7 +585,8 @@ public class Tradeliste
 		if (FileAccess.FileAvailable(tradeliste_tmp))
 			FileAccess.FileDelete(tradeliste_tmp, 0);
 
-		tradeliste2 = entferneTrades(brokerview_glob, tradeliste2,tf);
+		if(tf!=null)
+			tradeliste2 = entferneTrades(brokerview_glob, tradeliste2,tf);
 
 		// speichern
 		Inf inf = new Inf();
@@ -576,7 +597,7 @@ public class Tradeliste
 		// längenvergleich, es darf nicht kürzer werden
 		File f1 = new File(tradelistenam);
 		File f2 = new File(tradeliste_tmp);
-		if (f2.length() < f1.length())
+		if (f2.length()*(1.2) < f1.length())
 			Tracer.WriteTrace(20, "ERROR: Length protection error tradeliste<"
 					+ f1.length() + "> tradeliste_new<" + f2.length() + ">");
 
