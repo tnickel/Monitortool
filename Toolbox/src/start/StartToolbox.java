@@ -215,6 +215,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Label label30;
+	private Label label29;
+	private Text text4magicprefix;
 	private Composite composite16;
 	private Button button9showresults;
 	private Button button9backupdrive;
@@ -316,12 +319,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						composite1.setEnabled(true);
 						{
 							CTtext2verzeichniss = new Text(composite1, SWT.NONE);
-							CTtext2verzeichniss.setBounds(36, 25, 425, 22);
+							CTtext2verzeichniss.setBounds(36, 25, 1263, 22);
+							String rdir=Toolboxconf.getPropAttribute("commenttool_rdir");
+							setWorkdir(rdir);
+							CTtext2verzeichniss.setText(rdir);
+							
 						}
 						{
 							CTbutton1setdir = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							CTbutton1setdir.setText("SetDirectory");
-							CTbutton1setdir.setBounds(473, 25, 129, 22);
+							CTbutton1setdir.setText("set Workdir");
+							CTbutton1setdir.setBounds(1305, 25, 129, 22);
 							CTbutton1setdir.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -658,10 +665,11 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							composite6 = new Composite(composite1, SWT.BORDER);
 							composite6.setLayout(null);
-							composite6.setBounds(965, 89, 469, 41);
+							composite6.setBounds(965, 89, 469, 119);
 							{
 								CTtext1prefix = new Text(composite6, SWT.BORDER);
 								CTtext1prefix.setBounds(5, 5, 170, 26);
+								CTtext1prefix.setText("M99 ETHUSD");
 								CTtext1prefix.addTraverseListener(new TraverseListener() {
 									public void keyTraversed(TraverseEvent evt)
 									{
@@ -674,6 +682,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								CTlabel1 = new Label(composite6, SWT.NONE);
 								CTlabel1.setText("fileprefix");
 								CTlabel1.setBounds(189, 7, 91, 23);
+								CTlabel1.setToolTipText("Timeframe and Magic will set automaticaly");
 							}
 							{
 								CTbutton2 = new Button(composite6, SWT.PUSH | SWT.CENTER);
@@ -686,6 +695,21 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 									}
 								});
 							}
+							{
+								text4magicprefix = new Text(composite6, SWT.NONE);
+								text4magicprefix.setText("2102");
+								text4magicprefix.setBounds(7, 45, 60, 23);
+							}
+							{
+								label29 = new Label(composite6, SWT.NONE);
+								label29.setText("magic prefix (year/month)");
+								label29.setBounds(79, 48, 203, 30);
+							}
+							{
+								label30 = new Label(composite6, SWT.NONE);
+								label30.setText("The timeframe will not be replaced !");
+								label30.setBounds(14, 84, 443, 30);
+							}
 						}
 						{
 							label5 = new Label(composite1, SWT.NONE);
@@ -695,7 +719,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							label7 = new Label(composite1, SWT.NONE);
 							label7.setText("calculation mode");
-							label7.setBounds(605, 411, 111, 30);
+							label7.setBounds(605, 411, 140, 30);
 						}
 					}
 				}
@@ -1747,7 +1771,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.6.1");
+		shell.setText("Toolbox V1.2.7");
 		
 		while (!shell.isDisposed())
 		{
@@ -1765,8 +1789,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button1setdir.widgetSelected, event=" + evt);
 		// TODO add your code for button1setdir.widgetSelected
-		String dirname = cw_glob.selectDirectory();
+		String verz=CTtext2verzeichniss.getText();
+		String dirname = cw_glob.selectDirectory(verz);
 		CTtext2verzeichniss.setText(dirname);
+	}
+	
+	private void setWorkdir(String workdir)
+	{
+		cw_glob.setWorkdir(workdir);
 	}
 	
 	private void CTtext1prefixKeyTraversed(TraverseEvent evt)
@@ -1779,8 +1809,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private void CTRenameFiles2WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("CTbutton2.widgetSelected, event=" + evt);
+
+		Toolboxconf.setPropAttribute("commenttool_rdir",CTtext2verzeichniss.getText());
 		cw_glob.setFileprefix(CTtext1prefix.getText());
+		cw_glob.setMonthYear(text4magicprefix.getText());
 		cw_glob.renameAllFiles();
+		
 	}
 	
 	private void CTbutton4addCommentWidgetSelected(SelectionEvent evt)

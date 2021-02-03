@@ -2476,7 +2476,7 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 				+ evt);
 		// TODO add your code for button2startmetatrader.widgetSelected
 
-		smw.startAllMt(1);
+		smw.startAllMt();
 	}
 
 	private void button2stopmtWidgetSelected(SelectionEvent evt)

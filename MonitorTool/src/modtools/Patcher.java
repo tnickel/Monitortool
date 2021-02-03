@@ -136,12 +136,13 @@ public class Patcher
 
 	private void setMagicEaStudio(int magic)
 	{
+		//static input int Magic_Number = -1;
 		int anz = zeilenspeicher.length;
 		for (int i = 0; i < anz; i++)
 		{
 			String zeile = zeilenspeicher[i];
 			if (zeile != null)
-				if (zeile.contains("static input int Magic_Number") == true)
+				if (zeile.toLowerCase().contains("static input int magic_number") == true)
 				{
 					zeilenspeicher[i] = "static input int Magic_Number = "+magic+";";
 					return;
@@ -195,10 +196,10 @@ public class Patcher
 		{
 			String zeile = zeilenspeicher[i];
 			if (zeile != null)
-				if (zeile.contains("extern int MagicNumber") == true)
+				if (zeile.contains("extern int magicNumber") == true)
 				{
 					
-					zeilenspeicher[i] = "extern int MagicNumber = " + magic
+					zeilenspeicher[i] = "extern int magicNumber = " + magic
 							+ ";";
 					return;
 				}

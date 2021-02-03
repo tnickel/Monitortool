@@ -9,9 +9,11 @@ import hiflsklasse.Tracer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
@@ -43,18 +45,20 @@ public class SwtEditBrokerConfig
 	
 	private Text MtRoot;
 	private Text magiclist;
-	private Label labelbrokerid;
-
+	
 	private Button insthistoryexporter;
 	private Text forexstrategytraderdir;
 	
 	private Button insttickdataexporter;
+	private Group group1;
+	private Button button1activatefrequpdate;
+	private Button button1freqentlyupdate;
+	private Text text1frequentlyupdate;
 	private Button init;
-	private Button removefromreal;
-	private Button installonrealaccount;
-	private Label label4;
-	private Label label3;
+	
 	private Text MqlQuellverzeichniss;
+	private Text text1earenametext;
+	private Button button1earename;
 	private Button button1HandInstalled;
 	
 	private Text infostring;
@@ -67,7 +71,6 @@ public class SwtEditBrokerConfig
 	private Combo combo1;
 	private Button button1tradelotsize;
 	private Text text1money;
-	private Button button1startstopautomatic;
 	private Label label10;
 	private Text text1mqlversion;
 	private Label label9;
@@ -203,7 +206,7 @@ public class SwtEditBrokerConfig
 		{
 			setquellverz = new Button(sh, SWT.PUSH | SWT.LEFT);
 			setquellverz.setText("set EA sourcedir");
-			setquellverz.setBounds(537, 300, 163, 24);
+			setquellverz.setBounds(537, 297, 190, 30);
 			setquellverz.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -218,7 +221,7 @@ public class SwtEditBrokerConfig
 		{
 			lotsize = new Text(sh, SWT.BORDER);
 			lotsize.setBounds(935, 12, 60, 30);
-
+			
 			if (me_glob.getLotsize() != 0)
 				lotsize.setText(String.valueOf(me_glob.getLotsize()));
 			else
@@ -238,7 +241,7 @@ public class SwtEditBrokerConfig
 		{
 			setmetatraderdir = new Button(sh, SWT.PUSH | SWT.LEFT);
 			setmetatraderdir.setText("set metatrader dir");
-			setmetatraderdir.setBounds(537, 220, 162, 25);
+			setmetatraderdir.setBounds(537, 220, 190, 25);
 			setmetatraderdir.setToolTipText("The monitor copy alle *.mq4 to this location");
 			setmetatraderdir.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
@@ -312,7 +315,7 @@ public class SwtEditBrokerConfig
 		}
 		{
 			text1mqldir = new Text(sh, SWT.BORDER);
-			text1mqldir.setBounds(7, 258, 692, 30);
+			text1mqldir.setBounds(7, 258, 720, 30);
 			text1mqldir.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
 			text1mqldir.setToolTipText("This is the path were I am looking for historyxeporter.txt");
 			text1mqldir.setEditable(false);
@@ -324,13 +327,6 @@ public class SwtEditBrokerConfig
 			label9.setText("You can only install GeneticBuilderEAs (www.strategyquant.com)");
 			label9.setBounds(6, 491, 347, 20);
 			label9.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
-		}
-		
-		{
-			button1startstopautomatic = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1startstopautomatic.setText("start/stop-automatic");
-			button1startstopautomatic.setBounds(537, 333, 162, 30);
-			button1startstopautomatic.setSelection(true);
 		}
 		
 		{
@@ -350,6 +346,72 @@ public class SwtEditBrokerConfig
 				public void widgetSelected(SelectionEvent evt)
 				{
 					button1HandInstalledWidgetSelected(evt);
+				}
+			});
+		}
+		{
+			text1frequentlyupdate = new Text(sh, SWT.NONE);
+			text1frequentlyupdate.setBounds(12, 360, 512, 30);
+			text1frequentlyupdate.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt)
+				{
+					text1frequentlyupdateWidgetSelected(evt);
+				}
+			});
+		}
+		{
+			button1freqentlyupdate = new Button(sh, SWT.PUSH | SWT.CENTER);
+			button1freqentlyupdate.setText("set frequently update dir");
+			button1freqentlyupdate.setBounds(536, 360, 179, 30);
+			button1freqentlyupdate.setEnabled(false);
+			button1freqentlyupdate.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt)
+				{
+					button1freqentlyupdateWidgetSelected(evt);
+				}
+			});
+		}
+		{
+			button1activatefrequpdate = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1activatefrequpdate.setText("activate frequently EA upate");
+			button1activatefrequpdate.setBounds(503, 407, 217, 30);
+			button1activatefrequpdate.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt)
+				{
+					button1activatefrequpdateWidgetSelected(evt);
+				}
+			});
+		}
+		{
+			group1 = new Group(sh, SWT.NONE);
+			GridLayout group1Layout = new GridLayout();
+			group1Layout.makeColumnsEqualWidth = true;
+			group1.setLayout(group1Layout);
+			group1.setText("frequently update");
+			group1.setBounds(7, 335, 720, 66);
+			group1.setEnabled(false);
+		}
+		{
+			button1earename = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1earename.setText("EA name modifikation");
+			button1earename.setBounds(800, 167, 195, 30);
+			button1earename.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt)
+				{
+					button1earenameWidgetSelected(evt);
+				}
+			});
+		}
+		{
+			text1earenametext = new Text(sh, SWT.BORDER);
+			text1earenametext.setBounds(800, 133, 195, 30);
+			text1earenametext.setEditable(false);
+			text1earenametext.setToolTipText(
+					"Set Ea prefix text. For example the ea have the name \"EA Studio Ethereum H1 57911257.mq4\" but you need the name \"Q55  ETHUSD H1 57911257.mq4\" you should set \"Q55 ETHUSD H1\" in the EA name modifikation Box.");
+			text1earenametext.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt)
+				{
+					text1earenametextWidgetSelected(evt);
 				}
 			});
 		}
@@ -403,6 +465,7 @@ public class SwtEditBrokerConfig
 		// brokerid
 		
 		label9.setVisible(true);
+		text1frequentlyupdate.setEditable(false);
 		// qellverztextfeld
 		
 		Swttool.wupdate(dis_glob);
@@ -641,23 +704,21 @@ public class SwtEditBrokerConfig
 			fnam = me_glob.getMqlquellverz();
 		else
 		{
-			//if global var not set, than set it
-			if((GlobalVar.getMqlsourcedirprefix()==null)||(GlobalVar.getMqlsourcedirprefix().length()<2))
+			// if global var not set, than set it
+			if ((GlobalVar.getMqlsourcedirprefix() == null) || (GlobalVar.getMqlsourcedirprefix().length() < 2))
 			{
-				//D:\\Forex\\StrategienImEinsatz
-				String fpref=fnam.substring(0, fnam.lastIndexOf("\\"));
+				// D:\\Forex\\StrategienImEinsatz
+				String fpref = fnam.substring(0, fnam.lastIndexOf("\\"));
 				GlobalVar.setMqlsourcedirprefix(fpref);
 				GlobalVar.save();
-			
+				
 			}
 			
 		}
 		
-		
 		System.out.println("fnam=" + fnam);
 		MqlQuellverzeichniss.setText(fnam);
 		me_glob.setMqlquellverz(fnam);
-		
 		
 		return;
 	}
@@ -722,14 +783,7 @@ public class SwtEditBrokerConfig
 		return;
 	}
 	
-	private void GenNewMetatraderaccountWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("GenNewMetatraderaccount.widgetSelected, event=" + evt);
-		// gen new metatraderaccount after expiration of 30 days
-		
-		Mbox.Infobox("Warning you delete the old metatraderaccount after expiration ");
-		work.genNewMetatraderaccount(MtRoot.getText());
-	}
+	
 	
 	private void initWidgetSelected(SelectionEvent evt)
 	{
@@ -777,9 +831,51 @@ public class SwtEditBrokerConfig
 		{
 			me_glob.setOnlyhandinstalled(1);
 			GbAutomaticaccountflag.setSelection(false);
-		}
-			else
+		} else
 			me_glob.setOnlyhandinstalled(0);
+	}
+
+	private void button1freqentlyupdateWidgetDefaultSelected(SelectionEvent evt)
+	{
+		System.out.println("button1freqentlyupdate.widgetDefaultSelected, event=" + evt);
+		// TODO add your code for button1freqentlyupdate.widgetDefaultSelected
+	}
+	
+	private void button1freqentlyupdateWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button1freqentlyupdate.widgetSelected, event=" + evt);
+		// TODO add your code for button1freqentlyupdate.widgetSelected
+	}
+	
+	private void text1frequentlyupdateWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("text1frequentlyupdate.widgetSelected, event=" + evt);
+		// TODO add your code for text1frequentlyupdate.widgetSelected
+	}
+	
+	private void button1activatefrequpdateWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button1activatefrequpdate.widgetSelected, event=" + evt);
+		
+		Boolean val = button1activatefrequpdate.getSelection();
+		
+		text1frequentlyupdate.setEnabled(val);
+		text1frequentlyupdate.setEditable(val);
+		button1freqentlyupdate.setEnabled(val);
+		
+	}
+	
+	private void text1earenametextWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("text1earenametext.widgetSelected, event=" + evt);
+		// TODO add your code for text1earenametext.widgetSelected
+	}
+	
+	private void button1earenameWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button1earename.widgetSelected, event=" + evt);
+		Boolean val=button1earename.getSelection();
+		text1earenametext.setEnabled(val);
 	}
 	
 }

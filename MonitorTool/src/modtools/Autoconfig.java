@@ -93,7 +93,7 @@ public class Autoconfig
 		Tracer.WriteTrace(20, "I: add new broker <"+brokerpath+"> by by autoconfig");
 		
 		//den Broker aufnehmen
-		Metaconfig me = new Metaconfig("##0######0##");
+		Metaconfig me = new Metaconfig("##0######0######");
 	
 		//das installationsverzeichniss setzen
 		me.setNetworkshare(brokerpath);

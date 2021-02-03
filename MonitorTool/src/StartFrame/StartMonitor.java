@@ -1447,7 +1447,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			getAllData();
 			//einen timer so ein richten das er nach 5 sekunden ausgelöst wird und dann mit dem timer-event
 			//dieses Kommando "	smw.startAllMt(); " ausgeführt wird
-			smw.startAllMt(0);
+			smw.startAllMt();
 			//timer setzen der in 5 sekunden auslöst
 		}
 	}
@@ -1563,6 +1563,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		GlobalVar gv = new GlobalVar();
 		GlobalVar.setSilentmode(1);
 
+		StartMonitorWork.checkBadBrokerconfig();
+		
 		Tracer.WriteTrace(20, "I: rootpath="+userdir);
 		
 		// falls auf dem lokalen pc (tnickel-pc) ein testserver läuft
@@ -2380,7 +2382,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				+ evt);
 		// TODO add your code for button2startmetatrader.widgetSelected
 
-		smw.startAllMt(1);
+		smw.startAllMt();
 	}
 
 	private void button2stopmtWidgetSelected(SelectionEvent evt)

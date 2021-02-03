@@ -36,7 +36,7 @@ public class SG
 		
 		try
 		{
-			Integer.valueOf(kw);
+			Long.valueOf(kw);
 			return true;
 		} catch (NumberFormatException nfe)
 		{// keine zahl
@@ -55,8 +55,10 @@ public class SG
 		{
 			return (Integer.valueOf(keyword));
 		} else
-			return -1;
+			return (-1);
 	}
+	
+	
 	public static float get_float_zahl(String keyword,int anznachkommastellen)
 	{
 		String fzahl=keyword;

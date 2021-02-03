@@ -37,15 +37,14 @@ public class MetaStarter
 		}
 	}
 
-	static public void StartAllMetatrader(Brokerview brokerview,int swtflag)
+	static public void StartAllMetatrader(Brokerview brokerview)
 	{
-		//swtflag=1, dann mache noch swt ausgaben und rufe dinge vom swt auf
+		
 		String rootpathbinstarter = Rootpath.getRootpath()+"\\bin\\startmetatrader.bat";
 		startedbymonitortool = 1;
 		String portextension="";
 		int anz = brokerview.getAnz();
-		if(swtflag==1)
-			DisTool.waitCursor();
+		
 		
 		File rpstart= new File(rootpathbinstarter);
 		if(rpstart.exists())
@@ -89,8 +88,7 @@ public class MetaStarter
 			inflocal.writezeile("start /min \"\" \""+metatraderexepath+"\"" +portextension);
 			inflocal.close();
 			
-			if(swtflag==1)
-				DisTool.UpdateDisplay();
+			
 			try
 			{
 				if (result == true)
@@ -109,8 +107,7 @@ public class MetaStarter
 			}
 		}
 		infall.close();
-		if(swtflag==1)
-			DisTool.arrowCursor();
+		
 	}
 
 	static public void StopAllMetatrader(Brokerview brokerview)
@@ -183,7 +180,7 @@ public class MetaStarter
 			Process p = Runtime.getRuntime().exec("" + metatraderexepath + ""+portextension);
 			meconf.setProcessKennung(p);
 			
-			Mlist.add("I:MT<" + meconf.getBrokername() + "> started on <"+metatraderexepath+">", 1);
+			//Mlist.add("I:MT<" + meconf.getBrokername() + "> started on <"+metatraderexepath+">", 1);
 		} catch (IOException e)
 		{
 			Tracer.WriteTrace(20, "E: metatrader start exception<"+e.getMessage()+">");

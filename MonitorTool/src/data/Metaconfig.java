@@ -66,6 +66,19 @@ public class Metaconfig implements Comparable<Metaconfig>
 	//hier kommt der process hin
 	private Process processkennung=null;
 	
+	//Frequenteaupdatedir
+	//dies ist das rootverzeichniss wo die wiederholenden (wöchtentlich) neuen EA befinden
+	private String frequenteaupdatedir="";
+	
+	//hier wird das frequenteaupdate ein/aus geschaltet
+	private int usefrequenteaupdateflag=0;
+	
+	//falls es geünscht ist das der ea vor der installation renamed wird
+	private String earenametext="";
+	
+	//hiermit wird das earename ein/ausgeschaltet
+	private int useearenametextflag=0;
+	
 	public Metaconfig(String mname)
 	{
 		String zeile = new String(mname);
@@ -102,7 +115,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 				curpostfix = new String(SG.nteilstring(zeile, "#", 16));
 			if (trennanz > 17)
 				onlyhandinstalled = SG.get_zahl(SG.nteilstring(zeile, "#", 17));
-			init();
+			if (trennanz > 18)
+				frequenteaupdatedir = SG.nteilstring(zeile, "#", 18);
+			if (trennanz > 19)
+				usefrequenteaupdateflag = SG.get_zahl(SG.nteilstring(zeile, "#", 19));
+			if (trennanz > 20)
+				earenametext = SG.nteilstring(zeile, "#", 20);
+			if (trennanz > 21)
+				useearenametextflag = SG.get_zahl(SG.nteilstring(zeile, "#", 21));
+			
+			initmagiclist();
 			//processkennung immer löschen
 			processkennung=null;
 		} catch (ToolsException e)
@@ -123,7 +145,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 		inf.close();
 	}
 
-	public void init()
+	public void initmagiclist()
 	{
 		if (magiclistactive == true)
 			maglist = new Magiclist(magicliststring);
@@ -359,7 +381,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setMagicliststring(String magicliststring)
 	{
 		this.magicliststring = magicliststring;
-		init();
+		initmagiclist();
 	}
 
 	public boolean isInstmyfxbookea()
@@ -440,6 +462,46 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setOnlyhandinstalled(int onlyhandinstalled)
 	{
 		this.onlyhandinstalled = onlyhandinstalled;
+	}
+
+	public String getFrequenteaupdatedir()
+	{
+		return frequenteaupdatedir;
+	}
+
+	public void setFrequenteaupdatedir(String frequenteaupdatedir)
+	{
+		this.frequenteaupdatedir = frequenteaupdatedir;
+	}
+
+	public int getUsefrequenteaupdateflag()
+	{
+		return usefrequenteaupdateflag;
+	}
+
+	public void setUsefrequenteaupdateflag(int usefrequenteaupdateflag)
+	{
+		this.usefrequenteaupdateflag = usefrequenteaupdateflag;
+	}
+
+	protected String getEarenametext()
+	{
+		return earenametext;
+	}
+
+	protected void setEarenametext(String earenametext)
+	{
+		this.earenametext = earenametext;
+	}
+
+	protected int getUseearenametextflag()
+	{
+		return useearenametextflag;
+	}
+
+	protected void setUseearenametextflag(int useearenametextflag)
+	{
+		this.useearenametextflag = useearenametextflag;
 	}
 
 	public String getInitMetaversion()

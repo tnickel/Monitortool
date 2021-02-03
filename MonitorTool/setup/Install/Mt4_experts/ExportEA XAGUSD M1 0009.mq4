@@ -12,7 +12,7 @@
 
 //gibt an wieviele Ticks zwischengespeichert werden
 extern int maxstore=50;
-extern int MagicNumber = 00;
+extern int magicNumber = 00;
 extern double Lots = 0.1;
 
 int storepos=0;

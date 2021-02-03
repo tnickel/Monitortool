@@ -32,6 +32,7 @@ import filter.Tradefilter;
 import gui.Mbox;
 import hiflsklasse.Archive;
 import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import hiflsklasse.Viewer;
 import modtools.Autoconfig;
@@ -305,7 +306,7 @@ public class StartMonitorWork
 	public void addnewbroker(Table table3)
 	{
 		// metatraderconfig erzeugen
-		Metaconfig me = new Metaconfig("##0######0##");
+		Metaconfig me = new Metaconfig("##0######0######");
 
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
 		sc.init(display_glob, me, brokerview_glob, 1, tv_glob);
@@ -896,9 +897,9 @@ public class StartMonitorWork
 		autoconf.configAllMetatrader(brokerview_glob);
 		
 	}
-	public void startAllMt(int swtflag)
+	public void startAllMt()
 	{
-		MetaStarter.StartAllMetatrader(brokerview_glob,swtflag);
+		MetaStarter.StartAllMetatrader(brokerview_glob);
 	}
 	public void stopAllMt()
 	{
@@ -917,6 +918,30 @@ public class StartMonitorWork
 		SymbolReplaceList s=new SymbolReplaceList(brokerview_glob);
 		s.ReplaceAllSymbols();
 		s.ShowReplaceResults();
+	}
+
+	static public void checkBadBrokerconfig()
+	{
+		File fnam = new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml");
+		File fnamold = new File(Rootpath.getRootpath()
+				+ "\\conf\\brokerconf.old");
+		
+		
+		// wenn *.tmp < 0.5 *old ist, dann stimmt was nicht, breche ab.
+		double lenold=fnamold.length();
+		double lenfnam=fnam.length();
+		
+		if(lenfnam>(lenold/2))
+		{ 
+			//das neue ist länger, dann ist alles ok
+		}
+		else
+		{
+			//*.xml ist zu klein, dann restauriere
+			Mbox.Infobox("found defekt <"+fnam.getAbsolutePath()+">, I try to repair");
+			FileAccess.copyFile(fnamold.getAbsolutePath(), fnam.getAbsolutePath());
+			
+		}
 		
 		
 	}

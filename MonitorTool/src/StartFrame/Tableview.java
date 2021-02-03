@@ -759,7 +759,7 @@ public class Tableview extends TableViewBasic
 		{
 			Trade tr = tl.getelem(i);
 			
-			if ((tr.getBroker().equals(broker)) && (tr.getMagic() == Integer.valueOf(magic)))
+			if ((tr.getBroker().equals(broker)) && (tr.getMagic() == Long.valueOf(magic)))
 			{
 				eatl.addTradeElem(tr);
 			}

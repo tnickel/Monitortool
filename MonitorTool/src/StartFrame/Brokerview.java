@@ -356,7 +356,7 @@ public class Brokerview
 		for (int i = 0; i < anz; i++)
 		{
 			Metaconfig mc = metatraderlist.getelem(i);
-			mc.init();
+			mc.initmagiclist();
 		}
 	}
 
@@ -376,12 +376,22 @@ public class Brokerview
 		inf.saveXST(metatraderlist);
 		inf.close();
 
+		// wenn *.tmp < 0.5 *old ist, dann stimmt was nicht, breche ab.
+		double lenold=fnamold.length();
+		double lentmp=fnamtmp.length();
 		
-
-		// das alte löschen
-		if (fnamold.exists())
-			fnam.delete();
-
+		if(lentmp>(lenold/2))
+		{ 
+			//das neue ist länger, dann ist alles ok, das alte kann gelöscht werden
+			if (fnamold.exists())
+				fnamold.delete();
+		}
+		else
+		{
+			Tracer.WriteTrace(10, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> -->EXIT");
+			System.exit(99);
+		}
+		
 		// *.xml nach *.old umbenennen
 		if (fnam.exists() == true)
 			fnam.renameTo(fnamold);

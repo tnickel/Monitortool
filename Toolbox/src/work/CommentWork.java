@@ -24,6 +24,7 @@ import data.Tradeliste;
 public class CommentWork
 {
 	private String workdir_glob = null;
+	private String monthyear_glob=null;
 	private String fileprefix_glob = null;
 	private static String lastdir = null;
 
@@ -31,11 +32,16 @@ public class CommentWork
 	{
 	}
 
-	public String selectDirectory()
+	public String selectDirectory(String vpref)
 	{
 		String verzpref = null;
 
-		if (lastdir == null)
+		if(vpref!=null)
+		{
+			verzpref=vpref;
+		}
+		
+		else if (lastdir == null)
 		{
 			verzpref = "c:\\GeneticBuilder\\calculatedStrategies\\01_savedStrategies";
 		} else
@@ -54,14 +60,23 @@ public class CommentWork
 	public void setFileprefix(String text)
 	{
 		fileprefix_glob = text;
-		System.out.println("fileprefix=" + fileprefix_glob);
+		Tracer.WriteTrace(20,"fileprefix=" + fileprefix_glob);
 	}
 
+	public void setMonthYear(String text)
+	{
+		monthyear_glob=text;
+		Tracer.WriteTrace(20, "I:monthyear="+monthyear_glob);
+		
+	}
+	
 	public void renameAllFiles()
 	{
-		if (workdir_glob.length() < 3)
+		
+		
+		if ((workdir_glob==null)||(workdir_glob.length() < 3))
 		{
-			Mbox.Infobox("please select a directory");
+			Mbox.Infobox("please set workdir");
 			return;
 		}
 		if (fileprefix_glob.length() < 1)
@@ -76,7 +91,7 @@ public class CommentWork
 		{
 			// der alte name
 			String fnam0 = FileAccess.holeFileSystemName();
-			if ((fnam0.contains(".str") == false) && (fnam0.contains(".sq4")==false))
+			if ((fnam0.contains(".str") == false) && (fnam0.contains(".sq4")==false)&&(fnam0.contains(".mq4")==false))
 				continue;
 
 			
@@ -84,14 +99,37 @@ public class CommentWork
 			// Das Ende des Strings sichern 
 			//bsp version 3.8.2:"xxxxxx 0.4454545.str"
 			//version 4.X :"Q05 EURUSD H1Strategy 0.1.38(1).sq4"
-			String laststring = fnam0.substring(fnam0.lastIndexOf(" ") + 1);
+			//EA Studio EURUSD H1 21026117.mq4
+			//laststring = H1 21026117.mq4
+			
+			//den string splitten
+			String[] parts = fnam0.split(" ");
+			int posanz=parts.length;
+			
+			//die endung holen
+			String endstring=fnam0.substring(fnam0.lastIndexOf("."));
+			//die magic holen
+			String magic = parts[posanz-1];
+			//den timeframe holen
+			String timeframe= parts[posanz-2];
+			
+			//die Dateiendung enfernen
+			magic=magic.substring(0,magic.indexOf("."));
+			
 			// neuen Filenamen berechnen
 
 			//version 4.x replace (-->0  and )-->0
-			laststring=laststring.replace("(", "0");
-			laststring=laststring.replace(")","0");
-			String fnamNeu = workdir_glob + "\\" + fileprefix_glob + " "
-					+ laststring;
+			magic=magic.replace("(", "0");
+			magic=magic.replace(")","0");
+			int slen=magic.length();
+			int cutlen=5;
+			if(slen>cutlen)
+			{	//die magic auf 5 stellen von rechts abschneiden
+				magic=magic.substring(slen-cutlen);
+			}
+			
+			String fnamNeu = workdir_glob + "\\" + fileprefix_glob + " " + timeframe +" "
+					+ monthyear_glob+magic+endstring;
 			File falt = new File(workdir_glob + "\\" + fnam0);
 			File fneu = new File(fnamNeu);
 

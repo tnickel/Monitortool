@@ -36,7 +36,7 @@ public class eaclass
 		while ((keyword.startsWith("0")) || (keyword.startsWith(" ")))
 			keyword = keyword.substring(1, keyword.length());
 
-		if (keyword.length() > 9)
+		if (keyword.length() > 11)
 			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits");
 	
 		return SG.get_zahl(keyword);
