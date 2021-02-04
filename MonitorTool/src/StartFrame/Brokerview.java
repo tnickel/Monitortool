@@ -388,7 +388,7 @@ public class Brokerview
 		}
 		else
 		{
-			Tracer.WriteTrace(10, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> -->EXIT");
+			Tracer.WriteTrace(10, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> I restore It, please EXIT and START again !!");
 			System.exit(99);
 		}
 		

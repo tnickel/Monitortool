@@ -111,8 +111,12 @@ public class ChrFile extends Patcher
 			if (zeilenspeicher[i] == null)
 				break;
 			// MagicNumber=11846
-			if (zeilenspeicher[i].contains("MagicNumber=" + magic))
+			if ((zeilenspeicher[i].contains("MagicNumber=" + magic))||
+			    (zeilenspeicher[i].contains("Magic_Number=" + magic)))
+			{	
+				
 				return (true);
+			}
 		}
 		return false;
 	}

@@ -217,7 +217,7 @@ public class StartMonitorWork
 	public void editconfig(Table table3)
 	{
 		
-		MetaStarter.KillAllMetatrader();
+		
 		// metatraderconfig holen
 		Metaconfig me = brokerview_glob.getMetaconfig(glob_selectedBrokerShare);
 		
@@ -445,9 +445,9 @@ public class StartMonitorWork
 
 	}
 
-	public void deleteEas()
+	public int deleteEas()
 	{
-		tv_glob.deleteEas();
+		return(tv_glob.deleteEas());
 	}
 
 	public void installAutoEa()

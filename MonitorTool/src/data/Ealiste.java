@@ -390,7 +390,8 @@ public class Ealiste
 				fd.copyFile2(fnam, deletedirfnam);
 
 				// das file löschen
-				fnamf.delete();
+				if(fnamf.delete()==false)
+					Tracer.WriteTrace(10, "E:can´t delete file <"+fnamf+">");
 
 				Mlist.add("deleted <" + fnam + "> ");
 			}
@@ -457,6 +458,7 @@ public class Ealiste
 			
 			if(chrfile.hatMagic(magic)==true)
 			{
+				Tracer.WriteTrace(20, "I:found magicnumber <"+magic+"> in file <"+path+"\\"+fnam+">");
 				flist.add(path + "\\" + fnam);
 			}
 

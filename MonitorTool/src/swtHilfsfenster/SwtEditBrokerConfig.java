@@ -5,6 +5,7 @@ import gui.Mbox;
 import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tracer;
+import modtools.MetaStarter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -627,7 +628,7 @@ public class SwtEditBrokerConfig
 	{
 		System.out.println("installEas.widgetSelected, event=" + evt);
 		// Install demo
-		
+		MetaStarter.KillAllMetatrader();
 		meRefreshConfig();
 		
 		String selbroker = me_glob.getconnectedBroker();

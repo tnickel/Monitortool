@@ -2365,7 +2365,8 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button2delete.widgetSelected, event=" + evt);
 		// TODO add your code for button2delete.widgetSelected
-		smw.deleteEas();
+		int anz=smw.deleteEas();
+		Mbox.Infobox("I have deleted #eas="+anz);
 	}
 
 	private void text1daysKeyTraversed(TraverseEvent evt)

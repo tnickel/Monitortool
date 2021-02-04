@@ -1153,8 +1153,10 @@ public class Tableview extends TableViewBasic
 		}
 	}
 
-	public void deleteEas()
+	public int deleteEas()
 	{
+		int delcounter=0;
+		
 		int anz = table2_glob.getItemCount();
 		for (int i = 0; i < anz; i++)
 		{
@@ -1177,12 +1179,16 @@ public class Tableview extends TableViewBasic
 							+ prof.getGesgewinn() + ">");
 					continue;
 				}
+				//delete eas from filesystem
 				deleteEaFilesystem(brokerview_glob, magic, prof.getBroker());
+				//delete eas from tradelist
 				tl.deleteMagic(magic, prof.getBroker());
+				delcounter++;
 			}
 		}
 		//speichere die verkleinerte Tradeliste
 		tl.store(null);
+		return delcounter;
 	}
 
 	private void deleteEaFilesystem(Brokerview bv, int magic, String broker)

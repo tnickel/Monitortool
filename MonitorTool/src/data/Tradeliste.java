@@ -531,7 +531,7 @@ public class Tradeliste
 	{
 		//löscht eine magic aus der tradeliste für einen broker
 		int anz=tradeliste.size();
-		Tracer.WriteTrace(10, "laenge vorher="+tradeliste.size());
+		
 		
 		for(int i=0; i<anz; i++)
 		{
@@ -543,7 +543,7 @@ public class Tradeliste
 			}
 			
 		}
-		Tracer.WriteTrace(10, "laenge nachher="+tradeliste.size());
+		
 		return true;
 	}
 	

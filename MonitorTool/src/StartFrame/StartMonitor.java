@@ -1408,15 +1408,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 										}
 									});
 						}
-						{
-							menuItem1 = new MenuItem(fileMenu, SWT.PUSH);
-							menuItem1.setText("transfer to portable");
-							menuItem1.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
-									menuItem1WidgetSelected(evt);
-								}
-							});
-						}
+						
 						fileMenuItem.setMenu(fileMenu);
 					}
 				}
@@ -2271,7 +2263,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button2delete.widgetSelected, event=" + evt);
 		// TODO add your code for button2delete.widgetSelected
-		smw.deleteEas();
+		MetaStarter.KillAllMetatrader();
+		
+		int anz=smw.deleteEas();
+		Mbox.Infobox("I have deleted #eas="+anz);
 	}
 
 	private void text1daysKeyTraversed(TraverseEvent evt)

@@ -157,7 +157,34 @@ public class MqlSqPatcher extends Patcher
 	}
 	public boolean patchCommentExpertStudio(Ea ea)
 	{
-		return true;
+		String eafilename=ea.getEafilename();
+		eafilename=eafilename.replace(".mq4","");
+		//extern string CustomComment = "Q67_EURUSD_M15Strategy_4_35_155";
+		String kw = "string comment    = ";
+		for (int i = 0; i < 20000; i++)
+		{
+			
+			if (zeilenspeicher[i] == null)
+				continue;
+			
+			if (zeilenspeicher[i].contains(kw))
+			{
+				String mem=zeilenspeicher[i];
+				String comment=eafilename;
+				comment="\""+comment.replace("Strategy", "")+"\";";
+				
+				
+				zeilenspeicher[i] = "\t\tstring comment    = "+comment;
+				return true;
+			}
+		}
+		Mbox.Infobox("attrib <" + kw + "> not found in file <"
+				+ ea.getEafilename() + ">");
+		return false;
+		
+		
+		
+		
 		
 	}
 	public boolean patchCommentSq3(Ea ea)
