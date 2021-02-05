@@ -385,18 +385,34 @@ public class Brokerview
 			//das neue ist länger, dann ist alles ok, das alte kann gelöscht werden
 			if (fnamold.exists())
 				fnamold.delete();
+			
+			// *.xml nach *.old umbenennen
+			if (fnam.exists() == true)
+				fnam.renameTo(fnamold);
+
+			fnamtmp.renameTo(fnam);
 		}
 		else
 		{
-			Tracer.WriteTrace(10, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> I restore It, please EXIT and START again !!");
-			System.exit(99);
+			//es hat nicht geklappt, das alte ist länger *.old
+			//es hat also gecrashed
+			Tracer.WriteTrace(20, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> I restore It");
+			
+			//fnamtmp löschen
+			if((fnamtmp.exists())&&(fnamtmp.delete()==false))
+				Tracer.WriteTrace(10, "E:cant delete <"+fnamtmp.getAbsolutePath()+">");
+
+			//das zielfile sollte nicht da sein
+			if((fnam.exists())&&(fnam.delete()==false))
+				Tracer.WriteTrace(10, "E:cant delete <"+fnamtmp.getAbsolutePath()+">");
+			
+			//aus *.old wieder das zielfile herstellen
+			if(FileAccess.copyFile(fnamold.getAbsolutePath(), fnam.getAbsolutePath())==false)
+				Tracer.WriteTrace(10, "E:cant copy from<"+fnamold.getAbsolutePath()+"> to<"+fnam.getAbsolutePath()+">");
+			
 		}
 		
-		// *.xml nach *.old umbenennen
-		if (fnam.exists() == true)
-			fnam.renameTo(fnamold);
-
-		fnamtmp.renameTo(fnam);
+		
 	}
 
 	private String getStatus(Metaconfig me, TableItem item, Display dis)

@@ -509,7 +509,7 @@ public class Tradeliste
 			return true;
 		} else
 		{
-			Tracer.WriteTrace(20, "I:broker<"+broker+"> trade schon drin trans<"+trans+">");
+			//Tracer.WriteTrace(20, "I:broker<"+broker+"> trade schon drin trans<"+trans+">");
 			return false;
 		}
 	}

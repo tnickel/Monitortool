@@ -51,6 +51,7 @@ public class SwtEditBrokerConfig
 	private Text forexstrategytraderdir;
 	
 	private Button insttickdataexporter;
+	private Button button1realaccountsel;
 	private Group group1;
 	private Button button1activatefrequpdate;
 	private Button button1freqentlyupdate;
@@ -124,7 +125,7 @@ public class SwtEditBrokerConfig
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("Brokername e.g. (Alpari1)");
-			label2.setBounds(350, 39, 212, 23);
+			label2.setBounds(350, 39, 191, 23);
 		}
 		{
 			Brokername = new Text(sh, SWT.NONE);
@@ -172,7 +173,7 @@ public class SwtEditBrokerConfig
 		{
 			GbAutomaticaccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
 			GbAutomaticaccountflag.setText("GB_AutomaticAccount");
-			GbAutomaticaccountflag.setBounds(186, 3, 225, 30);
+			GbAutomaticaccountflag.setBounds(8, 3, 189, 30);
 			GbAutomaticaccountflag.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -416,7 +417,22 @@ public class SwtEditBrokerConfig
 				}
 			});
 		}
-		
+		{
+			combo1 = new Combo(sh, SWT.NONE);
+			combo1.setText("select realaccount");
+			combo1.setBounds(547, 39, 206, 28);
+			combo1.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					combo1WidgetSelected(evt);
+				}
+			});
+		}
+		{
+			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1realaccountsel.setText("RealAccount");
+			button1realaccountsel.setBounds(216, 3, 128, 30);
+		}
+		build_combobox( combo1, bv);
 		sh.open();
 		refreshbuttons();
 		
@@ -879,4 +895,9 @@ public class SwtEditBrokerConfig
 		text1earenametext.setEnabled(val);
 	}
 	
+	private void combo1WidgetSelected(SelectionEvent evt) {
+		System.out.println("combo1.widgetSelected, event="+evt);
+		//build_combo1();
+	}
+
 }

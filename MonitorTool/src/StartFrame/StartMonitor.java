@@ -151,7 +151,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button configbroker;
 	private Table table3;
 	private Label broker;
-	private Button nocanceled;
 	private Table table2;
 	private Table table1;
 	private Button getAllData;
@@ -218,7 +217,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2 = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2LData = new FormData();
 				button2LData.left =  new FormAttachment(0, 1000, 10);
-				button2LData.top =  new FormAttachment(0, 1000, 747);
+				button2LData.top =  new FormAttachment(0, 1000, 722);
 				button2LData.width = 224;
 				button2LData.height = 20;
 				button2.setLayoutData(button2LData);
@@ -234,8 +233,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				text1from = new Text(this, SWT.NONE);
 				FormData text1fromLData = new FormData();
-				text1fromLData.left =  new FormAttachment(0, 1000, 32);
-				text1fromLData.top =  new FormAttachment(0, 1000, 775);
+				text1fromLData.left =  new FormAttachment(0, 1000, 12);
+				text1fromLData.top =  new FormAttachment(0, 1000, 747);
 				text1fromLData.width = 93;
 				text1fromLData.height = 22;
 				text1from.setLayoutData(text1fromLData);
@@ -1111,7 +1110,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				showopenorders = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData showopenordersLData = new FormData();
 				showopenordersLData.left =  new FormAttachment(0, 1000, 10);
-				showopenordersLData.top =  new FormAttachment(0, 1000, 722);
+				showopenordersLData.top =  new FormAttachment(0, 1000, 696);
 				showopenordersLData.width = 224;
 				showopenordersLData.height = 20;
 				showopenorders.setLayoutData(showopenordersLData);
@@ -1198,17 +1197,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				brokerLData.height = 20;
 				broker.setLayoutData(brokerLData);
 				broker.setText("broker");
-			}
-			{
-				nocanceled = new Button(this, SWT.CHECK | SWT.LEFT);
-				FormData nocanceledLData = new FormData();
-				nocanceledLData.left =  new FormAttachment(0, 1000, 10);
-				nocanceledLData.top =  new FormAttachment(0, 1000, 696);
-				nocanceledLData.width = 224;
-				nocanceledLData.height = 20;
-				nocanceled.setLayoutData(nocanceledLData);
-				nocanceled.setText("no canceled orders");
-				nocanceled.setSelection(true);
 			}
 			{
 				profitnormalisierung = new Button(this, SWT.CHECK | SWT.LEFT);
@@ -1336,7 +1324,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						}
 						{
 							backup = new MenuItem(fileMenu, SWT.CASCADE);
-							backup.setText("Backup");
+							backup.setText("Backup configuration");
 							backup.addSelectionListener(new SelectionAdapter()
 							{
 								public void widgetSelected(SelectionEvent evt)
@@ -1345,7 +1333,17 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 								}
 							});
 						}
-
+						{
+							backup = new MenuItem(fileMenu, SWT.CASCADE);
+							backup.setText("Restore configuration");
+							backup.addSelectionListener(new SelectionAdapter()
+							{
+								public void widgetSelected(SelectionEvent evt)
+								{
+									RestoreMenuItemWidgetSelected(evt);
+								}
+							});
+						}
 						{
 							transfer = new MenuItem(fileMenu, SWT.CASCADE);
 							transfer.setText("Transfer historyexporter.txt");
@@ -1715,7 +1713,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void tradefilterrefresh()
 	{
 		// den tradefilter setzen
-		tf.setNocancel(nocanceled.getSelection());
+		tf.setNocancel(true);
 		tf.setProfitnormalisierung(profitnormalisierung.getSelection());
 		tf.setShowopenorders(showopenorders.getSelection());
 		tf.setForgetoldeas(forgetoldeas.getSelection());
@@ -1833,7 +1831,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		smw.backup();
 	}
-
+	private void RestoreMenuItemWidgetSelected(SelectionEvent evt)
+	{
+		smw.restore();
+	}
 	private void TransferMenuItemWidgetSelected(SelectionEvent evt)
 	{
 		if (Lic.getlic() != 5)

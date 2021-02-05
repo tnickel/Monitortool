@@ -953,15 +953,17 @@ public class FileAccess
 			for (int i = 0; i < length; i++)
 				fileWriter.write(fileReader.read());
 
-			fileReader.close();
 			fileWriter.close();
+			fileReader.close();
+			
 			return true;
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
+					
 			e.printStackTrace();
 			return (false);
 		}
+		
 	}
 
 	static public boolean MatchFiles(String quelle1, String quelle2,

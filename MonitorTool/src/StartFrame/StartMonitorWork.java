@@ -257,6 +257,9 @@ public class StartMonitorWork
 
 	public void updatehistoryexporter(Table table3)
 	{
+		Tracer.WriteTrace(20, "I:stop all Metatrader");
+		MetaStarter.StopAllMetatrader(brokerview_glob);
+		
 		buildBrokerliste(table3, 0);
 		Installer inst = new Installer();
 		inst.UpdateHistoryExporter(display_glob, brokerview_glob);
@@ -266,6 +269,12 @@ public class StartMonitorWork
 	{
 		Installer inst = new Installer();
 		inst.backup(display_glob, brokerview_glob);
+	}
+	
+	public void restore()
+	{
+		Installer inst = new Installer();
+		inst.restore(display_glob, brokerview_glob);
 	}
 	public void transfer()
 	{

@@ -290,7 +290,7 @@ public class Inf
 	}
 
 	private XStream xstream;
-	public void saveXST( Object data)
+	synchronized public void saveXST( Object data)
 	{
 		initStream();
 		File file = new File(filename_glob);

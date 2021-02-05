@@ -196,10 +196,10 @@ public class Patcher
 		{
 			String zeile = zeilenspeicher[i];
 			if (zeile != null)
-				if (zeile.contains("extern int magicNumber") == true)
+				if (zeile.contains("extern int MagicNumber") == true)
 				{
 					
-					zeilenspeicher[i] = "extern int magicNumber = " + magic
+					zeilenspeicher[i] = "extern int MagicNumber = " + magic
 							+ ";";
 					return;
 				}

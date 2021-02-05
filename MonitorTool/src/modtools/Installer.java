@@ -79,7 +79,7 @@ public class Installer
 		DisTool.arrowCursor();
 		MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
 		dialog.setText("My info");
-		dialog.setMessage("Der Historyexporter wurde upgedated bitte den Metatrader");
+		dialog.setMessage("The Historyexporter was updated, please restart all metatrader");
 		dialog.open();
 	}
 	
@@ -765,38 +765,53 @@ public class Installer
 	
 	public void backup(Display dis, Brokerview brokerview)
 	{
-		FileAccessDyn fd = new FileAccessDyn();
-		// von den history.txt files wird ein backup angelegt
-		int anz = brokerview.getAnz();
+		copy(new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml"),new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml.backup"),0);
+		copy(new File(Rootpath.getRootpath() + "\\data\\tradeliste.xml"),new File(Rootpath.getRootpath() + "\\data\\tradeliste.xml.backup"),0);
+		copy(new File(Rootpath.getRootpath() + "\\data\\ealiste.xml"),new File(Rootpath.getRootpath() + "\\data\\ealiste.xml.backup"),0);
 		
-		if (anz == 0)
-		{
-			MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
-			dialog.setText("Backup error");
-			dialog.setMessage("no data for backup, please reloadAllData");
-			dialog.open();
-			return;
-		}
-		
-		for (int i = 0; i < anz; i++)
-		{
-			// holt sich eine config für den metatrader
-			Metaconfig meconf = brokerview.getElem(i);
-			
-			String zielshare = meconf.getFiledata();
-			String quellfile = zielshare + "//history.txt";
-			String backupfile = zielshare + "//history_" + Tools.entferneZeit(Tools.get_aktdatetime_str()) + ".txt";
-			
-			// Kopiere den historyexporter
-			File qfile = new File(quellfile);
-			if (qfile.exists())
-				fd.copyFile2(quellfile, backupfile);
-			
-		}
 		MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
-		dialog.setText("My info");
-		dialog.setMessage("backup of history.txt ready");
+		dialog.setText("Backup");
+		dialog.setMessage("backup  ready");
 		dialog.open();
+	}
+	
+	public void restore(Display dis, Brokerview brokerview)
+	{
+		MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText("******** RESTORE *********");
+		dialog.setMessage("I will make an RESTORE of the datafiles");
+		dialog.open();
+		
+		
+		copy(new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml.backup"),new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml"),1);
+		copy(new File(Rootpath.getRootpath() + "\\data\\tradeliste.xml.backup"),new File(Rootpath.getRootpath() + "\\data\\tradeliste.xml"),1);
+		copy(new File(Rootpath.getRootpath() + "\\data\\ealiste.xml.backup"),new File(Rootpath.getRootpath() + "\\data\\ealiste.xml"),1);
+		
+		dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText("Restore");
+		dialog.setMessage("Restore ready I will Shutdown Monitortool, please restart it");
+		dialog.open();
+		System.exit(99);
+	}
+	private void copy(File fsrc, File fdst,int lencheck)
+	{
+		//if lencheck==1
+		//die quelllänge sollte wesentlich länger sein als die Ziellänge
+		//es wird ja ein backup zurückgespielt
+		//quellänge sollte > ziellänge/2 sein
+		
+		if(lencheck==1)
+		{
+			if(fsrc.length()<fdst.length()/2)
+			  Tracer.WriteTrace(10, "E:restore:backtup src<"+fsrc.getAbsolutePath()+"> dst<"+fdst.getAbsolutePath()+">");
+			
+		}
+		
+		if(fdst.exists())
+			if(fdst.delete()==false)
+				Tracer.WriteTrace(10, "E:backup:cant delete file <"+fdst.getAbsolutePath()+">");
+		if(FileAccess.copyFile(fsrc.getAbsolutePath(), fdst.getAbsolutePath())==false)
+			Tracer.WriteTrace(10, "E:backup: cant copy file from <"+fsrc.getAbsolutePath()+"> to <"+fdst.getAbsolutePath()+">");
 	}
 	
 	public void transfer(Display dis, Brokerview brokerview)
