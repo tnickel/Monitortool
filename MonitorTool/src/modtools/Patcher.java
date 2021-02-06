@@ -35,7 +35,7 @@ public class Patcher
 				isSq4x = 1;
 				Tracer.WriteTrace(20, "I: this mal4 file is 'SQ version 3.9/4.X' <"+fnam+">");
 			}
-			else if (checkKeyword("EA Studio Expert Advisor") == true)
+			else if ((checkKeyword("EA Studio Expert Advisor") == true)||(checkKeyword("Robot Factory Expert Advisor") == true))
 			{
 				isSq4x = 2;
 				Tracer.WriteTrace(20, "I: this mql4 file is 'EA Studio Expert Advisor' <"+fnam+">");
@@ -223,7 +223,7 @@ public class Patcher
 				}
 		}
 		
-		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen advariables--> stop");
+		Tracer.WriteTrace(10, "Error: 'SQ3' kann zeilenspeicher nicht hinzufuegen advariables--> stop");
 	}
 	protected void addVariablesSq4()
 	{
@@ -239,13 +239,14 @@ public class Patcher
 					 return;
 				}
 		}
-		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+		Tracer.WriteTrace(10, "Error: 'SQ4' kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
 	}
 	
 	protected void addVariablesExpertStudio()
 	{
 		int anz = zeilenspeicher.length;
 		String keyword="bool     setProtectionSeparately=false;";
+		               
 		for (int i = 0; i < anz; i++)
 		{
 			String zeile = zeilenspeicher[i];
@@ -256,7 +257,7 @@ public class Patcher
 					 return;
 				}
 		}
-		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+		Tracer.WriteTrace(10, "Error: 'ExpertStudio' kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
 	}
 	protected void addVariablesExpertStudioPortfolio()
 	{
@@ -274,7 +275,7 @@ public class Patcher
 				}
 		}
 		
-		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+		Tracer.WriteTrace(10, "Error: 'ExpertStudioPortfolio'kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
 	}
 	
 	protected void addVariablesFSB()
@@ -291,7 +292,7 @@ public class Patcher
 					 return;
 				}
 		}
-		Tracer.WriteTrace(10, "Error: kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+		Tracer.WriteTrace(10, "Error: 'FSB' kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
 	}
 	
 	public void setLotsize_depricated(String lotsize)
