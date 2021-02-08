@@ -40,6 +40,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	boolean insttickdataexporter = false;
 	boolean insthistoryexporter = true;
 	boolean instmyfxbookea = false;
+	boolean insttradecopy=true;
 	int brokerid = 909;
 	private Magiclist maglist = null;
 	private String metaversion = "";
@@ -123,6 +124,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 				earenametext = SG.nteilstring(zeile, "#", 20);
 			if (trennanz > 21)
 				useearenametextflag = SG.get_zahl(SG.nteilstring(zeile, "#", 21));
+			
 			
 			initmagiclist();
 			//processkennung immer löschen
@@ -351,6 +353,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setInsthistoryexporter(boolean insthistoryexporter)
 	{
 		this.insthistoryexporter = insthistoryexporter;
+	}
+
+	public boolean isInsttradecopy()
+	{
+		return insttradecopy;
+	}
+
+	public void setInsttradecopy(boolean insttradecopy)
+	{
+		this.insttradecopy = insttradecopy;
 	}
 
 	public int getBrokerid()

@@ -104,7 +104,31 @@ public class Installer
 		profiler.checkDoubleEa("historyexporter", metaconf.getExpertdata());
 		Tracer.WriteTrace(20, "I: special profile2");
 	}
-	
+	private void copyTradecopy(Metaconfig metaconf)
+	{
+		FileAccessDyn  fd= new FileAccessDyn();
+		
+		String _quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
+		String _quelle2 = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
+		//String chr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\tradecopysender.chr";
+		
+		Tracer.WriteTrace(20,
+				"I: copy tradcopier from<" + _quelle+"> and <"+_quelle2+">  to<" + metaconf.getExpertdata() + ">");
+		
+		// Kopiere den Tradecopierer und Tradereceiver
+		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Receiver.ex4");
+		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Sender.ex4");
+		
+		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
+		
+		/*
+		Tracer.WriteTrace(20, "I: special profile1");
+		Profiler profiler = new Profiler(metaconf);
+		profiler.createSpecialProfile(histexporterchr_quelle, "historyexporter");
+		profiler.checkDoubleEa("historyexporter", metaconf.getExpertdata());
+		Tracer.WriteTrace(20, "I: special profile2");
+		*/
+	}
 	private void copyTickdataExporter(Metaconfig metaconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
@@ -127,16 +151,18 @@ public class Installer
 	{
 		FileAccessDyn fd = new FileAccessDyn();
 		String myfxbookea = Rootpath.getRootpath() + "\\install\\MT4_experts\\Myfxbook.ex4";
-		fd.copyFile2(myfxbookea, meconf.getExpertdata() + "//Myfxbook.ex4");
+		if(fd.copyFile2(myfxbookea, meconf.getExpertdata() + "\\Myfxbook.ex4")==false)
+			Tracer.WriteTrace(10, "E:cant copy myfxbook ea");
 		
-		String expertdll_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\libraries\\Myfxbook.dll";
+		String expertdll_quelle = Rootpath.getRootpath() + "\\install\\MT4_libraries\\Myfxbook.dll";
 		
 		Tracer.WriteTrace(20, "I: copy myfxbookea from<" + myfxbookea + "> to<" + meconf.getAppdata() + ">");
 		
 		// funktioniert nur noch mit mt600+
-		fd.copyFile2(expertdll_quelle, meconf.getMqldata() + "//libraries//Myfxbook.dll");
+		if(fd.copyFile2(expertdll_quelle, meconf.getMqldata() + "\\libraries\\Myfxbook.dll")==false)
+			Tracer.WriteTrace(10, "E:cant copy myfxbook.dll ");
 		
-		FileAccess.FileDelete(meconf.getMqldata() + "//libraries//mqlcache.dat", 1);
+		FileAccess.FileDelete(meconf.getMqldata() + "\\libraries\\mqlcache.dat", 1);
 		
 		// diese config muss mit password gepatched werden
 		InstalliereMyFxbookConfig(meconf);
@@ -431,8 +457,10 @@ public class Installer
 		// prüft nach ob myfxbook schon da ist
 		Profiler profiler = new Profiler(meconf);
 		if (profiler.getanzProfiles("myfxbook") > 0)
+		{
+			Tracer.WriteTrace(20, "I:myfxbook ea already configured for broker<"+meconf.getBrokername()+">");
 			return;
-		
+		}
 		// dann schreibe myfxbook.chr
 		MqlPatch mfx = new MqlPatch();
 		mfx.setFilename(cfg_quelle);
@@ -442,7 +470,7 @@ public class Installer
 		
 		// dann ein rename von myfxbook.chr nach chartXX.chr
 		File myfxbookname = new File(zielsharename);
-		File newname = new File(meconf.getAppdata() + "\\profiles\\default" + profiler.getFreeChartName());
+		File newname = new File(meconf.getAppdata() + "\\profiles\\default\\" + profiler.getFreeChartName());
 		myfxbookname.renameTo(newname);
 	}
 	
@@ -480,7 +508,9 @@ public class Installer
 			copyInstHistoryExporter(metaconfig);
 		
 		if (metaconfig.isInstmyfxbookea())
-			copyMyFxbookEa(metaconfig);
+					copyMyFxbookEa(metaconfig);
+		if(metaconfig.isInsttradecopy())
+				 	copyTradecopy(metaconfig);
 		
 		if (metaconfig.isInsttickdataexporter())
 			copyTickdataExporter(metaconfig);

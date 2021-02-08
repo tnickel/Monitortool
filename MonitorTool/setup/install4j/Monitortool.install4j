@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.9" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/MonitorTool/setup" />
-  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.489" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.490" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="58" />
@@ -168,6 +168,17 @@ return console.askOkCancel(message, true);
                     </object>
                   </property>
                   <property name="name" type="string">${compiler:sys.fullName}</property>
+                </serializedBean>
+                <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
+              </action>
+              <action id="157" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="file">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/taskkillallmetatrader.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">TaskkillAllMetatrader</property>
                 </serializedBean>
                 <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
               </action>

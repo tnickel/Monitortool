@@ -5,14 +5,17 @@ import gui.Mbox;
 import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tracer;
+import java.util.function.Consumer;
 import modtools.MetaStarter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -49,8 +52,7 @@ public class SwtEditBrokerConfig
 	
 	private Button insthistoryexporter;
 	private Text forexstrategytraderdir;
-	
-	private Button insttickdataexporter;
+
 	private Button button1realaccountsel;
 	private Group group1;
 	private Button button1activatefrequpdate;
@@ -60,6 +62,7 @@ public class SwtEditBrokerConfig
 	
 	private Text MqlQuellverzeichniss;
 	private Text text1earenametext;
+	private Button button1tradecopy;
 	private Button button1earename;
 	private Button button1HandInstalled;
 	
@@ -148,7 +151,7 @@ public class SwtEditBrokerConfig
 		{
 			SaveExit = new Button(sh, SWT.PUSH | SWT.CENTER);
 			SaveExit.setText("SaveConfig");
-			SaveExit.setBounds(821, 486, 210, 30);
+			SaveExit.setBounds(855, 495, 210, 30);
 			SaveExit.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -256,7 +259,7 @@ public class SwtEditBrokerConfig
 		{
 			init = new Button(sh, SWT.PUSH | SWT.CENTER);
 			init.setText("Init Metatrader");
-			init.setBounds(821, 437, 210, 33);
+			init.setBounds(806, 335, 210, 33);
 			init.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -264,17 +267,11 @@ public class SwtEditBrokerConfig
 				}
 			});
 		}
-		{
-			insttickdataexporter = new Button(sh, SWT.CHECK | SWT.LEFT);
-			insttickdataexporter.setText("InstTrickdataexporter");
-			insttickdataexporter.setBounds(821, 397, 182, 30);
-			insttickdataexporter.setSelection(me.isInsttickdataexporter());
-		}
 		
 		{
 			insthistoryexporter = new Button(sh, SWT.CHECK | SWT.LEFT);
 			insthistoryexporter.setText("InstHistoryexporter");
-			insthistoryexporter.setBounds(821, 369, 182, 30);
+			insthistoryexporter.setBounds(806, 295, 182, 30);
 			insthistoryexporter.setSelection(true);
 			
 			insthistoryexporter.setSelection(me.isInsthistoryexporter());
@@ -307,7 +304,7 @@ public class SwtEditBrokerConfig
 		{
 			button1instmyfxbookea = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1instmyfxbookea.setText("Inst MyFxbookEa");
-			button1instmyfxbookea.setBounds(821, 342, 168, 30);
+			button1instmyfxbookea.setBounds(806, 266, 168, 30);
 			button1instmyfxbookea.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -431,6 +428,18 @@ public class SwtEditBrokerConfig
 			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1realaccountsel.setText("RealAccount");
 			button1realaccountsel.setBounds(216, 3, 128, 30);
+		}
+		{
+			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1tradecopy.setText("Inst fxblue tradecopy");
+			button1tradecopy.setBounds(806, 240, 166, 30);
+			button1tradecopy.setSelection(true);
+			button1tradecopy.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelectedAdapter(Consumer evt) {
+					button1tradecopyWidgetSelectedAdapter(evt);
+				}
+				
+			});
 		}
 		build_combobox( combo1, bv);
 		sh.open();
@@ -578,7 +587,7 @@ public class SwtEditBrokerConfig
 			Tracer.WriteTrace(10, "Keine losize");
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 		
-		me_glob.setInsttickdataexporter(insttickdataexporter.getSelection());
+		
 		me_glob.setInsthistoryexporter(insthistoryexporter.getSelection());
 		
 		me_glob.setMagicliststring(magiclist.getText());
@@ -898,6 +907,11 @@ public class SwtEditBrokerConfig
 	private void combo1WidgetSelected(SelectionEvent evt) {
 		System.out.println("combo1.widgetSelected, event="+evt);
 		//build_combo1();
+	}
+	
+	private void button1tradecopyWidgetSelectedAdapter(Consumer evt) {
+		System.out.println("button1tradecopy.widgetSelectedAdapter, event="+evt);
+		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 	}
 
 }
