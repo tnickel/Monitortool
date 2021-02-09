@@ -215,9 +215,7 @@ public class Brokerview
 
 			if (metc.getBrokername().equalsIgnoreCase(brokername))
 			{
-				if (metc.getAccounttype() != 2)
-					Tracer.WriteTrace(10, "Error: kein realbroker <"
-							+ brokername + ">");
+				
 				// in appdata sind die metatrader-root verzeichnisse
 				return metc.getMqldata();
 			}

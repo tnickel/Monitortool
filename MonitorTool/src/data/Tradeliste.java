@@ -540,6 +540,7 @@ public class Tradeliste
 			{
 				tradeliste.remove(i);
 				anz--;
+				i--;
 			}
 			
 		}

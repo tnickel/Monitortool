@@ -821,7 +821,7 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
-		
+		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 		work.initMetatrader(me_glob);
 		Mbox.Infobox("Initialisation of metatrader <" + me_glob.getBrokername() + "> ready, please start metatrader");
 	}

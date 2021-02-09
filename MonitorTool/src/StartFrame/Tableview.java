@@ -1,21 +1,9 @@
 package StartFrame;
 
-import gui.Mbox;
-import hiflsklasse.FileAccess;
-import hiflsklasse.SG;
-import hiflsklasse.Swttool;
-import hiflsklasse.Tools;
-import hiflsklasse.Tracer;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import modtools.Networker;
-import montool.MonDia;
-import mtools.DisTool;
-import mtools.Mlist;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -31,6 +19,7 @@ import data.Ea;
 import data.EaStatus;
 import data.Ealiste;
 import data.HistoryExpired;
+import data.Historyexporter;
 import data.Marklines;
 import data.Metaconfig;
 import data.Profit;
@@ -41,6 +30,16 @@ import data.Trade;
 import data.Tradeanzahl;
 import data.Tradeliste;
 import filter.Tradefilter;
+import gui.Mbox;
+import hiflsklasse.FileAccess;
+import hiflsklasse.SG;
+import hiflsklasse.Swttool;
+import hiflsklasse.Tools;
+import hiflsklasse.Tracer;
+import modtools.Networker;
+import montool.MonDia;
+import mtools.DisTool;
+import mtools.Mlist;
 
 public class Tableview extends TableViewBasic
 {
@@ -1179,10 +1178,17 @@ public class Tableview extends TableViewBasic
 							+ prof.getGesgewinn() + ">");
 					continue;
 				}
-				//delete eas from filesystem
+				//delete eas from filesystem in the installdir and in the metatrader
 				deleteEaFilesystem(brokerview_glob, magic, prof.getBroker());
 				//delete eas from tradelist
 				tl.deleteMagic(magic, prof.getBroker());
+				
+				//delete ea-trades in historyexporter.txt
+				//die metatrader dürfen hier nicht laufen!!!
+				String historytxt=brokerview_glob.getMqlData(prof.getBroker())+"\\files\\history.txt";
+				Historyexporter h=new Historyexporter(historytxt);
+				h.deleteEa(String.valueOf(magic));
+				h.storeHistoryTxt();
 				delcounter++;
 			}
 		}
