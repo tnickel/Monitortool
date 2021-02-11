@@ -80,6 +80,11 @@ public class Metaconfig implements Comparable<Metaconfig>
 	//hiermit wird das earename ein/ausgeschaltet
 	private int useearenametextflag=0;
 	
+	private int usemyfxbookflag=0;
+	private int usetradecopyflag=0;
+	private int usefxblueflag=0;
+	private String histexportcurrency="EURUSD";
+	
 	public Metaconfig(String mname)
 	{
 		String zeile = new String(mname);
@@ -124,7 +129,14 @@ public class Metaconfig implements Comparable<Metaconfig>
 				earenametext = SG.nteilstring(zeile, "#", 20);
 			if (trennanz > 21)
 				useearenametextflag = SG.get_zahl(SG.nteilstring(zeile, "#", 21));
-			
+			if (trennanz > 22)
+				usemyfxbookflag = SG.get_zahl(SG.nteilstring(zeile, "#", 22));
+			if (trennanz > 23)
+				usetradecopyflag = SG.get_zahl(SG.nteilstring(zeile, "#", 23));
+			if (trennanz > 24)
+				usefxblueflag = SG.get_zahl(SG.nteilstring(zeile, "#", 24));
+			if (trennanz > 25)
+				histexportcurrency = SG.nteilstring(zeile, "#", 25);
 			
 			initmagiclist();
 			//processkennung immer löschen
@@ -396,16 +408,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 		initmagiclist();
 	}
 
-	public boolean isInstmyfxbookea()
-	{
-		return instmyfxbookea;
-	}
-
-	public void setInstmyfxbookea(boolean instmyfxbookea)
-	{
-		this.instmyfxbookea = instmyfxbookea;
-	}
-
+	
 	public String getAppdata()
 	{
 		return Appdata;
@@ -514,6 +517,46 @@ public class Metaconfig implements Comparable<Metaconfig>
 	protected void setUseearenametextflag(int useearenametextflag)
 	{
 		this.useearenametextflag = useearenametextflag;
+	}
+
+	public int getUsemyfxbookflag()
+	{
+		return usemyfxbookflag;
+	}
+
+	public void setUsemyfxbookflag(int usemyfxbookflag)
+	{
+		this.usemyfxbookflag = usemyfxbookflag;
+	}
+
+	public int getUsetradecopyflag()
+	{
+		return usetradecopyflag;
+	}
+
+	public void setUsetradecopyflag(int usetradecopyflag)
+	{
+		this.usetradecopyflag = usetradecopyflag;
+	}
+
+	public int getUsefxblueflag()
+	{
+		return usefxblueflag;
+	}
+
+	public void setUsefxblueflag(int usefxblueflag)
+	{
+		this.usefxblueflag = usefxblueflag;
+	}
+
+	public String getHistexportcurrency()
+	{
+		return histexportcurrency;
+	}
+
+	public void setHistexportcurrency(String histexportcurrency)
+	{
+		this.histexportcurrency = histexportcurrency;
 	}
 
 	public String getInitMetaversion()

@@ -62,6 +62,7 @@ public class SwtEditBrokerConfig
 	
 	private Text MqlQuellverzeichniss;
 	private Text text1earenametext;
+	private Text text1currencypair;
 	private Button button1tradecopy;
 	private Button button1earename;
 	private Button button1HandInstalled;
@@ -305,6 +306,10 @@ public class SwtEditBrokerConfig
 			button1instmyfxbookea = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1instmyfxbookea.setText("Inst MyFxbookEa");
 			button1instmyfxbookea.setBounds(806, 266, 168, 30);
+			if(me_glob.getUsemyfxbookflag()==1)
+			  button1instmyfxbookea.setSelection(true);
+			else
+				button1instmyfxbookea.setSelection(false);	
 			button1instmyfxbookea.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -433,13 +438,25 @@ public class SwtEditBrokerConfig
 			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1tradecopy.setText("Inst fxblue tradecopy");
 			button1tradecopy.setBounds(806, 240, 166, 30);
-			button1tradecopy.setSelection(true);
+			button1tradecopy.setSelection(me_glob.isInsttradecopy());
 			button1tradecopy.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelectedAdapter(Consumer evt) {
-					button1tradecopyWidgetSelectedAdapter(evt);
-				}
+				
 				
 			});
+		}
+		{
+			text1currencypair = new Text(sh, SWT.NONE);
+			if(me_glob.getHistexportcurrency()!=null)
+			  text1currencypair.setText(me_glob.getHistexportcurrency());
+			else
+				text1currencypair.setText("EURUSD");
+			text1currencypair.setBounds(803, 214, 70, 30);
+		}
+		{
+			label1 = new Label(sh, SWT.NONE);
+			label1.setText("use currency pair");
+			label1.setBounds(879, 214, 137, 30);
+			label1.setToolTipText("The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 		}
 		build_combobox( combo1, bv);
 		sh.open();
@@ -589,8 +606,18 @@ public class SwtEditBrokerConfig
 		
 		
 		me_glob.setInsthistoryexporter(insthistoryexporter.getSelection());
-		
 		me_glob.setMagicliststring(magiclist.getText());
+		me_glob.setHistexportcurrency(text1currencypair.getText());
+
+		if(button1instmyfxbookea.getSelection()==true)
+		me_glob.setUsemyfxbookflag(1);
+		else
+			me_glob.setUsemyfxbookflag(0);
+		
+		if(button1tradecopy.getSelection()==true)
+				me_glob.setUsefxblueflag(1);
+		else
+			me_glob.setUsefxblueflag(0);
 		
 		return true;
 	}
@@ -840,7 +867,10 @@ public class SwtEditBrokerConfig
 	{
 		System.out.println("button1instmyfxbookea.widgetSelected, event=" + evt);
 		// TODO add your code for button1instmyfxbookea.widgetSelected
-		me_glob.setInstmyfxbookea(button1instmyfxbookea.getSelection());
+		if(button1instmyfxbookea.getSelection()==true)
+		me_glob.setUsemyfxbookflag(1);
+		else
+			me_glob.setUsemyfxbookflag(0);
 	}
 	
 	private void button1setMqlDirWidgetSelected(SelectionEvent evt)

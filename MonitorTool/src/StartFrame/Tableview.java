@@ -211,7 +211,7 @@ public class Tableview extends TableViewBasic
 
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
-		if (tf_glob.isLoadexpired()==true)
+		 if (tf_glob.isLoadexpired()==true)
 		{
 			String fna = filedata + "\\history_expset_";
 			File hist_exp_f = new File(fna);
@@ -226,7 +226,7 @@ public class Tableview extends TableViewBasic
 						normflag, mc, tf_glob);
 			}
 		}
-
+	 
 		// lade die transfer
 		if (new File(fnam5).exists() == true)
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag,
@@ -244,6 +244,7 @@ public class Tableview extends TableViewBasic
 		mc.setDatumDesErstenTrades(maxdate);
 
 		// prüft ob die gültigkeitstage bald ablaufen
+		/*
 		int alter = Tools.getDateInt(maxdate, Tools.get_aktdatetime_str());
 		if (alter > mc.getValiditydays() - 5)
 		{
@@ -260,6 +261,7 @@ public class Tableview extends TableViewBasic
 			if (mc.getWarningflag() == 1)
 				mc.setWarningflag(0);
 		}
+		*/
 	}
 
 	public void ShowTradeTable(Display dis, Table table, String brokername,

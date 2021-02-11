@@ -598,7 +598,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				loadexpiredhistoryLData.height = 20;
 				loadexpiredhistory.setLayoutData(loadexpiredhistoryLData);
 				loadexpiredhistory.setText("load expired history");
-				loadexpiredhistory.setSelection(true);
 				loadexpiredhistory.addSelectionListener(new SelectionAdapter()
 				{
 					public void widgetSelected(SelectionEvent evt)
@@ -1003,7 +1002,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				forgetoldeasLData.height = 24;
 				forgetoldeas.setLayoutData(forgetoldeasLData);
 				forgetoldeas.setText("forget old ea");
-				forgetoldeas.setSelection(true);
+				forgetoldeas.setSelection(false);
 			}
 			{
 				label4 = new Label(this, SWT.NONE);
@@ -2120,7 +2119,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("settradefilter.widgetSelected, event=" + evt);
 		// set Tradfilter button gedrückt
 		smw.TradefilterConfig(tf);
-		tradefilter.setSelection(true);
 
 	}
 

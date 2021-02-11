@@ -1204,6 +1204,9 @@ public class FileAccess
 		i1.close();
 		i2.close();
 
+		if(new File(filename).exists())
+			new File(filename).delete();
+		
 		copyFile(zielfiletmp, filename);
 		FileAccess.FileDelete(zielfiletmp, 0);
 	}

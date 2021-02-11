@@ -472,6 +472,10 @@ public class Installer
 		File myfxbookname = new File(zielsharename);
 		File newname = new File(meconf.getAppdata() + "\\profiles\\default\\" + profiler.getFreeChartName());
 		myfxbookname.renameTo(newname);
+		
+		//dann patche noch das currencypair
+		String histcurrencystring=meconf.getHistexportcurrency();
+		FileAccess.FileReplaceString(newname.getAbsolutePath(), "symbol=EURUSD", "symbol="+histcurrencystring);
 	}
 	
 	public void InstallMetatraderDemoEaFiles(Display dis, ProgressBar progressBar1, String mqlquellverz,
@@ -507,7 +511,7 @@ public class Installer
 		if (metaconfig.isInsthistoryexporter())
 			copyInstHistoryExporter(metaconfig);
 		
-		if (metaconfig.isInstmyfxbookea())
+		if (metaconfig.getUsemyfxbookflag()==1)
 					copyMyFxbookEa(metaconfig);
 		if(metaconfig.isInsttradecopy())
 				 	copyTradecopy(metaconfig);

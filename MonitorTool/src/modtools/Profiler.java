@@ -148,7 +148,10 @@ public class Profiler
 		// historyexporter oder tickdataexporter
 		// falls das profile schon da ist
 		if (getanzProfiles(expertname) >0)
+		{
+			Tracer.WriteTrace(20, "W:Profile for expert already exists, I don´t create profile for ea <"+expertname+">");
 			return;
+		}
 		// den namen des Zielfile ermitteln
 		String zielfile = meconf_glob.getAppdata() + "\\profiles\\default\\"
 				+ getFreeChartName();
@@ -156,17 +159,9 @@ public class Profiler
 		
 		//das spezielle profile muss noch modifziert werden bzgl. cur postfix
 		
-		
-		String cpostfix=meconf_glob.getCurpostfix();
-		if(cpostfix!=null)
-		{
-			if(expertname.contains("historyexporter")==true)
-				FileAccess.FileReplaceString(zielfile,"symbol=EURUSD", "symbol=EURUSD"+cpostfix);
-			else if(expertname.contains("myfxbook")==true)
-				Tracer.WriteTrace(10, "replace keyword for myfxbook not implemented");
-			
-		}
-		
+
+		String histcurrencystring=meconf_glob.getHistexportcurrency();
+		FileAccess.FileReplaceString(zielfile,"symbol=EURUSD", "symbol="+histcurrencystring);
 	}
 	public void checkDoubleEa( String expertname,String path)
 	{
