@@ -103,7 +103,55 @@ public class Profiler
 		return countprofiles;
 
 	}
+	public int delProfiles(String eaname)
+	{
+		// falls das profile dienen eanamen beinhaltet wird es gelöscht
+		// es wird gezählt wieviel mal das gemacht wurde
+		
+		//beispiel: eaname=historyexporter
+		//hier wird geschaut ob der historyexporter schon konfiguriert ist.
+		String profiledir = getprofiledir();
+		int countprofiles=0;
+		
+		if(profiledir==null)
+			Mbox.Infobox("profiledir ==null");
+		
+		FileAccessDyn fa = new FileAccessDyn();
+		fa.initFileSystemList(profiledir, 1);
+		int anz = fa.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			//holt ein profilenamen
+			String profilename = profiledir + "\\" + fa.holeFileSystemName();
+			File ffnam= new File(profilename);
+			if(ffnam.exists()==false)
+			{
+				Mbox.Infobox("profile not exists <"+ffnam.getAbsoluteFile()+">");
+				continue;
+			}
+			if(ffnam.length()<5)
+			{
+				Tracer.WriteTrace(20, "profile bad <"+ffnam.getAbsoluteFile()+">");
+				continue;
+			}
+			
+			Inf inf = new Inf();
+			inf.setFilename(profilename);
+			
+			//Tracer.WriteTrace(20, "I: checkprofile index<"+i+">");
+			String mem = inf.readMemFile(2500);
+			inf.close();
+			if (mem.toLowerCase().contains("name=" + eaname.toLowerCase()))
+			{
+				File fnam=new File(profilename);
+				if(fnam.delete()==false)
+					Tracer.WriteTrace(10, "E:delProfiles:cant del file <"+eaname+">");
+				countprofiles++;
+			}
+		}
+		return countprofiles;
 
+	}
 	public int getFreeChartNumber()
 	{
 		// rückgabe : free number
@@ -173,7 +221,14 @@ public class Profiler
 			Mbox.Infobox("W: Ea<"+expertname+"> more than once installation #=<"+anz+">, please delete some in path<"+path+">");
 		}
 	}
-
+	public void deleteAllProfiles( String expertname,String path)
+	{
+		//es werden alle profiles für den expertnamen gelöscht
+		
+	
+		int anz=delProfiles(expertname);
+		Tracer.WriteTrace(20, "I:delete #profiles=<"+anz+"> for expertname<"+expertname+">");
+	}
 	public void createProfile(MqlPatch mqlpatch, String quelle, Ea ea,Metaconfig meconf)
 	{
 		// hier wird das profile.chr in Metaroot/profiles/default geschrieben

@@ -31,6 +31,7 @@ import data.GlobalVar;
 import data.Metaconfig;
 import data.Profit;
 import data.Rootpath;
+import datefunkt.Mondate;
 
 public class Installer
 {
@@ -95,11 +96,11 @@ public class Installer
 		
 		// Kopiere den historyexporter
 		fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq4");
-		
 		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 		
 		Tracer.WriteTrace(20, "I: special profile1");
 		Profiler profiler = new Profiler(metaconf);
+		profiler.deleteAllProfiles("historyexporter", metaconf.getExpertdata());
 		profiler.createSpecialProfile(histexporterchr_quelle, "historyexporter");
 		profiler.checkDoubleEa("historyexporter", metaconf.getExpertdata());
 		Tracer.WriteTrace(20, "I: special profile2");
@@ -110,6 +111,7 @@ public class Installer
 		
 		String _quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
 		String _quelle2 = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
+		
 		//String chr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\tradecopysender.chr";
 		
 		Tracer.WriteTrace(20,
@@ -121,12 +123,16 @@ public class Installer
 		
 		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 		
-		/*
-		Tracer.WriteTrace(20, "I: special profile1");
+		/* das .chr file wird hier nicht aktiviert
+		Tracer.WriteTrace(20, "I: init TradeCopy");
 		Profiler profiler = new Profiler(metaconf);
-		profiler.createSpecialProfile(histexporterchr_quelle, "historyexporter");
-		profiler.checkDoubleEa("historyexporter", metaconf.getExpertdata());
-		Tracer.WriteTrace(20, "I: special profile2");
+		//falls automaticaccount
+		if(metaconf.getAccounttype()!=2)
+		{
+			profiler.deleteAllProfiles("FX Blue - TradeCopy Sender", metaconf.getExpertdata());
+			profiler.createSpecialProfile(_quelle.replace(".ex4", "arg1), "FX Blue - TradeCopy Sender");
+			Tracer.WriteTrace(20, "I: write profile for sender");
+		}
 		*/
 	}
 	private void copyTickdataExporter(Metaconfig metaconf)
@@ -166,6 +172,7 @@ public class Installer
 		
 		// diese config muss mit password gepatched werden
 		InstalliereMyFxbookConfig(meconf);
+		
 	}
 	
 	private void copyMonitorlib(Metaconfig meconf)
@@ -456,6 +463,7 @@ public class Installer
 		
 		// prüft nach ob myfxbook schon da ist
 		Profiler profiler = new Profiler(meconf);
+		profiler.delProfiles("myfxbook");
 		if (profiler.getanzProfiles("myfxbook") > 0)
 		{
 			Tracer.WriteTrace(20, "I:myfxbook ea already configured for broker<"+meconf.getBrokername()+">");
@@ -476,6 +484,8 @@ public class Installer
 		//dann patche noch das currencypair
 		String histcurrencystring=meconf.getHistexportcurrency();
 		FileAccess.FileReplaceString(newname.getAbsolutePath(), "symbol=EURUSD", "symbol="+histcurrencystring);
+	
+		
 	}
 	
 	public void InstallMetatraderDemoEaFiles(Display dis, ProgressBar progressBar1, String mqlquellverz,
@@ -510,12 +520,10 @@ public class Installer
 		
 		if (metaconfig.isInsthistoryexporter())
 			copyInstHistoryExporter(metaconfig);
-		
 		if (metaconfig.getUsemyfxbookflag()==1)
 					copyMyFxbookEa(metaconfig);
 		if(metaconfig.isInsttradecopy())
 				 	copyTradecopy(metaconfig);
-		
 		if (metaconfig.isInsttickdataexporter())
 			copyTickdataExporter(metaconfig);
 		
@@ -524,6 +532,9 @@ public class Installer
 		copyMonitorlib(metaconfig);
 		kopiereIndikatoren(metaconfig);
 		metaconfig.setInstallationstatus(1);
+		
+		setFridayend(metaconfig,metaconfig.getClosefridayflag());
+			
 	}
 	
 	public void InstallMetatraderRealEaFiles(Display dis, ProgressBar progressBar1, String mqlquellverz,
@@ -541,6 +552,30 @@ public class Installer
 		
 		ready(dis);
 		return;
+	}
+	
+	public void setFridayend(Metaconfig meconf,int val)
+	{
+		String path=meconf.getMqldata();
+		File fend=new File(path+"\\files\\fridayend.txt");
+		
+		//falls abschaltund an und es wird aber aus gefordert, dann lösche
+		if((fend.exists()==true)&& (val==0))
+		{
+			if(fend.delete()==false)
+				Tracer.WriteTrace(10, "E:cant delete file <"+fend.getPath()+">");
+			return;
+		}//falls abschaltung aus, aber an ist gefordert
+		else if((fend.exists()==false)&& (val==1))
+		{
+			Inf inf=new Inf();
+			inf.setFilename(fend.getAbsolutePath());
+			inf.writezeile("swith on "+Mondate.getAktDate());
+			inf.close();
+			return;
+		}
+		return;
+		  
 	}
 	
 	public void cleanRealAccount(Display dis, ProgressBar progressBar1, String mqlquellverz, Metaconfig metaconfig_real,

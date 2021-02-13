@@ -84,6 +84,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int usetradecopyflag=0;
 	private int usefxblueflag=0;
 	private String histexportcurrency="EURUSD";
+	private int closefridayflag=0;
 	
 	public Metaconfig(String mname)
 	{
@@ -137,7 +138,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 				usefxblueflag = SG.get_zahl(SG.nteilstring(zeile, "#", 24));
 			if (trennanz > 25)
 				histexportcurrency = SG.nteilstring(zeile, "#", 25);
-			
+			if (trennanz > 26)
+				closefridayflag = SG.get_zahl(SG.nteilstring(zeile, "#", 25));
 			initmagiclist();
 			//processkennung immer löschen
 			processkennung=null;
@@ -557,6 +559,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setHistexportcurrency(String histexportcurrency)
 	{
 		this.histexportcurrency = histexportcurrency;
+	}
+
+	public int getClosefridayflag()
+	{
+		return closefridayflag;
+	}
+
+	public void setClosefridayflag(int closefridayflag)
+	{
+		this.closefridayflag = closefridayflag;
 	}
 
 	public String getInitMetaversion()

@@ -13,6 +13,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -54,17 +56,18 @@ public class SwtEditBrokerConfig
 	private Text forexstrategytraderdir;
 
 	private Button button1realaccountsel;
-	private Group group1;
 	private Button button1activatefrequpdate;
-	private Button button1freqentlyupdate;
-	private Text text1frequentlyupdate;
 	private Button init;
 	
 	private Text MqlQuellverzeichniss;
-	private Text text1earenametext;
+	private Button button1closealltradesonfriday;
+	private Composite composite2;
+	private Composite composite1;
+	private Button button1setupdatedir;
+	private Text text1setfilenamerename;
+	private Text text1setupdatedir;
 	private Text text1currencypair;
 	private Button button1tradecopy;
-	private Button button1earename;
 	private Button button1HandInstalled;
 	
 	private Text infostring;
@@ -76,10 +79,7 @@ public class SwtEditBrokerConfig
 	private Text description;
 	private Combo combo1;
 	private Button button1tradelotsize;
-	private Text text1money;
-	private Label label10;
-	private Text text1mqlversion;
-	private Label label9;
+	
 	private Text text1mqldir;
 	private Button button1instmyfxbookea;
 	private Button button1usemagiclist;
@@ -125,7 +125,7 @@ public class SwtEditBrokerConfig
 			return;
 		}
 		sh.pack();
-		sh.setSize(1116, 637);
+		sh.setSize(1218, 762);
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("Brokername e.g. (Alpari1)");
@@ -152,7 +152,7 @@ public class SwtEditBrokerConfig
 		{
 			SaveExit = new Button(sh, SWT.PUSH | SWT.CENTER);
 			SaveExit.setText("SaveConfig");
-			SaveExit.setBounds(855, 495, 210, 30);
+			SaveExit.setBounds(969, 641, 210, 30);
 			SaveExit.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -161,23 +161,13 @@ public class SwtEditBrokerConfig
 			});
 			
 		}
-		{
-			Monitoraccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
-			Monitoraccountflag.setText("MonitorAccount");
-			Monitoraccountflag.setBounds(7, 3, 167, 30);
-			Monitoraccountflag.setVisible(false);
-			Monitoraccountflag.setSelection(true);
-			Monitoraccountflag.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					DemoaccountflagWidgetSelected(evt);
-				}
-			});
-		}
+		
 		{
 			GbAutomaticaccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
 			GbAutomaticaccountflag.setText("GB_AutomaticAccount");
 			GbAutomaticaccountflag.setBounds(8, 3, 189, 30);
+			
+				
 			GbAutomaticaccountflag.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -200,7 +190,7 @@ public class SwtEditBrokerConfig
 		{
 			installEas = new Button(sh, SWT.PUSH | SWT.CENTER | SWT.BORDER);
 			installEas.setText("INSTALL All EAs on (Demo/Real)Account");
-			installEas.setBounds(7, 437, 337, 48);
+			installEas.setBounds(12, 623, 337, 48);
 			installEas.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -222,11 +212,11 @@ public class SwtEditBrokerConfig
 		}
 		{
 			progressBar1 = new ProgressBar(sh, SWT.NONE);
-			progressBar1.setBounds(7, 537, 1058, 23);
+			progressBar1.setBounds(12, 683, 1167, 23);
 		}
 		{
 			lotsize = new Text(sh, SWT.BORDER);
-			lotsize.setBounds(935, 12, 60, 30);
+			lotsize.setBounds(1130, 12, 60, 30);
 			
 			if (me_glob.getLotsize() != 0)
 				lotsize.setText(String.valueOf(me_glob.getLotsize()));
@@ -260,7 +250,7 @@ public class SwtEditBrokerConfig
 		{
 			init = new Button(sh, SWT.PUSH | SWT.CENTER);
 			init.setText("Init Metatrader");
-			init.setBounds(806, 335, 210, 33);
+			init.setBounds(806, 365, 210, 33);
 			init.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -274,7 +264,6 @@ public class SwtEditBrokerConfig
 			insthistoryexporter.setText("InstHistoryexporter");
 			insthistoryexporter.setBounds(806, 295, 182, 30);
 			insthistoryexporter.setSelection(true);
-			
 			insthistoryexporter.setSelection(me.isInsthistoryexporter());
 		}
 		
@@ -326,17 +315,11 @@ public class SwtEditBrokerConfig
 			if (me_glob.getMqldata() != null)
 				text1mqldir.setText(me_glob.getMqldata());
 		}
-		{
-			label9 = new Label(sh, SWT.NONE);
-			label9.setText("You can only install GeneticBuilderEAs (www.strategyquant.com)");
-			label9.setBounds(6, 491, 347, 20);
-			label9.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
-		}
 		
 		{
 			button1tradelotsize = new Button(sh, SWT.RADIO | SWT.LEFT);
 			button1tradelotsize.setText("trade lotsize");
-			button1tradelotsize.setBounds(806, 12, 123, 30);
+			button1tradelotsize.setBounds(995, 12, 123, 30);
 			button1tradelotsize.setSelection(true);
 		}
 		{
@@ -354,31 +337,9 @@ public class SwtEditBrokerConfig
 			});
 		}
 		{
-			text1frequentlyupdate = new Text(sh, SWT.NONE);
-			text1frequentlyupdate.setBounds(12, 360, 512, 30);
-			text1frequentlyupdate.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					text1frequentlyupdateWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			button1freqentlyupdate = new Button(sh, SWT.PUSH | SWT.CENTER);
-			button1freqentlyupdate.setText("set frequently update dir");
-			button1freqentlyupdate.setBounds(536, 360, 179, 30);
-			button1freqentlyupdate.setEnabled(false);
-			button1freqentlyupdate.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1freqentlyupdateWidgetSelected(evt);
-				}
-			});
-		}
-		{
 			button1activatefrequpdate = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1activatefrequpdate.setText("activate frequently EA upate");
-			button1activatefrequpdate.setBounds(503, 407, 217, 30);
+			button1activatefrequpdate.setBounds(552, 466, 179, 30);
 			button1activatefrequpdate.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -387,42 +348,9 @@ public class SwtEditBrokerConfig
 			});
 		}
 		{
-			group1 = new Group(sh, SWT.NONE);
-			GridLayout group1Layout = new GridLayout();
-			group1Layout.makeColumnsEqualWidth = true;
-			group1.setLayout(group1Layout);
-			group1.setText("frequently update");
-			group1.setBounds(7, 335, 720, 66);
-			group1.setEnabled(false);
-		}
-		{
-			button1earename = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1earename.setText("EA name modifikation");
-			button1earename.setBounds(800, 167, 195, 30);
-			button1earename.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1earenameWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			text1earenametext = new Text(sh, SWT.BORDER);
-			text1earenametext.setBounds(800, 133, 195, 30);
-			text1earenametext.setEditable(false);
-			text1earenametext.setToolTipText(
-					"Set Ea prefix text. For example the ea have the name \"EA Studio Ethereum H1 57911257.mq4\" but you need the name \"Q55  ETHUSD H1 57911257.mq4\" you should set \"Q55 ETHUSD H1\" in the EA name modifikation Box.");
-			text1earenametext.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					text1earenametextWidgetSelected(evt);
-				}
-			});
-		}
-		{
 			combo1 = new Combo(sh, SWT.NONE);
 			combo1.setText("select realaccount");
-			combo1.setBounds(547, 39, 206, 28);
+			combo1.setBounds(806, 90, 206, 23);
 			combo1.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					combo1WidgetSelected(evt);
@@ -433,16 +361,18 @@ public class SwtEditBrokerConfig
 			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1realaccountsel.setText("RealAccount");
 			button1realaccountsel.setBounds(216, 3, 128, 30);
+			button1realaccountsel.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					button1realaccountselWidgetSelected(evt);
+				}
+			});
 		}
 		{
 			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1tradecopy.setText("Inst fxblue tradecopy");
 			button1tradecopy.setBounds(806, 240, 166, 30);
 			button1tradecopy.setSelection(me_glob.isInsttradecopy());
-			button1tradecopy.addSelectionListener(new SelectionAdapter() {
-				
-				
-			});
+			
 		}
 		{
 			text1currencypair = new Text(sh, SWT.NONE);
@@ -450,7 +380,7 @@ public class SwtEditBrokerConfig
 			  text1currencypair.setText(me_glob.getHistexportcurrency());
 			else
 				text1currencypair.setText("EURUSD");
-			text1currencypair.setBounds(803, 214, 70, 30);
+			text1currencypair.setBounds(803, 214, 70, 26);
 		}
 		{
 			label1 = new Label(sh, SWT.NONE);
@@ -458,11 +388,53 @@ public class SwtEditBrokerConfig
 			label1.setBounds(879, 214, 137, 30);
 			label1.setToolTipText("The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 		}
+		{
+			text1setupdatedir = new Text(sh, SWT.BORDER);
+			text1setupdatedir.setText("set updatedir");
+			text1setupdatedir.setBounds(12, 391, 519, 30);
+		}
+		{
+			text1setfilenamerename = new Text(sh, SWT.BORDER);
+			text1setfilenamerename.setText("set filenamerename");
+			text1setfilenamerename.setBounds(12, 433, 254, 30);
+		}
+		{
+			button1setupdatedir = new Button(sh, SWT.PUSH | SWT.CENTER);
+			button1setupdatedir.setText("set updatedir");
+			button1setupdatedir.setBounds(537, 391, 190, 30);
+		}
+		{
+			composite1 = new Composite(sh, SWT.BORDER);
+			GridLayout composite1Layout = new GridLayout();
+			composite1Layout.makeColumnsEqualWidth = true;
+			composite1.setLayout(composite1Layout);
+			composite1.setBounds(7, 365, 724, 101);
+		}
+		{
+			composite2 = new Composite(sh, SWT.BORDER);
+			GridLayout composite2Layout = new GridLayout();
+			composite2Layout.makeColumnsEqualWidth = true;
+			composite2.setLayout(composite2Layout);
+			composite2.setBounds(5, 216, 726, 142);
+		}
+		{
+			button1closealltradesonfriday = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1closealltradesonfriday.setText("close all trades on friday");
+			button1closealltradesonfriday.setBounds(806, 322, 152, 30);
+			button1closealltradesonfriday.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					button1closealltradesonfridayWidgetSelected(evt);
+				}
+			});
+			if(me_glob.getClosefridayflag()==1)
+				button1closealltradesonfriday.setSelection(true);
+		}
 		build_combobox( combo1, bv);
 		sh.open();
+		init();
 		refreshbuttons();
 		
-		initLic();
+	
 		
 		while ((!sh.isDisposed()) && (exitflag == 0))
 		{
@@ -475,27 +447,35 @@ public class SwtEditBrokerConfig
 		// sh.close();
 	}
 	
-	private void initLic()
+	private void init()
 	{
+		text1setupdatedir.setEnabled(false);
+		text1setupdatedir.setEditable(false);
+		text1setfilenamerename.setEnabled(false);
+		text1setfilenamerename.setEditable(false);
+		button1setupdatedir.setEnabled(false);
 		
+		if(me_glob.getAccounttype()==1)
+			GbAutomaticaccountflag.setSelection(true);
+		else
+			button1realaccountsel.setSelection(true);
 	}
 	
 	private void refreshbuttons()
 	{
 		int type = me_glob.getAccounttype();
-		
-		Monitoraccountflag.setSelection(false);
-		GbAutomaticaccountflag.setSelection(true);
-		
-		if (type == 0)
-			Monitoraccountflag.setSelection(true);
-		else if (type == 1)
+	
+		if (type == 1)
+		{
 			GbAutomaticaccountflag.setSelection(true);
+			button1realaccountsel.setSelection(false);
+		}
+		else if(type==2)
+		{
+			GbAutomaticaccountflag.setSelection(false);
+			button1realaccountsel.setSelection(true);
+		}
 		
-		if (me_glob.getOnlyhandinstalled() == 1)
-			button1HandInstalled.setSelection(true);
-		else
-			button1HandInstalled.setSelection(false);
 		
 		if (me_glob.getLotsize() != 0)
 			lotsize.setText(String.valueOf(me_glob.getLotsize()));
@@ -503,17 +483,11 @@ public class SwtEditBrokerConfig
 			lotsize.setText("0.01");
 		lotsize.setVisible(true);
 		
-		Swttool.wupdate(dis_glob);
-		
-		// brokerid
-		
-		label9.setVisible(true);
-		text1frequentlyupdate.setEditable(false);
-		// qellverztextfeld
+
 		
 		Swttool.wupdate(dis_glob);
 		
-		initLic();
+		
 	}
 	
 	private void build_combobox(Combo combo1, Brokerview bv)
@@ -592,14 +566,7 @@ public class SwtEditBrokerConfig
 		me_glob.setValiditydays(90);
 		me_glob.setStoretrades(true);
 		
-		if (me_glob.getAccounttype() != 2)
-		{
-			if (Monitoraccountflag.getSelection() == true)
-				me_glob.setAccounttype(0);
-			else if (GbAutomaticaccountflag.getSelection() == true)
-				me_glob.setAccounttype(1);
-			
-		}
+		
 		if (lotsize.getText() == null)
 			Tracer.WriteTrace(10, "Keine losize");
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
@@ -638,6 +605,7 @@ public class SwtEditBrokerConfig
 		
 		bv_glob.SaveBrokerTable();
 		
+		
 		exitflag = 1;
 		dis_glob.getActiveShell().dispose();
 		return;
@@ -666,15 +634,7 @@ public class SwtEditBrokerConfig
 		refreshbuttons();
 	}
 	
-	private void AutoDemoaccountWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("AutoDemoaccount.widgetSelected, event=" + evt);
-		me_glob.setAccounttype(1);
-		Monitoraccountflag.setSelection(false);
-		GbAutomaticaccountflag.setSelection(true);
-		button1HandInstalled.setSelection(false);
-		refreshbuttons();
-	}
+	
 	
 	private boolean installEasWidgetSelected(SelectionEvent evt)
 	{
@@ -848,6 +808,9 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
+		MetaStarter.KillAllMetatrader();
+		meRefreshConfig();
+		me_glob.setHistexportcurrency(text1currencypair.getText());
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 		work.initMetatrader(me_glob);
 		Mbox.Infobox("Initialisation of metatrader <" + me_glob.getBrokername() + "> ready, please start metatrader");
@@ -915,9 +878,11 @@ public class SwtEditBrokerConfig
 		
 		Boolean val = button1activatefrequpdate.getSelection();
 		
-		text1frequentlyupdate.setEnabled(val);
-		text1frequentlyupdate.setEditable(val);
-		button1freqentlyupdate.setEnabled(val);
+		text1setupdatedir.setEnabled(val);
+		text1setupdatedir.setEditable(val);
+		text1setfilenamerename.setEnabled(val);
+		text1setfilenamerename.setEditable(val);
+		button1setupdatedir.setEnabled(val);
 		
 	}
 	
@@ -930,8 +895,7 @@ public class SwtEditBrokerConfig
 	private void button1earenameWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1earename.widgetSelected, event=" + evt);
-		Boolean val=button1earename.getSelection();
-		text1earenametext.setEnabled(val);
+	
 	}
 	
 	private void combo1WidgetSelected(SelectionEvent evt) {
@@ -942,6 +906,33 @@ public class SwtEditBrokerConfig
 	private void button1tradecopyWidgetSelectedAdapter(Consumer evt) {
 		System.out.println("button1tradecopy.widgetSelectedAdapter, event="+evt);
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
+	}
+	
+	private void button1setupdatedirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1setupdatedir.widgetSelected, event="+evt);
+		//TODO add your code for button1setupdatedir.widgetSelected
+	}
+	
+	private void button1closealltradesonfridayWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1closealltradesonfriday.widgetSelected, event="+evt);
+		Boolean v=button1closealltradesonfriday.getSelection();
+
+		if(v==true)
+		me_glob.setClosefridayflag(1);
+		else
+			me_glob.setClosefridayflag(0);
+		
+	}
+	private void AutoDemoaccountWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("AutoDemoaccount.widgetSelected, event=" + evt);
+		me_glob.setAccounttype(1);
+		refreshbuttons();
+	}
+	private void button1realaccountselWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1realaccountsel.widgetSelected, event="+evt);
+		me_glob.setAccounttype(2);
+		refreshbuttons();
 	}
 
 }
