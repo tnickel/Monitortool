@@ -57,9 +57,10 @@ public class SwtEditBrokerConfig
 
 	private Button button1realaccountsel;
 	private Button button1activatefrequpdate;
-	private Button init;
-	
+
 	private Text MqlQuellverzeichniss;
+	private Label label3;
+	private Button button1showonlyinstalledeas;
 	private Button button1closealltradesonfriday;
 	private Composite composite2;
 	private Composite composite1;
@@ -164,8 +165,8 @@ public class SwtEditBrokerConfig
 		
 		{
 			GbAutomaticaccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
-			GbAutomaticaccountflag.setText("GB_AutomaticAccount");
-			GbAutomaticaccountflag.setBounds(8, 3, 189, 30);
+			GbAutomaticaccountflag.setText("DemoAccount");
+			GbAutomaticaccountflag.setBounds(8, 3, 215, 30);
 			
 				
 			GbAutomaticaccountflag.addSelectionListener(new SelectionAdapter() {
@@ -247,17 +248,6 @@ public class SwtEditBrokerConfig
 			});
 		}
 		
-		{
-			init = new Button(sh, SWT.PUSH | SWT.CENTER);
-			init.setText("Init Metatrader");
-			init.setBounds(806, 365, 210, 33);
-			init.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					initWidgetSelected(evt);
-				}
-			});
-		}
 		
 		{
 			insthistoryexporter = new Button(sh, SWT.CHECK | SWT.LEFT);
@@ -319,7 +309,7 @@ public class SwtEditBrokerConfig
 		{
 			button1tradelotsize = new Button(sh, SWT.RADIO | SWT.LEFT);
 			button1tradelotsize.setText("trade lotsize");
-			button1tradelotsize.setBounds(995, 12, 123, 30);
+			button1tradelotsize.setBounds(974, 12, 123, 30);
 			button1tradelotsize.setSelection(true);
 		}
 		{
@@ -338,8 +328,8 @@ public class SwtEditBrokerConfig
 		}
 		{
 			button1activatefrequpdate = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1activatefrequpdate.setText("activate frequently EA upate");
-			button1activatefrequpdate.setBounds(552, 466, 179, 30);
+			button1activatefrequpdate.setText("activate frequently EA update");
+			button1activatefrequpdate.setBounds(467, 472, 264, 30);
 			button1activatefrequpdate.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -350,7 +340,7 @@ public class SwtEditBrokerConfig
 		{
 			combo1 = new Combo(sh, SWT.NONE);
 			combo1.setText("select realaccount");
-			combo1.setBounds(806, 90, 206, 23);
+			combo1.setBounds(800, 130, 322, 33);
 			combo1.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					combo1WidgetSelected(evt);
@@ -360,7 +350,7 @@ public class SwtEditBrokerConfig
 		{
 			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1realaccountsel.setText("RealAccount");
-			button1realaccountsel.setBounds(216, 3, 128, 30);
+			button1realaccountsel.setBounds(251, 3, 128, 30);
 			button1realaccountsel.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					button1realaccountselWidgetSelected(evt);
@@ -370,7 +360,7 @@ public class SwtEditBrokerConfig
 		{
 			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1tradecopy.setText("Inst fxblue tradecopy");
-			button1tradecopy.setBounds(806, 240, 166, 30);
+			button1tradecopy.setBounds(806, 240, 225, 30);
 			button1tradecopy.setSelection(me_glob.isInsttradecopy());
 			
 		}
@@ -380,12 +370,12 @@ public class SwtEditBrokerConfig
 			  text1currencypair.setText(me_glob.getHistexportcurrency());
 			else
 				text1currencypair.setText("EURUSD");
-			text1currencypair.setBounds(803, 214, 70, 26);
+			text1currencypair.setBounds(803, 214, 94, 26);
 		}
 		{
 			label1 = new Label(sh, SWT.NONE);
 			label1.setText("use currency pair");
-			label1.setBounds(879, 214, 137, 30);
+			label1.setBounds(904, 214, 137, 30);
 			label1.setToolTipText("The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 		}
 		{
@@ -420,7 +410,7 @@ public class SwtEditBrokerConfig
 		{
 			button1closealltradesonfriday = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1closealltradesonfriday.setText("close all trades on friday");
-			button1closealltradesonfriday.setBounds(806, 322, 152, 30);
+			button1closealltradesonfriday.setBounds(806, 322, 239, 30);
 			button1closealltradesonfriday.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					button1closealltradesonfridayWidgetSelected(evt);
@@ -429,9 +419,21 @@ public class SwtEditBrokerConfig
 			if(me_glob.getClosefridayflag()==1)
 				button1closealltradesonfriday.setSelection(true);
 		}
-		build_combobox( combo1, bv);
+		{
+			button1showonlyinstalledeas = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1showonlyinstalledeas.setText("show only installed EAs");
+			button1showonlyinstalledeas.setBounds(806, 352, 225, 30);
+			if(me_glob.getShowOnlyInstalledEas()==1)
+				button1showonlyinstalledeas.setSelection(true);
+		}
+		{
+			label3 = new Label(sh, SWT.NONE);
+			label3.setText("Connect Demoaccount with Realaccount");
+			label3.setBounds(800, 95, 384, 30);
+		}
+		
 		sh.open();
-		init();
+		initBrokereditM();
 		refreshbuttons();
 		
 	
@@ -445,10 +447,14 @@ public class SwtEditBrokerConfig
 			}
 		}
 		// sh.close();
+		
 	}
 	
-	private void init()
+	
+	
+	private void refreshbuttons()
 	{
+		build_combobox( combo1, bv_glob);
 		text1setupdatedir.setEnabled(false);
 		text1setupdatedir.setEditable(false);
 		text1setfilenamerename.setEnabled(false);
@@ -456,25 +462,17 @@ public class SwtEditBrokerConfig
 		button1setupdatedir.setEnabled(false);
 		
 		if(me_glob.getAccounttype()==1)
-			GbAutomaticaccountflag.setSelection(true);
+		{
+			
+			setDemoaccount();
+		}
 		else
-			button1realaccountsel.setSelection(true);
-	}
-	
-	private void refreshbuttons()
-	{
-		int type = me_glob.getAccounttype();
-	
-		if (type == 1)
 		{
-			GbAutomaticaccountflag.setSelection(true);
-			button1realaccountsel.setSelection(false);
+			setRealaccount();
 		}
-		else if(type==2)
-		{
-			GbAutomaticaccountflag.setSelection(false);
-			button1realaccountsel.setSelection(true);
-		}
+		
+		
+		
 		
 		
 		if (me_glob.getLotsize() != 0)
@@ -492,6 +490,7 @@ public class SwtEditBrokerConfig
 	
 	private void build_combobox(Combo combo1, Brokerview bv)
 	{
+		
 		// den configurierten Broker setzen
 		String selbroker = me_glob.getconnectedBroker();
 		
@@ -560,9 +559,13 @@ public class SwtEditBrokerConfig
 						+ "> dont´t have mql-files please set correct EA sourcedir");
 				return false;
 			}
-			
 		}
-		
+		String conbroker =combo1.getText();
+		me_glob.setconnectedBroker(conbroker);		
+		return true;
+	}
+	void initBrokereditM()
+	{
 		me_glob.setValiditydays(90);
 		me_glob.setStoretrades(true);
 		
@@ -586,9 +589,12 @@ public class SwtEditBrokerConfig
 		else
 			me_glob.setUsefxblueflag(0);
 		
-		return true;
+		if(button1showonlyinstalledeas.getSelection()==true)
+			me_glob.setShowOnlyInstalledEas(1);
+		else
+			me_glob.setShowOnlyInstalledEas(0);
+		
 	}
-	
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{
 		boolean ausgang = false;
@@ -598,6 +604,19 @@ public class SwtEditBrokerConfig
 		if (ausgang == false)
 			return;
 		
+		//init metatrader
+		if (MtRoot == null)
+		{
+			Mbox.Infobox("No Metatraderdir");
+			return;
+		}
+		MetaStarter.KillAllMetatrader();
+		meRefreshConfig();
+		me_glob.setHistexportcurrency(text1currencypair.getText());
+		me_glob.setInsttradecopy(button1tradecopy.getSelection());
+		work.initMetatrader(me_glob);
+		
+	
 		// hier wird die ganze Brokerconfig abgespeichert
 		
 		if (newflag_glob == 1)
@@ -926,13 +945,27 @@ public class SwtEditBrokerConfig
 	private void AutoDemoaccountWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("AutoDemoaccount.widgetSelected, event=" + evt);
+		setDemoaccount();
+	}
+	private void setDemoaccount()
+	{
 		me_glob.setAccounttype(1);
-		refreshbuttons();
+		GbAutomaticaccountflag.setSelection(true);
+		button1realaccountsel.setSelection(false);
+		combo1.setEnabled(true);
+		
 	}
 	private void button1realaccountselWidgetSelected(SelectionEvent evt) {
 		System.out.println("button1realaccountsel.widgetSelected, event="+evt);
+		setRealaccount();
+	}
+	private void setRealaccount()
+	{
 		me_glob.setAccounttype(2);
-		refreshbuttons();
+		GbAutomaticaccountflag.setSelection(false);
+		button1realaccountsel.setSelection(true);
+		combo1.setEnabled(false);
+		
 	}
 
 }

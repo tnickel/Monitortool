@@ -85,6 +85,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int usefxblueflag=0;
 	private String histexportcurrency="EURUSD";
 	private int closefridayflag=0;
+	private int showonlyinstalledeas=0;
 	
 	public Metaconfig(String mname)
 	{
@@ -139,7 +140,9 @@ public class Metaconfig implements Comparable<Metaconfig>
 			if (trennanz > 25)
 				histexportcurrency = SG.nteilstring(zeile, "#", 25);
 			if (trennanz > 26)
-				closefridayflag = SG.get_zahl(SG.nteilstring(zeile, "#", 25));
+				closefridayflag = SG.get_zahl(SG.nteilstring(zeile, "#", 26));
+			if(trennanz>27)
+				showonlyinstalledeas=SG.get_zahl(SG.nteilstring(zeile, "#", 27));
 			initmagiclist();
 			//processkennung immer löschen
 			processkennung=null;
@@ -569,6 +572,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setClosefridayflag(int closefridayflag)
 	{
 		this.closefridayflag = closefridayflag;
+	}
+
+	public int getShowOnlyInstalledEas()
+	{
+		return showonlyinstalledeas;
+	}
+
+	public void setShowOnlyInstalledEas(int showonlyinstalledeas)
+	{
+		this.showonlyinstalledeas = showonlyinstalledeas;
 	}
 
 	public String getInitMetaversion()

@@ -111,7 +111,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button tradefilter;
 	private Button loadexpiredhistory;
 	private Button comparetradelist;
-	private Button setinstfrom;
 	private Button searchbutton;
 	private Text search;
 	private Button showonofflog;
@@ -121,8 +120,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button configea;
 	private Button showbroker;
 	private Button sync;
-	private Button installautoea;
-	private Button automaticOnOff;
 	private Button manualonoff;
 	private Button loop;
 	private Text intervall;
@@ -624,23 +621,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 			{
-				setinstfrom = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData setinstfromLData = new FormData();
-				setinstfromLData.left =  new FormAttachment(0, 1000, 673);
-				setinstfromLData.top =  new FormAttachment(0, 1000, 747);
-				setinstfromLData.width = 207;
-				setinstfromLData.height = 30;
-				setinstfrom.setLayoutData(setinstfromLData);
-				setinstfrom.setText("set instfrom");
-				setinstfrom.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						setinstfromWidgetSelected(evt);
-					}
-				});
-			}
-			{
 				searchbutton = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2LData = new FormData();
 				button2LData.left =  new FormAttachment(0, 1000, 1082);
@@ -820,40 +800,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 			{
-				installautoea = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData installautoeaLData = new FormData();
-				installautoeaLData.left =  new FormAttachment(0, 1000, 673);
-				installautoeaLData.top =  new FormAttachment(0, 1000, 642);
-				installautoeaLData.width = 207;
-				installautoeaLData.height = 30;
-				installautoea.setLayoutData(installautoeaLData);
-				installautoea.setText("install auto ea on realaccount");
-				installautoea.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						installautoeaWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				automaticOnOff = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData automaticOnOffLData = new FormData();
-				automaticOnOffLData.left =  new FormAttachment(0, 1000, 673);
-				automaticOnOffLData.top =  new FormAttachment(0, 1000, 676);
-				automaticOnOffLData.width = 207;
-				automaticOnOffLData.height = 30;
-				automaticOnOff.setLayoutData(automaticOnOffLData);
-				automaticOnOff.setText("toggle automatic On/Off");
-				automaticOnOff.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						automaticOnOffWidgetSelected(evt);
-					}
-				});
-			}
-			{
 				FormData progressBar2LData = new FormData();
 				progressBar2LData.left =  new FormAttachment(0, 1000, 1491);
 				progressBar2LData.top =  new FormAttachment(0, 1000, 27);
@@ -931,7 +877,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				manualonoffLData.width = 207;
 				manualonoffLData.height = 30;
 				manualonoff.setLayoutData(manualonoffLData);
-				manualonoff.setText("toggle EA On/Off");
+				manualonoff.setText("Tradecopy on/off");
 				manualonoff.addSelectionListener(new SelectionAdapter()
 				{
 					public void widgetSelected(SelectionEvent evt)
@@ -1493,10 +1439,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				loop.setVisible(false);
 				stop.setVisible(false);
-				installautoea.setVisible(false);
-				automaticOnOff.setVisible(false);
+				
 				manualonoff.setVisible(false);
-				setinstfrom.setVisible(false);
+				
 				configea.setVisible(false);
 				
 
@@ -1670,11 +1615,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		if (mode == 0)
 		{
 			// einige buttons ausschalten
-			installautoea.setEnabled(false);
-			automaticOnOff.setEnabled(false);
+			
 			manualonoff.setEnabled(false);
 			sync.setEnabled(true);
-			setinstfrom.setEnabled(false);
+			
 			configea.setEnabled(false);
 			
 		}
@@ -1684,23 +1628,13 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			// buttons wieder einschalten
 
 			toggleallprofits.setEnabled(true);
-			installautoea.setEnabled(true);
-			automaticOnOff.setEnabled(true);
+			
 			manualonoff.setEnabled(true);
 			sync.setEnabled(false);
 
 			configea.setEnabled(true);
 
-			// falls realbroker
-			if (smw.isSelectedBroker(2) == true)
-			{
-				
-				setinstfrom.setEnabled(true);
-			} else
-			{
-				
-				setinstfrom.setEnabled(false);
-			}
+			
 
 			
 		}

@@ -2,6 +2,7 @@ package data;
 
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
 import hiflsklasse.Viewer;
 
 import java.io.File;
@@ -441,7 +442,20 @@ public class Ea implements Comparable<Ea>
 		}
 		return filename;
 	}
+	public Boolean checkIfInstalled(Metaconfig meconf)
+	{
+			String fnam=meconf.getMqldata()+"\\experts\\"+eafilename;
+			fnam=fnam.replace(".mq4", "");
+			fnam=fnam.replace(".", "");
+			fnam=fnam+".mq4";
+		
+			File eanam=new File(fnam);
+			if(eanam.exists()==false)
+				Tracer.WriteTrace(20, "I:EA <"+eanam.getAbsolutePath()+"> -> old trades of this ea, I don´t show this");
+			
+			return(eanam.exists());
 	
+	}
 	
 	public String getTradelogikinfo()
 	{

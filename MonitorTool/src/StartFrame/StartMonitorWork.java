@@ -514,11 +514,11 @@ public class StartMonitorWork
 		dialog.open();
 
 		// Ergebniss auswerten
-		String fnam = new String(dialog.getFilterPath() + "\\"
+		/*String fnam = new String(dialog.getFilterPath() + "\\"
 				+ dialog.getFileName());
 
 		SwtShowFile sf = new SwtShowFile();
-		sf.init(dis, fnam);
+		sf.init(dis, fnam);*/
 	}
 
 	public void initTargetBrokerCombo(Combo targetbroker)

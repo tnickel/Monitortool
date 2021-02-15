@@ -499,7 +499,7 @@ public class Installer
 		FileAccess.checkgenDirectory(mqlquellverz + "\\install");
 		
 		loescheAltes(mqlquellverz, metaconfig);
-		InitMetatrader(metaconfig, 1);
+		//InitMetatrader(metaconfig, 1); das wird beim save gemacht
 		kopiereEaSysteme(mqlquellverz, progressBar1, metaconfig, metarealconfig, "install", 0, eal, tv);
 		metaconfig.setInstallationstatus(1);
 		ready(dis);

@@ -349,7 +349,31 @@ public class Tableview extends TableViewBasic
 			if (ea.getInfo2() != null)
 				prof.setInfo2(ea.getInfo2());
 		}
+		
+		//show only EAs which are installed
+		anz = pl.getsize();
+		for (int i = 0; i < anz; i++)
+		{
+			Profit prof = pl.getelem(i);
+			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 
+			
+			brokername=prof.getBroker();
+			Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(brokername);
+			if(meconf.getShowOnlyInstalledEas()==1)
+		    	if((ea!=null)&&(ea.checkIfInstalled(meconf)==false))
+			{
+				// lösche eintrag da ea nicht installiert
+		    
+				pl.delelem(i);
+				i--;
+				anz--;
+			}
+
+			
+		}
+		
+	
 		// die EAliste um die neuen EAs erweitern erweiten
 		eal.expand(pl);
 
@@ -397,14 +421,14 @@ public class Tableview extends TableViewBasic
 			Profit prof = pl.getelem(j);
 			if (pb != null)
 				pb.setSelection(j);
-
+				
 			gew10 = prof.getZehntagegewinn();
 			gew30 = prof.getDreizigtragegewinn();
 			gewall = prof.getGesgewinn();
-			
-			
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 
+			
+			
 			String comment = prof.getComment();// tl.getComment(prof.getMagic());
 
 			TableItem item = new TableItem(table, SWT.CHECK);

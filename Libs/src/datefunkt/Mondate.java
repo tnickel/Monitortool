@@ -90,6 +90,7 @@ public class Mondate
 		Date aktdate=(new Date());
 		long zeitdiff=Zeitdiff(filedate,aktdate);
 		int sekunden=(int)(zeitdiff);
+	
 		return sekunden;
 	}
 	
