@@ -236,7 +236,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.495");
+		return("Monitortool V0.496");
 	}
 	
 	public static String calcHeadline()
@@ -286,6 +286,14 @@ public class GlobalVar
 	{
 		
 		return(Rootpath.getRootpath());
+	}
+	public static int getLastcopytrademagic()
+	{
+		return(gc.getLastcopytrademagic());
+	}
+	public static void setLastcopytrademagic(int val)
+	{
+		gc.setLastcopytrademagic(val);
 	}
 	static public void save()
 	{

@@ -43,12 +43,12 @@ public class ProfitPanel
 		// die Preise im array eintragen
 
 		if(tl==null)
-			Mbox.Infobox("error tradeliste empty");
+			Mbox.Infobox("error tradeliste 02 empty");
 		
 		int anz = tl.getsize();
 
 		if(anz<=0)
-		Mbox.Infobox("Error tradelist empty size<"+anz+">");
+		Mbox.Infobox("Error tradelist empty 01 size<"+anz+">");
 		
 		// gesammtsumme der Gewinne in der graphik eintragen
 		for (int i = 0; i < anz; i++)

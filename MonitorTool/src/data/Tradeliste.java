@@ -1116,8 +1116,10 @@ public class Tradeliste
 		int anz = tradeliste.size();
 
 		if (anz == 0)
-			Mbox.Infobox("Error: tradelist empty");
-
+		{
+			//Mbox.Infobox("Error: tradelist empty 04");
+			return;
+		}
 		for (int i = 0; i < anz; i++)
 		{
 			Trade tr = tradeliste.get(i);
@@ -1160,7 +1162,7 @@ public class Tradeliste
 		int anz = tradeliste.size();
 
 		if (anz == 0)
-			Mbox.Infobox("Error: tradelist empty");
+			Mbox.Infobox("Error: tradelist empty 05");
 
 		for (int i = 0; i < anz; i++)
 		{

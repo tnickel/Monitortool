@@ -280,7 +280,19 @@ public class Ealiste
 		}
 		return null;
 	}
-
+ public ArrayList<Integer> getMagiclist(String broker)
+ {
+	 ArrayList<Integer> magiclist =new ArrayList<Integer>();
+	 int anz=ealiste.size();
+	 for(int i=0; i<anz; i++)
+	 {
+		 Ea ea=ealiste.get(i);
+		 if(ea.getBroker().equals(broker))
+			 magiclist.add(ea.getMagic());
+	 }
+	 return magiclist;
+	 
+ }
 	public Ea delEa(int magic, String broker)
 	{
 		if (ealiste == null)

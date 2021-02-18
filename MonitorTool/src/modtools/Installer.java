@@ -1,20 +1,8 @@
 package modtools;
 
-import gui.Mbox;
-import hiflsklasse.FileAccess;
-import hiflsklasse.Inf;
-import hiflsklasse.SG;
-import hiflsklasse.Tools;
-import hiflsklasse.Tracer;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import mqlLibs.eaclass;
-import mtools.DisTool;
-import mtools.MboxQuest;
-import mtools.Mlist;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -32,6 +20,15 @@ import data.Metaconfig;
 import data.Profit;
 import data.Rootpath;
 import datefunkt.Mondate;
+import gui.Mbox;
+import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
+import hiflsklasse.SG;
+import hiflsklasse.Tracer;
+import mqlLibs.eaclass;
+import mtools.DisTool;
+import mtools.MboxQuest;
+import mtools.Mlist;
 
 public class Installer
 {
@@ -105,36 +102,7 @@ public class Installer
 		profiler.checkDoubleEa("historyexporter", metaconf.getExpertdata());
 		Tracer.WriteTrace(20, "I: special profile2");
 	}
-	private void copyTradecopy(Metaconfig metaconf)
-	{
-		FileAccessDyn  fd= new FileAccessDyn();
-		
-		String _quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
-		String _quelle2 = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
-		
-		//String chr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\tradecopysender.chr";
-		
-		Tracer.WriteTrace(20,
-				"I: copy tradcopier from<" + _quelle+"> and <"+_quelle2+">  to<" + metaconf.getExpertdata() + ">");
-		
-		// Kopiere den Tradecopierer und Tradereceiver
-		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Receiver.ex4");
-		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Sender.ex4");
-		
-		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
-		
-		/* das .chr file wird hier nicht aktiviert
-		Tracer.WriteTrace(20, "I: init TradeCopy");
-		Profiler profiler = new Profiler(metaconf);
-		//falls automaticaccount
-		if(metaconf.getAccounttype()!=2)
-		{
-			profiler.deleteAllProfiles("FX Blue - TradeCopy Sender", metaconf.getExpertdata());
-			profiler.createSpecialProfile(_quelle.replace(".ex4", "arg1), "FX Blue - TradeCopy Sender");
-			Tracer.WriteTrace(20, "I: write profile for sender");
-		}
-		*/
-	}
+	
 	private void copyTickdataExporter(Metaconfig metaconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
@@ -1202,7 +1170,7 @@ public class Installer
 	
 	public void genNewMetatraderaccount(String mtroot)
 	{
-		Networker net = new Networker();
+		Networker_dep net = new Networker_dep();
 		net.genNewMetatraderaccount(mtroot);
 	}
 	
@@ -1249,5 +1217,57 @@ public class Installer
 		
 		return null;
 		
+	}
+	private void copyTradecopy(Metaconfig metaconf)
+	{
+		FileAccessDyn  fd= new FileAccessDyn();
+		
+		String _quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
+		String _quelle2 = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
+		
+		//String chr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\tradecopysender.chr";
+		
+		Tracer.WriteTrace(20,
+				"I: copy tradcopier from<" + _quelle+"> and <"+_quelle2+">  to<" + metaconf.getExpertdata() + ">");
+		
+		// Kopiere den Tradecopierer und Tradereceiver
+		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Receiver.ex4");
+		fd.copyFile2(_quelle, metaconf.getExpertdata() + "//FX Blue - TradeCopy Sender.ex4");
+		
+		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
+		
+		
+	}
+	public void copyTradecopyConf(String brokername,Metaconfig metaconf)
+	{
+		FileAccessDyn  fd= new FileAccessDyn();
+		String _quelleS = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopySender.chr";
+		String _quelleR = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopyReceiver.chr";
+		String quelle="";
+		String zielnam="";
+		
+		//demoaccount
+		if(metaconf.getAccounttype()==1)
+		{
+			quelle=_quelleS;
+			zielnam=metaconf.getNetworkshare_INSTALLDIR() + "\\profiles\\default\\TradeCopySender_"+brokername+".chr";
+			
+		}
+		else if(metaconf.getAccounttype()==2)
+		{   //realaccount
+			quelle=_quelleR;
+			zielnam=metaconf.getNetworkshare_INSTALLDIR() + "\\profiles\\default\\TradeCopyReceiver_"+brokername+".chr";
+			
+		}
+		
+		Tracer.WriteTrace(20,
+				  "I: copy tradcopier from<" + quelle+"> to<" + metaconf.getNetworkshare_INSTALLDIR() + "\\profiles" + ">");
+		// Kopiere den Tradecopierer und Tradereceiver
+		File fnam=new File(zielnam);
+		if(fnam.exists())
+			fnam.delete();
+		fd.copyFile2(quelle,zielnam);
+		// clean the cache
+		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 	}
 }

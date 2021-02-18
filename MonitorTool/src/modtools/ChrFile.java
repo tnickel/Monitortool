@@ -1,7 +1,9 @@
 package modtools;
 
+import java.util.ArrayList;
+
+import data.Ealiste;
 import gui.Mbox;
-import hiflsklasse.Tracer;
 
 public class ChrFile extends Patcher
 {
@@ -152,5 +154,44 @@ public class ChrFile extends Patcher
 		}
 		Mbox.Infobox("Can´t set yellowmessage ea=" + expertname);
 	}
-
+	
+	public void patchTradecopyMagics(String broker,Ealiste eal)
+	{
+		String patchstring="";
+		ArrayList<Integer> mlist=eal.getMagiclist(broker);
+		for(int i=0; i<mlist.size(); i++)
+		{
+			patchstring=patchstring+mlist.get(i)+",";
+		}
+		//patch magicnumbers
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("IncludeMagicNumbers=") == true) 
+			{
+				zeilenspeicher[i] = "IncludeMagicNumbers=" + patchstring;
+				return;
+			}
+		}
+		
+		
+	}
+	public void patchTradecopyChannel(String broker)
+	{
+		
+		//patch channel
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("Channel=") == true) 
+			{
+				zeilenspeicher[i] = "Channel=" + broker;
+				return;
+			}
+		}
+		
+		
+	}
 }

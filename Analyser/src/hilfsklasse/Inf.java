@@ -309,16 +309,18 @@ public class Inf
 	public Object loadXST()
 	{
 		Object temp = null;
+		BufferedReader reader=null;
 		File file = new File(filename_glob);
 		initStream();
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			temp = (Object) xstream.fromXML(reader);
+			reader = new BufferedReader(new FileReader(file));
+			temp = (XStream) xstream.fromXML(reader);
+			reader.close();
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-		}
+		} 
 		return temp;
 	}
 

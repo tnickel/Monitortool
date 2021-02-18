@@ -6,7 +6,7 @@ import hiflsklasse.Tools;
 
 import java.util.Date;
 
-import modtools.Networker;
+import modtools.Networker_dep;
 import mtools.Mlist;
 import StartFrame.Brokerview;
 import StartFrame.Tableview;
@@ -23,7 +23,7 @@ import datefunkt.Mondate;
 public class Tradelogic
 {
 	static private Brokerview brokerview_glob = null;
-	private static Networker networker = new Networker();
+	private static Networker_dep networker = new Networker_dep();
 	static private int swOnCounter = 0;
 	static private int swOffCounter = 0;
 

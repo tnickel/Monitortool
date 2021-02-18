@@ -36,7 +36,8 @@ import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
-import modtools.Networker;
+import modtools.Networker_dep;
+import modtools.Toogler;
 import montool.MonDia;
 import mtools.DisTool;
 import mtools.Mlist;
@@ -52,7 +53,7 @@ public class Tableview extends TableViewBasic
 	private HashSet<String> profitmenge = new HashSet<String>();
 	private Ealiste eal = new Ealiste();
 	private Brokerview brokerview_glob = new Brokerview();
-	private Networker networker_glob = new Networker();
+	private Networker_dep networker_glob = new Networker_dep();
 	private Table table2_glob = null;
 	private Tradefilter tf_glob = null;
 	private Display display_glob = null;
@@ -930,7 +931,7 @@ public class Tableview extends TableViewBasic
 
 			int magic = prof.getMagic();
 			String broker = prof.getBroker();
-			Networker net = new Networker();
+			Networker_dep net = new Networker_dep();
 
 			// holt den Status des Eas
 			EaStatus eastat = net.getEaStatus(brokerview_glob, magic, broker);
@@ -971,11 +972,10 @@ public class Tableview extends TableViewBasic
 
 	}
 
-	private void ToggleOnOffEa(int magic, String selbroker)
+	private void ToggleOnOffEa_dep(int magic, String selbroker)
 	{
 
 		// selbroker = selektierter broker
-
 		int ret = -1;
 		// den realbroker toggeln
 
@@ -987,7 +987,7 @@ public class Tableview extends TableViewBasic
 			realbroker = brokerview_glob.getConBroker(selbroker);
 			if (realbroker == null)
 			{
-				// einen demobroker kann man nicht ein ausschalten
+				// einen demobroker kann man nicht ein ausschalten der muss schon mit einem realbroker verbunden sein
 				Mbox.Infobox("no connected Realbroker for magic<" + magic
 						+ "> broker<" + selbroker + ">");
 				return;
@@ -1005,8 +1005,7 @@ public class Tableview extends TableViewBasic
 		// das flag auf demobroker umdrehen
 		eal.toggleOn(magic, demobroker);
 
-		// das flag auf realbroker umdrehen
-		ret = eal.toggleOn(magic, realbroker);
+		
 
 		// es gibt den falls das es für den realbroker keinen demobroker gibt
 		// Hier kann man trotzdem den realbroker ein/ausschalten
@@ -1108,6 +1107,9 @@ public class Tableview extends TableViewBasic
 
 	public void toggleOnOffEas()
 	{
+		Toogler tog=new Toogler();
+		
+		//hier werden den EA ein/ausgeschaltet
 		int anz = table2_glob.getItemCount();
 		for (int i = 0; i < anz; i++)
 		{
@@ -1121,8 +1123,8 @@ public class Tableview extends TableViewBasic
 				if (magic != prof.getMagic())
 					Tracer.WriteTrace(10, "internal magic<" + magic
 							+ "> != prof.magic<" + prof.getMagic() + ">");
-
-				ToggleOnOffEa(magic, prof.getBroker());
+				tog.ToggleOnOffEa(brokerview_glob, eal, magic, prof.getBroker());
+				
 			}
 		}
 	}

@@ -25,6 +25,7 @@ public class GlobVarDat
 	int autostartfeature=0;
 	int portableflag=0;
 	int askforupdate=1;
+	int lastcopytrademagic=100;
 	
 	public String getUsername()
 	{
@@ -201,6 +202,14 @@ public class GlobVarDat
 	public void setAskforupdate(int askforupdate)
 	{
 		this.askforupdate = askforupdate;
+	}
+	public int getLastcopytrademagic()
+	{
+		return lastcopytrademagic;
+	}
+	public void setLastcopytrademagic(int lastcopytrademagic)
+	{
+		this.lastcopytrademagic = lastcopytrademagic;
 	}
 	
 	

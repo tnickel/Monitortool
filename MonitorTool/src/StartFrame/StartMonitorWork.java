@@ -940,6 +940,9 @@ public class StartMonitorWork
 		double lenold=fnamold.length();
 		double lenfnam=fnam.length();
 		
+		if(lenfnam==0)
+			return;
+		
 		if(lenfnam>(lenold/2))
 		{ 
 			//das neue ist länger, dann ist alles ok

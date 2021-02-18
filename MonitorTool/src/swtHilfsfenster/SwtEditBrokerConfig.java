@@ -59,6 +59,8 @@ public class SwtEditBrokerConfig
 	private Button button1activatefrequpdate;
 
 	private Text MqlQuellverzeichniss;
+	private Text text1usemagic;
+	private Label label4;
 	private Label label3;
 	private Button button1showonlyinstalledeas;
 	private Button button1closealltradesonfriday;
@@ -126,7 +128,7 @@ public class SwtEditBrokerConfig
 			return;
 		}
 		sh.pack();
-		sh.setSize(1218, 762);
+		sh.setSize(1253, 784);
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("Brokername e.g. (Alpari1)");
@@ -340,7 +342,7 @@ public class SwtEditBrokerConfig
 		{
 			combo1 = new Combo(sh, SWT.NONE);
 			combo1.setText("select realaccount");
-			combo1.setBounds(800, 130, 322, 33);
+			combo1.setBounds(800, 130, 340, 33);
 			combo1.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					combo1WidgetSelected(evt);
@@ -360,7 +362,7 @@ public class SwtEditBrokerConfig
 		{
 			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1tradecopy.setText("Inst fxblue tradecopy");
-			button1tradecopy.setBounds(806, 240, 225, 30);
+			button1tradecopy.setBounds(806, 240, 213, 30);
 			button1tradecopy.setSelection(me_glob.isInsttradecopy());
 			
 		}
@@ -431,7 +433,20 @@ public class SwtEditBrokerConfig
 			label3.setText("Connect Demoaccount with Realaccount");
 			label3.setBounds(800, 95, 384, 30);
 		}
-		
+		{
+			label4 = new Label(sh, SWT.NONE);
+			label4.setText("use magic");
+			label4.setBounds(1125, 244, 94, 30);
+		}
+		{
+			text1usemagic = new Text(sh, SWT.BORDER);
+			text1usemagic.setText("0");
+			text1usemagic.setBounds(1018, 244, 101, 26);
+			text1usemagic.setEditable(false);
+			if(me_glob.getTradecopymagic()>0)
+				text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
+		}
+
 		sh.open();
 		initBrokereditM();
 		refreshbuttons();
@@ -615,6 +630,10 @@ public class SwtEditBrokerConfig
 		me_glob.setHistexportcurrency(text1currencypair.getText());
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 		work.initMetatrader(me_glob);
+		
+		//global config speichern
+		GlobalVar.setLastcopytrademagic(Integer.valueOf(text1usemagic.getText()));
+		GlobalVar.save();
 		
 	
 		// hier wird die ganze Brokerconfig abgespeichert
@@ -950,6 +969,18 @@ public class SwtEditBrokerConfig
 	private void setDemoaccount()
 	{
 		me_glob.setAccounttype(1);
+		text1usemagic.setEnabled(true);
+		int magic=me_glob.getTradecopymagic();
+		//if magic not set
+		if(magic==0)
+		{
+			//generiere neue magic
+			magic=GlobalVar.getLastcopytrademagic()+1;
+			GlobalVar.setLastcopytrademagic(magic);
+		}
+		
+		text1usemagic.setText(String.valueOf(magic));
+		me_glob.setTradecopymagic(magic);
 		GbAutomaticaccountflag.setSelection(true);
 		button1realaccountsel.setSelection(false);
 		combo1.setEnabled(true);
@@ -962,6 +993,10 @@ public class SwtEditBrokerConfig
 	private void setRealaccount()
 	{
 		me_glob.setAccounttype(2);
+		text1usemagic.setEnabled(false);
+		text1usemagic.setText("0");
+		
+		
 		GbAutomaticaccountflag.setSelection(false);
 		button1realaccountsel.setSelection(true);
 		combo1.setEnabled(false);

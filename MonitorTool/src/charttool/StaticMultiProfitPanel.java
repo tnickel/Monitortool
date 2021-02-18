@@ -85,7 +85,7 @@ public class StaticMultiProfitPanel
 			int anz = tl.getsize();
 
 			if (anz <= 0)
-				Mbox.Infobox("Error tradelist empty size<" + anz + ">");
+				Mbox.Infobox("Error tradelist empty 03 size<" + anz + ">");
 
 			// gesammtsumme der Gewinne in der graphik eintragen
 			for (int i = 0; i < anz; i++)

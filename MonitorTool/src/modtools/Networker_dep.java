@@ -13,11 +13,13 @@ import StartFrame.Brokerview;
 import data.EaStatus;
 import data.Metaconfig;
 
-public class Networker
+public class Networker_dep
 {
+	//wird nicht mehr benötigt da das ein ausschalten jetzt anderes gelöst wird
+	//das einausschalten wird jetzt mit Tradecopy gemacht
 	
 	//der Networker wird mit einer Semaphore geschützt
-	public Networker()
+	public Networker_dep()
 	{
 	}
 

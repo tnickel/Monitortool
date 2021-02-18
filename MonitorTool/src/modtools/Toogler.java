@@ -1,0 +1,49 @@
+package modtools;
+
+import StartFrame.Brokerview;
+import data.Ealiste;
+import data.Metaconfig;
+import gui.Mbox;
+import hiflsklasse.Tracer;
+
+public class Toogler
+{
+	public void ToggleOnOffEa(Brokerview brokerview, Ealiste eal, int magic, String selbroker)
+	{
+		
+		// selbroker = selektierter broker
+		// der selektierte broker ist ein Realbroker
+		if (brokerview.getAccounttype(selbroker) == 2)
+		{
+			Mbox.Infobox(
+					"Only on demoaccounts you can swith on/off eas magic<" + magic + "> broker<" + selbroker + ">");
+			return;
+			
+		}
+		//nur beim demobroker kann der EA ein/aus geschaltet werden
+		if (brokerview.getAccounttype(selbroker) == 1)
+		{
+			// Broker ist ein demobroker, dann hole den realbroker
+			Metaconfig mc = brokerview.getMetaconfigByBrokername(selbroker);
+			// den broker gibt es nicht mehr
+			if (mc == null)
+				Tracer.WriteTrace(10, "E:unknown broker<" + selbroker + ">");
+
+			//hier wird getoogled
+			int on=eal.getOn(magic, selbroker);
+			if(on==1)
+				eal.setOn(magic, selbroker, 0);
+			else
+				eal.setOn(magic, selbroker, 1);
+			
+			String realbroker = mc.getconnectedBroker();
+			TradeCopy trc=new TradeCopy();
+			//beim init werden die *.chr-files kopiert
+			trc.init(selbroker,realbroker,brokerview);
+
+			//trage die verbindungsdaten und die magics ein
+			trc.configProfiles(eal);
+		}
+		
+	}
+}
