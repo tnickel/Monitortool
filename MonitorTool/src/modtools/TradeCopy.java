@@ -34,19 +34,23 @@ public class TradeCopy
 		inst.copyTradecopyConf(selbroker,meconf_sel);
 		inst.copyTradecopyConf(realbroker,meconf_real);
 	}
-	public void configProfiles(Ealiste eal)
+	public void configProfiles(Brokerview bv,Ealiste eal)
 	{
 		//hier wird am demobroker gepatched
 		ChrFile chrdemo=new ChrFile();
 		chrdemo.setFilename(meconf_sel_glob.getNetworkshare_INSTALLDIR() + "\\profiles\\default\\TradeCopySender_"+selbroker_glob+".chr");
 		chrdemo.patchTradecopyMagics(selbroker_glob,eal);
 		chrdemo.patchTradecopyChannel(selbroker_glob);
+		chrdemo.patchCurPair(meconf_sel_glob.getHistexportcurrency());
 		chrdemo.writeMemFile(null);
+
 		//patchen am realborker config
 		ChrFile chrreal=new ChrFile();
 		chrreal.setFilename(meconf_real_glob.getNetworkshare_INSTALLDIR() + "\\profiles\\default\\TradeCopyReceiver_"+realbroker_glob+".chr");
-		chrdemo.patchTradecopyChannel(selbroker_glob);
-		chrdemo.writeMemFile(null);
+		chrreal.patchTradecopyChannel(selbroker_glob);
+		chrreal.patchReceiverMagic(meconf_sel_glob.getTradecopymagic());
+		chrdemo.patchCurPair(meconf_real_glob.getHistexportcurrency());
+		chrreal.writeMemFile(null);
 		
 	}
 }

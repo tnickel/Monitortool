@@ -42,7 +42,7 @@ public class Toogler
 			trc.init(selbroker,realbroker,brokerview);
 
 			//trage die verbindungsdaten und die magics ein
-			trc.configProfiles(eal);
+			trc.configProfiles(brokerview,eal);
 		}
 		
 	}

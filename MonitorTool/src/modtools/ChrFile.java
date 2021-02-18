@@ -161,7 +161,9 @@ public class ChrFile extends Patcher
 		ArrayList<Integer> mlist=eal.getMagiclist(broker);
 		for(int i=0; i<mlist.size(); i++)
 		{
-			patchstring=patchstring+mlist.get(i)+",";
+			int magic=mlist.get(i);
+			if(eal.getOn(magic, broker)==1)
+			  patchstring=patchstring+mlist.get(i)+",";
 		}
 		//patch magicnumbers
 		int anz = zeilenspeicher.length;
@@ -174,8 +176,34 @@ public class ChrFile extends Patcher
 				return;
 			}
 		}
-		
-		
+	}
+	public void patchReceiverMagic(int magic)
+	{
+		//patch magicnumber
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("MagicNumber=") == true) 
+			{
+				zeilenspeicher[i] = "MagicNumber=" + magic;
+				return;
+			}
+		}
+	}
+	public void patchCurPair(String currencypair)
+	{
+		//patch magicnumber
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("symbol=") == true) 
+			{
+				zeilenspeicher[i] = "symbol=" + currencypair;
+				return;
+			}
+		}
 	}
 	public void patchTradecopyChannel(String broker)
 	{
