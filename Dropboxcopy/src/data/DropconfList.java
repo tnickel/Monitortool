@@ -131,13 +131,16 @@ public class DropconfList
 		
 		//das alte löschen
 		if(fnamold.exists())
-			fnam.delete();
+			if(fnamold.delete()==false)
+				Tracer.WriteTrace(10, "12 Can´t delete file <"+fnamold+">");
 		
 		//*.xml nach *.old umbenennen
 		if(fnam.exists()==true)
-			fnam.renameTo(fnamold);
+			if(fnam.renameTo(fnamold)==false)
+				Tracer.WriteTrace(10, "13 Cant rename <"+fnam+">");
 		
 		
-		fnamtmp.renameTo(fnam);
+		if(fnamtmp.renameTo(fnam)==false)
+			Tracer.WriteTrace(10, "14: cant rename <"+fnamtmp+">");
 	}
 }

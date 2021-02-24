@@ -231,6 +231,7 @@ public class Brokerview
 		Color red = dis.getSystemColor(SWT.COLOR_RED);
 		Color yellow = dis.getSystemColor(SWT.COLOR_DARK_YELLOW);
 		Color blue = dis.getSystemColor(SWT.COLOR_BLUE);
+	
 		Color black =dis.getSystemColor(SWT.COLOR_BLACK);
 		Color cyan =dis.getSystemColor(SWT.COLOR_CYAN);
 		
@@ -258,8 +259,8 @@ public class Brokerview
 				item.setBackground(yellow);
 			else if (me.getWarningflag() == 1)
 				item.setBackground(red);
-			else if (me.getAccounttype() == 2)
-				item.setBackground(blue);
+			 else if (me.getAccounttype() == 2)
+				item.setBackground(blue); 
 
 			if (me.getMqldata() != null)
 				item.setText(0, String.valueOf(me.getMqldata()));
@@ -271,17 +272,8 @@ public class Brokerview
 			// status setzen
 			item.setText(2, getStatus(me, item, dis));
 
-			// calc remain time
-			int valdays = me.getValiditydays();
-			if (valdays < 100)
-			{
-				int alter = 0;
-				if (me.getDatumDesErstenTrades() != null)
-					alter = Tools.getDateInt(me.getDatumDesErstenTrades(),
-							Tools.get_aktdatetime_str());
-				item.setText(3, String.valueOf(valdays - alter));
-			} else
-				item.setText(3, "*");
+			
+			item.setText(3, "*");
 			item.setText(4, me.getAccounttypename());
 			
 			if(me.isRealbroker()==true)
@@ -382,13 +374,16 @@ public class Brokerview
 		{ 
 			//das neue ist länger, dann ist alles ok, das alte kann gelöscht werden
 			if (fnamold.exists())
-				fnamold.delete();
+				if(fnamold.delete()==false)
+					Tracer.WriteTrace(10, "E:postprocess:cant delete file <"+fnamold+">");
 			
 			// *.xml nach *.old umbenennen
 			if (fnam.exists() == true)
-				fnam.renameTo(fnamold);
+				if(fnam.renameTo(fnamold)==false)
+					Tracer.WriteTrace(10, "E:postprocess:cant rename file <"+fnam+">");
 
-			fnamtmp.renameTo(fnam);
+			if(fnamtmp.renameTo(fnam)==false)
+				Tracer.WriteTrace(10, "E:postprocess:cant rename file <"+fnam+">");
 		}
 		else
 		{
@@ -398,15 +393,15 @@ public class Brokerview
 			
 			//fnamtmp löschen
 			if((fnamtmp.exists())&&(fnamtmp.delete()==false))
-				Tracer.WriteTrace(10, "E:cant delete <"+fnamtmp.getAbsolutePath()+">");
+				Tracer.WriteTrace(10, "E:postprocess:cant delete <"+fnamtmp.getAbsolutePath()+">");
 
 			//das zielfile sollte nicht da sein
 			if((fnam.exists())&&(fnam.delete()==false))
-				Tracer.WriteTrace(10, "E:cant delete <"+fnamtmp.getAbsolutePath()+">");
+				Tracer.WriteTrace(10, "E:postprocess:cant delete <"+fnamtmp.getAbsolutePath()+">");
 			
 			//aus *.old wieder das zielfile herstellen
 			if(FileAccess.copyFile(fnamold.getAbsolutePath(), fnam.getAbsolutePath())==false)
-				Tracer.WriteTrace(10, "E:cant copy from<"+fnamold.getAbsolutePath()+"> to<"+fnam.getAbsolutePath()+">");
+				Tracer.WriteTrace(10, "E:postprocess:cant copy from<"+fnamold.getAbsolutePath()+"> to<"+fnam.getAbsolutePath()+">");
 			
 		}
 		

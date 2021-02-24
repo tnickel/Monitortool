@@ -236,7 +236,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.496");
+		return("Monitortool V0.499");
 	}
 	
 	public static String calcHeadline()

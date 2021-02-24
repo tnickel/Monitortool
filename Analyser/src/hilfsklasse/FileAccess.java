@@ -446,8 +446,8 @@ public class FileAccess
 		if (FileAccess.FileAvailable(newfilename) == true)
 			FileAccess.FileDelete(newfilename, 0);
 
-		fo1.renameTo(fo2);
-		return true;
+		return(fo1.renameTo(fo2));
+		
 	}
 
 	static private boolean FileAvailable_(String filename)

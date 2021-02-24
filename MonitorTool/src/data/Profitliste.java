@@ -95,13 +95,13 @@ public class Profitliste
 					p.setDreizigtragegewinn((float) gewinn30
 							+ (float) trade.getProfit());
 				}
-				// ist closetrade maximal 10 Tage alt
-				if (Tools.zeitdifferenz_tage(aktdatetime, closetime) < 10)
+				// ist closetrade maximal 7 Tage alt
+				if (Tools.zeitdifferenz_tage(aktdatetime, closetime) < 7)
 				{
-					int trades10 = p.getAnztradeslastzehn();
-					float gewinn10 = p.getZehntagegewinn();
-					p.setAnztradeslastzehn(trades10 + 1);
-					p.setZehntagegewinn((float) gewinn10
+					int trades7 = p.getAnztradeslastzehn();
+					float gewinn7 = p.getZehntagegewinn();
+					p.setAnztradeslastzehn(trades7 + 1);
+					p.setZehntagegewinn((float) gewinn7
 							+ (float) trade.getProfit());
 				}
 

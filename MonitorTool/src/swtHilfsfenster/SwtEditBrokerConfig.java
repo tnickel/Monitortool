@@ -581,7 +581,7 @@ public class SwtEditBrokerConfig
 	}
 	void initBrokereditM()
 	{
-		me_glob.setValiditydays(90);
+		me_glob.setValiditydays(999999);
 		me_glob.setStoretrades(true);
 		
 		
@@ -631,6 +631,12 @@ public class SwtEditBrokerConfig
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 		work.initMetatrader(me_glob);
 		
+		if(button1showonlyinstalledeas.getSelection()==true)
+			me_glob.setShowOnlyInstalledEas(1);
+		else
+			me_glob.setShowOnlyInstalledEas(0);
+		
+		
 		//global config speichern
 		GlobalVar.setLastcopytrademagic(Integer.valueOf(text1usemagic.getText()));
 		GlobalVar.save();
@@ -645,7 +651,8 @@ public class SwtEditBrokerConfig
 		
 		
 		exitflag = 1;
-		dis_glob.getActiveShell().dispose();
+		if(dis_glob.getActiveShell()!=null)
+		  dis_glob.getActiveShell().dispose();
 		return;
 	}
 	
@@ -982,6 +989,9 @@ public class SwtEditBrokerConfig
 		text1usemagic.setText(String.valueOf(magic));
 		me_glob.setTradecopymagic(magic);
 		GbAutomaticaccountflag.setSelection(true);
+		button1showonlyinstalledeas.setEnabled(true);
+		if(me_glob.getShowOnlyInstalledEas()==1)
+		button1showonlyinstalledeas.setSelection(true);
 		button1realaccountsel.setSelection(false);
 		combo1.setEnabled(true);
 		
@@ -998,6 +1008,8 @@ public class SwtEditBrokerConfig
 		
 		
 		GbAutomaticaccountflag.setSelection(false);
+		button1showonlyinstalledeas.setEnabled(false);
+		button1showonlyinstalledeas.setSelection(false);
 		button1realaccountsel.setSelection(true);
 		combo1.setEnabled(false);
 		

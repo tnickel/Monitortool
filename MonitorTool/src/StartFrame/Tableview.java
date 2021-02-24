@@ -407,7 +407,7 @@ public class Tableview extends TableViewBasic
 
 		Swttool.baueTabellenkopfDispose(
 				table,
-				"Ind#Magic#Symb#F#Info1#LOT#INST#AUT#On#tr10#prof10#tr30#prof30#trALL#profALL#PF#DD#comment#info2#broker#RealBroker#inst from");
+				"Ind#Magic#Symb#F#Info1#LOT#INST#AUT#On#tr7#prof7#tr30#prof30#trALL#profALL#PF#DD#comment#info2#broker#RealBroker#inst from");
 
 		Tracer.WriteTrace(20, "show profittable");
 		pl.sortliste();
@@ -475,7 +475,7 @@ public class Tableview extends TableViewBasic
 			item.setText(7, String.valueOf(ea.getAuto()));
 			// on
 			item.setText(8, String.valueOf(ea.getOn()));
-			// last10trades
+			// last7trades
 			item.setText(9, String.valueOf(prof.getAnztradeslastzehn()));
 			item.setText(10, SG.kuerzeFloatstring(String.valueOf(gew10), 2));
 			// last30trades

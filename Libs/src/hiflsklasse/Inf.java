@@ -334,6 +334,7 @@ public class Inf
 			toFile.write(xstream.toXML(data));
 			toFile.flush();
 			toFile.close();
+			
 		} catch (Exception e)
 		{
 			e.printStackTrace();

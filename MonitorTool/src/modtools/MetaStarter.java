@@ -119,6 +119,17 @@ public class MetaStarter
 			Metaconfig meconf = brokerview.getElem(i);
 			StopMetatrader(meconf);
 		}
+		try
+		{
+			Thread.sleep(2000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Tracer.WriteTrace(20, "I try to kill all Metatrader");
+		KillAllMetatrader();
+		Tracer.WriteTrace(20, "I killed all Metatrader");
 	}
 
 	static public boolean CheckMetatraderRunning()
@@ -134,8 +145,7 @@ public class MetaStarter
 		// kill all metatrader wird nur ausgeführt wenn die metatrader auch
 		// durch diese
 		// klasse gestartet wurden
-		if (startedbymonitortool == 0)
-			return;
+		
 
 		// taskkill /IM terminal.exe /F
 		try
@@ -151,6 +161,7 @@ public class MetaStarter
 		{
 			e.printStackTrace();
 		}
+	
 	}
 
 	static public boolean StartMetatrader(Metaconfig meconf)
@@ -201,7 +212,7 @@ public class MetaStarter
 		}
 		p.destroy();
 		Tracer.WriteTrace(20, "I:process id<"+meconf.getBrokername()+">  stopped");
-		Mlist.add("I:MT<" + meconf.getBrokername() + "> stopped", 1);
+		
 	}
 
 	static public void RestartMetatrader(Metaconfig meconf)
