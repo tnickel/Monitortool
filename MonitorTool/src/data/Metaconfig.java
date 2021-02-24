@@ -87,6 +87,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int closefridayflag=0;
 	private int showonlyinstalledeas=0;
 	private int tradecopymagic=0;
+	private String suffix="";
 	
 	public Metaconfig(String mname)
 	{
@@ -146,6 +147,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 				showonlyinstalledeas=SG.get_zahl(SG.nteilstring(zeile, "#", 27));
 			if(trennanz>28)
 				tradecopymagic=SG.get_zahl(SG.nteilstring(zeile, "#", 28));
+			if(trennanz>29)
+				suffix=SG.nteilstring(zeile, "#", 29);
 			initmagiclist();
 			//processkennung immer löschen
 			processkennung=null;
@@ -595,6 +598,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setTradecopymagic(int tradecopymagic)
 	{
 		this.tradecopymagic = tradecopymagic;
+	}
+
+	public String getSuffix()
+	{
+		return suffix;
+	}
+
+	public void setSuffix(String suffix)
+	{
+		this.suffix = suffix;
 	}
 
 	public String getInitMetaversion()

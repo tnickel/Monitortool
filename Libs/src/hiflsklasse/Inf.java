@@ -326,11 +326,12 @@ public class Inf
 	private XStream xstream;
 	public synchronized void saveXST( Object data)
 	{
+		FileWriter toFile=null;
 		initStream();
 		File file = new File(filename_glob);
 		try
 		{
-			FileWriter toFile = new FileWriter(file);
+			toFile = new FileWriter(file);
 			toFile.write(xstream.toXML(data));
 			toFile.flush();
 			toFile.close();
@@ -338,10 +339,18 @@ public class Inf
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+			try
+			{
+				if(toFile!=null)
+					toFile.close();
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
 		}
 	}
 
-	public Object loadXST()
+	synchronized public Object loadXST()
 	{
 		Object temp = null;
 		File file = new File(filename_glob);
@@ -350,6 +359,7 @@ public class Inf
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			temp = (Object) xstream.fromXML(reader);
+			reader.close();
 		} catch (Exception e)
 		{
 			e.printStackTrace();

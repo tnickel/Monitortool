@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
@@ -19,7 +20,6 @@ import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Swttool;
-import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
 import mtools.Mlist;
 
@@ -231,7 +231,9 @@ public class Brokerview
 		Color red = dis.getSystemColor(SWT.COLOR_RED);
 		Color yellow = dis.getSystemColor(SWT.COLOR_DARK_YELLOW);
 		Color blue = dis.getSystemColor(SWT.COLOR_BLUE);
-	
+		Device device = Display.getCurrent ();
+		Color lblue = new Color(device,0,182,155);
+		
 		Color black =dis.getSystemColor(SWT.COLOR_BLACK);
 		Color cyan =dis.getSystemColor(SWT.COLOR_CYAN);
 		
@@ -260,7 +262,7 @@ public class Brokerview
 			else if (me.getWarningflag() == 1)
 				item.setBackground(red);
 			 else if (me.getAccounttype() == 2)
-				item.setBackground(blue); 
+				item.setBackground(lblue); 
 
 			if (me.getMqldata() != null)
 				item.setText(0, String.valueOf(me.getMqldata()));

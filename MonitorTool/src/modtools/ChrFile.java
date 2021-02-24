@@ -219,7 +219,20 @@ public class ChrFile extends Patcher
 				return;
 			}
 		}
+	}
+	public void patchSuffix(String suffix)
+	{
 		
-		
+		//patch channel
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("ForexSymbolSuffix=") == true) 
+			{
+				zeilenspeicher[i] = "ForexSymbolSuffix=" + suffix;
+				return;
+			}
+		}
 	}
 }

@@ -69,6 +69,7 @@ public class TradeCopy
 		chrreal.patchTradecopyChannel(selbroker_glob);
 		chrreal.patchReceiverMagic(meconf_sel_glob.getTradecopymagic());
 		chrreal.patchCurPair(meconf_real_glob.getHistexportcurrency());
+		chrreal.patchSuffix(meconf_real_glob.getSuffix());
 		chrreal.writeMemFile(null);
 		
 	}

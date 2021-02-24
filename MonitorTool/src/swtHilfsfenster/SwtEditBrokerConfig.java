@@ -56,19 +56,16 @@ public class SwtEditBrokerConfig
 	private Text forexstrategytraderdir;
 
 	private Button button1realaccountsel;
-	private Button button1activatefrequpdate;
 
 	private Text MqlQuellverzeichniss;
+	private Label label7suffix;
+	private Text text1suffix;
 	private Text text1usemagic;
 	private Label label4;
 	private Label label3;
 	private Button button1showonlyinstalledeas;
 	private Button button1closealltradesonfriday;
 	private Composite composite2;
-	private Composite composite1;
-	private Button button1setupdatedir;
-	private Text text1setfilenamerename;
-	private Text text1setupdatedir;
 	private Text text1currencypair;
 	private Button button1tradecopy;
 	private Button button1HandInstalled;
@@ -128,7 +125,7 @@ public class SwtEditBrokerConfig
 			return;
 		}
 		sh.pack();
-		sh.setSize(1253, 784);
+		sh.setSize(1508, 862);
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("Brokername e.g. (Alpari1)");
@@ -155,7 +152,7 @@ public class SwtEditBrokerConfig
 		{
 			SaveExit = new Button(sh, SWT.PUSH | SWT.CENTER);
 			SaveExit.setText("SaveConfig");
-			SaveExit.setBounds(969, 641, 210, 30);
+			SaveExit.setBounds(1149, 647, 210, 30);
 			SaveExit.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -215,7 +212,7 @@ public class SwtEditBrokerConfig
 		}
 		{
 			progressBar1 = new ProgressBar(sh, SWT.NONE);
-			progressBar1.setBounds(12, 683, 1167, 23);
+			progressBar1.setBounds(12, 683, 1347, 23);
 		}
 		{
 			lotsize = new Text(sh, SWT.BORDER);
@@ -329,17 +326,6 @@ public class SwtEditBrokerConfig
 			});
 		}
 		{
-			button1activatefrequpdate = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1activatefrequpdate.setText("activate frequently EA update");
-			button1activatefrequpdate.setBounds(467, 472, 264, 30);
-			button1activatefrequpdate.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1activatefrequpdateWidgetSelected(evt);
-				}
-			});
-		}
-		{
 			combo1 = new Combo(sh, SWT.NONE);
 			combo1.setText("select realaccount");
 			combo1.setBounds(800, 130, 340, 33);
@@ -381,28 +367,6 @@ public class SwtEditBrokerConfig
 			label1.setToolTipText("The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 		}
 		{
-			text1setupdatedir = new Text(sh, SWT.BORDER);
-			text1setupdatedir.setText("set updatedir");
-			text1setupdatedir.setBounds(12, 391, 519, 30);
-		}
-		{
-			text1setfilenamerename = new Text(sh, SWT.BORDER);
-			text1setfilenamerename.setText("set filenamerename");
-			text1setfilenamerename.setBounds(12, 433, 254, 30);
-		}
-		{
-			button1setupdatedir = new Button(sh, SWT.PUSH | SWT.CENTER);
-			button1setupdatedir.setText("set updatedir");
-			button1setupdatedir.setBounds(537, 391, 190, 30);
-		}
-		{
-			composite1 = new Composite(sh, SWT.BORDER);
-			GridLayout composite1Layout = new GridLayout();
-			composite1Layout.makeColumnsEqualWidth = true;
-			composite1.setLayout(composite1Layout);
-			composite1.setBounds(7, 365, 724, 101);
-		}
-		{
 			composite2 = new Composite(sh, SWT.BORDER);
 			GridLayout composite2Layout = new GridLayout();
 			composite2Layout.makeColumnsEqualWidth = true;
@@ -436,15 +400,28 @@ public class SwtEditBrokerConfig
 		{
 			label4 = new Label(sh, SWT.NONE);
 			label4.setText("use magic");
-			label4.setBounds(1125, 244, 94, 30);
+			label4.setBounds(1088, 244, 86, 30);
 		}
 		{
 			text1usemagic = new Text(sh, SWT.BORDER);
 			text1usemagic.setText("0");
-			text1usemagic.setBounds(1018, 244, 101, 26);
+			text1usemagic.setBounds(1018, 244, 64, 26);
 			text1usemagic.setEditable(false);
 			if(me_glob.getTradecopymagic()>0)
 				text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
+		}
+		{
+			text1suffix = new Text(sh, SWT.BORDER);
+			text1suffix.setBounds(1207, 244, 49, 31);
+			if(me_glob.getSuffix()!=null)
+			text1suffix.setText(me_glob.getSuffix());
+			
+		}
+		{
+			label7suffix = new Label(sh, SWT.NONE);
+			label7suffix.setText("trade suffix");
+			label7suffix.setBounds(1262, 244, 97, 30);
+			label7suffix.setToolTipText("Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
 		}
 
 		sh.open();
@@ -470,11 +447,7 @@ public class SwtEditBrokerConfig
 	private void refreshbuttons()
 	{
 		build_combobox( combo1, bv_glob);
-		text1setupdatedir.setEnabled(false);
-		text1setupdatedir.setEditable(false);
-		text1setfilenamerename.setEnabled(false);
-		text1setfilenamerename.setEditable(false);
-		button1setupdatedir.setEnabled(false);
+		
 		
 		if(me_glob.getAccounttype()==1)
 		{
@@ -635,6 +608,10 @@ public class SwtEditBrokerConfig
 			me_glob.setShowOnlyInstalledEas(1);
 		else
 			me_glob.setShowOnlyInstalledEas(0);
+		
+		String suffix=text1suffix.getText();
+		if(suffix!=null)
+		   me_glob.setSuffix(suffix);
 		
 		
 		//global config speichern
@@ -917,19 +894,7 @@ public class SwtEditBrokerConfig
 		// TODO add your code for text1frequentlyupdate.widgetSelected
 	}
 	
-	private void button1activatefrequpdateWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("button1activatefrequpdate.widgetSelected, event=" + evt);
-		
-		Boolean val = button1activatefrequpdate.getSelection();
-		
-		text1setupdatedir.setEnabled(val);
-		text1setupdatedir.setEditable(val);
-		text1setfilenamerename.setEnabled(val);
-		text1setfilenamerename.setEditable(val);
-		button1setupdatedir.setEnabled(val);
-		
-	}
+	
 	
 	private void text1earenametextWidgetSelected(SelectionEvent evt)
 	{
@@ -993,6 +958,8 @@ public class SwtEditBrokerConfig
 		if(me_glob.getShowOnlyInstalledEas()==1)
 		button1showonlyinstalledeas.setSelection(true);
 		button1realaccountsel.setSelection(false);
+		text1suffix.setEnabled(false);
+		label7suffix.setEnabled(false);
 		combo1.setEnabled(true);
 		
 	}
@@ -1012,6 +979,8 @@ public class SwtEditBrokerConfig
 		button1showonlyinstalledeas.setSelection(false);
 		button1realaccountsel.setSelection(true);
 		combo1.setEnabled(false);
+		text1suffix.setEnabled(true);
+		label7suffix.setEnabled(true);
 		
 	}
 
