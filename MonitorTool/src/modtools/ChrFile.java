@@ -157,7 +157,7 @@ public class ChrFile extends Patcher
 	
 	public void patchTradecopyMagics(String broker,Ealiste eal)
 	{
-		String patchstring="";
+		String patchstring="0,";
 		ArrayList<Integer> mlist=eal.getMagiclist(broker);
 		for(int i=0; i<mlist.size(); i++)
 		{

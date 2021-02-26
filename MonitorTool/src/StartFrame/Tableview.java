@@ -297,6 +297,7 @@ public class Tableview extends TableViewBasic
 		// dann den profitfaktor und drawdown berechnen
 		pl.calcDrawdowns();
 		pl.calcProfitfaktoren();
+		pl.calcOnoff(eal);
 
 		// die unerwünschten Profite aus der Profitliste wieder rausfiltern
 		if (tradefilterflag == 1)
@@ -847,9 +848,7 @@ public class Tableview extends TableViewBasic
 			int magic = profelem.getMagic();
 			String broker = profelem.getBroker();
 
-			if(magic==89905379)
-				Tracer.WriteTrace(20, "found magic2");
-				
+							
 			// baut eine Profitliste auf, wo nur ein bestimmter Ea vorkommt
 			Tradeliste eatl = new Tradeliste(null);
 

@@ -31,7 +31,7 @@ public class Profit implements Comparable<Profit>
 	private int pips = 0;
 
 	// activated- sagt ob ea auf dem verknüpften realaccount aktiviert ist
-	private int activated = 0;
+	private int on = 0;
 	private String comment = null;
 	private String info1 = null;
 	private String info2 = null;
@@ -64,7 +64,7 @@ public class Profit implements Comparable<Profit>
 			gesgewinn = Float.parseFloat(SG.nteilstring(zeile, "#", 8));
 			broker = new String(SG.nteilstring(zeile, "#", 9));
 			pips = SG.get_zahl(SG.nteilstring(zeile, "#", 10));
-			activated = SG.get_zahl(SG.nteilstring(zeile, "#", 11));
+			on = SG.get_zahl(SG.nteilstring(zeile, "#", 11));
 			comment = new String(SG.nteilstring(zeile, "#", 12));
 			info1 = new String(SG.nteilstring(zeile, "#", 13));
 			info2 = new String(SG.nteilstring(zeile, "#", 14));
@@ -190,14 +190,14 @@ public class Profit implements Comparable<Profit>
 		this.pips = pips;
 	}
 
-	public int getActivated_dep()
+	public int getOn()
 	{
-		return activated;
+		return on;
 	}
 
-	public void setActivated(int activated)
+	public void setOn(int on)
 	{
-		this.activated = activated;
+		this.on = on;
 	}
 
 	public int getImportedColor()

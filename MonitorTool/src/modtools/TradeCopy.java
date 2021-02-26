@@ -20,7 +20,7 @@ public class TradeCopy
 	
 	public void init(String selbroker, String realbroker, Brokerview bv)
 	{
-		// 0)lösche die alten configs
+		// 0)lösche die alten configs Sender und empfängerseitig
 		selbroker_glob = selbroker;
 		realbroker_glob = realbroker;
 		bv_glob = bv;

@@ -173,5 +173,19 @@ public class Profitliste
 		}
 		System.out.println("calcpf end");
 	}
-
+	public void calcOnoff(Ealiste eal)
+	{
+		//zum berechnen wird die ealiste benötigt weil hier steht das on/off drin
+		int plsize = this.getsize();
+		System.out.println("calcOnOff start");
+		for (int i = 0; i < plsize; i++)
+		{
+			Profit p = profitliste.get(i);
+			int magic=p.getMagic();
+			String broker=p.getBroker();
+			Ea ea=eal.getEa(magic, broker);
+			p.setOn(ea.getOn());
+		}
+		System.out.println("calcOnOff end");
+	}
 }

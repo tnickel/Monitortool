@@ -48,25 +48,21 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 	private Text text1minProfitfaktor;
 	private Button button1maxdrawdown;
 	private Text text1lastdays;
+	private Button button1showConRealaccount;
 	private Button button1eaTradedLastDays;
 	private Label label8;
 
 	private Label label7;
 	private Button mintradesel_button;
 	private Button commentsel_button;
-	private Button favoritsel_button;
 	private Button onlyautomatic_button;;
 	private Text minprofit10;
-	private Text mintrades;
 	private Text text1anzmintradesall;
 	private Text commenttext;
 	private Text anzmintrades;
-	private Text max;
-	
+
 	private Label label4;
 	private Label label3;
-	private Label label2;
-	private Label label1;
 	private Label label6;
 	private Label label5;
 	private Text minprofitall;
@@ -139,44 +135,17 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 		try {
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
-			this.setSize(478, 410);
+			this.setSize(656, 553);
 			{
 				group1 = new Group(this, SWT.NONE);
 				group1.setLayout(null);
 				FormData group1LData = new FormData();
 				group1LData.left =  new FormAttachment(0, 1000, 12);
 				group1LData.top =  new FormAttachment(0, 1000, 12);
-				group1LData.width = 448;
-				group1LData.height = 339;
+				group1LData.width = 618;
+				group1LData.height = 455;
 				group1.setLayoutData(group1LData);
 				group1.setText("Tradefilter");
-				{
-					favoritsel_button = new Button(group1, SWT.CHECK | SWT.LEFT);
-					favoritsel_button.setText("Favoritenselektion");
-					favoritsel_button.setBounds(8, 25, 142, 20);
-					favoritsel_button.setEnabled(false);
-				}
-				{
-					mintrades = new Text(group1, SWT.NONE);
-					mintrades.setBounds(170, 25, 33, 20);
-				}
-				{
-					max = new Text(group1, SWT.NONE);
-					max.setBounds(300, 25, 38, 20);
-				}
-				{
-					label1 = new Label(group1, SWT.NONE);
-					label1.setText("min");
-					label1.setSize(60, 30);
-					label1.setBounds(209, 25, 60, 30);
-					label1.setEnabled(false);
-				}
-				{
-					label2 = new Label(group1, SWT.NONE);
-					label2.setText("max");
-					label2.setBounds(344, 25, 60, 30);
-					label2.setEnabled(false);
-				}
 				{
 					mintradesel_button = new Button(group1, SWT.CHECK | SWT.LEFT);
 					mintradesel_button.setText("MinTrades");
@@ -199,7 +168,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				}
 				{
 					text1anzmintradesall = new Text(group1, SWT.NONE);
-					text1anzmintradesall.setBounds(299, 53, 39, 22);
+					text1anzmintradesall.setBounds(338, 53, 39, 22);
 					if(tf_glob.getMintradesAll()!=0)
 						text1anzmintradesall.setText(String.valueOf(tf_glob.getMintradesAll()));
 					
@@ -228,7 +197,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				}
 				{
 					commenttext = new Text(group1, SWT.NONE);
-					commenttext.setBounds(170, 88, 268, 23);
+					commenttext.setBounds(170, 88, 332, 23);
 					commenttext.addTraverseListener(new TraverseListener() {
 						public void keyTraversed(TraverseEvent evt) {
 							commenttextKeyTraversed(evt);
@@ -245,7 +214,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					label4 = new Label(group1, SWT.NONE);
 					label4.setText("in 30 days");
-					label4.setBounds(227, 53, 60, 23);
+					label4.setBounds(227, 53, 81, 23);
 				}
 				{
 					minprofit10 = new Text(group1, SWT.NONE);
@@ -283,7 +252,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					minproftsel_button = new Button(group1, SWT.CHECK | SWT.LEFT);
 					minproftsel_button.setText("Min Profit");
-					minproftsel_button.setBounds(8, 119, 96, 25);
+					minproftsel_button.setBounds(8, 119, 142, 25);
 					minproftsel_button.setSelection(tf_glob.isMinprofitselection());
 					
 					minproftsel_button.addSelectionListener(new SelectionAdapter() {
@@ -295,16 +264,14 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					info1button = new Button(group1, SWT.CHECK | SWT.LEFT);
 					info1button.setText("Info1");
-					info1button.setSize(60, 30);
 					info1button.setSelection(tf_glob.isInfo1selection());
-					info1button.setBounds(8, 150, 60, 30);
+					info1button.setBounds(8, 150, 96, 30);
 				}
 				{
 					info2button = new Button(group1, SWT.CHECK | SWT.LEFT);
 					info2button.setText("Info2");
-					info2button.setSize(60, 30);
 					info2button.setSelection(tf_glob.isInfo2selection());
-					info2button.setBounds(8, 186, 60, 30);
+					info2button.setBounds(8, 186, 83, 30);
 				}
 				{
 					info1text = new Text(group1, SWT.NONE);
@@ -360,19 +327,19 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					label8 = new Label(group1, SWT.NONE);
 					label8.setText("# mintrades all");
-					label8.setBounds(344, 53, 110, 30);
+					label8.setBounds(392, 53, 110, 30);
 				}
 				{
 					button1eaTradedLastDays = new Button(group1, SWT.CHECK | SWT.LEFT);
 					button1eaTradedLastDays.setText("Only EAs traded last days ");
-					button1eaTradedLastDays.setBounds(8, 248, 195, 30);
+					button1eaTradedLastDays.setBounds(8, 248, 235, 30);
 					button1eaTradedLastDays.setSelection(tf_glob.isLasttradedayselection());
 					button1eaTradedLastDays.setToolTipText("Show only ea´s who traded in the last 3 days");
 				}
 				{
 					text1lastdays = new Text(group1, SWT.NONE);
 					text1lastdays.setText(String.valueOf(tf_glob.getLasttradesdays()));
-					text1lastdays.setBounds(215, 254, 37, 24);
+					text1lastdays.setBounds(249, 254, 37, 24);
 					text1lastdays.addTraverseListener(new TraverseListener() {
 						public void keyTraversed(TraverseEvent evt) {
 							text1lastdaysKeyTraversed(evt);
@@ -395,7 +362,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 					text1minProfitfaktor = new Text(group1, SWT.NONE);
 					
 					text1minProfitfaktor.setText(String.valueOf(tf_glob.getProfitfaktor()));
-					text1minProfitfaktor.setBounds(215, 290, 37, 24);
+					text1minProfitfaktor.setBounds(249, 290, 37, 24);
 					text1minProfitfaktor.addTraverseListener(new TraverseListener() {
 						public void keyTraversed(TraverseEvent evt) {
 							text1minProfitfaktorKeyTraversed(evt);
@@ -405,7 +372,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					text1maxdrawdown = new Text(group1, SWT.NONE);
 					text1maxdrawdown.setText(String.valueOf(tf_glob.getDrawdown()));
-					text1maxdrawdown.setBounds(215, 326, 37, 24);
+					text1maxdrawdown.setBounds(249, 326, 37, 24);
 					text1maxdrawdown.addTraverseListener(new TraverseListener() {
 						public void keyTraversed(TraverseEvent evt) {
 							text1maxdrawdownKeyTraversed(evt);
@@ -415,14 +382,20 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				{
 					label9 = new Label(group1, SWT.NONE);
 					label9.setText("%");
-					label9.setBounds(258, 326, 73, 24);
+					label9.setBounds(298, 326, 73, 24);
+				}
+				{
+					button1showConRealaccount = new Button(group1, SWT.CHECK | SWT.LEFT);
+					button1showConRealaccount.setText("show only EAs connected to realaccount");
+					button1showConRealaccount.setBounds(8, 356, 430, 30);
+					button1showConRealaccount.setSelection(tf_glob.isOnlyRealaccountConnected());
 				}
 			}
 			{
 				okbutton = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData okbuttonLData = new FormData();
-				okbuttonLData.left =  new FormAttachment(0, 1000, 393);
-				okbuttonLData.top =  new FormAttachment(0, 1000, 380);
+				okbuttonLData.left =  new FormAttachment(0, 1000, 563);
+				okbuttonLData.top =  new FormAttachment(0, 1000, 511);
 				okbuttonLData.width = 73;
 				okbuttonLData.height = 30;
 				okbutton.setLayoutData(okbuttonLData);
@@ -469,6 +442,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 		tf_glob.setLasttradedayselection(button1eaTradedLastDays.getSelection());
 		tf_glob.setDrawdownselection(button1maxdrawdown.getSelection());
 		tf_glob.setProfitfaktor(Float.valueOf(text1minProfitfaktor.getText()));
+		tf_glob.setOnlyRealaccountConnected(button1showConRealaccount.getSelection());
 		
 	
 	

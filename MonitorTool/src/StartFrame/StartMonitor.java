@@ -143,6 +143,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button showopenorders;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Button button3delbadeas;
 	private Button button3replacesymbols;
 	private Button showTradeliste;
 	private Button configbroker;
@@ -194,6 +195,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button3delbadeas = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button3delbadeasLData = new FormData();
+				button3delbadeasLData.left =  new FormAttachment(0, 1000, 892);
+				button3delbadeasLData.top =  new FormAttachment(0, 1000, 829);
+				button3delbadeasLData.width = 295;
+				button3delbadeasLData.height = 31;
+				button3delbadeas.setLayoutData(button3delbadeasLData);
+				button3delbadeas.setText("automatic delete bad EAs");
+			}
 			{
 				button3replacesymbols = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button3replacesymbolsLData = new FormData();
@@ -1440,7 +1451,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				loop.setVisible(false);
 				stop.setVisible(false);
 				
-				manualonoff.setVisible(false);
+				//manualonoff.setVisible(false);
 				
 				configea.setVisible(false);
 				
@@ -1616,7 +1627,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		{
 			// einige buttons ausschalten
 			
-			manualonoff.setEnabled(false);
+			//manualonoff.setEnabled(false);
 			sync.setEnabled(true);
 			
 			configea.setEnabled(false);

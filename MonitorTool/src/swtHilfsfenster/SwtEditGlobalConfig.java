@@ -38,9 +38,6 @@ public class SwtEditGlobalConfig
 	int exitflag = 0;
 	private Label label11;
 	private Button askforupdate;
-	private Group group4;
-	private Button button1portable;
-	private Button button1users;
 
 	private Button button1autostart;
 	private Label label12maxpongtime;
@@ -84,12 +81,12 @@ public class SwtEditGlobalConfig
 		sh.setLayout(null);
 
 		sh.pack();
-		sh.setSize(926, 508);
+		sh.setSize(1058, 564);
 
 		{
 			okbutton = new Button(sh, SWT.PUSH | SWT.CENTER);
 			okbutton.setText("ok");
-			okbutton.setBounds(830, 403, 60, 30);
+			okbutton.setBounds(948, 460, 60, 30);
 			okbutton.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -325,40 +322,13 @@ public class SwtEditGlobalConfig
 				button1autostart.setSelection(true);
 			else
 				button1autostart.setSelection(false);
-			button1autostart.setBounds(290, 344, 123, 30);
+			button1autostart.setBounds(290, 344, 190, 30);
 			button1autostart.setToolTipText("If the autostart button is activated monitortool do the following after restart\r\n1) Reload all tradelisten\r\n2) Start all activeted Metatrader");
-		}
-		{
-			group4 = new Group(sh, SWT.NONE);
-			group4.setLayout(null);
-			group4.setText("start Metatrader config");
-			group4.setBounds(431, 323, 203, 109);
-			{
-				button1users = new Button(group4, SWT.RADIO | SWT.LEFT);
-				button1users.setText("start mt users");
-				button1users.setBounds(7, 27, 173, 29);
-				if(GlobalVar.getPortableflag()==0)
-					button1users.setSelection(true);
-				else
-					button1users.setSelection(false);
-				
-			}
-			{
-				
-				button1portable = new Button(group4, SWT.RADIO | SWT.LEFT);
-				button1portable.setText("start mt portable");
-				button1portable.setBounds(7, 62, 179, 30);
-				button1portable.setSelection(true);
-				if(GlobalVar.getPortableflag()==0)
-					button1portable.setSelection(false);
-				else
-					button1portable.setSelection(true);
-			}
 		}
 		{
 			askforupdate = new Button(sh, SWT.CHECK | SWT.LEFT);
 			askforupdate.setText("ask for update");
-					askforupdate.setBounds(290, 380, 123, 30);
+					askforupdate.setBounds(290, 380, 179, 30);
 			if(GlobalVar.getAskforUpdateflag()==1)		
 				askforupdate.setSelection(true);
 			else
@@ -466,10 +436,9 @@ public class SwtEditGlobalConfig
 		else
 			GlobalVar.setAutostartfeature(0);
 		
-		if(button1portable.getSelection()==true)
+		
 			GlobalVar.setPortableflag(1);
-		else
-			GlobalVar.setPortableflag(0);
+		
 		
 		if(askforupdate.getSelection()==true)
 			GlobalVar.setAskforUpdateflag(1);

@@ -246,7 +246,7 @@ public class Brokerview
 		//show brokername in blue if realaccount
 		
 		Swttool.baueTabellenkopfDispose(table,
-				"path#On#S#rTime#T#Brokername#conBroker#Info");
+				"path#On#S#rTime#T#Brokername#conBroker#Info#Accountnumber");
 
 		int zeilcount = metatraderlist.getsize();
 
@@ -289,9 +289,10 @@ public class Brokerview
 
 			item.setText(6, String.valueOf(me.getconnectedBroker()));
 			item.setText(7, String.valueOf(me.getInfostring()));
+			item.setText(8,getAccountNumber(me));
 		}
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			table.getColumn(i).pack();
 		}
@@ -301,7 +302,23 @@ public class Brokerview
 		if (forceflag == 1)
 			postprocess();
 	}
-
+	private String getAccountNumber(Metaconfig meconf)
+	{
+		String fnam=meconf.getMqldata()+"\\Files\\Kontoinformation.txt";
+		if(new File(fnam).exists()==false)
+			return("no info");
+		
+		Inf inf=new Inf();
+		inf.setFilename(fnam);
+		String kontoinf=inf.readZeile();
+		inf.close();
+		if(kontoinf.length()<2)
+			return("no info2");
+		
+		String[] parts = kontoinf.split("#");
+		return parts[2];
+	}
+	
 	public void setSortColumn(Table table, int column)
 	{
 		table.setSortColumn(table.getColumn(column));

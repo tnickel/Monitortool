@@ -58,6 +58,11 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 
 	private Text MqlQuellverzeichniss;
+	private Label label8minpf;
+	private Text text1minProfFaktor;
+	private Label label7;
+	private Text text1minbadtrades;
+	private Button button1delBadEas;
 	private Label label7suffix;
 	private Text text1suffix;
 	private Text text1usemagic;
@@ -422,6 +427,32 @@ public class SwtEditBrokerConfig
 			label7suffix.setText("trade suffix");
 			label7suffix.setBounds(1262, 244, 97, 30);
 			label7suffix.setToolTipText("Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
+		}
+		{
+			button1delBadEas = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1delBadEas.setText("Auto delete bad EAs");
+			button1delBadEas.setBounds(806, 382, 225, 30);
+		}
+		{
+			text1minbadtrades = new Text(sh, SWT.BORDER);
+			text1minbadtrades.setBounds(1037, 382, 31, 28);
+			text1minbadtrades.setText("3");
+		}
+		{
+			label7 = new Label(sh, SWT.NONE);
+			label7.setText("min trades");
+			label7.setBounds(1080, 382, 94, 30);
+		}
+		{
+			text1minProfFaktor = new Text(sh, SWT.BORDER);
+			text1minProfFaktor.setText("1.1");
+			text1minProfFaktor.setBounds(1180, 382, 46, 30);
+		}
+		{
+			label8minpf = new Label(sh, SWT.NONE);
+			label8minpf.setText("min PF");
+			label8minpf.setSize(60, 30);
+			label8minpf.setBounds(1246, 382, 60, 30);
 		}
 
 		sh.open();

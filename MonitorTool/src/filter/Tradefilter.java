@@ -27,6 +27,7 @@ public class Tradefilter
 	boolean drawdownselection = false;
 	boolean lasttradedayselection = false;
 	boolean tradefilterbutton=false;
+	boolean onlyRealaccountConnected=false;
 
 	int minfavorit = 0;
 	int maxfavorit = 10;
@@ -335,6 +336,16 @@ public class Tradefilter
 			if (lasttradesdays < prof.calcDaysNeusterTrade())
 				return false;
 		}
+		//check schowOnlyconnectedToRealbroker
+		if(isOnlyRealaccountConnected())
+		{
+			//jetzt wird geprüft ob der ea mit einem realbroker verknüpft ist
+			if(prof.getOn()==1)
+				return true;
+			else
+				return false;
+		}
+		
 		return true;
 	}
 
@@ -416,6 +427,16 @@ public class Tradefilter
 	public void setTradestartdate(String tradestartdate)
 	{
 		this.tradestartdate = tradestartdate;
+	}
+
+	public boolean isOnlyRealaccountConnected()
+	{
+		return onlyRealaccountConnected;
+	}
+
+	public void setOnlyRealaccountConnected(boolean onlyRealaccountConnected)
+	{
+		this.onlyRealaccountConnected = onlyRealaccountConnected;
 	}
 
 	public void init()

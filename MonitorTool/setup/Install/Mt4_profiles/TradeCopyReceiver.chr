@@ -90,13 +90,13 @@ UseInstantExecution=false
 RequireSenderFillWithinMinutes=0
 MagicNumber=0
 InvertTrades=false
-UseOriginalOrderComments=false
+UseOriginalOrderComments=true
 UseCustomOrderComment=
 PreventPartialExits=false
 IgnorePartialExits=false
 EntryOffsetPips=0.0
 s_Lots==== Lot sizing modes ===
-UseFixedLotSize=0.0
+UseFixedLotSize=0.01
 UseRiskFactor=1.0
 LotSizeMultiplier=0.0
 EquityPerLot=0.0

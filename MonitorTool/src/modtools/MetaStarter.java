@@ -81,11 +81,11 @@ public class MetaStarter
 			boolean result = StartMetatrader(meconf);
 			
 			
-			infall.writezeile("start /min \"\" \""+metatraderexepath+"\"" +portextension);
+			infall.writezeile("start /MIN \"\" \""+metatraderexepath+"\"" +portextension);
 			infall.writezeile("timeout 5");
 
 			//schreibt die lokale startdatei für den metatrader
-			inflocal.writezeile("start /min \"\" \""+metatraderexepath+"\"" +portextension);
+			inflocal.writezeile("start /MIN \"\" \""+metatraderexepath+"\"" +portextension);
 			inflocal.close();
 			
 			
@@ -178,17 +178,12 @@ public class MetaStarter
 		if (checkIsRunning(p1,meconf.getBrokername()) == true)
 			return false;
 
-		if(GlobalVar.getPortableflag()==1)
-			portextension=" /portable";
-		else
-			portextension="";
 		
 		// starte den Metatrader
 		try
 		{
-			
-			// Process p = Runtime.getRuntime().exec(metatraderexepath);
-			Process p = Runtime.getRuntime().exec("" + metatraderexepath + ""+portextension);
+		//Process p = Runtime.getRuntime().exec("" + metatraderexepath + ""+portextension );
+			Process p=Runtime.getRuntime().exec("cmd /k start /MIN "+metatraderexepath +" /portable");
 			meconf.setProcessKennung(p);
 			
 			//Mlist.add("I:MT<" + meconf.getBrokername() + "> started on <"+metatraderexepath+">", 1);

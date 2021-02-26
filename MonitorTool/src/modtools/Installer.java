@@ -442,7 +442,7 @@ public class Installer
 		
 		// prüft nach ob myfxbook schon da ist
 		Profiler profiler = new Profiler(meconf);
-		profiler.delAllProfiles("myfxbook",null);
+		profiler.delAllProfiles("myfxbook", null);
 		if (profiler.getanzProfiles("myfxbook") > 0)
 		{
 			Tracer.WriteTrace(20, "I:myfxbook ea already configured for broker<" + meconf.getBrokername() + ">");
@@ -1245,7 +1245,7 @@ public class Installer
 		String conrealbroker = meconfdemo.getconnectedBroker();
 		Metaconfig meconfreal = brokerview.getMetaconfigByBrokername(conrealbroker);
 		Profiler profreal = new Profiler(meconfreal);
-		profreal.delAllProfiles("FX Blue - TradeCopy Receiver",meconfdemo.getBrokername());
+		profreal.delAllProfiles("FX Blue - TradeCopy Receiver", meconfdemo.getBrokername());
 		return true;
 	}
 	
@@ -1256,8 +1256,8 @@ public class Installer
 		String _quelleRec = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
 		String _quelleSend = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
 		String _quellelib = Rootpath.getRootpath() + "\\install\\MT4_libraries\\FXBlueQuickChannel.dll";
-		String _recfilter=Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierReceiverFilter.ex4";
-		String _sendfilter=Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierSenderFilter.ex4";
+		String _recfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierReceiverFilter.ex4";
+		String _sendfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierSenderFilter.ex4";
 		// String chr_quelle = Rootpath.getRootpath() +
 		// "\\install\\MT4_profiles\\tradecopysender.chr";
 		
@@ -1269,7 +1269,7 @@ public class Installer
 		fd.copyFile2(_quelleSend, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Sender.ex4");
 		fd.copyFile2(_quellelib, metaconf.getMqldata() + "\\libraries\\FXBlueQuickChannel.dll");
 		
-		//kopiere die filterfiles
+		// kopiere die filterfiles
 		fd.copyFile2(_recfilter, metaconf.getMqldata() + "\\libraries\\CopierReceiverFilter.ex4");
 		fd.copyFile2(_sendfilter, metaconf.getMqldata() + "\\libraries\\CopierSenderFilter.ex4");
 		FileAccess.FileDelete(metaconf.getMqldata() + "\\Experts\\mqlcache.dat", 1);
@@ -1278,7 +1278,8 @@ public class Installer
 	
 	public void copyConfigTradecopyConfs(Metaconfig metaconfdemo, Metaconfig metaconfreal)
 	{
-		// hier wird nur rüberkopiert
+		// hier wird nur rüberkopiert, also die *.chr files auf sender und empfängerseite
+	
 		
 		String brokername = metaconfdemo.getBrokername();
 		
