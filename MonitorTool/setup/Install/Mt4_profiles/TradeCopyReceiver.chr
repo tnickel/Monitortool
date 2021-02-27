@@ -134,7 +134,7 @@ MaxLosingTradesPerDay_Total=0
 MaxLosingTradesPerDay_FromCopier=0
 s_Alerts==== Alerts and notifications ===
 UserDescription=
-BackgroundColour=13434880
+BackgroundColour=255
 LabelColour=16777215
 NewOrders_AlertOnScreen=false
 NewOrders_AlertByEmail=false

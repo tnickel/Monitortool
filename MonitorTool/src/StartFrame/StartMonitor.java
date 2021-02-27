@@ -278,7 +278,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2stopmt = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2stopmtLData = new FormData();
-				button2stopmtLData.left =  new FormAttachment(0, 1000, 1701);
+				button2stopmtLData.left =  new FormAttachment(0, 1000, 1722);
 				button2stopmtLData.top =  new FormAttachment(0, 1000, 590);
 				button2stopmtLData.width = 84;
 				button2stopmtLData.height = 18;
@@ -298,10 +298,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData button2startmetatraderLData = new FormData();
 				button2startmetatraderLData.left =  new FormAttachment(0, 1000, 1632);
 				button2startmetatraderLData.top =  new FormAttachment(0, 1000, 590);
-				button2startmetatraderLData.width = 69;
+				button2startmetatraderLData.width = 84;
 				button2startmetatraderLData.height = 18;
 				button2startmetatrader.setLayoutData(button2startmetatraderLData);
-				button2startmetatrader.setText("start MT");
+				button2startmetatrader.setText("start all MT");
 				button2startmetatrader.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
 				button2startmetatrader
 						.addSelectionListener(new SelectionAdapter()

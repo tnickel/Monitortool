@@ -184,7 +184,8 @@ public class Profitliste
 			int magic=p.getMagic();
 			String broker=p.getBroker();
 			Ea ea=eal.getEa(magic, broker);
-			p.setOn(ea.getOn());
+			if(ea!=null)
+			  p.setOn(ea.getOn());
 		}
 		System.out.println("calcOnOff end");
 	}

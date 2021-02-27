@@ -186,10 +186,7 @@ public class Profiler
 		for (int i = 0; i < anz; i++)
 		{
 			// holt ein profilenamen
-			String profilename = getProfileEa(eaname);
-			// nix gefunden
-			if (profilename == null)
-				return true;
+			String profilename = profiledir+"\\"+fa.holeFileSystemName();
 			
 			// dies ist ein Tradecopierer profile
 			if (channel != null)

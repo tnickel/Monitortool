@@ -66,10 +66,8 @@ public class MetaStarter
 			
 			Inf inflocal=new Inf();
 			String metatraderstartbatfile="";
-			if(GlobalVar.getPortableflag()==1)
-				metatraderstartbatfile=meconf.getNetworkshare_INSTALLDIR()+"\\startmetatrader_portable.bat";
-			else
-				metatraderstartbatfile=	meconf.getNetworkshare_INSTALLDIR()+"\\startmetatrader.bat";
+			metatraderstartbatfile=meconf.getNetworkshare_INSTALLDIR()+"\\startmetatrader_portable.bat";
+			
 			inflocal.setFilename(metatraderstartbatfile);
 			if(FileAccess.FileAvailable(metatraderstartbatfile))
 				FileAccess.FileDelete(metatraderstartbatfile, 0);
@@ -78,17 +76,17 @@ public class MetaStarter
 			if (meconf.getOn() == 0)
 				continue;
 			
-			boolean result = StartMetatrader(meconf);
-			
 			
 			infall.writezeile("start /MIN \"\" \""+metatraderexepath+"\"" +portextension);
 			infall.writezeile("timeout 5");
+			
 
 			//schreibt die lokale startdatei für den metatrader
 			inflocal.writezeile("start /MIN \"\" \""+metatraderexepath+"\"" +portextension);
+			inflocal.writezeile("exit");
 			inflocal.close();
 			
-			
+			boolean result = StartMetatrader(meconf,metatraderstartbatfile);
 			try
 			{
 				if (result == true)
@@ -164,13 +162,11 @@ public class MetaStarter
 	
 	}
 
-	static public boolean StartMetatrader(Metaconfig meconf)
+	static public boolean StartMetatrader(Metaconfig meconf,String batchfile)
 	{
 		String portextension="";
 		String metatraderexepath = meconf.getNetworkshare_INSTALLDIR()
 				+ "\\terminal.exe";
-	
-		String rootpathbinstarter = Rootpath.getRootpath()+"\\bin\\startmetatrader.bat";
 		
 		// falls der Metatrader noch läuft
 		Process p1 = meconf.getProcessKennung();
@@ -183,7 +179,15 @@ public class MetaStarter
 		try
 		{
 		//Process p = Runtime.getRuntime().exec("" + metatraderexepath + ""+portextension );
-			Process p=Runtime.getRuntime().exec("cmd /k start /MIN "+metatraderexepath +" /portable");
+		//	String exstr="cmd /k start /MIN "+metatraderexepath +" /portable";
+
+			
+			String exstr="cmd /k start /MIN "+metatraderexepath+" /portable";;
+			
+			//String[] cmdarray= {"cmd","/k","start","/min",metatraderexepath,"/portable"};
+			String[] cmdarray= {"cmd","/c","start","\"\"","\""+batchfile+"\""};
+			
+			Process p=Runtime.getRuntime().exec(cmdarray);
 			meconf.setProcessKennung(p);
 			
 			//Mlist.add("I:MT<" + meconf.getBrokername() + "> started on <"+metatraderexepath+">", 1);
@@ -210,7 +214,7 @@ public class MetaStarter
 		
 	}
 
-	static public void RestartMetatrader(Metaconfig meconf)
+	static public void RestartMetatrader_dep(Metaconfig meconf)
 	{
 		if (meconf.getProcessKennung() == null)
 			return;
@@ -218,7 +222,7 @@ public class MetaStarter
 		{
 			StopMetatrader(meconf);
 			Thread.sleep(2000);
-			StartMetatrader(meconf);
+			//StartMetatrader(meconf);
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
