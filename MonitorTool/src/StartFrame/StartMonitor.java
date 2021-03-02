@@ -1263,21 +1263,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 					{
 						fileMenu = new Menu(fileMenuItem);
 
-						{
-							updateHistoryExporter = new MenuItem(fileMenu,
-									SWT.CASCADE);
-							updateHistoryExporter
-									.setText("Update All HistoryExporter");
-							updateHistoryExporter
-									.addSelectionListener(new SelectionAdapter()
-									{
-										public void widgetSelected(
-												SelectionEvent evt)
-										{
-											updateHistoryexporterMenuItemWidgetSelected(evt);
-										}
-									});
-						}
+						
 						{
 							backup = new MenuItem(fileMenu, SWT.CASCADE);
 							backup.setText("Backup configuration");
@@ -1377,7 +1363,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			
 			doAutostart();
 			
-			Display.getDefault().timerExec(200, reloadAllData);
+			Display.getDefault().timerExec(200, startAfter200ms);
 			
 			this.layout();
 		} catch (Exception e)
@@ -1399,13 +1385,28 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	}
 	
 	
-	Runnable reloadAllData = new Runnable()
+	Runnable startAfter200ms = new Runnable()
 	 {
 	   public void run()
 	   {
 	    System.out.println("ReloadAllData");
 	    getAllDataWidget();
-	   
+	  
+	    
+	    File uphistfile=new File(GlobalVar.getRootpath()+"\\conf\\updatehistoryexporter.txt");
+	    
+	    if(uphistfile.exists())
+	    {
+	    	//update historyexporter
+	    	Tracer.WriteTrace(20, "I: a new installation was done, I will update all historyexporter");
+	    	smw.updatehistoryexporter(table3);
+	    	if(uphistfile.delete()==false)
+	    		Tracer.WriteTrace(10, "E:cant delete file<"+uphistfile.getPath()+">");
+	    }
+
+	    
+	    
+	    
 	   }
 	 };
 	

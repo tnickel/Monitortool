@@ -77,7 +77,7 @@ public class Installer
 		DisTool.arrowCursor();
 		MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK);
 		dialog.setText("My info");
-		dialog.setMessage("The Historyexporter was updated, please restart all metatrader");
+		dialog.setMessage("Info:The Historyexporter was updated, you can start the metatrader");
 		dialog.open();
 	}
 	

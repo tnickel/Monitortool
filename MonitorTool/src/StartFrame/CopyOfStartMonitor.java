@@ -1837,6 +1837,8 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 
 		// alle aktivierten Broker laden
 		getAllData();
+		
+		
 		statustext.setText(GlobalVar.getIpmessage());
 	}
 
@@ -1864,7 +1866,7 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.initTargetBrokerCombo(combo_targetbroker);
 
 	
-			smw.exportAllTradelistEncryped();
+		//	smw.exportAllTradelistEncryped();
 
 		getAllData.setEnabled(true);
 	}
@@ -2353,13 +2355,7 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.exportTradelist();
 	}
 
-	private void button2reloadWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("button2reload.widgetSelected, event=" + evt);
-		// TODO add your code for button2reload.widgetSelected
-		loadallbrokerflag = 0;
-		getAllData();
-	}
+	
 
 	private void button2deleteWidgetSelected(SelectionEvent evt)
 	{
