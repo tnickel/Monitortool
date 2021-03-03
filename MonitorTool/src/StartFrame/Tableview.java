@@ -1204,10 +1204,10 @@ public class Tableview extends TableViewBasic
 
 				if (prof.getGesgewinn() > 0)
 				{
-					Mbox.Infobox("Error: can´t delete ea-magic<" + magic
-							+ "> with positive profit all<"
+					Mbox.Infobox("Warning: you delete ea-magic<" + magic
+							+ "> with positive profit<"
 							+ prof.getGesgewinn() + ">");
-					continue;
+					
 				}
 				//delete eas from filesystem in the installdir and in the metatrader
 				deleteEaFilesystem(brokerview_glob, magic, prof.getBroker());

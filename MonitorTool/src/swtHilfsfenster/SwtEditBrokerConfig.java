@@ -631,6 +631,8 @@ public class SwtEditBrokerConfig
 		}
 		MetaStarter.KillAllMetatrader();
 		meRefreshConfig();
+		
+		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 		me_glob.setHistexportcurrency(text1currencypair.getText());
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
 		work.initMetatrader(me_glob);
