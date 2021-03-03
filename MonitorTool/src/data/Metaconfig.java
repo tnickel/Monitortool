@@ -88,6 +88,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int showonlyinstalledeas=0;
 	private int tradecopymagic=0;
 	private String suffix="";
+	private int accountlocked=0;
 	
 	public Metaconfig(String mname)
 	{
@@ -149,6 +150,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 				tradecopymagic=SG.get_zahl(SG.nteilstring(zeile, "#", 28));
 			if(trennanz>29)
 				suffix=SG.nteilstring(zeile, "#", 29);
+			if(trennanz>29)
+				accountlocked=SG.get_zahl(SG.nteilstring(zeile, "#", 30));
 			initmagiclist();
 			//processkennung immer löschen
 			processkennung=null;
@@ -608,6 +611,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setSuffix(String suffix)
 	{
 		this.suffix = suffix;
+	}
+
+	public int getAccountlocked()
+	{
+		return accountlocked;
+	}
+
+	public void setAccountlocked(int accountlocked)
+	{
+		this.accountlocked = accountlocked;
 	}
 
 	public String getInitMetaversion()

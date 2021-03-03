@@ -27,7 +27,7 @@ import data.SymbolReplaceList;
 import data.Trade;
 import data.Tradeanzahl;
 import data.Tradeliste;
-import eaAutTools.AutomaticCheck;
+import eaAutTools.AutomaticCheck_dep;
 import filter.Tradefilter;
 import gui.Mbox;
 import hiflsklasse.Archive;
@@ -565,7 +565,7 @@ public class StartMonitorWork
 		brokerview_glob.SaveBrokerTable();
 	}
 
-	public void checkGd20(Table table1, Table table2, Display dis,
+	public void checkGd20_dep(Table table1, Table table2, Display dis,
 			Text anzincommingtrades, Text anzeas,
 			org.eclipse.swt.widgets.Label broker, int showflag)
 	{
@@ -575,11 +575,14 @@ public class StartMonitorWork
 		// 1=gd20 einmal überschritten
 		// 2=gd20 zweimal überschritten
 		// showflag=0 dann wird nix auf dem display angezeigt
-		AutomaticCheck gd20 = new AutomaticCheck(tv_glob, brokerview_glob,
+		AutomaticCheck_dep gd20 = new AutomaticCheck_dep(tv_glob, brokerview_glob,
 				table1, dis, anzincommingtrades, anzeas);
-		AutomaticCheck.runAutomatic(showflag);
+		AutomaticCheck_dep.runAutomatic_dep(showflag);
 	}
-
+	
+	
+	
+	
 	public void tooggleallprofits()
 	{
 		tv_glob.toogleallprofits();

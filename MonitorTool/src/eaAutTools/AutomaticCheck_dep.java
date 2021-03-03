@@ -13,7 +13,7 @@ import StartFrame.Tableview;
 import data.GlobalVar;
 import data.Metaconfig;
 
-public class AutomaticCheck
+public class AutomaticCheck_dep
 {
 	private static Brokerview brokerview_glob = null;
 	private static Tableview tv_glob = null;
@@ -24,7 +24,7 @@ public class AutomaticCheck
 	private static Text anzeas_glob = null;
 	
 
-	public AutomaticCheck(Tableview tabv, Brokerview bv, Table table1,
+	public AutomaticCheck_dep(Tableview tabv, Brokerview bv, Table table1,
 			 Display dis, Text anzincommingtrades,
 			Text anzeas)
 	{
@@ -38,7 +38,7 @@ public class AutomaticCheck
 
 	}
 
-	public static void runAutomatic(int showflag)
+	public static void runAutomatic_dep(int showflag)
 	{
 		// prüft bei allen ea´s ob der gd20 überschritten worden ist.
 		// setze in der ea liste den wert.
@@ -56,6 +56,7 @@ public class AutomaticCheck
 		// erst mal alle trades reinladen
 		for (int i = 0; i < anz; i++)
 		{
+			//gehe durch alle broker
 			Metaconfig mc = brokerview_glob.getElem(i);
 			if (showflag == 1)
 				Mlist.add("check gd20 " + (i + 1) + ":" + mc.getBrokername(), 1);
@@ -71,7 +72,7 @@ public class AutomaticCheck
 		// dann die profittable berechnen(ohne tradefilter)
 		tv_glob.CalcProfitTable(null,1);
 		// dann gd20 für alles schauen
-		Tradelogic.workProfitliste(tv_glob,brokerview_glob);
+		Tradelogic_dep.workProfitliste_dep(tv_glob,brokerview_glob);
 
 		if (showflag == 1)
 		{

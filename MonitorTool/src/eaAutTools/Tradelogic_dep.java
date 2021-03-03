@@ -20,14 +20,14 @@ import data.Tradeliste;
 import datefunkt.Mondate;
 
 
-public class Tradelogic
+public class Tradelogic_dep
 {
 	static private Brokerview brokerview_glob = null;
 	private static Networker_dep networker = new Networker_dep();
 	static private int swOnCounter = 0;
 	static private int swOffCounter = 0;
 
-	static public void workProfitliste(Tableview tv_glob, Brokerview brokerview)
+	static public void workProfitliste_dep(Tableview tv_glob, Brokerview brokerview)
 	{
 		brokerview_glob = brokerview;
 		// 3 Dinge werden hier erledigt
@@ -84,14 +84,14 @@ public class Tradelogic
 			//step c) tradelogik
 			// default tradelogik
 			if (ea.getTradelogiktype() == 0)
-				tradelogicDefault(prof, eatradeliste, pos, eal, ea,
+				tradelogicDefault_dep(prof, eatradeliste, pos, eal, ea,
 						realbrokerroot);
 			// gdx tradelogik
 			else if (ea.getTradelogiktype() == 1)
-				tradelogicGdX(prof, eatradeliste, pos, eal, ea, realbrokerroot);
+				tradelogicGdX_dep(prof, eatradeliste, pos, eal, ea, realbrokerroot);
 			// line tradelogik
 			else if (ea.getTradelogiktype() == 2)
-				tradelogicLine(prof, eatradeliste, pos, eal, ea, realbrokerroot);
+				tradelogicLine_dep(prof, eatradeliste, pos, eal, ea, realbrokerroot);
 			else
 				Mbox.Infobox("tradelogik unknown");
 		}
@@ -99,7 +99,7 @@ public class Tradelogic
 				+ swOffCounter);
 	}
 
-	private static void tradelogicLine(Profit prof, Tradeliste eatradeliste,
+	private static void tradelogicLine_dep(Profit prof, Tradeliste eatradeliste,
 			int pos, Ealiste eal, Ea ex, String borkerroot)
 	{
 		int onval = ex.getSwitchonval();
@@ -111,17 +111,17 @@ public class Tradelogic
 		//  anz der letzten Gewinnertrades muss > als ein minimum sein
 		if (sumx > onval)
 		{
-			if (workWinner(prof, eal, ex, sumx, 0, borkerroot) == 100)
+			if (workWinner_dep(prof, eal, ex, sumx, 0, borkerroot) == 100)
 				swOnCounter++;
 		} else if (sumx < offval)
 		// looser
 		{
-			if (workLooser(prof, eal, ex, sumx, 0, borkerroot) == 100)
+			if (workLooser_dep(prof, eal, ex, sumx, 0, borkerroot) == 100)
 				swOffCounter++;
 		}
 	}
 
-	private static void tradelogicGdX(Profit prof, Tradeliste eatradeliste,
+	private static void tradelogicGdX_dep(Profit prof, Tradeliste eatradeliste,
 			int pos, Ealiste eal, Ea ex, String brokerroot)
 	{
 		int gdXperiod = ex.getGdx();
@@ -132,17 +132,17 @@ public class Tradelogic
 		// und die anz der letzten Gewinnertrades muss > als ein minimum sein
 		if (sumx > gdX)
 		{
-			if (workWinner(prof, eal, ex, sumx, gdX, brokerroot) == 100)
+			if (workWinner_dep(prof, eal, ex, sumx, gdX, brokerroot) == 100)
 				swOnCounter++;
 		} else
 		// looser
 		{
-			if (workLooser(prof, eal, ex, sumx, gdX, brokerroot) == 100)
+			if (workLooser_dep(prof, eal, ex, sumx, gdX, brokerroot) == 100)
 				swOffCounter++;
 		}
 	}
 
-	private static void tradelogicDefault(Profit prof, Tradeliste eatradeliste,
+	private static void tradelogicDefault_dep(Profit prof, Tradeliste eatradeliste,
 			int pos, Ealiste eal, Ea ex, String brokerroot)
 	{
 		int gd5period = GlobalVar.getDefaultGd();
@@ -153,7 +153,7 @@ public class Tradelogic
 		// und die anz der letzten Gewinnertrades muss > als ein minimum sein
 		if (sumx > gd5)
 		{
-			int errcode = workWinner(prof, eal, ex, sumx, gd5, brokerroot);
+			int errcode = workWinner_dep(prof, eal, ex, sumx, gd5, brokerroot);
 			if (errcode == 100)
 				swOnCounter++;
 			else if (errcode != 0)
@@ -162,7 +162,7 @@ public class Tradelogic
 		} else
 		// looser
 		{
-			int errcode = workLooser(prof, eal, ex, sumx, gd5, brokerroot);
+			int errcode = workLooser_dep(prof, eal, ex, sumx, gd5, brokerroot);
 			if (errcode == 100)
 				swOffCounter++;
 			else if (errcode != 0)
@@ -171,7 +171,7 @@ public class Tradelogic
 		}
 	}
 
-	private static int workLooser(Profit prof, Ealiste eal, Ea ex, double sum,
+	private static int workLooser_dep(Profit prof, Ealiste eal, Ea ex, double sum,
 			double gd5, String brokerroot)
 	{
 		// return !=100 ==> fehler
@@ -187,7 +187,7 @@ public class Tradelogic
 				&& (ex.getAuto() == 1) && (ex.getInstFrom() == null))
 		{
 			String demobroker = prof.getBroker();
-			logAction(prof.getMagic(), demobroker,
+			logAction_dep(prof.getMagic(), demobroker,
 					"switched off on Realaccount", "by automatic", sum, gd5);
 
 			String realbroker = brokerview_glob.getConBroker(demobroker);
@@ -224,7 +224,7 @@ public class Tradelogic
 		return 0;// ok
 	}
 
-	private static int workWinner(Profit prof, Ealiste eal, Ea ex, double sum,
+	private static int workWinner_dep(Profit prof, Ealiste eal, Ea ex, double sum,
 			double gd5, String brokerroot)
 	{
 		// return !=100 ==> fehler
@@ -267,7 +267,7 @@ public class Tradelogic
 			{
 				String demobroker = prof.getBroker();
 				String realbroker = brokerview_glob.getConBroker(demobroker);
-				logAction(prof.getMagic(), prof.getBroker(),
+				logAction_dep(prof.getMagic(), prof.getBroker(),
 						"*** switched on Realaccount***", "by automatic", sum,
 						gd5);
 
@@ -296,7 +296,7 @@ public class Tradelogic
 		return 0;
 	}
 
-	static private void logAction(int magic, String broker, String action,
+	static private void logAction_dep(int magic, String broker, String action,
 			String who, double sum, double gd5)
 	{
 		Inf inf = new Inf();

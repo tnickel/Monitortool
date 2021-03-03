@@ -29,19 +29,19 @@ public class ShowConfigAllP extends ApplicationFrame {
 	// vergleichen und die Lotsize einstellen.
 	public ShowConfigAllP() {
 		super("title");
-
+		int anz=100;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 10));
 		frame.setSize(350, 150);
-		// frame.setPreferredSize(new java.awt.Dimension(600, 1000));
+		//frame.setPreferredSize(new java.awt.Dimension(600, 1000));
 
 		
 		//das ganze hat ein grid layout mit 2 Spalten
-		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 3));
-	    panelx.setPreferredSize(new java.awt.Dimension(800, 800));
+		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 2));
+	    panelx.setPreferredSize(new java.awt.Dimension(800, anz*350));
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < anz; i++) {
 
 			int magic = 5;
 			String br = "namebr";
@@ -55,12 +55,8 @@ public class ShowConfigAllP extends ApplicationFrame {
 			//spalte 1 ist der aktuelle chart
 			panelx.add(new ChartPanel(chart));
 			frame.getContentPane().setLayout(new BorderLayout());
-
-			//spalte 2 ist der Backtest falls vorhanden
-			panelx.add(new ChartPanel(chart));
-			frame.getContentPane().setLayout(new BorderLayout());
 			
-			//spalte 3 ist die config
+			//spalte 2 ist die config
 			EaConfigDis cp = new EaConfigDis(i, "XXX", "path");
 			
 			panelx.add(cp);

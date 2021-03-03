@@ -73,31 +73,31 @@ public class EaConfigDis extends javax.swing.JPanel {
 	private void initGUI(EaConfigF eaconf) {
 		try {
 			eaconf_glob=eaconf;
-			this.setPreferredSize(new java.awt.Dimension(486, 224));
+			this.setPreferredSize(new java.awt.Dimension(618, 242));
 			this.setLayout(null);
 			{
 				jLabel1 = new JLabel();
 				this.add(jLabel1);
 				jLabel1.setText("lots");
-				jLabel1.setBounds(203, 41, 24, 21);
+				jLabel1.setBounds(203, 41, 139, 21);
 			}
 			{
 				jLabel2 = new JLabel();
 				this.add(jLabel2);
 				jLabel2.setText("max lots");
-				jLabel2.setBounds(203, 90, 56, 21);
+				jLabel2.setBounds(203, 90, 127, 21);
 			}
 			{
 				jLabel3 = new JLabel();
 				this.add(jLabel3);
 				jLabel3.setText("use fixed money");
-				jLabel3.setBounds(203, 117, 109, 21);
+				jLabel3.setBounds(203, 117, 146, 21);
 			}
 			{
 				jLabel4 = new JLabel();
 				this.add(jLabel4);
 				jLabel4.setText("risk money");
-				jLabel4.setBounds(203, 146, 71, 21);
+				jLabel4.setBounds(203, 146, 134, 21);
 			}
 			{
 				jButton1 = new JButton();
@@ -114,7 +114,7 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jLabel5 = new JLabel();
 				this.add(jLabel5);
 				jLabel5.setText("use MM");
-				jLabel5.setBounds(203, 15, 52, 21);
+				jLabel5.setBounds(203, 15, 139, 21);
 			}
 			{
 				jTextField1_lots = new JTextField();
@@ -142,7 +142,7 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jLabel6 = new JLabel();
 				this.add(jLabel6);
 				jLabel6.setText("risk");
-				jLabel6.setBounds(203, 67, 22, 21);
+				jLabel6.setBounds(203, 67, 127, 21);
 			}
 			{
 				jTextField1_maxlots = new JTextField();

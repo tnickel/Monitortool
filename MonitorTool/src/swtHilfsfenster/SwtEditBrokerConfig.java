@@ -58,6 +58,7 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 
 	private Text MqlQuellverzeichniss;
+	private Button button1lockaccount;
 	private Label label8minpf;
 	private Text text1minProfFaktor;
 	private Label label7;
@@ -454,6 +455,12 @@ public class SwtEditBrokerConfig
 			label8minpf.setSize(60, 30);
 			label8minpf.setBounds(1246, 382, 60, 30);
 		}
+		{
+			button1lockaccount = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1lockaccount.setText("lock all EAs on this account");
+			button1lockaccount.setBounds(806, 412, 291, 30);
+			button1lockaccount.setToolTipText("If a account is locked no one can delete EAs on this account. All EAs are protected against deletion. Unlock this account first if you want to delete EAs");
+		}
 
 		sh.open();
 		initBrokereditM();
@@ -489,17 +496,16 @@ public class SwtEditBrokerConfig
 		{
 			setRealaccount();
 		}
-		
-		
-		
-		
-		
+	
 		if (me_glob.getLotsize() != 0)
 			lotsize.setText(String.valueOf(me_glob.getLotsize()));
 		else
 			lotsize.setText("0.01");
 		lotsize.setVisible(true);
-		
+		if(me_glob.getAccountlocked()==1)
+		   button1lockaccount.setSelection(true);
+		else
+		   button1lockaccount.setSelection(false);
 
 		
 		Swttool.wupdate(dis_glob);
@@ -641,6 +647,11 @@ public class SwtEditBrokerConfig
 			me_glob.setShowOnlyInstalledEas(1);
 		else
 			me_glob.setShowOnlyInstalledEas(0);
+		
+		if(button1lockaccount.getSelection()==true)
+			me_glob.setAccountlocked(1);
+		else
+			me_glob.setAccountlocked(0);
 		
 		String suffix=text1suffix.getText();
 		if(suffix!=null)

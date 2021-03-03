@@ -1728,7 +1728,7 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 		{
 			if (loopflag == 0)
 				return;
-			smw.checkGd20(table1, table2, dis_glob, anzincommingtrades, anzeas,
+			smw.checkGd20_dep(table1, table2, dis_glob, anzincommingtrades, anzeas,
 					broker, 1);
 			// System.out.println("timer");
 			if (loopflag == 1)
@@ -2172,7 +2172,7 @@ public class CopyOfStartMonitor extends org.eclipse.swt.widgets.Composite
 		// TODO add your code for checkGd20.widgetSelected
 		// läd alle trades und überprüft ob der GD20 überschritten worden ist
 		checkGd20.setEnabled(false);
-		smw.checkGd20(table1, table2, dis_glob, anzincommingtrades, anzeas,
+		smw.checkGd20_dep(table1, table2, dis_glob, anzincommingtrades, anzeas,
 				broker, 1);
 		checkGd20.setEnabled(true);
 	}
