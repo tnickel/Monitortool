@@ -144,6 +144,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
 	private Button button3delbadeas;
+	private Button button3makemt4backtest;
 	private Button button3replacesymbols;
 	private Button showTradeliste;
 	private Button configbroker;
@@ -195,6 +196,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button3makemt4backtest = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button3makemt4backtestLData = new FormData();
+				button3makemt4backtestLData.left =  new FormAttachment(0, 1000, 463);
+				button3makemt4backtestLData.top =  new FormAttachment(0, 1000, 747);
+				button3makemt4backtestLData.width = 163;
+				button3makemt4backtestLData.height = 31;
+				button3makemt4backtest.setLayoutData(button3makemt4backtestLData);
+				button3makemt4backtest.setText("make mt4 backtest");
+			}
 			{
 				button3delbadeas = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button3delbadeasLData = new FormData();
@@ -252,10 +263,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2showtradelistportfolio = new Button(this, SWT.PUSH
 						| SWT.CENTER);
 				FormData button2showtradelistportfolioLData = new FormData();
-				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 463);
-				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 784);
-				button2showtradelistportfolioLData.width = 204;
-				button2showtradelistportfolioLData.height = 27;
+				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 246);
+				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 896);
+				button2showtradelistportfolioLData.width = 217;
+				button2showtradelistportfolioLData.height = 33;
 				button2showtradelistportfolio.setLayoutData(button2showtradelistportfolioLData);
 				button2showtradelistportfolio
 						.setText("show tradelist (portfolio)");
@@ -425,7 +436,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button2newcal = new Button(this, SWT.CHECK | SWT.LEFT);
 				FormData button2newcalLData = new FormData();
 				button2newcalLData.left =  new FormAttachment(0, 1000, 579);
-				button2newcalLData.top =  new FormAttachment(0, 1000, 755);
+				button2newcalLData.top =  new FormAttachment(0, 1000, 794);
 				button2newcalLData.width = 88;
 				button2newcalLData.height = 20;
 				button2newcal.setLayoutData(button2newcalLData);
@@ -488,7 +499,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				showbacktest = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showbacktestLData = new FormData();
 				showbacktestLData.left =  new FormAttachment(0, 1000, 463);
-				showbacktestLData.top =  new FormAttachment(0, 1000, 747);
+				showbacktestLData.top =  new FormAttachment(0, 1000, 784);
 				showbacktestLData.width = 110;
 				showbacktestLData.height = 30;
 				showbacktest.setLayoutData(showbacktestLData);
@@ -619,7 +630,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData comparetradelistLData = new FormData();
 				comparetradelistLData.left =  new FormAttachment(0, 1000, 463);
 				comparetradelistLData.top =  new FormAttachment(0, 1000, 676);
-				comparetradelistLData.width = 149;
+				comparetradelistLData.width = 163;
 				comparetradelistLData.height = 30;
 				comparetradelist.setLayoutData(comparetradelistLData);
 				comparetradelist.setText("compare tradelist");
@@ -1013,7 +1024,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showprofitLData = new FormData();
 				showprofitLData.left =  new FormAttachment(0, 1000, 463);
 				showprofitLData.top =  new FormAttachment(0, 1000, 712);
-				showprofitLData.width = 110;
+				showprofitLData.width = 163;
 				showprofitLData.height = 30;
 				showprofit.setLayoutData(showprofitLData);
 				showprofit.setText("show profit");
@@ -1149,7 +1160,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData brokerLData = new FormData();
 				brokerLData.left =  new FormAttachment(0, 1000, 10);
 				brokerLData.top =  new FormAttachment(0, 1000, 642);
-				brokerLData.width = 224;
+				brokerLData.width = 365;
 				brokerLData.height = 20;
 				broker.setLayoutData(brokerLData);
 				broker.setText("broker");

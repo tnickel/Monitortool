@@ -1,0 +1,1 @@
+"D:\Forex\mt4\fxopen_tester\terminal.exe" /portable /wait D:\Forex\mt4\fxopen_tester\backtestconfig.ini
