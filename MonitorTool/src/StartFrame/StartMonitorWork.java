@@ -436,6 +436,7 @@ public class StartMonitorWork
 
 	public void toggleOnOffEa()
 	{
+		
 		DisTool.waitCursor();
 		tv_glob.toggleOnOffEas();
 		tv_glob.ShowProfitTable();

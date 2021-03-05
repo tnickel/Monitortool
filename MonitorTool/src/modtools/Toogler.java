@@ -32,10 +32,22 @@ public class Toogler
 			//hier wird getoogled
 			int on=eal.getOn(magic, selbroker);
 			if(on==1)
+			{
+				//ausschalten
 				eal.setOn(magic, selbroker, 0);
+				//und die offenen trades mit der bestimmten magic abschalten
+				//aber nur einmal, der EA bleibt bestehen sonst
+				mc.SetCloseAllTradesOnce(magic);
+			}
 			else
+			{
+				//einschalten
 				eal.setOn(magic, selbroker, 1);
-			
+				
+				//remove
+				//hier wird ein bestehender RemoveCloseAllTrades für eine Magic wieder entfernt
+				mc.RemoveCloseAllTradesOnce(magic);
+			}
 			String realbroker = mc.getconnectedBroker();
 			TradeCopy trc=new TradeCopy();
 			//beim init werden die *.chr-files kopiert
