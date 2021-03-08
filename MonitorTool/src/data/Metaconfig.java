@@ -60,6 +60,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	// only handinstalled flag, if 1= than the eas are never modified by the tool
 	private int onlyhandinstalled = 0;
 	
+	
 	static String[] accounttypename =
 	{ "Mon", "Aut", "Real", "FST" };
 	
@@ -92,6 +93,10 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int tradecopymagic = 0;
 	private String suffix = "";
 	private int accountlocked = 0;
+	//time of the last installation of eas
+	private String lastinstallation="";
+	//automatic symbolreplacement
+	private int automaticsymbolreplacement=0;
 	
 	public Metaconfig(String mname)
 	{
@@ -155,6 +160,11 @@ public class Metaconfig implements Comparable<Metaconfig>
 				suffix = SG.nteilstring(zeile, "#", 29);
 			if (trennanz > 29)
 				accountlocked = SG.get_zahl(SG.nteilstring(zeile, "#", 30));
+			if (trennanz > 30)
+				lastinstallation = (SG.nteilstring(zeile, "#", 31));
+			if (trennanz > 31)
+				automaticsymbolreplacement = SG.get_zahl(SG.nteilstring(zeile, "#", 31));
+			
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -625,6 +635,26 @@ public class Metaconfig implements Comparable<Metaconfig>
 		this.accountlocked = accountlocked;
 	}
 	
+	public String getLastinstallation()
+	{
+		return lastinstallation;
+	}
+
+	public void setLastinstallation(String lastinstallation)
+	{
+		this.lastinstallation = lastinstallation;
+	}
+
+	public int getAutomaticsymbolreplacement()
+	{
+		return automaticsymbolreplacement;
+	}
+
+	public void setAutomaticsymbolreplacement(int automaticsymbolreplacement)
+	{
+		this.automaticsymbolreplacement = automaticsymbolreplacement;
+	}
+
 	public String getInitMetaversion()
 	{
 		String fnam = networkshare;

@@ -80,19 +80,25 @@ public class SymbolReplaceList
 	public void ShowReplaceResults()
 	{
 		String[] marray = new String[100];
+		int anzmax=30;
 		
 		int anz = srp.size();
 		if (anz >= 100)
 			Tracer.WriteTrace(10, "E: index to high");
 		
-		if (anz > 1)
+		
+		anzmax=(anz<30)?anz:anzmax;	
+		
+		if (anzmax > 1)
 		{
 			
-			for (int i = 0; i < anz; i++)
+			for (int i = 0; i < anzmax; i++)
 				marray[i] = i+1+":"+srp.get(i);
 		}
-		else
+		if(anzmax==0)
 			marray[0]="0 replacements";
+		if(anzmax>=30)
+			marray[30]=".....";
 		
 		Mbox.Infobox2(anz+" Symbol Replacements", marray);
 	}

@@ -24,6 +24,7 @@ import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
+import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
 import mqlLibs.eaclass;
 import mtools.DisTool;
@@ -166,7 +167,7 @@ public class Installer
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".mq4");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".ex4");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".log");
-		FileAccess.FilesDelete(meconf.getAppdata() + "//profiles\\default", ".chr");
+		FileAccess.FilesDelete(meconf.getAppdata() + "\\profiles\\default", ".chr");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".dat");
 	}
 	
@@ -175,7 +176,7 @@ public class Installer
 		FileAccessDyn fd = new FileAccessDyn();
 		Mlist.add("I:install indicators", 1);
 		String indiverz_quelle = Rootpath.getRootpath() + "\\install\\MT4_indikatoren";
-		String inidverz_ziel = meconf.getMqldata() + "//indicators";
+		String inidverz_ziel = meconf.getMqldata() + "\\indicators";
 		Tracer.WriteTrace(20, "I:copy indicators from <" + indiverz_quelle + "> to <" + inidverz_ziel + ">");
 		FileAccess.CopyDirectory(indiverz_quelle, inidverz_ziel, ".mq4");
 	}
@@ -301,6 +302,10 @@ public class Installer
 			
 		}
 		eal.store(0);
+		
+		String datetime=Tools.get_aktdatetime_str();
+		metaconfig.setLastinstallation(datetime);
+		
 		if (realpatchflag == 0)
 			loescheMqlCache(metaconfig.getMqldata());
 		else

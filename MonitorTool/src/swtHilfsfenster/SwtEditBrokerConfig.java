@@ -33,6 +33,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import data.GlobalVar;
 import data.Lic;
 import data.Metaconfig;
+import data.SymbolReplaceList;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -58,6 +59,7 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 
 	private Text MqlQuellverzeichniss;
+	private Button button1symbolreplacement;
 	private Button button1lockaccount;
 	private Label label8minpf;
 	private Text text1minProfFaktor;
@@ -70,7 +72,6 @@ public class SwtEditBrokerConfig
 	private Label label4;
 	private Label label3;
 	private Button button1showonlyinstalledeas;
-	private Button button1closealltradesonfriday;
 	private Composite composite2;
 	private Text text1currencypair;
 	private Button button1tradecopy;
@@ -380,18 +381,6 @@ public class SwtEditBrokerConfig
 			composite2.setBounds(5, 216, 726, 142);
 		}
 		{
-			button1closealltradesonfriday = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1closealltradesonfriday.setText("close all trades on friday");
-			button1closealltradesonfriday.setBounds(806, 322, 239, 30);
-			button1closealltradesonfriday.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					button1closealltradesonfridayWidgetSelected(evt);
-				}
-			});
-			if(me_glob.getClosefridayflag()==1)
-				button1closealltradesonfriday.setSelection(true);
-		}
-		{
 			button1showonlyinstalledeas = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1showonlyinstalledeas.setText("show only installed EAs");
 			button1showonlyinstalledeas.setBounds(806, 352, 225, 30);
@@ -460,6 +449,12 @@ public class SwtEditBrokerConfig
 			button1lockaccount.setText("lock all EAs on this account");
 			button1lockaccount.setBounds(806, 412, 291, 30);
 			button1lockaccount.setToolTipText("If a account is locked no one can delete EAs on this account. All EAs are protected against deletion. Unlock this account first if you want to delete EAs");
+		}
+		{
+			button1symbolreplacement = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1symbolreplacement.setText("Automatic Symbol Replacement");
+			button1symbolreplacement.setBounds(806, 326, 301, 30);
+			button1symbolreplacement.setToolTipText("Make automatic Symbolereplacement after EA installation. This is helpfull if you install bitcoin EAs for example.");
 		}
 
 		sh.open();
@@ -619,6 +614,12 @@ public class SwtEditBrokerConfig
 		else
 			me_glob.setShowOnlyInstalledEas(0);
 		
+		if(me_glob.getAutomaticsymbolreplacement()==1)
+			button1symbolreplacement.setSelection(true);
+		else
+			button1symbolreplacement.setSelection(false);
+	
+		
 	}
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{
@@ -657,6 +658,10 @@ public class SwtEditBrokerConfig
 		if(suffix!=null)
 		   me_glob.setSuffix(suffix);
 		
+		if(button1symbolreplacement.getSelection()==true)
+			me_glob.setAutomaticsymbolreplacement(1);
+		else
+			me_glob.setAutomaticsymbolreplacement(0);
 		
 		//global config speichern
 		GlobalVar.setLastcopytrademagic(Integer.valueOf(text1usemagic.getText()));
@@ -670,6 +675,13 @@ public class SwtEditBrokerConfig
 		
 		bv_glob.SaveBrokerTable();
 		
+		if(button1symbolreplacement.getSelection()==true)
+		{
+			SymbolReplaceList s=new SymbolReplaceList(bv_glob);
+			s.ReplaceAllSymbols();
+			s.ShowReplaceResults();
+			
+		}
 		
 		exitflag = 1;
 		if(dis_glob.getActiveShell()!=null)
@@ -967,16 +979,7 @@ public class SwtEditBrokerConfig
 		//TODO add your code for button1setupdatedir.widgetSelected
 	}
 	
-	private void button1closealltradesonfridayWidgetSelected(SelectionEvent evt) {
-		System.out.println("button1closealltradesonfriday.widgetSelected, event="+evt);
-		Boolean v=button1closealltradesonfriday.getSelection();
-
-		if(v==true)
-		me_glob.setClosefridayflag(1);
-		else
-			me_glob.setClosefridayflag(0);
-		
-	}
+	
 	private void AutoDemoaccountWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("AutoDemoaccount.widgetSelected, event=" + evt);

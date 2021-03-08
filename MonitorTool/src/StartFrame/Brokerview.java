@@ -246,7 +246,7 @@ public class Brokerview
 		//show brokername in blue if realaccount
 		
 		Swttool.baueTabellenkopfDispose(table,
-				"path#On#S#rTime#T#Brokername#conBroker#Info#Accountnumber");
+				"path#On#S#rTime#T#Brokername#conBroker#Info#Accountnumber#LastInstallation");
 
 		int zeilcount = metatraderlist.getsize();
 
@@ -290,9 +290,11 @@ public class Brokerview
 			item.setText(6, String.valueOf(me.getconnectedBroker()));
 			item.setText(7, String.valueOf(me.getInfostring()));
 			item.setText(8,getAccountNumber(me));
+			if(me.getLastinstallation()!=null)
+			  item.setText(9,me.getLastinstallation());
 		}
 
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			table.getColumn(i).pack();
 		}

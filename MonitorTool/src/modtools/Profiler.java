@@ -219,7 +219,7 @@ public class Profiler
 		String path = getprofiledir();
 		NumberFormat numberFormat = new DecimalFormat("00");
 		
-		for (int i = 1; i < 97; i++)
+		for (int i = 1; i <= 99; i++)
 		{
 			// Tracer.WriteTrace(20, "I: suchen freie chartnummer index<"+i+">");
 			String fnam = path + "\\chart" + numberFormat.format(i) + ".chr";
