@@ -38,6 +38,7 @@ public class Profit implements Comparable<Profit>
 	private String symbol = "???";
 	private float profitfaktor = 0;
 	private float drawdown = 0;
+	
 
 	private Tradeliste tradeliste_glob = null;
 	// broker
@@ -73,6 +74,7 @@ public class Profit implements Comparable<Profit>
 				symbol = new String(SG.nteilstring(zeile, "#", 15));
 
 			}
+			
 			// den zugehörigen Trade speichern, beim ersten male
 			//die tradeliste löschen
 			tradeliste_glob = new Tradeliste(Rootpath.rootpath+ "\\data\\tradeliste.xml");
@@ -304,7 +306,12 @@ public class Profit implements Comparable<Profit>
 		
 		return ((int)tage);
 	}
-
+	public int calcConsecLooses()
+	{
+		int cl=tradeliste_glob.calcConsecLooses();
+		return cl;
+		
+	}
 	public int compareTo(Profit vergleichsprofit)
 	{
 		int retval = 0;

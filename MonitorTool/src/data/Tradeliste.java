@@ -1485,4 +1485,33 @@ public class Tradeliste
 			
 			return count;
 	}
+	public int calcConsecLooses()
+	{
+		int clanz=0;
+		
+		int anz=tradeliste.size();
+		for(int i=0; i<anz; i++)
+		{
+			Trade tr=tradeliste.get(i);
+			double prof=tr.getProfit();
+			if(prof<0)
+				clanz++;
+			if(prof==0)
+				continue;
+			
+			if((prof>0)&&(clanz>0))
+			{   //falls schon losses da sind und jetzt wird es plötzlich positiv
+				//dann sind wir fertig
+				return clanz;
+			}
+			if(prof>0)
+			{
+				
+				clanz=0;
+				return clanz;
+			}
+		}
+		return clanz;
+		
+	}
 }
