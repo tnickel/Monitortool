@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 import Metriklibs.FileAccessDyn;
 import Sync.LockTradeliste;
+import backtest.Mt4Backtester;
 import charttool.Profitanzeige;
 import charttool.ShowAllProfitsConfig;
 import data.Ea;
@@ -32,7 +33,6 @@ import filter.Tradefilter;
 import gui.Mbox;
 import hiflsklasse.Archive;
 import hiflsklasse.FileAccess;
-import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import hiflsklasse.Viewer;
 import modtools.Autoconfig;
@@ -368,6 +368,42 @@ public class StartMonitorWork
 
 	}
 
+	public void showBacktestGraphik()
+	{
+		// die tradeliste für einen bestimmten ea generieren und anzeigen
+				Profit pro = selectedProfitelem_glob;
+
+				if(pro==null)
+				{
+					Tracer.WriteTrace(10, "E:no element selected");
+					return;
+				}
+				// die aktuelle profitliste laden
+				Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()),
+						pro.getBroker());
+
+				if (eatradeliste == null)
+					return;
+
+				Ea ea = tv_glob.getEaliste().getEa(pro.getMagic(), pro.getBroker());
+				String eaname=ea.getEafilename();
+				int period=ea.getPeriod();
+				String symbol=ea.getSymbol();
+				Mt4Backtester mtb=new Mt4Backtester();
+				
+				String brokername=pro.getBroker();
+				Metaconfig metaconfig=brokerview_glob.getMetaconfigByBrokername(brokername);
+				mtb.Install(Rootpath.getRootpath(), metaconfig.getAppdata());
+
+				
+				//hier weitermachen!!!!!!!!!!!!!!xxxxxxxxxxxxxxxxxxxx
+				
+				mtb.setvalues(eaname, "H1", symbol);
+				mtb.makeBacktest();
+				mtb.showResults();
+		
+	}
+	
 	public void showselprofits(Table table2)
 	{
 		// hier wird die gewinnkurve mehrerer EA´s in einer graphik angezeigt

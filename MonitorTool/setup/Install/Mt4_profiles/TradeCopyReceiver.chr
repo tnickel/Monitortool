@@ -85,7 +85,7 @@ LimitOrderExpirationMinutes=20
 ImmediateCloseOnSlippagePips=0.0
 MarketOrderSlippageParameter=9999
 s_Orders==== Order management ===
-OrderRetries=2
+OrderRetries=5
 UseInstantExecution=false
 RequireSenderFillWithinMinutes=0
 MagicNumber=0
@@ -96,9 +96,9 @@ PreventPartialExits=false
 IgnorePartialExits=false
 EntryOffsetPips=0.0
 s_Lots==== Lot sizing modes ===
-UseFixedLotSize=0.01
-UseRiskFactor=1.0
-LotSizeMultiplier=0.0
+UseFixedLotSize=0
+UseRiskFactor=0
+LotSizeMultiplier=1.0
 EquityPerLot=0.0
 BalancePerLot=0.0
 CashRiskFixed=0.0
@@ -107,7 +107,7 @@ CashRiskBalancePercent=0.0
 NotionalDepositVolume=0.0
 CalculateRiskFactorFromBalance=false
 s_LotsSettings==== Lot sizing limits and settings ===
-MaxLots=10.0
+MaxLots=1.0
 MinLots=0.0
 CentAccount=false
 RoundUpToBrokerMinimum=false

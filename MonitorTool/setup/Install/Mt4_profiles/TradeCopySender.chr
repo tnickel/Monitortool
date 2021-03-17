@@ -261,7 +261,7 @@ IncludeOrderComments=
 IncludePendingOrders=false
 RequireStopLoss=false
 s_Lotsize==== Lot sizing and pricing ===
-UseFixedLotSize=0.01
+UseFixedLotSize=0
 LotSizeMultiplier=1.0
 SymbolMultipliers=
 BroadcastAllOrdersAtMarket=false

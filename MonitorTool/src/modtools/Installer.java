@@ -13,6 +13,7 @@ import FileTools.Filefunkt;
 import Metriklibs.FileAccessDyn;
 import StartFrame.Brokerview;
 import StartFrame.Tableview;
+import backtest.Mt4Backtester;
 import data.Ea;
 import data.Ealiste;
 import data.GlobalVar;
@@ -120,6 +121,12 @@ public class Installer
 		Profiler profiler = new Profiler(metaconf);
 		profiler.createSpecialProfile(histexporterchr_quelle, "GenBuilder_TickDataExportEA");
 		
+	}
+	
+	private void copyBacktestEnvironment(Metaconfig metaconf)
+	{
+		Mt4Backtester mt4b=new Mt4Backtester();
+		mt4b.Install(Rootpath.getRootpath(), metaconf.getAppdata());
 	}
 	
 	private void copyMyFxbookEa(Metaconfig meconf)
@@ -510,6 +517,9 @@ public class Installer
 			copyTradecopy(metaconfig);
 		if (metaconfig.isInsttickdataexporter())
 			copyTickdataExporter(metaconfig);
+		
+		copyBacktestEnvironment(metaconfig);
+		
 		
 		InstallSernumber(metaconfig);
 		

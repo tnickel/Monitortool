@@ -205,6 +205,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button3makemt4backtestLData.height = 31;
 				button3makemt4backtest.setLayoutData(button3makemt4backtestLData);
 				button3makemt4backtest.setText("make mt4 backtest");
+				button3makemt4backtest.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						button3makemt4backtestWidgetSelected(evt);
+					}
+				});
 			}
 			{
 				button3delbadeas = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -2382,6 +2387,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button3replacesymbols.widgetSelected, event="+evt);
 		//replace all symbols
 		smw.replaceAllSymbols();
+	}
+	
+	private void button3makemt4backtestWidgetSelected(SelectionEvent evt) {
+		System.out.println("button3makemt4backtest.widgetSelected, event="+evt);
+		smw.showBacktestGraphik();
 	}
 
 }
