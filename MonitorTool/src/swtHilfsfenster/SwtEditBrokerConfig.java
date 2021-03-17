@@ -618,8 +618,9 @@ public class SwtEditBrokerConfig
 			button1symbolreplacement.setSelection(true);
 		else
 			button1symbolreplacement.setSelection(false);
-	
 		
+		if(Brokername.getText().length()>0)
+			Brokername.setEditable(false);
 	}
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{

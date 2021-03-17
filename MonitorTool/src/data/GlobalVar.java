@@ -17,6 +17,7 @@ public class GlobalVar
 	static String ipmessage="check for updates";
 	static int silentmode=0;
 	static int askforupdate=1;
+	static int metatraderrunning=0;
 	
 	
 	public GlobalVar()
@@ -33,6 +34,16 @@ public class GlobalVar
 		gc = (GlobVarDat) inf.loadXST();
 
 		inf.close();
+	}
+
+	public static int getMetatraderrunning()
+	{
+		return metatraderrunning;
+	}
+
+	public static void setMetatraderrunning(int metatraderrunning)
+	{
+		GlobalVar.metatraderrunning = metatraderrunning;
 	}
 
 	static public String getMqlsourcedirprefix()
@@ -236,7 +247,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.507");
+		return("Monitortool V0.508");
 	}
 	
 	public static String calcHeadline()

@@ -763,17 +763,11 @@ public class Metaconfig implements Comparable<Metaconfig>
 	
 	public boolean isRealbroker()
 	{
-		String kontofilenam = this.getFiledata() + "\\Kontoinformation.txt";
-		File kontofile = new File(this.getFiledata() + "\\Kontoinformation.txt");
-		if (kontofile.exists() == false)
-			return false;
+		if(accounttype==2)
+			return true;
 		else
-		{
-			if (FileAccess.FileContainString(kontofilenam, "Realaccount") == true)
-				return true;
-			else
-				return false;
-		}
+			return false;
+		
 	}
 	
 	public void SetCloseAllTradesOnce(int magic)

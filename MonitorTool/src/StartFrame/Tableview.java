@@ -1210,6 +1210,24 @@ public class Tableview extends TableViewBasic
 					Tracer.WriteTrace(10, "internal magic<" + magic
 							+ "> != prof.magic<" + prof.getMagic() + ">");
 
+				//schaue nach ob der EA auf einem Realbroker ist
+				//auf Realbroker sind nur Tradecopierer die nicht gelöscht werden können
+				Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(prof.getBroker());
+				if(meconf.isRealbroker()==true)
+				{	
+					Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+prof.getBroker()+">is realbroker");
+					continue;
+				}
+				
+				//schaue nach ob der EA gelocked ist, wenn ja dann meldung ausgeben und nicht den EA löschen	
+				if(meconf.getAccountlocked()==1)
+				{
+					Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+prof.getBroker()+">is locked");
+					continue;
+				}
+				
+				
+				//schaue nach ob der EA im Gewinn ist, falls ja dann eine warnung ausgeben
 				if (prof.getGesgewinn() > 0)
 				{
 					Mbox.Infobox("Warning: you delete ea-magic<" + magic

@@ -82,7 +82,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Label label2;
 	private Button stop;
 	private Button checkGd20;
-	private Button lifecheck;
 	private Button button2;
 	private Button button1x;
 	private Text text1from;
@@ -97,11 +96,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Label label3;
 	private Text text1days;
 	private Button button2delete;
-	private Button button2newcal;
 	private Button buttondown;
 	private Button buttonup;
 	private Button sortcriteria;
-	private Button showbacktest;
 	private MenuItem menuItem1;
 	private Button showselprofits;
 	private Button selonlyone;
@@ -119,7 +116,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button clr;
 	private Button configea;
 	private Button showbroker;
-	private Button sync;
 	private Button manualonoff;
 	private Button loop;
 	private Text intervall;
@@ -438,16 +434,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 			{
-				button2newcal = new Button(this, SWT.CHECK | SWT.LEFT);
-				FormData button2newcalLData = new FormData();
-				button2newcalLData.left =  new FormAttachment(0, 1000, 579);
-				button2newcalLData.top =  new FormAttachment(0, 1000, 794);
-				button2newcalLData.width = 88;
-				button2newcalLData.height = 20;
-				button2newcal.setLayoutData(button2newcalLData);
-				button2newcal.setText("new cal");
-			}
-			{
 				buttondown = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData buttondownLData = new FormData();
 				buttondownLData.left =  new FormAttachment(0, 1000, 1428);
@@ -497,23 +483,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 					public void widgetSelected(SelectionEvent evt)
 					{
 						sortcriteriaWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				showbacktest = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData showbacktestLData = new FormData();
-				showbacktestLData.left =  new FormAttachment(0, 1000, 463);
-				showbacktestLData.top =  new FormAttachment(0, 1000, 784);
-				showbacktestLData.width = 110;
-				showbacktestLData.height = 30;
-				showbacktest.setLayoutData(showbacktestLData);
-				showbacktest.setText("showbacktest");
-				showbacktest.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						showbacktestWidgetSelected(evt);
 					}
 				});
 			}
@@ -677,9 +646,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				showonofflog = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showonofflogLData = new FormData();
-				showonofflogLData.left =  new FormAttachment(0, 1000, 1282);
+				showonofflogLData.left =  new FormAttachment(0, 1000, 1267);
 				showonofflogLData.top =  new FormAttachment(0, 1000, 668);
-				showonofflogLData.width = 49;
+				showonofflogLData.width = 64;
 				showonofflogLData.height = 20;
 				showonofflog.setLayoutData(showonofflogLData);
 				showonofflog.setText("on/off log");
@@ -756,26 +725,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 			{
-				lifecheck = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData lifecheckLData = new FormData();
-				lifecheckLData.left =  new FormAttachment(0, 1000, 1239);
-				lifecheckLData.top =  new FormAttachment(0, 1000, 747);
-				lifecheckLData.width = 92;
-				lifecheckLData.height = 31;
-				lifecheck.setLayoutData(lifecheckLData);
-				lifecheck.setText("Lifecheck");
-				lifecheck
-						.setToolTipText("Check if all broker available. If where was the last response 15 minutes ago, the broker is not available");
-				lifecheck.setEnabled(false);
-				lifecheck.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						lifecheckWidgetSelected(evt);
-					}
-				});
-			}
-			{
 				configea = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData configeaLData = new FormData();
 				configeaLData.left =  new FormAttachment(0, 1000, 673);
@@ -806,23 +755,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 					public void widgetSelected(SelectionEvent evt)
 					{
 						showbrokerWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				sync = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData syncLData = new FormData();
-				syncLData.left =  new FormAttachment(0, 1000, 1047);
-				syncLData.top =  new FormAttachment(0, 1000, 18);
-				syncLData.width = 111;
-				syncLData.height = 30;
-				sync.setLayoutData(syncLData);
-				sync.setText("sync broker");
-				sync.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						syncWidgetSelected(evt);
 					}
 				});
 			}
@@ -1457,8 +1389,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			if (Lic.getlic() == 0)
 			{
 				// noch mehr löschen
-				showbacktest.setVisible(false);
-				button2newcal.setVisible(false);
+				
 				button2delete.setVisible(false);
 			}
 
@@ -1473,12 +1404,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				configea.setVisible(false);
 				
 
-				lifecheck.setVisible(false);
+				
 				checkGd20.setVisible(false);
 				intervall.setVisible(false);
 				label2.setVisible(false);
 				progressBar2.setVisible(false);
-				sync.setVisible(false);
+				
 				
 
 				button2showallprotfolio.setVisible(false);
@@ -1645,7 +1576,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			// einige buttons ausschalten
 			
 			//manualonoff.setEnabled(false);
-			sync.setEnabled(true);
+			
 			
 			configea.setEnabled(false);
 			
@@ -1658,7 +1589,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			toggleallprofits.setEnabled(true);
 			
 			manualonoff.setEnabled(true);
-			sync.setEnabled(false);
+		
 
 			configea.setEnabled(true);
 
@@ -1934,7 +1865,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		loopflag = 1;
 
 		getAllData.setEnabled(false);
-		sync.setEnabled(false);
+		
 		loop.setEnabled(false);
 
 		System.out.println("getData.widgetSelected, event=" + evt);
@@ -1955,7 +1886,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		loopflag = 0;
 
 		getAllData.setEnabled(true);
-		sync.setEnabled(true);
+	
 		loop.setEnabled(true);
 
 		broker.setText("Automatic Stopped");
@@ -1983,6 +1914,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("manualonoff.widgetSelected, event=" + evt);
 		// Schaltet den EA ein oder aus
 		// geht aber nur wenn keine automatic eingeschaltet ist
+
+		if(GlobalVar.getMetatraderrunning()==1)
+		{
+			smw.stopAllMt();
+			GlobalVar.setMetatraderrunning(0);
+		}
 		smw.toggleOnOffEa();
 	}
 
@@ -2134,12 +2071,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.removeImported();
 	}
 
-	private void showbacktestWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("showbacktest.widgetSelected, event=" + evt);
-		// show backtest button
-		smw.showBacktest(button2newcal.getSelection());
-	}
+	
 
 	private void comparetradelistWidgetSelected(SelectionEvent evt)
 	{
@@ -2224,8 +2156,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button2delete.widgetSelected, event=" + evt);
 		// TODO add your code for button2delete.widgetSelected
-		MetaStarter.KillAllMetatrader();
+
+		if(GlobalVar.getMetatraderrunning()==1)
+			MetaStarter.KillAllMetatrader();
 		
+		GlobalVar.setMetatraderrunning(0);
 		int anz=smw.deleteEas();
 		Mbox.Infobox("I have deleted #eas="+anz);
 	}
@@ -2339,6 +2274,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// TODO add your code for button2startmetatrader.widgetSelected
 
 		smw.startAllMt();
+		GlobalVar.setMetatraderrunning(1);
 	}
 
 	private void button2stopmtWidgetSelected(SelectionEvent evt)
@@ -2346,6 +2282,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button2stopmt.widgetSelected, event=" + evt);
 		// TODO add your code for button2stopmt.widgetSelected
 		smw.stopAllMt();
+		GlobalVar.setMetatraderrunning(0);
 	}
 
 	private void thisWidgetDisposed(DisposeEvent evt)
@@ -2354,6 +2291,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// TODO add your code for this.widgetDisposed
 		// Es wurde auf das X-geklickt (dispose)
 		MetaStarter.KillAllMetatrader();
+		GlobalVar.setMetatraderrunning(0);
 	}
 
 	private void button2showtradelistportfolioWidgetSelected(SelectionEvent evt)
