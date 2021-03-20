@@ -8,6 +8,7 @@ import hiflsklasse.Tracer;
 
 public class Mt4Backtester
 {
+	
 	public void Install(String rootpath, String appdata)
 	{
 		//rootpath: ist der pfad wo das installationspacket ist
