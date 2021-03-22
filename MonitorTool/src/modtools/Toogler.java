@@ -28,7 +28,15 @@ public class Toogler
 			// den broker gibt es nicht mehr
 			if (mc == null)
 				Tracer.WriteTrace(10, "E:unknown broker<" + selbroker + ">");
-
+			
+			//check
+			String realbroker = mc.getconnectedBroker();
+			if((realbroker==null)||(realbroker.length()==0))
+			{
+				Tracer.WriteTrace(10, "E:This demobroker <"+selbroker+"> dont have a connected realbroker, please connect to realbroker with 'Edit Broker'");
+				return;	
+			}
+			
 			//hier wird getoogled
 			int on=eal.getOn(magic, selbroker);
 			if(on==1)
@@ -48,7 +56,8 @@ public class Toogler
 				//hier wird ein bestehender RemoveCloseAllTrades für eine Magic wieder entfernt
 				mc.RemoveCloseAllTradesOnce(magic);
 			}
-			String realbroker = mc.getconnectedBroker();
+			
+			
 			TradeCopy trc=new TradeCopy();
 			//beim init werden die *.chr-files kopiert
 			trc.init(selbroker,realbroker,brokerview);

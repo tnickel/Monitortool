@@ -1258,6 +1258,7 @@ public class Installer
 		
 		// get the connected broker and delete profiles on realbroker
 		String conrealbroker = meconfdemo.getconnectedBroker();
+				
 		Metaconfig meconfreal = brokerview.getMetaconfigByBrokername(conrealbroker);
 		Profiler profreal = new Profiler(meconfreal);
 		profreal.delAllProfiles("FX Blue - TradeCopy Receiver", meconfdemo.getBrokername());

@@ -3,6 +3,7 @@ package modtools;
 import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Metaconfig;
+import hiflsklasse.Tracer;
 
 public class TradeCopy
 {
@@ -20,6 +21,12 @@ public class TradeCopy
 	
 	public void init(String selbroker, String realbroker, Brokerview bv)
 	{
+		if(realbroker==null)
+		{
+			Tracer.WriteTrace(10, "E:Error this broker<"+selbroker+"> dont have a connected realbroker, set realbroker in Edit Broker first");
+			return;
+		}
+		
 		// 0)lösche die alten configs Sender und empfängerseitig
 		selbroker_glob = selbroker;
 		realbroker_glob = realbroker;
@@ -29,6 +36,7 @@ public class TradeCopy
 		Metaconfig meconf_real = bv.getMetaconfigByBrokername(realbroker);
 		meconf_sel_glob = meconf_sel;
 		meconf_real_glob = meconf_real;
+		
 		
 		// erst mal die alten configs für den tradechannel löschen
 		Installer inst = new Installer();
