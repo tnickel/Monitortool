@@ -173,7 +173,7 @@ public class SwtCompareTradelist
 		{
 			combo2broker = new Combo(sh, SWT.NONE);
 			combo2broker.setText(broker2_glob);
-			combo2broker.setBounds(946, 755, 56, 28);
+			combo2broker.setBounds(946, 755, 199, 33);
 
 			combo2broker.addSelectionListener(new SelectionAdapter()
 			{
@@ -207,12 +207,12 @@ public class SwtCompareTradelist
 		{
 			button1glzeitraum = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1glzeitraum.setText("set same time");
-			button1glzeitraum.setBounds(273, 795, 117, 30);
+			button1glzeitraum.setBounds(273, 795, 170, 30);
 		}
 		{
 			combo2magic = new Combo(sh, SWT.NONE);
 			combo2magic.setText(String.valueOf(profelem_glob.getMagic()));
-			combo2magic.setBounds(1091, 755, 136, 28);
+			combo2magic.setBounds(1169, 755, 225, 33);
 			combo2magic.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -241,7 +241,7 @@ public class SwtCompareTradelist
 		{
 			button1setlotsize1 = new Button(sh, SWT.PUSH | SWT.CENTER);
 			button1setlotsize1.setText("set lotsize");
-			button1setlotsize1.setBounds(167, 837, 75, 20);
+			button1setlotsize1.setBounds(167, 837, 118, 33);
 			button1setlotsize1.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -269,22 +269,22 @@ public class SwtCompareTradelist
 		{
 			gmt = new Text(sh, SWT.NONE);
 			gmt.setText("0");
-			gmt.setBounds(1265, 760, 56, 22);
+			gmt.setBounds(1412, 763, 36, 22);
 		}
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("gmtdiff");
-			label2.setBounds(1304, 760, 56, 22);
+			label2.setBounds(1466, 763, 123, 29);
 		}
 		{
 			text1minutentolleranz_glob= new Text(sh, SWT.NONE);
 			text1minutentolleranz_glob.setText("5");
-			text1minutentolleranz_glob.setBounds(1227, 798, 56, 22);
+			text1minutentolleranz_glob.setBounds(1412, 803, 31, 22);
 		}
 		{
 			label3 = new Label(sh, SWT.NONE);
 			label3.setText("minutes toleranz");
-			label3.setBounds(1266, 798, 119, 20);
+			label3.setBounds(1466, 798, 161, 20);
 		}
 		{
 			text1prozfit = new Text(sh, SWT.NONE);
@@ -300,7 +300,7 @@ public class SwtCompareTradelist
 		{
 			button1refresh = new Button(sh, SWT.PUSH | SWT.CENTER);
 			button1refresh.setText("refresh");
-			button1refresh.setBounds(1218, 829, 152, 30);
+			button1refresh.setBounds(1636, 818, 152, 30);
 			button1refresh.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					button1refreshWidgetSelected(evt);
@@ -444,6 +444,11 @@ public class SwtCompareTradelist
 	{
 		// Erst mal die Tradeliste für Rechts aufbauen
 		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic2_glob), broker2_glob);
+		if(etl.getsize()==0)
+		{
+			Tracer.WriteTrace(10, "Info: no trades on broker <"+broker2_glob+"> for magic <"+magic2_glob+">");
+			return;
+		}
 		//global zuweisen
 		etl_rechts_glob=etl;
 		text1namerechts.setText(Tradeliste.getTradelistenam());

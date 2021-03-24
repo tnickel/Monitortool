@@ -770,7 +770,7 @@ public class Tableview extends TableViewBasic
 	{
 		// Hier wird die Tradeliste für ein Profitelement aufgebaut
 
-		
+		//1) Fall 1 Backtest, dann hole die daten aus dem file
 		if((broker!=null)&&(broker.toLowerCase().contains("backtest")))
 		{
 			//dann steht in der magic der name des files das geladen werden soll
@@ -790,10 +790,10 @@ public class Tableview extends TableViewBasic
 			return trl;
 		
 		}
-		
+
+		//2) Fall 2, Broker ist ein demobroker
 		// baut eine Profitliste auf wo nur ein bestimmter Ea vorkommt, die Trades werden aus der globalen Tradeliste geholt
 		Tradeliste eatl = new Tradeliste(null);
-
 		int zeilcount = tl.getsize();
 		for (int i = 0, j = 0; i < zeilcount; i++)
 		{
@@ -804,6 +804,29 @@ public class Tableview extends TableViewBasic
 				eatl.addTradeElem(tr);
 			}
 		}
+		
+		//falls eatl.size==0, dann wurde nix gefunden, dann schaue in den comments nach der magic
+		//3) Fall3, Broker ist ein Realbroker, dann wird man die magic auf dem realbroker möglicherweise nicht 
+		//finden, dann schaue zusätzlich in den comment nach und übernimm die trades wenn dort ein teil der magic vor
+		//kommt.
+		//die Funktion sieht ungefähr wie bei fall 2 aus nur das hier noch der comment als oder abgefragt wird
+		if(eatl.getsize()==0)
+		{
+			zeilcount = tl.getsize();
+			for (int i = 0, j = 0; i < zeilcount; i++)
+			{
+				Trade tr = tl.getelem(i);
+				
+				if ((tr.getBroker().equals(broker)) && tr.getComment().contains(magic))
+				{
+					eatl.addTradeElem(tr);
+				}
+			}
+			
+			
+		}
+			
+		
 		eatl.sortliste();
 		eatl.Reverse();
 		eatl.calcSummengewinne();

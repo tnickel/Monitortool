@@ -168,7 +168,7 @@ public class Tradeliste
 			Trade tr = tradeliste.get(i);
 			if (tr.getMagic() != magic)
 				continue;
-
+		
 			String brokernam = tr.getBroker();
 			if (brokermenge.contains(brokernam) == false)
 			{
@@ -176,6 +176,23 @@ public class Tradeliste
 				brokerliste.add(brokernam);
 			}
 		}
+		//hier müssen noch die Realbroker aufgenommen werden.
+		//Wird ein Tradekopierer eingesetzt wird für jeden Trade eine feste Magic
+		//gesetzt, hier kann man nicht mehr die Trades eindeutig anhand der Magic zuordnen
+		//man muss hier noch auf den Tradecomment schauen
+		//Die Realaccounts werden alle aufgenommen
+		anz=brokerview_glob.getAnz();
+		for(int i=0; i<anz; i++)
+		{
+			Metaconfig meconf=brokerview_glob.getElem(i);
+			//falls realaccount, dann nimm namen auf
+			if(meconf.getAccounttype()==2)
+			{
+				brokermenge.add(meconf.getBrokername());
+				brokerliste.add(meconf.getBrokername());
+			}
+		}
+		
 		return brokerliste;
 	}
 
