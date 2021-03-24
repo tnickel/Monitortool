@@ -159,7 +159,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private int progresscount = 0;
 	private int table2fontsize = 9;
 	private int loadallbrokerflag = 0;
-	
+	private String selbrokerpath_g=null;
 
 	// brokermode=0 alle broker angewählt
 	// brokermode=1 nur einen broker angewählt
@@ -1667,6 +1667,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void table3WidgetSelected(SelectionEvent evt)
 	{
+		String sel="";
+		
 		// Button:Hier wurde ein Broker in der Brokerliste selektiert
 		// d.h. für diesen Broker werden die Trades geladen und angezeigt
 		System.out.println("table3.widgetSelected, event=" + evt);
@@ -1674,13 +1676,15 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		DisTool.waitCursor();
 		tradefilterrefresh();
 		String seltext = evt.item.toString();
-
+		selbrokerpath_g=seltext;
+		
 		String name = "";
 
 		if (seltext.contains("{"))
 		{
-			String sel = seltext.substring(seltext.indexOf("{") + 1);
+			sel = seltext.substring(seltext.indexOf("{") + 1);
 			name = sel.replace("}", "");
+			selbrokerpath_g=name;
 
 		} else
 			Tracer.WriteTrace(10, "error internal jdfjfj");
@@ -1795,6 +1799,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 		// hier wurde eine bestimmte Magic und Broker ausgewählt
 		String seltext = evt.item.toString();
+		
 
 		String name = "";
 		if (seltext.contains("{"))
@@ -2163,6 +2168,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		GlobalVar.setMetatraderrunning(0);
 		int anz=smw.deleteEas();
 		Mbox.Infobox("I have deleted #eas="+anz);
+		
+		//und jetzt muss der reloadbutton getätigt werden, d.h. die Tades für den Broker werden neu angezeigt
+		smw.brokerselected(selbrokerpath_g, tf, table1, table2, table3, broker, dis_glob,
+				1, 0);
 	}
 
 	private void text1daysKeyTraversed(TraverseEvent evt)

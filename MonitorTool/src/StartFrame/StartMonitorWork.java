@@ -179,7 +179,6 @@ public class StartMonitorWork
 
 		//dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
-
 		
 		// die Tradetable für einen bestimmten Broker laden
 		tv_glob.LoadTradeTable(mc, dis, 0, showflag);
@@ -200,6 +199,10 @@ public class StartMonitorWork
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
 		Metaconfig me = brokerview_glob.getMetaconfig(name);
+		
+		if(me==null)
+			Tracer.WriteTrace(10, "E:can´t find broker <"+name+"> in brokerconfig");
+		
 		glob_selectedBroker = me.getBrokername();
 
 		broker.setText(glob_selectedBroker);
