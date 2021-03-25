@@ -201,8 +201,10 @@ public class StartMonitorWork
 		Metaconfig me = brokerview_glob.getMetaconfig(name);
 		
 		if(me==null)
+		{
 			Tracer.WriteTrace(10, "E:can´t find broker <"+name+"> in brokerconfig");
-		
+			return;
+		}
 		glob_selectedBroker = me.getBrokername();
 
 		broker.setText(glob_selectedBroker);
@@ -242,7 +244,7 @@ public class StartMonitorWork
 		String broker=selectedProfitelem_glob.getBroker();
 		
 		SwtShowTradeliste st = new SwtShowTradeliste();
-		Tradeliste etl = tv_glob.buildTradeliste(magic, broker);
+		Tradeliste etl = tv_glob.buildTradeliste(magic, broker,-1);
 		
 		st.init(display_glob,  etl,tv_glob,broker,magic);
 
@@ -354,7 +356,7 @@ public class StartMonitorWork
 		}
 		// die aktuelle profitliste laden
 		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()),
-				pro.getBroker());
+				pro.getBroker(),-1);
 
 		if (eatradeliste == null)
 			return;
@@ -383,7 +385,7 @@ public class StartMonitorWork
 				}
 				// die aktuelle profitliste laden
 				Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()),
-						pro.getBroker());
+						pro.getBroker(),-1);
 
 				if (eatradeliste == null)
 					return;

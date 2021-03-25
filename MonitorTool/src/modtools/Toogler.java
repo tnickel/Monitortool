@@ -31,7 +31,7 @@ public class Toogler
 			
 			//check
 			String realbroker = mc.getconnectedBroker();
-			if((realbroker==null)||(realbroker.length()==0))
+			if((realbroker==null)||(realbroker.length()==0)||(realbroker.contains("select realaccount")))
 			{
 				Tracer.WriteTrace(10, "E:This demobroker <"+selbroker+"> dont have a connected realbroker, please connect to realbroker with 'Edit Broker'");
 				return;	
@@ -64,6 +64,15 @@ public class Toogler
 
 			//trage die verbindungsdaten und die magics ein
 			trc.configProfiles(brokerview,eal);
+			
+			//konsistenzprüfung, hier wird geprüft ob jeder channel nur ein einziges Mal vorkommt
+			//eine channelid darf beim realbroker nicht zweimal vorkommen. Es wird channel 1-255 überprüft
+			if(trc.checkdoubleChannel(realbroker,brokerview,255)==false)
+			{
+				Tracer.WriteTrace(10, "E:error double channel for broker<"+realbroker+">--> stop");
+				System.exit(99);
+			}
+			
 		}
 		
 	}

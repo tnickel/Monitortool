@@ -21,9 +21,10 @@ public class TradeCopy
 	
 	public void init(String selbroker, String realbroker, Brokerview bv)
 	{
-		if(realbroker==null)
+		if (realbroker == null)
 		{
-			Tracer.WriteTrace(10, "E:Error this broker<"+selbroker+"> dont have a connected realbroker, set realbroker in Edit Broker first");
+			Tracer.WriteTrace(10, "E:Error this broker<" + selbroker
+					+ "> dont have a connected realbroker, set realbroker in Edit Broker first");
 			return;
 		}
 		
@@ -37,7 +38,6 @@ public class TradeCopy
 		meconf_sel_glob = meconf_sel;
 		meconf_real_glob = meconf_real;
 		
-		
 		// erst mal die alten configs für den tradechannel löschen
 		Installer inst = new Installer();
 		inst.cleanTradecopyConfigs(bv, meconf_sel);
@@ -49,13 +49,15 @@ public class TradeCopy
 		// hier werden die profiles kopiert und anschliessend gepatched
 		Installer inst = new Installer();
 		
-		// 1)erst werden die *.chr rüberkopiert in die metatrader auf sender und empfängerseite
+		// 1)erst werden die *.chr rüberkopiert in die metatrader auf sender und
+		// empfängerseite
 		inst.copyConfigTradecopyConfs(meconf_sel_glob, meconf_real_glob);
 		
 		// 2)hier wird am demobroker gepatched
 		// 2.1 suche erst mal das profile
 		Profiler profDemo = new Profiler(meconf_sel_glob);
-		String profilenameDemo = profDemo.getProfileEaChannel("FX Blue - TradeCopy Sender", meconf_sel_glob.getBrokername());
+		String profilenameDemo = profDemo.getProfileEaChannel("FX Blue - TradeCopy Sender",
+				meconf_sel_glob.getBrokername());
 		
 		// 2.2 dann patche das sender profile beim demobroker
 		ChrFile chrdemo = new ChrFile();
@@ -79,6 +81,27 @@ public class TradeCopy
 		chrreal.patchCurPair(meconf_real_glob.getHistexportcurrency());
 		chrreal.patchSuffix(meconf_real_glob.getSuffix());
 		chrreal.writeMemFile(null);
+	}
+	
+	public boolean checkdoubleChannel(String realbroker, Brokerview brokerview, int maxchannel)
+	{
+		Metaconfig meconfreal = brokerview.getMetaconfigByBrokername(realbroker);
+		Profiler profreal = new Profiler(meconfreal);
+		
+		for (int i = 1; i < maxchannel; i++)
+		{
+			int anzchannel = profreal.countEaChannel(String.valueOf(i));
+			if(anzchannel==1)
+				Tracer.WriteTrace(20, "Realbroker<"+realbroker+"> have channel<"+i+">");
+			if (anzchannel > 1)
+			{
+				Tracer.WriteTrace(10, "E:consistency error realbroker<" + realbroker + "> have #<" + anzchannel
+						+ "> channel for id<" + i + "> please check it manualy -->STOP");
+				return false;
+			}
+		}
+		return true;
 		
 	}
+	
 }

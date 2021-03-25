@@ -50,7 +50,7 @@ public class Tradelogic_dep
 			i++;
 			// für jeden profit wird die tradeliste aufgebaut
 			Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(prof.getMagic()),
-					prof.getBroker());
+					prof.getBroker(),-1);
 
 			// dies ist der broker vom trade
 			String demobrokername = prof.getBroker();

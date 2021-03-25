@@ -116,6 +116,7 @@ public class Profiler
 	{
 		// sucht das Profile mit dem Eanamen und den passenden channel
 		// diese funktion wird für den tradekopierer benötigt
+		
 		String profiledir = getprofiledir();
 		
 		if (profiledir == null)
@@ -135,7 +136,38 @@ public class Profiler
 		// der Eaname hat kein profile
 		return null;
 	}
-	
+	public int countEaChannel( String channel)
+	{
+		//zählt wieviele profiles für diesen Channel beim Realbroker vorhanden sind
+		// die channels werden nur für die Realbroker gezählt
+		int channelcounter=0;
+		String profiledir = getprofiledir();
+		
+		if(channel.equals("8")==true)
+			System.out.println("found8");
+		
+		if (profiledir == null)
+			Mbox.Infobox("profiledir ==null");
+		
+		if(meconf_glob.getAccounttype()!=2)
+		{
+			Tracer.WriteTrace(10, "E:countEaChannel, I can only count channels on realbroker, but <"+meconf_glob.getBrokername()+"> is not a realbroker");
+			return -1;
+		}
+			
+		FileAccessDyn fa = new FileAccessDyn();
+		fa.initFileSystemList(profiledir, 1);
+		int anz = fa.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			// holt ein profilenamen
+			String filename = profiledir + "\\" + fa.holeFileSystemName();
+			if  (checkKeyword(filename, "MagicNumber=" + channel.toLowerCase()))
+				  channelcounter++;
+		}
+		
+		return channelcounter;
+	}
 	public Boolean checkKeyword(String filename, String keyword)
 	{
 		// prüft für ein bestimmtes profile ob der keynamen drin ist

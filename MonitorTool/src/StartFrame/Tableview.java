@@ -725,7 +725,12 @@ public class Tableview extends TableViewBasic
 	{
 		return tl.getelem(index);
 	}
-
+	public int getChannel(String broker)
+	{
+		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(broker);
+		int channel=meconf.getTradecopymagic();
+		return channel;
+	}
 	public Tradeliste buildTradelisteBacktest(Profit profelem,
 			String tradecomment)
 	{
@@ -766,7 +771,7 @@ public class Tableview extends TableViewBasic
 		return eatl;
 	}
 
-	public Tradeliste buildTradeliste(String magic, String broker)
+	public Tradeliste buildTradeliste(String magic, String broker,int channel)
 	{
 		// Hier wird die Tradeliste für ein Profitelement aufgebaut
 
@@ -810,14 +815,18 @@ public class Tableview extends TableViewBasic
 		//finden, dann schaue zusätzlich in den comment nach und übernimm die trades wenn dort ein teil der magic vor
 		//kommt.
 		//die Funktion sieht ungefähr wie bei fall 2 aus nur das hier noch der comment als oder abgefragt wird
+		//ermittle erste den channel der angezeigt werden soll
 		if(eatl.getsize()==0)
 		{
+			
+			
 			zeilcount = tl.getsize();
 			for (int i = 0, j = 0; i < zeilcount; i++)
 			{
 				Trade tr = tl.getelem(i);
 				
-				if ((tr.getBroker().equals(broker)) && tr.getComment().contains(magic))
+				if ((tr.getBroker().equals(broker)) && tr.getComment().contains(magic)
+						&& (channel==tr.getMagic()))
 				{
 					eatl.addTradeElem(tr);
 				}

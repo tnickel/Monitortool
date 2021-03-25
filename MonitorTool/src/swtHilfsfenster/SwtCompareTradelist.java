@@ -30,6 +30,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 
 import data.GlobalVar;
 import data.Marklines;
+import data.Metaconfig;
 import data.Profit;
 import data.Rootpath;
 import data.Tradeliste;
@@ -257,7 +258,7 @@ public class SwtCompareTradelist
 		{
 			button1setlotsize2 = new Button(sh, SWT.PUSH | SWT.CENTER);
 			button1setlotsize2.setText("set lotsize");
-			button1setlotsize2.setBounds(922, 829, 85, 20);
+			button1setlotsize2.setBounds(922, 829, 85, 28);
 			button1setlotsize2.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -295,7 +296,7 @@ public class SwtCompareTradelist
 		{
 			label4 = new Label(sh, SWT.NONE);
 			label4.setText("% fit");
-			label4.setBounds(816, 761, 39, 22);
+			label4.setBounds(816, 761, 94, 22);
 		}
 		{
 			button1refresh = new Button(sh, SWT.PUSH | SWT.CENTER);
@@ -310,7 +311,7 @@ public class SwtCompareTradelist
 		{
 			text1namerechts = new Text(sh, SWT.NONE);
 			text1namerechts.setText("text1");
-			text1namerechts.setBounds(799, 787, 56, 22);
+			text1namerechts.setBounds(297, 837, 613, 22);
 			text1namerechts.setEditable(false);
 		}
 		sh.open();
@@ -407,7 +408,7 @@ public class SwtCompareTradelist
 	// tradeanzeige
 	private void showEinzelTradesLinks(Text text1prozfit)
 	{
-		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic1_glob), broker1_glob);
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic1_glob), broker1_glob,-1);
 		//global zuweisen
 		etl_links_glob=etl;
 		refresh_links(text1prozfit);
@@ -443,7 +444,10 @@ public class SwtCompareTradelist
 	private void showEinzelTradesRechts(Text prozgleich)
 	{
 		// Erst mal die Tradeliste für Rechts aufbauen
-		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic2_glob), broker2_glob);
+		
+		
+		int channel=tv_glob.getChannel(broker1_glob);
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic2_glob), broker2_glob,channel);
 		if(etl.getsize()==0)
 		{
 			Tracer.WriteTrace(10, "Info: no trades on broker <"+broker2_glob+"> for magic <"+magic2_glob+">");
@@ -639,9 +643,9 @@ public class SwtCompareTradelist
 		GC gc = new GC(sh);
 		if (img_links_glob != null)
 			//gc.drawImage(img_rechts_glob, 0, 0, 640, 300, 400, 0, 640, 230);
-			gc.drawImage(img_links_glob, 0, 0, 640, 300, 0, 0, 600, 230);
+			gc.drawImage(img_links_glob, 0, 0, 640, 300, 0, 0, 900, 230);
 		if (img_rechts_glob != null)
-			gc.drawImage(img_rechts_glob, 0, 0, 640, 300, 600, 0, 600, 230);
+			gc.drawImage(img_rechts_glob, 0, 0, 640, 300, 900, 0, 900, 230);
 		}catch (Exception e)
 		{
 			Tracer.WriteTrace(20, "E:exception e=<"+e.getMessage()+">");

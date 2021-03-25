@@ -59,7 +59,9 @@ public class TableViewBasic
 				continue;
 			if (zeil.contains("close hedge by #"))
 				zeil = zeil.replace("close hedge by #", "close hedge by *");
-
+			
+			
+			
 			// open orders überlesen
 			if ((showopenorders == false)
 					&& (zeil.contains("2050.01.01 00:00:00")))
