@@ -995,7 +995,8 @@ public class SwtEditBrokerConfig
 		if(magic==0)
 		{
 			//generiere neue magic
-			magic=GlobalVar.getLastcopytrademagic()+1;
+			
+			magic=bv_glob.getNewTradecopymagic();
 			GlobalVar.setLastcopytrademagic(magic);
 		}
 		

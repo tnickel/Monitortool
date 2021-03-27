@@ -153,7 +153,42 @@ public class Brokerview
 		Tracer.WriteTrace(10, "broker <" + brokername
 				+ "> zum löschen nicht vorhanden");
 	}
+	public int getNewTradecopymagic()
+	{
+		//schaut nach was die nächste freie tradecopymagic ist
+		//geht hierzu durch die ganze brokerliste
 
+		//max 100 channel möglich
+		for (int i = 1; i < 100; i++)
+		{
+			if(checkFreeTradecopyMagic(i)==true)
+			{
+				Tracer.WriteTrace(20, "I:found new free tradecopymagic="+i+"");
+				return i;
+			}
+		}
+		Tracer.WriteTrace(10, "E:all tradedopymagics are occupied");
+		return -99;
+		
+	}
+	private boolean checkFreeTradecopyMagic(int magic)
+	{
+		//prüft ob die magic frei ist
+		
+		int anz = metatraderlist.getsize();
+		for (int i = 0; i < anz; i++)
+		{
+			Metaconfig conf = metatraderlist.getelem(i);
+			int m=conf.getTradecopymagic();
+			if(m==magic)
+				//magic schon belegt
+				return false;
+		}
+		//die magic ist noch nicht belegt
+		return true;
+		
+	}
+	
 	private boolean checkConfigExists(Metaconfig meconf)
 	{
 		// prüft ob diese Metratrader config schon vorhanden ist.

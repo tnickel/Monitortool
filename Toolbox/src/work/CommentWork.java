@@ -112,6 +112,8 @@ public class CommentWork
 			String magic = parts[posanz-1];
 			//den timeframe holen
 			String timeframe= parts[posanz-2];
+			//currency holen
+			String currency=parts[posanz-3];
 			
 			//die Dateiendung enfernen
 			magic=magic.substring(0,magic.indexOf("."));
@@ -128,7 +130,7 @@ public class CommentWork
 				magic=magic.substring(slen-cutlen);
 			}
 			
-			String fnamNeu = workdir_glob + "\\" + fileprefix_glob + " " + timeframe +" "
+			String fnamNeu = workdir_glob + "\\" + fileprefix_glob + " "+currency+" " + timeframe +" "
 					+ monthyear_glob+magic+endstring;
 			File falt = new File(workdir_glob + "\\" + fnam0);
 			File fneu = new File(fnamNeu);

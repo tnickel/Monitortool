@@ -669,7 +669,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								CTtext1prefix = new Text(composite6, SWT.BORDER);
 								CTtext1prefix.setBounds(5, 5, 170, 26);
-								CTtext1prefix.setText("M99 ETHUSD");
+								CTtext1prefix.setText("F1pre");
 								CTtext1prefix.addTraverseListener(new TraverseListener() {
 									public void keyTraversed(TraverseEvent evt)
 									{
@@ -697,7 +697,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4magicprefix = new Text(composite6, SWT.NONE);
-								text4magicprefix.setText("2109");
+								text4magicprefix.setText("2110");
 								text4magicprefix.setBounds(7, 45, 60, 23);
 							}
 							{
@@ -1771,7 +1771,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.7");
+		shell.setText("Toolbox V1.2.7.1");
 		
 		while (!shell.isDisposed())
 		{
