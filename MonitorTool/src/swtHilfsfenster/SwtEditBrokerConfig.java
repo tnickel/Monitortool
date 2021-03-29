@@ -725,6 +725,7 @@ public class SwtEditBrokerConfig
 		String selbroker = me_glob.getconnectedBroker();
 		Metaconfig metatraderrealconfig = bv_glob.getMetaconfigByBrokername(selbroker);
 		
+		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 		work.installDemoEas(dis_glob, progressBar1, me_glob, metatraderrealconfig, MqlQuellverzeichniss.getText(),
 				tableview_glob);
 		bv_glob.SaveBrokerTable();

@@ -143,9 +143,6 @@ public class Profiler
 		int channelcounter=0;
 		String profiledir = getprofiledir();
 		
-		if(channel.equals("8")==true)
-			System.out.println("found8");
-		
 		if (profiledir == null)
 			Mbox.Infobox("profiledir ==null");
 		
@@ -162,8 +159,11 @@ public class Profiler
 		{
 			// holt ein profilenamen
 			String filename = profiledir + "\\" + fa.holeFileSystemName();
-			if  (checkKeyword(filename, "MagicNumber=" + channel.toLowerCase()))
+			if  (checkKeywordExakt(filename, "MagicNumber=" + channel.toLowerCase()))
+			{	
+				  Tracer.WriteTrace(20, "I:found channel <"+channel+"> on realbroker in configfile<"+filename+">");
 				  channelcounter++;
+			}
 		}
 		
 		return channelcounter;
@@ -198,7 +198,38 @@ public class Profiler
 		}
 		return false;
 	}
+	public Boolean checkKeywordExakt(String filename, String keyword)
+	{
+		// prüft für ein bestimmtes profile ob der keynamen drin ist
+		String profiledir = getprofiledir();
+		
+		File ffnam = new File(filename);
+		if (ffnam.exists() == false)
+		{
+			Mbox.Infobox("profile not exists <" + ffnam.getAbsoluteFile() + ">");
+			return false;
+		}
+		if (ffnam.length() < 5)
+		{
+			Tracer.WriteTrace(20, "profile bad <" + ffnam.getAbsoluteFile() + ">");
+			return false;
+		}
+		Inf inf = new Inf();
+		inf.setFilename(filename);
+
+        String zeile=null;
+        while((zeile=inf.readZeile())!=null)
+        {
+        	if(zeile.toLowerCase().equals(keyword.toLowerCase()))
+        	{
+        		inf.close();
+        		return true;
+        	}
+        }
+		inf.close();
+		return false;
 	
+	}
 	public Boolean delAllProfiles(String eaname, String channel)
 	{
 		// Es werden alle Profiles für den Tradekopierer mit

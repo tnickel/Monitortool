@@ -747,7 +747,7 @@ public class Installer
 		} else
 			mqlpatch.patchLotsize(ea, meconf);
 		
-		// wirte the file with the lotsize
+		// write the file with the lotsize
 		genLotfile(magic, ea, meconf);
 		
 		// add the postcode from mt4_additional code to every ea
