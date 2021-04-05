@@ -82,9 +82,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Label label2;
 	private Button stop;
 	private Button checkGd20;
-	private Button button2;
 	private Button button1x;
-	private Text text1from;
 	private Text text1fromx;
 	private Button button2showtradelistportfolio;
 	private Button button2stopmt;
@@ -136,7 +134,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button showprofit;
 	private Button deletebroker;
 	private Button addbroker;
-	private Button showopenorders;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
 	private Button button3delbadeas;
@@ -232,33 +229,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						button3replacesymbolsWidgetSelected(evt);
 					}
 				});
-			}
-			{
-				button2 = new Button(this, SWT.CHECK | SWT.LEFT);
-				FormData button2LData = new FormData();
-				button2LData.left =  new FormAttachment(0, 1000, 10);
-				button2LData.top =  new FormAttachment(0, 1000, 722);
-				button2LData.width = 224;
-				button2LData.height = 20;
-				button2.setLayoutData(button2LData);
-				button2.setText("cut trades before");
-				button2.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						button2WidgetSelected(evt);
-					}
-				});
-			}
-			{
-				text1from = new Text(this, SWT.NONE);
-				FormData text1fromLData = new FormData();
-				text1fromLData.left =  new FormAttachment(0, 1000, 12);
-				text1fromLData.top =  new FormAttachment(0, 1000, 747);
-				text1fromLData.width = 93;
-				text1fromLData.height = 22;
-				text1from.setLayoutData(text1fromLData);
-				text1from.setText("01.01.2013");
 			}
 			{
 				button2showtradelistportfolio = new Button(this, SWT.PUSH
@@ -386,9 +356,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				label3 = new Label(this, SWT.NONE);
 				FormData label3LData = new FormData();
-				label3LData.left =  new FormAttachment(0, 1000, 1091);
+				label3LData.left =  new FormAttachment(0, 1000, 1069);
 				label3LData.top =  new FormAttachment(0, 1000, 642);
-				label3LData.width = 30;
+				label3LData.width = 52;
 				label3LData.height = 20;
 				label3.setLayoutData(label3LData);
 				label3.setText("days");
@@ -396,10 +366,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				text1days = new Text(this, SWT.MULTI | SWT.WRAP);
 				FormData text1daysLData = new FormData();
-				text1daysLData.left =  new FormAttachment(0, 1000, 1015);
+				text1daysLData.left =  new FormAttachment(0, 1000, 1033);
 				text1daysLData.top =  new FormAttachment(0, 1000, 642);
-				text1daysLData.width = 62;
-				text1daysLData.height = 20;
+				text1daysLData.width = 20;
+				text1daysLData.height = 22;
 				text1days.setLayoutData(text1daysLData);
 				if (GlobalVar.getForgetdays() > 0)
 					text1days
@@ -903,7 +873,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData forgetoldeasLData = new FormData();
 				forgetoldeasLData.left =  new FormAttachment(0, 1000, 892);
 				forgetoldeasLData.top =  new FormAttachment(0, 1000, 642);
-				forgetoldeasLData.width = 117;
+				forgetoldeasLData.width = 135;
 				forgetoldeasLData.height = 24;
 				forgetoldeas.setLayoutData(forgetoldeasLData);
 				forgetoldeas.setText("forget old ea");
@@ -1010,17 +980,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				});
 			}
 
-			{
-				showopenorders = new Button(this, SWT.CHECK | SWT.LEFT);
-				FormData showopenordersLData = new FormData();
-				showopenordersLData.left =  new FormAttachment(0, 1000, 10);
-				showopenordersLData.top =  new FormAttachment(0, 1000, 696);
-				showopenordersLData.width = 224;
-				showopenordersLData.height = 20;
-				showopenorders.setLayoutData(showopenordersLData);
-				showopenorders.setText("show open orders");
-				showopenorders.setSelection(false);
-			}
 			{
 				showTradeliste = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData showTradelisteLData = new FormData();
@@ -1607,11 +1566,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// den tradefilter setzen
 		tf.setNocancel(true);
 		tf.setProfitnormalisierung(profitnormalisierung.getSelection());
-		tf.setShowopenorders(showopenorders.getSelection());
+		
 		tf.setForgetoldeas(forgetoldeas.getSelection());
 		tf.setLoadexpired(loadexpiredhistory.getSelection());
-		tf.setTradefilterbutton(button2.getSelection());
-		tf.setTradestartdate(text1from.getText());
+		
 	}
 
 	private void getAllDataWidgetSelected(SelectionEvent evt)
@@ -2317,8 +2275,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button2.widgetSelected, event=" + evt);
 		// wenn die selection box aktiviert ist werden alle trades die früheres
 		// datum haben gelöscht
-		tf.setTradefilterbutton(button2.getSelection());
-		tf.setTradestartdate(text1from.getText());
+		
 	}
 	
 	private void menuItem1WidgetSelected(SelectionEvent evt) {

@@ -22,6 +22,7 @@ import charttool.ShowAllProfitsConfig;
 import data.Ea;
 import data.GlobalVar;
 import data.Metaconfig;
+import data.Metatraderlist;
 import data.Profit;
 import data.Rootpath;
 import data.SymbolReplaceList;
@@ -137,8 +138,7 @@ public class StartMonitorWork
 				Metaconfig mc = brokerview_glob.getElem(i);
 				pb1_glob.setSelection(i);
 				Mlist.add("load broker <" + mc.getBrokername() + ">");
-				// DisTool.UpdateDisplay();
-
+				
 				Tracer.WriteTrace(20,
 						"Info: try to read <" + mc.getBrokername() + "> on <"+tv_glob.getFiledata(mc)+">");
 				if (mc.getOn() == 1)
@@ -443,7 +443,7 @@ public class StartMonitorWork
 		else
 			alltradelist = tv_glob.buildAllPortfolioliste();
 		ShowAllProfitsConfig prof = new ShowAllProfitsConfig("Gewinnverlauf", tv_glob,
-				alltradelist);
+				alltradelist,brokerview_glob);
 	}
 
 	public void showUebersichtx(Tradefilter tf, int maxprofanz)

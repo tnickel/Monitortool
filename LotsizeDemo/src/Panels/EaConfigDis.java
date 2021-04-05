@@ -130,7 +130,7 @@ public class EaConfigDis extends javax.swing.JPanel {
 			{
 				jTextField1_risk = new JTextField();
 				this.add(jTextField1_risk);
-				jTextField1_risk.setText(eaconf.getRiskinpercent());
+				
 				jTextField1_risk.setBounds(19, 64, 178, 28);
 				jTextField1_risk.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -147,7 +147,7 @@ public class EaConfigDis extends javax.swing.JPanel {
 			{
 				jTextField1_maxlots = new JTextField();
 				this.add(jTextField1_maxlots);
-				jTextField1_maxlots.setText(eaconf.getMaximumlots());
+				
 				jTextField1_maxlots.setBounds(19, 91, 178, 28);
 				jTextField1_maxlots.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -158,7 +158,7 @@ public class EaConfigDis extends javax.swing.JPanel {
 			{
 				jTextField1_riskmoney = new JTextField();
 				this.add(jTextField1_riskmoney);
-				jTextField1_riskmoney.setText(eaconf.getRiskinmoney());
+				
 				jTextField1_riskmoney.setBounds(19, 143, 178, 28);
 				jTextField1_riskmoney.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -172,30 +172,16 @@ public class EaConfigDis extends javax.swing.JPanel {
 								new String[] { "false", "true" });
 				jComboBox1usedfixedmoney = new JComboBox();
 				this.add(jComboBox1usedfixedmoney);
-				jComboBox1usedfixedmoney.setModel(jComboBox1usedfixedmoneyModel);
+				
 				jComboBox1usedfixedmoney.setBounds(19, 118, 178, 28);
-				jComboBox1usedfixedmoney.setSelectedItem((String)eaconf.getUsefixedmoney());
+				
 				jComboBox1usedfixedmoney.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jComboBox1usedfixedmoneyActionPerformed(evt);
 					}
 				});
 			}
-			{
-				ComboBoxModel jComboBox1usemmModel = 
-						new DefaultComboBoxModel(
-								new String[] { "false", "true" });
-				jComboBox1usemm = new JComboBox();
-				this.add(jComboBox1usemm);
-				jComboBox1usemm.setModel(jComboBox1usemmModel);
-				jComboBox1usemm.setSelectedItem((String)eaconf.getUsemm());
-				jComboBox1usemm.setBounds(19, 11, 178, 28);
-				jComboBox1usemm.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						jComboBox1usemmActionPerformed(evt);
-					}
-				});
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -212,21 +198,21 @@ public class EaConfigDis extends javax.swing.JPanel {
 		System.out.println("jTextField1_risk.actionPerformed, event="+evt);
 		String str=jTextField1_risk.getText();
 		System.out.println("risk wurden gesetzt <"+str+">");
-		eaconf_glob.setRiskinmoney(str);
+	
 	}
 	
 	private void jTextField1_maxlotsActionPerformed(ActionEvent evt) {
 		System.out.println("jTextField1_maxlots.actionPerformed, event="+evt);
 		String str=jTextField1_maxlots.getText();
 		System.out.println("maxlots wurden gesetzt <"+str+">");
-		eaconf_glob.setMaximumlots(str);
+	
 	}
 	
 	private void jTextField1_riskmoneyActionPerformed(ActionEvent evt) {
 		System.out.println("jTextField1_riskmoney.actionPerformed, event="+evt);
 		String str=jTextField1_riskmoney.getText();
 		System.out.println("riskmoney wurden gesetzt <"+str+">");
-		eaconf_glob.setRiskinmoney(str);
+	
 	}
 
 	
@@ -242,13 +228,13 @@ public class EaConfigDis extends javax.swing.JPanel {
 		System.out.println("jComboBox1usedfixedmoney.actionPerformed, event="+evt);
 		//TODO add your code for jComboBox1usedfixedmoney.actionPerformed
 		String str=(String)jComboBox1usedfixedmoney.getSelectedItem();
-		eaconf_glob.setUsefixedmoney(str);
+	
 	}
 	
 	private void jComboBox1usemmActionPerformed(ActionEvent evt) {
 		System.out.println("jComboBox1usemm.actionPerformed, event="+evt);
 		String str=(String)jComboBox1usemm.getSelectedItem();
-		eaconf_glob.setUsemm(str);
+		
 		
 	}
 }

@@ -948,7 +948,10 @@ public class Tradeliste
 
 			item.setText(0, String.valueOf(tablepos));
 			tablepos++;
-			item.setText(1, String.valueOf(tr.getMagic()));
+			int magic=tr.getMagic();
+			if((magic>0) && (magic<255))
+				item.setBackground(green);
+			item.setText(1, String.valueOf(magic));
 
 			String symb = tr.getSymbol();
 			if (symb != null)

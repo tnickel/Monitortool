@@ -11,12 +11,9 @@ public class EaConfigF
 	//dies ist die klasse die die KOnfigurationsdaten im File verwaltet
 	private Properties p = new Properties();
 	private String conffile_glob = null;
-	private String usemm="false";
+	
 	private String lots="0.01";
-	private String riskinpercent="2.0";
-	private String maximumlots="0.5";
-	private String usefixedmoney="false";
-	private String riskinmoney="100.0";
+	
 	
 	
 	public EaConfigF(String configfilename)
@@ -32,12 +29,9 @@ public class EaConfigF
 			p.load(propInFile);
 			propInFile.close();
 			
-			usemm=getPropAttribute("UseMoneyManagement");
+			
 			lots=getPropAttribute("Lots");
-			riskinpercent=getPropAttribute("RiskInPercent");
-			maximumlots=getPropAttribute("MaximumLots");
-			usefixedmoney=getPropAttribute("UseFixedMoney");
-			riskinmoney=getPropAttribute("RiskInMoney");
+			
 						
 		} catch (IOException e)
 		{
@@ -82,16 +76,7 @@ public class EaConfigF
 		}
 	}
 
-	public String getUsemm()
-	{
-		return usemm;
-	}
-
-	public void setUsemm(String usemm)
-	{
-		this.usemm = usemm;
-		setPropAttribute("UseMoneyManagement", usemm);
-	}
+	
 
 	public String getLots()
 	{
@@ -104,49 +89,13 @@ public class EaConfigF
 		setPropAttribute("Lots", lots);
 	}
 
-	public String getRiskinpercent()
-	{
-		return riskinpercent;
-	}
+	
 
-	public void setRiskinpercent(String riskinpercent)
-	{
-		this.riskinpercent = riskinpercent;
-		setPropAttribute("RiskInPercent", riskinpercent);
-	}
 
-	public String getMaximumlots()
-	{
-		return maximumlots;
-	}
 
-	public void setMaximumlots(String maximumlots)
-	{
-		this.maximumlots = maximumlots;
-		setPropAttribute("MaximumLots", maximumlots);
-	}
 
-	public String getUsefixedmoney()
-	{
-		return usefixedmoney;
-	}
 
-	public void setUsefixedmoney(String usefixedmoney)
-	{
-		this.usefixedmoney = usefixedmoney;
-		setPropAttribute("UseFixedMoney", usefixedmoney);
-	}
-
-	public String getRiskinmoney()
-	{
-		return riskinmoney;
-	}
-
-	public void setRiskinmoney(String riskinmoney)
-	{
-		this.riskinmoney = riskinmoney;
-		setPropAttribute("RiskInMoney", riskinmoney);
-	}
+	
 
 	
 	

@@ -33,7 +33,7 @@ public class ShowConfigAllP extends ApplicationFrame {
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 10));
-		frame.setSize(350, 150);
+		frame.setSize(250, 150);
 		//frame.setPreferredSize(new java.awt.Dimension(600, 1000));
 
 		
