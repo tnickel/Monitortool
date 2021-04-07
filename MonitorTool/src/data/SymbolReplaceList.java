@@ -79,12 +79,12 @@ public class SymbolReplaceList
 	
 	public void ShowReplaceResults()
 	{
-		String[] marray = new String[100];
+		String[] marray = new String[1001];
 		int anzmax=30;
 		
 		int anz = srp.size();
-		if (anz >= 100)
-			Tracer.WriteTrace(10, "E: index to high");
+		if (anz >= 1000)
+			Tracer.WriteTrace(10, "E: index to high, max=1000");
 		
 		
 		anzmax=(anz<30)?anz:anzmax;	

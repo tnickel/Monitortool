@@ -7,7 +7,7 @@ public class start {
 		//LayoutManager layout=new GridLayout(100, 1);
 		//DemoPanel2 d2= new DemoPanel2(layout);
 
-		ShowConfigAllP sp= new ShowConfigAllP();
+		ShowConfigAllP2 sp= new ShowConfigAllP2();
 		//sp.start();
 	
 	}

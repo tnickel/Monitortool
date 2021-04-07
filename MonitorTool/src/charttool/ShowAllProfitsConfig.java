@@ -73,7 +73,7 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			if (ea.getInfo() != null)
 				eainf = ea.getInfo();
 			String eaname = "<" + broker + "> <" + trade.getSymbol() + "> <" + magic + "> <" + comment + "> <" + eainf
-					+ "> on<" + on + ">";
+					+ "tp<"+ea.getTp()+"> sl<"+ea.getSl()+"> on<" + on + ">";
 			eatradeliste.calcSummengewinne();
 			XYDataset dataset = createDataset(eatradeliste);
 			JFreeChart chart = createChart(dataset, eaname);

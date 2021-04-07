@@ -279,7 +279,12 @@ public class Installer
 			int magic = eaclass.calcMagic(mqlquellnam);
 			String brokername = metaconfig.getBrokername();
 			
-			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername);
+			Patcher pat=new Patcher();
+			pat.setFilename(mqlquellverz+"\\"+mqlquellnam);
+			String sl=pat.getSl();
+			String tp=pat.getTp();
+			
+			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername,sl,tp);
 			// remove old *.del files out of ../files
 			removeEaDels(magic, metaconfig);
 			
@@ -350,7 +355,7 @@ public class Installer
 			tv.importTradeliste(fnam, brokername);
 	}
 	
-	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername)
+	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername,String sl,String tp)
 	{
 		
 		mqlquellnam = mqlquellnam.replace("_Strategy", "");
@@ -358,7 +363,11 @@ public class Installer
 		// der ea wird in der ealiste aufgenommen wenn er noch nicht drin ist
 		Ea ea = eal.getEa(magic, brokername);
 		if (ea != null)
+		{
 			ea.setEafilename(mqlquellnam);
+			ea.setSl(sl);
+			ea.setTp(tp);
+		}
 		else
 		{
 			// in die ealiste aufnehmen
@@ -366,6 +375,8 @@ public class Installer
 			ea.setMagic(magic);
 			ea.setBroker(brokername);
 			ea.setEafilename(mqlquellnam);
+			ea.setSl(sl);
+			ea.setTp(tp);
 			eal.add(ea);
 		}
 		return ea;

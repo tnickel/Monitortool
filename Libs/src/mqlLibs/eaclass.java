@@ -3,7 +3,6 @@ package mqlLibs;
 import gui.Mbox;
 import hiflsklasse.SG;
 import hiflsklasse.Tracer;
-
 public class eaclass
 {
 	//class to handle something with the mql

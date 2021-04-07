@@ -54,6 +54,11 @@ public class Ealiste
 			nea.setInst(0);
 			nea.setAuto(0);
 			nea.setOn(0);
+			
+			//tp/sl noch aus der ealiste holen
+			
+			nea.setSl("?");
+			nea.setTp("?");
 			ealiste.add(nea);
 
 		}

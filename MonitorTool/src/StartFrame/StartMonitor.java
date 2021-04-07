@@ -6,15 +6,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Random;
 
-import modtools.Installer;
-import modtools.MetaStarter;
-import mtools.DisTool;
-import mtools.Mlist;
-import network.MonitorClient;
-import network.Updater;
-
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusAdapter;
@@ -34,10 +26,8 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Menu;
@@ -47,12 +37,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import swtHilfsfenster.SwtEditGlobalConfig;
-import swtHilfsfenster.SwtShowLicense;
-import Sync.LockTradeliste;
-
 import com.cloudgarden.resource.SWTResourceManager;
 
+import Sync.LockTradeliste;
+import charttool.ShowConfigAllP2;
 import data.GlobalVar;
 import data.Lic;
 import data.Rootpath;
@@ -64,6 +52,13 @@ import hiflsklasse.GC;
 import hiflsklasse.SG;
 import hiflsklasse.Sys;
 import hiflsklasse.Tracer;
+import modtools.MetaStarter;
+import mtools.DisTool;
+import mtools.Mlist;
+import network.MonitorClient;
+import network.Updater;
+import swtHilfsfenster.SwtEditGlobalConfig;
+import swtHilfsfenster.SwtShowLicense;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -137,6 +132,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
 	private Button button3delbadeas;
+	private Button button2showallprofit2;
 	private Button button3makemt4backtest;
 	private Button button3replacesymbols;
 	private Button showTradeliste;
@@ -189,6 +185,21 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button2showallprofit2 = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button2showallprofit2LData = new FormData();
+				button2showallprofit2LData.left =  new FormAttachment(0, 1000, 377);
+				button2showallprofit2LData.top =  new FormAttachment(0, 1000, 712);
+				button2showallprofit2LData.width = 80;
+				button2showallprofit2LData.height = 29;
+				button2showallprofit2.setLayoutData(button2showallprofit2LData);
+				button2showallprofit2.setText("show pf2");
+				button2showallprofit2.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						button2showallprofit2WidgetSelected(evt);
+					}
+				});
+			}
 			{
 				button3makemt4backtest = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button3makemt4backtestLData = new FormData();
@@ -855,7 +866,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showallprofitLData = new FormData();
 				showallprofitLData.left =  new FormAttachment(0, 1000, 246);
 				showallprofitLData.top =  new FormAttachment(0, 1000, 712);
-				showallprofitLData.width = 183;
+				showallprofitLData.width = 129;
 				showallprofitLData.height = 30;
 				showallprofit = new Button(this, SWT.PUSH | SWT.CENTER);
 				showallprofit.setLayoutData(showallprofitLData);
@@ -2296,6 +2307,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void button3makemt4backtestWidgetSelected(SelectionEvent evt) {
 		System.out.println("button3makemt4backtest.widgetSelected, event="+evt);
 		smw.showBacktestGraphik();
+	}
+	
+	private void button2showallprofit2WidgetSelected(SelectionEvent evt) {
+		System.out.println("button2showallprofit2.widgetSelected, event="+evt);
+		ShowConfigAllP2 sp= new ShowConfigAllP2();
 	}
 
 }

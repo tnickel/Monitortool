@@ -56,7 +56,9 @@ public class Ea implements Comparable<Ea>
 	double reallotsize=0.01;//alt
 	boolean uselotsize=false;//alt
 	String lotsizekeyword=null;//alt
-	
+	//stoplos and takeprofit
+	String sl=null;
+	String tp=null;
 	
 	public int getMagic()
 	{
@@ -308,6 +310,26 @@ public class Ea implements Comparable<Ea>
 	public void setLastofftime(Date lastofftime)
 	{
 		this.lastofftime = lastofftime;
+	}
+
+	public String getSl()
+	{
+		return sl;
+	}
+
+	public void setSl(String sl)
+	{
+		this.sl = sl;
+	}
+
+	public String getTp()
+	{
+		return tp;
+	}
+
+	public void setTp(String tp)
+	{
+		this.tp = tp;
 	}
 
 	public String getlotsize_str(Brokerview brokerview)

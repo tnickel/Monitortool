@@ -170,6 +170,41 @@ public class Patcher
 				+ filename_glob + "> gefunden--> STOP");
 		
 	}
+	public  String getSl()
+	{
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile = zeilenspeicher[i];
+			if (zeile != null)
+				if (zeile.contains("input int Stop_Loss") == true)
+				{
+					String retval=zeile.substring(zeile.indexOf("=")+1,zeile.indexOf("/"));
+					retval=retval.replace(";", "");
+					retval=retval.replace(" ", "");
+					return(retval);
+				}
+		}
+		return ("?");
+	}
+	public  String getTp()
+	{
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile = zeilenspeicher[i];
+			if (zeile != null)
+				if (zeile.contains("input int Take_Profit") == true)
+				{
+					String retval=zeile.substring(zeile.indexOf("=")+1,zeile.indexOf("/"));
+					retval=retval.replace(";", "");
+					retval=retval.replace(" ", "");
+					return(retval);
+				}
+		}
+		return ("?");
+	}
+	
 	private void setMagicFSB(int magic)
 	{
 		int anz = zeilenspeicher.length;

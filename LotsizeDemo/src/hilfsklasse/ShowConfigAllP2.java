@@ -22,12 +22,12 @@ import org.jfree.ui.ApplicationFrame;
 
 import Panels.EaConfigDis;
 
-public class ShowConfigAllP extends ApplicationFrame {
+public class ShowConfigAllP2 extends ApplicationFrame {
 	// diese Klasse zeigt alles an in einer scollbaren liste an,
 	// man kann hier die lostsize und das mm konfigurieren
 	// hier möchte man nur schauen wie gut die EAs und der backtest laufen
 	// vergleichen und die Lotsize einstellen.
-	public ShowConfigAllP() {
+	public ShowConfigAllP2() {
 		super("title");
 		int anz=100;
 		JFrame frame = new JFrame("frame");
