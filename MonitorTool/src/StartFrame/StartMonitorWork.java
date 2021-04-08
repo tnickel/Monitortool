@@ -19,10 +19,10 @@ import Sync.LockTradeliste;
 import backtest.Mt4Backtester;
 import charttool.Profitanzeige;
 import charttool.ShowAllProfitsConfig;
+import charttool.ShowConfigAllP2;
 import data.Ea;
 import data.GlobalVar;
 import data.Metaconfig;
-import data.Metatraderlist;
 import data.Profit;
 import data.Rootpath;
 import data.SymbolReplaceList;
@@ -445,7 +445,22 @@ public class StartMonitorWork
 		ShowAllProfitsConfig prof = new ShowAllProfitsConfig("Gewinnverlauf", tv_glob,
 				alltradelist,brokerview_glob);
 	}
+	public void showallprofit2(Tradefilter tf, int portfolioflag, int maxprofanz)
+	{
 
+		// hier wird eine Tradeliste gebildet welche alle ea´s beinhaltet
+		// Also eine Liste der Tradelisten
+		// portfolioflag=1, dann werden die ganzen portfolios zuzsammengefalls
+		// ArrayList<Tradeliste> alltradelist = new ArrayList<Tradeliste>();
+		ArrayList<Tradeliste> alltradelist = null;
+
+		if (portfolioflag == 0)
+			alltradelist = tv_glob.buildAllTradeliste(tf, maxprofanz);
+		else
+			alltradelist = tv_glob.buildAllPortfolioliste();
+		ShowConfigAllP2 prof = new ShowConfigAllP2("Gewinnverlauf", tv_glob,
+				alltradelist,brokerview_glob);
+	}
 	public void showUebersichtx(Tradefilter tf, int maxprofanz)
 	{
 		ArrayList<Tradeliste> alltradelist = tv_glob.buildAllTradeliste(tf,

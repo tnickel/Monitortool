@@ -1805,17 +1805,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.showProfitGraphik();
 	}
 
-	private void showallprofitWidgetSelected(SelectionEvent evt)
-	{
-		// Alle profite der selektierten EA anzeigen
-		System.out.println("showallprofit.widgetSelected, event=" + evt);
-
-		if (button2best100.getSelection() == true)
-			smw.showallprofit(tf, 0, 100);
-		else
-			smw.showallprofit(tf, 0, 99999999);
-	}
-
+	
 	private void saveandexitWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("saveandexit.widgetSelected, event=" + evt);
@@ -2308,10 +2298,26 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button3makemt4backtest.widgetSelected, event="+evt);
 		smw.showBacktestGraphik();
 	}
-	
+	private void showallprofitWidgetSelected(SelectionEvent evt)
+	{
+		// Alle profite der selektierten EA anzeigen
+		System.out.println("showallprofit.widgetSelected, event=" + evt);
+
+		if (button2best100.getSelection() == true)
+			smw.showallprofit(tf, 0, 100);
+		else
+			smw.showallprofit(tf, 0, 99999999);
+	}
+
 	private void button2showallprofit2WidgetSelected(SelectionEvent evt) {
-		System.out.println("button2showallprofit2.widgetSelected, event="+evt);
-		ShowConfigAllP2 sp= new ShowConfigAllP2();
+		// Alle profite der selektierten EA anzeigen
+				System.out.println("showallprofit2.widgetSelected, event=" + evt);
+
+				if (button2best100.getSelection() == true)
+					smw.showallprofit2(tf, 0, 100);
+				else
+					smw.showallprofit2(tf, 0, 99999999);
+				
 	}
 
 }

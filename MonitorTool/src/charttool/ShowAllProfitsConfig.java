@@ -133,20 +133,11 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			
 			series1.add((i + 1), tl.get_tsumx(i));
 		}
-		/*
-		 * // den gd5 eintragen XYSeries series2 = new XYSeries("GD"+gd5period); for
-		 * (int i = 0; i < anz; i++) series2.add(i + 1, tl.calc_gdx(i, gd5period));
-		 * 
-		 * 
-		 * // den gd9 eintragen XYSeries series3 = new XYSeries("GD"+gd9period); for
-		 * (int i = 0; i < anz; i++) series3.add(i + 1, tl.calc_gdx(i, gd9period));
-		 */
+		
 		
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series1);
-		/*
-		 * dataset.addSeries(series2); dataset.addSeries(series3);
-		 */
+		
 		return dataset;
 	}
 	
