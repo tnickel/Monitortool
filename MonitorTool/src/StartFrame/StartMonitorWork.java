@@ -460,6 +460,7 @@ public class StartMonitorWork
 			alltradelist = tv_glob.buildAllPortfolioliste();
 		ShowConfigAllP2 prof = new ShowConfigAllP2("Gewinnverlauf", tv_glob,
 				alltradelist,brokerview_glob);
+		
 	}
 	public void showUebersichtx(Tradefilter tf, int maxprofanz)
 	{

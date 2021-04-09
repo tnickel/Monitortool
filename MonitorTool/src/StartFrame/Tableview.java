@@ -1238,47 +1238,8 @@ public class Tableview extends TableViewBasic
 			{
 				// hole die magic
 				int magic = SG.get_zahl(item.getText(1));
-				if (magic != prof.getMagic())
-					Tracer.WriteTrace(10, "internal magic<" + magic
-							+ "> != prof.magic<" + prof.getMagic() + ">");
-
-				//schaue nach ob der EA auf einem Realbroker ist
-				//auf Realbroker sind nur Tradecopierer die nicht gelöscht werden können
-				Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(prof.getBroker());
-				if(meconf.isRealbroker()==true)
-				{	
-					Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+prof.getBroker()+">is realbroker");
-					continue;
-				}
-				
-				//schaue nach ob der EA gelocked ist, wenn ja dann meldung ausgeben und nicht den EA löschen	
-				if(meconf.getAccountlocked()==1)
-				{
-					Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+prof.getBroker()+">is locked");
-					continue;
-				}
-				
-				
-				//schaue nach ob der EA im Gewinn ist, falls ja dann eine warnung ausgeben
-				if (prof.getGesgewinn() > 0)
-				{
-					Mbox.Infobox("Warning: you delete ea-magic<" + magic
-							+ "> with positive profit<"
-							+ prof.getGesgewinn() + ">");
-					
-				}
-				//delete eas from filesystem in the installdir and in the metatrader
-				deleteEaFilesystem(brokerview_glob, magic, prof.getBroker());
-				//delete eas from tradelist
-				tl.deleteMagic(magic, prof.getBroker());
-				
-				//delete ea-trades in historyexporter.txt
-				//die metatrader dürfen hier nicht laufen!!!
-				String historytxt=brokerview_glob.getMqlData(prof.getBroker())+"\\files\\history.txt";
-				Historyexporter h=new Historyexporter(historytxt);
-				h.deleteEa(String.valueOf(magic));
-				h.storeHistoryTxt();
-				delcounter++;
+				if(deleteSingleEa(brokerview_glob,tl,prof.getBroker(),magic)==true)
+					delcounter++;
 			}
 		}
 		//speichere die verkleinerte Tradeliste
@@ -1286,6 +1247,41 @@ public class Tableview extends TableViewBasic
 		return delcounter;
 	}
 
+	public Boolean deleteSingleEa(Brokerview bv,Tradeliste tl,String broker,int magic)
+	{
+				
+
+		//schaue nach ob der EA auf einem Realbroker ist
+		//auf Realbroker sind nur Tradecopierer die nicht gelöscht werden können
+		Metaconfig meconf=bv.getMetaconfigByBrokername(broker);
+		if(meconf.isRealbroker()==true)
+		{	
+			Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+broker+">is realbroker");
+			return false;
+		}
+		
+		//schaue nach ob der EA gelocked ist, wenn ja dann meldung ausgeben und nicht den EA löschen	
+		if(meconf.getAccountlocked()==1)
+		{
+			Mbox.Infobox("Error: Can´t delete magic<"+magic+"> because broker <"+broker+">is locked");
+			return false;
+		}
+		
+		//delete eas from filesystem in the installdir and in the metatrader
+		deleteEaFilesystem(bv, magic, broker);
+		//delete eas from tradelist
+		tl.deleteMagic(magic, broker);
+		
+		//delete ea-trades in historyexporter.txt
+		//die metatrader dürfen hier nicht laufen!!!
+		String historytxt = bv.getMqlData(broker)+"\\files\\history.txt";
+		Historyexporter h=new Historyexporter(historytxt);
+		h.deleteEa(String.valueOf(magic));
+		h.storeHistoryTxt();
+		return true;
+	}
+	
+	
 	private void deleteEaFilesystem(Brokerview bv, int magic, String broker)
 	{
 		eal.deleteEaFilesystem(bv, magic, broker);

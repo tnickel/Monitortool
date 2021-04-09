@@ -2317,7 +2317,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 					smw.showallprofit2(tf, 0, 100);
 				else
 					smw.showallprofit2(tf, 0, 99999999);
-				
+			
 	}
 
 }
