@@ -36,31 +36,32 @@ import data.Metaconfig;
 import data.Trade;
 import data.Tradeliste;
 
-public class ShowConfigAllP2 extends ApplicationFrame {
+public class ShowConfigAllP2 extends ApplicationFrame
+{
 	// diese Klasse zeigt alles an in einer scollbaren liste an,
 	// man kann hier die lostsize und das mm konfigurieren
 	// hier möchte man nur schauen wie gut die EAs und der backtest laufen
 	// vergleichen und die Lotsize einstellen.
 	private static Tableview tv_glob = null;
-	public ShowConfigAllP2(String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv) 
+	
+	public ShowConfigAllP2(String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv)
 	{
 		super("title");
-		int anz=5;
+		int anz = 5;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 10));
 		frame.setSize(250, 150);
-		//frame.setPreferredSize(new java.awt.Dimension(600, 1000));
-		anz=alltradelist.size();
+		// frame.setPreferredSize(new java.awt.Dimension(600, 1000));
+		anz = alltradelist.size();
 		
-		//das ganze hat ein grid layout mit 2 Spalten
+		// das ganze hat ein grid layout mit 2 Spalten
 		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 2));
-	    panelx.setPreferredSize(new java.awt.Dimension(1500, anz*350));
-
-	    
-		//for (int i = 0; i < anz; i++) 
-	    for (int i = 0; i < anz; i++) 
-	    {
+		panelx.setPreferredSize(new java.awt.Dimension(1500, anz * 350));
+		
+		// for (int i = 0; i < anz; i++)
+		for (int i = 0; i < anz; i++)
+		{
 			Tradeliste eatradeliste = alltradelist.get(i);
 			Trade trade = eatradeliste.getelem(0);
 			int magic = trade.getMagic();
@@ -76,8 +77,7 @@ public class ShowConfigAllP2 extends ApplicationFrame {
 			String eainf = "";
 			if (ea.getInfo() != null)
 				eainf = ea.getInfo();
-			String eaname = "<" + broker + "> <" + trade.getSymbol() + "> <" + magic + "> <" + comment + "> <" + eainf
-					+ "tp<"+ea.getTp()+"> sl<"+ea.getSl()+"> on<" + on + ">";
+			String eaname = "<" + broker + "> <" + trade.getSymbol() + "> <" + magic + "> <" + comment + ">";
 			
 			eatradeliste.calcSummengewinne();
 			XYDataset dataset = createDataset(eatradeliste);
@@ -86,25 +86,27 @@ public class ShowConfigAllP2 extends ApplicationFrame {
 			if (on == 1)
 				addSubtitle(chart);
 			
-			//spalte 1 ist der aktuelle chart
+			// spalte 1 ist der aktuelle chart
 			panelx.add(new ChartPanel(chart));
 			frame.getContentPane().setLayout(new BorderLayout());
 			
-			//spalte 2 ist die config
-			String filedata=meconf.getFiledata();
-			EaConfigDis cp = new EaConfigDis(magic,trade.getSymbol(), filedata,on,broker,bv,tv,tv.getEaliste(),eatradeliste);
+			// spalte 2 ist die config
+			String filedata = meconf.getFiledata();
+			EaConfigDis cp = new EaConfigDis(i,magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
+					eatradeliste, comment, ea);
 			panelx.add(cp);
 			frame.getContentPane().add(panelx);// , BorderLayout.WEST);
 		}
-
+		
 		// http://java-tutorial.org/jscrollpane.html
 		JScrollPane scrollPane = new JScrollPane(panelx, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+		
 		frame.getContentPane().add(scrollPane);
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
 	private void addSubtitle(JFreeChart chart)
 	{
 		TextTitle subtitle = new TextTitle("****** Connected to Realaccount !!! *******");
@@ -115,7 +117,9 @@ public class ShowConfigAllP2 extends ApplicationFrame {
 		chart.addSubtitle(subtitle);
 		
 	}
-	private static XYDataset createDataset(Tradeliste tl) {
+	
+	private static XYDataset createDataset(Tradeliste tl)
+	{
 		XYSeries series1 = new XYSeries("summ");
 		
 		// die Preise im array eintragen
@@ -123,16 +127,17 @@ public class ShowConfigAllP2 extends ApplicationFrame {
 		
 		// gesammtsumme der Gewinne in der graphik eintragen
 		for (int i = 0; i < anz; i++)
-		  series1.add((i + 1), tl.get_tsumx(i));
+			series1.add((i + 1), tl.get_tsumx(i));
 		
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series1);
 		
 		return dataset;
 	}
-
-	private static JFreeChart createChart(XYDataset dataset, String titel) {
-
+	
+	private static JFreeChart createChart(XYDataset dataset, String titel)
+	{
+		
 		// create the chart...
 		JFreeChart chart = ChartFactory.createXYLineChart(titel, // chart
 																	// title
@@ -143,27 +148,28 @@ public class ShowConfigAllP2 extends ApplicationFrame {
 				true, // tooltips
 				false // urls
 		);
-
+		
 		// get a reference to the plot for further customisation...
 		XYPlot plot = (XYPlot) chart.getPlot();
 		XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
 		renderer.setBaseShapesVisible(true);
 		renderer.setBaseShapesFilled(true);
-
+		
 		// change the auto tick unit selection to integer units only...
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 		return chart;
 	}
-
+	
 	/**
 	 * Creates a panel for the demo (used by SuperDemo.java).
 	 * 
 	 * @return A panel.
 	 */
-	public static JPanel createDemoPanel(Tradeliste eatradeliste, String titel) {
+	public static JPanel createDemoPanel(Tradeliste eatradeliste, String titel)
+	{
 		JFreeChart chart = createChart(createDataset(eatradeliste), "titel");
 		return new ChartPanel(chart);
 	}
-
+	
 }

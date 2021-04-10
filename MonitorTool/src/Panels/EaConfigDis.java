@@ -20,76 +20,105 @@ import hiflsklasse.Tracer;
 import modtools.Toogler;
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
-public class EaConfigDis extends javax.swing.JPanel {
-	//Diese Klasse konfiguriert die lotsize
-
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
+ * Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose
+ * whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies
+ * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
+ * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
+ * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ */
+public class EaConfigDis extends javax.swing.JPanel
+{
+	// Diese Klasse konfiguriert die lotsize
 	
 	private JTextField jTextField1_lots;
 	private JButton jButton1;
 	private JLabel jLabel2;
+	private JLabel jLabel3;
+	private JTextField jTextField1index;
+	private JTextField jTextField1prof30;
+	private JTextField jTextField1prof7;
+	private JLabel jLabel5;
+	private JLabel jLabel4;
+	private JTextField jTextField1profit;
+	private JLabel jLabel4profit;
+	private JTextField jTextField1pf;
+	private JLabel jLabel4pf;
+	private JTextField jTextField1tpsl;
+	private JTextField jTextField1info;
+	private JLabel jLabel3info;
 	private JTextField jTextField1connection;
 	private JButton jButton2deleteEA;
 	private JButton jButton2tradecopyonoff;
 	private JLabel jLabel1;
 	
-	private int magic_glob=0;
-	private String curency_glob="";
-	private String filedata_glob="";
-	private EaConfigF eaconf_glob=null;
-	private int on_glob=0;
-	private String broker_glob=null;
-	private Brokerview brokerview_glob=null;
-	private Ealiste eal_glob=null;
-	private Tableview tv_glob=null;
-	private Tradeliste tl_glob=null;
-
+	private int magic_glob = 0;
+	private String curency_glob = "";
+	private String filedata_glob = "";
+	private EaConfigF eaconf_glob = null;
+	private int on_glob = 0;
+	private String broker_glob = null;
+	private Brokerview brokerview_glob = null;
+	private JTextField jTextField1channel;
+	private JLabel jLabel3channel;
+	private JTextField jTextField1magic;
+	private JLabel jLabel3magic;
+	private JTextField jTextField1currency;
+	private JLabel jLabel3currency;
+	private JLabel jLabel3broker;
+	private JTextField jTextField1broker;
+	private Ealiste eal_glob = null;
+	private Tableview tv_glob = null;
+	private Tradeliste tl_glob = null;
+	private String comment_glob=null;
+	private Ea ea_glob=null;
+	private int index_glob=0;
+	
 	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args,int magic, String cur,String metarootpath) {
-		//main funktion wird nicht benötigt da die nur zum Testen verwendet werden kann
+	 * Auto-generated main method to display this JPanel inside a new JFrame.
+	 */
+	public static void main(String[] args, int magic, String cur, String metarootpath)
+	{
+		// main funktion wird nicht benötigt da die nur zum Testen verwendet werden kann
 		System.exit(99);
 		JFrame frame = new JFrame();
-		//frame.getContentPane().add(new EaConfigParamsDisplayX(magic,cur,metarootpath));
+		// frame.getContentPane().add(new
+		// EaConfigParamsDisplayX(magic,cur,metarootpath));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
 	}
 	
-	public EaConfigDis(int magic,String cur,String filedata,int on,String broker,Brokerview bv,Tableview tv,Ealiste eal,Tradeliste tl) {
+	public EaConfigDis(int index,int magic, String cur, String filedata, int on, String broker, Brokerview bv, Tableview tv,
+			Ealiste eal, Tradeliste tl, String comment, Ea ea)
+	{
 		super();
-		magic_glob=magic;
-		curency_glob=cur;
-		filedata_glob=filedata;
-		broker_glob=broker;
-		brokerview_glob=bv;
-		on_glob=on;
-		eal_glob=eal;
-		tv_glob=tv;
-		tl_glob=tl;
+		magic_glob = magic;
+		curency_glob = cur;
+		filedata_glob = filedata;
+		broker_glob = broker;
+		brokerview_glob = bv;
+		on_glob = on;
+		eal_glob = eal;
+		tv_glob = tv;
+		tl_glob = tl;
+		comment_glob=comment;
+		ea_glob=ea;
+		index_glob=index;
 		
 		
-		
-		EaConfigF eaconf= new EaConfigF(filedata+"\\"+magic_glob+".lot");
-		initGUI(eaconf,filedata+"\\"+magic_glob+".lot");
+		EaConfigF eaconf = new EaConfigF(filedata + "\\" + magic_glob + ".lot");
+		initGUI(eaconf, filedata + "\\" + magic_glob + ".lot");
 	}
 	
-	private void initGUI(EaConfigF eaconf,String lotpath) {
+	private void initGUI(EaConfigF eaconf, String lotpath)
+	{
 		
-		try {
-			eaconf_glob=eaconf;
+		try
+		{
+			eaconf_glob = eaconf;
 			this.setPreferredSize(new java.awt.Dimension(638, 374));
 			this.setLayout(null);
 			{
@@ -105,7 +134,8 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jButton1.setBounds(20, 296, 143, 28);
 				jButton1.setName("jButton1");
 				jButton1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
+					public void actionPerformed(ActionEvent evt)
+					{
 						jButton1ActionPerformed(evt);
 					}
 				});
@@ -116,7 +146,8 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jTextField1_lots.setText(eaconf.getLots());
 				jTextField1_lots.setBounds(20, 262, 87, 28);
 				jTextField1_lots.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
+					public void actionPerformed(ActionEvent evt)
+					{
 						jTextField1_lotsActionPerformed(evt);
 					}
 				});
@@ -127,7 +158,8 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jButton2tradecopyonoff.setBounds(181, 294, 442, 32);
 				jButton2tradecopyonoff.setName("jButton2tradecopyonoff");
 				jButton2tradecopyonoff.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
+					public void actionPerformed(ActionEvent evt)
+					{
 						jButton2tradecopyonoffActionPerformed(evt);
 					}
 				});
@@ -138,7 +170,8 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jButton2deleteEA.setBounds(181, 257, 91, 32);
 				jButton2deleteEA.setName("jButton2deleteEA");
 				jButton2deleteEA.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
+					public void actionPerformed(ActionEvent evt)
+					{
 						jButton2deleteEAActionPerformed(evt);
 					}
 				});
@@ -155,74 +188,229 @@ public class EaConfigDis extends javax.swing.JPanel {
 				jLabel2.setBounds(-3, 326, 626, 16);
 				jLabel2.setName("jLabel2");
 			}
+			{
+				jTextField1broker = new JTextField();
+				this.add(jTextField1broker);
+				jTextField1broker.setBounds(86, 77, 221, 21);
+				jTextField1broker.setName("jTextField1broker");
+			}
+			{
+				jLabel3broker = new JLabel();
+				this.add(jLabel3broker);
+				jLabel3broker.setBounds(23, 77, 101, 21);
+				jLabel3broker.setName("jLabel3broker");
+			}
+			{
+				jLabel3currency = new JLabel();
+				this.add(jLabel3currency);
+				jLabel3currency.setBounds(23, 104, 52, 16);
+				jLabel3currency.setName("jLabel3currency");
+			}
+			{
+				jTextField1currency = new JTextField();
+				this.add(jTextField1currency);
+				jTextField1currency.setBounds(87, 102, 219, 20);
+				jTextField1currency.setName("jTextField1currency");
+			}
+			{
+				jLabel3magic = new JLabel();
+				this.add(jLabel3magic);
+				jLabel3magic.setBounds(23, 126, 35, 16);
+				jLabel3magic.setName("jLabel3magic");
+			}
+			{
+				jTextField1magic = new JTextField();
+				this.add(jTextField1magic);
+				jTextField1magic.setBounds(87, 125, 219, 18);
+				jTextField1magic.setName("jTextField1magic");
+			}
+			{
+				jLabel3channel = new JLabel();
+				this.add(jLabel3channel);
+				jLabel3channel.setBounds(23, 148, 46, 16);
+				jLabel3channel.setName("jLabel3channel");
+			}
+			{
+				jTextField1channel = new JTextField();
+				this.add(jTextField1channel);
+				jTextField1channel.setBounds(87, 147, 219, 18);
+				jTextField1channel.setName("jTextField1channel");
+			}
+			{
+				jLabel3info = new JLabel();
+				this.add(jLabel3info);
+				jLabel3info.setBounds(23, 170, 21, 16);
+				jLabel3info.setName("jLabel3info");
+			}
+			{
+				jTextField1info = new JTextField();
+				this.add(jTextField1info);
+				jTextField1info.setBounds(87, 168, 219, 20);
+				jTextField1info.setName("jTextField1info");
+			}
+			{
+				jLabel3 = new JLabel();
+				this.add(jLabel3);
+				jLabel3.setBounds(23, 192, 33, 16);
+				jLabel3.setName("jLabel3");
+			}
+			{
+				jTextField1tpsl = new JTextField();
+				this.add(jTextField1tpsl);
+				jTextField1tpsl.setBounds(87, 190, 219, 20);
+				jTextField1tpsl.setName("jTextField1tpsl");
+			}
+			{
+				jLabel4pf = new JLabel();
+				this.add(jLabel4pf);
+				jLabel4pf.setBounds(318, 152, 65, 16);
+				jLabel4pf.setName("jLabel4pf");
+			}
+			{
+				jTextField1pf = new JTextField();
+				this.add(jTextField1pf);
+				jTextField1pf.setBounds(401, 152, 220, 20);
+				jTextField1pf.setName("jTextField1pf");
+			}
+			{
+				jLabel4profit = new JLabel();
+				this.add(jLabel4profit);
+				jLabel4profit.setBounds(319, 127, 64, 16);
+				jLabel4profit.setName("jLabel4profit");
+			}
+			{
+				jTextField1profit = new JTextField();
+				this.add(jTextField1profit);
+				jTextField1profit.setBounds(401, 125, 220, 20);
+				jTextField1profit.setName("jTextField1profit");
+			}
+			{
+				jLabel4 = new JLabel();
+				this.add(jLabel4);
+				jLabel4.setBounds(319, 79, 31, 16);
+				jLabel4.setName("jLabel4");
+			}
+			{
+				jLabel5 = new JLabel();
+				this.add(jLabel5);
+				jLabel5.setBounds(318, 101, 38, 16);
+				jLabel5.setName("jLabel5");
+			}
+			{
+				jTextField1prof7 = new JTextField();
+				this.add(jTextField1prof7);
+				jTextField1prof7.setBounds(401, 77, 220, 20);
+				jTextField1prof7.setName("jTextField1prof7");
+			}
+			{
+				jTextField1prof30 = new JTextField();
+				this.add(jTextField1prof30);
+				jTextField1prof30.setBounds(401, 99, 220, 20);
+				jTextField1prof30.setName("jTextField1prof30");
+			}
+			{
+				jTextField1index = new JTextField();
+				this.add(jTextField1index);
+				jTextField1index.setBounds(23, 54, 35, 24);
+				jTextField1index.setName("jTextField1index");
+			}
 
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 			init();
 			
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
+	
 	private void init()
 	{
 		setEaMessage(on_glob);
+		jTextField1broker.setText(broker_glob);
+		jTextField1channel.setText("t");
+		jTextField1magic.setText(String.valueOf(magic_glob));
+		jTextField1currency.setText(curency_glob);
+		jTextField1info.setText(comment_glob);
+		jTextField1tpsl.setText("Sl="+ea_glob.getSl()+" TP="+ea_glob.getTp());
+		jTextField1pf.setText(String.valueOf(tl_glob.calcProfitfactor()));
+		int anz=tl_glob.getsize();
+		jTextField1profit.setText(String.valueOf(tl_glob.get_tsumx(anz-1)));
+		jTextField1prof7.setText(String.valueOf(tl_glob.get_tsumx(7)));
+		jTextField1prof30.setText(String.valueOf(tl_glob.get_tsumx(30)));
+		jTextField1index.setText(String.valueOf(index_glob));
 		
+		jTextField1broker.setEditable(false);
+		jTextField1channel.setEditable(false);
+		jTextField1magic.setEditable(false);
+		jTextField1currency.setEditable(false);
+		jTextField1info.setEditable(false);
+		jTextField1tpsl.setEditable(false);
+		jTextField1pf.setEditable(false);
+		jTextField1profit.setEditable(false);
+		jTextField1prof7.setEditable(false);
+		jTextField1prof30.setEditable(false);
+		jTextField1index.setEditable(false);
+	
 	}
-	private void jTextField1_lotsActionPerformed(ActionEvent evt) {
-		System.out.println("jTextField1_lots.actionPerformed, event="+evt);
-		String str=jTextField1_lots.getText();
-		System.out.println("lots wurden gesetzt <"+str+">");
+	
+	private void jTextField1_lotsActionPerformed(ActionEvent evt)
+	{
+		System.out.println("jTextField1_lots.actionPerformed, event=" + evt);
+		String str = jTextField1_lots.getText();
+		System.out.println("lots wurden gesetzt <" + str + ">");
 		eaconf_glob.setLots(str);
 	}
+	
 	private void setEaMessage(int status)
 	{
-		if(status==1)
+		if (status == 1)
 		{
 			jTextField1connection.setText("***** connected to realaccount *****");
 			jTextField1connection.setEditable(false);
 			jTextField1connection.setVisible(true);
 			
-		}
-		else if(status==0)
+		} else if (status == 0)
 		{
-		
+			
 			jTextField1connection.setVisible(false);
-		}
-		else
-		{ //status deleted
+		} else
+		{ // status deleted
 			jTextField1connection.setText("----deleted----");
 			jTextField1connection.setEditable(false);
 			jTextField1connection.setVisible(true);
 		}
 		
 	}
-
 	
-	private void jButton1ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton1.actionPerformed, event="+evt);
+	private void jButton1ActionPerformed(ActionEvent evt)
+	{
+		System.out.println("jButton1.actionPerformed, event=" + evt);
 		
-		String str=jTextField1_lots.getText();
-		if(str.contains("default"))
+		String str = jTextField1_lots.getText();
+		if (str.contains("default"))
 			return;
-		System.out.println("lots wurden gespeichert <"+str+">");
-		str=str.replace(" ","");
+		System.out.println("lots wurden gespeichert <" + str + ">");
+		str = str.replace(" ", "");
 		eaconf_glob.setLots(str);
 	}
 	
-	private void jButton2tradecopyonoffActionPerformed(ActionEvent evt) {
-		System.out.println("jButton2tradecopyonoff.actionPerformed, event="+evt);
-		Toogler tog=new Toogler();
+	private void jButton2tradecopyonoffActionPerformed(ActionEvent evt)
+	{
+		System.out.println("jButton2tradecopyonoff.actionPerformed, event=" + evt);
+		Toogler tog = new Toogler();
 		tog.ToggleOnOffEa(brokerview_glob, eal_glob, magic_glob, broker_glob);
-		Ea ea=eal_glob.getEa(magic_glob, broker_glob);
-		Tracer.WriteTrace(10,"EA statuson="+ea.getOn());
-		int status=ea.getOn();
+		Ea ea = eal_glob.getEa(magic_glob, broker_glob);
+		Tracer.WriteTrace(20, "EA statuson=" + ea.getOn());
+		int status = ea.getOn();
 		setEaMessage(status);
 	}
 	
-	private void jButton2deleteEAActionPerformed(ActionEvent evt) {
-		System.out.println("jButton2deleteEA.actionPerformed, event="+evt);
+	private void jButton2deleteEAActionPerformed(ActionEvent evt)
+	{
+		System.out.println("jButton2deleteEA.actionPerformed, event=" + evt);
 		tv_glob.deleteSingleEa(brokerview_glob, tl_glob, broker_glob, magic_glob);
 		setEaMessage(2);
 	}
-
+	
 }

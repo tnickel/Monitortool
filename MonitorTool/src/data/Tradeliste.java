@@ -424,7 +424,7 @@ public class Tradeliste
 		return poscount;
 	}
 
-	public void calcSummengewinne()
+	public int calcSummengewinne()
 	{
 		int anz = tradeliste.size();
 		summengewinne = new ArrayList<Double>();
@@ -439,6 +439,7 @@ public class Tradeliste
 			sumGewinn = sumGewinn + trade.getProfit();
 			summengewinne.add(sumGewinn);
 		}
+		return anz;
 	}
 
 	private ArrayList<Trade> entferneTrades(Brokerview bview,
@@ -688,6 +689,8 @@ public class Tradeliste
 		// es wird die Tradesumme für die position pos berechnet
 		// Bsp: Tradesum5=profit0+profit1+profit2+profit3+profit4+profit5
 
+		if(pos>=summengewinne.size())
+			pos=summengewinne.size()-1;
 		double sgewinn = summengewinne.get(pos);
 		return sgewinn;
 	}
