@@ -31,7 +31,7 @@ public class Mlist
 			return;
 		String timestr=Tools.get_aktdatetime_str();
 		timestr=timestr.substring(timestr.indexOf(" "));
-		messagelist.add(timestr+" "+text,0);
+		//messagelist.add(timestr+" "+text,0);
 		Display.getCurrent().readAndDispatch();
 	}
 	static public void add(String text,int forceflag)

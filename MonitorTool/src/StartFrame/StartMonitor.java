@@ -2313,6 +2313,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// Alle profite der selektierten EA anzeigen
 				System.out.println("showallprofit2.widgetSelected, event=" + evt);
 
+				if(GlobalVar.getMetatraderrunning()==1)
+					MetaStarter.KillAllMetatrader();
+				
 				if (button2best100.getSelection() == true)
 					smw.showallprofit2(tf, 0, 100);
 				else

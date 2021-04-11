@@ -399,7 +399,7 @@ public class Ealiste
 				if (fnamf.delete() == false)
 					Tracer.WriteTrace(10, "E:can´t delete file <" + fnamf + ">");
 				
-				Mlist.add("deleted <" + fnam + "> ");
+				//Mlist.add("deleted <" + fnam + "> ");
 			}
 		}
 		

@@ -35,6 +35,7 @@ import data.GlobalVar;
 import data.Metaconfig;
 import data.Trade;
 import data.Tradeliste;
+import hiflsklasse.Tracer;
 
 public class ShowConfigAllP2 extends ApplicationFrame
 {
@@ -75,6 +76,11 @@ public class ShowConfigAllP2 extends ApplicationFrame
 			int on = tv.getEaliste().getOn(magic, broker);
 			
 			String eainf = "";
+			if(ea==null)
+			{
+				Tracer.WriteTrace(10, "E: empty list");
+				return;
+			}
 			if (ea.getInfo() != null)
 				eainf = ea.getInfo();
 			String eaname = "<" + broker + "> <" + trade.getSymbol() + "> <" + magic + "> <" + comment + ">";

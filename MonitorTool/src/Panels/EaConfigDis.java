@@ -72,9 +72,9 @@ public class EaConfigDis extends javax.swing.JPanel
 	private Ealiste eal_glob = null;
 	private Tableview tv_glob = null;
 	private Tradeliste tl_glob = null;
-	private String comment_glob=null;
-	private Ea ea_glob=null;
-	private int index_glob=0;
+	private String comment_glob = null;
+	private Ea ea_glob = null;
+	private int index_glob = 0;
 	
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -91,8 +91,8 @@ public class EaConfigDis extends javax.swing.JPanel
 		frame.setVisible(true);
 	}
 	
-	public EaConfigDis(int index,int magic, String cur, String filedata, int on, String broker, Brokerview bv, Tableview tv,
-			Ealiste eal, Tradeliste tl, String comment, Ea ea)
+	public EaConfigDis(int index, int magic, String cur, String filedata, int on, String broker, Brokerview bv,
+			Tableview tv, Ealiste eal, Tradeliste tl, String comment, Ea ea)
 	{
 		super();
 		magic_glob = magic;
@@ -104,10 +104,9 @@ public class EaConfigDis extends javax.swing.JPanel
 		eal_glob = eal;
 		tv_glob = tv;
 		tl_glob = tl;
-		comment_glob=comment;
-		ea_glob=ea;
-		index_glob=index;
-		
+		comment_glob = comment;
+		ea_glob = ea;
+		index_glob = index;
 		
 		EaConfigF eaconf = new EaConfigF(filedata + "\\" + magic_glob + ".lot");
 		initGUI(eaconf, filedata + "\\" + magic_glob + ".lot");
@@ -314,7 +313,7 @@ public class EaConfigDis extends javax.swing.JPanel
 				jTextField1index.setBounds(23, 54, 35, 24);
 				jTextField1index.setName("jTextField1index");
 			}
-
+			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 			init();
 			
@@ -332,10 +331,10 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
 		jTextField1info.setText(comment_glob);
-		jTextField1tpsl.setText("Sl="+ea_glob.getSl()+" TP="+ea_glob.getTp());
+		jTextField1tpsl.setText("Sl=" + ea_glob.getSl() + " TP=" + ea_glob.getTp());
 		jTextField1pf.setText(String.valueOf(tl_glob.calcProfitfactor()));
-		int anz=tl_glob.getsize();
-		jTextField1profit.setText(String.valueOf(tl_glob.get_tsumx(anz-1)));
+		int anz = tl_glob.getsize();
+		jTextField1profit.setText(String.valueOf(tl_glob.get_tsumx(anz - 1)));
 		jTextField1prof7.setText(String.valueOf(tl_glob.get_tsumx(7)));
 		jTextField1prof30.setText(String.valueOf(tl_glob.get_tsumx(30)));
 		jTextField1index.setText(String.valueOf(index_glob));
@@ -351,9 +350,20 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1prof7.setEditable(false);
 		jTextField1prof30.setEditable(false);
 		jTextField1index.setEditable(false);
-	
+		jTextField1connection.setEditable(false);
+		
+		//if realbroker
+		if(brokerview_glob.getAccounttype(broker_glob)==2)
+			setDisabledButtons("is Realbroker");
 	}
-	
+	private void setDisabledButtons(String message)
+	{
+		jTextField1connection.setText(message);
+		jButton2deleteEA.setEnabled(false);
+		jButton2tradecopyonoff.setEnabled(false);
+		jButton1.setEnabled(false);
+		
+	}
 	private void jTextField1_lotsActionPerformed(ActionEvent evt)
 	{
 		System.out.println("jTextField1_lots.actionPerformed, event=" + evt);
@@ -371,9 +381,11 @@ public class EaConfigDis extends javax.swing.JPanel
 			jTextField1connection.setVisible(true);
 			
 		} else if (status == 0)
-		{
+		{   
+			jTextField1connection.setText("...");
+			jTextField1connection.setEditable(false);
+			jTextField1connection.setVisible(true);
 			
-			jTextField1connection.setVisible(false);
 		} else
 		{ // status deleted
 			jTextField1connection.setText("----deleted----");
@@ -409,8 +421,19 @@ public class EaConfigDis extends javax.swing.JPanel
 	private void jButton2deleteEAActionPerformed(ActionEvent evt)
 	{
 		System.out.println("jButton2deleteEA.actionPerformed, event=" + evt);
-		tv_glob.deleteSingleEa(brokerview_glob, tl_glob, broker_glob, magic_glob);
-		setEaMessage(2);
+		
+		// check fist if this ea is connected to realaccount, if yes than an
+		// errormessage
+		if (ea_glob.getOn() == 1)
+		{
+			Tracer.WriteTrace(10, "Error: can´t delete EA because it is connected to realaccount");
+		} else
+		{   //delete ea
+			setDisabledButtons("----deleted----");
+			tv_glob.deleteSingleEa(brokerview_glob, tl_glob, broker_glob, magic_glob);
+			setEaMessage(2);
+			
+		}
 	}
 	
 }
