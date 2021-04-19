@@ -125,7 +125,7 @@ public class Installer
 	
 	private void copyBacktestEnvironment(Metaconfig metaconf)
 	{
-		Mt4Backtester mt4b=new Mt4Backtester();
+		Mt4Backtester mt4b = new Mt4Backtester();
 		mt4b.Install(Rootpath.getRootpath(), metaconf.getAppdata());
 	}
 	
@@ -255,7 +255,6 @@ public class Installer
 		progressBar1.setMaximum(anz - 1);
 		for (int i = 0; i < anz; i++)
 		{
-			
 			String mqlquellnam = fadyn.holeFileSystemName();
 			Tracer.WriteTrace(20, "quellnam<" + mqlquellnam + ">");
 			progressBar1.setSelection(i);
@@ -279,12 +278,13 @@ public class Installer
 			int magic = eaclass.calcMagic(mqlquellnam);
 			String brokername = metaconfig.getBrokername();
 			
-			Patcher pat=new Patcher();
-			pat.setFilename(mqlquellverz+"\\"+mqlquellnam);
-			String sl=pat.getSl();
-			String tp=pat.getTp();
+			Patcher pat = new Patcher();
+			pat.setFilename(mqlquellverz + "\\" + mqlquellnam);
+			String sl = pat.getSl();
+			String tp = pat.getTp();
+			int eatype=pat.getEaType();
 			
-			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername,sl,tp);
+			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername, sl, tp,eatype);
 			// remove old *.del files out of ../files
 			removeEaDels(magic, metaconfig);
 			
@@ -315,7 +315,7 @@ public class Installer
 		}
 		eal.store(0);
 		
-		String datetime=Tools.get_aktdatetime_str();
+		String datetime = Tools.get_aktdatetime_str();
 		metaconfig.setLastinstallation(datetime);
 		
 		if (realpatchflag == 0)
@@ -355,7 +355,7 @@ public class Installer
 			tv.importTradeliste(fnam, brokername);
 	}
 	
-	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername,String sl,String tp)
+	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername, String sl, String tp,int eatype)
 	{
 		
 		mqlquellnam = mqlquellnam.replace("_Strategy", "");
@@ -367,8 +367,8 @@ public class Installer
 			ea.setEafilename(mqlquellnam);
 			ea.setSl(sl);
 			ea.setTp(tp);
-		}
-		else
+			ea.setType(eatype);
+		} else
 		{
 			// in die ealiste aufnehmen
 			ea = new Ea();
@@ -377,6 +377,7 @@ public class Installer
 			ea.setEafilename(mqlquellnam);
 			ea.setSl(sl);
 			ea.setTp(tp);
+			ea.setType(eatype);
 			eal.add(ea);
 		}
 		return ea;
@@ -530,7 +531,6 @@ public class Installer
 			copyTickdataExporter(metaconfig);
 		
 		copyBacktestEnvironment(metaconfig);
-		
 		
 		InstallSernumber(metaconfig);
 		
@@ -1269,7 +1269,7 @@ public class Installer
 		
 		// get the connected broker and delete profiles on realbroker
 		String conrealbroker = meconfdemo.getconnectedBroker();
-				
+		
 		Metaconfig meconfreal = brokerview.getMetaconfigByBrokername(conrealbroker);
 		Profiler profreal = new Profiler(meconfreal);
 		profreal.delAllProfiles("FX Blue - TradeCopy Receiver", meconfdemo.getBrokername());
@@ -1305,8 +1305,8 @@ public class Installer
 	
 	public void copyConfigTradecopyConfs(Metaconfig metaconfdemo, Metaconfig metaconfreal)
 	{
-		// hier wird nur rüberkopiert, also die *.chr files auf sender und empfängerseite
-	
+		// hier wird nur rüberkopiert, also die *.chr files auf sender und
+		// empfängerseite
 		
 		String brokername = metaconfdemo.getBrokername();
 		

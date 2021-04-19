@@ -1,6 +1,7 @@
 package charttool;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import Panels.EaConfigDis;
 import StartFrame.Brokerview;
 import StartFrame.Tableview;
 import data.Ea;
-import data.GlobalVar;
 import data.Metaconfig;
 import data.Trade;
 import data.Tradeliste;
@@ -76,7 +76,7 @@ public class ShowConfigAllP2 extends ApplicationFrame
 			int on = tv.getEaliste().getOn(magic, broker);
 			
 			String eainf = "";
-			if(ea==null)
+			if (ea == null)
 			{
 				Tracer.WriteTrace(10, "E: empty list");
 				return;
@@ -87,18 +87,19 @@ public class ShowConfigAllP2 extends ApplicationFrame
 			
 			eatradeliste.calcSummengewinne();
 			XYDataset dataset = createDataset(eatradeliste);
-			JFreeChart chart = createChart(dataset, eaname);
+			JFreeChart chart = createChart(dataset, eaname,calcColor(bv,broker, ea));
 			
 			if (on == 1)
 				addSubtitle(chart);
-			
-			// spalte 1 ist der aktuelle chart
-			panelx.add(new ChartPanel(chart));
+				
+					
+				// spalte 1 ist der aktuelle chart
+					panelx.add(new ChartPanel(chart));
 			frame.getContentPane().setLayout(new BorderLayout());
 			
 			// spalte 2 ist die config
 			String filedata = meconf.getFiledata();
-			EaConfigDis cp = new EaConfigDis(i,magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
+			EaConfigDis cp = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
 					eatradeliste, comment, ea);
 			panelx.add(cp);
 			frame.getContentPane().add(panelx);// , BorderLayout.WEST);
@@ -111,6 +112,28 @@ public class ShowConfigAllP2 extends ApplicationFrame
 		frame.getContentPane().add(scrollPane);
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	private Color calcColor(Brokerview bv, String broker,Ea ea)
+	{
+		Color col = null;
+		
+		if (bv.getAccounttype(broker) == 2)
+		{
+			// realbroker:color blue
+			col = new Color(0x55, 0x55, 0xff);
+		} else if ((bv.getAccounttype(broker) == 1)&&(ea.getOn()==1))
+		{
+			// demobroker-connected: color green
+			col = new Color(0x00, 0x8b, 0x00);
+			
+		} else
+		{
+			// demobroker: color red
+			col = new Color(0xff, 0x11, 0x11);
+			
+		}
+		return col;
 	}
 	
 	private void addSubtitle(JFreeChart chart)
@@ -141,7 +164,7 @@ public class ShowConfigAllP2 extends ApplicationFrame
 		return dataset;
 	}
 	
-	private static JFreeChart createChart(XYDataset dataset, String titel)
+	private static JFreeChart createChart(XYDataset dataset, String titel, Color col)
 	{
 		
 		// create the chart...
@@ -157,6 +180,9 @@ public class ShowConfigAllP2 extends ApplicationFrame
 		
 		// get a reference to the plot for further customisation...
 		XYPlot plot = (XYPlot) chart.getPlot();
+		// hier wird die Farbe gesetzt
+		if(col!=null)
+		plot.getRenderer().setSeriesPaint(0, col);
 		XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
 		renderer.setBaseShapesVisible(true);
 		renderer.setBaseShapesFilled(true);
@@ -174,7 +200,7 @@ public class ShowConfigAllP2 extends ApplicationFrame
 	 */
 	public static JPanel createDemoPanel(Tradeliste eatradeliste, String titel)
 	{
-		JFreeChart chart = createChart(createDataset(eatradeliste), "titel");
+		JFreeChart chart = createChart(createDataset(eatradeliste), "titel",null);
 		return new ChartPanel(chart);
 	}
 	

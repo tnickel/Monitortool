@@ -60,6 +60,8 @@ public class Ea implements Comparable<Ea>
 	String sl=null;
 	String tp=null;
 	
+	int type=0;
+	
 	public int getMagic()
 	{
 		return magic;
@@ -332,6 +334,16 @@ public class Ea implements Comparable<Ea>
 		this.tp = tp;
 	}
 
+	public int getType()
+	{
+		return type;
+	}
+
+	public void setType(int type)
+	{
+		this.type = type;
+	}
+
 	public String getlotsize_str(Brokerview brokerview)
 	{
 		    String netshare=calcNetworkshare( brokerview);
@@ -422,9 +434,17 @@ public class Ea implements Comparable<Ea>
 	{
 		this.lateswitchonflag = lateswitchonflag;
 	}
+	
+	public int getEatype()
+	{
+		return type;
+	}
 
-	
-	
+	public void setEatype(int eatype)
+	{
+		this.type = eatype;
+	}
+
 	public String holeStrFilename(Ealiste eal,Metaconfig meconf,String tradecomment,int nachfrageflag)
 	{
 		//falls nachfrageflag==1 dann wird nochmal nach dem *.str file explizit nachgefragt

@@ -37,6 +37,7 @@ import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
+import modtools.FsbPortfolioEa;
 import modtools.Networker_dep;
 import modtools.Toogler;
 import montool.MonDia;
@@ -1268,7 +1269,20 @@ public class Tableview extends TableViewBasic
 		}
 		
 		//delete eas from filesystem in the installdir and in the metatrader
-		deleteEaFilesystem(bv, magic, broker);
+		//falls das ein normaler EA ist
+
+		FsbPortfolioEa fp=new FsbPortfolioEa();
+		
+		//normaler ea
+		if((fp.checkIsPortfolioEa(magic, meconf))==false)
+		{
+			deleteEaFilesystem(bv, magic, broker);
+		}
+		else
+		{   //ist ein portfolio ea
+			deletePortfolioEaFilesystem(bv,magic,broker);
+		}
+		
 		//delete eas from tradelist
 		tl.deleteMagic(magic, broker);
 		
@@ -1287,7 +1301,11 @@ public class Tableview extends TableViewBasic
 		eal.deleteEaFilesystem(bv, magic, broker);
 
 	}
+	private void deletePortfolioEaFilesystem(Brokerview bv, int magic, String broker)
+	{
+		eal.deletePortfolioEaFilesystem(bv, magic, broker);
 
+	}
 	public void refresh()
 	{
 		ShowProfitTable();

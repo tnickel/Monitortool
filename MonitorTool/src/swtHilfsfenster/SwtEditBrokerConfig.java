@@ -1011,6 +1011,7 @@ public class SwtEditBrokerConfig
 		text1suffix.setEnabled(false);
 		label7suffix.setEnabled(false);
 		combo1.setEnabled(true);
+		installEas.setEnabled(true);
 		
 	}
 	private void button1realaccountselWidgetSelected(SelectionEvent evt) {
@@ -1031,6 +1032,7 @@ public class SwtEditBrokerConfig
 		combo1.setEnabled(false);
 		text1suffix.setEnabled(true);
 		label7suffix.setEnabled(true);
+		installEas.setEnabled(false);
 		
 	}
 

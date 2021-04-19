@@ -91,7 +91,14 @@ public class Patcher
 		return false;
 		
 	}
-
+	public int getEaType()
+	{
+		//check if this is an FSB Portfolio ea
+		//type=1: standart ea
+		//type=3: ea is an FSB Portfolio ea
+		return (isSq4x);
+		
+	}
 	public boolean checkKeyword(String keyword)
 	{
 
@@ -154,6 +161,13 @@ public class Patcher
 	}
 	private void setMagicEaStudioPortfolio(int magic)
 	{
+		//check if magic have 6 digits
+		//210401 for example
+		
+		String mag=String.valueOf(magic);
+		if(mag.length()!=6)
+			Tracer.WriteTrace(10, "E: invalid magic<"+magic+"> EA studio Portfolio Eas should have magic with 6 digits -> stop");
+		
 		//static input int    Base_Magic_Number = 100;  // Base Magic Number
 		int anz = zeilenspeicher.length;
 		for (int i = 0; i < anz; i++)

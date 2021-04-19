@@ -13,6 +13,7 @@ import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Tracer;
 import modtools.ChrFile;
+import modtools.FsbPortfolioEa;
 import mtools.Mlist;
 
 public class Ealiste
@@ -58,6 +59,7 @@ public class Ealiste
 			
 			nea.setSl("?");
 			nea.setTp("?");
+			nea.setType(99);
 			ealiste.add(nea);
 			
 		}
@@ -315,7 +317,10 @@ public class Ealiste
 	
 	public void deleteEaFilesystem(Brokerview brokerview, int magic, String broker)
 	{
-		// hier wird der ea mit der magic gelöscht
+		// hier wird der ea mit der magic gelöscht, es handelt sich hier um einen einzelen
+		// ea und keinen Portfolio EA
+		
+		//Metaconfig holen
 		Metaconfig meconf = brokerview.getMetaconfigByBrokername(broker);
 		
 		// 1) installations verzeichnisse holen
@@ -325,14 +330,7 @@ public class Ealiste
 		String expertdata = meconf.getExpertdata();
 		
 		// 1.5) check
-		if (quellverz == null)
-			Tracer.WriteTrace(10, "E:1215 quellverz=null");
-		if (mqldata == null)
-			Tracer.WriteTrace(10, "E:1215 mqldata=null");
-		if (appdata == null)
-			Tracer.WriteTrace(10, "E:1215 appdata=null");
-		if (expertdata == null)
-			Tracer.WriteTrace(10, "E:1215 expertdata=null");
+		checkDirectorys(quellverz, mqldata, appdata, expertdata);
 		
 		// 2) Ea auf zielsystem löschen
 		ArrayList<String> alist = genFileliste(expertdata, magic);
@@ -344,33 +342,76 @@ public class Ealiste
 		if ((qlist != null) && (qlist.size() > 0))
 			FilesLoeschen(quellverz, quellverz, qlist, magic);
 		
-		// 3) Ea aus der EAliste löschen
+		// 4) Ea aus der EAliste löschen
 		delEa(magic, broker);
 		this.store(1);
 		
-		// 4) profiles mit einer bestimmten magic löschen
-		if (meconf.getMetaversion().contains("509"))
-		{
-			ArrayList<String> plist = genFileliste(appdata + "\\profiles\\default", magic);
-			FilesLoeschen(appdata + "\\profiles\\default", appdata, plist, magic);
-		} else // metaversion ist 600+
-		{
-			// hier wird anders vorgegangen.
-			// hier wird geschaut in welchen char-files die magic vorkommt und die files wo
-			// die magic vorkommt
-			// werden gelöscht
-			
-			ArrayList<String> plist = genFileliste600plus(appdata + "\\profiles\\default", magic);
-			FilesLoeschen(appdata + "\\profiles\\default", appdata, plist, magic);
-		}
-		// 5) den <magic>.del eintrag im files verzeichniss machen
+		// 5) profiles mit einer bestimmten magic löschen
+		delProfilesMagic(magic, appdata);
+		
+		// 6) den <magic>.del eintrag im files verzeichniss machen
+		makeDelEntry(magic, appdata);
+	}
+
+	public void deletePortfolioEaFilesystem(Brokerview brokerview, int magic, String broker)
+	{
+		//Metaconfig holen
+		Metaconfig meconf = brokerview.getMetaconfigByBrokername(broker);
+		
+		// 1) installations verzeichnisse holen
+		String quellverz = meconf.getMqlquellverz();
+		String mqldata = meconf.getMqldata();
+		String appdata = meconf.getAppdata();
+		String expertdata = meconf.getExpertdata();
+		
+		// 1.5) check directorys available
+		checkDirectorys(quellverz, mqldata, appdata, expertdata);
+		
+		// 2) Ea auf zielsystem modifizieren
+		FsbPortfolioEa fpfa=new FsbPortfolioEa();
+		String name=fpfa.getPortfolioEaName(magic, meconf);
+		fpfa.delete(magic, meconf, name);
+		
+		// 3) Ea aus der EAliste löschen
+		delEa(magic, broker);
+		this.store(1);
+
+		// 4) den <magic>.del eintrag im files verzeichniss machen
+		makeDelEntry(magic, appdata);
+	}
+	
+	private void checkDirectorys(String quellverz, String mqldata, String appdata, String expertdata)
+	{
+		if (quellverz == null)
+			Tracer.WriteTrace(10, "E:1215 quellverz=null");
+		if (mqldata == null)
+			Tracer.WriteTrace(10, "E:1215 mqldata=null");
+		if (appdata == null)
+			Tracer.WriteTrace(10, "E:1215 appdata=null");
+		if (expertdata == null)
+			Tracer.WriteTrace(10, "E:1215 expertdata=null");
+	}
+
+	private void delProfilesMagic(int magic, String appdata)
+	{
+		// hier wird geschaut in welchen char-files die magic vorkommt und die files wo
+		// die magic vorkommt werden gelöscht
+		
+		ArrayList<String> plist = genFileliste600plus(appdata + "\\profiles\\default", magic);
+		FilesLoeschen(appdata + "\\profiles\\default", appdata, plist, magic);
+	}
+
+	private void makeDelEntry(int magic, String appdata)
+	{
+		//5) den <magic>.del eintrag im files verzeichniss machen
 		String fnam = appdata + "\\mql4\\files\\" + magic + ".del";
 		Inf inf = new Inf();
 		inf.setFilename(fnam);
 		inf.writezeile("deleted on" + Mondate.getAktDate());
 		inf.close();
-		
 	}
+	
+	
 	
 	private void FilesLoeschen(String workverz, String zielverz, ArrayList<String> alist, int magic)
 	{
