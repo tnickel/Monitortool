@@ -27,7 +27,7 @@ import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
-import mqlLibs.eaclass;
+import mqlLibs.Eaclass;
 import mtools.DisTool;
 import mtools.MboxQuest;
 import mtools.Mlist;
@@ -275,7 +275,7 @@ public class Installer
 			Tracer.WriteTrace(20, "mqlquellnam<" + mqlquellnam + "> mqlquellverz<" + mqlquellverz + "> zielshare<"
 					+ metaconfig.getMqldata() + "> zwischenspeichernam<" + zwischenspeichernam + ">");
 			
-			int magic = eaclass.calcMagic(mqlquellnam);
+			int magic = Eaclass.calcMagic(mqlquellnam);
 			String brokername = metaconfig.getBrokername();
 			
 			Patcher pat = new Patcher();
@@ -672,7 +672,7 @@ public class Installer
 		String mqlzielnam = quellinstallverz + "\\" + eanam.replace("_Strategy", "");
 		
 		// Die magic berechnen
-		int magic = eaclass.calcMagic(eanam);
+		int magic = Eaclass.calcMagic(eanam);
 		mqlpatch.setMagic(magic);
 		
 		mqlpatch.patchMqlProtection();
@@ -742,7 +742,7 @@ public class Installer
 		String mqlziel = quellverz + "\\" + zwischenspeichernam + "\\" + quellnam.replace("_Strategy", "");
 		
 		// Die magic berechnen
-		int magic = eaclass.calcMagic(quellnam);
+		int magic = Eaclass.calcMagic(quellnam);
 		mqlpatch.setMagic(magic);
 		mqlpatch.patchMqlProtection();
 		mqlpatch.patchInit();

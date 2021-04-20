@@ -1271,10 +1271,10 @@ public class Tableview extends TableViewBasic
 		//delete eas from filesystem in the installdir and in the metatrader
 		//falls das ein normaler EA ist
 
-		FsbPortfolioEa fp=new FsbPortfolioEa();
+		
 		
 		//normaler ea
-		if((fp.checkIsPortfolioEa(magic, meconf))==false)
+		if((FsbPortfolioEa.checkIsPortfolioEa(magic, meconf))==false)
 		{
 			deleteEaFilesystem(bv, magic, broker);
 		}

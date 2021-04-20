@@ -16,8 +16,10 @@ import StartFrame.Tableview;
 import data.Ea;
 import data.Ealiste;
 import data.GlobalVar;
+import data.Metaconfig;
 import data.Tradeliste;
 import hiflsklasse.Tracer;
+import modtools.FsbPortfolioEa;
 import modtools.MetaStarter;
 import modtools.Toogler;
 
@@ -43,6 +45,8 @@ public class EaConfigDis extends javax.swing.JPanel
 	private JButton jButton1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
+	private JLabel jLabel6;
+	private JTextField jTextField1;
 	private JLabel jLabel6locked;
 	private JTextField jTextField1index;
 	private JTextField jTextField1prof30;
@@ -197,73 +201,73 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1broker = new JTextField();
 				this.add(jTextField1broker);
-				jTextField1broker.setBounds(86, 77, 221, 21);
+				jTextField1broker.setBounds(86, 100, 220, 21);
 				jTextField1broker.setName("jTextField1broker");
 			}
 			{
 				jLabel3broker = new JLabel();
 				this.add(jLabel3broker);
-				jLabel3broker.setBounds(23, 77, 101, 21);
+				jLabel3broker.setBounds(23, 100, 101, 21);
 				jLabel3broker.setName("jLabel3broker");
 			}
 			{
 				jLabel3currency = new JLabel();
 				this.add(jLabel3currency);
-				jLabel3currency.setBounds(23, 104, 52, 16);
+				jLabel3currency.setBounds(23, 127, 52, 16);
 				jLabel3currency.setName("jLabel3currency");
 			}
 			{
 				jTextField1currency = new JTextField();
 				this.add(jTextField1currency);
-				jTextField1currency.setBounds(87, 102, 219, 20);
+				jTextField1currency.setBounds(87, 125, 219, 20);
 				jTextField1currency.setName("jTextField1currency");
 			}
 			{
 				jLabel3magic = new JLabel();
 				this.add(jLabel3magic);
-				jLabel3magic.setBounds(23, 126, 35, 16);
+				jLabel3magic.setBounds(23, 149, 35, 16);
 				jLabel3magic.setName("jLabel3magic");
 			}
 			{
 				jTextField1magic = new JTextField();
 				this.add(jTextField1magic);
-				jTextField1magic.setBounds(87, 125, 219, 18);
+				jTextField1magic.setBounds(87, 148, 219, 18);
 				jTextField1magic.setName("jTextField1magic");
 			}
 			{
 				jLabel3channel = new JLabel();
 				this.add(jLabel3channel);
-				jLabel3channel.setBounds(23, 148, 46, 16);
+				jLabel3channel.setBounds(23, 171, 46, 16);
 				jLabel3channel.setName("jLabel3channel");
 			}
 			{
 				jTextField1channel = new JTextField();
 				this.add(jTextField1channel);
-				jTextField1channel.setBounds(87, 147, 219, 18);
+				jTextField1channel.setBounds(87, 170, 219, 18);
 				jTextField1channel.setName("jTextField1channel");
 			}
 			{
 				jLabel3info = new JLabel();
 				this.add(jLabel3info);
-				jLabel3info.setBounds(23, 170, 21, 16);
+				jLabel3info.setBounds(23, 193, 21, 16);
 				jLabel3info.setName("jLabel3info");
 			}
 			{
 				jTextField1info = new JTextField();
 				this.add(jTextField1info);
-				jTextField1info.setBounds(87, 168, 219, 20);
+				jTextField1info.setBounds(87, 191, 219, 20);
 				jTextField1info.setName("jTextField1info");
 			}
 			{
 				jLabel3 = new JLabel();
 				this.add(jLabel3);
-				jLabel3.setBounds(23, 192, 33, 16);
+				jLabel3.setBounds(23, 215, 33, 16);
 				jLabel3.setName("jLabel3");
 			}
 			{
 				jTextField1tpsl = new JTextField();
 				this.add(jTextField1tpsl);
-				jTextField1tpsl.setBounds(87, 190, 219, 20);
+				jTextField1tpsl.setBounds(87, 213, 219, 20);
 				jTextField1tpsl.setName("jTextField1tpsl");
 			}
 			{
@@ -326,7 +330,18 @@ public class EaConfigDis extends javax.swing.JPanel
 				jLabel6locked.setBounds(184, 235, 68, 16);
 				jLabel6locked.setName("jLabel6locked");
 			}
-			
+			{
+				jTextField1 = new JTextField();
+				this.add(jTextField1);
+				jTextField1.setBounds(86, 77, 221, 23);
+			}
+			{
+				jLabel6 = new JLabel();
+				this.add(jLabel6);
+				jLabel6.setBounds(23, 80, 41, 16);
+				jLabel6.setName("jLabel6");
+			}
+
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 			init();
 			
@@ -338,10 +353,12 @@ public class EaConfigDis extends javax.swing.JPanel
 	
 	private void init()
 	{
+		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
+		
 		setEaMessage(on_glob);
 		jTextField1broker.setText(broker_glob);
 		jTextField1channel
-				.setText(String.valueOf(brokerview_glob.getMetaconfigByBrokername(broker_glob).getTradecopymagic()));
+				.setText(String.valueOf(meconf.getTradecopymagic()));
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
 		jTextField1info.setText(comment_glob);
@@ -352,6 +369,25 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1prof7.setText(String.valueOf(tl_glob.get_tsumx(7)));
 		jTextField1prof30.setText(String.valueOf(tl_glob.get_tsumx(30)));
 		jTextField1index.setText(String.valueOf(index_glob));
+
+		if(magic_glob<100)
+		{
+			jTextField1.setText("RealAccountChannel");
+			jTextField1_lots.setEnabled(false);
+			jButton1.setEnabled(false);
+		}
+		else if(FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf)==true)
+		{
+			jTextField1.setText("FSB Portfolio EA");
+			jTextField1_lots.setEnabled(false);
+			jButton1.setEnabled(false);
+		}
+		else
+		{
+			jTextField1.setText("SingleEa");
+			jTextField1_lots.setEnabled(true);
+			jButton1.setEnabled(true);
+		}
 		
 		jTextField1broker.setEditable(false);
 		jTextField1channel.setEditable(false);
@@ -366,7 +402,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1index.setEditable(false);
 		jTextField1connection.setEditable(false);
 		jLabel6locked.setVisible(false);
-		
+		jTextField1.setEditable(false);
 		// if realbroker
 		if (brokerview_glob.getAccounttype(broker_glob) == 2)
 			setDisabledButtons("is Realbroker");

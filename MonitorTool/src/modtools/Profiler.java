@@ -168,6 +168,43 @@ public class Profiler
 		
 		return channelcounter;
 	}
+	public void delDoubleChannel( String channel)
+	{
+		//dieser channel ist beim realbroker doppelt, einer davon wird gelöscht damit das ganze wieder konsitent ist
+		int channelcounter=0;
+		String profiledir = getprofiledir();
+		
+		if (profiledir == null)
+			Mbox.Infobox("profiledir ==null");
+		
+		if(meconf_glob.getAccounttype()!=2)
+		{
+			//dies ist kein realbroker
+			Tracer.WriteTrace(10, "E:countEaChannel, I can only count channels on realbroker, but <"+meconf_glob.getBrokername()+"> is not a realbroker");
+			return;
+		}
+			
+		FileAccessDyn fa = new FileAccessDyn();
+		fa.initFileSystemList(profiledir, 1);
+		int anz = fa.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			// holt ein profilenamen
+			String filename = profiledir + "\\" + fa.holeFileSystemName();
+			if  (checkKeywordExakt(filename, "MagicNumber=" + channel.toLowerCase()))
+			{	
+				  Tracer.WriteTrace(10, "I:found channel <"+channel+"> on realbroker in configfile<"+filename+"> I will delete it");
+				  File fnam=new File(filename);
+				  if(fnam.exists())
+					  if(fnam.delete()==false)
+						  Tracer.WriteTrace(10, "E:cant delete file<"+fnam.getAbsolutePath()+">");
+			}
+		}
+		
+	
+	}
+	
+	
 	public Boolean checkKeyword(String filename, String keyword)
 	{
 		// prüft für ein bestimmtes profile ob der keynamen drin ist

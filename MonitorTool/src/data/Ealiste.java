@@ -369,8 +369,8 @@ public class Ealiste
 		
 		// 2) Ea auf zielsystem modifizieren
 		FsbPortfolioEa fpfa=new FsbPortfolioEa();
-		String name=fpfa.getPortfolioEaName(magic, meconf);
-		fpfa.delete(magic, meconf, name);
+		String name=fpfa.searchEaMagic(magic, meconf);
+		fpfa.deletePortfolioEa(magic, meconf, name);
 		
 		// 3) Ea aus der EAliste löschen
 		delEa(magic, broker);

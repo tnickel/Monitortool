@@ -61,11 +61,6 @@ public class SwtEditBrokerConfig
 	private Text MqlQuellverzeichniss;
 	private Button button1symbolreplacement;
 	private Button button1lockaccount;
-	private Label label8minpf;
-	private Text text1minProfFaktor;
-	private Label label7;
-	private Text text1minbadtrades;
-	private Button button1delBadEas;
 	private Label label7suffix;
 	private Text text1suffix;
 	private Text text1usemagic;
@@ -395,13 +390,13 @@ public class SwtEditBrokerConfig
 		{
 			label4 = new Label(sh, SWT.NONE);
 			label4.setText("use magic");
-			label4.setBounds(1088, 244, 86, 30);
+			label4.setBounds(1065, 244, 86, 30);
+			label4.setToolTipText("This magic will be automaticaly set. In problem cases you can set this magic by hand");
 		}
 		{
 			text1usemagic = new Text(sh, SWT.BORDER);
 			text1usemagic.setText("0");
-			text1usemagic.setBounds(1018, 244, 64, 26);
-			text1usemagic.setEditable(false);
+			text1usemagic.setBounds(1022, 244, 35, 26);
 			if(me_glob.getTradecopymagic()>0)
 				text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
 		}
@@ -419,35 +414,9 @@ public class SwtEditBrokerConfig
 			label7suffix.setToolTipText("Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
 		}
 		{
-			button1delBadEas = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1delBadEas.setText("Auto delete bad EAs");
-			button1delBadEas.setBounds(806, 382, 225, 30);
-		}
-		{
-			text1minbadtrades = new Text(sh, SWT.BORDER);
-			text1minbadtrades.setBounds(1037, 382, 31, 28);
-			text1minbadtrades.setText("3");
-		}
-		{
-			label7 = new Label(sh, SWT.NONE);
-			label7.setText("min trades");
-			label7.setBounds(1080, 382, 94, 30);
-		}
-		{
-			text1minProfFaktor = new Text(sh, SWT.BORDER);
-			text1minProfFaktor.setText("1.1");
-			text1minProfFaktor.setBounds(1180, 382, 46, 30);
-		}
-		{
-			label8minpf = new Label(sh, SWT.NONE);
-			label8minpf.setText("min PF");
-			label8minpf.setSize(60, 30);
-			label8minpf.setBounds(1246, 382, 60, 30);
-		}
-		{
 			button1lockaccount = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1lockaccount.setText("lock all EAs on this account");
-			button1lockaccount.setBounds(806, 412, 291, 30);
+			button1lockaccount.setBounds(806, 382, 291, 30);
 			button1lockaccount.setToolTipText("If a account is locked no one can delete EAs on this account. All EAs are protected against deletion. Unlock this account first if you want to delete EAs");
 		}
 		{
@@ -659,13 +628,17 @@ public class SwtEditBrokerConfig
 		if(suffix!=null)
 		   me_glob.setSuffix(suffix);
 		
+		
 		if(button1symbolreplacement.getSelection()==true)
 			me_glob.setAutomaticsymbolreplacement(1);
 		else
 			me_glob.setAutomaticsymbolreplacement(0);
 		
 		//global config speichern
-		GlobalVar.setLastcopytrademagic(Integer.valueOf(text1usemagic.getText()));
+		int magic=Integer.valueOf(text1usemagic.getText());
+		me_glob.setTradecopymagic(magic);
+	
+		//GlobalVar.setLastcopytrademagic(magic);
 		GlobalVar.save();
 		
 	
@@ -1012,6 +985,8 @@ public class SwtEditBrokerConfig
 		label7suffix.setEnabled(false);
 		combo1.setEnabled(true);
 		installEas.setEnabled(true);
+		text1usemagic.setEnabled(true);
+		label4.setEnabled(true);
 		
 	}
 	private void button1realaccountselWidgetSelected(SelectionEvent evt) {
@@ -1021,7 +996,6 @@ public class SwtEditBrokerConfig
 	private void setRealaccount()
 	{
 		me_glob.setAccounttype(2);
-		text1usemagic.setEnabled(false);
 		text1usemagic.setText("0");
 		
 		
@@ -1033,6 +1007,8 @@ public class SwtEditBrokerConfig
 		text1suffix.setEnabled(true);
 		label7suffix.setEnabled(true);
 		installEas.setEnabled(false);
+		text1usemagic.setEnabled(false);
+		label4.setEnabled(false);
 		
 	}
 

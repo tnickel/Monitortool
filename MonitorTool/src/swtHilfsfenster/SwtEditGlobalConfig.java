@@ -151,12 +151,12 @@ public class SwtEditGlobalConfig
 							.getShowMaxTradetablesize()));
 				else
 					tradetablesize.setText("100");
-				tradetablesize.setBounds(8, 25, 33, 27);
+				tradetablesize.setBounds(8, 25, 47, 27);
 			}
 			{
 				label6 = new Label(group3, SWT.NONE);
 				label6.setText("show max tradetablesize");
-				label6.setBounds(53, 25, 194, 20);
+				label6.setBounds(61, 25, 194, 20);
 			}
 		}
 
@@ -304,16 +304,16 @@ public class SwtEditGlobalConfig
 		}
 		{
 			text1maxpongtime = new Text(sh, SWT.NONE);
-			text1maxpongtime.setBounds(18, 344, 30, 24);
+			text1maxpongtime.setBounds(18, 344, 49, 24);
 			if(GlobalVar.getMaxpongtime()>0)
-				text1maxpongtime.setText(String.valueOf(GlobalVar.getMaxpongtime()));
+				text1maxpongtime.setText("180");
 			else
 				text1maxpongtime.setText("90");
 		}
 		{
 			label12maxpongtime = new Label(sh, SWT.NONE);
 			label12maxpongtime.setText("max pongtime sec.");
-			label12maxpongtime.setBounds(54, 344, 176, 36);
+			label12maxpongtime.setBounds(79, 344, 176, 36);
 		}
 		{
 			button1autostart = new Button(sh, SWT.CHECK | SWT.LEFT);

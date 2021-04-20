@@ -85,7 +85,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button button2autoconfig;
 	private Text statustext;
 	private Button button2showallprotfolio;
-	private Button button2best100;
 	private Label label3;
 	private Text text1days;
 	private Button button2delete;
@@ -230,8 +229,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData button3replacesymbolsLData = new FormData();
 				button3replacesymbolsLData.left =  new FormAttachment(0, 1000, 246);
 				button3replacesymbolsLData.top =  new FormAttachment(0, 1000, 855);
-				button3replacesymbolsLData.width = 217;
-				button3replacesymbolsLData.height = 35;
+				button3replacesymbolsLData.width = 211;
+				button3replacesymbolsLData.height = 29;
 				button3replacesymbols.setLayoutData(button3replacesymbolsLData);
 				button3replacesymbols.setText("replace all symbols");
 				button3replacesymbols.setToolTipText("replace symbols, the configfile is in \r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\\\rreplacesymbols.txt\r\n\r\nexample of replacesymbols.txt\r\nag2102,ag2115\r\r\n\r\nAll metatrader are killed in this action, because symbole replacement can only done without a running metatrader ");
@@ -246,8 +245,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 						| SWT.CENTER);
 				FormData button2showtradelistportfolioLData = new FormData();
 				button2showtradelistportfolioLData.left =  new FormAttachment(0, 1000, 246);
-				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 896);
-				button2showtradelistportfolioLData.width = 217;
+				button2showtradelistportfolioLData.top =  new FormAttachment(0, 1000, 890);
+				button2showtradelistportfolioLData.width = 211;
 				button2showtradelistportfolioLData.height = 33;
 				button2showtradelistportfolio.setLayoutData(button2showtradelistportfolioLData);
 				button2showtradelistportfolio
@@ -340,7 +339,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData button2showallprotfolioLData = new FormData();
 				button2showallprotfolioLData.left =  new FormAttachment(0, 1000, 246);
 				button2showallprotfolioLData.top =  new FormAttachment(0, 1000, 747);
-				button2showallprotfolioLData.width = 183;
+				button2showallprotfolioLData.width = 211;
 				button2showallprotfolioLData.height = 30;
 				button2showallprotfolio.setLayoutData(button2showallprotfolioLData);
 				button2showallprotfolio.setText("show all portfolio");
@@ -352,17 +351,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 								button2showallprotfolioWidgetSelected(evt);
 							}
 						});
-			}
-			{
-				button2best100 = new Button(this, SWT.CHECK | SWT.LEFT);
-				FormData button2best100LData = new FormData();
-				button2best100LData.left =  new FormAttachment(0, 1000, 246);
-				button2best100LData.top =  new FormAttachment(0, 1000, 784);
-				button2best100LData.width = 183;
-				button2best100LData.height = 29;
-				button2best100.setLayoutData(button2best100LData);
-				button2best100.setText("show only best100");
-				button2best100.setSelection(true);
 			}
 			{
 				label3 = new Label(this, SWT.NONE);
@@ -472,7 +460,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showselprofitsLData = new FormData();
 				showselprofitsLData.left =  new FormAttachment(0, 1000, 246);
 				showselprofitsLData.top =  new FormAttachment(0, 1000, 819);
-				showselprofitsLData.width = 217;
+				showselprofitsLData.width = 211;
 				showselprofitsLData.height = 30;
 				showselprofits.setLayoutData(showselprofitsLData);
 				showselprofits.setText("show sel profits/portfolio");
@@ -996,7 +984,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				FormData showTradelisteLData = new FormData();
 				showTradelisteLData.left =  new FormAttachment(0, 1000, 246);
 				showTradelisteLData.top =  new FormAttachment(0, 1000, 676);
-				showTradelisteLData.width = 183;
+				showTradelisteLData.width = 211;
 				showTradelisteLData.height = 30;
 				showTradeliste.setLayoutData(showTradelisteLData);
 				showTradeliste.setText("show tradelist");
@@ -2302,23 +2290,18 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		// Alle profite der selektierten EA anzeigen
 		System.out.println("showallprofit.widgetSelected, event=" + evt);
-
-		if (button2best100.getSelection() == true)
-			smw.showallprofit(tf, 0, 100);
-		else
-			smw.showallprofit(tf, 0, 99999999);
+		int anz=GlobalVar.getShowMaxTradetablesize();
+		
+			smw.showallprofit(tf, 0, anz);
+		
 	}
 
 	private void button2showallprofit2WidgetSelected(SelectionEvent evt) {
 		// Alle profite der selektierten EA anzeigen
 				System.out.println("showallprofit2.widgetSelected, event=" + evt);
-
+				int anz=GlobalVar.getShowMaxTradetablesize();
+				smw.showallprofit2(tf, 0, anz);
 				
-				
-				if (button2best100.getSelection() == true)
-					smw.showallprofit2(tf, 0, 100);
-				else
-					smw.showallprofit2(tf, 0, 99999999);
 			
 	}
 

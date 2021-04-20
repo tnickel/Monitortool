@@ -96,8 +96,8 @@ public class TradeCopy
 			if (anzchannel > 1)
 			{
 				Tracer.WriteTrace(10, "E:consistency error realbroker<" + realbroker + "> have #<" + anzchannel
-						+ "> channel for id<" + i + "> please check it manualy -->STOP");
-				return false;
+						+ "> channel for id<" + i + "> I will delete the double channel <"+i+">");
+				profreal.delDoubleChannel(String.valueOf(i));
 			}
 		}
 		return true;

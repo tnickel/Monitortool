@@ -26,6 +26,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	String daxname = null;
 	String fstdir = null;
 	boolean magiclistactive = false;
+	//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
 	String magicliststring = "1234=12345,123456";
 	boolean storetrades = false;
 	int validitydays = 99999999;
@@ -188,6 +189,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 	
 	public void initmagiclist()
 	{
+		//magicliststring=dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
+		
 		if (magiclistactive == true)
 			maglist = new Magiclist(magicliststring);
 		processkennung = null;
@@ -426,11 +429,13 @@ public class Metaconfig implements Comparable<Metaconfig>
 	
 	public String getMagicliststring()
 	{
+		//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
 		return magicliststring;
 	}
 	
 	public void setMagicliststring(String magicliststring)
 	{
+		//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
 		this.magicliststring = magicliststring;
 		initmagiclist();
 	}

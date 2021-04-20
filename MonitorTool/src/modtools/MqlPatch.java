@@ -178,10 +178,7 @@ public class MqlPatch extends MqlSqPatcher
 	}
 	protected void addPostcode(String postfilename)
 	{
-		
 			addPostcodePatch(postfilename);
-		
-		
 	}
 	
 
@@ -217,13 +214,8 @@ public class MqlPatch extends MqlSqPatcher
 				zeilenspeicher[i] = "//*****";
 			if (zeilenspeicher[i].contains("purebeam") == true)
 				zeilenspeicher[i] = "//*****";
-
 		}
 	}
-
-	
-
-
 
 	private boolean isTradeEobEA()
 	{
@@ -235,8 +227,6 @@ public class MqlPatch extends MqlSqPatcher
 		}
 		return false;
 	}
-
-	
 	
 	public void patchMyFxbookEa()
 	{
@@ -291,5 +281,66 @@ public class MqlPatch extends MqlSqPatcher
 		else
 			patchSleeptimemodSQ3();
 		
+	}
+	public void delFsbPortfolioEa(int magic)
+	{
+		//check base magic
+		String basemagic=String.valueOf(magic).substring(0,5);
+		if(checkFsbPortfolioBaseMagicNumber(basemagic)==false)
+			Tracer.WriteTrace(10, "E:2 can´t find base magic number<"+basemagic+"> in <"+expertname_glob+">");
+		
+		if(delFsbPortfolioEa(String.valueOf(magic).substring(5))==false)
+			Tracer.WriteTrace(10, "E:3 can´t find magic subnumber<"+magic+"> in <"+expertname_glob+">");
+		
+	}
+	private Boolean checkFsbPortfolioBaseMagicNumber(String basemagic)
+	{
+		for (int i = 0; i < 20000; i++)
+		{
+			if (zeilenspeicher[i] == null)
+				continue;
+
+			if (zeilenspeicher[i].contains("Base_Magic_Number"))
+			{
+				if(zeilenspeicher[i].contains(basemagic)==false)
+					Tracer.WriteTrace(10, "E: can´t find base magic number<"+basemagic+"> in <"+expertname_glob+">");
+				else
+					return true;
+			}
+		}
+		Tracer.WriteTrace(10, "E:2 can´t find base magic number<"+basemagic+"> in <"+expertname_glob+">");
+		return false;
+	}
+	private Boolean delFsbPortfolioEa(String magic)
+	{
+		for (int i = 0; i < 20000; i++)
+		{
+			if (zeilenspeicher[i] == null)
+				continue;
+
+			if (zeilenspeicher[i].contains("GetEntrySignaL_"+magic))
+			{
+				zeilenspeicher[i]="//signalList[i++] = GetEntrySignaL_"+magic+"();";
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	public double getFsbPortfolioLotsize()
+	{
+		for (int i = 0; i < 20000; i++)
+		{
+			if (zeilenspeicher[i] == null)
+				continue;
+
+			if (zeilenspeicher[i].contains("double Entry_Amount"))
+			{
+				String lotstring=zeilenspeicher[i].substring(zeilenspeicher[i].indexOf("=")+1);
+				lotstring=lotstring.replace(";", "");
+				return Double.valueOf(lotstring);
+			}
+		}
+		return 0;
 	}
 }
