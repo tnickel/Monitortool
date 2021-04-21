@@ -448,7 +448,8 @@ public class EaConfigDis extends javax.swing.JPanel
 	{
 		if (status == 1)
 		{
-			jTextField1connection.setText("***** connected to realaccount *****");
+			String realacc=brokerview_glob.getConBroker(broker_glob);
+			jTextField1connection.setText("*** connected to realaccount <"+realacc+"> ***");
 			jTextField1connection.setEditable(false);
 			jTextField1connection.setVisible(true);
 			
