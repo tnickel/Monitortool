@@ -40,7 +40,7 @@ public class Eaclass
 	
 		return SG.get_zahl(keyword);
 	}
-	static public int  calcMagicSiml(String quellnam)
+	static public int  calcMagicSimple(String quellnam)
 	{
 		// B23 EURUSD M5_Strategy 454.6035.mq4 oder B23 EURUSD M5_Strategy
 		// 454.6035_2.mq4
@@ -72,5 +72,32 @@ public class Eaclass
 	
 		return SG.get_zahl(keyword);
 	}
+	static public String calcMagicFsbPortBaseMagic(int magic)
+	{
+		//diese ist der prefix für die FSB portfolio eas, die ersten 6 stellen
+		//z.b. 210401 sind die base magic number fuer den portfolio ea
+		//z.B. P01 EURUSD M1 210401.mq4
+		String magicpref = String.valueOf(magic).substring(0, 6);
+		return magicpref;
+	}
 	
+	static public String calcMagicFsbPortPostMagic(int magic)
+	{
+		//z.B. file=P01 EURUSD M1 210401.mq4
+		//bsp1:
+		//magic 210401011
+		//postmagic=011
+		//bsp2:
+		//magic 210401001
+		//postmagic=01
+
+		
+		//cutte erst mal die ersten 6 stellen
+		String postmagicstr=String.valueOf(magic).substring(6);
+		//Dann wandle diese zahl in eine integerzahl um führende 0len zu entfernen
+		int pmag=Integer.valueOf(postmagicstr);
+		//packe davor wieder eine 0
+		String pmagstr="0"+pmag;
+		return pmagstr;
+	}
 }

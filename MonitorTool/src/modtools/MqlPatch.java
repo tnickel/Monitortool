@@ -311,21 +311,44 @@ public class MqlPatch extends MqlSqPatcher
 		Tracer.WriteTrace(10, "E:2 can´t find base magic number<"+basemagic+"> in <"+expertname_glob+">");
 		return false;
 	}
-	private Boolean delFsbPortfolioEa(String magic)
+	public Boolean delFsbPortfolioEa(String magicstr)
 	{
 		for (int i = 0; i < 20000; i++)
 		{
 			if (zeilenspeicher[i] == null)
 				continue;
 
-			if (zeilenspeicher[i].contains("GetEntrySignaL_"+magic))
+			if (zeilenspeicher[i].contains("GetEntrySignaL_"+magicstr))
 			{
-				zeilenspeicher[i]="//signalList[i++] = GetEntrySignaL_"+magic+"();";
+				zeilenspeicher[i]="//signalList[i++] = GetEntrySignaL_"+magicstr+"();";
 				return true;
 			}
 		}
 		
 		return false;
+	}
+	public String getFsbPortfolioEaTpSl(String magicstr)
+	{
+		//Signal signal = CreateEntrySignal(9, ind0long && ind1long, ind0short && ind1short, 14, 12, false);
+		//Signal signal = CreateEntrySignal(11, ind0long, ind0short, 40, 20, false);
+		int magic_subnr=Integer.valueOf(magicstr);
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			if (zeilenspeicher[i] == null)
+				continue;
+
+			if (zeilenspeicher[i].contains("Signal signal = CreateEntrySignal("+magic_subnr))
+			{
+				String[] parts = zeilenspeicher[i].split(",");
+				int anz=parts.length;
+				String part1=parts[anz-2].replace(" ", "");
+				String part2=parts[anz-3].replace(" ", "");;
+				return ("tp="+part1+" sl="+part2);
+			}
+		}
+		
+		return null;
 	}
 	public double getFsbPortfolioLotsize()
 	{

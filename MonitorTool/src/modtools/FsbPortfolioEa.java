@@ -1,5 +1,7 @@
 package modtools;
 
+import java.io.File;
+
 import data.Metaconfig;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Tracer;
@@ -10,6 +12,8 @@ public class FsbPortfolioEa
 	public FsbPortfolioEa()
 	{
 	}
+	
+	
 	
 	static public boolean checkIsPortfolioEa(int magic, Metaconfig meconf)
 	{
@@ -40,13 +44,15 @@ public class FsbPortfolioEa
 		if(String.valueOf(magic).length()<5)
 			return false;
 		
-		String magicpref = String.valueOf(magic).substring(0, 6);
+		String magicpref = Eaclass.calcMagicFsbPortBaseMagic(magic);
 
 		//magic 8 is a magic from a realbroker channel
 		if(magicpref.length()<3)
 		  return false;
 		
-		if (searchEaMagic(Integer.valueOf(magicpref), meconf) != null)
+		//sucht den filenamen der den magicprefix beinhaltet, also es wird ein portfolio ea gesucht, da
+		//dies nur beim portfolio ea zutrifft
+		if (searchEaFilenameBase(Integer.valueOf(magicpref), meconf) != null)
 			return true;
 		
 		Tracer.WriteTrace(20, "I: Ea with magic<" + magic + "> not on harddisk path<" + meconf.getExpertdata() + ">");
@@ -55,21 +61,46 @@ public class FsbPortfolioEa
 	}
 	static public Boolean isStandartEa(int magic, Metaconfig meconf)
 	{
-		if (searchEaMagic(magic, meconf) != null)
+		if (searchEaFilename(magic, meconf) != null)
 			return true;
 		return false;
 	}
 		
-	static public String searchEaMagic(int magic, Metaconfig meconf)
+	static public String searchEaFilenameBase(int basemagic, Metaconfig meconf)
 	{
+		
+		
 		// sucht den portfolio ea auf platte und liefert den namen zurück
 		String verz = meconf.getExpertdata();
 		FileAccess.initFileSystemList(verz, 1);
 		int anz = FileAccess.holeFileAnz();
 		for (int i = 0; i < anz; i++)
 		{
+			//holt den filenamen um hierraus die magic zu extrahieren
 			String fnam = FileAccess.holeFileSystemName();
-			int fnam_magic=Eaclass.calcMagicSiml(fnam);
+			//extrahiert aus dem filnamen die magic ohne die zusatzzeichen wie . etc.
+			int fnam_magic=Eaclass.calcMagicSimple(fnam);
+			
+			if (fnam_magic==basemagic)
+				return fnam;
+		}
+		return null;
+		
+	}
+	static public String searchEaFilename(int magic, Metaconfig meconf)
+	{
+		
+		
+		// sucht den portfolio ea auf platte und liefert den namen zurück
+		String verz = meconf.getExpertdata();
+		FileAccess.initFileSystemList(verz, 1);
+		int anz = FileAccess.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			//holt den filenamen um hierraus die magic zu extrahieren
+			String fnam = FileAccess.holeFileSystemName();
+			//extrahiert aus dem filnamen die magic ohne die zusatzzeichen wie . etc.
+			int fnam_magic=Eaclass.calcMagicSimple(fnam);
 			
 			if (fnam_magic==magic)
 				return fnam;
@@ -77,7 +108,6 @@ public class FsbPortfolioEa
 		return null;
 		
 	}
-	
 	static public double getLotsize(int magic, Metaconfig meconf, String eaname)
 	{
 		MqlPatch mfx = new MqlPatch();
@@ -86,11 +116,43 @@ public class FsbPortfolioEa
 		return lots;
 	}
 	
-	static public void deletePortfolioEa(int magic, Metaconfig meconf, String eaname)
+	static public void modifyPortfolioEa(String postmagicstr, Metaconfig meconf, String eaname)
 	{
+		String fnam=meconf.getExpertdata()+"\\"+eaname;
 		MqlPatch mfx = new MqlPatch();
-		mfx.setFilename(eaname);
-		mfx.delFsbPortfolioEa(magic);
-		mfx.writeMemFile(eaname);
+		mfx.setFilename(fnam);
+		mfx.delFsbPortfolioEa(postmagicstr);
+		mfx.writeMemFile(fnam);
+		
+		//das *.ex4 auf platte löschen
+		String fnam_ex4=fnam.replace(".mq4", ".ex4");
+		File fnam_ex4_f=new File(fnam_ex4);
+		if(fnam_ex4_f.exists())
+			if(fnam_ex4_f.delete()==false)
+				Tracer.WriteTrace(10, "E:delete PortfolioEA cant delete file<"+fnam_ex4+">");
+		
+	}
+	static public String PortfolioEaGetTpSl(int magic, Metaconfig meconf)
+	{
+		//hier wird er TP/Sl aus dem portfolio ea rausgelesen
+		//0) hole die basemagic raus
+		String basemagic=Eaclass.calcMagicFsbPortBaseMagic(magic);
+		
+		
+		//1) sucht den portfolio EA der für diese Magic verantwortlich ist
+		//sucht den filenamen auf platte
+		
+		String eaname=FsbPortfolioEa.searchEaFilenameBase(Integer.valueOf(basemagic), meconf);
+		
+		//2) es wird der poststring dieser magic extrahiert
+		String postmagicstr=Eaclass.calcMagicFsbPortPostMagic(magic);
+		
+		//3) dann wird aus dem gefundenen EA sl und tp extrahiert, hierzu wird der eaname und der endteil der magic benötigt
+		String fnam=meconf.getExpertdata()+"\\"+eaname;
+		MqlPatch mfx = new MqlPatch();
+		mfx.setFilename(fnam);
+		String tpsl=mfx.getFsbPortfolioEaTpSl(postmagicstr);
+		mfx.close();
+		return tpsl;
 	}
 }

@@ -362,7 +362,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
 		jTextField1info.setText(comment_glob);
-		jTextField1tpsl.setText("TP=" + ea_glob.getTp() + " SL=" + ea_glob.getSl());
+		
 		jTextField1pf.setText(String.valueOf(tl_glob.calcProfitfactor()));
 		int anz = tl_glob.getsize();
 		jTextField1profit.setText(String.valueOf(tl_glob.get_tsumx(anz - 1)));
@@ -375,18 +375,30 @@ public class EaConfigDis extends javax.swing.JPanel
 			jTextField1.setText("RealAccountChannel");
 			jTextField1_lots.setEnabled(false);
 			jButton1.setEnabled(false);
+			jTextField1tpsl.setText("RealAccount");
 		}
 		else if(FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf)==true)
 		{
 			jTextField1.setText("FSB Portfolio EA");
 			jTextField1_lots.setEnabled(false);
 			jButton1.setEnabled(false);
+			
+			//sl-tp setzen
+			
+			String sltp=FsbPortfolioEa.PortfolioEaGetTpSl(magic_glob,meconf);
+			if(sltp!=null)
+			   jTextField1tpsl.setText(sltp);
+			else
+				 jTextField1tpsl.setText("no Ea");
 		}
 		else
 		{
 			jTextField1.setText("SingleEa");
 			jTextField1_lots.setEnabled(true);
 			jButton1.setEnabled(true);
+			
+			//sl-tp beim normalen ea setzen
+			jTextField1tpsl.setText("TP=" + ea_glob.getTp() + " SL=" + ea_glob.getSl());
 		}
 		
 		jTextField1broker.setEditable(false);

@@ -14,6 +14,7 @@ import hiflsklasse.SG;
 import hiflsklasse.Tracer;
 import modtools.ChrFile;
 import modtools.FsbPortfolioEa;
+import mqlLibs.Eaclass;
 import mtools.Mlist;
 
 public class Ealiste
@@ -351,10 +352,29 @@ public class Ealiste
 		
 		// 6) den <magic>.del eintrag im files verzeichniss machen
 		makeDelEntry(magic, appdata);
+		
+		// 7) den mqlcache.dat löschen
+		delMqlcache(mqldata);
+		
+	
 	}
 
+	private void delMqlcache(String mqldata)
+	{
+		File fna=new File(mqldata+"\\mqlcache.dat");
+		if(fna.exists())
+			if(fna.delete()==false)
+				Tracer.WriteTrace(10, "E: delMqlcache, cant delete file <"+fna.getAbsolutePath()+">");
+		
+	}
 	public void deletePortfolioEaFilesystem(Brokerview brokerview, int magic, String broker)
 	{
+		//magic auf 6 stellen kürzen da portfolio ea
+		String basemagicstr=Eaclass.calcMagicFsbPortBaseMagic(magic);
+		int basemagic =Integer.valueOf(basemagicstr);
+		
+		String postmagicstr=Eaclass.calcMagicFsbPortPostMagic(magic);
+		
 		//Metaconfig holen
 		Metaconfig meconf = brokerview.getMetaconfigByBrokername(broker);
 		
@@ -368,9 +388,8 @@ public class Ealiste
 		checkDirectorys(quellverz, mqldata, appdata, expertdata);
 		
 		// 2) Ea auf zielsystem modifizieren
-		FsbPortfolioEa fpfa=new FsbPortfolioEa();
-		String name=fpfa.searchEaMagic(magic, meconf);
-		fpfa.deletePortfolioEa(magic, meconf, name);
+		String name=FsbPortfolioEa.searchEaFilenameBase(basemagic, meconf);
+		FsbPortfolioEa.modifyPortfolioEa(postmagicstr, meconf, name);
 		
 		// 3) Ea aus der EAliste löschen
 		delEa(magic, broker);
@@ -378,7 +397,20 @@ public class Ealiste
 
 		// 4) den <magic>.del eintrag im files verzeichniss machen
 		makeDelEntry(magic, appdata);
+		
+		// 5) den mqlcache löschen
+		delMqlCache(appdata);
 	}
+	private void delMqlCache(String appdata)
+	{
+		File fna=new File(appdata+"\\mql4\\experts\\mqlcache.dat");
+		if(fna.exists())
+			if(fna.delete()==false)
+				Tracer.WriteTrace(10, "E:del mqlCache cant del file <"+fna.getAbsolutePath()+">");
+		
+		
+	}
+	
 	
 	private void checkDirectorys(String quellverz, String mqldata, String appdata, String expertdata)
 	{
