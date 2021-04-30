@@ -2,6 +2,7 @@ package Panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +23,8 @@ import hiflsklasse.Tracer;
 import modtools.FsbPortfolioEa;
 import modtools.MetaStarter;
 import modtools.Toogler;
+import mqlLibs.Eaclass;
+import swtHilfsfenster.SwtCompareTradelist;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -35,7 +38,7 @@ import modtools.Toogler;
  */
 public class EaConfigDis extends javax.swing.JPanel
 {
-	// 
+	//
 	
 	/**
 	 * 
@@ -353,12 +356,11 @@ public class EaConfigDis extends javax.swing.JPanel
 	
 	private void init()
 	{
-		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
+		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(broker_glob);
 		
 		setEaMessage(on_glob);
 		jTextField1broker.setText(broker_glob);
-		jTextField1channel
-				.setText(String.valueOf(meconf.getTradecopymagic()));
+		jTextField1channel.setText(String.valueOf(meconf.getTradecopymagic()));
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
 		jTextField1info.setText(comment_glob);
@@ -369,35 +371,37 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1prof7.setText(String.valueOf(tl_glob.get_tsumx(7)));
 		jTextField1prof30.setText(String.valueOf(tl_glob.get_tsumx(30)));
 		jTextField1index.setText(String.valueOf(index_glob));
-
-		if(magic_glob<100)
+		
+		if (magic_glob < 100)
 		{
 			jTextField1.setText("RealAccountChannel");
 			jTextField1_lots.setEnabled(false);
 			jButton1.setEnabled(false);
 			jTextField1tpsl.setText("RealAccount");
-		}
-		else if(FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf)==true)
+		} else if (FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf) == true)
 		{
 			jTextField1.setText("FSB Portfolio EA");
 			jTextField1_lots.setEnabled(false);
 			jButton1.setEnabled(false);
 			
-			//sl-tp setzen
+			// sl-tp setzen
 			
-			String sltp=FsbPortfolioEa.PortfolioEaGetTpSl(magic_glob,meconf);
-			if(sltp!=null)
-			   jTextField1tpsl.setText(sltp);
+			String sltp = FsbPortfolioEa.PortfolioEaGetTpSl(magic_glob, meconf);
+			if (sltp != null)
+				jTextField1tpsl.setText(sltp);
 			else
-				 jTextField1tpsl.setText("no Ea");
-		}
-		else
+				jTextField1tpsl.setText("no Ea");
+			
+			String filename = FsbPortfolioEa.searchEaFilename(Integer.valueOf(Eaclass.calcMagicFsbPortBaseMagic(magic_glob)), meconf);
+			if (filename != null)
+				jTextField1info.setText(filename);
+		} else
 		{
 			jTextField1.setText("SingleEa");
 			jTextField1_lots.setEnabled(true);
 			jButton1.setEnabled(true);
 			
-			//sl-tp beim normalen ea setzen
+			// sl-tp beim normalen ea setzen
 			jTextField1tpsl.setText("TP=" + ea_glob.getTp() + " SL=" + ea_glob.getSl());
 		}
 		
@@ -448,8 +452,8 @@ public class EaConfigDis extends javax.swing.JPanel
 	{
 		if (status == 1)
 		{
-			String realacc=brokerview_glob.getConBroker(broker_glob);
-			jTextField1connection.setText("*** connected to realaccount <"+realacc+"> ***");
+			String realacc = brokerview_glob.getConBroker(broker_glob);
+			jTextField1connection.setText("*** connected to realaccount <" + realacc + "> ***");
 			jTextField1connection.setEditable(false);
 			jTextField1connection.setVisible(true);
 			
@@ -515,5 +519,6 @@ public class EaConfigDis extends javax.swing.JPanel
 			
 		}
 	}
+	
 	
 }

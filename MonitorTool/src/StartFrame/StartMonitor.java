@@ -115,7 +115,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Label label5;
 	private Button button1;
 	private Button saveandexit;
-	private Button showallprofit;
 	private Button forgetoldeas;
 	private Label label4;
 	private Text anzeas;
@@ -130,7 +129,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button addbroker;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
-	private Button button3delbadeas;
 	private Button button2showallprofit2;
 	private Button button3makemt4backtest;
 	private Button button3replacesymbols;
@@ -187,12 +185,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			{
 				button2showallprofit2 = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2showallprofit2LData = new FormData();
-				button2showallprofit2LData.left =  new FormAttachment(0, 1000, 377);
+				button2showallprofit2LData.left =  new FormAttachment(0, 1000, 246);
 				button2showallprofit2LData.top =  new FormAttachment(0, 1000, 712);
-				button2showallprofit2LData.width = 80;
+				button2showallprofit2LData.width = 211;
 				button2showallprofit2LData.height = 29;
 				button2showallprofit2.setLayoutData(button2showallprofit2LData);
-				button2showallprofit2.setText("show pf2");
+				button2showallprofit2.setText("show all profit");
 				button2showallprofit2.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						button2showallprofit2WidgetSelected(evt);
@@ -208,21 +206,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				button3makemt4backtestLData.height = 31;
 				button3makemt4backtest.setLayoutData(button3makemt4backtestLData);
 				button3makemt4backtest.setText("make mt4 backtest");
+				button3makemt4backtest.setGrayed(true);
 				button3makemt4backtest.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						button3makemt4backtestWidgetSelected(evt);
 					}
 				});
-			}
-			{
-				button3delbadeas = new Button(this, SWT.PUSH | SWT.CENTER);
-				FormData button3delbadeasLData = new FormData();
-				button3delbadeasLData.left =  new FormAttachment(0, 1000, 892);
-				button3delbadeasLData.top =  new FormAttachment(0, 1000, 829);
-				button3delbadeasLData.width = 295;
-				button3delbadeasLData.height = 31;
-				button3delbadeas.setLayoutData(button3delbadeasLData);
-				button3delbadeas.setText("automatic delete bad EAs");
 			}
 			{
 				button3replacesymbols = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -847,23 +836,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 					public void widgetSelected(SelectionEvent evt)
 					{
 						saveandexitWidgetSelected(evt);
-					}
-				});
-			}
-			{
-				FormData showallprofitLData = new FormData();
-				showallprofitLData.left =  new FormAttachment(0, 1000, 246);
-				showallprofitLData.top =  new FormAttachment(0, 1000, 712);
-				showallprofitLData.width = 129;
-				showallprofitLData.height = 30;
-				showallprofit = new Button(this, SWT.PUSH | SWT.CENTER);
-				showallprofit.setLayoutData(showallprofitLData);
-				showallprofit.setText("show all profit");
-				showallprofit.addSelectionListener(new SelectionAdapter()
-				{
-					public void widgetSelected(SelectionEvent evt)
-					{
-						showallprofitWidgetSelected(evt);
 					}
 				});
 			}
@@ -1610,6 +1582,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
 				anzincommingtrades, anzeas, broker, 1, 1);
 	
+		smw.cleanAllWaste();	
 		//smw.exportAllTradelistEncryped();
 
 		getAllData.setEnabled(true);

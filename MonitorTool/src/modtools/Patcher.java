@@ -15,7 +15,7 @@ public class Patcher
 	private BufferedReader br_g = null;
 	private String filename_glob = null;
 	public String zeilenspeicher[] = new String[20000];
-	//-1=chart, 0=version sq3.8, 1=sq3.9/4.X, 2=FsbStudio
+	//-1=chart, 0=version sq3.8, 1=sq3.9/4.X, 2=FsbStudio 4=FsbPortfolio
 	protected static int isSq4x = -1;
 
 	public void setFilename(String fnam)

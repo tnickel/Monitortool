@@ -33,6 +33,19 @@ public class FileAccess
 	{
 	}
 
+	public static boolean checkOlderXDays(File file,int x)
+	{
+		//file:filenamen
+		//x: x days
+		//false: wenn file nicht älter als x days
+		//true: wenn file älter als x days
+	
+		long diff = new Date().getTime() - file.lastModified();
+
+		if (diff > x * 24 * 60 * 60 * 1000) 
+		 return true;
+		else return false;
+	}
 	public static int zeitdifferenz(String fnam1, String fnam2)
 	{
 		long st1 = existiertAnzStunden(fnam1);

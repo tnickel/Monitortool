@@ -116,6 +116,8 @@ public class MqlPatch extends MqlSqPatcher
 			return(patchCommentExpertStudio(ea));
 		else if(isSq4x==1)
 			return(patchCommentSq4x(ea));
+		else if(isSq4x==4)
+			return(patchCommentFsbPortfolio(ea));
 		else
 			return(patchCommentSq3(ea));
 		

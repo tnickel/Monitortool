@@ -172,7 +172,30 @@ public class StartMonitorWork
 		Tracer.WriteTrace(20, "Info: speichern");
 		DisTool.arrowCursor();
 	}
+	public void cleanAllWaste()
+	{
+		int anz = brokerview_glob.getAnz();
+		for (int i = 0; i < anz; i++)
+			{
+				Metaconfig mc = brokerview_glob.getElem(i);
+				
+				String filedir=mc.getAppdata()+"\\MQL4\\Files";
+				FileAccess.initFileSystemList(filedir, 1);
+				int anzbmp=FileAccess.holeFileAnz();
 
+				//lösche alle bmp files
+				for (int j=0; j<anzbmp; j++)
+				{
+					//betrachte nur .bmp files
+					File fnamf=new File(filedir+"\\"+FileAccess.holeFileSystemName());
+					if((fnamf.getAbsolutePath().endsWith(".bmp"))==false)
+						continue;
+					if(FileAccess.checkOlderXDays(fnamf, 1)==true)
+						if(fnamf.delete()==false)
+							Tracer.WriteTrace(10, "E:Clean all waste:can´t delete file <"+fnamf.getAbsolutePath()+">");
+				}
+			}
+	}
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1,
 			Table table2, Table table3, Display dis, int showflag, int forceloadflag)
 	{

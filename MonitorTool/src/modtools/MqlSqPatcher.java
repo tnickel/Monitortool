@@ -181,12 +181,17 @@ public class MqlSqPatcher extends Patcher
 		Mbox.Infobox("attrib <" + kw + "> not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
-		
-		
-		
-		
-		
+
 	}
+	
+	public boolean patchCommentFsbPortfolio(Ea ea)
+	{
+		//hier kann man leider keinen comment einbauen, da nur ein einzelner ea sehr viele andere Eas beinhaltet
+		//das comment wird im ea im array gesetzt
+		return true;
+	}
+	
+	
 	public boolean patchCommentSq3(Ea ea)
 	{
 		return true;

@@ -93,7 +93,10 @@ public class Eaclass
 
 		
 		//cutte erst mal die ersten 6 stellen
-		String postmagicstr=String.valueOf(magic).substring(6);
+		String postmagicstr=String.valueOf(magic);
+		if(postmagicstr.length()>6)		
+				postmagicstr=postmagicstr.substring(6);
+				
 		//Dann wandle diese zahl in eine integerzahl um führende 0len zu entfernen
 		int pmag=Integer.valueOf(postmagicstr);
 		//packe davor wieder eine 0

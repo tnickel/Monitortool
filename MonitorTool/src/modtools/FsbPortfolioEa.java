@@ -89,7 +89,7 @@ public class FsbPortfolioEa
 	}
 	static public String searchEaFilename(int magic, Metaconfig meconf)
 	{
-		
+	
 		
 		// sucht den portfolio ea auf platte und liefert den namen zurück
 		String verz = meconf.getExpertdata();
@@ -145,7 +145,7 @@ public class FsbPortfolioEa
 		String eaname=FsbPortfolioEa.searchEaFilenameBase(Integer.valueOf(basemagic), meconf);
 		
 		//2) es wird der poststring dieser magic extrahiert
-		String postmagicstr=Eaclass.calcMagicFsbPortPostMagic(magic);
+		String postmagicstr=Eaclass.calcMagicFsbPortPostMagic(Integer.valueOf(basemagic));
 		
 		//3) dann wird aus dem gefundenen EA sl und tp extrahiert, hierzu wird der eaname und der endteil der magic benötigt
 		String fnam=meconf.getExpertdata()+"\\"+eaname;

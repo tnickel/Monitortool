@@ -1244,7 +1244,7 @@ public class Tableview extends TableViewBasic
 		}
 		historytxt = bv.getMqlData(broker) + "\\files\\history_small.txt";
 		hf = new File(historytxt);
-		if (hf.exists())
+		if (hf.exists()&&(hf.length()>0))
 		{
 			Historyexporter h = new Historyexporter(historytxt);
 			h.deleteEa(String.valueOf(magic));
