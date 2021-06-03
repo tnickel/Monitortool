@@ -174,6 +174,9 @@ public class Installer
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".mq4");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".ex4");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".log");
+		
+		//hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr files nicht löschen sonst sind die verbindungen
+		//bei der überinstallation weg!!
 		FileAccess.FilesDelete(meconf.getAppdata() + "\\profiles\\default", ".chr");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".dat");
 	}
