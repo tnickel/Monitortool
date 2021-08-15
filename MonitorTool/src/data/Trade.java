@@ -52,6 +52,9 @@ public class Trade implements Comparable<Trade>
 		// falls normflag ==true wird der gewinn auf lotsize 0.1 umgerechnet
 		DecimalFormat f = new DecimalFormat("#.00");
 
+		//Modifikation für Sebastians AutoCreator
+		//if magic = 99999 than takes the numbers from comment as magic
+		
 		try
 		{
 			magic = SG.get_zahl(SG.nteilstring(zeile, "#", 1));
@@ -76,6 +79,12 @@ public class Trade implements Comparable<Trade>
 			// vom gewinn erst noch den Swap und die Commision abziehen
 			profit = profit + commision + orderswap;
 
+			//AutoCreator modification
+			if(magic==99999)
+			{
+				magic=calMagicFromAutoCreator(comment);
+			}
+			
 			if ((normflag == true) && (lots != 0.1) && (lots > 0))
 			{
 				// rechne
@@ -526,5 +535,16 @@ public class Trade implements Comparable<Trade>
 		return output;
 		
 	}
+	private int calMagicFromAutoCreator(String comment)
+	{
+		//take the number out of the comment
+		String zahlstring= comment.replaceAll("[^0-9]", "");
 
+		//shortend to max 9 digits
+		if(zahlstring.length()>9)
+			zahlstring=zahlstring.substring(0,8);
+		int zahl=Integer.valueOf(zahlstring);
+		return zahl;
+		
+	}
 }
