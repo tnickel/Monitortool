@@ -55,6 +55,9 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Label label8;
+	private Label label7;
+	private Text tradesuffixsender;
 	private Link link2;
 	private Link link1;
 	private Button button1symbolreplacement;
@@ -362,7 +365,7 @@ public class SwtEditBrokerConfig
 		{
 			label1 = new Label(sh, SWT.NONE);
 			label1.setText("use currency pair");
-			label1.setBounds(904, 214, 137, 30);
+			label1.setBounds(904, 214, 99, 30);
 			label1.setToolTipText(
 					"The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 		}
@@ -394,15 +397,15 @@ public class SwtEditBrokerConfig
 		}
 		{
 			text1suffix = new Text(sh, SWT.BORDER);
-			text1suffix.setBounds(1207, 244, 49, 31);
+			text1suffix.setBounds(1207, 244, 49, 22);
 			if (me_glob.getSuffix() != null)
 				text1suffix.setText(me_glob.getSuffix());
 			
 		}
 		{
 			label7suffix = new Label(sh, SWT.NONE);
-			label7suffix.setText("trade suffix");
-			label7suffix.setBounds(1262, 244, 97, 30);
+			label7suffix.setText("trade suffix receiver");
+			label7suffix.setBounds(1262, 244, 132, 30);
 			label7suffix.setToolTipText(
 					"Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
 		}
@@ -441,6 +444,23 @@ public class SwtEditBrokerConfig
 				}
 				
 			});
+		}
+		{
+			tradesuffixsender = new Text(sh, SWT.NONE);
+			tradesuffixsender.setBounds(1021, 214, 49, 20);
+			if(me_glob.getTradesuffixsender()!=null)
+			tradesuffixsender.setText(me_glob.getTradesuffixsender());
+		}
+		{
+			label7 = new Label(sh, SWT.NONE);
+			label7.setText("currency add");
+			label7.setBounds(1080, 214, 78, 20);
+		}
+		{
+			label8 = new Label(sh, SWT.NONE);
+			label8.setText("(info)");
+			label8.setBounds(1158, 214, 44, 20);
+			label8.setToolTipText("If currency add is set the currency name will be renamed before installation. For example: add=.r than EURUSD will be named to EURUSD.r");
 		}
 
 		sh.open();
@@ -641,6 +661,8 @@ public class SwtEditBrokerConfig
 			me_glob.setAutomaticsymbolreplacement(1);
 		else
 			me_glob.setAutomaticsymbolreplacement(0);
+		
+		me_glob.setTradesuffixsender(tradesuffixsender.getText());
 		
 		// global config speichern
 		int magic = Integer.valueOf(text1usemagic.getText());
@@ -1017,6 +1039,7 @@ public class SwtEditBrokerConfig
 		installEas.setEnabled(true);
 		text1usemagic.setEnabled(true);
 		label4.setEnabled(true);
+		tradesuffixsender.setEnabled(true);
 		
 	}
 	
@@ -1041,6 +1064,7 @@ public class SwtEditBrokerConfig
 		installEas.setEnabled(false);
 		text1usemagic.setEnabled(false);
 		label4.setEnabled(false);
+		tradesuffixsender.setEnabled(false);
 		
 	}
 	

@@ -342,6 +342,9 @@ public class Tableview extends TableViewBasic
 			Profit prof = pl.getelem(i);
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 			
+			if(prof.getMagic()==5787434)
+				System.out.println("found");
+			
 			brokername = prof.getBroker();
 			Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(brokername);
 			if (meconf.getShowOnlyInstalledEas() == 1)

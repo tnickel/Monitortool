@@ -98,6 +98,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private String lastinstallation="";
 	//automatic symbolreplacement
 	private int automaticsymbolreplacement=0;
+	private String tradesuffixsender="";
 	
 	public Metaconfig(String mname)
 	{
@@ -165,6 +166,9 @@ public class Metaconfig implements Comparable<Metaconfig>
 				lastinstallation = (SG.nteilstring(zeile, "#", 31));
 			if (trennanz > 31)
 				automaticsymbolreplacement = SG.get_zahl(SG.nteilstring(zeile, "#", 31));
+			if(trennanz >31)
+				tradesuffixsender=SG.nteilstring(zeile, "#", 32);
+			
 			
 			initmagiclist();
 			// processkennung immer löschen
@@ -658,6 +662,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setAutomaticsymbolreplacement(int automaticsymbolreplacement)
 	{
 		this.automaticsymbolreplacement = automaticsymbolreplacement;
+	}
+
+	public String getTradesuffixsender()
+	{
+		return tradesuffixsender;
+	}
+
+	public void setTradesuffixsender(String tradesuffixsender)
+	{
+		this.tradesuffixsender = tradesuffixsender;
 	}
 
 	public String getInitMetaversion()

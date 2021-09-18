@@ -231,9 +231,38 @@ public class Installer
 		String cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
 		Tracer.WriteTrace(20, "Rootpath<" + Rootpath.getRootpath() + "> mqlquellverz<" + mqlquellverz + ">");
 		
-		// Remove substring "Strategy" out of quellname
+		//Falls Tradesuffix gesetzt dann wird z.B.
+		//Q80 EURUSD M15 134.mq4 nach Q80 EURUSD.r M15 134.mq4 renamed
 		fadyn.initFileSystemList(mqlquellverz, 1);
 		int anz = fadyn.holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			String mqlquellnam = fadyn.holeFileSystemName();
+			if (mqlquellnam.endsWith(".mq4"))
+			{
+				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
+				// den mqlnamen bestimmen
+				if (mqlquellnam.endsWith(".mq4"))
+					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
+				
+				
+				// Den quellnamen renamen das Keyword Strategy muss raus
+				String tradesuffix=metaconfig.getTradesuffixsender();
+				if((tradesuffix!=null)&&(tradesuffix.length()>1))
+				renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),metaconfig.getMqlquellverz() + "\\" + mqlnam);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		// Remove substring "Strategy" out of quellname
+		fadyn.initFileSystemList(mqlquellverz, 1);
+		 anz = fadyn.holeFileAnz();
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
@@ -341,6 +370,43 @@ public class Installer
 					+ fnamdest_f.getAbsolutePath() + ">");
 		}
 	}
+	
+	private void renameQuellnamTradeSuffixFile(String tradesuffix,String fnamsource)
+	{
+		//falls tradesuffix gesetzt ist dann wird
+		//Q80 EURUSD M15 1234.mq4 nach Q80 EURUSD.r M15 1234.mq4 renamed
+		
+		
+			File fnamsource_f = new File(fnamsource + ".mq4");
+			//falls der tradesuffix noch nicht drin ist
+			if(fnamsource.contains(tradesuffix)==false)
+			{
+				//splite auf
+				String[] parts = fnamsource_f.getAbsolutePath().split(" ");
+				//hole die position der currency
+				int curindex=parts.length-3;
+				String currency=parts[curindex];
+				currency=currency+tradesuffix;
+				parts[curindex]=currency;
+
+				//setzte den String wieder zusammen
+				String neuname="";
+				int n=parts.length;
+				for(int i=0; i<n; i++)
+					neuname=neuname+parts[i]+" ";
+				File neuname_f=new File(neuname);
+					
+				if (fnamsource_f.renameTo(neuname_f) == false)
+					Tracer.WriteTrace(10, "E: can´t rename file <" + fnamsource_f.getAbsolutePath() + "> to <"
+							+ neuname_f.getAbsolutePath() + ">");
+
+			}
+	
+		
+	}
+	
+	
+	
 	
 	private void loescheMqlCache(String verz)
 	{

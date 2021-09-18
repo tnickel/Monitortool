@@ -488,7 +488,7 @@ public class Ea implements Comparable<Ea>
 	{
 			String fnam=meconf.getMqldata()+"\\experts\\"+eafilename;
 			fnam=fnam.replace(".mq4", "");
-			fnam=fnam.replace(".", "");
+			//fnam=fnam.replace(".", "");
 			fnam=fnam+".mq4";
 		
 			File eanam=new File(fnam);
