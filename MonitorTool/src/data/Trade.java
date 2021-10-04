@@ -46,7 +46,8 @@ public class Trade implements Comparable<Trade>
 	public Trade(String zeile, String brokeri, boolean normflag,
 			int importedcolori)
 	{
-		// OrderMagicNumber(),OrderType(),OrderOpenPrice(),OrderClosePrice(),OrderCommission(),OrderSwap(),OrderProfit(),OrderLots(),opentime,closetime,OrderComment(),AccountNumber(),OrderTicket()
+		// OrderMagicNumber(),OrderType(),OrderOpenPrice(),OrderClosePrice(),OrderCommission(),OrderSwap(),OrderProfit(),OrderLots(),opentime,closetime,
+		//OrderComment(),AccountNumber(),OrderTicket(),Symbol(),
 		// //0#1#1662.68#1663.37#0#0#-52.21#1#2012.12.27 18:22:32#2012.12.27
 		// 18:24:13##499143#49648465
 		// falls normflag ==true wird der gewinn auf lotsize 0.1 umgerechnet

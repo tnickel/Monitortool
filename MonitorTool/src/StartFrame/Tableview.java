@@ -188,6 +188,7 @@ public class Tableview extends TableViewBasic
 		String fnam2 = filedata + "/history.txt";
 		String fnam3 = filedata + "/history_open.txt";
 		String fnam5 = filedata + "/history_transfer.txt";
+		String fnam6 = filedata + "/AutoCreatorTrades.txt";
 		
 		if (new File(fnam1).exists() == true)
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
@@ -226,6 +227,11 @@ public class Tableview extends TableViewBasic
 		if (new File(fnam5).exists() == true)
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
+		// lade die Daten vom Auto Creator
+		if (new File(fnam6).exists() == true)
+			readTradesFile(tl, fnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+		
+		
 		Lock.unlock(filedata + "/monitor.lock");
 		
 		if (maxdate.length() < 2)
@@ -238,16 +244,7 @@ public class Tableview extends TableViewBasic
 		// das erste (älteste datum in der mc speichern)
 		mc.setDatumDesErstenTrades(maxdate);
 		
-		// prüft ob die gültigkeitstage bald ablaufen
-		/*
-		 * int alter = Tools.getDateInt(maxdate, Tools.get_aktdatetime_str()); if (alter
-		 * > mc.getValiditydays() - 5) { // warnung setzen mc.setWarningflag(1); if
-		 * (nostopflag == 0) Mbox.Infobox("Brokeraccount <" + mc.getBrokername() +
-		 * "> ending in less than 5 days"); Mlist.add("Brokeraccount <" +
-		 * mc.getBrokername() + "> ending in less than 5 days", 1); } else { //
-		 * warningflag wieder löschen if (mc.getWarningflag() == 1)
-		 * mc.setWarningflag(0); }
-		 */
+		
 	}
 	
 	public void ShowTradeTable(Display dis, Table table, String brokername, int maxentrys, int forcesortflag)
