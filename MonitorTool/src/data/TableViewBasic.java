@@ -1,6 +1,7 @@
 package data;
 
 import filter.Tradefilter;
+import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Tools;
@@ -10,10 +11,31 @@ import java.io.File;
 
 public class TableViewBasic
 {
+	
 	public TableViewBasic()
 	{
 	}
 
+	public String readTradesAutoCreator(Tradeliste tl, String dirnam,
+			boolean nocanceledflag, boolean showopenorders, boolean normflag,
+			Metaconfig mc, Tradefilter tf)
+	{
+		//get list of all directory
+		FileAccess.initFileSystemList(dirnam, 0);
+		int anz=FileAccess.holeFileAnz();
+		for(int i=0; i<anz; i++)
+		{
+			String dnam=FileAccess.holeFileSystemName();
+			String fnam=dirnam+"\\"+dnam+"\\AutoCreatorTrades.txt";
+			readTradesFile( tl, fnam,
+					nocanceledflag, showopenorders, normflag,
+					mc, tf);
+		}
+	
+		return null;
+	}
+	
+	
 	public String readTradesFile(Tradeliste tl, String fnam,
 			boolean nocanceledflag, boolean showopenorders, boolean normflag,
 			Metaconfig mc, Tradefilter tf)

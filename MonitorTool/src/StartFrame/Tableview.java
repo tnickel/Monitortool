@@ -188,7 +188,7 @@ public class Tableview extends TableViewBasic
 		String fnam2 = filedata + "/history.txt";
 		String fnam3 = filedata + "/history_open.txt";
 		String fnam5 = filedata + "/history_transfer.txt";
-		String fnam6 = filedata + "/AutoCreatorTrades.txt";
+		String dirnam6 = mc.getAppdata()+ "\\tester\\files\\1";
 		
 		if (new File(fnam1).exists() == true)
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
@@ -228,8 +228,8 @@ public class Tableview extends TableViewBasic
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		// lade die Daten vom Auto Creator
-		if (new File(fnam6).exists() == true)
-			readTradesFile(tl, fnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+		if (new File(dirnam6).exists() == true)
+			readTradesAutoCreator(tl, dirnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		
 		Lock.unlock(filedata + "/monitor.lock");
