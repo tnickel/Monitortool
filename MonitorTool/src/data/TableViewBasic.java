@@ -20,17 +20,41 @@ public class TableViewBasic
 			boolean nocanceledflag, boolean showopenorders, boolean normflag,
 			Metaconfig mc, Tradefilter tf)
 	{
-		//get list of all directory
-		FileAccess.initFileSystemList(dirnam, 0);
-		int anz=FileAccess.holeFileAnz();
-		for(int i=0; i<anz; i++)
+		File[] directorys = new File(dirnam).listFiles();
+		
+		//go through the directorys
+		if(directorys==null)
+			return null;
+		int anzdir=directorys.length;
+		
+		//read all directorys
+		for(int i=0; i<anzdir; i++)
 		{
-			String dnam=FileAccess.holeFileSystemName();
-			String fnam=dirnam+"\\"+dnam+"\\AutoCreatorTrades.txt";
-			readTradesFile( tl, fnam,
-					nocanceledflag, showopenorders, normflag,
-					mc, tf);
+			File subdirnam=directorys[i];
+			if(subdirnam.isDirectory()==false)
+				continue;
+			if( subdirnam.getAbsolutePath().endsWith("_")==true)
+					continue;
+			
+			//read all Files in dir i
+			File[] files= subdirnam.listFiles();
+			int anzf=files.length;
+			for(int j=0; j<anzf; j++)
+			{
+				File fnamf=files[j];
+				if(fnamf.isDirectory()==true)
+					continue;
+				if(fnamf.length()<5)
+					continue;
+					
+				String fnamcsv=fnamf.getAbsolutePath();
+				readTradesFile( tl, fnamcsv,
+						nocanceledflag, showopenorders, normflag,
+						mc, tf);
+			}
+			
 		}
+
 	
 		return null;
 	}
