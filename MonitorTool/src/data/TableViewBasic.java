@@ -44,7 +44,10 @@ public class TableViewBasic
 				File fnamf=files[j];
 				if(fnamf.isDirectory()==true)
 					continue;
-				if(fnamf.length()<5)
+				if((fnamf.getAbsolutePath().contains("_stats")==true)||(fnamf.getAbsolutePath().contains("_set")==true))
+					continue;
+				
+				if(fnamf.length()<2)
 					continue;
 					
 				String fnamcsv=fnamf.getAbsolutePath();

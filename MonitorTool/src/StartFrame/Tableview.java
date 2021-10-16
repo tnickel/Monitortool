@@ -194,16 +194,16 @@ public class Tableview extends TableViewBasic
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		// wenn kein history.txt und kein history_transfer.txt
 		// dann gibt es nix zu lesen
-		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false))
+		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false) &&(new File(dirnam6).exists()==false))
 		{
 			Lock.unlock(filedata + "/monitor.lock");
 			Tracer.WriteTrace(20, "W:no file <" + fnam2 + "> and no file<" + fnam5 + ">");
 			return;
 		}
-		
+		if(new File(fnam2).exists()==true)
 		maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
-		if (showopenorders == true)
+		if ((showopenorders == true)&&(new File(fnam3).exists()==true))
 			readTradesFile(tl, fnam3, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 			
 		// a)fasse die expired zu einem datenfile zusammen

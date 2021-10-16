@@ -542,8 +542,8 @@ public class Trade implements Comparable<Trade>
 		String zahlstring= comment.replaceAll("[^0-9]", "");
 
 		//shortend to max 9 digits
-		if(zahlstring.length()>9)
-			zahlstring=zahlstring.substring(0,8);
+		if(zahlstring.length()>10)
+			zahlstring=zahlstring.substring(0,10);
 		int zahl=Integer.valueOf(zahlstring);
 		return zahl;
 		
