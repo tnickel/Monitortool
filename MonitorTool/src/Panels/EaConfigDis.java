@@ -2,7 +2,6 @@ package Panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,11 +19,11 @@ import data.GlobalVar;
 import data.Metaconfig;
 import data.Tradeliste;
 import hiflsklasse.Tracer;
+import modtools.AutoCreator;
 import modtools.FsbPortfolioEa;
 import modtools.MetaStarter;
 import modtools.Toogler;
 import mqlLibs.Eaclass;
-import swtHilfsfenster.SwtCompareTradelist;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -48,6 +47,8 @@ public class EaConfigDis extends javax.swing.JPanel
 	private JButton jButton1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
+	private JButton jButton2copytoautocreator;
+	private JTextField autocreatorname;
 	private JLabel jLabel6;
 	private JTextField jTextField1;
 	private JLabel jLabel6locked;
@@ -132,7 +133,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		try
 		{
 			eaconf_glob = eaconf;
-			this.setPreferredSize(new java.awt.Dimension(638, 374));
+			this.setPreferredSize(new java.awt.Dimension(899, 354));
 			this.setLayout(null);
 			{
 				jLabel1 = new JLabel();
@@ -168,7 +169,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jButton2tradecopyonoff = new JButton();
 				this.add(jButton2tradecopyonoff);
-				jButton2tradecopyonoff.setBounds(181, 294, 442, 32);
+				jButton2tradecopyonoff.setBounds(181, 294, 461, 32);
 				jButton2tradecopyonoff.setName("jButton2tradecopyonoff");
 				jButton2tradecopyonoff.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt)
@@ -192,13 +193,13 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1connection = new JTextField();
 				this.add(jTextField1connection);
-				jTextField1connection.setBounds(23, 20, 599, 32);
+				jTextField1connection.setBounds(23, 20, 619, 32);
 				jTextField1connection.setName("jTextField1connection");
 			}
 			{
 				jLabel2 = new JLabel();
 				this.add(jLabel2);
-				jLabel2.setBounds(-3, 326, 626, 16);
+				jLabel2.setBounds(-3, 326, 860, 16);
 				jLabel2.setName("jLabel2");
 			}
 			{
@@ -282,7 +283,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1pf = new JTextField();
 				this.add(jTextField1pf);
-				jTextField1pf.setBounds(401, 152, 220, 20);
+				jTextField1pf.setBounds(401, 152, 241, 20);
 				jTextField1pf.setName("jTextField1pf");
 			}
 			{
@@ -294,7 +295,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1profit = new JTextField();
 				this.add(jTextField1profit);
-				jTextField1profit.setBounds(401, 125, 220, 20);
+				jTextField1profit.setBounds(401, 125, 241, 20);
 				jTextField1profit.setName("jTextField1profit");
 			}
 			{
@@ -312,13 +313,13 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1prof7 = new JTextField();
 				this.add(jTextField1prof7);
-				jTextField1prof7.setBounds(401, 77, 220, 20);
+				jTextField1prof7.setBounds(401, 77, 241, 20);
 				jTextField1prof7.setName("jTextField1prof7");
 			}
 			{
 				jTextField1prof30 = new JTextField();
 				this.add(jTextField1prof30);
-				jTextField1prof30.setBounds(401, 99, 220, 20);
+				jTextField1prof30.setBounds(401, 99, 241, 20);
 				jTextField1prof30.setName("jTextField1prof30");
 			}
 			{
@@ -343,6 +344,23 @@ public class EaConfigDis extends javax.swing.JPanel
 				this.add(jLabel6);
 				jLabel6.setBounds(23, 80, 41, 16);
 				jLabel6.setName("jLabel6");
+			}
+			{
+				autocreatorname = new JTextField();
+				this.add(autocreatorname);
+				autocreatorname.setBounds(283, 257, 206, 31);
+				autocreatorname.setName("autocreatorname");
+			}
+			{
+				jButton2copytoautocreator = new JButton();
+				this.add(jButton2copytoautocreator);
+				jButton2copytoautocreator.setBounds(495, 259, 147, 26);
+				jButton2copytoautocreator.setName("jButton2copytoautocreator");
+				jButton2copytoautocreator.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						jButton2copytoautocreatorActionPerformed(evt);
+					}
+				});
 			}
 
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -419,6 +437,9 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1connection.setEditable(false);
 		jLabel6locked.setVisible(false);
 		jTextField1.setEditable(false);
+		
+		autocreatorname.setText(AutoCreator.calcCommentPostfix(comment_glob));
+		
 		// if realbroker
 		if (brokerview_glob.getAccounttype(broker_glob) == 2)
 			setDisabledButtons("is Realbroker");
@@ -520,5 +541,17 @@ public class EaConfigDis extends javax.swing.JPanel
 		}
 	}
 	
-	
+	private void jButton2copytoautocreatorActionPerformed(ActionEvent evt) {
+		System.out.println("jButton2copytoautocreator.actionPerformed, event="+evt);
+		//copy to autocreator button klicked
+		//TODO add your code for jButton2copytoautocreator.actionPerformed
+		Ea ea = eal_glob.getEa(magic_glob, broker_glob);
+		System.out.println("found ea");
+		//comment=10003_01
+				
+		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
+		String new_name=autocreatorname.getText();
+		AutoCreator.copyToAutoCreator(meconf, comment_glob,new_name);
+	}
+
 }
