@@ -160,7 +160,7 @@ public class SwtEditBrokerConfigWork
 		for (int i = 0; i < anz; i++)
 		{
 			String fnam = fdyn.holeFileSystemName();
-			if (fnam.contains("terminal.exe"))
+			if ((fnam.contains("terminal.exe"))||(fnam.contains("terminal64.exe")))
 				return true;
 		}
 		return false;

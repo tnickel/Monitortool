@@ -1,13 +1,13 @@
 package data;
 
+import java.io.File;
+
 import filter.Tradefilter;
-import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
-
-import java.io.File;
+import swingHilfsfenster.ProgressBarDisplay;
 
 public class TableViewBasic
 {
@@ -20,6 +20,7 @@ public class TableViewBasic
 			boolean nocanceledflag, boolean showopenorders, boolean normflag,
 			Metaconfig mc, Tradefilter tf)
 	{
+		
 		File[] directorys = new File(dirnam).listFiles();
 		
 		//go through the directorys
@@ -39,8 +40,10 @@ public class TableViewBasic
 			//read all Files in dir i
 			File[] files= subdirnam.listFiles();
 			int anzf=files.length;
+			ProgressBarDisplay pdisp=new ProgressBarDisplay("Load Autocreator Files <"+subdirnam.getAbsolutePath()+">",0,anzf);
 			for(int j=0; j<anzf; j++)
 			{
+				pdisp.update(j);
 				File fnamf=files[j];
 				if(fnamf.isDirectory()==true)
 					continue;
@@ -55,6 +58,7 @@ public class TableViewBasic
 						nocanceledflag, showopenorders, normflag,
 						mc, tf);
 			}
+			pdisp.end();
 			
 		}
 

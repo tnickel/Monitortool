@@ -850,7 +850,8 @@ public class SwtEditBrokerConfig
 			return;
 			
 		} 
-		else if (new File(fnam+"\\terminal.exe").exists()==false)
+		else if ((new File(fnam+"\\terminal.exe").exists()==false)&&
+				(new File(fnam+"\\terminal64.exe").exists()==false))
 		{
 			Tracer.WriteTrace(10,
 					"Error: This directory is not an metatrader rootdir, terminal.exe is missing\n please set correct dir");
