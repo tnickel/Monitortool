@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.jdesktop.application.Application;
+import org.jfree.chart.JFreeChart;
 
 import StartFrame.Brokerview;
 import StartFrame.Tableview;
@@ -90,6 +91,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	private String comment_glob = null;
 	private Ea ea_glob = null;
 	private int index_glob = 0;
+	private JFreeChart chart_glob=null;
 	
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -107,7 +109,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	}
 	
 	public EaConfigDis(int index, int magic, String cur, String filedata, int on, String broker, Brokerview bv,
-			Tableview tv, Ealiste eal, Tradeliste tl, String comment, Ea ea)
+			Tableview tv, Ealiste eal, Tradeliste tl, String comment, Ea ea,JFreeChart chart)
 	{
 		super();
 		magic_glob = magic;
@@ -122,6 +124,8 @@ public class EaConfigDis extends javax.swing.JPanel
 		comment_glob = comment;
 		ea_glob = ea;
 		index_glob = index;
+		chart_glob=chart;
+		
 		
 		EaConfigF eaconf = new EaConfigF(filedata + "\\" + magic_glob + ".lot");
 		initGUI(eaconf, filedata + "\\" + magic_glob + ".lot");
@@ -551,7 +555,8 @@ public class EaConfigDis extends javax.swing.JPanel
 				
 		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
 		String new_name=autocreatorname.getText();
-		AutoCreator.copyToAutoCreator(meconf, comment_glob,new_name);
+		AutoCreator.copyToAutoCreator(meconf, comment_glob,new_name,chart_glob);
+		
 	}
 
 }

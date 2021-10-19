@@ -100,7 +100,7 @@ public class ShowConfigAllP2 extends ApplicationFrame
 			// spalte 2 ist die config
 			String filedata = meconf.getFiledata();
 			EaConfigDis cp = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
-					eatradeliste, comment, ea);
+					eatradeliste, comment, ea,chart);
 			panelx.add(cp);
 			frame.getContentPane().add(panelx);// , BorderLayout.WEST);
 		}
