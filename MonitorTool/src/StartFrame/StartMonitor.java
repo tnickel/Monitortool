@@ -39,8 +39,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.cloudgarden.resource.SWTResourceManager;
 
+import Panels.ConfigAttributes;
 import Sync.LockTradeliste;
-import charttool.ShowConfigAllP2;
 import data.GlobalVar;
 import data.Lic;
 import data.Rootpath;
@@ -129,6 +129,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button addbroker;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Button button2ConfigAttributes;
 	private Button AutoCreator;
 	private Button Monitortool;
 	private Button button2showallprofit2;
@@ -184,6 +185,21 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button2ConfigAttributes = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button2ConfigAttributesLData = new FormData();
+				button2ConfigAttributesLData.left =  new FormAttachment(0, 1000, 1299);
+				button2ConfigAttributesLData.top =  new FormAttachment(0, 1000, 620);
+				button2ConfigAttributesLData.width = 41;
+				button2ConfigAttributesLData.height = 21;
+				button2ConfigAttributes.setLayoutData(button2ConfigAttributesLData);
+				button2ConfigAttributes.setText("Conf");
+				button2ConfigAttributes.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						button2ConfigAttributesWidgetSelected(evt);
+					}
+				});
+			}
 			{
 				AutoCreator = new Button(this, SWT.RADIO | SWT.LEFT);
 				FormData AutoCreatorLData = new FormData();
@@ -2323,6 +2339,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("AutoCreator.widgetSelected, event="+evt);
 		GlobalVar.setAutocreatormode(1);
 		GlobalVar.save();
+	}
+	
+	private void button2ConfigAttributesWidgetSelected(SelectionEvent evt) {
+		ConfigAttributes.showGUI();
+		
+		
 	}
 
 }
