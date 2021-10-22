@@ -20,6 +20,7 @@ public class GlobalVar
 	static int metatraderrunning=0;
 	
 	
+	
 	public GlobalVar()
 	{
 		if(FileAccess.FileAvailable(conffnam)==false)
@@ -247,7 +248,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.533");
+		return("Monitortool V0.534");
 	}
 	
 	public static String calcHeadline()
@@ -306,6 +307,18 @@ public class GlobalVar
 	{
 		gc.setLastcopytrademagic(val);
 	}
+	
+	public static int getAutocreatormode()
+	{
+		return(gc.getAutocreatormode());
+		
+	}
+
+	public static void setAutocreatormode(int autocreatormode)
+	{
+		gc.setAutocreatormode(autocreatormode);
+	}
+
 	static public void save()
 	{
 		Inf inf = new Inf();

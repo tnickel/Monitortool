@@ -129,6 +129,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button addbroker;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Button AutoCreator;
+	private Button Monitortool;
 	private Button button2showallprofit2;
 	private Button button3makemt4backtest;
 	private Button button3replacesymbols;
@@ -182,6 +184,39 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				AutoCreator = new Button(this, SWT.RADIO | SWT.LEFT);
+				FormData AutoCreatorLData = new FormData();
+				AutoCreatorLData.left =  new FormAttachment(0, 1000, 1491);
+				AutoCreatorLData.top =  new FormAttachment(0, 1000, 27);
+				AutoCreatorLData.width = 143;
+				AutoCreatorLData.height = 16;
+				AutoCreator.setLayoutData(AutoCreatorLData);
+				AutoCreator.setText("AutoCreatorAnalysis");
+				AutoCreator.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						AutoCreatorWidgetSelected(evt);
+					}
+				});
+
+			}
+			{
+				Monitortool = new Button(this, SWT.RADIO | SWT.LEFT);
+				FormData MonitortoolLData = new FormData();
+				MonitortoolLData.left =  new FormAttachment(0, 1000, 1491);
+				MonitortoolLData.top =  new FormAttachment(0, 1000, 7);
+				MonitortoolLData.width = 143;
+				MonitortoolLData.height = 16;
+				Monitortool.setLayoutData(MonitortoolLData);
+				Monitortool.setText("Show Trades");
+				Monitortool.setSelection(true);
+				Monitortool.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						MonitortoolWidgetSelected(evt);
+					}
+				});
+
+			}
 			{
 				button2showallprofit2 = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2showallprofit2LData = new FormData();
@@ -2276,6 +2311,18 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				smw.showallprofit2(tf, 0, anz);
 				
 			
+	}
+	
+	private void MonitortoolWidgetSelected(SelectionEvent evt) {
+		System.out.println("Monitortool.widgetSelected, event="+evt);
+		GlobalVar.setAutocreatormode(0);
+		GlobalVar.save();
+	}
+	
+	private void AutoCreatorWidgetSelected(SelectionEvent evt) {
+		System.out.println("AutoCreator.widgetSelected, event="+evt);
+		GlobalVar.setAutocreatormode(1);
+		GlobalVar.save();
 	}
 
 }

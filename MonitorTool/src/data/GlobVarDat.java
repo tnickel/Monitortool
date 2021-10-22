@@ -26,6 +26,7 @@ public class GlobVarDat
 	int portableflag=0;
 	int askforupdate=1;
 	int lastcopytrademagic=100;
+	int autocreatormode=0;
 	
 	public String getUsername()
 	{
@@ -210,6 +211,14 @@ public class GlobVarDat
 	public void setLastcopytrademagic(int lastcopytrademagic)
 	{
 		this.lastcopytrademagic = lastcopytrademagic;
+	}
+	public int getAutocreatormode()
+	{
+		return autocreatormode;
+	}
+	public void setAutocreatormode(int autocreatormode)
+	{
+		this.autocreatormode = autocreatormode;
 	}
 	
 	
