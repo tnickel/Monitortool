@@ -1333,7 +1333,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	    		Tracer.WriteTrace(10, "E:cant delete file<"+uphistfile.getPath()+">");
 	    }
 
-	    
+	    uphistfile.delete();
 	    
 	    
 	   }
@@ -1506,6 +1506,16 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		if ((Lic.getlic() == 0))
 			GlobalVar.setUpdatechannel("freeware");
 
+		if(GlobalVar.getAutocreatormode()==1)
+		{
+			AutoCreator.setSelection(true);
+			Monitortool.setSelection(false);
+		}
+		else
+		{
+			Monitortool.setSelection(true);
+			AutoCreator.setSelection(false);
+		}
 		progressBar2.setMinimum(0);
 		progressBar2.setMaximum(5);
 		statustext.setText(GlobalVar.getIpmessage());
@@ -2332,12 +2342,14 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void MonitortoolWidgetSelected(SelectionEvent evt) {
 		System.out.println("Monitortool.widgetSelected, event="+evt);
 		GlobalVar.setAutocreatormode(0);
+		smw.clearTradeliste();
 		GlobalVar.save();
 	}
 	
 	private void AutoCreatorWidgetSelected(SelectionEvent evt) {
 		System.out.println("AutoCreator.widgetSelected, event="+evt);
 		GlobalVar.setAutocreatormode(1);
+		smw.clearTradeliste();
 		GlobalVar.save();
 	}
 	

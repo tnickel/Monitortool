@@ -25,6 +25,7 @@ public class AutoCreator
 		
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\tester\\files",comment,newName);
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\MQL4\\files",comment,newName);
+		
 		saveChartPng(appdata+"\\tester\\files\\Speicherort_sys_pics",comment,newName,chart);
 	}
 	static private void copyThreeAutoFiles(String sourcedir_s, String destdir_s,String comment,String newName)

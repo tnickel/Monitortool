@@ -74,6 +74,12 @@ public class StartMonitorWork
 		pb2_glob = pb2;
 	}
 
+	public void clearTradeliste()
+	{
+		Tradeliste tl=tv_glob.getTradeliste();
+		tl.clear();
+	}
+	
 	public Tradeanzahl calcTradeanzahl()
 	{
 		if (tv_glob == null)

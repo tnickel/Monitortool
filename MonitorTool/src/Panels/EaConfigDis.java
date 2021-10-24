@@ -442,7 +442,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		jLabel6locked.setVisible(false);
 		jTextField1.setEditable(false);
 		
-		autocreatorname.setText(AutoCreator.calcCommentPostfix(comment_glob));
+		autocreatorname.setText(comment_glob);
 		
 		// if realbroker
 		if (brokerview_glob.getAccounttype(broker_glob) == 2)

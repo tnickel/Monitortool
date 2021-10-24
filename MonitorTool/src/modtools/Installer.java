@@ -40,7 +40,7 @@ public class Installer
 	public void UpdateHistoryExporter(Display dis, Brokerview brokerview)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
-		DisTool.waitCursor();
+		
 		// in dieser funktion wird nur der neue HistoryExporter kopiert
 		// ausserdem die neue monitorlib
 		// weiterhin das RestartTerminal.bat
@@ -58,7 +58,7 @@ public class Installer
 			// holt sich eine config für den metatrader
 			Metaconfig meconf = brokerview.getElem(i);
 			String bnam = meconf.getBrokername();
-			Mlist.add("update<" + bnam + ">", 1);
+			//Mlist.add("update<" + bnam + ">", 1);
 			
 			String histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
 			
