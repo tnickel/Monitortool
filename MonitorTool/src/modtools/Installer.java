@@ -58,7 +58,7 @@ public class Installer
 			// holt sich eine config für den metatrader
 			Metaconfig meconf = brokerview.getElem(i);
 			String bnam = meconf.getBrokername();
-			//Mlist.add("update<" + bnam + ">", 1);
+			// Mlist.add("update<" + bnam + ">", 1);
 			
 			String histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
 			
@@ -175,8 +175,9 @@ public class Installer
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".ex4");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".log");
 		
-		//hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr files nicht löschen sonst sind die verbindungen
-		//bei der überinstallation weg!!
+		// hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr
+		// files nicht löschen sonst sind die verbindungen
+		// bei der überinstallation weg!!
 		FileAccess.FilesDelete(meconf.getAppdata() + "\\profiles\\default", ".chr");
 		FileAccess.FilesDelete(meconf.getExpertdata(), ".dat");
 	}
@@ -231,8 +232,8 @@ public class Installer
 		String cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
 		Tracer.WriteTrace(20, "Rootpath<" + Rootpath.getRootpath() + "> mqlquellverz<" + mqlquellverz + ">");
 		
-		//Falls Tradesuffix gesetzt dann wird z.B.
-		//Q80 EURUSD M15 134.mq4 nach Q80 EURUSD.r M15 134.mq4 renamed
+		// Falls Tradesuffix gesetzt dann wird z.B.
+		// Q80 EURUSD M15 134.mq4 nach Q80 EURUSD.r M15 134.mq4 renamed
 		fadyn.initFileSystemList(mqlquellverz, 1);
 		int anz = fadyn.holeFileAnz();
 		for (int i = 0; i < anz; i++)
@@ -245,24 +246,17 @@ public class Installer
 				if (mqlquellnam.endsWith(".mq4"))
 					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
 				
-				
 				// Den quellnamen renamen das Keyword Strategy muss raus
-				String tradesuffix=metaconfig.getTradesuffixsender();
-				if((tradesuffix!=null)&&(tradesuffix.length()>1))
-				renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),metaconfig.getMqlquellverz() + "\\" + mqlnam);
+				String tradesuffix = metaconfig.getTradesuffixsender();
+				if ((tradesuffix != null) && (tradesuffix.length() > 1))
+					renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),
+							metaconfig.getMqlquellverz() + "\\" + mqlnam);
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 		// Remove substring "Strategy" out of quellname
 		fadyn.initFileSystemList(mqlquellverz, 1);
-		 anz = fadyn.holeFileAnz();
+		anz = fadyn.holeFileAnz();
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
@@ -314,9 +308,9 @@ public class Installer
 			pat.setFilename(mqlquellverz + "\\" + mqlquellnam);
 			String sl = pat.getSl();
 			String tp = pat.getTp();
-			int eatype=pat.getEaType();
+			int eatype = pat.getEaType();
 			
-			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername, sl, tp,eatype);
+			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername, sl, tp, eatype);
 			// remove old *.del files out of ../files
 			removeEaDels(magic, metaconfig);
 			
@@ -371,42 +365,37 @@ public class Installer
 		}
 	}
 	
-	private void renameQuellnamTradeSuffixFile(String tradesuffix,String fnamsource)
+	private void renameQuellnamTradeSuffixFile(String tradesuffix, String fnamsource)
 	{
-		//falls tradesuffix gesetzt ist dann wird
-		//Q80 EURUSD M15 1234.mq4 nach Q80 EURUSD.r M15 1234.mq4 renamed
+		// falls tradesuffix gesetzt ist dann wird
+		// Q80 EURUSD M15 1234.mq4 nach Q80 EURUSD.r M15 1234.mq4 renamed
 		
-		
-			File fnamsource_f = new File(fnamsource + ".mq4");
-			//falls der tradesuffix noch nicht drin ist
-			if(fnamsource.contains(tradesuffix)==false)
-			{
-				//splite auf
-				String[] parts = fnamsource_f.getAbsolutePath().split(" ");
-				//hole die position der currency
-				int curindex=parts.length-3;
-				String currency=parts[curindex];
-				currency=currency+tradesuffix;
-				parts[curindex]=currency;
-
-				//setzte den String wieder zusammen
-				String neuname="";
-				int n=parts.length;
-				for(int i=0; i<n; i++)
-					neuname=neuname+parts[i]+" ";
-				File neuname_f=new File(neuname);
-					
-				if (fnamsource_f.renameTo(neuname_f) == false)
-					Tracer.WriteTrace(10, "E: can´t rename file <" + fnamsource_f.getAbsolutePath() + "> to <"
-							+ neuname_f.getAbsolutePath() + ">");
-
-			}
-	
+		File fnamsource_f = new File(fnamsource + ".mq4");
+		// falls der tradesuffix noch nicht drin ist
+		if (fnamsource.contains(tradesuffix) == false)
+		{
+			// splite auf
+			String[] parts = fnamsource_f.getAbsolutePath().split(" ");
+			// hole die position der currency
+			int curindex = parts.length - 3;
+			String currency = parts[curindex];
+			currency = currency + tradesuffix;
+			parts[curindex] = currency;
+			
+			// setzte den String wieder zusammen
+			String neuname = "";
+			int n = parts.length;
+			for (int i = 0; i < n; i++)
+				neuname = neuname + parts[i] + " ";
+			File neuname_f = new File(neuname);
+			
+			if (fnamsource_f.renameTo(neuname_f) == false)
+				Tracer.WriteTrace(10, "E: can´t rename file <" + fnamsource_f.getAbsolutePath() + "> to <"
+						+ neuname_f.getAbsolutePath() + ">");
+			
+		}
 		
 	}
-	
-	
-	
 	
 	private void loescheMqlCache(String verz)
 	{
@@ -424,7 +413,8 @@ public class Installer
 			tv.importTradeliste(fnam, brokername);
 	}
 	
-	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername, String sl, String tp,int eatype)
+	private Ea eaAufnahme(Ealiste eal, String mqlquellnam, int magic, String brokername, String sl, String tp,
+			int eatype)
 	{
 		
 		mqlquellnam = mqlquellnam.replace("_Strategy", "");
@@ -589,24 +579,24 @@ public class Installer
 		
 		if (metaconfig == null)
 			Tracer.WriteTrace(10, "E: metaconfig=null");
-		
-		if (metaconfig.isInsthistoryexporter())
-			copyInstHistoryExporter(metaconfig);
-		if (metaconfig.getUsemyfxbookflag() == 1)
-			copyMyFxbookEa(metaconfig);
-		if (metaconfig.isInsttradecopy())
-			copyTradecopy(metaconfig);
-		if (metaconfig.isInsttickdataexporter())
-			copyTickdataExporter(metaconfig);
-		
-		copyBacktestEnvironment(metaconfig);
-		
+		if ((metaconfig.getMttype()==null)||(metaconfig.getMttype().contains("mt4")))
+		{
+			if (metaconfig.isInsthistoryexporter())
+				copyInstHistoryExporter(metaconfig);
+			if (metaconfig.getUsemyfxbookflag() == 1)
+				copyMyFxbookEa(metaconfig);
+			if (metaconfig.isInsttradecopy())
+				copyTradecopy(metaconfig);
+			if (metaconfig.isInsttickdataexporter())
+				copyTickdataExporter(metaconfig);
+			
+			copyBacktestEnvironment(metaconfig);
+			copyMonitorlib(metaconfig);
+			kopiereIndikatoren(metaconfig);
+			setFridayend(metaconfig, metaconfig.getClosefridayflag());
+		}
 		InstallSernumber(metaconfig);
-		
-		copyMonitorlib(metaconfig);
-		kopiereIndikatoren(metaconfig);
 		metaconfig.setInstallationstatus(1);
-		
 		setFridayend(metaconfig, metaconfig.getClosefridayflag());
 		
 	}

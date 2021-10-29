@@ -61,6 +61,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	// only handinstalled flag, if 1= than the eas are never modified by the tool
 	private int onlyhandinstalled = 0;
 	
+
 	
 	static String[] accounttypename =
 	{ "Mon", "Aut", "Real", "FST" };
@@ -99,6 +100,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 	//automatic symbolreplacement
 	private int automaticsymbolreplacement=0;
 	private String tradesuffixsender="";
+	//mttype=mt4 or mt5
+	private String mttype="";
 	
 	public Metaconfig(String mname)
 	{
@@ -168,7 +171,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 				automaticsymbolreplacement = SG.get_zahl(SG.nteilstring(zeile, "#", 31));
 			if(trennanz >31)
 				tradesuffixsender=SG.nteilstring(zeile, "#", 32);
-			
+			if(trennanz >32)
+				mttype=SG.nteilstring(zeile, "#", 32);
 			
 			initmagiclist();
 			// processkennung immer löschen
@@ -677,8 +681,19 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public String getInitMetaversion()
 	{
 		String fnam = networkshare;
-		File fna = new File(fnam + "\\MQL4");
+		File fna4 = new File(fnam + "\\MQL4");
+		File fna5 = new File(fnam + "\\MQL5");
 		String orpath = null;
+		String mtversnumber="";
+		
+		
+		if(new File(fnam+"\\terminal.exe").exists())
+			mttype="mt4";
+		else if(new File(fnam+"\\terminal64.exe").exists())
+			mttype="mt5";
+		else Tracer.WriteTrace(10, "Error: unknown mtx Version. I need terminal.exe or terminal64.exe -> STOP");
+		
+		
 		
 		// falls portable=1 dann schaue nicht im orpath nach !!!
 		if ((GlobalVar.getPortableflag() == 0) && (orpath = holeOrginPath()) != null)
@@ -688,25 +703,32 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Expertdata = orpath + "\\MQL4\\Experts";
 			Filedata = orpath + "\\MQL4\\Files";
 			metaversion = ">=600";
-			return (">=600");
-		} else if (fna.exists())
+			mtversnumber=">=600";
+		} else if (fna4.exists())
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL4";
 			Expertdata = fnam + "\\MQL4\\Experts";
 			Filedata = fnam + "\\MQL4\\Files";
 			metaversion = ">=600";
-			return (">=600");
+			mtversnumber=">=600";
 		}
-		{ // 500er Version
-			Appdata = networkshare;
-			Mqldata = networkshare + "\\Experts";
-			Expertdata = networkshare + "\\Experts";
-			Filedata = networkshare + "\\Experts\\Files";
-			
-			metaversion = "<=509";
-			return ("<509");
+		else if (fna5.exists())
+		{
+			Appdata = fnam;
+			Mqldata = fnam + "\\MQL5";
+			Expertdata = fnam + "\\MQL5\\Experts";
+			Filedata = fnam + "\\MQL5\\Files";
+			metaversion = ">=600";
+			mtversnumber=">=600";
 		}
+		else
+		{ 
+			Tracer.WriteTrace(10, "Error in InitMetaversion, cant determine Metatrader version");
+		}
+		
+		
+		return(mtversnumber);
 	}
 	
 	private String holeOrginPath()
@@ -789,6 +811,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 		
 	}
 	
+	public String getMttype()
+	{
+		return mttype;
+	}
+
+	public void setMttype(String mttype)
+	{
+		this.mttype = mttype;
+	}
+
 	public void SetCloseAllTradesOnce(int magic)
 	{
 		// die trades für eine magic werden geschlossen, da wird dies file hier in

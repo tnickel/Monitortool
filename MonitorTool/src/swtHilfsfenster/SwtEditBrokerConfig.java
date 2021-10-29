@@ -828,6 +828,8 @@ public class SwtEditBrokerConfig
 	
 	private void setmetatraderdirWidgetSelected(SelectionEvent evt)
 	{
+	
+	
 		System.out.println("setmetatraderdir.widgetSelected, event=" + evt);
 		// Set Metatraderdir Networkshare
 		String netshare = me_glob.getMqldata();
@@ -846,7 +848,7 @@ public class SwtEditBrokerConfig
 				|| (fnam.toLowerCase().contains("program files")))
 		{
 			Tracer.WriteTrace(10,
-					"Error: don´t install Metatrader in Windows programfile dir\n use instead for example c:\\forex\\mt4\\pepperstone1");
+					"Warning: don´t install Metatrader in Windows programfile dir\n use instead for example c:\\forex\\mt4\\pepperstone1");
 			return;
 			
 		} 
@@ -858,7 +860,6 @@ public class SwtEditBrokerConfig
 			return;
 			
 		}
-		
 		else
 		{ // fnam=D:\\Forex\\mt4\\audrn2
 			me_glob.setNetworkshare(fnam);
@@ -872,6 +873,8 @@ public class SwtEditBrokerConfig
 		}
 		me_glob.getInitMetaversion();
 		
+		
+	
 		System.out.println("fnam=" + fnam);
 		
 		MtRoot.setText(fnam);
