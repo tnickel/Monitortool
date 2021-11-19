@@ -19,7 +19,7 @@ import Sync.LockTradeliste;
 import backtest.Mt4Backtester;
 import charttool.Profitanzeige;
 import charttool.ShowAllProfitsConfig;
-import charttool.ShowConfigAllP2;
+import charttool.ShowConfigAllP3;
 import data.Ea;
 import data.GlobalVar;
 import data.Metaconfig;
@@ -487,7 +487,7 @@ public class StartMonitorWork
 			alltradelist = tv_glob.buildAllTradeliste(tf, maxprofanz);
 		else
 			alltradelist = tv_glob.buildAllPortfolioliste();
-		ShowConfigAllP2 prof = new ShowConfigAllP2("Gewinnverlauf", tv_glob,
+		ShowConfigAllP3 prof = new ShowConfigAllP3("Gewinnverlauf", tv_glob,
 				alltradelist,brokerview_glob);
 		
 	}

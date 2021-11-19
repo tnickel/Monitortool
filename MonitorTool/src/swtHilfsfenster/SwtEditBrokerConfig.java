@@ -55,6 +55,7 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Button button1autocreator;
 	private Label label8;
 	private Label label7;
 	private Text tradesuffixsender;
@@ -167,7 +168,7 @@ public class SwtEditBrokerConfig
 		{
 			GbAutomaticaccountflag = new Button(sh, SWT.CHECK | SWT.LEFT);
 			GbAutomaticaccountflag.setText("DemoAccount");
-			GbAutomaticaccountflag.setBounds(8, 3, 215, 30);
+			GbAutomaticaccountflag.setBounds(8, 3, 111, 30);
 			
 			GbAutomaticaccountflag.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
@@ -339,7 +340,7 @@ public class SwtEditBrokerConfig
 		{
 			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1realaccountsel.setText("RealAccount");
-			button1realaccountsel.setBounds(251, 3, 128, 30);
+			button1realaccountsel.setBounds(125, 3, 96, 31);
 			button1realaccountsel.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -462,6 +463,16 @@ public class SwtEditBrokerConfig
 			label8.setBounds(1158, 214, 44, 20);
 			label8.setToolTipText("If currency add is set the currency name will be renamed before installation. For example: add=.r than EURUSD will be named to EURUSD.r");
 		}
+		{
+			button1autocreator = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1autocreator.setText("AutoCreator");
+			button1autocreator.setBounds(233, 3, 111, 30);
+			button1autocreator.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					button1autocreatorWidgetSelected(evt);
+				}
+			});
+		}
 
 		sh.open();
 		initBrokereditM();
@@ -487,10 +498,13 @@ public class SwtEditBrokerConfig
 		{
 			
 			setDemoaccount();
-		} else
+		} else if(me_glob.getAccounttype()==2)
 		{
 			setRealaccount();
-		}
+		} else if (me_glob.getAccounttype()==4)
+			setAutoCreatorAccount();
+		else
+			Tracer.WriteTrace(10, "refreshbuttons: unknown accounttype = <"+me_glob.getAccounttype()+">");
 		
 		if (me_glob.getLotsize() != 0)
 			lotsize.setText(String.valueOf(me_glob.getLotsize()));
@@ -563,10 +577,10 @@ public class SwtEditBrokerConfig
 		if (infostring.getText() != null)
 			me_glob.setInfostring(infostring.getText());
 			
-		// Accounttype 0,2 ist monitoraccount oder realaccount, hier kan der
-		// check entfallen
-		if ((MqlQuellverzeichniss.getText() != null) && (me_glob.getAccounttype() != 0)
-				&& (me_glob.getAccounttype() != 2))
+		// Accounttype 0,2,3 ist monitoraccount oder realaccount, hier kann der
+		// check entfallen,3=autocreator
+		if ((MqlQuellverzeichniss.getText() != null) && (me_glob.getAccounttype() == 1))
+
 		{
 			// prüft nach ob sich mql-quellen im Quellverzeichniss befinden
 			if (work.checkMqlQuellverzeichniss(MqlQuellverzeichniss.getText()) == true)
@@ -692,28 +706,9 @@ public class SwtEditBrokerConfig
 		return;
 	}
 	
-	private void DemoaccountflagWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("Demoaccountflag.widgetSelected, event=" + evt);
-		me_glob.setAccounttype(0);
-		Monitoraccountflag.setSelection(true);
-		GbAutomaticaccountflag.setSelection(false);
-		
-		refreshbuttons();
-	}
+
 	
-	private void RealaccontflagWidgetSelected(SelectionEvent evt)
-	{
-		System.out.println("Realaccontflag.widgetSelected, event=" + evt);
-		// TODO add your code for Realaccontflag.widgetSelected
-		// Realaccount gibt es kein mqlQuellverzeichniss da die quellen immer
-		// aus einen verknüften demokonto kommen
-		me_glob.setAccounttype(2);
-		Monitoraccountflag.setSelection(false);
-		GbAutomaticaccountflag.setSelection(false);
-		
-		refreshbuttons();
-	}
+	
 	
 	private boolean installEasWidgetSelected(SelectionEvent evt)
 	{
@@ -1018,6 +1013,9 @@ public class SwtEditBrokerConfig
 	
 	private void setDemoaccount()
 	{
+		//1=demoaccount
+		//2=realacccount
+		//3=autocreatoraccount
 		me_glob.setAccounttype(1);
 		text1usemagic.setEnabled(true);
 		int magic = me_glob.getTradecopymagic();
@@ -1033,6 +1031,7 @@ public class SwtEditBrokerConfig
 		text1usemagic.setText(String.valueOf(magic));
 		me_glob.setTradecopymagic(magic);
 		GbAutomaticaccountflag.setSelection(true);
+		button1autocreator.setSelection(false);
 		button1showonlyinstalledeas.setEnabled(true);
 		if (me_glob.getShowOnlyInstalledEas() == 1)
 			button1showonlyinstalledeas.setSelection(true);
@@ -1044,6 +1043,9 @@ public class SwtEditBrokerConfig
 		text1usemagic.setEnabled(true);
 		label4.setEnabled(true);
 		tradesuffixsender.setEnabled(true);
+		setquellverz.setEnabled(true);
+		MqlQuellverzeichniss.setEnabled(true);
+		link2.setEnabled(true);
 		
 	}
 	
@@ -1055,10 +1057,14 @@ public class SwtEditBrokerConfig
 	
 	private void setRealaccount()
 	{
+		//1=demoaccount
+		//2=realacccount
+		//3=autocreatoraccount
 		me_glob.setAccounttype(2);
 		text1usemagic.setText("0");
 		
 		GbAutomaticaccountflag.setSelection(false);
+		button1autocreator.setSelection(false);
 		button1showonlyinstalledeas.setEnabled(false);
 		button1showonlyinstalledeas.setSelection(false);
 		button1realaccountsel.setSelection(true);
@@ -1069,9 +1075,48 @@ public class SwtEditBrokerConfig
 		text1usemagic.setEnabled(false);
 		label4.setEnabled(false);
 		tradesuffixsender.setEnabled(false);
+		setquellverz.setEnabled(false);
+		MqlQuellverzeichniss.setEnabled(false);
+		link2.setEnabled(false);
 		
 	}
-	
+	private void setAutoCreatorAccount()
+	{
+		//1=demoaccount
+		//2=realacccount
+		//4=autocreatoraccount
+		me_glob.setAccounttype(4);
+		text1usemagic.setEnabled(true);
+		int magic = me_glob.getTradecopymagic();
+		// if magic not set
+		if (magic == 0)
+		{
+			// generiere neue magic
+			
+			magic = bv_glob.getNewTradecopymagic();
+			GlobalVar.setLastcopytrademagic(magic);
+		}
+		
+		text1usemagic.setText(String.valueOf(magic));
+		me_glob.setTradecopymagic(magic);
+		GbAutomaticaccountflag.setSelection(false);
+		button1showonlyinstalledeas.setEnabled(true);
+		if (me_glob.getShowOnlyInstalledEas() == 1)
+			button1showonlyinstalledeas.setSelection(true);
+		button1realaccountsel.setSelection(false);
+		button1autocreator.setSelection(true);
+		text1suffix.setEnabled(false);
+		label7suffix.setEnabled(false);
+		combo1.setEnabled(true);
+		installEas.setEnabled(false);
+		text1usemagic.setEnabled(true);
+		label4.setEnabled(true);
+		tradesuffixsender.setEnabled(true);
+		setquellverz.setEnabled(false);
+		MqlQuellverzeichniss.setEnabled(false);
+		link2.setEnabled(false);
+		
+	}
 	
 	
 	private void link1WidgetSelected(SelectionEvent evt) {
@@ -1083,5 +1128,10 @@ public class SwtEditBrokerConfig
 		System.out.println("link1.widgetSelected, event="+evt);
 		
 		Program.launch(evt.text);
+	}
+	
+	private void button1autocreatorWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1autocreator.widgetSelected, event="+evt);
+		setAutoCreatorAccount();
 	}
 }

@@ -1,9 +1,15 @@
 package modtools;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -67,4 +73,30 @@ public class AutoCreator
 		    Tracer.WriteTrace(20, "Error:4545454545");
 		}
 	}
+	public  JPanel readPanelPng(String filename)
+	{
+		/*JPanel jPanel = new JPanel();      
+		jPanel.add(new JLabel(new ImageIcon(this.getClass().getClassLoader().getResource(filename))));
+		return jPanel;
+	*/
+		JPanel jPanel = new JPanel(); 
+		
+		BufferedImage myPicture;
+		try
+		{
+			myPicture = ImageIO.read(new File(filename));
+			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+			jPanel.add(picLabel);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return jPanel;
+		
+		
+	}
+	
+	
 }

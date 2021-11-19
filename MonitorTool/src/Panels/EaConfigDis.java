@@ -2,12 +2,16 @@ package Panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.border.LineBorder;
 
 import org.jdesktop.application.Application;
 import org.jfree.chart.JFreeChart;
@@ -38,11 +42,7 @@ import mqlLibs.Eaclass;
  */
 public class EaConfigDis extends javax.swing.JPanel
 {
-	//
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField jTextField1_lots;
 	private JButton jButton1;
@@ -63,6 +63,11 @@ public class EaConfigDis extends javax.swing.JPanel
 	private JTextField jTextField1pf;
 	private JLabel jLabel4pf;
 	private JTextField jTextField1tpsl;
+	private JTextField jTextField2pkz1;
+	private JLabel jLabel7pkz1;
+
+	private JButton jButton2;
+	private JTabbedPane jTabbedPane1;
 	private JTextField jTextField1info;
 	private JLabel jLabel3info;
 	private JTextField jTextField1connection;
@@ -173,7 +178,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jButton2tradecopyonoff = new JButton();
 				this.add(jButton2tradecopyonoff);
-				jButton2tradecopyonoff.setBounds(181, 294, 461, 32);
+				jButton2tradecopyonoff.setBounds(181, 294, 652, 32);
 				jButton2tradecopyonoff.setName("jButton2tradecopyonoff");
 				jButton2tradecopyonoff.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt)
@@ -197,7 +202,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1connection = new JTextField();
 				this.add(jTextField1connection);
-				jTextField1connection.setBounds(23, 20, 619, 32);
+				jTextField1connection.setBounds(23, 16, 810, 32);
 				jTextField1connection.setName("jTextField1connection");
 			}
 			{
@@ -287,7 +292,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1pf = new JTextField();
 				this.add(jTextField1pf);
-				jTextField1pf.setBounds(401, 152, 241, 20);
+				jTextField1pf.setBounds(401, 152, 77, 20);
 				jTextField1pf.setName("jTextField1pf");
 			}
 			{
@@ -299,7 +304,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1profit = new JTextField();
 				this.add(jTextField1profit);
-				jTextField1profit.setBounds(401, 125, 241, 20);
+				jTextField1profit.setBounds(401, 125, 77, 20);
 				jTextField1profit.setName("jTextField1profit");
 			}
 			{
@@ -317,13 +322,13 @@ public class EaConfigDis extends javax.swing.JPanel
 			{
 				jTextField1prof7 = new JTextField();
 				this.add(jTextField1prof7);
-				jTextField1prof7.setBounds(401, 77, 241, 20);
+				jTextField1prof7.setBounds(401, 77, 77, 20);
 				jTextField1prof7.setName("jTextField1prof7");
 			}
 			{
 				jTextField1prof30 = new JTextField();
 				this.add(jTextField1prof30);
-				jTextField1prof30.setBounds(401, 99, 241, 20);
+				jTextField1prof30.setBounds(401, 99, 77, 20);
 				jTextField1prof30.setName("jTextField1prof30");
 			}
 			{
@@ -366,10 +371,24 @@ public class EaConfigDis extends javax.swing.JPanel
 					}
 				});
 			}
+			{
+				jLabel7pkz1 = new JLabel();
+				this.add(jLabel7pkz1);
+				jLabel7pkz1.setBounds(318, 180, 27, 16);
+				jLabel7pkz1.setName("jLabel7pkz1");
+			}
+			{
+				jTextField2pkz1 = new JTextField();
+				this.add(jTextField2pkz1);
+				jTextField2pkz1.setBounds(401, 178, 77, 20);
+			}
+			{
 
-			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			}
+		
 			init();
 			
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -453,6 +472,25 @@ public class EaConfigDis extends javax.swing.JPanel
 		{
 			jButton2deleteEA.setEnabled(false);
 			jLabel6locked.setVisible(true);
+		}
+		
+		//if autocreator metatrader
+		if (brokerview_glob.getAccounttype(broker_glob) == 4)
+		{
+			
+			autocreatorname.setEnabled(true);
+			jButton2copytoautocreator.setEnabled(true);
+			jTextField2pkz1.setEnabled(true);
+			jLabel7pkz1.setEnabled(true);
+		}
+		else
+		{
+			
+			autocreatorname.setEnabled(false);
+			jButton2copytoautocreator.setEnabled(false);
+			jTextField2pkz1.setEnabled(false);
+			jLabel7pkz1.setEnabled(false);
+			
 		}
 	}
 	

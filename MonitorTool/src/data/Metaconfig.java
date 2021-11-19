@@ -17,7 +17,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 {
 	String networkshare;
 	String brokername;
-	// 0= monitor, 1 = gbautomatic, 2=Real, 3=FST
+	// 0= monitor, 1 = gbautomatic, 2=Real, 3=FST, 4=autocreator
 	int accounttype = 0;
 	String mqlquellverz = "empty";
 	String connectedBroker;
@@ -64,7 +64,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 
 	
 	static String[] accounttypename =
-	{ "Mon", "Aut", "Real", "FST" };
+	{ "Mon", "Aut", "Real", "FST","AC" };
 	
 	// datum des ersten trades
 	String datumDesErstenTrades = null;

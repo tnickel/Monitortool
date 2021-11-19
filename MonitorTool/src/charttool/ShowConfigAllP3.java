@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -36,8 +37,9 @@ import data.Metaconfig;
 import data.Trade;
 import data.Tradeliste;
 import hiflsklasse.Tracer;
+import modtools.AutoCreator;
 
-public class ShowConfigAllP2 extends ApplicationFrame
+public class ShowConfigAllP3 extends ApplicationFrame
 {
 	// diese Klasse zeigt alles an in einer scollbaren liste an,
 	// man kann hier die lostsize und das mm konfigurieren
@@ -45,20 +47,20 @@ public class ShowConfigAllP2 extends ApplicationFrame
 	// vergleichen und die Lotsize einstellen.
 	private static Tableview tv_glob = null;
 	
-	public ShowConfigAllP2(String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv)
+	public ShowConfigAllP3(String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv)
 	{
 		super("title");
 		int anz = 5;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 10));
-		frame.setSize(250, 150);
-		// frame.setPreferredSize(new java.awt.Dimension(600, 1000));
+		frame.setSize(300, 250);
+		frame.setPreferredSize(new java.awt.Dimension(2500, 1000));
 		anz = alltradelist.size();
 		
-		// das ganze hat ein grid layout mit 2 Spalten
-		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 2));
-		panelx.setPreferredSize(new java.awt.Dimension(1500, anz * 350));
+		// das ganze hat ein grid layout mit 3 Spalten
+		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 3));
+		panelx.setPreferredSize(new java.awt.Dimension(2300, anz * 350));
 		
 		
 		for (int i = 0; i < anz; i++)
@@ -89,16 +91,31 @@ public class ShowConfigAllP2 extends ApplicationFrame
 			XYDataset dataset = createDataset(eatradeliste);
 			JFreeChart chart = createChart(dataset, eaname,calcColor(bv,broker, ea));
 			
+			
+			//Spalte 1 ist der backtest
+			AutoCreator ac=new AutoCreator();
+			String fname=meconf.getAppdata()+"\\tester\\files\\Speicherort_sys_pics\\"+comment+".png";
+			File fnam_f=new File(fname);
+			if(fnam_f.exists()==true)
+			{
+				JPanel jp=ac.readPanelPng(fname);
+				panelx.add(jp);
+			}
+			else
+				panelx.add(new JPanel());
+			
+			frame.getContentPane().setLayout(new BorderLayout());
+			
+			// spalte 2 die tradeliste
 			if (on == 1)
 				addSubtitle(chart);
 			
 			
-					
-			// spalte 1 ist der aktuelle chart
+						
 			panelx.add(new ChartPanel(chart));
 			frame.getContentPane().setLayout(new BorderLayout());
 			
-			// spalte 2 ist die config
+			// spalte 3 ist die config
 			String filedata = meconf.getFiledata();
 			EaConfigDis cp = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
 					eatradeliste, comment, ea,chart);
@@ -202,6 +219,7 @@ public class ShowConfigAllP2 extends ApplicationFrame
 	public static JPanel createDemoPanel(Tradeliste eatradeliste, String titel)
 	{
 		JFreeChart chart = createChart(createDataset(eatradeliste), "titel",null);
+		
 		return new ChartPanel(chart);
 	}
 	
