@@ -16,10 +16,45 @@ import org.jfree.chart.JFreeChart;
 
 import data.Metaconfig;
 import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
 public class AutoCreator
 {
+	
+	static public String getPkz1(Metaconfig meconf, String comment)
+	{
+		String appdata=meconf.getAppdata();
+		String sourcedir_s=appdata+"\\tester\\files\\AC_Entwicklungen\\"+calcCommentPrefix(comment);
+		String commentpostfix=calcCommentPostfix(comment);
+		String fsource_stats=sourcedir_s+"\\"+commentpostfix+"_stats.csv";
+
+		if(new File(fsource_stats).exists()==false)
+			return("nostat");
+		
+		Inf inf = new Inf();
+		inf.setFilename(fsource_stats);
+		String mem=inf.readMemFile(1500);
+		inf.close();
+		if(mem.contains("PZ_01;"))
+		{
+			mem=mem.substring(mem.indexOf("PZ_01;")+6);
+			System.out.println("mem="+mem);
+			
+			if(mem.contains("New"))
+				mem=mem.substring(0,mem.indexOf("New"));
+			else
+				return "nonew";
+			
+			if(mem.contains("."))
+				mem=mem.substring(0,mem.indexOf("."));
+		}
+		else return "nopz1";
+		
+		return mem;
+	}
+	
+	
 	static public void copyToAutoCreator(Metaconfig meconf,String comment,String newName,JFreeChart chart)
 	{
 		String appdata=meconf.getAppdata();
@@ -46,7 +81,14 @@ public class AutoCreator
 	}
 	static String calcCommentPrefix(String comment)
 	{
-		String commentpref=comment.substring(0,comment.indexOf("_"));
+		String commentpref="";
+		
+		if(comment.contains("_"))
+		{	
+		 commentpref=comment.substring(0,comment.indexOf("_"));
+		}
+		else
+			commentpref=comment;
 		return commentpref;
 	}
 	public static String calcCommentPostfix(String comment)

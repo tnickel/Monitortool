@@ -38,6 +38,7 @@ import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tools;
 import hiflsklasse.Tracer;
+import modtools.AutoCreator;
 import modtools.FsbPortfolioEa;
 import modtools.Networker_dep;
 import modtools.Toogler;
@@ -279,6 +280,7 @@ public class Tableview extends TableViewBasic
 		pl.calcDrawdowns();
 		pl.calcProfitfaktoren();
 		pl.calcOnoff(eal);
+		pl.calcPz1(brokerview_glob);
 		
 		// die unerwünschten Profite aus der Profitliste wieder rausfiltern
 		if (tradefilterflag == 1)
@@ -392,7 +394,7 @@ public class Tableview extends TableViewBasic
 			pb.setMinimum(0);
 		
 		Swttool.baueTabellenkopfDispose(table,
-				"Ind#Magic#Symb#F#Info1#LOT#AUT#On#cL#tr7#prof7#tr30#prof30#trALL#profALL#PF#DD#comment#info2#broker#RealBroker#inst from");
+				"Ind#Magic#Symb#F#Info1#LOT#AUT#On#cL#pz1#tr7#prof7#tr30#prof30#trALL#profALL#PF#DD#comment#info2#broker#RealBroker#inst from");
 		
 		Tracer.WriteTrace(20, "show profittable");
 		pl.sortliste();
@@ -464,31 +466,38 @@ public class Tableview extends TableViewBasic
 			if (cl >= 3)
 				item.setBackground(8, red);
 			item.setText(8, String.valueOf(prof.calcConsecLooses()));
+			
+			//pz1
+			Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(prof.getBroker());
+			if(meconf.getAccounttype()==4)
+				item.setText(9, AutoCreator.getPkz1(meconf, comment));
+			else
+				item.setText(9,"0");
 			// last7trades
-			item.setText(9, String.valueOf(prof.getAnztradeslastzehn()));
-			item.setText(10, SG.kuerzeFloatstring(String.valueOf(gew10), 2));
+			item.setText(10, String.valueOf(prof.getAnztradeslastzehn()));
+			item.setText(11, SG.kuerzeFloatstring(String.valueOf(gew10), 2));
 			// last30trades
-			item.setText(11, String.valueOf(prof.getAnzmonatstrades()));
-			item.setText(12, SG.kuerzeFloatstring(String.valueOf(gew30), 2));
+			item.setText(12, String.valueOf(prof.getAnzmonatstrades()));
+			item.setText(13, SG.kuerzeFloatstring(String.valueOf(gew30), 2));
 			// gestrades
-			item.setText(13, String.valueOf(prof.getGestrades()));
+			item.setText(14, String.valueOf(prof.getGestrades()));
 			// gesgewinn
-			item.setText(14, SG.kuerzeFloatstring(String.valueOf(gewall), 2));
+			item.setText(15, SG.kuerzeFloatstring(String.valueOf(gewall), 2));
 			// profitfaktor
-			item.setText(15, SG.kuerzeFloatstring(String.valueOf(prof.getProfitfaktor()), 2));
+			item.setText(16, SG.kuerzeFloatstring(String.valueOf(prof.getProfitfaktor()), 2));
 			// drawdown
-			item.setText(16, SG.kuerzeFloatstring(String.valueOf(prof.getDrawdown()), 2));
+			item.setText(17, SG.kuerzeFloatstring(String.valueOf(prof.getDrawdown()), 2));
 			// comment
-			item.setText(17, comment);
+			item.setText(18, comment);
 			// info2
 			if (ea.getInfo2() != null)
-				item.setText(18, ea.getInfo2());
+				item.setText(19, ea.getInfo2());
 			
 			// broker
-			item.setText(19, String.valueOf(prof.getBroker()));
+			item.setText(20, String.valueOf(prof.getBroker()));
 			// conbroker
 			if ((prof.getBroker() != null) && (bv != null))
-				item.setText(20, bv.getConBroker(prof.getBroker()));
+				item.setText(21, bv.getConBroker(prof.getBroker()));
 				
 			// instfrom
 			// falls das ein Realaccount ist
@@ -497,14 +506,14 @@ public class Tableview extends TableViewBasic
 				String instfrom = ea.getInstFrom();
 				
 				if (instfrom != null)
-					item.setText(21, instfrom);
+					item.setText(22, instfrom);
 			} else
-				item.setText(21, "-");
+				item.setText(22, "-");
 			
 		}
 		
 		if (profanzahl > 0)
-			for (int i = 0; i < 22; i++)
+			for (int i = 0; i < 23; i++)
 			{
 				table.getColumn(i).pack();
 			}

@@ -38,6 +38,7 @@ public class Profit implements Comparable<Profit>
 	private String symbol = "???";
 	private float profitfaktor = 0;
 	private float drawdown = 0;
+	private int pz1=0;
 	
 
 	private Tradeliste tradeliste_glob = null;
@@ -74,7 +75,11 @@ public class Profit implements Comparable<Profit>
 				symbol = new String(SG.nteilstring(zeile, "#", 15));
 
 			}
-			
+			if (SG.countZeichen(zeile, "#") >= 15)
+			{
+				pz1 = SG.get_zahl(SG.nteilstring(zeile, "#", 16));
+
+			}
 			// den zugehörigen Trade speichern, beim ersten male
 			//die tradeliste löschen
 			tradeliste_glob = new Tradeliste(Rootpath.rootpath+ "\\data\\tradeliste.xml");
@@ -312,6 +317,17 @@ public class Profit implements Comparable<Profit>
 		return cl;
 		
 	}
+	
+	public int getPz1()
+	{
+		return pz1;
+	}
+
+	public void setPz1(int pz1)
+	{
+		this.pz1 = pz1;
+	}
+
 	public int compareTo(Profit vergleichsprofit)
 	{
 		int retval = 0;
@@ -412,6 +428,17 @@ public class Profit implements Comparable<Profit>
 			else
 				retval = 0;
 			break;
+		case 11://pz1
+			int verglpz1=vergleichsprofit.getPz1();
+			int pz1tmp=this.getPz1();
+			if(verglpz1>pz1tmp)
+				retval=1;
+			else if (verglpz1<pz1tmp)
+				retval=-1;
+			else
+				retval=0;
+			break;
+			
 		}
 		// System.out.println("vergleiche a<"+tage10vergl+"> mit b<"+tage10gew+"> retval<"+retval+">");
 		return retval;

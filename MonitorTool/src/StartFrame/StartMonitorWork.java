@@ -487,7 +487,7 @@ public class StartMonitorWork
 			alltradelist = tv_glob.buildAllTradeliste(tf, maxprofanz);
 		else
 			alltradelist = tv_glob.buildAllPortfolioliste();
-		ShowConfigAllP3 prof = new ShowConfigAllP3("Gewinnverlauf", tv_glob,
+		ShowConfigAllP3 prof = new ShowConfigAllP3(display_glob,"Gewinnverlauf", tv_glob,
 				alltradelist,brokerview_glob);
 		
 	}

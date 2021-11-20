@@ -2,17 +2,15 @@ package Panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.border.LineBorder;
 
+import org.eclipse.swt.widgets.Display;
 import org.jdesktop.application.Application;
 import org.jfree.chart.JFreeChart;
 
@@ -29,6 +27,7 @@ import modtools.FsbPortfolioEa;
 import modtools.MetaStarter;
 import modtools.Toogler;
 import mqlLibs.Eaclass;
+import swtHilfsfenster.SwtShowTradeliste;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -63,6 +62,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	private JTextField jTextField1pf;
 	private JLabel jLabel4pf;
 	private JTextField jTextField1tpsl;
+	private JButton jButton2showtradelist;
 	private JTextField jTextField2pkz1;
 	private JLabel jLabel7pkz1;
 
@@ -98,6 +98,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	private int index_glob = 0;
 	private JFreeChart chart_glob=null;
 	
+	
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
 	 */
@@ -130,7 +131,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		ea_glob = ea;
 		index_glob = index;
 		chart_glob=chart;
-		
+	
 		
 		EaConfigF eaconf = new EaConfigF(filedata + "\\" + magic_glob + ".lot");
 		initGUI(eaconf, filedata + "\\" + magic_glob + ".lot");
@@ -216,6 +217,7 @@ public class EaConfigDis extends javax.swing.JPanel
 				this.add(jTextField1broker);
 				jTextField1broker.setBounds(86, 100, 220, 21);
 				jTextField1broker.setName("jTextField1broker");
+				
 			}
 			{
 				jLabel3broker = new JLabel();
@@ -383,12 +385,24 @@ public class EaConfigDis extends javax.swing.JPanel
 				jTextField2pkz1.setBounds(401, 178, 77, 20);
 			}
 			{
+				jButton2showtradelist = new JButton();
+				this.add(jButton2showtradelist);
+				jButton2showtradelist.setBounds(714, 74, 119, 26);
+				jButton2showtradelist.setName("jButton2showtradelist");
+				jButton2showtradelist.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						jButton2showtradelistActionPerformed(evt);
+					}
+				});
+			}
+			{
 
 			}
 		
-			init();
+			
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			init();
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -400,7 +414,8 @@ public class EaConfigDis extends javax.swing.JPanel
 		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(broker_glob);
 		
 		setEaMessage(on_glob);
-		jTextField1broker.setText(broker_glob);
+		//jTextField1broker.setText(broker_glob);
+		jTextField1broker.setText("dies ist ein broker");
 		jTextField1channel.setText(String.valueOf(meconf.getTradecopymagic()));
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
@@ -413,13 +428,13 @@ public class EaConfigDis extends javax.swing.JPanel
 		jTextField1prof30.setText(String.valueOf(tl_glob.get_tsumx(30)));
 		jTextField1index.setText(String.valueOf(index_glob));
 		
-		if (magic_glob < 100)
+		if ((magic_glob < 100)&& (brokerview_glob.getAccounttype(broker_glob) !=4))
 		{
 			jTextField1.setText("RealAccountChannel");
 			jTextField1_lots.setEnabled(false);
 			jButton1.setEnabled(false);
 			jTextField1tpsl.setText("RealAccount");
-		} else if (FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf) == true)
+		} else if ((brokerview_glob.getAccounttype(broker_glob) !=4)&&(FsbPortfolioEa.checkIsPortfolioEa(magic_glob, meconf) == true))
 		{
 			jTextField1.setText("FSB Portfolio EA");
 			jTextField1_lots.setEnabled(false);
@@ -436,7 +451,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			String filename = FsbPortfolioEa.searchEaFilename(Integer.valueOf(Eaclass.calcMagicFsbPortBaseMagic(magic_glob)), meconf);
 			if (filename != null)
 				jTextField1info.setText(filename);
-		} else
+		} else if((brokerview_glob.getAccounttype(broker_glob) !=4))
 		{
 			jTextField1.setText("SingleEa");
 			jTextField1_lots.setEnabled(true);
@@ -444,6 +459,12 @@ public class EaConfigDis extends javax.swing.JPanel
 			
 			// sl-tp beim normalen ea setzen
 			jTextField1tpsl.setText("TP=" + ea_glob.getTp() + " SL=" + ea_glob.getSl());
+		}
+		else if((brokerview_glob.getAccounttype(broker_glob) ==4))
+		{
+			jTextField1.setText("AutoCreator");
+			jTextField1_lots.setEnabled(false);
+			jButton2deleteEA.setEnabled(false);
 		}
 		
 		jTextField1broker.setEditable(false);
@@ -482,6 +503,9 @@ public class EaConfigDis extends javax.swing.JPanel
 			jButton2copytoautocreator.setEnabled(true);
 			jTextField2pkz1.setEnabled(true);
 			jLabel7pkz1.setEnabled(true);
+			
+			String pkz1=AutoCreator.getPkz1(meconf, comment_glob);
+			jTextField2pkz1.setText(pkz1);
 		}
 		else
 		{
@@ -595,6 +619,18 @@ public class EaConfigDis extends javax.swing.JPanel
 		String new_name=autocreatorname.getText();
 		AutoCreator.copyToAutoCreator(meconf, comment_glob,new_name,chart_glob);
 		
+	}
+	
+	private void jButton2showtradelistActionPerformed(ActionEvent evt) {
+		System.out.println("jButton2showtradelist.actionPerformed, event="+evt);
+		//TODO add your code for jButton2showtradelist.actionPerformed
+		Display dis=new Display();
+		
+		SwtShowTradeliste st = new SwtShowTradeliste();
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic_glob), broker_glob,-1);
+		
+		st.init(dis,  etl,tv_glob,broker_glob,String.valueOf(magic_glob));
+		dis.close();
 	}
 
 }

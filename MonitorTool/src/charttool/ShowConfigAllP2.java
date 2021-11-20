@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import org.eclipse.swt.widgets.Display;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -44,10 +45,12 @@ public class ShowConfigAllP2 extends ApplicationFrame
 	// hier möchte man nur schauen wie gut die EAs und der backtest laufen
 	// vergleichen und die Lotsize einstellen.
 	private static Tableview tv_glob = null;
+
 	
 	public ShowConfigAllP2(String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv)
 	{
 		super("title");
+		
 		int anz = 5;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

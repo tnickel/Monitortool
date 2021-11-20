@@ -34,6 +34,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 	private Button buttonProfitfaktor;
 	private Button button1info2;
 	private Button button1info1;
+	private Button buttonpz1;
 	private Button okbutton;
 	private Button sortanztrades;
 	private Button sortprofitall;
@@ -213,6 +214,20 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 						}
 					});
 				}
+				{
+					buttonpz1 = new Button(group1, SWT.RADIO | SWT.LEFT);
+					GridData buttonDrawdownLData = new GridData();
+					buttonpz1.setLayoutData(buttonDrawdownLData);
+					buttonpz1.setText("pz1");
+					if(GlobalVar.getSortcriteria()==11)
+						buttonpz1.setSelection(true);
+					buttonpz1.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							buttonPz1WidgetSelected(evt);
+						}
+					});
+				}
+				
 			}
 			{
 				okbutton = new Button(dialogShell, SWT.PUSH | SWT.CENTER);
@@ -307,5 +322,9 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 		//TODO add your code for buttonDrawdown.widgetSelected
 		GlobalVar.setSortcriteria(10);
 	}
-
+	private void buttonPz1WidgetSelected(SelectionEvent evt) {
+		System.out.println("buttonPz1.widgetSelected, event="+evt);
+		//TODO add your code for buttonDrawdown.widgetSelected
+		GlobalVar.setSortcriteria(11);
+	}
 }
