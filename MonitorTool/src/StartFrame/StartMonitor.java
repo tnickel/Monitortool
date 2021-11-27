@@ -1308,7 +1308,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			getAllData();
 			//einen timer so ein richten das er nach 5 sekunden ausgelöst wird und dann mit dem timer-event
 			//dieses Kommando "	smw.startAllMt(); " ausgeführt wird
-			smw.startAllMt();
+			smw.startAllMt(0);
 			//timer setzen der in 5 sekunden auslöst
 		}
 	}
@@ -1501,7 +1501,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void init()
 	{
-		MetaStarter.KillAllMetatrader();
+		if(GlobalVar.getMetatradernoautostartstop()==0)
+			MetaStarter.KillAllMetatrader();
 
 		if ((Lic.getlic() == 0))
 			GlobalVar.setUpdatechannel("freeware");
@@ -1903,7 +1904,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 		if(GlobalVar.getMetatraderrunning()==1)
 		{
-			smw.stopAllMt();
+			smw.stopAllMt(0);
 			GlobalVar.setMetatraderrunning(0);
 		}
 		smw.toggleOnOffEa();
@@ -2263,7 +2264,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				+ evt);
 		// TODO add your code for button2startmetatrader.widgetSelected
 
-		smw.startAllMt();
+		smw.startAllMt(1);
 		GlobalVar.setMetatraderrunning(1);
 	}
 
@@ -2271,7 +2272,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button2stopmt.widgetSelected, event=" + evt);
 		// TODO add your code for button2stopmt.widgetSelected
-		smw.stopAllMt();
+		smw.stopAllMt(1);
 		GlobalVar.setMetatraderrunning(0);
 	}
 

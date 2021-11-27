@@ -21,6 +21,8 @@ public class GlobalVar
 	
 	
 	
+	
+	
 	public GlobalVar()
 	{
 		if(FileAccess.FileAvailable(conffnam)==false)
@@ -248,7 +250,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.538");
+		return("Monitortool V0.539");
 	}
 	
 	public static String calcHeadline()
@@ -319,6 +321,17 @@ public class GlobalVar
 		gc.setAutocreatormode(autocreatormode);
 	}
 
+	public static void setMetatradernoautostartstop(int mode)
+	{
+		gc.setMetatradernoautostartstop(mode);
+		
+	}
+	
+	public static int getMetatradernoautostartstop()
+	{
+		return(gc.getMetatradernoautostartstop());
+	}
+	
 	static public void save()
 	{
 		Inf inf = new Inf();

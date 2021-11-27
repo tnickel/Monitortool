@@ -27,6 +27,7 @@ public class GlobVarDat
 	int askforupdate=1;
 	int lastcopytrademagic=100;
 	int autocreatormode=0;
+	int Metatradernoautostartstop=0;
 	
 	public String getUsername()
 	{
@@ -219,6 +220,14 @@ public class GlobVarDat
 	public void setAutocreatormode(int autocreatormode)
 	{
 		this.autocreatormode = autocreatormode;
+	}
+	public int getMetatradernoautostartstop()
+	{
+		return Metatradernoautostartstop;
+	}
+	public void setMetatradernoautostartstop(int Metatradernoautostartstop)
+	{
+		this.Metatradernoautostartstop = Metatradernoautostartstop;
 	}
 	
 	

@@ -649,7 +649,8 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
-		MetaStarter.KillAllMetatrader();
+		if(GlobalVar.getMetatradernoautostartstop()==0)
+		  MetaStarter.KillAllMetatrader();
 		meRefreshConfig();
 		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
