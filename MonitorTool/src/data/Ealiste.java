@@ -184,6 +184,16 @@ public class Ealiste
 		return 0;
 		
 	}
+	public int getOnComment(String comment, String broker,Tradeliste tl)
+	{
+		Ea ea = this.getEaComment(comment, broker,tl);
+		if (ea != null)
+			return ea.getOn();
+		
+		return 0;
+		
+	}
+	
 	
 	public void setOn(int magic, String broker, int flag)
 	{
@@ -280,9 +290,29 @@ public class Ealiste
 		}
 		return null;
 	}
+	public Ea getEaComment(String comment, String broker,Tradeliste tl)
+	{
+		//holt den ea mit einem bestimmten comment aus der tradeliste
+		
+		if (ealiste == null)
+			return null;
+		
+		int anz = ealiste.size();
+		for (int i = 0; i < anz; i++)
+		{
+			Ea ea = ealiste.get(i);
+			if ((ea.getComment(tl).equals(comment)) && (ea.getBroker().equalsIgnoreCase(broker)))
+				return (ea);
+		}
+		return null;
+	}
+	
+	
 	
 	public ArrayList<Integer> getMagiclist(String broker)
 	{
+		//erzeuge für die ealiste eine magicliste, diese wird für den Tradekopierer benötigt
+		//die magiclist beinhaltet die eas die für die tradekopierer eingeschaltet ist
 		ArrayList<Integer> magiclist = new ArrayList<Integer>();
 		int anz = ealiste.size();
 		for (int i = 0; i < anz; i++)
@@ -294,6 +324,10 @@ public class Ealiste
 		return magiclist;
 		
 	}
+	
+	
+	
+	
 	
 	public Ea delEa(int magic, String broker)
 	{

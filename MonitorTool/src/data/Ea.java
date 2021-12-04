@@ -512,6 +512,32 @@ public class Ea implements Comparable<Ea>
 		else return("err");
 	}
 	
+	public String getComment(Tradeliste tl)
+	{
+		//für den EA wird der comment ermittelt. Hierzu wird die Tradeliste benötigt
+		//da im EA kein comment gespeichert ist
+
+		String comment=null;
+		int anz=tl.getsize();
+		for(int i=0; i<anz; i++)
+		{
+			Trade tr=tl.getelem(i);
+			if((tr.getBroker().equals(broker))&&(tr.getMagic()==magic))
+			{
+				//found trade
+				comment=tr.getComment();
+				break;
+			}
+		}
+		if(comment==null)
+		{	
+			Tracer.WriteTrace(20, "E: can´t get comment from EA broker="+broker+" magic="+magic);
+			
+		}
+		return "not found";
+	}
+	
+	
 	public int compareTo(Ea ea)
 	{
 		

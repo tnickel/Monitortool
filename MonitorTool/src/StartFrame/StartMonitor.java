@@ -1501,7 +1501,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void init()
 	{
-		if(GlobalVar.getMetatradernoautostartstop()==0)
+		
+		
+		
+		if((GlobalVar.getMetatradernoautostartstop()==0) && (GlobalVar.getAutocreatormode()==0))
 			MetaStarter.KillAllMetatrader();
 
 		if ((Lic.getlic() == 0))

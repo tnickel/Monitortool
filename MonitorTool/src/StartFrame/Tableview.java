@@ -1130,7 +1130,7 @@ public class Tableview extends TableViewBasic
 				int magic = SG.get_zahl(item.getText(1));
 				if (magic != prof.getMagic())
 					Tracer.WriteTrace(10, "internal magic<" + magic + "> != prof.magic<" + prof.getMagic() + ">");
-				tog.ToggleOnOffEa(brokerview_glob, eal, magic, prof.getBroker());
+				tog.ToggleOnOffEa(tl,brokerview_glob, eal, magic, prof.getComment(),prof.getBroker());
 				
 			}
 		}

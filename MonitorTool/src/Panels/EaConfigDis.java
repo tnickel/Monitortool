@@ -579,8 +579,14 @@ public class EaConfigDis extends javax.swing.JPanel
 			MetaStarter.KillAllMetatrader();
 		
 		Toogler tog = new Toogler();
-		tog.ToggleOnOffEa(brokerview_glob, eal_glob, magic_glob, broker_glob);
+		
+		//int brokertype=brokerview_glob.getAccounttype(broker_glob);
+		
+		tog.ToggleOnOffEa(tl_glob,brokerview_glob, eal_glob, magic_glob, comment_glob, broker_glob);
+		
 		Ea ea = eal_glob.getEa(magic_glob, broker_glob);
+		
+		
 		Tracer.WriteTrace(20, "EA statuson=" + ea.getOn());
 		int status = ea.getOn();
 		setEaMessage(status);

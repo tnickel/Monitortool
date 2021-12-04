@@ -102,7 +102,23 @@ public class Brokerview
 		Mlist.add("Error: Broker <" + brokername + "> nicht bekannt", 1);
 		return -1;
 	}
-
+	public Boolean checkMetatraderExists(String metatraderpath,int stopflag)
+	{
+		//prüft nach ob der metatrader schon konfiguriert ist
+		int anz = metatraderlist.getsize();
+		for (int i = 0; i < anz; i++)
+		{
+			Metaconfig conf = metatraderlist.getelem(i);
+			if(conf.getAppdata().equals(metatraderpath)==true)
+			{
+				if(stopflag==1)
+				Tracer.WriteTrace(10, "Error: metatrader <"+metatraderpath+"> already configured see Brokername<"+conf.getBrokername()+">");
+				return true;
+				
+			}
+		}
+		return false;
+	}
 	public Metaconfig getMetaconfig(String expertpath)
 	{
 		return (metatraderlist.getMetaconfig(expertpath));

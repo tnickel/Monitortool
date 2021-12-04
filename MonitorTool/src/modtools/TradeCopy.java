@@ -3,6 +3,7 @@ package modtools;
 import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Metaconfig;
+import data.Tradeliste;
 import hiflsklasse.Tracer;
 
 public class TradeCopy
@@ -44,7 +45,7 @@ public class TradeCopy
 		
 	}
 	
-	public void configProfiles(Brokerview bv, Ealiste eal)
+	public void configProfiles(Brokerview bv, Ealiste eal,Tradeliste tl)
 	{
 		// hier werden die profiles kopiert und anschliessend gepatched
 		Installer inst = new Installer();
@@ -62,8 +63,16 @@ public class TradeCopy
 		// 2.2 dann patche das sender profile beim demobroker
 		ChrFile chrdemo = new ChrFile();
 		chrdemo.setFilename(profilenameDemo);
-		chrdemo.patchTradecopyMagics(selbroker_glob, eal);
-		chrdemo.patchTradecopyChannel(selbroker_glob);
+		
+		int accounttype=bv.getAccounttype(meconf_sel_glob.getBrokername());
+		if(accounttype==1)
+    		chrdemo.patchTradecopyMagics(selbroker_glob,eal);
+		else if(accounttype==4)
+			chrdemo.patchTradecopyMagicsAC(selbroker_glob, eal);
+		else
+			Tracer.WriteTrace(10, "Error config profiles: can´t patch tradechannel for accounttype<"+accounttype+">");
+		
+		
 		chrdemo.patchCurPair(meconf_sel_glob.getHistexportcurrency());
 		chrdemo.writeMemFile(null);
 		
@@ -73,7 +82,7 @@ public class TradeCopy
 		String profilenameReal = profReal.getProfileEaChannel("FX Blue - TradeCopy Receiver",
 				meconf_sel_glob.getBrokername());
 		
-		// 3.2 dann patche das profile
+		// 3.2 dann patche das profile des realchannel
 		ChrFile chrreal = new ChrFile();
 		chrreal.setFilename(profilenameReal);
 		chrreal.patchTradecopyChannel(selbroker_glob);
@@ -82,6 +91,9 @@ public class TradeCopy
 		chrreal.patchSuffix(meconf_real_glob.getSuffix());
 		chrreal.writeMemFile(null);
 	}
+	
+	
+	
 	
 	public boolean checkdoubleChannel(String realbroker, Brokerview brokerview, int maxchannel)
 	{

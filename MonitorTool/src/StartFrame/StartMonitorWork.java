@@ -514,21 +514,21 @@ public class StartMonitorWork
 	public void toggleOnOffEa()
 	{
 		
-		DisTool.waitCursor();
+		//DisTool.waitCursor();
 		tv_glob.toggleOnOffEas();
 		tv_glob.ShowProfitTable();
 		tv_glob.storeEaliste();
-		DisTool.arrowCursor();
+		//DisTool.arrowCursor();
 		
 	}
 	
 	public void toogleOnOffAutomatic()
 	{
-		DisTool.waitCursor();
+		//DisTool.waitCursor();
 		tv_glob.toggleOnOffAutomatics();
 		tv_glob.ShowProfitTable();
 		tv_glob.storeEaliste();
-		DisTool.arrowCursor();
+		//DisTool.arrowCursor();
 		
 	}
 	

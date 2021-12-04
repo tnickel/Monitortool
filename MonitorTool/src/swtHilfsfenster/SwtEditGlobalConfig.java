@@ -43,6 +43,7 @@ public class SwtEditGlobalConfig
 	private Label label12maxpongtime;
 	private Text text1maxpongtime;
 	private Button button1freeware;
+	private Button button1mtautomaticstartstop;
 	private Label label7;
 	private Label label13;
 	private Button development;
@@ -322,17 +323,32 @@ public class SwtEditGlobalConfig
 				button1autostart.setSelection(true);
 			else
 				button1autostart.setSelection(false);
-			button1autostart.setBounds(290, 344, 190, 30);
+			button1autostart.setBounds(290, 349, 190, 30);
 			button1autostart.setToolTipText("If the autostart button is activated monitortool do the following after restart\r\n1) Reload all tradelisten\r\n2) Start all activeted Metatrader");
 		}
 		{
 			askforupdate = new Button(sh, SWT.CHECK | SWT.LEFT);
 			askforupdate.setText("ask for update");
-					askforupdate.setBounds(290, 380, 179, 30);
+					askforupdate.setBounds(290, 374, 179, 30);
 			if(GlobalVar.getAskforUpdateflag()==1)		
 				askforupdate.setSelection(true);
 			else
 				askforupdate.setSelection(false);
+		}
+		{
+			button1mtautomaticstartstop = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1mtautomaticstartstop.setText("Metatrader automatic start/stop");
+			button1mtautomaticstartstop.setBounds(290, 324, 178, 30);
+			if(GlobalVar.getMetatradernoautostartstop()==1)
+				button1mtautomaticstartstop.setSelection(true);
+			else
+				button1mtautomaticstartstop.setSelection(false);
+			
+			button1mtautomaticstartstop.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					button1mtautomaticstartstopWidgetSelected(evt);
+				}
+			});
 		}
 
 		init();
@@ -497,5 +513,16 @@ public class SwtEditGlobalConfig
 		System.out.println("button1freeware.widgetSelected, event=" + evt);
 		// TODO add your code for button1freeware.widgetSelected
 		GlobalVar.setUpdatechannel("freeware");
+	}
+	
+	private void button1mtautomaticstartstopWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1mtautomaticstartstop.widgetSelected, event="+evt);
+		
+		if(button1mtautomaticstartstop.getSelection()==true)
+			GlobalVar.setMetatradernoautostartstop(1);
+		else
+			GlobalVar.setMetatradernoautostartstop(1);
+		
+		
 	}
 }

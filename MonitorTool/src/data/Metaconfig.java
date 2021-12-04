@@ -841,11 +841,45 @@ public class Metaconfig implements Comparable<Metaconfig>
 			}
 	}
 	
+	public void SetCloseAllTradesOnceAC(String comment)
+	{
+		// die trades für eine bestimmte comment werden geschlossen
+		// das wird für den autocreator benötigt
+		// ../files abgelegt
+		// <comment>.clocom
+		File clofile = new File(this.getFiledata() + "\\" + comment + ".clocom");
+		if (clofile.exists() == false)
+			try
+			{
+				if (clofile.createNewFile() == false)
+					Tracer.WriteTrace(10,
+							"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+				Tracer.WriteTrace(10,
+						"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+			}
+	}
+	
+	
 	public void RemoveCloseAllTradesOnce(int magic)
 	{
 		// es wird geschaut of das File <magic>.clo vorhanden ist, wenn ja wird es
 		// gelöscht
 		File clofile = new File(this.getFiledata() + "\\" + magic + ".clo");
+		if (clofile.exists() == false)
+			return;
+		else
+			if(clofile.delete()==false)
+				Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <"+clofile.getAbsolutePath()+">");
+	}
+	public void RemoveCloseAllTradesOnceAC(String comment)
+	{
+		// es wird geschaut of das File <magic>.clocom vorhanden ist, wenn ja wird es
+		// gelöscht
+		//wird für autocreator benötigt
+		File clofile = new File(this.getFiledata() + "\\" + comment + ".clocom");
 		if (clofile.exists() == false)
 			return;
 		else

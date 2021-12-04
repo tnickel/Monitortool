@@ -3,6 +3,7 @@ package modtools;
 import java.util.ArrayList;
 
 import data.Ealiste;
+import data.Tradeliste;
 import gui.Mbox;
 
 public class ChrFile extends Patcher
@@ -158,10 +159,12 @@ public class ChrFile extends Patcher
 	public void patchTradecopyMagics(String broker,Ealiste eal)
 	{
 		String patchstring="0,";
+		//baut aus der ealiste eine liste mit den magics auf
 		ArrayList<Integer> mlist=eal.getMagiclist(broker);
 		for(int i=0; i<mlist.size(); i++)
 		{
 			int magic=mlist.get(i);
+			//falls dieser bestimmte ea mit der magic eingeschaltet ist dann nimm diesen in den patchstring auf
 			if(eal.getOn(magic, broker)==1)
 			  patchstring=patchstring+mlist.get(i)+",";
 		}
@@ -177,6 +180,39 @@ public class ChrFile extends Patcher
 			}
 		}
 	}
+	public void patchTradecopyMagicsAC(String broker,Ealiste eal)
+	{
+		//beim Autocreator werden die comments gepatched
+		
+		String patchstring="";
+		//baue die commentliste aus der magicliste auf
+		ArrayList<Integer> mlist=eal.getMagiclist(broker);
+		for(int i=0; i<mlist.size(); i++)
+		{
+			int magic=mlist.get(i);
+			//falls der EA eingeschaltet ist wird der Patchstring um den comment erweitert
+			if(eal.getOn(magic, broker)==1)
+			{
+			  String comment=String.valueOf(magic);
+			  comment=comment.replace("[tp]", "");
+			  comment=comment.replace("[sl]","");
+			  patchstring=patchstring+comment+",";
+			}
+		}
+		//patch magicnumbers
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			if (zeile0.contains("IncludeOrderComments=") == true) 
+			{
+				zeilenspeicher[i] = "IncludeOrderComments=" + patchstring;
+				return;
+			}
+		}
+	}
+	
+	
 	public void patchReceiverMagic(int magic)
 	{
 		//patch magicnumber

@@ -3,25 +3,27 @@ package modtools;
 import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Metaconfig;
+import data.Tradeliste;
 import gui.Mbox;
 import hiflsklasse.Tracer;
 
 public class Toogler
 {
-	public void ToggleOnOffEa(Brokerview brokerview, Ealiste eal, int magic, String selbroker)
+	public void ToggleOnOffEa(Tradeliste tl,Brokerview brokerview, Ealiste eal, int magic,String comment, String selbroker)
 	{
+		//The ea will be switched on/off for the tradecopier
+		// selbroker = selektierter broker		// der selektierte broker ist ein Realbroker, we can´t switch realbrokers
+
+		int atype=	brokerview.getAccounttype(selbroker);
 		
-		// selbroker = selektierter broker
-		// der selektierte broker ist ein Realbroker
-		if (brokerview.getAccounttype(selbroker) == 2)
+		if (atype == 2)
 		{
 			Mbox.Infobox(
 					"Only on demoaccounts you can swith on/off eas magic<" + magic + "> broker<" + selbroker + ">");
 			return;
-			
 		}
 		//nur beim demobroker kann der EA ein/aus geschaltet werden
-		if (brokerview.getAccounttype(selbroker) == 1)
+		if ((atype==1)||(atype==4))
 		{
 			// Broker ist ein demobroker, dann hole den realbroker
 			Metaconfig mc = brokerview.getMetaconfigByBrokername(selbroker);
@@ -45,7 +47,11 @@ public class Toogler
 				eal.setOn(magic, selbroker, 0);
 				//und die offenen trades mit der bestimmten magic abschalten
 				//aber nur einmal, der EA bleibt bestehen sonst
-				mc.SetCloseAllTradesOnce(magic);
+				if(atype==1)mc.SetCloseAllTradesOnce(magic);
+				else if (atype==4)
+					mc.SetCloseAllTradesOnceAC(comment);
+				else
+					Tracer.WriteTrace(10, "Error: wrong accountype="+atype);
 			}
 			else
 			{
@@ -54,7 +60,11 @@ public class Toogler
 				
 				//remove
 				//hier wird ein bestehender RemoveCloseAllTrades für eine Magic wieder entfernt
-				mc.RemoveCloseAllTradesOnce(magic);
+				if(atype==1)mc.RemoveCloseAllTradesOnce(magic);
+				else if (atype==4)
+					mc.RemoveCloseAllTradesOnceAC(comment);
+				else
+					Tracer.WriteTrace(10, "Error: wrong accountype="+atype);
 			}
 			
 			
@@ -63,7 +73,7 @@ public class Toogler
 			trc.init(selbroker,realbroker,brokerview);
 
 			//trage die verbindungsdaten und die magics ein
-			trc.configProfiles(brokerview,eal);
+			trc.configProfiles(brokerview,eal,tl);
 			
 			//konsistenzprüfung, hier wird geprüft ob jeder channel nur ein einziges Mal vorkommt
 			//eine channelid darf beim realbroker nicht zweimal vorkommen. Es wird channel 1-255 überprüft
@@ -73,7 +83,9 @@ public class Toogler
 				System.exit(99);
 			}
 			
+	
 		}
 		
 	}
+	
 }

@@ -90,7 +90,7 @@ public class SwtEditBrokerConfig
 	private Button setmetatraderdir;
 	private Label label6;
 	private Button GbAutomaticaccountflag;
-	private Button Monitoraccountflag;
+	
 	
 	private Button SaveExit;
 	private Text Brokername;
@@ -599,6 +599,11 @@ public class SwtEditBrokerConfig
 	
 	void initBrokereditM()
 	{
+		//bei create account wird erst default mässig auf demoaccount gesetzt
+		if(me_glob.getAccounttype() == 0)
+			setDemoaccount();
+		
+		
 		me_glob.setValiditydays(999999);
 		me_glob.setStoretrades(true);
 		
@@ -855,6 +860,11 @@ public class SwtEditBrokerConfig
 					"Error: This directory is not an metatrader rootdir, terminal.exe is missing\n please set correct dir");
 			return;
 			
+		}
+		else if(bv_glob.checkMetatraderExists(fnam,1)==true)
+		{
+			Tracer.WriteTrace(20,"Error: This metatrader is already configured");
+			return;
 		}
 		else
 		{ // fnam=D:\\Forex\\mt4\\audrn2
