@@ -654,8 +654,8 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
-		if(GlobalVar.getMetatradernoautostartstop()==0)
-		  MetaStarter.KillAllMetatrader();
+		if(GlobalVar.getMetatraderautostartstop()==0)
+		  MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
 		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
@@ -720,7 +720,7 @@ public class SwtEditBrokerConfig
 	{
 		System.out.println("installEas.widgetSelected, event=" + evt);
 		// Install demo
-		MetaStarter.KillAllMetatrader();
+		MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
 		
 		String selbroker = me_glob.getconnectedBroker();
@@ -922,7 +922,7 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
-		MetaStarter.KillAllMetatrader();
+		MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
 		me_glob.setHistexportcurrency(text1currencypair.getText());
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());

@@ -3,7 +3,7 @@ package modtools;
 import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Metaconfig;
-import data.Tradeliste;
+import data.Profitliste;
 import hiflsklasse.Tracer;
 
 public class TradeCopy
@@ -45,7 +45,7 @@ public class TradeCopy
 		
 	}
 	
-	public void configProfiles(Brokerview bv, Ealiste eal,Tradeliste tl)
+	public void configProfiles(Brokerview bv, Ealiste eal,Profitliste pl)
 	{
 		// hier werden die profiles kopiert und anschliessend gepatched
 		Installer inst = new Installer();
@@ -68,7 +68,7 @@ public class TradeCopy
 		if(accounttype==1)
     		chrdemo.patchTradecopyMagics(selbroker_glob,eal);
 		else if(accounttype==4)
-			chrdemo.patchTradecopyMagicsAC(selbroker_glob, eal);
+			chrdemo.patchTradecopyMagicsAC(selbroker_glob, eal,bv,pl);
 		else
 			Tracer.WriteTrace(10, "Error config profiles: can´t patch tradechannel for accounttype<"+accounttype+">");
 		

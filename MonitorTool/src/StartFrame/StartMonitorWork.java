@@ -24,6 +24,7 @@ import data.Ea;
 import data.GlobalVar;
 import data.Metaconfig;
 import data.Profit;
+import data.Profitliste;
 import data.Rootpath;
 import data.SymbolReplaceList;
 import data.Trade;
@@ -92,7 +93,10 @@ public class StartMonitorWork
 		return (tv_glob.calcTradeanzahl());
 		
 	}
-	
+	public Profitliste getAktProfitliste()
+	{
+		return(tv_glob.getAktProfitliste());
+	}
 	public void buildBrokerliste(Table table3, int forceflag)
 	{
 		// forceflag==1, es wird von platte alles geladen
@@ -217,6 +221,7 @@ public class StartMonitorWork
 		// die profittabelle anzeigen
 		tv_glob.ShowProfitTable();
 		
+		
 	}
 	
 	public void brokerselected(String name, Tradefilter tf, Table table1, Table table2, Table table3,
@@ -285,11 +290,11 @@ public class StartMonitorWork
 		sc.init(display_glob, selectedProfitelem_glob, tv_glob, maglist);
 	}
 	
-	public void updatehistoryexporter(Table table3)
+	public void updatehistoryexporter(Table table3,int forceflag)
 	{
 		Tracer.WriteTrace(20, "I:stop all Metatrader");
-		if(GlobalVar.getMetatradernoautostartstop()==0)
-			MetaStarter.StopAllMetatrader(brokerview_glob);
+		if(GlobalVar.getMetatraderautostartstop()==1)
+			MetaStarter.StopAllMetatrader(brokerview_glob,forceflag );
 		
 		buildBrokerliste(table3, 0);
 		Installer inst = new Installer();
@@ -465,7 +470,7 @@ public class StartMonitorWork
 		ShowAllProfitsConfig prof = new ShowAllProfitsConfig("Gewinnverlauf", tv_glob, alltradelist, brokerview_glob);
 	}
 	
-	public void showallprofit2(Tradefilter tf, int portfolioflag, int maxprofanz)
+	public void showallprofit2(Tradefilter tf, int portfolioflag, int maxprofanz,Profitliste profliste)
 	{
 		
 		// hier wird eine Tradeliste gebildet welche alle ea´s beinhaltet
@@ -479,7 +484,7 @@ public class StartMonitorWork
 		else
 			alltradelist = tv_glob.buildAllPortfolioliste();
 		ShowConfigAllP3 prof = new ShowConfigAllP3(display_glob, "Gewinnverlauf", tv_glob, alltradelist,
-				brokerview_glob);
+				brokerview_glob,profliste);
 		
 	}
 	
@@ -964,7 +969,7 @@ public class StartMonitorWork
 		// hier werden alle Metatrader automatisch konfiguriert
 		// die neuen werden als Demokonto hinzugefügt
 		
-		MetaStarter.KillAllMetatrader();
+		MetaStarter.KillAllMetatrader(1);
 		// das metatraderrootverzeichniss holen
 		Autoconfig autoconf = new Autoconfig();
 		autoconf.configAllMetatrader(brokerview_glob);
@@ -973,18 +978,17 @@ public class StartMonitorWork
 	
 	public void startAllMt(int forceflag)
 	{
-		if ((GlobalVar.getMetatradernoautostartstop() == 0) || (forceflag == 1))
-			MetaStarter.StartAllMetatrader(brokerview_glob);
+		
+			MetaStarter.StartAllMetatrader(brokerview_glob,forceflag);
 		
 	}
 	
 	public void stopAllMt(int forceflag)
 	{
-		if ((GlobalVar.getMetatradernoautostartstop() == 0) || (forceflag == 1))
-		{
+		
 			Tracer.WriteTrace(20, "I:stop all Metatrader");
-			MetaStarter.StopAllMetatrader(brokerview_glob);
-		}
+			MetaStarter.StopAllMetatrader(brokerview_glob,forceflag);
+		
 	}
 	
 	public void convertToPortable()
@@ -993,10 +997,15 @@ public class StartMonitorWork
 		inst.convertToPortable(Display.getDefault(), brokerview_glob);
 	}
 	
-	public void replaceAllSymbols()
+	public void replaceAllSymbols(int forceflag)
 	{
-		if (GlobalVar.getMetatradernoautostartstop() == 0)
-			MetaStarter.KillAllMetatrader();
+		if((GlobalVar.getMetatraderautostartstop()==0)&&(forceflag==0))
+		{
+			Tracer.WriteTrace(20, "I:I stop all Metatrader because startstop=0 && forceflag=0");
+			return;
+			
+		}
+			MetaStarter.KillAllMetatrader(forceflag);
 		
 		SymbolReplaceList s = new SymbolReplaceList(brokerview_glob);
 		s.ReplaceAllSymbols();

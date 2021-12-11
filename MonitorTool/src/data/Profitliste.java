@@ -216,4 +216,21 @@ public class Profitliste
 		}
 		
 	}
+	public String getProfComment(Brokerview bv,String broker, int magic)
+	{
+		//holt den comment aus der profitliste
+		int plsize = this.getsize();
+		for (int i = 0; i < plsize; i++)
+		{
+			Profit p = profitliste.get(i);
+			Metaconfig meconf = bv.getMetaconfigByBrokername(p.getBroker());
+			if((p.getMagic()==magic)&&(p.getBroker().equalsIgnoreCase(broker)))
+				{
+					//found entry in the profitlist
+					return p.getComment();
+				}
+		}
+		return("not found");
+	}
+	
 }

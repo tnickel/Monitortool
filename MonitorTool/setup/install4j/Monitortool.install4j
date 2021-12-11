@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/MonitorTool/setup" />
-  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.541" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.542" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8">
+    <variables>
+      <variable name="deleteConfig" value="1" description="If this value is 1, the config will be deleted" />
+    </variables>
+  </application>
   <files>
     <mountPoints>
       <mountPoint id="58" />
@@ -194,6 +198,24 @@ configurationObject.setText(instdir);
                   <property name="name" type="string">TaskkillAllMetatrader</property>
                 </serializedBean>
                 <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
+              </action>
+              <action id="159" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="fileFilter">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string" />
+                    </object>
+                  </property>
+                  <property name="files" type="array" class="java.io.File" length="1">
+                    <element index="0">
+                      <object class="java.io.File">
+                        <string>${installer:sys.installationDir}/conf/config.xml</string>
+                      </object>
+                    </element>
+                  </property>
+                </serializedBean>
+                <condition>String delconfig=context.getCompilerVariable("deleteConfig");
+return(delconfig.equalsIgnoreCase("1"));</condition>
               </action>
             </actions>
             <formComponents>

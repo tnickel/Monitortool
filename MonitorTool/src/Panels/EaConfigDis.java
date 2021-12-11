@@ -20,6 +20,7 @@ import data.Ea;
 import data.Ealiste;
 import data.GlobalVar;
 import data.Metaconfig;
+import data.Profitliste;
 import data.Tradeliste;
 import hiflsklasse.Tracer;
 import modtools.AutoCreator;
@@ -93,6 +94,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	private Ealiste eal_glob = null;
 	private Tableview tv_glob = null;
 	private Tradeliste tl_glob = null;
+	private Profitliste pl_glob=null;
 	private String comment_glob = null;
 	private Ea ea_glob = null;
 	private int index_glob = 0;
@@ -115,7 +117,7 @@ public class EaConfigDis extends javax.swing.JPanel
 	}
 	
 	public EaConfigDis(int index, int magic, String cur, String filedata, int on, String broker, Brokerview bv,
-			Tableview tv, Ealiste eal, Tradeliste tl, String comment, Ea ea,JFreeChart chart)
+			Tableview tv, Ealiste eal, Tradeliste tl, String comment, Ea ea,JFreeChart chart,Profitliste pl)
 	{
 		super();
 		magic_glob = magic;
@@ -131,6 +133,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		ea_glob = ea;
 		index_glob = index;
 		chart_glob=chart;
+		pl_glob=pl;
 	
 		
 		EaConfigF eaconf = new EaConfigF(filedata + "\\" + magic_glob + ".lot");
@@ -576,13 +579,13 @@ public class EaConfigDis extends javax.swing.JPanel
 		System.out.println("jButton2tradecopyonoff.actionPerformed, event=" + evt);
 		
 		if (GlobalVar.getMetatraderrunning() == 1)
-			MetaStarter.KillAllMetatrader();
+			MetaStarter.KillAllMetatrader(0);
 		
 		Toogler tog = new Toogler();
 		
 		//int brokertype=brokerview_glob.getAccounttype(broker_glob);
 		
-		tog.ToggleOnOffEa(tl_glob,brokerview_glob, eal_glob, magic_glob, comment_glob, broker_glob);
+		tog.ToggleOnOffEa(tl_glob,brokerview_glob, eal_glob, magic_glob, comment_glob, broker_glob,pl_glob);
 		
 		Ea ea = eal_glob.getEa(magic_glob, broker_glob);
 		
@@ -597,7 +600,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		System.out.println("jButton2deleteEA.actionPerformed, event=" + evt);
 		
 		if (GlobalVar.getMetatraderrunning() == 1)
-			MetaStarter.KillAllMetatrader();
+			MetaStarter.KillAllMetatrader(0);
 			
 		// check fist if this ea is connected to realaccount, if yes than an
 		// errormessage

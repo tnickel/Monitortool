@@ -1328,7 +1328,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	    {
 	    	//update historyexporter
 	    	Tracer.WriteTrace(20, "I: a new installation was done, I will update all historyexporter");
-	    	smw.updatehistoryexporter(table3);
+	    	smw.updatehistoryexporter(table3,0);
 	    	if(uphistfile.delete()==false)
 	    		Tracer.WriteTrace(10, "E:cant delete file<"+uphistfile.getPath()+">");
 	    }
@@ -1504,8 +1504,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		
 		
 		
-		if((GlobalVar.getMetatradernoautostartstop()==0) && (GlobalVar.getAutocreatormode()==0))
-			MetaStarter.KillAllMetatrader();
+		
+			MetaStarter.KillAllMetatrader(0);
 
 		if ((Lic.getlic() == 0))
 			GlobalVar.setUpdatechannel("freeware");
@@ -1715,7 +1715,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out
 				.println("updateHistoryexporterMenuItem.widgetSelected, event="
 						+ evt);
-		smw.updatehistoryexporter(table3);
+		smw.updatehistoryexporter(table3,0);
 	}
 
 	private void BackupMenuItemWidgetSelected(SelectionEvent evt)
@@ -1812,7 +1812,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void addbrokerWidgetSelected(SelectionEvent evt)
 	{
-		MetaStarter.KillAllMetatrader();
+		MetaStarter.KillAllMetatrader(0);
 		// add new broker
 		System.out.println("addbroker.widgetSelected, event=" + evt);
 		smw.addnewbroker(table3);
@@ -2148,7 +2148,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// TODO add your code for button2delete.widgetSelected
 
 		if(GlobalVar.getMetatraderrunning()==1)
-			MetaStarter.KillAllMetatrader();
+			MetaStarter.KillAllMetatrader(0);
 		
 		GlobalVar.setMetatraderrunning(0);
 		int anz=smw.deleteEas();
@@ -2284,7 +2284,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("this.widgetDisposed, event=" + evt);
 		// TODO add your code for this.widgetDisposed
 		// Es wurde auf das X-geklickt (dispose)
-		MetaStarter.KillAllMetatrader();
+		MetaStarter.KillAllMetatrader(0);
 		GlobalVar.setMetatraderrunning(0);
 	}
 
@@ -2317,7 +2317,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void button3replacesymbolsWidgetSelected(SelectionEvent evt) {
 		System.out.println("button3replacesymbols.widgetSelected, event="+evt);
 		//replace all symbols
-		smw.replaceAllSymbols();
+		smw.replaceAllSymbols(1);
 	}
 	
 	private void button3makemt4backtestWidgetSelected(SelectionEvent evt) {
@@ -2338,7 +2338,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// Alle profite der selektierten EA anzeigen
 				System.out.println("showallprofit2.widgetSelected, event=" + evt);
 				int anz=GlobalVar.getShowMaxTradetablesize();
-				smw.showallprofit2(tf, 0, anz);
+				smw.showallprofit2(tf, 0, anz,smw.getAktProfitliste());
 				
 			
 	}

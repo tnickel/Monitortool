@@ -250,7 +250,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.541");
+		return("Monitortool V0.542");
 	}
 	
 	public static String calcHeadline()
@@ -321,15 +321,15 @@ public class GlobalVar
 		gc.setAutocreatormode(autocreatormode);
 	}
 
-	public static void setMetatradernoautostartstop(int mode)
+	public static void setMetatraderautostartstop(int mode)
 	{
-		gc.setMetatradernoautostartstop(mode);
+		gc.setMetatraderautostartstop(mode);
 		
 	}
 	
-	public static int getMetatradernoautostartstop()
+	public static int getMetatraderautostartstop()
 	{
-		return(gc.getMetatradernoautostartstop());
+		return(gc.getMetatraderautostartstop());
 	}
 	
 	static public void save()

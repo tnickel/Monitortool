@@ -35,6 +35,7 @@ import StartFrame.Brokerview;
 import StartFrame.Tableview;
 import data.Ea;
 import data.Metaconfig;
+import data.Profitliste;
 import data.Trade;
 import data.Tradeliste;
 import hiflsklasse.Tracer;
@@ -49,7 +50,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 	private static Tableview tv_glob = null;
 	private static Display display_glob =null;
 	
-	public ShowConfigAllP3(Display display,String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv)
+	public ShowConfigAllP3(Display display,String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv,Profitliste profliste)
 	{
 		super("title");
 		int anz = 5;
@@ -121,7 +122,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			// spalte 3 ist die config
 			String filedata = meconf.getFiledata();
 			EaConfigDis cp = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
-					eatradeliste, comment, ea,chart);
+					eatradeliste, comment, ea,chart,profliste);
 			panelx.add(cp);
 			frame.getContentPane().add(panelx);// , BorderLayout.WEST);
 		}

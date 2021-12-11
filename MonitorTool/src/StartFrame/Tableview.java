@@ -53,7 +53,7 @@ public class Tableview extends TableViewBasic
 	// wenn neue Trades hinzukommen.
 	
 	private Tradeliste tl = new Tradeliste(null);
-	private Profitliste pl = new Profitliste();
+	private Profitliste pl_glob = new Profitliste();
 	private HashSet<String> profitmenge = new HashSet<String>();
 	private Ealiste eal = new Ealiste();
 	private Brokerview brokerview_glob = new Brokerview();
@@ -73,7 +73,7 @@ public class Tableview extends TableViewBasic
 		brokerview_glob = bview;
 		tf_glob = tf;
 		tl.initTL(bview, forceflag, tf);
-		pl.init();
+		pl_glob.init();
 		eal.init();
 	}
 	
@@ -87,7 +87,7 @@ public class Tableview extends TableViewBasic
 	{
 		Tradeanzahl tr = new Tradeanzahl();
 		tr.setAnztrades(tl.getsize());
-		tr.setAnzprofits(pl.getsize());
+		tr.setAnzprofits(pl_glob.getsize());
 		return tr;
 	}
 	
@@ -258,7 +258,7 @@ public class Tableview extends TableViewBasic
 	public void CalcProfitTable(String brokername, int tradefilterflag)
 	{
 		// falls brokername != null wird nur ein bestimmter broker betrachtet
-		pl.init();
+		pl_glob.init();
 		int anz = tl.getsize();
 		
 		Tracer.WriteTrace(20, "build profittable");
@@ -273,27 +273,27 @@ public class Tableview extends TableViewBasic
 					continue;
 				
 			// das element wird in die profitliste eingruppiert
-			pl.addelem(tr);
+			pl_glob.addelem(tr);
 		}
 		
 		// dann den profitfaktor und drawdown berechnen
-		pl.calcDrawdowns();
-		pl.calcProfitfaktoren();
-		pl.calcOnoff(eal);
-		pl.calcPz1(brokerview_glob);
+		pl_glob.calcDrawdowns();
+		pl_glob.calcProfitfaktoren();
+		pl_glob.calcOnoff(eal);
+		pl_glob.calcPz1(brokerview_glob);
 		
 		// die unerwünschten Profite aus der Profitliste wieder rausfiltern
 		if (tradefilterflag == 1)
 		{
-			anz = pl.getsize();
+			anz = pl_glob.getsize();
 			for (int i = 0; i < anz; i++)
 			{
-				Profit prof = pl.getelem(i);
+				Profit prof = pl_glob.getelem(i);
 				if (prof.getMagic() == 2181)
 					System.out.println("found 2181");
 				if (tf_glob.checkConditions(prof) == false)
 				{
-					pl.delelem(i);
+					pl_glob.delelem(i);
 					i--;
 					anz--;
 				}
@@ -304,15 +304,15 @@ public class Tableview extends TableViewBasic
 		
 		if ((tradefilterflag == 1) && (tf_glob.isAutomaticselection() == true))
 		{
-			anz = pl.getsize();
+			anz = pl_glob.getsize();
 			for (int i = 0; i < anz; i++)
 			{
-				Profit prof = pl.getelem(i);
+				Profit prof = pl_glob.getelem(i);
 				Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 				if (ea.getAuto() == 0)
 				{
 					// lösche eintrag da automatic ==0
-					pl.delelem(i);
+					pl_glob.delelem(i);
 					i--;
 					anz--;
 				}
@@ -320,10 +320,10 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// dann die Infos setzen
-		anz = pl.getsize();
+		anz = pl_glob.getsize();
 		for (int i = 0; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 			
 			if (ea == null)
@@ -337,10 +337,10 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// show only EAs which are installed
-		anz = pl.getsize();
+		anz = pl_glob.getsize();
 		for (int i = 0; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 			
 			if(prof.getMagic()==5787434)
@@ -353,7 +353,7 @@ public class Tableview extends TableViewBasic
 				{
 					// lösche eintrag da ea nicht installiert
 					
-					pl.delelem(i);
+					pl_glob.delelem(i);
 					i--;
 					anz--;
 				}
@@ -361,7 +361,7 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// die EAliste um die neuen EAs erweitern erweiten
-		eal.expand(pl);
+		eal.expand(pl_glob);
 		
 		// ganz zum Schluss die Profitfaktoren und drawdowns berechnen
 		
@@ -397,16 +397,16 @@ public class Tableview extends TableViewBasic
 				"Ind#Magic#Symb#F#Info1#LOT#AUT#On#cL#pz1#tr7#prof7#tr30#prof30#trALL#profALL#PF#DD#comment#info2#broker#RealBroker#inst from");
 		
 		Tracer.WriteTrace(20, "show profittable");
-		pl.sortliste();
+		pl_glob.sortliste();
 		
-		int profanzahl = pl.getsize();
+		int profanzahl = pl_glob.getsize();
 		
 		if (pb != null)
 			pb.setMaximum(profanzahl + 1);
 		for (int j = 0; j < profanzahl; j++)
 		{
 			
-			Profit prof = pl.getelem(j);
+			Profit prof = pl_glob.getelem(j);
 			if (pb != null)
 				pb.setSelection(j);
 			
@@ -530,7 +530,7 @@ public class Tableview extends TableViewBasic
 		profitmenge.clear();
 		
 		// DAs ist in der Profitliste
-		int profanzahl = pl.getsize();
+		int profanzahl = pl_glob.getsize();
 		
 		// Dast zeigt die Tablle an
 		int anz = table2_glob.getItemCount();
@@ -540,7 +540,7 @@ public class Tableview extends TableViewBasic
 			TableItem item = table2_glob.getItem(i);
 			if (item.getChecked() == true)
 			{
-				Profit prof = pl.getelem(i);
+				Profit prof = pl_glob.getelem(i);
 				profitmenge.add(prof.getBroker() + ":" + prof.getMagic());
 				
 			}
@@ -557,7 +557,7 @@ public class Tableview extends TableViewBasic
 			TableItem item = table2_glob.getItem(i);
 			if (item.getChecked() == true)
 			{
-				Profit prof = pl.getelem(i);
+				Profit prof = pl_glob.getelem(i);
 				maglist.add(prof.getMagic());
 			}
 		}
@@ -578,7 +578,7 @@ public class Tableview extends TableViewBasic
 			TableItem item = table2_glob.getItem(i);
 			if (item.getChecked() == true)
 			{
-				Profit prof = pl.getelem(i);
+				Profit prof = pl_glob.getelem(i);
 				profitliste.add(prof);
 				
 			}
@@ -691,8 +691,8 @@ public class Tableview extends TableViewBasic
 	
 	public Profit getprofitelem(int index)
 	{
-		if (index < pl.getsize())
-			return pl.getelem(index);
+		if (index < pl_glob.getsize())
+			return pl_glob.getelem(index);
 		else
 			return null;
 	}
@@ -855,12 +855,12 @@ public class Tableview extends TableViewBasic
 		// diese Information sammelt man in der alltradeliste
 		ArrayList<Tradeliste> alltradel = new ArrayList<Tradeliste>();
 		
-		int profanz = pl.getsize();
+		int profanz = pl_glob.getsize();
 		if (profanz > maxprofanz)
 			profanz = maxprofanz;
 		for (int k = 0; k < profanz; k++)
 		{
-			Profit profelem = pl.getelem(k);
+			Profit profelem = pl_glob.getelem(k);
 			int magic = profelem.getMagic();
 			String broker = profelem.getBroker();
 			
@@ -898,11 +898,11 @@ public class Tableview extends TableViewBasic
 		ArrayList<Tradeliste> allportfolio = new ArrayList<Tradeliste>();
 		HashSet<String> brokermenge = new HashSet<String>();
 		
-		int profanz = pl.getsize();
+		int profanz = pl_glob.getsize();
 		
 		for (int k = 0; k < profanz; k++)
 		{
-			Profit profelem = pl.getelem(k);
+			Profit profelem = pl_glob.getelem(k);
 			String broker = profelem.getBroker();
 			
 			// broker wurde schon betrachtet
@@ -935,17 +935,17 @@ public class Tableview extends TableViewBasic
 	public void showCounter(Text anztrades, Text anzeas)
 	{
 		anztrades.setText(String.valueOf(tl.getsize()));
-		anzeas.setText(String.valueOf(pl.getsize()));
+		anzeas.setText(String.valueOf(pl_glob.getsize()));
 	}
 	
 	public void syncBroker()
 	{
 		// gehe durch die profitliste und schaue welche ea´s beim realbroker
 		// installiert sind
-		int anz = pl.getsize();
+		int anz = pl_glob.getsize();
 		for (int i = 0; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			int magic = prof.getMagic();
 			String broker = prof.getBroker();
@@ -979,10 +979,10 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// gehe noch mal durch die Liste und setze instfrom beim Realbroker
-		anz = pl.getsize();
+		anz = pl_glob.getsize();
 		for (int i = 0; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			int magic = prof.getMagic();
 			String broker = prof.getBroker();
 			
@@ -1122,7 +1122,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			TableItem item = table2_glob.getItem(i);
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			if (item.getChecked() == true)
 			{
@@ -1130,7 +1130,7 @@ public class Tableview extends TableViewBasic
 				int magic = SG.get_zahl(item.getText(1));
 				if (magic != prof.getMagic())
 					Tracer.WriteTrace(10, "internal magic<" + magic + "> != prof.magic<" + prof.getMagic() + ">");
-				tog.ToggleOnOffEa(tl,brokerview_glob, eal, magic, prof.getComment(),prof.getBroker());
+				tog.ToggleOnOffEa(tl,brokerview_glob, eal, magic, prof.getComment(),prof.getBroker(),pl_glob);
 				
 			}
 		}
@@ -1149,7 +1149,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			TableItem item = table2_glob.getItem(i);
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			if (item.getChecked() == true)
 			{
@@ -1170,7 +1170,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			TableItem item = table2_glob.getItem(i);
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			// falls dieser EA in der globalen liste selektiert wurde
 			if (item.getChecked() == true)
@@ -1193,7 +1193,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			TableItem item = table2_glob.getItem(i);
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			// falls dieser EA in der globalen liste selektiert wurde
 			if (item.getChecked() == true)
@@ -1327,10 +1327,10 @@ public class Tableview extends TableViewBasic
 		
 		int id = SG.get_zahl(searchid);
 		
-		int anz = pl.getsize();
+		int anz = pl_glob.getsize();
 		for (int i = lastfoundpos + 1; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			if (prof.getMagic() == id)
 			{
@@ -1343,7 +1343,7 @@ public class Tableview extends TableViewBasic
 		
 		for (int i = 0; i < anz; i++)
 		{
-			Profit prof = pl.getelem(i);
+			Profit prof = pl_glob.getelem(i);
 			
 			if (prof.getMagic() == id)
 			{
@@ -1376,5 +1376,9 @@ public class Tableview extends TableViewBasic
 	{
 		TableItem item = table2_glob.getItem(nr);
 		return item;
+	}
+	public Profitliste getAktProfitliste()
+	{
+		return pl_glob;
 	}
 }

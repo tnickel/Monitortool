@@ -339,7 +339,7 @@ public class SwtEditGlobalConfig
 			button1mtautomaticstartstop = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1mtautomaticstartstop.setText("Metatrader automatic start/stop");
 			button1mtautomaticstartstop.setBounds(290, 324, 178, 30);
-			if(GlobalVar.getMetatradernoautostartstop()==1)
+			if(GlobalVar.getMetatraderautostartstop()==1)
 				button1mtautomaticstartstop.setSelection(true);
 			else
 				button1mtautomaticstartstop.setSelection(false);
@@ -519,9 +519,9 @@ public class SwtEditGlobalConfig
 		System.out.println("button1mtautomaticstartstop.widgetSelected, event="+evt);
 		
 		if(button1mtautomaticstartstop.getSelection()==true)
-			GlobalVar.setMetatradernoautostartstop(1);
+			GlobalVar.setMetatraderautostartstop(1);
 		else
-			GlobalVar.setMetatradernoautostartstop(1);
+			GlobalVar.setMetatraderautostartstop(0);
 		
 		
 	}

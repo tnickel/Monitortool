@@ -37,9 +37,16 @@ public class MetaStarter
 		}
 	}
 
-	static public void StartAllMetatrader(Brokerview brokerview)
+	static public void StartAllMetatrader(Brokerview brokerview,int forceflag)
 	{
 		
+		if((GlobalVar.getMetatraderautostartstop()==0)&&(forceflag==0))
+		{
+			Tracer.WriteTrace(20, "I:I dont start all Metatrader because startstop=0 && forceflag=0");
+			return;
+			
+		}
+			
 		String rootpathbinstarter = Rootpath.getRootpath()+"\\bin\\startmetatrader.bat";
 		startedbymonitortool = 1;
 		String portextension="";
@@ -108,8 +115,17 @@ public class MetaStarter
 		
 	}
 
-	static public void StopAllMetatrader(Brokerview brokerview)
+	static public void StopAllMetatrader(Brokerview brokerview,int forceflag)
 	{
+		
+		if((GlobalVar.getMetatraderautostartstop()==0)&&(forceflag==0))
+		{
+			Tracer.WriteTrace(20, "I:I dont stop all Metatrader because startstop=0 && forceflag=0");
+			return;
+			
+		}
+		
+		
 		startedbymonitortool = 0;
 		int anz = brokerview.getAnz();
 		for (int i = 0; i < anz; i++)
@@ -126,7 +142,7 @@ public class MetaStarter
 			e.printStackTrace();
 		}
 		Tracer.WriteTrace(20, "I try to kill all Metatrader");
-		KillAllMetatrader();
+		KillAllMetatrader(forceflag);
 		Tracer.WriteTrace(20, "I killed all Metatrader");
 	}
 
@@ -138,13 +154,22 @@ public class MetaStarter
 			return false;
 	}
 	
-	static public void KillAllMetatrader()
+	static public void KillAllMetatrader(int forceflag)
 	{
 		// kill all metatrader wird nur ausgeführt wenn die metatrader auch
 		// durch diese
 		// klasse gestartet wurden
-		
 
+		//Falls noautostartstop ==1 wird nicht gekiliit
+		
+		
+		if((GlobalVar.getMetatraderautostartstop()==0)&&(forceflag==0))
+		{
+			Tracer.WriteTrace(20, "I:I dont kill all Metatrader because startstop=0 && forceflag=0");
+			return;
+			
+		}
+		
 		// taskkill /IM terminal.exe /F
 		try
 		{

@@ -2,8 +2,9 @@ package modtools;
 
 import java.util.ArrayList;
 
+import StartFrame.Brokerview;
 import data.Ealiste;
-import data.Tradeliste;
+import data.Profitliste;
 import gui.Mbox;
 
 public class ChrFile extends Patcher
@@ -180,7 +181,7 @@ public class ChrFile extends Patcher
 			}
 		}
 	}
-	public void patchTradecopyMagicsAC(String broker,Ealiste eal)
+	public void patchTradecopyMagicsAC(String broker,Ealiste eal,Brokerview bv,Profitliste pl)
 	{
 		//beim Autocreator werden die comments gepatched
 		
@@ -193,7 +194,9 @@ public class ChrFile extends Patcher
 			//falls der EA eingeschaltet ist wird der Patchstring um den comment erweitert
 			if(eal.getOn(magic, broker)==1)
 			{
-			  String comment=String.valueOf(magic);
+			  String comment=pl.getProfComment(bv, broker, magic);
+				
+			  
 			  comment=comment.replace("[tp]", "");
 			  comment=comment.replace("[sl]","");
 			  patchstring=patchstring+comment+",";

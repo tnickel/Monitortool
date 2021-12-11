@@ -3,13 +3,14 @@ package modtools;
 import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Metaconfig;
+import data.Profitliste;
 import data.Tradeliste;
 import gui.Mbox;
 import hiflsklasse.Tracer;
 
 public class Toogler
 {
-	public void ToggleOnOffEa(Tradeliste tl,Brokerview brokerview, Ealiste eal, int magic,String comment, String selbroker)
+	public void ToggleOnOffEa(Tradeliste tl,Brokerview brokerview, Ealiste eal, int magic,String comment, String selbroker,Profitliste pl)
 	{
 		//The ea will be switched on/off for the tradecopier
 		// selbroker = selektierter broker		// der selektierte broker ist ein Realbroker, we can´t switch realbrokers
@@ -73,7 +74,7 @@ public class Toogler
 			trc.init(selbroker,realbroker,brokerview);
 
 			//trage die verbindungsdaten und die magics ein
-			trc.configProfiles(brokerview,eal,tl);
+			trc.configProfiles(brokerview,eal,pl);
 			
 			//konsistenzprüfung, hier wird geprüft ob jeder channel nur ein einziges Mal vorkommt
 			//eine channelid darf beim realbroker nicht zweimal vorkommen. Es wird channel 1-255 überprüft
@@ -82,7 +83,7 @@ public class Toogler
 				Tracer.WriteTrace(10, "E:error double channel for broker<"+realbroker+">--> stop");
 				System.exit(99);
 			}
-			
+			System.out.println("go on\n ");
 	
 		}
 		
