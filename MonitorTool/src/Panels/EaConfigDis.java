@@ -363,7 +363,7 @@ public class EaConfigDis extends javax.swing.JPanel
 				autocreatorname = new JTextField();
 				this.add(autocreatorname);
 				autocreatorname.setBounds(283, 257, 206, 31);
-				autocreatorname.setName("autocreatorname");
+				autocreatorname.setName("SetStrategyPrefix");
 			}
 			{
 				jButton2copytoautocreator = new JButton();
@@ -417,8 +417,8 @@ public class EaConfigDis extends javax.swing.JPanel
 		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(broker_glob);
 		
 		setEaMessage(on_glob);
-		//jTextField1broker.setText(broker_glob);
-		jTextField1broker.setText("dies ist ein broker");
+		jTextField1broker.setText(broker_glob);
+		//jTextField1broker.setText("dies ist ein broker");
 		jTextField1channel.setText(String.valueOf(meconf.getTradecopymagic()));
 		jTextField1magic.setText(String.valueOf(magic_glob));
 		jTextField1currency.setText(curency_glob);
@@ -467,7 +467,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		{
 			jTextField1.setText("AutoCreator");
 			jTextField1_lots.setEnabled(false);
-			jButton2deleteEA.setEnabled(false);
+			jButton2deleteEA.setEnabled(true);
 		}
 		
 		jTextField1broker.setEditable(false);
@@ -485,7 +485,12 @@ public class EaConfigDis extends javax.swing.JPanel
 		jLabel6locked.setVisible(false);
 		jTextField1.setEditable(false);
 		
-		autocreatorname.setText(comment_glob);
+		//hier wird der autocreatorprefix noch reingepackt
+		String aucpref=meconf.getAucPrefix();
+		if(aucpref.length()>0)
+			autocreatorname.setText(meconf.getAucPrefix()+"_"+comment_glob);
+		else
+			autocreatorname.setText(comment_glob);
 		
 		// if realbroker
 		if (brokerview_glob.getAccounttype(broker_glob) == 2)
@@ -602,18 +607,36 @@ public class EaConfigDis extends javax.swing.JPanel
 		if (GlobalVar.getMetatraderrunning() == 1)
 			MetaStarter.KillAllMetatrader(0);
 			
-		// check fist if this ea is connected to realaccount, if yes than an
-		// errormessage
+		//check ea type, autocreator needs a special handling
+		Ea ea = eal_glob.getEa(magic_glob, broker_glob);
+		//comment=10003_01
+				
+		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
+		
+		
 		if (ea_glob.getOn() == 1)
 		{
 			Tracer.WriteTrace(10, "Error: can´t delete EA because it is connected to realaccount");
-		} else
+		}else  
+		if(meconf.getAccounttype()==4)
+		{
+			String new_name=autocreatorname.getText();
+			setDisabledButtons("----deleted----");
+			if(tv_glob.deleteSingleEaAC(brokerview_glob, tl_glob, broker_glob,magic_glob,comment_glob)==true)
+				AutoCreator.delteEaAutoCreatorFiles(meconf,comment_glob);
+			setEaMessage(2);
+			return;
+		}
+		else
 		{ // delete ea
 			setDisabledButtons("----deleted----");
 			tv_glob.deleteSingleEa(brokerview_glob, tl_glob, broker_glob, magic_glob);
 			setEaMessage(2);
 			
 		}
+		
+		
+		
 	}
 	
 	private void jButton2copytoautocreatorActionPerformed(ActionEvent evt) {
@@ -626,7 +649,12 @@ public class EaConfigDis extends javax.swing.JPanel
 				
 		Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(broker_glob);
 		String new_name=autocreatorname.getText();
-		AutoCreator.copyToAutoCreator(meconf, comment_glob,new_name,chart_glob);
+		int anz=(new_name.length())-(new_name.replace("_", "").length());
+		
+		if(anz>2)
+			Tracer.WriteTrace(10, "E:In String <"+new_name+"> maxanz of '_'=2 but I got<"+anz+">");
+		else
+			AutoCreator.copyToAutoCreator(meconf,comment_glob,new_name,chart_glob);
 		
 	}
 	

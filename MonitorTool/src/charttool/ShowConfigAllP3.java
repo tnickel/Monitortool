@@ -64,7 +64,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 		
 		// das ganze hat ein grid layout mit 3 Spalten
 		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 3));
-		panelx.setPreferredSize(new java.awt.Dimension(2300, anz * 350));
+		panelx.setPreferredSize(new java.awt.Dimension(2400, anz * 350));
 		
 		
 		for (int i = 0; i < anz; i++)

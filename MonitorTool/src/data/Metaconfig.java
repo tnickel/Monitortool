@@ -26,7 +26,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 	String daxname = null;
 	String fstdir = null;
 	boolean magiclistactive = false;
-	//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
+	// dies ist der string der die eingeschalteten magics für den tradecopierer
+	// beinhaltet
 	String magicliststring = "1234=12345,123456";
 	boolean storetrades = false;
 	int validitydays = 99999999;
@@ -61,10 +62,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 	// only handinstalled flag, if 1= than the eas are never modified by the tool
 	private int onlyhandinstalled = 0;
 	
-
-	
 	static String[] accounttypename =
-	{ "Mon", "Aut", "Real", "FST","AC" };
+	{ "Mon", "Aut", "Real", "FST", "AC" };
 	
 	// datum des ersten trades
 	String datumDesErstenTrades = null;
@@ -95,13 +94,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private int tradecopymagic = 0;
 	private String suffix = "";
 	private int accountlocked = 0;
-	//time of the last installation of eas
-	private String lastinstallation="";
-	//automatic symbolreplacement
-	private int automaticsymbolreplacement=0;
-	private String tradesuffixsender="";
-	//mttype=mt4 or mt5
-	private String mttype="";
+	// time of the last installation of eas
+	private String lastinstallation = "";
+	// automatic symbolreplacement
+	private int automaticsymbolreplacement = 0;
+	private String tradesuffixsender = "";
+	// mttype=mt4 or mt5
+	private String mttype = "";
+	// AucPrefix is the prefix for autcreator copy ea
+	private String aucPrefix="";
+	
 	
 	public Metaconfig(String mname)
 	{
@@ -163,17 +165,18 @@ public class Metaconfig implements Comparable<Metaconfig>
 				tradecopymagic = SG.get_zahl(SG.nteilstring(zeile, "#", 28));
 			if (trennanz > 29)
 				suffix = SG.nteilstring(zeile, "#", 29);
-			if (trennanz > 29)
-				accountlocked = SG.get_zahl(SG.nteilstring(zeile, "#", 30));
 			if (trennanz > 30)
-				lastinstallation = (SG.nteilstring(zeile, "#", 31));
+				accountlocked = SG.get_zahl(SG.nteilstring(zeile, "#", 30));
 			if (trennanz > 31)
-				automaticsymbolreplacement = SG.get_zahl(SG.nteilstring(zeile, "#", 31));
-			if(trennanz >31)
-				tradesuffixsender=SG.nteilstring(zeile, "#", 32);
-			if(trennanz >32)
-				mttype=SG.nteilstring(zeile, "#", 32);
-			
+				lastinstallation = (SG.nteilstring(zeile, "#", 31));
+			if (trennanz > 32)
+				automaticsymbolreplacement = SG.get_zahl(SG.nteilstring(zeile, "#", 32));
+			if (trennanz > 33)
+				tradesuffixsender = SG.nteilstring(zeile, "#", 33);
+			if (trennanz > 34)
+				mttype = SG.nteilstring(zeile, "#", 34);
+			if (trennanz > 35)
+				aucPrefix = SG.nteilstring(zeile, "#", 35);
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -197,7 +200,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 	
 	public void initmagiclist()
 	{
-		//magicliststring=dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
+		// magicliststring=dies ist der string der die eingeschalteten magics für den
+		// tradecopierer beinhaltet
 		
 		if (magiclistactive == true)
 			maglist = new Magiclist(magicliststring);
@@ -437,13 +441,15 @@ public class Metaconfig implements Comparable<Metaconfig>
 	
 	public String getMagicliststring()
 	{
-		//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
+		// dies ist der string der die eingeschalteten magics für den tradecopierer
+		// beinhaltet
 		return magicliststring;
 	}
 	
 	public void setMagicliststring(String magicliststring)
 	{
-		//dies ist der string der die eingeschalteten magics für den tradecopierer beinhaltet
+		// dies ist der string der die eingeschalteten magics für den tradecopierer
+		// beinhaltet
 		this.magicliststring = magicliststring;
 		initmagiclist();
 	}
@@ -652,48 +658,46 @@ public class Metaconfig implements Comparable<Metaconfig>
 	{
 		return lastinstallation;
 	}
-
+	
 	public void setLastinstallation(String lastinstallation)
 	{
 		this.lastinstallation = lastinstallation;
 	}
-
+	
 	public int getAutomaticsymbolreplacement()
 	{
 		return automaticsymbolreplacement;
 	}
-
+	
 	public void setAutomaticsymbolreplacement(int automaticsymbolreplacement)
 	{
 		this.automaticsymbolreplacement = automaticsymbolreplacement;
 	}
-
+	
 	public String getTradesuffixsender()
 	{
 		return tradesuffixsender;
 	}
-
+	
 	public void setTradesuffixsender(String tradesuffixsender)
 	{
 		this.tradesuffixsender = tradesuffixsender;
 	}
-
+	
 	public String getInitMetaversion()
 	{
 		String fnam = networkshare;
 		File fna4 = new File(fnam + "\\MQL4");
 		File fna5 = new File(fnam + "\\MQL5");
 		String orpath = null;
-		String mtversnumber="";
+		String mtversnumber = "";
 		
-		
-		if(new File(fnam+"\\terminal.exe").exists())
-			mttype="mt4";
-		else if(new File(fnam+"\\terminal64.exe").exists())
-			mttype="mt5";
-		else Tracer.WriteTrace(10, "Error: unknown mtx Version. I need terminal.exe or terminal64.exe -> STOP");
-		
-		
+		if (new File(fnam + "\\terminal.exe").exists())
+			mttype = "mt4";
+		else if (new File(fnam + "\\terminal64.exe").exists())
+			mttype = "mt5";
+		else
+			Tracer.WriteTrace(10, "Error: unknown mtx Version. I need terminal.exe or terminal64.exe -> STOP");
 		
 		// falls portable=1 dann schaue nicht im orpath nach !!!
 		if ((GlobalVar.getPortableflag() == 0) && (orpath = holeOrginPath()) != null)
@@ -703,7 +707,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Expertdata = orpath + "\\MQL4\\Experts";
 			Filedata = orpath + "\\MQL4\\Files";
 			metaversion = ">=600";
-			mtversnumber=">=600";
+			mtversnumber = ">=600";
 		} else if (fna4.exists())
 		{
 			Appdata = fnam;
@@ -711,24 +715,21 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Expertdata = fnam + "\\MQL4\\Experts";
 			Filedata = fnam + "\\MQL4\\Files";
 			metaversion = ">=600";
-			mtversnumber=">=600";
-		}
-		else if (fna5.exists())
+			mtversnumber = ">=600";
+		} else if (fna5.exists())
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL5";
 			Expertdata = fnam + "\\MQL5\\Experts";
 			Filedata = fnam + "\\MQL5\\Files";
 			metaversion = ">=600";
-			mtversnumber=">=600";
-		}
-		else
-		{ 
+			mtversnumber = ">=600";
+		} else
+		{
 			Tracer.WriteTrace(10, "Error in InitMetaversion, cant determine Metatrader version");
 		}
 		
-		
-		return(mtversnumber);
+		return (mtversnumber);
 	}
 	
 	private String holeOrginPath()
@@ -787,24 +788,66 @@ public class Metaconfig implements Comparable<Metaconfig>
 		this.processkennung = process;
 	}
 	
+	public String getAucPrefix()
+	{
+		return aucPrefix;
+	}
+
+	public void setAucPrefix(String aucPrefix)
+	{
+		this.aucPrefix = aucPrefix;
+	}
+
 	public void pongCheck()
 	{
-		File pongfile = new File(this.getFiledata() + "\\pong.txt");
-		if (pongfile.exists() == false)
-			return;
+		//prüft ob es einen zu alten pong gibt.
 		
-		long pongalter_sec = Mondate.FilealterSec(this.getFiledata() + "\\pong.txt");
+		// directory von .../files holen
+		File dir = new File(this.getFiledata());
+		
+		File[] files = dir.listFiles();
+		if (files != null)
+		{ // Erforderliche Berechtigungen etc. sind vorhanden
+			for (int i = 0; i < files.length; i++)
+			{
+				//System.out.print(files[i].getAbsolutePath());
+				if (files[i].isFile())
+				{
+					
+					String fpath=files[i].getAbsolutePath();
+					if(fpath.toLowerCase().contains("pong"))
+					{
+						if(checkOldPong(fpath)==true)
+						{
+							this.setPongerrorflag(1);
+							Tracer.WriteTrace(20, "I:found old pong <"+fpath+">");
+							return;
+						}
+						
+					}
+				}
+			}
+		}
+		
+		
+		this.setPongerrorflag(0);
+		
+	}
+	
+	private boolean checkOldPong(String fname)
+	{
+		long pongalter_sec = Mondate.FilealterSec(fname);
 		// falls zu alt dann fehler melden
 		if (pongalter_sec > GlobalVar.getMaxpongtime())
-			this.setPongerrorflag(1);
+			return true;
 		else
-			this.setPongerrorflag(0);
+			return false;
 		
 	}
 	
 	public boolean isRealbroker()
 	{
-		if(accounttype==2)
+		if (accounttype == 2)
 			return true;
 		else
 			return false;
@@ -815,12 +858,12 @@ public class Metaconfig implements Comparable<Metaconfig>
 	{
 		return mttype;
 	}
-
+	
 	public void setMttype(String mttype)
 	{
 		this.mttype = mttype;
 	}
-
+	
 	public void SetCloseAllTradesOnce(int magic)
 	{
 		// die trades für eine magic werden geschlossen, da wird dies file hier in
@@ -831,13 +874,11 @@ public class Metaconfig implements Comparable<Metaconfig>
 			try
 			{
 				if (clofile.createNewFile() == false)
-					Tracer.WriteTrace(10,
-							"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+					Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
 			} catch (IOException e)
 			{
 				e.printStackTrace();
-				Tracer.WriteTrace(10,
-						"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+				Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
 			}
 	}
 	
@@ -847,21 +888,18 @@ public class Metaconfig implements Comparable<Metaconfig>
 		// das wird für den autocreator benötigt
 		// ../files abgelegt
 		// <comment>.clocom
-		File clofile = new File(this.getFiledata() + "\\" + comment + ".clocom");
-		if (clofile.exists() == false)
+		File delfile = new File(this.getFiledata() + "\\" + comment + ".delcom");
+		if (delfile.exists() == false)
 			try
 			{
-				if (clofile.createNewFile() == false)
-					Tracer.WriteTrace(10,
-							"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+				if (delfile.createNewFile() == false)
+					Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + delfile.getAbsolutePath() + ">");
 			} catch (IOException e)
 			{
 				e.printStackTrace();
-				Tracer.WriteTrace(10,
-						"SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
+				Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + delfile.getAbsolutePath() + ">");
 			}
 	}
-	
 	
 	public void RemoveCloseAllTradesOnce(int magic)
 	{
@@ -870,21 +908,20 @@ public class Metaconfig implements Comparable<Metaconfig>
 		File clofile = new File(this.getFiledata() + "\\" + magic + ".clo");
 		if (clofile.exists() == false)
 			return;
-		else
-			if(clofile.delete()==false)
-				Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <"+clofile.getAbsolutePath()+">");
+		else if (clofile.delete() == false)
+			Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <" + clofile.getAbsolutePath() + ">");
 	}
+	
 	public void RemoveCloseAllTradesOnceAC(String comment)
 	{
 		// es wird geschaut of das File <magic>.clocom vorhanden ist, wenn ja wird es
 		// gelöscht
-		//wird für autocreator benötigt
-		File clofile = new File(this.getFiledata() + "\\" + comment + ".clocom");
+		// wird für autocreator benötigt
+		File clofile = new File(this.getFiledata() + "\\" + comment + ".delcom");
 		if (clofile.exists() == false)
 			return;
-		else
-			if(clofile.delete()==false)
-				Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <"+clofile.getAbsolutePath()+">");
+		else if (clofile.delete() == false)
+			Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <" + clofile.getAbsolutePath() + ">");
 	}
 	
 	public int compareTo(Metaconfig metatrader)

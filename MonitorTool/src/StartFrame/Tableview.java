@@ -190,27 +190,28 @@ public class Tableview extends TableViewBasic
 		String fnam2 = filedata + "/history.txt";
 		String fnam3 = filedata + "/history_open.txt";
 		String fnam5 = filedata + "/history_transfer.txt";
-		String dirnam6 = mc.getAppdata()+ "\\tester\\files\\Ac_Entwicklungen";
+		String dirnam6 = mc.getAppdata() + "\\tester\\files\\Ac_Entwicklungen";
 		
-		if ((new File(fnam1).exists() == true)&&(GlobalVar.getAutocreatormode()==0))
+		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		// wenn kein history.txt und kein history_transfer.txt
 		// dann gibt es nix zu lesen
-		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false) &&(new File(dirnam6).exists()==false))
+		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false)
+				&& (new File(dirnam6).exists() == false))
 		{
 			Lock.unlock(filedata + "/monitor.lock");
 			Tracer.WriteTrace(20, "W:no file <" + fnam2 + "> and no file<" + fnam5 + ">");
 			return;
 		}
-		if((new File(fnam2).exists()==true)&&(GlobalVar.getAutocreatormode()==0))
-		maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
+			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
-		if ((showopenorders == true)&&(new File(fnam3).exists()==true))
+		if ((showopenorders == true) && (new File(fnam3).exists() == true))
 			readTradesFile(tl, fnam3, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 			
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
-		if ((tf_glob.isLoadexpired() == true)&&(GlobalVar.getAutocreatormode()==0))
+		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0))
 		{
 			String fna = filedata + "\\history_expset_";
 			File hist_exp_f = new File(fna);
@@ -226,13 +227,12 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// lade die transfer
-		if ((new File(fnam5).exists() == true)&&(GlobalVar.getAutocreatormode()==0))
+		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		// lade die Daten vom Auto Creator
-		if ((new File(dirnam6).exists() == true)&&(GlobalVar.getAutocreatormode()==1))
+		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1))
 			readTradesAutoCreator(tl, dirnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
-		
 		
 		Lock.unlock(filedata + "/monitor.lock");
 		
@@ -244,9 +244,8 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// das erste (älteste datum in der mc speichern)
-		if(GlobalVar.getAutocreatormode()==1)
+		if (GlobalVar.getAutocreatormode() == 1)
 			mc.setDatumDesErstenTrades(maxdate);
-		
 		
 	}
 	
@@ -343,7 +342,7 @@ public class Tableview extends TableViewBasic
 			Profit prof = pl_glob.getelem(i);
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 			
-			if(prof.getMagic()==5787434)
+			if (prof.getMagic() == 5787434)
 				System.out.println("found");
 			
 			brokername = prof.getBroker();
@@ -467,12 +466,12 @@ public class Tableview extends TableViewBasic
 				item.setBackground(8, red);
 			item.setText(8, String.valueOf(prof.calcConsecLooses()));
 			
-			//pz1
-			Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(prof.getBroker());
-			if(meconf.getAccounttype()==4)
+			// pz1
+			Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(prof.getBroker());
+			if (meconf.getAccounttype() == 4)
 				item.setText(9, AutoCreator.getPkz1(meconf, comment));
 			else
-				item.setText(9,"0");
+				item.setText(9, "0");
 			// last7trades
 			item.setText(10, String.valueOf(prof.getAnztradeslastzehn()));
 			item.setText(11, SG.kuerzeFloatstring(String.valueOf(gew10), 2));
@@ -1130,7 +1129,7 @@ public class Tableview extends TableViewBasic
 				int magic = SG.get_zahl(item.getText(1));
 				if (magic != prof.getMagic())
 					Tracer.WriteTrace(10, "internal magic<" + magic + "> != prof.magic<" + prof.getMagic() + ">");
-				tog.ToggleOnOffEa(tl,brokerview_glob, eal, magic, prof.getComment(),prof.getBroker(),pl_glob);
+				tog.ToggleOnOffEa(tl, brokerview_glob, eal, magic, prof.getComment(), prof.getBroker(), pl_glob);
 				
 			}
 		}
@@ -1187,6 +1186,9 @@ public class Tableview extends TableViewBasic
 	
 	public int deleteEas()
 	{
+		
+		
+		
 		int delcounter = 0;
 		
 		int anz = table2_glob.getItemCount();
@@ -1198,10 +1200,25 @@ public class Tableview extends TableViewBasic
 			// falls dieser EA in der globalen liste selektiert wurde
 			if (item.getChecked() == true)
 			{
-				// hole die magic
+				// hole die magic,comment, broker
 				int magic = SG.get_zahl(item.getText(1));
-				if (deleteSingleEa(brokerview_glob, tl, prof.getBroker(), magic) == true)
-					delcounter++;
+				String comment=prof.getComment();
+				String brokername=prof.getBroker();
+				Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(brokername);
+				
+				if(meconf.getAccounttype()!=4)
+				{
+					if (deleteSingleEa(brokerview_glob, tl, prof.getBroker(), magic) == true)
+						delcounter++;
+
+				}
+				else //if AutocreatorEA
+				{
+					Tracer.WriteTrace(10, "E:Can´t delete AutoCreator EA in this list");
+					//if (deleteSingleEaAC(brokerview_glob, tl, prof.getBroker(), magic,comment) == true)
+					//	delcounter++;
+					
+				}
 			}
 		}
 		// speichere die verkleinerte Tradeliste
@@ -1210,6 +1227,83 @@ public class Tableview extends TableViewBasic
 	}
 	
 	public Boolean deleteSingleEa(Brokerview bv, Tradeliste tl, String broker, int magic)
+	{
+		Metaconfig meconf = bv.getMetaconfigByBrokername(broker);
+		// check if we can delete this ea
+		if (checkIfDeleateAbleEa(bv, broker, magic) == false)
+			return false;
+		
+		// delete eas from filesystem in the installdir and in the metatrader
+		// falls das ein normaler EA ist
+		
+		// normaler ea
+		if ((FsbPortfolioEa.checkIsPortfolioEa(magic, meconf)) == false)
+		{
+			deleteEaFilesystem(bv, magic, broker);
+		} else
+		{ // ist ein portfolio ea
+			deletePortfolioEaFilesystem(bv, magic, broker);
+		}
+		
+		// delete eas from tradelist
+		tl.deleteEaMagic(magic, broker);
+		
+		// delete ea-trades in historyexporter.txt
+		// die metatrader dürfen hier nicht laufen!!!
+		String historytxt = bv.getMqlData(broker) + "\\files\\history.txt";
+		File hf = new File(historytxt);
+		if (hf.exists())
+		{
+			Historyexporter h = new Historyexporter(historytxt);
+			h.deleteEa(String.valueOf(magic));
+			h.storeHistoryTxt();
+		}
+		historytxt = bv.getMqlData(broker) + "\\files\\history_small.txt";
+		hf = new File(historytxt);
+		if (hf.exists() && (hf.length() > 0))
+		{
+			Historyexporter h = new Historyexporter(historytxt);
+			h.deleteEa(String.valueOf(magic));
+			h.storeHistoryTxt();
+		}
+		
+		return true;
+	}
+	
+	public Boolean deleteSingleEaAC(Brokerview bv, Tradeliste tl, String broker,int magic,String comment)
+	{
+		
+		
+		// check if we can delete this ea
+		if (checkIfDeleateAbleEa(bv, broker, magic) == false)
+			return false;
+		
+		// delete eas from tradelist
+		tl.deleteEaMagic(magic, broker);
+		
+		// delete ea-trades in historyexporter.txt
+		// die metatrader dürfen hier nicht laufen!!!
+		String historytxt = bv.getMqlData(broker) + "\\files\\history.txt";
+		File hf = new File(historytxt);
+		if (hf.exists())
+		{
+			Historyexporter h = new Historyexporter(historytxt);
+			h.deleteEaMagicComment("99999",comment);
+			h.storeHistoryTxt();
+		}
+		historytxt = bv.getMqlData(broker) + "\\files\\history_small.txt";
+		hf = new File(historytxt);
+		if (hf.exists() && (hf.length() > 0))
+		{
+			Historyexporter h = new Historyexporter(historytxt);
+			h.deleteEaMagicComment("99999",comment);
+			h.storeHistoryTxt();
+		}
+		
+		return true;
+	}
+	
+	private Boolean checkIfDeleateAbleEa(Brokerview bv, String broker, int magic)
 	{
 		// schaue nach ob der EA auf einem Realbroker ist
 		// auf Realbroker sind nur Tradecopierer die nicht gelöscht werden können
@@ -1227,42 +1321,8 @@ public class Tableview extends TableViewBasic
 			Mbox.Infobox("Error: Can´t delete magic<" + magic + "> because broker <" + broker + ">is locked");
 			return false;
 		}
-		
-		// delete eas from filesystem in the installdir and in the metatrader
-		// falls das ein normaler EA ist
-		
-		// normaler ea
-		if ((FsbPortfolioEa.checkIsPortfolioEa(magic, meconf)) == false)
-		{
-			deleteEaFilesystem(bv, magic, broker);
-		} else
-		{ // ist ein portfolio ea
-			deletePortfolioEaFilesystem(bv, magic, broker);
-		}
-		
-		// delete eas from tradelist
-		tl.deleteMagic(magic, broker);
-		
-		// delete ea-trades in historyexporter.txt
-		// die metatrader dürfen hier nicht laufen!!!
-		String historytxt = bv.getMqlData(broker) + "\\files\\history.txt";
-		File hf = new File(historytxt);
-		if (hf.exists())
-		{
-			Historyexporter h = new Historyexporter(historytxt);
-			h.deleteEa(String.valueOf(magic));
-			h.storeHistoryTxt();
-		}
-		historytxt = bv.getMqlData(broker) + "\\files\\history_small.txt";
-		hf = new File(historytxt);
-		if (hf.exists()&&(hf.length()>0))
-		{
-			Historyexporter h = new Historyexporter(historytxt);
-			h.deleteEa(String.valueOf(magic));
-			h.storeHistoryTxt();
-		}
-		
 		return true;
+		
 	}
 	
 	private void deleteEaFilesystem(Brokerview bv, int magic, String broker)
@@ -1377,6 +1437,7 @@ public class Tableview extends TableViewBasic
 		TableItem item = table2_glob.getItem(nr);
 		return item;
 	}
+	
 	public Profitliste getAktProfitliste()
 	{
 		return pl_glob;

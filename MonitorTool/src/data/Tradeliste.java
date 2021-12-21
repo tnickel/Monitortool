@@ -540,7 +540,7 @@ public class Tradeliste
 		return false;
 	}
 	
-	public boolean deleteMagic(int magic, String brokername)
+	public boolean deleteEaMagic(int magic, String brokername)
 	{
 		// löscht eine magic aus der tradeliste für einen broker
 		int anz = tradeliste.size();

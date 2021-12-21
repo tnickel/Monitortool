@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.function.Consumer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
@@ -55,6 +57,9 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Label label10;
+	private Label label9;
+	private Text auc_prefix;
 	private Button button1autocreator;
 	private Label label8;
 	private Label label7;
@@ -473,6 +478,29 @@ public class SwtEditBrokerConfig
 				}
 			});
 		}
+		{
+			
+			auc_prefix = new Text(sh, SWT.NONE);
+			String apref=me_glob.getAucPrefix();
+			if(apref!=null)
+			auc_prefix.setText(apref);
+			auc_prefix.setBounds(806, 485, 184, 19);
+			auc_prefix.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent evt) {
+					auc_prefixModifyText(evt);
+				}
+			});
+		}
+		{
+			label9 = new Label(sh, SWT.NONE);
+			label9.setText("Settings for Autocreator");
+					label9.setBounds(806, 460, 184, 19);
+		}
+		{
+			label10 = new Label(sh, SWT.NONE);
+			label10.setText("StrategyPrefix");
+			label10.setBounds(1002, 485, 100, 20);
+		}
 
 		sh.open();
 		initBrokereditM();
@@ -687,6 +715,10 @@ public class SwtEditBrokerConfig
 		// global config speichern
 		int magic = Integer.valueOf(text1usemagic.getText());
 		me_glob.setTradecopymagic(magic);
+		
+		
+		String aucpref=auc_prefix.getText();
+		me_glob.setAucPrefix(aucpref);
 		
 		// GlobalVar.setLastcopytrademagic(magic);
 		GlobalVar.save();
@@ -1144,5 +1176,17 @@ public class SwtEditBrokerConfig
 	private void button1autocreatorWidgetSelected(SelectionEvent evt) {
 		System.out.println("button1autocreator.widgetSelected, event="+evt);
 		setAutoCreatorAccount();
+	}
+	
+	private void auc_prefixModifyText(ModifyEvent evt) {
+		System.out.println("auc_prefix.modifyText, event="+evt);
+		String auctmp=auc_prefix.getText();
+		if(auctmp==null)
+			return;
+		if(auctmp.length()>6)
+			Tracer.WriteTrace(10, "Maxlen Strategyprefix<"+auctmp+"= 6");
+		if(auctmp.contains("_"))
+			Tracer.WriteTrace(10,"character _ is not allowed in Strategyprefix<"+auctmp+">");
+					
 	}
 }

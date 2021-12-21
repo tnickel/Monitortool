@@ -38,7 +38,7 @@ public class Profit implements Comparable<Profit>
 	private String symbol = "???";
 	private float profitfaktor = 0;
 	private float drawdown = 0;
-	private int pz1=0;
+	private float pz1=0;
 	
 
 	private Tradeliste tradeliste_glob = null;
@@ -318,14 +318,19 @@ public class Profit implements Comparable<Profit>
 		
 	}
 	
-	public int getPz1()
+	public float getPz1()
 	{
-		return pz1;
+		float pfloat=Float.valueOf(pz1);
+		double dpz1 = Math.round(pfloat * 10) / 10.0;
+		return (float)dpz1;
 	}
 
-	public void setPz1(int pz1)
+	public void setPz1(float pz1)
 	{
-		this.pz1 = pz1;
+		float pfloat=Float.valueOf(pz1);
+		double dpz1 =(float)Math.round(pfloat * 10) / 10.0;
+		
+		this.pz1 = (float)dpz1;
 	}
 
 	public int compareTo(Profit vergleichsprofit)
@@ -429,8 +434,8 @@ public class Profit implements Comparable<Profit>
 				retval = 0;
 			break;
 		case 11://pz1
-			int verglpz1=vergleichsprofit.getPz1();
-			int pz1tmp=this.getPz1();
+			float verglpz1=vergleichsprofit.getPz1();
+			float pz1tmp=this.getPz1();
 			if(verglpz1>pz1tmp)
 				retval=1;
 			else if (verglpz1<pz1tmp)

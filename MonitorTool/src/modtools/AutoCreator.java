@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
+
+
 import data.Metaconfig;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
@@ -42,16 +44,27 @@ public class AutoCreator
 			System.out.println("mem="+mem);
 			
 			if(mem.contains("New"))
-				mem=mem.substring(0,mem.indexOf("New"));
+				mem=mem.substring(0,3);
 			else
 				return "nonew";
 			
-			if(mem.contains("."))
-				mem=mem.substring(0,mem.indexOf("."));
+			
 		}
 		else return "nopz1";
 		
 		return mem;
+	}
+	
+	static public void delteEaAutoCreatorFiles(Metaconfig meconf,String comment)
+	{
+		String appdata=meconf.getAppdata();
+		
+		//commentpref=10003
+		//sourcdir_s=D:\Forex\mt4\Pepperstone\tester\files\AC_Entwicklungen\10003
+		String sourcedir_s=appdata+"\\tester\\files\\AC_Entwicklungen\\"+calcCommentPrefix(comment);
+		
+		deleteThreeAutoFiles(sourcedir_s,appdata+"\\tester\\files",comment);
+		deleteThreeAutoFiles(sourcedir_s,appdata+"\\MQL4\\files",comment);
 	}
 	
 	
@@ -67,6 +80,11 @@ public class AutoCreator
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\tester\\files",comment,newName);
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\MQL4\\files",comment,newName);
 		
+		//del delcomfile
+		File f=new File(sourcedir_s,appdata+"\\MQL4\\files\\"+comment+".delcom");
+		if(f.exists())
+			f.delete();
+		
 		saveChartPng(appdata+"\\tester\\files\\Speicherort_sys_pics",comment,newName,chart);
 	}
 	static private void copyThreeAutoFiles(String sourcedir_s, String destdir_s,String comment,String newName)
@@ -79,16 +97,53 @@ public class AutoCreator
 		FileAccess.copyFile(fsource_set,destdir_s+"\\Speicherort_Sys_Gruppe_A\\"+newName+".csv");
 		FileAccess.copyFile(fsource_stats,destdir_s+"\\Speicherort_Sys_Gruppe_A_Stats\\"+newName+"_stats.csv");
 	}
+	static private void deleteThreeAutoFiles(String sourcedir_s, String destdir_s,String comment)
+	{
+		
+		String fnam=destdir_s+"\\Speicherort_Sys_Gruppe_A\\"+comment+".csv";
+		
+		File tfile=new File(fnam);
+		if(tfile.exists()==false)
+			Tracer.WriteTrace(10, "E:File <"+fnam+"> not available to delete");
+		else
+			tfile.delete();
+		
+		fnam=destdir_s+"\\Speicherort_Sys_Gruppe_A_Stats\\"+comment+"_stats.csv";
+		if(tfile.exists()==true)
+			tfile.delete();	
+	}
+	
+	
 	static String calcCommentPrefix(String comment)
 	{
+		String comment_tmp=comment;//example 1008_328
+		int anz = comment_tmp.length() - comment_tmp.replace("_", "").length();
+		
 		String commentpref="";
 		
-		if(comment.contains("_"))
+		if(anz==1)
 		{	
 		 commentpref=comment.substring(0,comment.indexOf("_"));
 		}
-		else
+		else if(anz==2)
+		{
+			//take the middle part
+			 commentpref=comment.substring(comment.indexOf("_")+1);
+			 commentpref=commentpref.substring(0,commentpref.indexOf("_"));
+			 //return 1008
+		}
+		else if(anz==0)
 			commentpref=comment;
+		else if(anz==3)
+		{
+			//take the middle part
+			 commentpref=comment.substring(comment.indexOf("_")+1);
+			 commentpref=commentpref.substring(commentpref.indexOf("_")+1);
+			 commentpref=commentpref.substring(0,commentpref.indexOf("_"));
+			
+		}
+		else	
+			Tracer.WriteTrace(10, "comment<"+comment+"> to much _ , max allowed =2");
 		return commentpref;
 	}
 	public static String calcCommentPostfix(String comment)

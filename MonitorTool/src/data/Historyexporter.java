@@ -71,5 +71,20 @@ public class Historyexporter
 		}
 		return;
 	}
-	
+	public void deleteEaMagicComment(String magic,String comment)
+	{
+		//den ea aus history.txt löschen
+		int anz=hlist.size();
+		for(int i=0; i<anz; i++)
+		{
+			String zeile=hlist.get(i);
+			if((zeile.startsWith(magic)==true)&&(zeile.contains(comment)))
+			{	
+				hlist.remove(i);
+				anz--;
+				i--;
+			}
+		}
+		return;
+	}
 }

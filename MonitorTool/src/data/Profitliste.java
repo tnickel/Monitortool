@@ -204,7 +204,7 @@ public class Profitliste
 				String pz1_str = AutoCreator.getPkz1(meconf, p.getComment());
 				try
 				{
-					int number = Integer.valueOf(pz1_str);
+					float number = Float.valueOf(pz1_str);
 					p.setPz1(number);
 				} catch (NumberFormatException e)
 				{
