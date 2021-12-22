@@ -288,8 +288,7 @@ public class Tableview extends TableViewBasic
 			for (int i = 0; i < anz; i++)
 			{
 				Profit prof = pl_glob.getelem(i);
-				if (prof.getMagic() == 2181)
-					System.out.println("found 2181");
+				
 				if (tf_glob.checkConditions(prof) == false)
 				{
 					pl_glob.delelem(i);
@@ -342,8 +341,7 @@ public class Tableview extends TableViewBasic
 			Profit prof = pl_glob.getelem(i);
 			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
 			
-			if (prof.getMagic() == 5787434)
-				System.out.println("found");
+			
 			
 			brokername = prof.getBroker();
 			Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(brokername);
@@ -679,7 +677,7 @@ public class Tableview extends TableViewBasic
 		
 		// drawdown anzeigen
 		if (ddtext != null)
-			ddtext.setText(String.valueOf(einzeltradeliste.calcDrawdownProz()));
+			ddtext.setText(String.valueOf(einzeltradeliste.calcDrawdown()));
 		
 		// profitfaktor anzeigen
 		if (pftext != null)

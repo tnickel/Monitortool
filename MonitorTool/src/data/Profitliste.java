@@ -163,7 +163,7 @@ public class Profitliste
 		// die profitliste besitzt hierzu für jeden profit die zugehörige
 		// Tradeliste
 		int plsize = this.getsize();
-		System.out.println("calcpf start");
+		
 		for (int i = 0; i < plsize; i++)
 		{
 			Profit p = profitliste.get(i);
@@ -176,7 +176,7 @@ public class Profitliste
 	{
 		// zum berechnen wird die ealiste benötigt weil hier steht das on/off drin
 		int plsize = this.getsize();
-		System.out.println("calcOnOff start");
+		
 		for (int i = 0; i < plsize; i++)
 		{
 			Profit p = profitliste.get(i);
@@ -186,7 +186,7 @@ public class Profitliste
 			if (ea != null)
 				p.setOn(ea.getOn());
 		}
-		System.out.println("calcOnOff end");
+	
 	}
 	
 	public void calcPz1(Brokerview bv)

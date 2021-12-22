@@ -1029,7 +1029,7 @@ public class Tradeliste
 		return tradetime;
 	}
 	
-	public double calcDrawdownProz()
+	public double calcDrawdownProz_dep()
 	{
 		// berechnet den maximalen prozentualen Drawdown
 		
@@ -1061,7 +1061,27 @@ public class Tradeliste
 		}
 		return maxdrawdownprozent;
 	}
+	public double calcDrawdown()
+	{
+		
+		double act_balance = 0;
+		double max_balance = 0;
+		double act_drawdown =0;
+		double max_drawdown =0;
 	
+		
+		int anz = tradeliste.size();
+		for (int i = 0; i < anz; i++)
+		{
+			Trade tr = tradeliste.get(i);
+			act_balance = act_balance + tr.getProfit();
+			max_balance = Math.max(max_balance,act_balance);
+			act_drawdown= act_balance - max_balance;
+			max_drawdown= Math.min(max_drawdown, act_drawdown);
+		}
+		return max_drawdown;
+	
+	}
 	private double calcGrossProfit()
 	{
 		double grossprofit = 0;

@@ -48,6 +48,8 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 	private Text text1minProfitfaktor;
 	private Button button1maxdrawdown;
 	private Text text1lastdays;
+	private Text text1pz1;
+	private Button button1pz1;
 	private Button button1showConRealaccount;
 	private Button button1eaTradedLastDays;
 	private Label label8;
@@ -390,6 +392,18 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 					button1showConRealaccount.setBounds(8, 356, 430, 30);
 					button1showConRealaccount.setSelection(tf_glob.isOnlyRealaccountConnected());
 				}
+				{
+					button1pz1 = new Button(group1, SWT.CHECK | SWT.LEFT);
+					button1pz1.setText("pz1");
+					button1pz1.setSize(60, 30);
+					button1pz1.setBounds(8, 384, 60, 30);
+					button1pz1.setSelection(tf_glob.isPz1selection());
+				}
+				{
+					text1pz1 = new Text(group1, SWT.NONE);
+					text1pz1.setText(String.valueOf(tf_glob.getPz1()));
+					text1pz1.setBounds(249, 383, 37, 25);
+				}
 			}
 			{
 				okbutton = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -443,7 +457,8 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 		tf_glob.setDrawdownselection(button1maxdrawdown.getSelection());
 		tf_glob.setProfitfaktor(Float.valueOf(text1minProfitfaktor.getText()));
 		tf_glob.setOnlyRealaccountConnected(button1showConRealaccount.getSelection());
-		
+		tf_glob.setPz1selection(button1pz1.getSelection());
+		tf_glob.setPz1(Float.valueOf(text1pz1.getText()));
 	
 	
 		//überprüfung drawdown 1-100%

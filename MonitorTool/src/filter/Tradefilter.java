@@ -28,6 +28,7 @@ public class Tradefilter
 	boolean lasttradedayselection = false;
 	boolean tradefilterbutton=false;
 	boolean onlyRealaccountConnected=false;
+	boolean pz1selection=false;
 
 	int minfavorit = 0;
 	int maxfavorit = 10;
@@ -43,6 +44,7 @@ public class Tradefilter
 	float drawdown = 0;
 	int lasttradesdays = 0;
 	String tradestartdate="1.1.2012";
+	float pz1=0;
 
 	private static int isloaded = 0;
 
@@ -345,7 +347,11 @@ public class Tradefilter
 			else
 				return false;
 		}
-		
+		if(isPz1selection())
+		{
+			if(pz1>prof.getPz1())
+				return false;
+		}
 		return true;
 	}
 
@@ -437,6 +443,26 @@ public class Tradefilter
 	public void setOnlyRealaccountConnected(boolean onlyRealaccountConnected)
 	{
 		this.onlyRealaccountConnected = onlyRealaccountConnected;
+	}
+
+	public boolean isPz1selection()
+	{
+		return pz1selection;
+	}
+
+	public void setPz1selection(boolean pz1selection)
+	{
+		this.pz1selection = pz1selection;
+	}
+
+	public float getPz1()
+	{
+		return pz1;
+	}
+
+	public void setPz1(float pz1)
+	{
+		this.pz1 = pz1;
 	}
 
 	public void init()
