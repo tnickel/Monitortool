@@ -154,7 +154,7 @@ public class Tableview extends TableViewBasic
 		return filedata;
 	}
 	
-	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag)
+	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag,int onlyopentrades)
 	{
 		// Hier werden die Trades für einen Broker eingelesen
 		
@@ -192,26 +192,26 @@ public class Tableview extends TableViewBasic
 		String fnam5 = filedata + "/history_transfer.txt";
 		String dirnam6 = mc.getAppdata() + "\\tester\\files\\Ac_Entwicklungen";
 		
-		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
+		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		// wenn kein history.txt und kein history_transfer.txt
 		// dann gibt es nix zu lesen
 		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false)
-				&& (new File(dirnam6).exists() == false))
+				&& (new File(dirnam6).exists() == false)&& (onlyopentrades==0))
 		{
 			Lock.unlock(filedata + "/monitor.lock");
 			Tracer.WriteTrace(20, "W:no file <" + fnam2 + "> and no file<" + fnam5 + ">");
 			return;
 		}
-		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
+		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
 			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
-		if ((showopenorders == true) && (new File(fnam3).exists() == true))
-			readTradesFile(tl, fnam3, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+		if ( (new File(fnam3).exists() == true)&&(onlyopentrades==1))
+			readTradesFile(tl, fnam3, nocanceledflag, true, normflag, mc, tf_glob);
 			
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
-		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0))
+		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
 		{
 			String fna = filedata + "\\history_expset_";
 			File hist_exp_f = new File(fna);
@@ -227,11 +227,11 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// lade die transfer
-		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0))
+		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		// lade die Daten vom Auto Creator
-		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1))
+		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1)&&(onlyopentrades==0))
 			readTradesAutoCreator(tl, dirnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		Lock.unlock(filedata + "/monitor.lock");
@@ -1356,7 +1356,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Metaconfig mc = brokerview_glob.getElem(i);
-			this.LoadTradeTable(mc, Display.getDefault(), 1, 0);
+			this.LoadTradeTable(mc, Display.getDefault(), 1, 0,0);
 		}
 		
 		// das neue in den selektierten Broker importieren

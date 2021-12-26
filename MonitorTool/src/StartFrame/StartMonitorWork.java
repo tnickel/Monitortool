@@ -120,7 +120,7 @@ public class StartMonitorWork
 	}
 	
 	public void loadallbroker(Display dis, Table table1, Table table2, Table table3, Tradefilter tf,
-			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag)
+			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag,int onlyopenflag)
 	{
 		// forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
@@ -132,6 +132,7 @@ public class StartMonitorWork
 		buildBrokerliste(table3, forceloadflag);
 		broker.setText("load all active broker");
 		
+		//hier wird die Tradeliste gelöscht, also nach dem Init sind 0 trades drin
 		tv_glob.init(dis, brokerview_glob, tf, table2, pb1_glob, forceloadflag); // forceflag auf 1 gesetzt
 		int anz = brokerview_glob.getAnz();
 		
@@ -151,7 +152,7 @@ public class StartMonitorWork
 						"Info: try to read <" + mc.getBrokername() + "> on <" + tv_glob.getFiledata(mc) + ">");
 				if (mc.getOn() == 1)
 				{
-					tv_glob.LoadTradeTable(mc, dis, 0, showflag);
+					tv_glob.LoadTradeTable(mc, dis, 0, showflag,onlyopenflag);
 					Tracer.WriteTrace(20, "tradeanzahl in globtradeliste=" + tv_glob.calcTradeanzahl().getAnztrades());
 					
 				}
@@ -206,14 +207,14 @@ public class StartMonitorWork
 	}
 	
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1, Table table2, Table table3, Display dis,
-			int showflag, int forceloadflag)
+			int showflag, int forceloadflag,int onlyopenflag)
 	{
 		
 		// dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
 		
 		// die Tradetable für einen bestimmten Broker laden
-		tv_glob.LoadTradeTable(mc, dis, 0, showflag);
+		tv_glob.LoadTradeTable(mc, dis, 0, showflag,onlyopenflag);
 		// die Tradetable für einen bestimmten broker anzeigen
 		tv_glob.ShowTradeTable(dis, table1, brokername, GlobalVar.getShowMaxTradetablesize(), forceloadflag);
 		// die profittable für einen bestimmten broker berechnen
@@ -225,7 +226,7 @@ public class StartMonitorWork
 	}
 	
 	public void brokerselected(String name, Tradefilter tf, Table table1, Table table2, Table table3,
-			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag)
+			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag,int onlyopenflag)
 	{
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
@@ -244,7 +245,7 @@ public class StartMonitorWork
 		// if (me.getInstallationstatus() != 0)
 		
 		// hier wird die Ealiste für das mittlere Fenster aufgebaut
-		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag);
+		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag,onlyopenflag);
 		
 		brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
@@ -653,7 +654,7 @@ public class StartMonitorWork
 		// showflag=0 dann wird nix auf dem display angezeigt
 		AutomaticCheck_dep gd20 = new AutomaticCheck_dep(tv_glob, brokerview_glob, table1, dis, anzincommingtrades,
 				anzeas);
-		AutomaticCheck_dep.runAutomatic_dep(showflag);
+		AutomaticCheck_dep.runAutomatic_dep(showflag,0);
 	}
 	
 	public void tooggleallprofits()

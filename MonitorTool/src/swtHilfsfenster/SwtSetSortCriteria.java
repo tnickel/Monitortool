@@ -71,24 +71,22 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
 			GridLayout dialogShellLayout = new GridLayout();
-			dialogShellLayout.makeColumnsEqualWidth = true;
-			dialogShell.setLayout(dialogShellLayout);
+			dialogShell.setLayout(null);
 			dialogShell.layout();
 			dialogShell.pack();			
-			dialogShell.setSize(157, 380);
+			dialogShell.setSize(122, 334);
 			{
 				group1 = new Group(dialogShell, SWT.NONE);
 				GridLayout group1Layout = new GridLayout();
-				group1.setLayout(group1Layout);
+				group1.setLayout(null);
 				GridData group1LData = new GridData();
-				group1.setLayoutData(group1LData);
 				group1.setText("set sort criteria");
-				group1Layout.makeColumnsEqualWidth = true;
+				group1.setBounds(5, 5, 82, 264);
 				{
 					magic = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData magicLData = new GridData();
 					magic.setText("magic");
-					magic.setLayoutData(magicLData);
+					magic.setBounds(7, 20, 45, 15);
 					if(GlobalVar.getSortcriteria()==1)
 						magic.setSelection(true);
 					magic.addSelectionListener(new SelectionAdapter() {
@@ -103,7 +101,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					sortcomment.setText("comment");
 					if(GlobalVar.getSortcriteria()==2)
 						sortcomment.setSelection(true);
-						sortcomment.setLayoutData(sortcommentLData);
+						sortcomment.setBounds(7, 40, 61, 15);
 					sortcomment.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
 							sortcommentWidgetSelected(evt);
@@ -114,7 +112,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					sortprofit10 = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData sortprofit10LData = new GridData();
 					sortprofit10.setText("profit10");
-					sortprofit10.setLayoutData(sortprofit10LData);
+					sortprofit10.setBounds(7, 60, 53, 15);
 					if(GlobalVar.getSortcriteria()==3)
 						sortprofit10.setSelection(true);
 					sortprofit10.addSelectionListener(new SelectionAdapter() {
@@ -127,7 +125,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					sortprofit30 = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData sortprofit30LData = new GridData();
 					sortprofit30.setText("profit30");
-					sortprofit30.setLayoutData(sortprofit30LData);
+					sortprofit30.setBounds(7, 80, 53, 15);
 					if(GlobalVar.getSortcriteria()==4)
 						sortprofit30.setSelection(true);
 					sortprofit30.addSelectionListener(new SelectionAdapter() {
@@ -140,7 +138,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					sortprofitall = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData sortprofitallLData = new GridData();
 					sortprofitall.setText("profit all");
-					sortprofitall.setLayoutData(sortprofitallLData);
+					sortprofitall.setBounds(7, 100, 55, 15);
 					if(GlobalVar.getSortcriteria()==5)
 						sortprofitall.setSelection(true);
 					sortprofitall.addSelectionListener(new SelectionAdapter() {
@@ -153,7 +151,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					sortanztrades = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData sortanztradesLData = new GridData();
 					sortanztrades.setText("# trades");
-					sortanztrades.setLayoutData(sortanztradesLData);
+					sortanztrades.setBounds(7, 120, 54, 15);
 					if(GlobalVar.getSortcriteria()==6)
 						sortanztrades.setSelection(true);
 					sortanztrades.addSelectionListener(new SelectionAdapter() {
@@ -166,7 +164,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					button1info1 = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData button1info1LData = new GridData();
 					button1info1.setText("info1");
-					button1info1.setLayoutData(button1info1LData);
+					button1info1.setBounds(7, 140, 40, 15);
 					if(GlobalVar.getSortcriteria()==7)
 						button1info1.setSelection(true);
 					button1info1.addSelectionListener(new SelectionAdapter() {
@@ -179,7 +177,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					button1info2 = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData button1info2LData = new GridData();
 					button1info2.setText("info2");
-					button1info2.setLayoutData(button1info2LData);
+					button1info2.setBounds(7, 160, 40, 15);
 					if(GlobalVar.getSortcriteria()==8)
 						button1info2.setSelection(true);
 					button1info2.addSelectionListener(new SelectionAdapter() {
@@ -191,8 +189,8 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 				{
 					buttonProfitfaktor = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData buttonProfitfaktorLData = new GridData();
-					buttonProfitfaktor.setLayoutData(buttonProfitfaktorLData);
 					buttonProfitfaktor.setText("profitfaktor");
+					buttonProfitfaktor.setBounds(7, 180, 69, 15);
 					if(GlobalVar.getSortcriteria()==9)
 						buttonProfitfaktor.setSelection(true);
 					buttonProfitfaktor.addSelectionListener(new SelectionAdapter() {
@@ -204,8 +202,8 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 				{
 					buttonDrawdown = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData buttonDrawdownLData = new GridData();
-					buttonDrawdown.setLayoutData(buttonDrawdownLData);
 					buttonDrawdown.setText("drawdown");
+					buttonDrawdown.setBounds(7, 200, 65, 15);
 					if(GlobalVar.getSortcriteria()==10)
 						buttonDrawdown.setSelection(true);
 					buttonDrawdown.addSelectionListener(new SelectionAdapter() {
@@ -217,8 +215,8 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 				{
 					buttonpz1 = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData buttonDrawdownLData = new GridData();
-					buttonpz1.setLayoutData(buttonDrawdownLData);
 					buttonpz1.setText("pz1");
+					buttonpz1.setBounds(7, 220, 33, 15);
 					if(GlobalVar.getSortcriteria()==11)
 						buttonpz1.setSelection(true);
 					buttonpz1.addSelectionListener(new SelectionAdapter() {
@@ -228,12 +226,13 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 					});
 				}
 				
+				
 			}
 			{
 				okbutton = new Button(dialogShell, SWT.PUSH | SWT.CENTER);
 				GridData okbuttonLData = new GridData();
-				okbutton.setLayoutData(okbuttonLData);
 				okbutton.setText("ok");
+				okbutton.setBounds(70, 275, 17, 20);
 				okbutton.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						okbuttonWidgetSelected(evt);

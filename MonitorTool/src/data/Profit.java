@@ -426,9 +426,9 @@ public class Profit implements Comparable<Profit>
 			float vergldd = vergleichsprofit.getDrawdown();
 			float dd = this.getDrawdown();
 
-			if (vergldd < dd)
+			if (vergldd > dd)
 				retval = -1;
-			else if (vergldd > dd)
+			else if (vergldd < dd)
 				retval = 1;
 			else
 				retval = 0;

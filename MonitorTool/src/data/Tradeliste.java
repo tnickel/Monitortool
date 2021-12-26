@@ -147,10 +147,12 @@ public class Tradeliste
 			inf.setFilename(tradelistenam);
 			
 			// tradeliste einlesen
+			/*
 			tradeliste = (ArrayList<Trade>) inf.loadXST();
 			// Tracer.WriteTrace(10, "anz trades geladen="+tradeliste.size());
 			inf.close();
 			isloaded = 1;
+			*/
 			
 			// nach dem Einladen die open trades entfernen
 			this.entferneTrades(bview, tradeliste, tf);
@@ -1079,7 +1081,7 @@ public class Tradeliste
 			act_drawdown= act_balance - max_balance;
 			max_drawdown= Math.min(max_drawdown, act_drawdown);
 		}
-		return max_drawdown;
+		return Math.abs(max_drawdown);
 	
 	}
 	private double calcGrossProfit()

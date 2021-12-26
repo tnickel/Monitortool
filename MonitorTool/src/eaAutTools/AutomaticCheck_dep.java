@@ -38,7 +38,7 @@ public class AutomaticCheck_dep
 
 	}
 
-	public static void runAutomatic_dep(int showflag)
+	public static void runAutomatic_dep(int showflag,int onlyopenflag)
 	{
 		// prüft bei allen ea´s ob der gd20 überschritten worden ist.
 		// setze in der ea liste den wert.
@@ -64,7 +64,7 @@ public class AutomaticCheck_dep
 			Tracer.WriteTrace(20, "Info: lade Broker <" + mc.getBrokername()
 					+ ">");
 
-			tv_glob.LoadTradeTable(mc, dis, 1,showflag);
+			tv_glob.LoadTradeTable(mc, dis, 1,showflag,onlyopenflag);
 
 			if (showflag == 1)
 				Swttool.wupdate(dis_glob);

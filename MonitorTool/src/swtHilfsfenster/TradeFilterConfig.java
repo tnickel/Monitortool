@@ -43,7 +43,6 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 
 	private Button minproftsel_button;
 	private Button button1minprofitfaktor;
-	private Label label9;
 	private Text text1maxdrawdown;
 	private Text text1minProfitfaktor;
 	private Button button1maxdrawdown;
@@ -382,11 +381,6 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 					});
 				}
 				{
-					label9 = new Label(group1, SWT.NONE);
-					label9.setText("%");
-					label9.setBounds(298, 326, 73, 24);
-				}
-				{
 					button1showConRealaccount = new Button(group1, SWT.CHECK | SWT.LEFT);
 					button1showConRealaccount.setText("show only EAs connected to realaccount");
 					button1showConRealaccount.setBounds(8, 356, 430, 30);
@@ -463,8 +457,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 	
 		//überprüfung drawdown 1-100%
 		float drd=Float.valueOf(text1maxdrawdown.getText());
-		if((drd>100)||(drd<0))
-			Mbox.Infobox("drawdown not correct<"+drd+">");
+		
 		tf_glob.setDrawdown((float)((float)drd));
 
 		tf_glob.setLasttradedayselection(button1eaTradedLastDays.getSelection());

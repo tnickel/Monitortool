@@ -129,6 +129,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button addbroker;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Button button2checkopentrades;
 	private Button button2ConfigAttributes;
 	private Button AutoCreator;
 	private Button Monitortool;
@@ -185,6 +186,21 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				button2checkopentrades = new Button(this, SWT.PUSH | SWT.CENTER);
+				FormData button2checkopentradesLData = new FormData();
+				button2checkopentradesLData.left =  new FormAttachment(0, 1000, 1640);
+				button2checkopentradesLData.top =  new FormAttachment(0, 1000, 9);
+				button2checkopentradesLData.width = 85;
+				button2checkopentradesLData.height = 36;
+				button2checkopentrades.setLayoutData(button2checkopentradesLData);
+				button2checkopentrades.setText("ShowOpenTrades");
+				button2checkopentrades.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						button2checkopentradesWidgetSelected(evt);
+					}
+				});
+			}
 			{
 				button2ConfigAttributes = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2ConfigAttributesLData = new FormData();
@@ -758,7 +774,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 				showbrokerLData.width = 176;
 				showbrokerLData.height = 30;
 				showbroker.setLayoutData(showbrokerLData);
-				showbroker.setText("show files on broker");
+				showbroker.setText("Show Files on Broker");
 				showbroker.addSelectionListener(new SelectionAdapter()
 				{
 					public void widgetSelected(SelectionEvent evt)
@@ -1305,7 +1321,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		if(GlobalVar.getAutostartfeature()==1)
 		{
-			getAllData();
+			getAllData(0);
 			//einen timer so ein richten das er nach 5 sekunden ausgelöst wird und dann mit dem timer-event
 			//dieses Kommando "	smw.startAllMt(); " ausgeführt wird
 			smw.startAllMt(0);
@@ -1319,7 +1335,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	   public void run()
 	   {
 	    System.out.println("ReloadAllData");
-	    getAllDataWidget();
+	    getAllDataWidget(0);
 	  
 	    
 	    File uphistfile=new File(GlobalVar.getRootpath()+"\\conf\\updatehistoryexporter.txt");
@@ -1610,10 +1626,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void getAllDataWidgetSelected(SelectionEvent evt)
 	{
-		getAllDataWidget();
+		getAllDataWidget(0);
 	}
 
-	private void getAllDataWidget()
+	private void getAllDataWidget(int onlyopenflag)
 	{
 		// Nur jede 15 minuten beim Server checken
 		Date aktdate = Mondate.getAktDate();
@@ -1623,29 +1639,29 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		{ "start client" }); */
 
 		// alle aktivierten Broker laden
-		getAllData();
+		getAllData(onlyopenflag);
 		statustext.setText(GlobalVar.getIpmessage());
 	}
 
-	private void getAllData()
+	private void getAllData(int onlyopenflag)
 	{
 		// fourceflag= wenn forceflag =1 wird die anzeige aktuallisiert
 		// und alles neu geladen
 		
 
 		// beim ersten mal
-		if (loadallbrokerflag == 0)
+		if ((loadallbrokerflag == 0)||(onlyopenflag==1))
 		{
 			loadallbrokerflag = 1;
 			
-			getAllData.setText("showAllData");
+			getAllData.setText("ShowAllData");
 		}
 		getAllData.setEnabled(false);
 		setBrokermode(0);
 		broker.setText("all brokers");
 		tradefilterrefresh();
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
-				anzincommingtrades, anzeas, broker, 1, 1);
+				anzincommingtrades, anzeas, broker, 1, 1,onlyopenflag);
 	
 		smw.cleanAllWaste();	
 		//smw.exportAllTradelistEncryped();
@@ -1689,7 +1705,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			forceflag = 1;
 
 		smw.brokerselected(name, tf, table1, table2, table3, broker, dis_glob,
-				1, forceflag);
+				1, forceflag,0);
 
 		DisTool.arrowCursor();
 		setBrokermode(1);
@@ -2139,7 +2155,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button2reload.widgetSelected, event=" + evt);
 		// TODO add your code for button2reload.widgetSelected
 		loadallbrokerflag = 0;
-		getAllData();
+		getAllData(0);
 	}
 
 	private void button2deleteWidgetSelected(SelectionEvent evt)
@@ -2156,7 +2172,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		
 		//und jetzt muss der reloadbutton getätigt werden, d.h. die Tades für den Broker werden neu angezeigt
 		smw.brokerselected(selbrokerpath_g, tf, table1, table2, table3, broker, dis_glob,
-				1, 0);
+				1, 0,0);
 	}
 
 	private void text1daysKeyTraversed(TraverseEvent evt)
@@ -2361,6 +2377,13 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		ConfigAttributes.showGUI();
 		
 		
+	}
+	
+	private void button2checkopentradesWidgetSelected(SelectionEvent evt) {
+		System.out.println("button2checkopentrades.widgetSelected, event="+evt);
+		//TODO add your code for button2checkopentrades.widgetSelected
+		//show only open trades
+		getAllDataWidget(1);
 	}
 
 }
