@@ -443,7 +443,13 @@ public class Profit implements Comparable<Profit>
 			else
 				retval=0;
 			break;
-			
+		case 12:// brokername
+			String brokername2 = vergleichsprofit.getBroker();
+			if (this.getBroker().equals(brokername2))
+				retval = 0;
+			else
+				retval = 1;
+			break;
 		}
 		// System.out.println("vergleiche a<"+tage10vergl+"> mit b<"+tage10gew+"> retval<"+retval+">");
 		return retval;

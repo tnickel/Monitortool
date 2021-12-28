@@ -29,6 +29,7 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private Group group1;
 	private Button magic;
+	private Button button1brokername;
 	private Button sortprofit30;
 	private Button buttonDrawdown;
 	private Button buttonProfitfaktor;
@@ -74,14 +75,14 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setLayout(null);
 			dialogShell.layout();
 			dialogShell.pack();			
-			dialogShell.setSize(122, 334);
+			dialogShell.setSize(140, 362);
 			{
 				group1 = new Group(dialogShell, SWT.NONE);
 				GridLayout group1Layout = new GridLayout();
 				group1.setLayout(null);
 				GridData group1LData = new GridData();
 				group1.setText("set sort criteria");
-				group1.setBounds(5, 5, 82, 264);
+				group1.setBounds(5, 5, 106, 287);
 				{
 					magic = new Button(group1, SWT.RADIO | SWT.LEFT);
 					GridData magicLData = new GridData();
@@ -225,14 +226,23 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 						}
 					});
 				}
-				
-				
+				{
+					button1brokername = new Button(group1, SWT.RADIO | SWT.LEFT);
+					button1brokername.setText("brokername");
+					button1brokername.setBounds(7, 232, 84, 30);
+					button1brokername.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							button1brokernameWidgetSelected(evt);
+						}
+					});
+				}
+
 			}
 			{
 				okbutton = new Button(dialogShell, SWT.PUSH | SWT.CENTER);
 				GridData okbuttonLData = new GridData();
 				okbutton.setText("ok");
-				okbutton.setBounds(70, 275, 17, 20);
+				okbutton.setBounds(88, 298, 17, 20);
 				okbutton.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent evt) {
 						okbuttonWidgetSelected(evt);
@@ -326,4 +336,11 @@ public class SwtSetSortCriteria extends org.eclipse.swt.widgets.Dialog {
 		//TODO add your code for buttonDrawdown.widgetSelected
 		GlobalVar.setSortcriteria(11);
 	}
+	
+	private void button1brokernameWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1brokername.widgetSelected, event="+evt);
+		//TODO add your code for button1brokername.widgetSelected
+		GlobalVar.setSortcriteria(12);
+	}
+
 }

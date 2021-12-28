@@ -1640,6 +1640,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 		// alle aktivierten Broker laden
 		getAllData(onlyopenflag);
+		GlobalVar.setIpmessage("ShowAllData");
 		statustext.setText(GlobalVar.getIpmessage());
 	}
 
@@ -1663,6 +1664,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
 				anzincommingtrades, anzeas, broker, 1, 1,onlyopenflag);
 	
+	
+		
 		smw.cleanAllWaste();	
 		//smw.exportAllTradelistEncryped();
 
@@ -2383,6 +2386,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button2checkopentrades.widgetSelected, event="+evt);
 		//TODO add your code for button2checkopentrades.widgetSelected
 		//show only open trades
+		GlobalVar.setIpmessage("Show Open Trades");
 		getAllDataWidget(1);
 	}
 

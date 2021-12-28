@@ -55,7 +55,7 @@ public class Tableview extends TableViewBasic
 	private Tradeliste tl = new Tradeliste(null);
 	private Profitliste pl_glob = new Profitliste();
 	private HashSet<String> profitmenge = new HashSet<String>();
-	private Ealiste eal = new Ealiste();
+	private Ealiste eal_glob = new Ealiste();
 	private Brokerview brokerview_glob = new Brokerview();
 	private Networker_dep networker_glob = new Networker_dep();
 	private Table table2_glob = null;
@@ -74,7 +74,7 @@ public class Tableview extends TableViewBasic
 		tf_glob = tf;
 		tl.initTL(bview, forceflag, tf);
 		pl_glob.init();
-		eal.init();
+		eal_glob.init();
 	}
 	
 	public ArrayList<String> calcBrokerliste(int magic)
@@ -93,13 +93,13 @@ public class Tableview extends TableViewBasic
 	
 	public void setLotsize(String broker, int magic, float lotsize)
 	{
-		Ea ea = eal.getEa(magic, broker);
+		Ea ea = eal_glob.getEa(magic, broker);
 		ea.setReallotsize(brokerview_glob, lotsize);
 	}
 	
 	public String getLotsize_str(String broker, int magic)
 	{
-		Ea ea = eal.getEa(magic, broker);
+		Ea ea = eal_glob.getEa(magic, broker);
 		if (ea == null)
 			return "empty";
 		String lotstr = ea.getlotsize_str(brokerview_glob);
@@ -109,17 +109,17 @@ public class Tableview extends TableViewBasic
 	public void store()
 	{
 		tl.store(tf_glob);
-		eal.store(0);
+		eal_glob.store(0);
 	}
 	
 	public Ealiste getEaliste()
 	{
-		return eal;
+		return eal_glob;
 	}
 	
 	public void storeEaliste()
 	{
-		eal.store(0);
+		eal_glob.store(0);
 	}
 	
 	public Tradeliste getTradeliste()
@@ -154,7 +154,7 @@ public class Tableview extends TableViewBasic
 		return filedata;
 	}
 	
-	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag,int onlyopentrades)
+	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag, int onlyopentrades)
 	{
 		// Hier werden die Trades für einen Broker eingelesen
 		
@@ -192,26 +192,26 @@ public class Tableview extends TableViewBasic
 		String fnam5 = filedata + "/history_transfer.txt";
 		String dirnam6 = mc.getAppdata() + "\\tester\\files\\Ac_Entwicklungen";
 		
-		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
+		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		// wenn kein history.txt und kein history_transfer.txt
 		// dann gibt es nix zu lesen
 		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false)
-				&& (new File(dirnam6).exists() == false)&& (onlyopentrades==0))
+				&& (new File(dirnam6).exists() == false) && (onlyopentrades == 0))
 		{
 			Lock.unlock(filedata + "/monitor.lock");
 			Tracer.WriteTrace(20, "W:no file <" + fnam2 + "> and no file<" + fnam5 + ">");
 			return;
 		}
-		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
+		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
-		if ( (new File(fnam3).exists() == true)&&(onlyopentrades==1))
+		if ((new File(fnam3).exists() == true) && (onlyopentrades == 1))
 			readTradesFile(tl, fnam3, nocanceledflag, true, normflag, mc, tf_glob);
 			
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
-		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
+		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 		{
 			String fna = filedata + "\\history_expset_";
 			File hist_exp_f = new File(fna);
@@ -227,11 +227,11 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// lade die transfer
-		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0)&&(onlyopentrades==0))
+		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		// lade die Daten vom Auto Creator
-		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1)&&(onlyopentrades==0))
+		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1) && (onlyopentrades == 0))
 			readTradesAutoCreator(tl, dirnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 		
 		Lock.unlock(filedata + "/monitor.lock");
@@ -278,7 +278,7 @@ public class Tableview extends TableViewBasic
 		// dann den profitfaktor und drawdown berechnen
 		pl_glob.calcDrawdowns();
 		pl_glob.calcProfitfaktoren();
-		pl_glob.calcOnoff(eal);
+		pl_glob.calcOnoff(eal_glob);
 		pl_glob.calcPz1(brokerview_glob);
 		
 		// die unerwünschten Profite aus der Profitliste wieder rausfiltern
@@ -306,7 +306,7 @@ public class Tableview extends TableViewBasic
 			for (int i = 0; i < anz; i++)
 			{
 				Profit prof = pl_glob.getelem(i);
-				Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
+				Ea ea = eal_glob.getEa(prof.getMagic(), prof.getBroker());
 				if (ea.getAuto() == 0)
 				{
 					// lösche eintrag da automatic ==0
@@ -322,7 +322,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Profit prof = pl_glob.getelem(i);
-			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
+			Ea ea = eal_glob.getEa(prof.getMagic(), prof.getBroker());
 			
 			if (ea == null)
 				continue;
@@ -339,9 +339,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Profit prof = pl_glob.getelem(i);
-			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
-			
-			
+			Ea ea = eal_glob.getEa(prof.getMagic(), prof.getBroker());
 			
 			brokername = prof.getBroker();
 			Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(brokername);
@@ -358,10 +356,76 @@ public class Tableview extends TableViewBasic
 		}
 		
 		// die EAliste um die neuen EAs erweitern erweiten
-		eal.expand(pl_glob);
+		eal_glob.expand(pl_glob);
 		
 		// ganz zum Schluss die Profitfaktoren und drawdowns berechnen
 		
+	}
+	
+	public void checkProfitliste()
+	{
+		Brokerview bv = brokerview_glob;
+		
+		int profanzahl = pl_glob.getsize();
+		for (int j = 0; j < profanzahl; j++)
+		{
+			
+			Profit prof = pl_glob.getelem(j);
+			// falls realbroker, dann überprüfe ob es einen zugehörigen demobroker gibt
+			if ((bv != null) && (bv.getAccounttype(prof.getBroker()) == 2))
+			{
+				// Dann hole für dies profitelement die tradeliste
+				// das müssen wir so machen da ein channel mehrere Trades beinhalten kann.
+				// d.h. z.B. unter kanal 8 können mehrere offene Trades sein und wir müssen
+				// jetzt checken ob diese
+				// trades auch im demokonto zugehörige Eas haben die eingeschaltet sind.
+				
+				// beim realbrokerist die magic der chanel
+				
+				String broker = prof.getBroker();
+				String channel = String.valueOf(prof.getMagic());
+				
+				// jetzt muss jeder Trade dieser Tradeliste,des Realaccount überprüft werden
+				Tradeliste tl = buildTradeliste(channel, broker, Integer.valueOf(channel));
+				
+				int anztrades = tl.getsize();
+				for (int i = 0; i < anztrades; i++)
+				{
+					
+					// überprüfe den nächsten Trades des Realbrokers
+					Trade tr = tl.getelem(i);
+					String realbroker = tr.getBroker();
+					int channelRealbroker = tr.getMagic();
+					Tracer.WriteTrace(20, "I:Check Trade on Realbroker <"+realbroker+"> comment<"+tr.getComment()+">");
+					// suche den Trade im Demobroker
+					Profit pldemo = pl_glob.searchProfitOnDemobroker(brokerview_glob,realbroker, tr.getComment(), channelRealbroker);
+					if(pldemo==null)
+					{
+						String em="E: can´t find Trade on Demobroker for an open Trade on Realbroker<"+realbroker+"> comment<"+tr.getComment()+"> magic<"+channelRealbroker+">";
+						Mlist.add(em);
+						Tracer.WriteTrace(10, em);
+						continue;
+					}
+					int magdemo = pldemo.getMagic();
+					String demobroker = pldemo.getBroker();
+					
+					// hier muss noch geprüft weren ob dieser Ea = On ist, da ein trade auf dem
+					// Realaccount offen ist
+					int status = eal_glob.getOn(magdemo, demobroker);
+					if (status == 0)
+					{
+						String em="E:Error: Found Trade on Demobroker but this EA was off: Realaccount <" + realbroker + "> channel<"
+								+ channelRealbroker + "> comment<" + tr.getComment() + "> but NOT ON on Demoaccount <" + demobroker
+								+ "> channel <" + channelRealbroker + "> comment<" + tr.getComment() + "> magic<" + magdemo + ">";
+						Mlist.add(em);
+						Tracer.WriteTrace(10, em);
+						continue;
+					}
+					
+				}
+				
+			}
+		}
 	}
 	
 	public void ShowProfitTable()
@@ -410,7 +474,7 @@ public class Tableview extends TableViewBasic
 			gew10 = prof.getZehntagegewinn();
 			gew30 = prof.getDreizigtragegewinn();
 			gewall = prof.getGesgewinn();
-			Ea ea = eal.getEa(prof.getMagic(), prof.getBroker());
+			Ea ea = eal_glob.getEa(prof.getMagic(), prof.getBroker());
 			
 			String comment = prof.getComment();// tl.getComment(prof.getMagic());
 			
@@ -722,11 +786,11 @@ public class Tableview extends TableViewBasic
 		// baut eine Profitliste auf wo nur ein bestimmter Ea vorkommt
 		Tradeliste eatl = new Tradeliste(null);
 		
-		Ea ea = eal.getEa(magic, broker);
+		Ea ea = eal_glob.getEa(magic, broker);
 		Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(broker);
 		
 		// den str-filenamen holen
-		String filename = ea.holeStrFilename(eal, meconf, tradecomment, 1);
+		String filename = ea.holeStrFilename(eal_glob, meconf, tradecomment, 1);
 		
 		if (FileAccess.FileAvailable(filename) == false)
 		{
@@ -956,7 +1020,7 @@ public class Tableview extends TableViewBasic
 			if (eastat == null)
 				continue;
 			
-			Ea ea = eal.getEa(magic, broker);
+			Ea ea = eal_glob.getEa(magic, broker);
 			if (ea != null)
 			{
 				int installiertflag = eastat.getInstalliert();
@@ -1011,21 +1075,21 @@ public class Tableview extends TableViewBasic
 		} else
 		{// selektierter broker ist ein realbroker
 			realbroker = selbroker;
-			demobroker = eal.getInstFrom(magic, realbroker);
+			demobroker = eal_glob.getInstFrom(magic, realbroker);
 		}
 		
 		// Ab hier sind real und demobroker separiert !!!
 		// den demobroker toggln
 		
 		// das flag auf demobroker umdrehen
-		eal.toggleOn(magic, demobroker);
+		eal_glob.toggleOn(magic, demobroker);
 		
 		// es gibt den falls das es für den realbroker keinen demobroker gibt
 		// Hier kann man trotzdem den realbroker ein/ausschalten
 		if (demobroker == null)
 		{
 			Mlist.add("W: realbroker<" + realbroker + "> don´t have a con. demobroker", 1);
-			eal.toggleOn(magic, demobroker);
+			eal_glob.toggleOn(magic, demobroker);
 		}
 		
 		// hier wird im Netzwerk auf dem Realaccount geschaltet
@@ -1061,7 +1125,7 @@ public class Tableview extends TableViewBasic
 		{
 			// es handelt sich um einen realbroker
 			realbroker = selbroker;
-			demobroker = eal.getInstFrom(magic, realbroker);
+			demobroker = eal_glob.getInstFrom(magic, realbroker);
 			
 		} else
 		{
@@ -1070,7 +1134,7 @@ public class Tableview extends TableViewBasic
 			realbroker = brokerview_glob.getConBroker(demobroker);
 		}
 		
-		eal.toggleAuto(magic, demobroker, realbroker);
+		eal_glob.toggleAuto(magic, demobroker, realbroker);
 		
 	}
 	
@@ -1114,7 +1178,7 @@ public class Tableview extends TableViewBasic
 	{
 		Toogler tog = new Toogler();
 		
-		// hier werden den EA ein/ausgeschaltet
+		// hier werden die EA ein/ausgeschaltet
 		int anz = table2_glob.getItemCount();
 		for (int i = 0; i < anz; i++)
 		{
@@ -1127,7 +1191,7 @@ public class Tableview extends TableViewBasic
 				int magic = SG.get_zahl(item.getText(1));
 				if (magic != prof.getMagic())
 					Tracer.WriteTrace(10, "internal magic<" + magic + "> != prof.magic<" + prof.getMagic() + ">");
-				tog.ToggleOnOffEa(tl, brokerview_glob, eal, magic, prof.getComment(), prof.getBroker(), pl_glob);
+				tog.ToggleOnOffEa(tl, brokerview_glob, eal_glob, magic, prof.getComment(), prof.getBroker(), pl_glob);
 				
 			}
 		}
@@ -1185,8 +1249,6 @@ public class Tableview extends TableViewBasic
 	public int deleteEas()
 	{
 		
-		
-		
 		int delcounter = 0;
 		
 		int anz = table2_glob.getItemCount();
@@ -1200,21 +1262,21 @@ public class Tableview extends TableViewBasic
 			{
 				// hole die magic,comment, broker
 				int magic = SG.get_zahl(item.getText(1));
-				String comment=prof.getComment();
-				String brokername=prof.getBroker();
-				Metaconfig meconf=brokerview_glob.getMetaconfigByBrokername(brokername);
+				String comment = prof.getComment();
+				String brokername = prof.getBroker();
+				Metaconfig meconf = brokerview_glob.getMetaconfigByBrokername(brokername);
 				
-				if(meconf.getAccounttype()!=4)
+				if (meconf.getAccounttype() != 4)
 				{
 					if (deleteSingleEa(brokerview_glob, tl, prof.getBroker(), magic) == true)
 						delcounter++;
-
-				}
-				else //if AutocreatorEA
+					
+				} else // if AutocreatorEA
 				{
 					Tracer.WriteTrace(10, "E:Can´t delete AutoCreator EA in this list");
-					//if (deleteSingleEaAC(brokerview_glob, tl, prof.getBroker(), magic,comment) == true)
-					//	delcounter++;
+					// if (deleteSingleEaAC(brokerview_glob, tl, prof.getBroker(), magic,comment) ==
+					// true)
+					// delcounter++;
 					
 				}
 			}
@@ -1230,7 +1292,7 @@ public class Tableview extends TableViewBasic
 		// check if we can delete this ea
 		if (checkIfDeleateAbleEa(bv, broker, magic) == false)
 			return false;
-		
+			
 		// delete eas from filesystem in the installdir and in the metatrader
 		// falls das ein normaler EA ist
 		
@@ -1268,9 +1330,8 @@ public class Tableview extends TableViewBasic
 		return true;
 	}
 	
-	public Boolean deleteSingleEaAC(Brokerview bv, Tradeliste tl, String broker,int magic,String comment)
+	public Boolean deleteSingleEaAC(Brokerview bv, Tradeliste tl, String broker, int magic, String comment)
 	{
-		
 		
 		// check if we can delete this ea
 		if (checkIfDeleateAbleEa(bv, broker, magic) == false)
@@ -1286,7 +1347,7 @@ public class Tableview extends TableViewBasic
 		if (hf.exists())
 		{
 			Historyexporter h = new Historyexporter(historytxt);
-			h.deleteEaMagicComment("99999",comment);
+			h.deleteEaMagicComment("99999", comment);
 			h.storeHistoryTxt();
 		}
 		historytxt = bv.getMqlData(broker) + "\\files\\history_small.txt";
@@ -1294,7 +1355,7 @@ public class Tableview extends TableViewBasic
 		if (hf.exists() && (hf.length() > 0))
 		{
 			Historyexporter h = new Historyexporter(historytxt);
-			h.deleteEaMagicComment("99999",comment);
+			h.deleteEaMagicComment("99999", comment);
 			h.storeHistoryTxt();
 		}
 		
@@ -1325,13 +1386,13 @@ public class Tableview extends TableViewBasic
 	
 	private void deleteEaFilesystem(Brokerview bv, int magic, String broker)
 	{
-		eal.deleteEaFilesystem(bv, magic, broker);
+		eal_glob.deleteEaFilesystem(bv, magic, broker);
 		
 	}
 	
 	private void deletePortfolioEaFilesystem(Brokerview bv, int magic, String broker)
 	{
-		eal.deletePortfolioEaFilesystem(bv, magic, broker);
+		eal_glob.deletePortfolioEaFilesystem(bv, magic, broker);
 		
 	}
 	
@@ -1356,7 +1417,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Metaconfig mc = brokerview_glob.getElem(i);
-			this.LoadTradeTable(mc, Display.getDefault(), 1, 0,0);
+			this.LoadTradeTable(mc, Display.getDefault(), 1, 0, 0);
 		}
 		
 		// das neue in den selektierten Broker importieren

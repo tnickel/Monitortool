@@ -93,10 +93,12 @@ public class StartMonitorWork
 		return (tv_glob.calcTradeanzahl());
 		
 	}
+	
 	public Profitliste getAktProfitliste()
 	{
-		return(tv_glob.getAktProfitliste());
+		return (tv_glob.getAktProfitliste());
 	}
+	
 	public void buildBrokerliste(Table table3, int forceflag)
 	{
 		// forceflag==1, es wird von platte alles geladen
@@ -119,8 +121,11 @@ public class StartMonitorWork
 		
 	}
 	
+
+	
 	public void loadallbroker(Display dis, Table table1, Table table2, Table table3, Tradefilter tf,
-			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag,int onlyopenflag)
+			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag,
+			int onlyopenflag)
 	{
 		// forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
@@ -132,7 +137,7 @@ public class StartMonitorWork
 		buildBrokerliste(table3, forceloadflag);
 		broker.setText("load all active broker");
 		
-		//hier wird die Tradeliste gelöscht, also nach dem Init sind 0 trades drin
+		// hier wird die Tradeliste gelöscht, also nach dem Init sind 0 trades drin
 		tv_glob.init(dis, brokerview_glob, tf, table2, pb1_glob, forceloadflag); // forceflag auf 1 gesetzt
 		int anz = brokerview_glob.getAnz();
 		
@@ -152,7 +157,7 @@ public class StartMonitorWork
 						"Info: try to read <" + mc.getBrokername() + "> on <" + tv_glob.getFiledata(mc) + ">");
 				if (mc.getOn() == 1)
 				{
-					tv_glob.LoadTradeTable(mc, dis, 0, showflag,onlyopenflag);
+					tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag);
 					Tracer.WriteTrace(20, "tradeanzahl in globtradeliste=" + tv_glob.calcTradeanzahl().getAnztrades());
 					
 				}
@@ -173,6 +178,7 @@ public class StartMonitorWork
 		
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
 		tv_glob.ShowProfitTable();
+		if(onlyopenflag==1)tv_glob.checkProfitliste();
 		tv_glob.showCounter(anzincommingtrades, anzeas);
 		
 		if (forceloadflag == 1)
@@ -207,14 +213,14 @@ public class StartMonitorWork
 	}
 	
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1, Table table2, Table table3, Display dis,
-			int showflag, int forceloadflag,int onlyopenflag)
+			int showflag, int forceloadflag, int onlyopenflag)
 	{
 		
 		// dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
 		
 		// die Tradetable für einen bestimmten Broker laden
-		tv_glob.LoadTradeTable(mc, dis, 0, showflag,onlyopenflag);
+		tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag);
 		// die Tradetable für einen bestimmten broker anzeigen
 		tv_glob.ShowTradeTable(dis, table1, brokername, GlobalVar.getShowMaxTradetablesize(), forceloadflag);
 		// die profittable für einen bestimmten broker berechnen
@@ -222,11 +228,10 @@ public class StartMonitorWork
 		// die profittabelle anzeigen
 		tv_glob.ShowProfitTable();
 		
-		
 	}
 	
 	public void brokerselected(String name, Tradefilter tf, Table table1, Table table2, Table table3,
-			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag,int onlyopenflag)
+			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag, int onlyopenflag)
 	{
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
@@ -245,7 +250,7 @@ public class StartMonitorWork
 		// if (me.getInstallationstatus() != 0)
 		
 		// hier wird die Ealiste für das mittlere Fenster aufgebaut
-		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag,onlyopenflag);
+		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag);
 		
 		brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
@@ -291,11 +296,11 @@ public class StartMonitorWork
 		sc.init(display_glob, selectedProfitelem_glob, tv_glob, maglist);
 	}
 	
-	public void updatehistoryexporter(Table table3,int forceflag)
+	public void updatehistoryexporter(Table table3, int forceflag)
 	{
 		Tracer.WriteTrace(20, "I:stop all Metatrader");
-		if(GlobalVar.getMetatraderautostartstop()==1)
-			MetaStarter.StopAllMetatrader(brokerview_glob,forceflag );
+		if (GlobalVar.getMetatraderautostartstop() == 1)
+			MetaStarter.StopAllMetatrader(brokerview_glob, forceflag);
 		
 		buildBrokerliste(table3, 0);
 		Installer inst = new Installer();
@@ -471,7 +476,7 @@ public class StartMonitorWork
 		ShowAllProfitsConfig prof = new ShowAllProfitsConfig("Gewinnverlauf", tv_glob, alltradelist, brokerview_glob);
 	}
 	
-	public void showallprofit2(Tradefilter tf, int portfolioflag, int maxprofanz,Profitliste profliste)
+	public void showallprofit2(Tradefilter tf, int portfolioflag, int maxprofanz, Profitliste profliste)
 	{
 		
 		// hier wird eine Tradeliste gebildet welche alle ea´s beinhaltet
@@ -485,7 +490,7 @@ public class StartMonitorWork
 		else
 			alltradelist = tv_glob.buildAllPortfolioliste();
 		ShowConfigAllP3 prof = new ShowConfigAllP3(display_glob, "Gewinnverlauf", tv_glob, alltradelist,
-				brokerview_glob,profliste);
+				brokerview_glob, profliste);
 		
 	}
 	
@@ -520,21 +525,21 @@ public class StartMonitorWork
 	public void toggleOnOffEa()
 	{
 		
-		//DisTool.waitCursor();
+		// DisTool.waitCursor();
 		tv_glob.toggleOnOffEas();
 		tv_glob.ShowProfitTable();
 		tv_glob.storeEaliste();
-		//DisTool.arrowCursor();
+		// DisTool.arrowCursor();
 		
 	}
 	
 	public void toogleOnOffAutomatic()
 	{
-		//DisTool.waitCursor();
+		// DisTool.waitCursor();
 		tv_glob.toggleOnOffAutomatics();
 		tv_glob.ShowProfitTable();
 		tv_glob.storeEaliste();
-		//DisTool.arrowCursor();
+		// DisTool.arrowCursor();
 		
 	}
 	
@@ -654,7 +659,7 @@ public class StartMonitorWork
 		// showflag=0 dann wird nix auf dem display angezeigt
 		AutomaticCheck_dep gd20 = new AutomaticCheck_dep(tv_glob, brokerview_glob, table1, dis, anzincommingtrades,
 				anzeas);
-		AutomaticCheck_dep.runAutomatic_dep(showflag,0);
+		AutomaticCheck_dep.runAutomatic_dep(showflag, 0);
 	}
 	
 	public void tooggleallprofits()
@@ -980,15 +985,15 @@ public class StartMonitorWork
 	public void startAllMt(int forceflag)
 	{
 		
-			MetaStarter.StartAllMetatrader(brokerview_glob,forceflag);
+		MetaStarter.StartAllMetatrader(brokerview_glob, forceflag);
 		
 	}
 	
 	public void stopAllMt(int forceflag)
 	{
 		
-			Tracer.WriteTrace(20, "I:stop all Metatrader");
-			MetaStarter.StopAllMetatrader(brokerview_glob,forceflag);
+		Tracer.WriteTrace(20, "I:stop all Metatrader");
+		MetaStarter.StopAllMetatrader(brokerview_glob, forceflag);
 		
 	}
 	
@@ -1000,13 +1005,13 @@ public class StartMonitorWork
 	
 	public void replaceAllSymbols(int forceflag)
 	{
-		if((GlobalVar.getMetatraderautostartstop()==0)&&(forceflag==0))
+		if ((GlobalVar.getMetatraderautostartstop() == 0) && (forceflag == 0))
 		{
 			Tracer.WriteTrace(20, "I:I stop all Metatrader because startstop=0 && forceflag=0");
 			return;
 			
 		}
-			MetaStarter.KillAllMetatrader(forceflag);
+		MetaStarter.KillAllMetatrader(forceflag);
 		
 		SymbolReplaceList s = new SymbolReplaceList(brokerview_glob);
 		s.ReplaceAllSymbols();

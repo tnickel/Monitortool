@@ -232,5 +232,37 @@ public class Profitliste
 		}
 		return("not found");
 	}
-	
+	public Profit searchProfitOnDemobroker(Brokerview bv,String realbroker, String comment, int channelRealbroker)
+	{
+		// in dieser funktion wird geschaut ob es für den aktuell offenen trade auf den realchannel einen zugehörigen offenen Trade im demoaccount gibt.
+		// ist das der fall wird das profitelement zurückgeben.
+		
+		int plsize = this.getsize();
+		for (int i = 0; i < plsize; i++)
+		{
+			Profit p = profitliste.get(i);
+			Metaconfig meconf = bv.getMetaconfigByBrokername(p.getBroker());
+			
+			//we search a demobroker
+			if(meconf.getAccounttype()==2)
+				continue;
+			
+			int magic=p.getMagic();
+			String broker1=p.getBroker();
+			String conbroker1=meconf.getconnectedBroker();
+			String comment1=p.getComment();
+			int channel1=meconf.getTradecopymagic();
+
+			if((conbroker1.equals(realbroker))&&(comment1.equals(comment))&&(channel1==channelRealbroker))
+			{
+				//found demobroker with trade with a correct comment
+				return p;
+				
+			}
+		
+		}
+		return(null);
+		
+		
+	}
 }
