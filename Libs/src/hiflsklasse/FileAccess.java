@@ -955,6 +955,11 @@ public class FileAccess
 	{
 		File source = new File(convsonderz(quelle));
 		File dest = new File(convsonderz(ziel));
+		
+		if(dest.exists())
+			if(dest.delete()==false)
+				Tracer.WriteTrace(10, "E:cant delete destfile<"+dest.getAbsolutePath()+">");
+		
 
 		FileReader fileReader = null;
 		FileWriter fileWriter = null;

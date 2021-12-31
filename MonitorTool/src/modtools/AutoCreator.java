@@ -79,13 +79,24 @@ public class AutoCreator
 		
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\tester\\files",comment,newName);
 		copyThreeAutoFiles(sourcedir_s,appdata+"\\MQL4\\files",comment,newName);
+
+		if(meconf.getUseautocreatorbackup()==1)
+		{
+			copyToBackup(sourcedir_s,meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment,newName);
 		
+			String newdir=newName.substring(0,newName.lastIndexOf("_"));
+			copyAllToBackup(sourcedir_s,meconf.getAutocreatorbackuppath()+"\\"+newdir);
+		}
 		//del delcomfile
 		File f=new File(sourcedir_s,appdata+"\\MQL4\\files\\"+comment+".delcom");
 		if(f.exists())
 			f.delete();
 		
 		saveChartPng(appdata+"\\tester\\files\\Speicherort_sys_pics",comment,newName,chart);
+
+		if(meconf.getUseautocreatorbackup()==1)
+		 saveChartPng(meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment,newName,chart);
+		
 	}
 	static private void copyThreeAutoFiles(String sourcedir_s, String destdir_s,String comment,String newName)
 	{
@@ -97,6 +108,36 @@ public class AutoCreator
 		FileAccess.copyFile(fsource_set,destdir_s+"\\Speicherort_Sys_Gruppe_A\\"+newName+".csv");
 		FileAccess.copyFile(fsource_stats,destdir_s+"\\Speicherort_Sys_Gruppe_A_Stats\\"+newName+"_stats.csv");
 	}
+	static private void copyToBackup(String sourcedir_s, String destdir_s,String comment,String newName)
+	{
+		String commentpostfix=calcCommentPostfix(comment);
+		String fsource_csv=sourcedir_s+"\\"+commentpostfix+".csv";
+		String fsource_set=sourcedir_s+"\\"+commentpostfix+"_set.csv";
+		String fsource_stats=sourcedir_s+"\\"+commentpostfix+"_stats.csv";
+		
+		if(new File(destdir_s).exists()==false)
+			if(new File(destdir_s).mkdir()==false)
+				Tracer.WriteTrace(10, "E:can´t generate dir <"+destdir_s+">");
+		
+		FileAccess.copyFile(fsource_set,destdir_s+"\\"+newName+".csv");
+		FileAccess.copyFile(fsource_stats,destdir_s+"\\"+newName+"_stats.csv");
+	}
+	
+	static private void copyAllToBackup(String sourcedir_s, String destdir_s)
+	{
+		
+		
+		if(new File(destdir_s).exists()==false)
+			if(new File(destdir_s).mkdir()==false)
+				Tracer.WriteTrace(10, "E:can´t generate dir <"+destdir_s+">");
+		
+		FileAccess.CopyDirectory(sourcedir_s, destdir_s, ".csv");
+		
+		
+	}
+	
+	
+	
 	static private void deleteThreeAutoFiles(String sourcedir_s, String destdir_s,String comment)
 	{
 		
@@ -170,6 +211,9 @@ public class AutoCreator
 		    Tracer.WriteTrace(20, "Error:4545454545");
 		}
 	}
+	
+	
+	
 	public  JPanel readPanelPng(String filename)
 	{
 		/*JPanel jPanel = new JPanel();      

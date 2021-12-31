@@ -57,6 +57,16 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Label label12;
+	private Button button1usebackupdir;
+	private Button button1setbackup;
+	private Text backuppath;
+	private Button button1AcEntwicklungSetLoadDir;
+	private Text text1AcEntwicklungUseThisDirectory;
+	private Button button1AcEntwicklungUseThisDir;
+	private Button button1AcEntwicklungNewestDir;
+	private Button button1AcEntwicklungPath;
+	private Label label11;
 	private Label label10;
 	private Label label9;
 	private Text auc_prefix;
@@ -95,7 +105,6 @@ public class SwtEditBrokerConfig
 	private Button setmetatraderdir;
 	private Label label6;
 	private Button GbAutomaticaccountflag;
-	
 	
 	private Button SaveExit;
 	private Text Brokername;
@@ -176,7 +185,8 @@ public class SwtEditBrokerConfig
 			GbAutomaticaccountflag.setBounds(8, 3, 111, 30);
 			
 			GbAutomaticaccountflag.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
+	
+	public void widgetSelected(SelectionEvent evt)
 				{
 					AutoDemoaccountWidgetSelected(evt);
 				}
@@ -206,316 +216,387 @@ public class SwtEditBrokerConfig
 				}
 			});
 		}
-		{
-			setquellverz = new Button(sh, SWT.PUSH | SWT.LEFT);
-			setquellverz.setText("set EA sourcedir");
-			setquellverz.setBounds(537, 297, 184, 30);
-			setquellverz.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					setquellverzWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			progressBar1 = new ProgressBar(sh, SWT.NONE);
-			progressBar1.setBounds(12, 683, 1347, 23);
-		}
-		{
-			lotsize = new Text(sh, SWT.BORDER);
-			lotsize.setBounds(1130, 12, 60, 30);
-			
-			if (me_glob.getLotsize() != 0)
-				lotsize.setText(String.valueOf(me_glob.getLotsize()));
-			else
-				lotsize.setText("0.01");
-		}
-		{
-			infostring = new Text(sh, SWT.NONE);
-			infostring.setBounds(7, 77, 337, 30);
-			if (me_glob.getInfostring() != null)
-				infostring.setText(me_glob.getInfostring());
-		}
-		{
-			label6 = new Label(sh, SWT.NONE);
-			label6.setText("Infostring");
-			label6.setBounds(350, 77, 124, 30);
-		}
-		{
-			setmetatraderdir = new Button(sh, SWT.PUSH | SWT.LEFT);
-			setmetatraderdir.setText("set metatrader dir");
-			setmetatraderdir.setBounds(537, 220, 184, 25);
-			setmetatraderdir.setToolTipText("The monitor copy alle *.mq4 to this location");
-			setmetatraderdir.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					setmetatraderdirWidgetSelected(evt);
-				}
-			});
-		}
-		
-		{
-			insthistoryexporter = new Button(sh, SWT.CHECK | SWT.LEFT);
-			insthistoryexporter.setText("InstHistoryexporter");
-			insthistoryexporter.setBounds(806, 295, 182, 30);
-			insthistoryexporter.setSelection(true);
-			insthistoryexporter.setSelection(me.isInsthistoryexporter());
-		}
-		
-		{
-			magiclist = new Text(sh, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-			magiclist.setBounds(806, 201, 225, 130);
-			magiclist.setToolTipText(
-					"Example: the magic numbers 172 contains the 501.... 504 magic numbers.\r\n172=501,502,503,504");
-			magiclist.setVisible(false);
-			if (me.getMagicliststring() != null)
-				magiclist.setText(me.getMagicliststring());
-			magiclist.setEnabled(me.isMagiclistactive());
-		}
-		{
-			button1usemagiclist = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1usemagiclist.setText("use magiclist");
-			button1usemagiclist.setBounds(806, 175, 197, 30);
-			button1usemagiclist.setVisible(false);
-			button1usemagiclist.setSelection(me.isMagiclistactive());
-			
-			button1usemagiclist.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1usemagiclistWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			button1instmyfxbookea = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1instmyfxbookea.setText("Inst MyFxbookEa");
-			button1instmyfxbookea.setBounds(806, 266, 168, 30);
-			if (me_glob.getUsemyfxbookflag() == 1)
-				button1instmyfxbookea.setSelection(true);
-			else
-				button1instmyfxbookea.setSelection(false);
-			button1instmyfxbookea.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1instmyfxbookeaWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			text1mqldir = new Text(sh, SWT.BORDER);
-			text1mqldir.setBounds(7, 258, 714, 30);
-			text1mqldir.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
-			text1mqldir.setToolTipText("This is the path were I am looking for historyxeporter.txt");
-			text1mqldir.setEditable(false);
-			if (me_glob.getMqldata() != null)
-				text1mqldir.setText(me_glob.getMqldata());
-		}
-		
-		{
-			button1tradelotsize = new Button(sh, SWT.RADIO | SWT.LEFT);
-			button1tradelotsize.setText("trade lotsize");
-			button1tradelotsize.setBounds(974, 12, 123, 30);
-			button1tradelotsize.setSelection(true);
-		}
-		{
-			button1HandInstalled = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1HandInstalled.setText("only HandInstalled");
-			button1HandInstalled.setBounds(452, 4, 186, 30);
-			button1HandInstalled.setToolTipText(
-					"!! if this flag is set, this installation never changed by the monitortool. All changes have to by handisch !!!!");
-			button1HandInstalled.setVisible(false);
-			button1HandInstalled.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1HandInstalledWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			combo1 = new Combo(sh, SWT.NONE);
-			combo1.setText("select realaccount");
-			combo1.setBounds(800, 130, 340, 33);
-			combo1.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					combo1WidgetSelected(evt);
-				}
-			});
-		}
-		{
-			button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1realaccountsel.setText("RealAccount");
-			button1realaccountsel.setBounds(125, 3, 96, 31);
-			button1realaccountsel.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt)
-				{
-					button1realaccountselWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1tradecopy.setText("Inst fxblue tradecopy");
-			button1tradecopy.setBounds(806, 240, 213, 30);
-			button1tradecopy.setSelection(me_glob.isInsttradecopy());
-			
-		}
-		{
-			text1currencypair = new Text(sh, SWT.NONE);
-			if (me_glob.getHistexportcurrency() != null)
-				text1currencypair.setText(me_glob.getHistexportcurrency());
-			else
-				text1currencypair.setText("EURUSD");
-			text1currencypair.setBounds(803, 214, 94, 26);
-		}
-		{
-			label1 = new Label(sh, SWT.NONE);
-			label1.setText("use currency pair");
-			label1.setBounds(904, 214, 99, 30);
-			label1.setToolTipText(
-					"The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
-		}
-		{
-			button1showonlyinstalledeas = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1showonlyinstalledeas.setText("show only installed EAs");
-			button1showonlyinstalledeas.setBounds(806, 352, 225, 30);
-			if (me_glob.getShowOnlyInstalledEas() == 1)
-				button1showonlyinstalledeas.setSelection(true);
-		}
-		{
-			label3 = new Label(sh, SWT.NONE);
-			label3.setText("Connect Demoaccount with Realaccount");
-			label3.setBounds(800, 95, 384, 30);
-		}
-		{
-			label4 = new Label(sh, SWT.NONE);
-			label4.setText("use magic");
-			label4.setBounds(1065, 244, 86, 30);
-			label4.setToolTipText(
-					"This magic will be automaticaly set. In problem cases you can set this magic by hand");
-		}
-		{
-			text1usemagic = new Text(sh, SWT.BORDER);
-			text1usemagic.setText("0");
-			text1usemagic.setBounds(1022, 244, 35, 26);
-			if (me_glob.getTradecopymagic() > 0)
-				text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
-		}
-		{
-			text1suffix = new Text(sh, SWT.BORDER);
-			text1suffix.setBounds(1207, 244, 49, 22);
-			if (me_glob.getSuffix() != null)
-				text1suffix.setText(me_glob.getSuffix());
-			
-		}
-		{
-			label7suffix = new Label(sh, SWT.NONE);
-			label7suffix.setText("trade suffix receiver");
-			label7suffix.setBounds(1262, 244, 132, 30);
-			label7suffix.setToolTipText(
-					"Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
-		}
-		{
-			button1lockaccount = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1lockaccount.setText("lock all EAs on this account");
-			button1lockaccount.setBounds(806, 382, 291, 30);
-			button1lockaccount.setToolTipText(
-					"If a account is locked no one can delete EAs on this account. All EAs are protected against deletion. Unlock this account first if you want to delete EAs");
-		}
-		{
-			button1symbolreplacement = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1symbolreplacement.setText("Automatic Symbol Replacement");
-			button1symbolreplacement.setBounds(806, 326, 301, 30);
-			button1symbolreplacement.setToolTipText(
-					"Make automatic Symbolereplacement after EA installation. This is helpfull if you install bitcoin EAs for example.");
-		}
-		{
-			link1 = new Link(sh, SWT.NONE);
-			link1.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
-			link1.setBounds(727, 220, 60, 30);
-			link1.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					link1WidgetSelected(evt);
-				}
-				
-			});
-		}
-		{
-			link2 = new Link(sh, SWT.NONE);
-			link2.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
-			link2.setBounds(727, 301, 42, 30);
-			link2.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					link2WidgetSelected(evt);
-				}
-				
-			});
-		}
-		{
-			tradesuffixsender = new Text(sh, SWT.NONE);
-			tradesuffixsender.setBounds(1021, 214, 49, 20);
-			if(me_glob.getTradesuffixsender()!=null)
-			tradesuffixsender.setText(me_glob.getTradesuffixsender());
-		}
-		{
-			label7 = new Label(sh, SWT.NONE);
-			label7.setText("currency add");
-			label7.setBounds(1080, 214, 78, 20);
-		}
-		{
-			label8 = new Label(sh, SWT.NONE);
-			label8.setText("(info)");
-			label8.setBounds(1158, 214, 44, 20);
-			label8.setToolTipText("If currency add is set the currency name will be renamed before installation. For example: add=.r than EURUSD will be named to EURUSD.r");
-		}
-		{
-			button1autocreator = new Button(sh, SWT.CHECK | SWT.LEFT);
-			button1autocreator.setText("AutoCreator");
-			button1autocreator.setBounds(233, 3, 111, 30);
-			button1autocreator.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent evt) {
-					button1autocreatorWidgetSelected(evt);
-				}
-			});
-		}
-		{
-			
-			auc_prefix = new Text(sh, SWT.NONE);
-			String apref=me_glob.getAucPrefix();
-			if(apref!=null)
-			auc_prefix.setText(apref);
-			auc_prefix.setBounds(806, 485, 184, 19);
-			auc_prefix.addModifyListener(new ModifyListener() {
-				public void modifyText(ModifyEvent evt) {
-					auc_prefixModifyText(evt);
-				}
-			});
-		}
-		{
-			label9 = new Label(sh, SWT.NONE);
-			label9.setText("Settings for Autocreator");
-					label9.setBounds(806, 460, 184, 19);
-		}
-		{
-			label10 = new Label(sh, SWT.NONE);
-			label10.setText("StrategyPrefix");
-			label10.setBounds(1002, 485, 100, 20);
-		}
-
-		sh.open();
-		initBrokereditM();
-		refreshbuttons();
-		
-		while ((!sh.isDisposed()) && (exitflag == 0))
-		{
-			if (!dis.readAndDispatch())
+	
+	{
+		setquellverz = new Button(sh, SWT.PUSH | SWT.LEFT);
+		setquellverz.setText("set EA sourcedir");
+		setquellverz.setBounds(537, 297, 184, 30);
+		setquellverz.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
 			{
-				dis.sleep();
-				
+				setquellverzWidgetSelected(evt);
 			}
-		}
-		// sh.close();
+		});
+	}
+	{
+		progressBar1 = new ProgressBar(sh, SWT.NONE);
+		progressBar1.setBounds(12, 683, 1347, 23);
+	}
+	{
+		lotsize = new Text(sh, SWT.BORDER);
+		lotsize.setBounds(1130, 12, 60, 30);
 		
+		if (me_glob.getLotsize() != 0)
+			lotsize.setText(String.valueOf(me_glob.getLotsize()));
+		else
+			lotsize.setText("0.01");
+	}
+	{
+		infostring = new Text(sh, SWT.NONE);
+		infostring.setBounds(7, 77, 337, 30);
+		if (me_glob.getInfostring() != null)
+			infostring.setText(me_glob.getInfostring());
+	}
+	{
+		label6 = new Label(sh, SWT.NONE);
+		label6.setText("Infostring");
+		label6.setBounds(350, 77, 124, 30);
+	}
+	{
+		setmetatraderdir = new Button(sh, SWT.PUSH | SWT.LEFT);
+		setmetatraderdir.setText("set metatrader dir");
+		setmetatraderdir.setBounds(537, 220, 184, 25);
+		setmetatraderdir.setToolTipText("The monitor copy alle *.mq4 to this location");
+		setmetatraderdir.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				setmetatraderdirWidgetSelected(evt);
+			}
+		});
+	}
+	
+	{
+		insthistoryexporter = new Button(sh, SWT.CHECK | SWT.LEFT);
+		insthistoryexporter.setText("InstHistoryexporter");
+		insthistoryexporter.setBounds(806, 295, 182, 30);
+		insthistoryexporter.setSelection(true);
+		insthistoryexporter.setSelection(me.isInsthistoryexporter());
+	}
+	
+	{
+		magiclist = new Text(sh, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		magiclist.setBounds(806, 201, 225, 130);
+		magiclist.setToolTipText(
+				"Example: the magic numbers 172 contains the 501.... 504 magic numbers.\r\n172=501,502,503,504");
+		magiclist.setVisible(false);
+		if (me.getMagicliststring() != null)
+			magiclist.setText(me.getMagicliststring());
+		magiclist.setEnabled(me.isMagiclistactive());
+	}
+	{
+		button1usemagiclist = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1usemagiclist.setText("use magiclist");
+		button1usemagiclist.setBounds(806, 175, 197, 30);
+		button1usemagiclist.setVisible(false);
+		button1usemagiclist.setSelection(me.isMagiclistactive());
+		
+		button1usemagiclist.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				button1usemagiclistWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		button1instmyfxbookea = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1instmyfxbookea.setText("Inst MyFxbookEa");
+		button1instmyfxbookea.setBounds(806, 266, 168, 30);
+		if (me_glob.getUsemyfxbookflag() == 1)
+			button1instmyfxbookea.setSelection(true);
+		else
+			button1instmyfxbookea.setSelection(false);
+		button1instmyfxbookea.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				button1instmyfxbookeaWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		text1mqldir = new Text(sh, SWT.BORDER);
+		text1mqldir.setBounds(7, 258, 714, 30);
+		text1mqldir.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
+		text1mqldir.setToolTipText("This is the path were I am looking for historyxeporter.txt");
+		text1mqldir.setEditable(false);
+		if (me_glob.getMqldata() != null)
+			text1mqldir.setText(me_glob.getMqldata());
+	}
+	
+	{
+		button1tradelotsize = new Button(sh, SWT.RADIO | SWT.LEFT);
+		button1tradelotsize.setText("trade lotsize");
+		button1tradelotsize.setBounds(974, 12, 123, 30);
+		button1tradelotsize.setSelection(true);
+	}
+	{
+		button1HandInstalled = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1HandInstalled.setText("only HandInstalled");
+		button1HandInstalled.setBounds(452, 4, 186, 30);
+		button1HandInstalled.setToolTipText(
+				"!! if this flag is set, this installation never changed by the monitortool. All changes have to by handisch !!!!");
+		button1HandInstalled.setVisible(false);
+		button1HandInstalled.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				button1HandInstalledWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		combo1 = new Combo(sh, SWT.NONE);
+		combo1.setText("select realaccount");
+		combo1.setBounds(800, 130, 340, 33);
+		combo1.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				combo1WidgetSelected(evt);
+			}
+		});
+	}
+	{
+		button1realaccountsel = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1realaccountsel.setText("RealAccount");
+		button1realaccountsel.setBounds(125, 3, 96, 31);
+		button1realaccountsel.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				button1realaccountselWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1tradecopy.setText("Inst fxblue tradecopy");
+		button1tradecopy.setBounds(806, 240, 213, 30);
+		button1tradecopy.setSelection(me_glob.isInsttradecopy());
+		
+	}
+	{
+		text1currencypair = new Text(sh, SWT.NONE);
+		if (me_glob.getHistexportcurrency() != null)
+			text1currencypair.setText(me_glob.getHistexportcurrency());
+		else
+			text1currencypair.setText("EURUSD");
+		text1currencypair.setBounds(803, 214, 94, 26);
+	}
+	{
+		label1 = new Label(sh, SWT.NONE);
+		label1.setText("use currency pair");
+		label1.setBounds(904, 214, 99, 30);
+		label1.setToolTipText(
+				"The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
+	}
+	{
+		button1showonlyinstalledeas = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1showonlyinstalledeas.setText("show only installed EAs");
+		button1showonlyinstalledeas.setBounds(806, 352, 225, 30);
+		if (me_glob.getShowOnlyInstalledEas() == 1)
+			button1showonlyinstalledeas.setSelection(true);
+	}
+	{
+		label3 = new Label(sh, SWT.NONE);
+		label3.setText("Connect Demoaccount with Realaccount");
+		label3.setBounds(800, 95, 384, 30);
+	}
+	{
+		label4 = new Label(sh, SWT.NONE);
+		label4.setText("use magic");
+		label4.setBounds(1065, 244, 86, 30);
+		label4.setToolTipText("This magic will be automaticaly set. In problem cases you can set this magic by hand");
+	}
+	{
+		text1usemagic = new Text(sh, SWT.BORDER);
+		text1usemagic.setText("0");
+		text1usemagic.setBounds(1022, 244, 35, 26);
+		if (me_glob.getTradecopymagic() > 0)
+			text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
+	}
+	{
+		text1suffix = new Text(sh, SWT.BORDER);
+		text1suffix.setBounds(1207, 244, 49, 22);
+		if (me_glob.getSuffix() != null)
+			text1suffix.setText(me_glob.getSuffix());
+		
+	}
+	{
+		label7suffix = new Label(sh, SWT.NONE);
+		label7suffix.setText("trade suffix receiver");
+		label7suffix.setBounds(1262, 244, 132, 30);
+		label7suffix.setToolTipText(
+				"Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
+	}
+	{
+		button1lockaccount = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1lockaccount.setText("lock all EAs on this account");
+		button1lockaccount.setBounds(806, 382, 291, 30);
+		button1lockaccount.setToolTipText(
+				"If a account is locked no one can delete EAs on this account. All EAs are protected against deletion. Unlock this account first if you want to delete EAs");
+	}
+	{
+		button1symbolreplacement = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1symbolreplacement.setText("Automatic Symbol Replacement");
+		button1symbolreplacement.setBounds(806, 326, 301, 30);
+		button1symbolreplacement.setToolTipText(
+				"Make automatic Symbolereplacement after EA installation. This is helpfull if you install bitcoin EAs for example.");
+	}
+	{
+		link1 = new Link(sh, SWT.NONE);
+		link1.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
+		link1.setBounds(727, 220, 60, 30);
+		link1.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				link1WidgetSelected(evt);
+			}
+			
+		});
+	}
+	{
+		link2 = new Link(sh, SWT.NONE);
+		link2.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
+		link2.setBounds(727, 301, 42, 30);
+		link2.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				link2WidgetSelected(evt);
+			}
+			
+		});
+	}
+	{
+		tradesuffixsender = new Text(sh, SWT.BORDER);
+		tradesuffixsender.setBounds(1021, 214, 49, 20);
+		if (me_glob.getTradesuffixsender() != null)
+			tradesuffixsender.setText(me_glob.getTradesuffixsender());
+	}
+	{
+		label7 = new Label(sh, SWT.NONE);
+		label7.setText("currency add");
+		label7.setBounds(1080, 214, 78, 20);
+	}
+	{
+		label8 = new Label(sh, SWT.NONE);
+		label8.setText("(info)");
+		label8.setBounds(1158, 214, 44, 20);
+		label8.setToolTipText(
+				"If currency add is set the currency name will be renamed before installation. For example: add=.r than EURUSD will be named to EURUSD.r");
+	}
+	{
+		button1autocreator = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1autocreator.setText("AutoCreator");
+		button1autocreator.setBounds(233, 3, 111, 30);
+		button1autocreator.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt)
+			{
+				button1autocreatorWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		
+		auc_prefix = new Text(sh, SWT.NONE);
+		String apref = me_glob.getAucPrefix();
+		if (apref != null)
+			auc_prefix.setText(apref);
+		auc_prefix.setBounds(806, 443, 184, 19);
+		auc_prefix.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent evt)
+			{
+				auc_prefixModifyText(evt);
+			}
+		});
+	}
+	{
+		label9 = new Label(sh, SWT.NONE);
+		label9.setText("___   Settings for Autocreator    ________________________________________________________________________________________________");
+		label9.setBounds(806, 418, 553, 19);
+	}
+	{
+		label10 = new Label(sh, SWT.NONE);
+		label10.setText("StrategyPrefix");
+		label10.setBounds(1002, 443, 100, 20);
+	}
+	{
+		label11 = new Label(sh, SWT.NONE);
+		label11.setText("___ Autocreator AC Entwicklung Path Configuration ______________________________________________________________________________________________________");
+		label11.setBounds(806, 483, 554, 22);
+	}
+	{
+		button1AcEntwicklungPath = new Button(sh, SWT.RADIO | SWT.LEFT);
+		button1AcEntwicklungPath.setText("use default path");
+		button1AcEntwicklungPath.setBounds(806, 504, 130, 24);
+		
+	}
+	{
+		button1AcEntwicklungNewestDir = new Button(sh, SWT.RADIO | SWT.LEFT);
+		button1AcEntwicklungNewestDir.setText("use newest directory");
+		button1AcEntwicklungNewestDir.setBounds(806, 527, 136, 30);
+	}
+	{
+		button1AcEntwicklungUseThisDir = new Button(sh, SWT.RADIO | SWT.LEFT);
+		button1AcEntwicklungUseThisDir.setText("use this directory");
+		button1AcEntwicklungUseThisDir.setBounds(806, 557, 112, 30);
+	}
+	{
+		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.NONE);
+		text1AcEntwicklungUseThisDirectory.setText("set directory");
+		text1AcEntwicklungUseThisDirectory.setBounds(930, 563, 397, 18);
+	}
+	{
+		button1AcEntwicklungSetLoadDir = new Button(sh, SWT.PUSH | SWT.CENTER);
+		button1AcEntwicklungSetLoadDir.setText("Set");
+		button1AcEntwicklungSetLoadDir.setBounds(1333, 563, 26, 18);
+		button1AcEntwicklungSetLoadDir.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1AcEntwicklungSetLoadDirWidgetSelected(evt);
+			}
+			
+		});
+	}
+	{
+		backuppath = new Text(sh, SWT.NONE);
+		backuppath.setText("set backupdirectory");
+		backuppath.setBounds(930, 613, 397, 22);
+	}
+	{
+		button1setbackup = new Button(sh, SWT.PUSH | SWT.CENTER);
+		button1setbackup.setText("set");
+		button1setbackup.setBounds(1333, 613, 26, 22);
+		button1setbackup.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1setbackupWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		button1usebackupdir = new Button(sh, SWT.CHECK | SWT.LEFT);
+		button1usebackupdir.setText("use backupdir");
+		button1usebackupdir.setBounds(806, 613, 98, 22);
+		button1usebackupdir.setSelection(true);
+	}
+	{
+		label12 = new Label(sh, SWT.NONE);
+		label12.setText("___   Autocreator Backup   _______________________________________________________________________________________________________________________________________________");
+		label12.setBounds(806, 592, 551, 21);
+	}
+
+	sh.open();
+	
+	initBrokereditM();
+	
+	refreshbuttons();
+	
+	while((!sh.isDisposed())&&(exitflag==0))
+	
+	{
+		if (!dis.readAndDispatch())
+		{
+			dis.sleep();
+			
+		}
+	}
+	// sh.close();
+	
 	}
 	
 	private void refreshbuttons()
@@ -608,7 +689,7 @@ public class SwtEditBrokerConfig
 		// Accounttype 0,2,3 ist monitoraccount oder realaccount, hier kann der
 		// check entfallen,3=autocreator
 		if ((MqlQuellverzeichniss.getText() != null) && (me_glob.getAccounttype() == 1))
-
+		
 		{
 			// prüft nach ob sich mql-quellen im Quellverzeichniss befinden
 			if (work.checkMqlQuellverzeichniss(MqlQuellverzeichniss.getText()) == true)
@@ -665,8 +746,31 @@ public class SwtEditBrokerConfig
 		
 		if (Brokername.getText().length() > 0)
 			Brokername.setEditable(false);
+		
+		if(me_glob.getAutocreatorpathmode()==1)
+		{
+			button1AcEntwicklungPath.setSelection(true);
+		}
+		else if((me_glob.getAutocreatorpathmode()==2))
+		{
+			button1AcEntwicklungNewestDir.setSelection(true);
+		}
+		else if((me_glob.getAutocreatorpathmode()==3))
+		{
+			button1AcEntwicklungUseThisDir.setSelection(true);
+		}
+
+		if(me_glob.getAutocreatorpath()!=null)
+		text1AcEntwicklungUseThisDirectory.setText(me_glob.getAutocreatorpath());
+		
+		
+		if(me_glob.getAutocreatorbackuppath()!=null)
+			backuppath.setText(me_glob.getAutocreatorbackuppath());
+		if(me_glob.getUseautocreatorbackup()==1)
+			button1usebackupdir.setSelection(true);
+		else
+			button1usebackupdir.setSelection(false);
 	}
-	
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{
 		boolean ausgang = false;
@@ -682,8 +786,8 @@ public class SwtEditBrokerConfig
 			Mbox.Infobox("No Metatraderdir");
 			return;
 		}
-		if(GlobalVar.getMetatraderautostartstop()==0)
-		  MetaStarter.KillAllMetatrader(0);
+		if (GlobalVar.getMetatraderautostartstop() == 0)
+			MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
 		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
@@ -716,10 +820,24 @@ public class SwtEditBrokerConfig
 		int magic = Integer.valueOf(text1usemagic.getText());
 		me_glob.setTradecopymagic(magic);
 		
-		
-		String aucpref=auc_prefix.getText();
+		String aucpref = auc_prefix.getText();
 		me_glob.setAucPrefix(aucpref);
 		
+		if(	button1AcEntwicklungPath.getSelection())
+			me_glob.setAutocreatorpathmode(1);
+		else if (button1AcEntwicklungNewestDir.getSelection())
+			me_glob.setAutocreatorpathmode(2);
+		else if (button1AcEntwicklungUseThisDir.getSelection())
+			me_glob.setAutocreatorpathmode(3);
+		
+		if(backuppath.getText()!=null)
+			me_glob.setAutocreatorbackuppath(backuppath.getText());
+		
+		if(button1usebackupdir.getSelection()==true)
+			me_glob.setUseautocreatorbackup(1);
+		else
+			me_glob.setUseautocreatorbackup(0);
+				
 		// GlobalVar.setLastcopytrademagic(magic);
 		GlobalVar.save();
 		
@@ -743,10 +861,6 @@ public class SwtEditBrokerConfig
 			dis_glob.getActiveShell().dispose();
 		return;
 	}
-	
-
-	
-	
 	
 	private boolean installEasWidgetSelected(SelectionEvent evt)
 	{
@@ -824,7 +938,6 @@ public class SwtEditBrokerConfig
 			mqlverz = GlobalVar.getMqlsourcedirprefix();
 		
 		String fnam = Dialog.DirDialog(dis_glob, mqlverz);
-	
 		
 		// falls cancel dann wird nix geändert
 		if (fnam == null)
@@ -836,7 +949,7 @@ public class SwtEditBrokerConfig
 					"Error: don´t install EAs in Windows programfile dir\n use instead c:\\forex\\Strategies\\subfolder1..");
 			return;
 			
-		} 
+		}
 		
 		else
 		{
@@ -861,8 +974,7 @@ public class SwtEditBrokerConfig
 	
 	private void setmetatraderdirWidgetSelected(SelectionEvent evt)
 	{
-	
-	
+		
 		System.out.println("setmetatraderdir.widgetSelected, event=" + evt);
 		// Set Metatraderdir Networkshare
 		String netshare = me_glob.getMqldata();
@@ -884,21 +996,18 @@ public class SwtEditBrokerConfig
 					"Warning: don´t install Metatrader in Windows programfile dir\n use instead for example c:\\forex\\mt4\\pepperstone1");
 			return;
 			
-		} 
-		else if ((new File(fnam+"\\terminal.exe").exists()==false)&&
-				(new File(fnam+"\\terminal64.exe").exists()==false))
+		} else if ((new File(fnam + "\\terminal.exe").exists() == false)
+				&& (new File(fnam + "\\terminal64.exe").exists() == false))
 		{
 			Tracer.WriteTrace(10,
 					"Error: This directory is not an metatrader rootdir, terminal.exe is missing\n please set correct dir");
 			return;
 			
-		}
-		else if(bv_glob.checkMetatraderExists(fnam,1)==true)
+		} else if (bv_glob.checkMetatraderExists(fnam, 1) == true)
 		{
-			Tracer.WriteTrace(20,"Error: This metatrader is already configured");
+			Tracer.WriteTrace(20, "Error: This metatrader is already configured");
 			return;
-		}
-		else
+		} else
 		{ // fnam=D:\\Forex\\mt4\\audrn2
 			me_glob.setNetworkshare(fnam);
 			if ((GlobalVar.getNetzwerkshareprefix() == null) || ((GlobalVar.getNetzwerkshareprefix().length() < 2)))
@@ -911,8 +1020,6 @@ public class SwtEditBrokerConfig
 		}
 		me_glob.getInitMetaversion();
 		
-		
-	
 		System.out.println("fnam=" + fnam);
 		
 		MtRoot.setText(fnam);
@@ -1056,9 +1163,9 @@ public class SwtEditBrokerConfig
 	
 	private void setDemoaccount()
 	{
-		//1=demoaccount
-		//2=realacccount
-		//3=autocreatoraccount
+		// 1=demoaccount
+		// 2=realacccount
+		// 3=autocreatoraccount
 		me_glob.setAccounttype(1);
 		text1usemagic.setEnabled(true);
 		int magic = me_glob.getTradecopymagic();
@@ -1100,9 +1207,9 @@ public class SwtEditBrokerConfig
 	
 	private void setRealaccount()
 	{
-		//1=demoaccount
-		//2=realacccount
-		//3=autocreatoraccount
+		// 1=demoaccount
+		// 2=realacccount
+		// 3=autocreatoraccount
 		me_glob.setAccounttype(2);
 		text1usemagic.setText("0");
 		
@@ -1110,7 +1217,6 @@ public class SwtEditBrokerConfig
 		button1autocreator.setSelection(false);
 		button1showonlyinstalledeas.setEnabled(false);
 		button1showonlyinstalledeas.setSelection(false);
-		button1realaccountsel.setSelection(true);
 		combo1.setEnabled(false);
 		text1suffix.setEnabled(true);
 		label7suffix.setEnabled(true);
@@ -1123,11 +1229,12 @@ public class SwtEditBrokerConfig
 		link2.setEnabled(false);
 		
 	}
+	
 	private void setAutoCreatorAccount()
 	{
-		//1=demoaccount
-		//2=realacccount
-		//4=autocreatoraccount
+		// 1=demoaccount
+		// 2=realacccount
+		// 4=autocreatoraccount
 		me_glob.setAccounttype(4);
 		text1usemagic.setEnabled(true);
 		int magic = me_glob.getTradecopymagic();
@@ -1161,32 +1268,55 @@ public class SwtEditBrokerConfig
 		
 	}
 	
-	
-	private void link1WidgetSelected(SelectionEvent evt) {
-		System.out.println("link1.widgetSelected, event="+evt);
-		
-		Program.launch(evt.text);
-	}
-	private void link2WidgetSelected(SelectionEvent evt) {
-		System.out.println("link1.widgetSelected, event="+evt);
+	private void link1WidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("link1.widgetSelected, event=" + evt);
 		
 		Program.launch(evt.text);
 	}
 	
-	private void button1autocreatorWidgetSelected(SelectionEvent evt) {
-		System.out.println("button1autocreator.widgetSelected, event="+evt);
+	private void link2WidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("link1.widgetSelected, event=" + evt);
+		
+		Program.launch(evt.text);
+	}
+	
+	private void button1autocreatorWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button1autocreator.widgetSelected, event=" + evt);
 		setAutoCreatorAccount();
 	}
 	
-	private void auc_prefixModifyText(ModifyEvent evt) {
-		System.out.println("auc_prefix.modifyText, event="+evt);
-		String auctmp=auc_prefix.getText();
-		if(auctmp==null)
+	private void auc_prefixModifyText(ModifyEvent evt)
+	{
+		System.out.println("auc_prefix.modifyText, event=" + evt);
+		String auctmp = auc_prefix.getText();
+		if (auctmp == null)
 			return;
-		if(auctmp.length()>6)
-			Tracer.WriteTrace(10, "Maxlen Strategyprefix<"+auctmp+"= 6");
-		if(auctmp.contains("_"))
-			Tracer.WriteTrace(10,"character _ is not allowed in Strategyprefix<"+auctmp+">");
-					
+		if (auctmp.length() > 6)
+			Tracer.WriteTrace(10, "Maxlen Strategyprefix<" + auctmp + "= 6");
+		if (auctmp.contains("_"))
+			Tracer.WriteTrace(10, "character _ is not allowed in Strategyprefix<" + auctmp + ">");
+		
+	}
+	
+	
+	
+	private void button1AcEntwicklungSetLoadDirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1AcEntwicklungSetLoadDir.widgetSelected, event="+evt);
+		//TODO add your code for button1AcEntwicklungSetLoadDir.widgetSelected
+		String fnam = Dialog.DirDialog(dis_glob, "");
+		me_glob.setAutocreatorpath(fnam);
+		text1AcEntwicklungUseThisDirectory.setText(fnam);
+	}
+	
+	private void button1setbackupWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1setbackup.widgetSelected, event="+evt);
+		String fnam = Dialog.DirDialog(dis_glob, "");
+		me_glob.setAutocreatorbackuppath(fnam);
+		backuppath.setText(fnam);
+		
+		//TODO add your code for button1setbackup.widgetSelected
 	}
 }

@@ -103,7 +103,12 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private String mttype = "";
 	// AucPrefix is the prefix for autcreator copy ea
 	private String aucPrefix="";
-	
+	// Autocreatorpathmode: 1=default, 2= newestdir, 3= use this path
+	private int autocreatorpathmode=1;
+	//dies ist der path wo das monitortool die generierten eas sucht
+	private String autocreatorpath="";
+	private String autocreatorbackuppath="";
+	private int useautocreatorbackup=1;
 	
 	public Metaconfig(String mname)
 	{
@@ -177,6 +182,15 @@ public class Metaconfig implements Comparable<Metaconfig>
 				mttype = SG.nteilstring(zeile, "#", 34);
 			if (trennanz > 35)
 				aucPrefix = SG.nteilstring(zeile, "#", 35);
+			if(trennanz> 36)
+				autocreatorpathmode=SG.get_zahl(SG.nteilstring(zeile, "#", 36));
+			if(trennanz>37)
+				autocreatorpath= SG.nteilstring(zeile, "#", 37);
+			if(trennanz> 38)
+				useautocreatorbackup=SG.get_zahl(SG.nteilstring(zeile, "#", 38));
+			if(trennanz>39)
+				autocreatorbackuppath= SG.nteilstring(zeile, "#", 39);
+				
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -684,6 +698,26 @@ public class Metaconfig implements Comparable<Metaconfig>
 		this.tradesuffixsender = tradesuffixsender;
 	}
 	
+	public int getAutocreatorpathmode()
+	{
+		return autocreatorpathmode;
+	}
+
+	public void setAutocreatorpathmode(int autocreatorpathmode)
+	{
+		this.autocreatorpathmode = autocreatorpathmode;
+	}
+
+	public String getAutocreatorpath()
+	{
+		return autocreatorpath;
+	}
+
+	public void setAutocreatorpath(String autocreatorpath)
+	{
+		this.autocreatorpath = autocreatorpath;
+	}
+
 	public String getInitMetaversion()
 	{
 		String fnam = networkshare;
@@ -796,6 +830,26 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setAucPrefix(String aucPrefix)
 	{
 		this.aucPrefix = aucPrefix;
+	}
+
+	public String getAutocreatorbackuppath()
+	{
+		return autocreatorbackuppath;
+	}
+
+	public void setAutocreatorbackuppath(String autocreatorbackuppath)
+	{
+		this.autocreatorbackuppath = autocreatorbackuppath;
+	}
+
+	public int getUseautocreatorbackup()
+	{
+		return useautocreatorbackup;
+	}
+
+	public void setUseautocreatorbackup(int useautocreatorbackup)
+	{
+		this.useautocreatorbackup = useautocreatorbackup;
 	}
 
 	public void pongCheck()
