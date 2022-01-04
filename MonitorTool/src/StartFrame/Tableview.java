@@ -401,7 +401,7 @@ public class Tableview extends TableViewBasic
 					Profit pldemo = pl_glob.searchProfitOnDemobroker(brokerview_glob,realbroker, tr.getComment(), channelRealbroker);
 					if(pldemo==null)
 					{
-						String em="E: can´t find Trade on Demobroker for an open Trade on Realbroker<"+realbroker+"> comment<"+tr.getComment()+"> magic<"+channelRealbroker+">";
+						String em="E: can´t find Trade on Demobroker<"+tr.getAccountnumber()+"> for an open Trade on Realbroker<"+realbroker+"> comment<"+tr.getComment()+"> magic<"+channelRealbroker+">";
 						Mlist.add(em);
 						Tracer.WriteTrace(10, em);
 						continue;
@@ -1443,15 +1443,17 @@ public class Tableview extends TableViewBasic
 	
 	public void searchSelId(String searchid)
 	{
-		
+		//es wird nur nach zahlen gesucht
 		int id = SG.get_zahl(searchid);
 		
 		int anz = pl_glob.getsize();
 		for (int i = lastfoundpos + 1; i < anz; i++)
 		{
 			Profit prof = pl_glob.getelem(i);
+			String magstring=String.valueOf(prof.getMagic());
+			String comment=prof.getComment();
 			
-			if (prof.getMagic() == id)
+			if ((magstring.contains(searchid))||(comment.contains(searchid)))
 			{
 				table2_glob.setSelection(i);
 				lastfoundpos = i;
@@ -1463,8 +1465,10 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Profit prof = pl_glob.getelem(i);
+			String magstring=String.valueOf(prof.getMagic());
+			String comment=prof.getComment();
 			
-			if (prof.getMagic() == id)
+			if ((magstring.contains(searchid))||(comment.contains(searchid)))
 			{
 				table2_glob.setSelection(i);
 				lastfoundpos = i;
