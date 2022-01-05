@@ -983,7 +983,44 @@ public class FileAccess
 		}
 		
 	}
+	static public boolean copyFile3(String quelle, String ziel,int laengenvergleich)
+	{
+		File source = new File(convsonderz(quelle));
+		File dest = new File(convsonderz(ziel));
+		
+		if((laengenvergleich==1)&&(dest.exists()))
+		{
+			long len1=source.length();
+			long len2=dest.length();
+			if(len1==len2)
+				return true;
+			
+			if(dest.delete()==false)
+				Tracer.WriteTrace(10, "E:cant delete destfile<"+dest.getAbsolutePath()+">");
+		}
 
+		FileReader fileReader = null;
+		FileWriter fileWriter = null;
+		try
+		{
+			fileReader = new FileReader(source);
+			fileWriter = new FileWriter(dest);
+			long length = source.length();
+			for (int i = 0; i < length; i++)
+				fileWriter.write(fileReader.read());
+
+			fileWriter.close();
+			fileReader.close();
+			
+			return true;
+		} catch (IOException e)
+		{
+					
+			e.printStackTrace();
+			return (false);
+		}
+		
+	}
 	static public boolean MatchFiles(String quelle1, String quelle2,
 			String ziel, Boolean delflag)
 	{
@@ -1195,6 +1232,27 @@ public class FileAccess
 
 		}
 	}
+	
+	static public void CopyDirectory3(String quellverz, String zielverz,
+			String postfix,int laengenvergleich)
+	{
+		// kopiert das quellverz ins zielverzeichniss
+		// falls postfix != null, werden nur files mit dem Postfix kopiert
+		initFileSystemList(quellverz, 1);
+		int anz = holeFileAnz();
+		for (int i = 0; i < anz; i++)
+		{
+			String fnam = holeFileSystemName();
+
+			if (postfix != null)
+				if (fnam.contains(postfix) == false)
+					continue;
+
+			copyFile3(quellverz + "\\" + fnam, zielverz + "\\" + fnam,1);
+
+		}
+	}
+	
 	static public void FileReplaceString(String filename,String vorher, String nachher)
 	{
 		

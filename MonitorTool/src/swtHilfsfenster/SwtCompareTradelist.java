@@ -408,7 +408,7 @@ public class SwtCompareTradelist
 	// tradeanzeige
 	private void showEinzelTradesLinks(Text text1prozfit)
 	{
-		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic1_glob), broker1_glob,-1);
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic1_glob), broker1_glob,-1,null);
 		//global zuweisen
 		etl_links_glob=etl;
 		refresh_links(text1prozfit);
@@ -447,7 +447,7 @@ public class SwtCompareTradelist
 		
 		
 		int channel=tv_glob.getChannel(broker1_glob);
-		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic2_glob), broker2_glob,channel);
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic2_glob), broker2_glob,channel,null);
 		if(etl.getsize()==0)
 		{
 			Tracer.WriteTrace(10, "Info: no trades on broker <"+broker2_glob+"> for magic <"+magic2_glob+">");

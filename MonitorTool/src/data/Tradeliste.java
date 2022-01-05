@@ -136,7 +136,7 @@ public class Tradeliste
 		{
 			brokerview_glob = bview;
 			Tracer.WriteTrace(20, "I: Tradeliste von Platte<" + tradelistenam + "> lesen");
-			Mlist.add("Info: read tradelist from database", 1);
+			
 			if (FileAccess.FileAvailable(tradelistenam) == false)
 				return;
 			
@@ -156,7 +156,7 @@ public class Tradeliste
 			
 			// nach dem Einladen die open trades entfernen
 			this.entferneTrades(bview, tradeliste, tf);
-			Tracer.WriteTrace(20, "Info: Tradeliste von Platte lesen fertig");
+			//Tracer.WriteTrace(20, "Info: Tradeliste von Platte lesen fertig");
 			Mlist.add("I:tradelist ready");
 		}
 		// hashset aufbauen

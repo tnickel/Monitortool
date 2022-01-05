@@ -113,13 +113,20 @@ public class TableViewBasic
 		
 		File[] files = dir.listFiles();
 		int anzf = files.length;
+
+		if(anzf<3)
+		{
+			Tracer.WriteTrace(10, "Error: to less files in <"+dir.getAbsolutePath()+">");
+			return;
+		}
 		ProgressBarDisplay pdisp = new ProgressBarDisplay(
 				"Load Autocreator Files <" + dir.getAbsolutePath() + ">", 0, anzf);
 		for (int j = 0; j < anzf; j++)
 		{
 			pdisp.update(j);
 			File fnamf = files[j];
-			readOneAcFile(fnamf, tl, nocanceledflag, showopenorders, normflag, mc, tf);
+			if(fnamf.getAbsolutePath().contains(".csv"))
+				readOneAcFile(fnamf, tl, nocanceledflag, showopenorders, normflag, mc, tf);
 			
 		}
 		pdisp.end();

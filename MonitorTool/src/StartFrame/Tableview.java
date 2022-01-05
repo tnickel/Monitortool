@@ -204,11 +204,15 @@ public class Tableview extends TableViewBasic
 			return;
 		}
 		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
+		{
+			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam2+">");
 			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
-		
+		}
 		if ((new File(fnam3).exists() == true) && (onlyopentrades == 1))
+		{
+			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam3+">");
 			readTradesFile(tl, fnam3, nocanceledflag, true, normflag, mc, tf_glob);
-			
+		}	
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
 		if ((tf_glob.isLoadexpired() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
@@ -221,6 +225,7 @@ public class Tableview extends TableViewBasic
 			
 			if (hist_exp_f.exists() == true)
 			{
+				Tracer.WriteTrace(20, "I: read histroy.txt  <"+fna+">");
 				Mlist.add("Load expired<" + broker + "><" + filedata + ">");
 				readTradesFile(tl, fna, nocanceledflag, showopenorders, normflag, mc, tf_glob);
 			}
@@ -228,12 +233,16 @@ public class Tableview extends TableViewBasic
 		
 		// lade die transfer
 		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
+		{	
+			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam5+">");
 			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
-		
+		}
 		// lade die Daten vom Auto Creator
 		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1) && (onlyopentrades == 0))
+		{
+			Tracer.WriteTrace(20, "I: read histroy.txt  <"+dirnam6+">");
 			readTradesAutoCreator(tl, dirnam6, nocanceledflag, showopenorders, normflag, mc, tf_glob);
-		
+		}
 		Lock.unlock(filedata + "/monitor.lock");
 		
 		if (maxdate.length() < 2)
@@ -374,19 +383,30 @@ public class Tableview extends TableViewBasic
 			// falls realbroker, dann überprüfe ob es einen zugehörigen demobroker gibt
 			if ((bv != null) && (bv.getAccounttype(prof.getBroker()) == 2))
 			{
+				Tracer.WriteTrace(20, "CheckProfitliste: broker <"+prof.getBroker()+"> ist ein Realbroker und wird überprüft");
+				
 				// Dann hole für dies profitelement die tradeliste
 				// das müssen wir so machen da ein channel mehrere Trades beinhalten kann.
 				// d.h. z.B. unter kanal 8 können mehrere offene Trades sein und wir müssen
 				// jetzt checken ob diese
 				// trades auch im demokonto zugehörige Eas haben die eingeschaltet sind.
 				
-				// beim realbrokerist die magic der chanel
+				// beim realbroker ist die magic der chanel
 				
 				String broker = prof.getBroker();
-				String channel = String.valueOf(prof.getMagic());
+				int magic=prof.getMagic();
+				String comment=prof.getComment();
+				String channel = String.valueOf(magic);
+				
+				if(magic==0)
+				{
+					continue;
+					//because this is a trade by hand, this should not be checked
+					
+				}
 				
 				// jetzt muss jeder Trade dieser Tradeliste,des Realaccount überprüft werden
-				Tradeliste tl = buildTradeliste(channel, broker, Integer.valueOf(channel));
+				Tradeliste tl = buildTradeliste(channel, broker, Integer.valueOf(channel),comment);
 				
 				int anztrades = tl.getsize();
 				for (int i = 0; i < anztrades; i++)
@@ -809,7 +829,7 @@ public class Tableview extends TableViewBasic
 		return eatl;
 	}
 	
-	public Tradeliste buildTradeliste(String magic, String broker, int channel)
+	public Tradeliste buildTradeliste(String magic, String broker, int channel,String comment)
 	{
 		// Hier wird die Tradeliste für ein Profitelement aufgebaut
 		
@@ -850,6 +870,7 @@ public class Tableview extends TableViewBasic
 		
 		// falls eatl.size==0, dann wurde nix gefunden, dann schaue in den comments nach
 		// der magic
+		
 		// 3) Fall3, Broker ist ein Realbroker, dann wird man die magic auf dem
 		// realbroker möglicherweise nicht
 		// finden, dann schaue zusätzlich in den comment nach und übernimm die trades
@@ -858,9 +879,22 @@ public class Tableview extends TableViewBasic
 		// die Funktion sieht ungefähr wie bei fall 2 aus nur das hier noch der comment
 		// als oder abgefragt wird
 		// ermittle erste den channel der angezeigt werden soll
-		if (eatl.getsize() == 0)
-		{
-			
+		if ((eatl.getsize() == 0)&&(comment!=null))
+		{  //3.1 autocreator ea on realaccount
+			zeilcount = tl.getsize();
+			for (int i = 0, j = 0; i < zeilcount; i++)
+			{
+				Trade tr = tl.getelem(i);
+				
+				if ((tr.getBroker().equals(broker)) && tr.getComment().equals(comment) && (channel == tr.getMagic()))
+				{
+					Tracer.WriteTrace(20, "Lifecheck:, I add ea comment<"+comment+"> to checklist for realbroker <"+broker+"> channel<"+tr.getMagic()+">");
+					eatl.addTradeElem(tr);
+				}
+			}
+		}
+		else if((eatl.getsize() == 0)&&(comment==null))
+		{ //3.2 normal ea on realaccount
 			zeilcount = tl.getsize();
 			for (int i = 0, j = 0; i < zeilcount; i++)
 			{
@@ -868,10 +902,10 @@ public class Tableview extends TableViewBasic
 				
 				if ((tr.getBroker().equals(broker)) && tr.getComment().contains(magic) && (channel == tr.getMagic()))
 				{
+					
 					eatl.addTradeElem(tr);
 				}
 			}
-			
 		}
 		
 		eatl.sortliste();

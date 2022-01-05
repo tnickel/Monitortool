@@ -280,7 +280,7 @@ public class StartMonitorWork
 		String broker = selectedProfitelem_glob.getBroker();
 		
 		SwtShowTradeliste st = new SwtShowTradeliste();
-		Tradeliste etl = tv_glob.buildTradeliste(magic, broker, -1);
+		Tradeliste etl = tv_glob.buildTradeliste(magic, broker, -1,null);
 		
 		st.init(display_glob, etl, tv_glob, broker, magic);
 		
@@ -391,7 +391,7 @@ public class StartMonitorWork
 			return;
 		}
 		// die aktuelle profitliste laden
-		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1);
+		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1,null);
 		
 		if (eatradeliste == null)
 			return;
@@ -418,7 +418,7 @@ public class StartMonitorWork
 			return;
 		}
 		// die aktuelle profitliste laden
-		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1);
+		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1,null);
 		
 		if (eatradeliste == null)
 			return;

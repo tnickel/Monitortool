@@ -664,7 +664,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		Display dis=new Display();
 		
 		SwtShowTradeliste st = new SwtShowTradeliste();
-		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic_glob), broker_glob,-1);
+		Tradeliste etl = tv_glob.buildTradeliste(String.valueOf(magic_glob), broker_glob,-1,null);
 		
 		st.init(dis,  etl,tv_glob,broker_glob,String.valueOf(magic_glob));
 		dis.close();

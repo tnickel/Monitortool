@@ -525,17 +525,32 @@ public class SwtEditBrokerConfig
 		button1AcEntwicklungPath = new Button(sh, SWT.RADIO | SWT.LEFT);
 		button1AcEntwicklungPath.setText("use default path");
 		button1AcEntwicklungPath.setBounds(806, 504, 130, 24);
-		
+		button1AcEntwicklungPath.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1AcEntwicklungPathWidgetSelected(evt);
+			}
+		});
+
 	}
 	{
 		button1AcEntwicklungNewestDir = new Button(sh, SWT.RADIO | SWT.LEFT);
 		button1AcEntwicklungNewestDir.setText("use newest directory");
 		button1AcEntwicklungNewestDir.setBounds(806, 527, 136, 30);
+		button1AcEntwicklungNewestDir.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1AcEntwicklungNewestDirWidgetSelected(evt);
+			}
+		});
 	}
 	{
 		button1AcEntwicklungUseThisDir = new Button(sh, SWT.RADIO | SWT.LEFT);
 		button1AcEntwicklungUseThisDir.setText("use this directory");
 		button1AcEntwicklungUseThisDir.setBounds(806, 557, 112, 30);
+		button1AcEntwicklungUseThisDir.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1AcEntwicklungUseThisDirWidgetSelected(evt);
+			}
+		});
 	}
 	{
 		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.NONE);
@@ -748,16 +763,21 @@ public class SwtEditBrokerConfig
 			Brokername.setEditable(false);
 		
 		if(me_glob.getAutocreatorpathmode()==1)
-		{
+		{   //default mode, read all directorys
 			button1AcEntwicklungPath.setSelection(true);
+			setBackupVisible(true);
 		}
 		else if((me_glob.getAutocreatorpathmode()==2))
 		{
+			//use newest dir
 			button1AcEntwicklungNewestDir.setSelection(true);
+			setBackupVisible(true);
 		}
 		else if((me_glob.getAutocreatorpathmode()==3))
 		{
+			//use this directory
 			button1AcEntwicklungUseThisDir.setSelection(true);
+			setBackupVisible(false);
 		}
 
 		if(me_glob.getAutocreatorpath()!=null)
@@ -826,7 +846,7 @@ public class SwtEditBrokerConfig
 		if(	button1AcEntwicklungPath.getSelection())
 			me_glob.setAutocreatorpathmode(1);
 		else if (button1AcEntwicklungNewestDir.getSelection())
-			me_glob.setAutocreatorpathmode(2);
+				me_glob.setAutocreatorpathmode(2);
 		else if (button1AcEntwicklungUseThisDir.getSelection())
 			me_glob.setAutocreatorpathmode(3);
 		
@@ -1306,17 +1326,68 @@ public class SwtEditBrokerConfig
 	private void button1AcEntwicklungSetLoadDirWidgetSelected(SelectionEvent evt) {
 		System.out.println("button1AcEntwicklungSetLoadDir.widgetSelected, event="+evt);
 		//TODO add your code for button1AcEntwicklungSetLoadDir.widgetSelected
-		String fnam = Dialog.DirDialog(dis_glob, "");
+		
+		String fnam="";
+		String aktstring=text1AcEntwicklungUseThisDirectory.getText();
+		if(aktstring !=null)
+     		fnam = Dialog.DirDialog(dis_glob, aktstring);
+		else
+			fnam = Dialog.DirDialog(dis_glob, "");
 		me_glob.setAutocreatorpath(fnam);
 		text1AcEntwicklungUseThisDirectory.setText(fnam);
 	}
 	
 	private void button1setbackupWidgetSelected(SelectionEvent evt) {
 		System.out.println("button1setbackup.widgetSelected, event="+evt);
-		String fnam = Dialog.DirDialog(dis_glob, "");
+		String fnam="";
+		
+		String path=backuppath.getText();
+		if(path!=null)
+			fnam = Dialog.DirDialog(dis_glob, path);
+		else
+			fnam = Dialog.DirDialog(dis_glob, "");
 		me_glob.setAutocreatorbackuppath(fnam);
 		backuppath.setText(fnam);
 		
 		//TODO add your code for button1setbackup.widgetSelected
+	}
+	
+	
+	
+	private void button1AcEntwicklungUseThisDirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1AcEntwicklungUseThisDir.widgetSelected, event="+evt);
+		//falls ein pfad zum download aktiviert ist, dann wird kein backup gemacht
+		setBackupVisible(false);
+	}
+	
+	private void setBackupVisible(Boolean val)
+	{
+		if(val==true)
+		{
+			button1usebackupdir.setEnabled(true);
+			backuppath.setEnabled(true);
+			button1setbackup.setEnabled(true);
+		}
+		else
+		{
+			button1usebackupdir.setEnabled(false);
+			button1usebackupdir.setSelection(false);
+			backuppath.setEnabled(false);
+			button1setbackup.setEnabled(false);
+		}
+		
+	}
+	
+	
+	private void button1AcEntwicklungPathWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1AcEntwicklungPath.widgetSelected, event="+evt);
+		//TODO add your code for button1AcEntwicklungPath.widgetSelected
+		setBackupVisible(true);
+	}
+	
+	private void button1AcEntwicklungNewestDirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1AcEntwicklungNewestDir.widgetSelected, event="+evt);
+		//TODO add your code for button1AcEntwicklungNewestDir.widgetSelected
+		setBackupVisible(true);
 	}
 }

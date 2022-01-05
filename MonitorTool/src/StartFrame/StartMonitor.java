@@ -2027,6 +2027,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("settradefilter.widgetSelected, event=" + evt);
 		// set Tradfilter button gedrückt
 		smw.TradefilterConfig(tf);
+		tradefilter.setSelection(true);
 
 	}
 

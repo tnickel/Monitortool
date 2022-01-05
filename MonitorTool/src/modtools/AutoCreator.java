@@ -82,7 +82,7 @@ public class AutoCreator
 
 		if(meconf.getUseautocreatorbackup()==1)
 		{
-			copyToBackup(sourcedir_s,meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment,newName);
+			copyToBackup(sourcedir_s,meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment);
 		
 			String newdir=newName.substring(0,newName.lastIndexOf("_"));
 			copyAllToBackup(sourcedir_s,meconf.getAutocreatorbackuppath()+"\\"+newdir);
@@ -92,10 +92,10 @@ public class AutoCreator
 		if(f.exists())
 			f.delete();
 		
-		saveChartPng(appdata+"\\tester\\files\\Speicherort_sys_pics",comment,newName,chart);
+		saveChartPng(appdata+"\\tester\\files\\Speicherort_sys_pics",comment,chart);
 
 		if(meconf.getUseautocreatorbackup()==1)
-		 saveChartPng(meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment,newName,chart);
+		 saveChartPng(meconf.getAutocreatorbackuppath()+"\\foundstrategies",comment,chart);
 		
 	}
 	static private void copyThreeAutoFiles(String sourcedir_s, String destdir_s,String comment,String newName)
@@ -108,7 +108,7 @@ public class AutoCreator
 		FileAccess.copyFile(fsource_set,destdir_s+"\\Speicherort_Sys_Gruppe_A\\"+newName+".csv");
 		FileAccess.copyFile(fsource_stats,destdir_s+"\\Speicherort_Sys_Gruppe_A_Stats\\"+newName+"_stats.csv");
 	}
-	static private void copyToBackup(String sourcedir_s, String destdir_s,String comment,String newName)
+	static private void copyToBackup(String sourcedir_s, String destdir_s,String comment)
 	{
 		String commentpostfix=calcCommentPostfix(comment);
 		String fsource_csv=sourcedir_s+"\\"+commentpostfix+".csv";
@@ -119,8 +119,9 @@ public class AutoCreator
 			if(new File(destdir_s).mkdir()==false)
 				Tracer.WriteTrace(10, "E:can´t generate dir <"+destdir_s+">");
 		
-		FileAccess.copyFile(fsource_set,destdir_s+"\\"+newName+".csv");
-		FileAccess.copyFile(fsource_stats,destdir_s+"\\"+newName+"_stats.csv");
+		FileAccess.copyFile3(fsource_csv,destdir_s+"\\"+commentpostfix+".csv",1);
+		FileAccess.copyFile3(fsource_set,destdir_s+"\\"+commentpostfix+"_set.csv",1);
+		FileAccess.copyFile3(fsource_stats,destdir_s+"\\"+commentpostfix+"_stats.csv",1);
 	}
 	
 	static private void copyAllToBackup(String sourcedir_s, String destdir_s)
@@ -131,7 +132,8 @@ public class AutoCreator
 			if(new File(destdir_s).mkdir()==false)
 				Tracer.WriteTrace(10, "E:can´t generate dir <"+destdir_s+">");
 		
-		FileAccess.CopyDirectory(sourcedir_s, destdir_s, ".csv");
+		//kopiert das ganze directoy, kopiert file nur wenn die längen von beiden files unterschiedlich sind
+		FileAccess.CopyDirectory3(sourcedir_s, destdir_s, ".csv",1);
 		
 		
 	}
@@ -192,9 +194,11 @@ public class AutoCreator
 		String commentpostfix=comment.substring(comment.indexOf("_")+1);
 		return commentpostfix;
 	}
-	static private void saveChartPng(String destdir_s,String comment,String newName,JFreeChart chart)
+	static private void saveChartPng(String destdir_s,String comment,JFreeChart chart)
 	{
-		String outfile=destdir_s+"\\"+newName+".png";
+		String commentpostfix=calcCommentPostfix(comment);
+		
+		String outfile=destdir_s+"\\"+commentpostfix+".png";
 		File outdir=new File(destdir_s);
 		if(outdir.exists()==false)
 			outdir.mkdir();
