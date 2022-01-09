@@ -48,13 +48,14 @@ public class ShowConfigAllP3 extends ApplicationFrame
 	// hier möchte man nur schauen wie gut die EAs und der backtest laufen
 	// vergleichen und die Lotsize einstellen.
 	private static Tableview tv_glob = null;
-	private static Display display_glob =null;
+	private static Display display_glob = null;
 	
-	public ShowConfigAllP3(Display display,String title, Tableview tv, ArrayList<Tradeliste> alltradelist, Brokerview bv,Profitliste profliste)
+	public ShowConfigAllP3(Display display, String title, Tableview tv, ArrayList<Tradeliste> alltradelist,
+			Brokerview bv, Profitliste profliste)
 	{
 		super("title");
 		int anz = 5;
-		display_glob=display;
+		display_glob = display;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 10));
@@ -65,7 +66,6 @@ public class ShowConfigAllP3 extends ApplicationFrame
 		// das ganze hat ein grid layout mit 3 Spalten
 		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 3));
 		panelx.setPreferredSize(new java.awt.Dimension(2400, anz * 350));
-		
 		
 		for (int i = 0; i < anz; i++)
 		{
@@ -93,19 +93,17 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			
 			eatradeliste.calcSummengewinne();
 			XYDataset dataset = createDataset(eatradeliste);
-			JFreeChart chart = createChart(dataset, eaname,calcColor(bv,broker, ea));
+			JFreeChart chart = createChart(dataset, eaname, calcColor(bv, broker, ea));
 			
-			
-			//Spalte 1 ist der backtest
-			AutoCreator ac=new AutoCreator();
-			String fname=meconf.getAppdata()+"\\tester\\files\\Speicherort_sys_pics\\"+comment+".png";
-			File fnam_f=new File(fname);
-			if(fnam_f.exists()==true)
+			// Spalte 1 ist der backtest
+			AutoCreator ac = new AutoCreator();
+			String fname = meconf.getAppdata() + "\\tester\\files\\Speicherort_sys_pics\\" + comment + ".png";
+			File fnam_f = new File(fname);
+			if (fnam_f.exists() == true)
 			{
-				JPanel jp=ac.readPanelPng(fname);
+				JPanel jp = ac.readPanelPng(fname);
 				panelx.add(jp);
-			}
-			else
+			} else
 				panelx.add(new JPanel());
 			
 			frame.getContentPane().setLayout(new BorderLayout());
@@ -114,15 +112,13 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			if (on == 1)
 				addSubtitle(chart);
 			
-			
-						
 			panelx.add(new ChartPanel(chart));
 			frame.getContentPane().setLayout(new BorderLayout());
 			
 			// spalte 3 ist die config
 			String filedata = meconf.getFiledata();
 			EaConfigDis cp = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv, tv, tv.getEaliste(),
-					eatradeliste, comment, ea,chart,profliste);
+					eatradeliste, comment, ea, chart, profliste);
 			panelx.add(cp);
 			frame.getContentPane().add(panelx);// , BorderLayout.WEST);
 		}
@@ -136,15 +132,17 @@ public class ShowConfigAllP3 extends ApplicationFrame
 		frame.setVisible(true);
 	}
 	
-	private Color calcColor(Brokerview bv, String broker,Ea ea)
+	private Color calcColor(Brokerview bv, String broker, Ea ea)
 	{
 		Color col = null;
+		int bt = bv.getAccounttype(broker);
 		
 		if (bv.getAccounttype(broker) == 2)
 		{
 			// realbroker:color blue
 			col = new Color(0x55, 0x55, 0xff);
-		} else if ((bv.getAccounttype(broker) == 1)&&(ea.getOn()==1))
+		} else if ((ea.getOn() == 1) && ((bt == 1) || (bt == 4)))
+		
 		{
 			// demobroker-connected: color green
 			col = new Color(0x00, 0x8b, 0x00);
@@ -203,8 +201,8 @@ public class ShowConfigAllP3 extends ApplicationFrame
 		// get a reference to the plot for further customisation...
 		XYPlot plot = (XYPlot) chart.getPlot();
 		// hier wird die Farbe gesetzt
-		if(col!=null)
-		plot.getRenderer().setSeriesPaint(0, col);
+		if (col != null)
+			plot.getRenderer().setSeriesPaint(0, col);
 		XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
 		renderer.setBaseShapesVisible(true);
 		renderer.setBaseShapesFilled(true);
@@ -222,7 +220,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 	 */
 	public static JPanel createDemoPanel(Tradeliste eatradeliste, String titel)
 	{
-		JFreeChart chart = createChart(createDataset(eatradeliste), "titel",null);
+		JFreeChart chart = createChart(createDataset(eatradeliste), "titel", null);
 		
 		return new ChartPanel(chart);
 	}

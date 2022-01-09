@@ -94,40 +94,8 @@ public class Tradeliste
 	{
 		if (bview == null)
 			return;
-		if (isloaded == 0)
-		{
-			brokerview_glob = bview;
-			Tracer.WriteTrace(20, "I: Tradeliste von Platte lesen");
-			Mlist.add("Info: read tradelist from database", 1);
-			if (FileAccess.FileAvailable(tradelistenam) == false)
-				return;
-
-			tradeliste.clear();
-			// tradeliste laden
-			Inf inf = new Inf();
-			inf.setFilename(tradelistenam);
-
-			// tradeliste einlesen
-			tradeliste = (ArrayList<Trade>) inf.loadXST();
-			// Tracer.WriteTrace(10, "anz trades geladen="+tradeliste.size());
-			inf.close();
-			isloaded = 1;
-
-			// nach dem Einladen die open trades entfernen
-			this.entferneTrades(bview, tradeliste);
-			Tracer.WriteTrace(20, "Info: Tradeliste von Platte lesen fertig");
-			Mlist.add("I:tradelist ready");
-		}
-		// hashset aufbauen
-		int anz = tradeliste.size();
-
-		for (int i = 0; i < anz; i++)
-		{
-			Trade trade = tradeliste.get(i);
-			int trans = trade.getTransactionnumber();
-			transactionmenge.add(trade.getBroker() + trans);
-		}
-		calcMinMaxdate();
+	
+	
 
 	}
 
