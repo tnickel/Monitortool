@@ -26,6 +26,8 @@ public class Toogler
 		//nur beim demobroker kann der EA ein/aus geschaltet werden
 		if ((atype==1)||(atype==4))
 		{
+			//type1= demobroker, type4=autocreator broker
+			
 			// Broker ist ein demobroker, dann hole den realbroker
 			Metaconfig mc = brokerview.getMetaconfigByBrokername(selbroker);
 			// den broker gibt es nicht mehr

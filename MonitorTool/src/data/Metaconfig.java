@@ -942,16 +942,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 		// das wird für den autocreator benötigt
 		// ../files abgelegt
 		// <comment>.clocom
-		File delfile = new File(this.getFiledata() + "\\" + comment + ".delcom");
-		if (delfile.exists() == false)
+		File clofile = new File(this.getFiledata() + "\\" + comment + ".clocom");
+		if (clofile.exists() == false)
 			try
 			{
-				if (delfile.createNewFile() == false)
-					Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + delfile.getAbsolutePath() + ">");
+				if (clofile.createNewFile() == false)
+					Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
 			} catch (IOException e)
 			{
 				e.printStackTrace();
-				Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + delfile.getAbsolutePath() + ">");
+				Tracer.WriteTrace(10, "SetCloseAllTrades: cant create file <" + clofile.getAbsolutePath() + ">");
 			}
 	}
 	

@@ -139,6 +139,7 @@ public class StartMonitorWork
 		
 		// hier wird die Tradeliste gelöscht, also nach dem Init sind 0 trades drin
 		tv_glob.init(dis, brokerview_glob, tf, table2, pb1_glob, forceloadflag); // forceflag auf 1 gesetzt
+		tv_glob.dumpProfitliste("ProfitlisteNachInit");
 		int anz = brokerview_glob.getAnz();
 		
 		pb1_glob.setMinimum(0);
@@ -178,7 +179,11 @@ public class StartMonitorWork
 		
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
 		tv_glob.ShowProfitTable();
-		if(onlyopenflag==1)tv_glob.checkProfitliste();
+		if(onlyopenflag==1)
+		{
+			tv_glob.dumpProfitliste("ProfitlisteVorCheck");
+			tv_glob.checkProfitliste();
+		}
 		tv_glob.showCounter(anzincommingtrades, anzeas);
 		
 		if (forceloadflag == 1)

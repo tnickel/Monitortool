@@ -70,6 +70,7 @@ public class AutoCreator
 	
 	static public void copyToAutoCreator(Metaconfig meconf,String comment,String newName,JFreeChart chart)
 	{
+		//kopiert einen Ea ins autocreator verzeichniss
 		String appdata=meconf.getAppdata();
 				
 		//commentpref=10003

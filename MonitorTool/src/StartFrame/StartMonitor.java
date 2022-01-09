@@ -1661,6 +1661,11 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		setBrokermode(0);
 		broker.setText("all brokers");
 		tradefilterrefresh();
+		if(onlyopenflag==1)
+		{
+			tf.setOnlyRealaccountConnected(true);
+			
+		}
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
 				anzincommingtrades, anzeas, broker, 1, 1,onlyopenflag);
 	
@@ -2387,6 +2392,8 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		System.out.println("button2checkopentrades.widgetSelected, event="+evt);
 		//TODO add your code for button2checkopentrades.widgetSelected
 		//show only open trades
+		tradefilter.setSelection(true);
+		tf.setTradefiltermainselection(true);
 		GlobalVar.setIpmessage("Show Open Trades");
 		getAllDataWidget(1);
 	}

@@ -382,7 +382,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				}
 				{
 					button1showConRealaccount = new Button(group1, SWT.CHECK | SWT.LEFT);
-					button1showConRealaccount.setText("show only EAs connected to realaccount");
+					button1showConRealaccount.setText("show only EAs connected to Realaccount and Realaccounts");
 					button1showConRealaccount.setBounds(8, 356, 430, 30);
 					button1showConRealaccount.setSelection(tf_glob.isOnlyRealaccountConnected());
 				}

@@ -1,12 +1,11 @@
 package filter;
 
-import hiflsklasse.Inf;
-import hiflsklasse.Tools;
-import hiflsklasse.Tracer;
 import data.GlobalVar;
 import data.Profit;
 import data.Rootpath;
 import data.Trade;
+import hiflsklasse.Inf;
+import hiflsklasse.Tools;
 
 public class Tradefilter
 {
@@ -338,11 +337,11 @@ public class Tradefilter
 			if (lasttradesdays < prof.calcDaysNeusterTrade())
 				return false;
 		}
-		//check schowOnlyconnectedToRealbroker
+		//check schowOnlyconnectedToRealbroker and Realbroker
 		if(isOnlyRealaccountConnected())
 		{
-			//jetzt wird geprüft ob der ea mit einem realbroker verknüpft ist
-			if(prof.getOn()==1)
+			//jetzt wird geprüft ob der ea mit einem realbroker verknüpft oder ein Realbroker selbst ist
+			if((prof.getOn()==1)||(prof.getMagic()<200))
 				return true;
 			else
 				return false;

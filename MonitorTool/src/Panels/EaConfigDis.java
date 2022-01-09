@@ -129,7 +129,8 @@ public class EaConfigDis extends javax.swing.JPanel
 		eal_glob = eal;
 		tv_glob = tv;
 		tl_glob = tl;
-		comment_glob = comment;
+		comment_glob = comment.replace("[tp]", "");
+		comment_glob= comment_glob.replace("[sl]", "");
 		ea_glob = ea;
 		index_glob = index;
 		chart_glob=chart;
@@ -487,7 +488,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		
 		//hier wird der autocreatorprefix noch reingepackt
 		String aucpref=meconf.getAucPrefix();
-		if(aucpref.length()>0)
+		if((aucpref!=null)&&(aucpref.length()>0))
 			autocreatorname.setText(meconf.getAucPrefix()+"_"+comment_glob);
 		else
 			autocreatorname.setText(comment_glob);

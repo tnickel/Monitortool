@@ -34,6 +34,7 @@ import data.Tradeliste;
 import filter.Tradefilter;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
+import hiflsklasse.Inf;
 import hiflsklasse.SG;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tools;
@@ -373,6 +374,7 @@ public class Tableview extends TableViewBasic
 	
 	public void checkProfitliste()
 	{
+		
 		Brokerview bv = brokerview_glob;
 		
 		int profanzahl = pl_glob.getsize();
@@ -416,12 +418,20 @@ public class Tableview extends TableViewBasic
 					Trade tr = tl.getelem(i);
 					String realbroker = tr.getBroker();
 					int channelRealbroker = tr.getMagic();
+					String closetime=tr.getClosetime();
+					
+					if(closetime.equals("2050-01-01 00:00:00")==false)
+					{
+						Tracer.WriteTrace(20, "W: I will check only Trades on realbroker witch are open this trade is not open because closetime is<"+closetime+">");
+						continue;
+					}
+					
 					Tracer.WriteTrace(20, "I:Check Trade on Realbroker <"+realbroker+"> comment<"+tr.getComment()+">");
 					// suche den Trade im Demobroker
 					Profit pldemo = pl_glob.searchProfitOnDemobroker(brokerview_glob,realbroker, tr.getComment(), channelRealbroker);
 					if(pldemo==null)
 					{
-						String em="E: can´t find Trade on Demobroker<"+tr.getAccountnumber()+"> for an open Trade on Realbroker<"+realbroker+"> comment<"+tr.getComment()+"> magic<"+channelRealbroker+">";
+						String em="E: can´t find Trade with comment <"+tr.getComment()+"> on channel<"+channelRealbroker+"> on demobroker (possible broker is down or switched off)";
 						Mlist.add(em);
 						Tracer.WriteTrace(10, em);
 						continue;
@@ -447,6 +457,27 @@ public class Tableview extends TableViewBasic
 			}
 		}
 	}
+	
+	public void dumpProfitliste(String name)
+	{
+		String outfile="c:\\tmp\\"+name+".txt";
+		File outfile_f=new File(outfile);
+		if(outfile_f.exists())
+				outfile_f.delete();
+		Inf inf=new Inf();
+		inf.setFilename(outfile);
+		int profanzahl = pl_glob.getsize();
+		for(int j=0; j<profanzahl; j++)
+		{
+		
+		
+			Profit prof = pl_glob.getelem(j);
+			inf.writezeile("Magic="+prof.getMagic()+" Comment="+prof.getComment()+" broker=="+prof.getBroker() +"#trades="+prof.getGestrades());
+		}
+		inf.close();
+	}
+	
+	
 	
 	public void ShowProfitTable()
 	{
@@ -1366,6 +1397,8 @@ public class Tableview extends TableViewBasic
 	
 	public Boolean deleteSingleEaAC(Brokerview bv, Tradeliste tl, String broker, int magic, String comment)
 	{
+		//Ein einzelner EA Autocreator Ea wird hier gelöst
+		
 		
 		// check if we can delete this ea
 		if (checkIfDeleateAbleEa(bv, broker, magic) == false)
@@ -1392,6 +1425,11 @@ public class Tableview extends TableViewBasic
 			h.deleteEaMagicComment("99999", comment);
 			h.storeHistoryTxt();
 		}
+		
+		//generate .delcom
+		String delcom=bv.getMqlData(broker) + "\\files\\"+comment+".delcom";
+		if(new File(delcom).exists()==false)
+			FileAccess.genFile(delcom);
 		
 		return true;
 	}
