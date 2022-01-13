@@ -185,7 +185,7 @@ public class ChrFile extends Patcher
 	{
 		//beim Autocreator werden die comments gepatched
 		
-		String patchstring="";
+		String patchstring="000000000,";
 		//baue die commentliste aus der magicliste auf
 		ArrayList<Integer> mlist=eal.getMagiclist(broker);
 		for(int i=0; i<mlist.size(); i++)

@@ -19,7 +19,7 @@ public class TableViewBasic
 	public String readTradesAutoCreator(Tradeliste tl, String dirnam, boolean nocanceledflag, boolean showopenorders,
 			boolean normflag, Metaconfig mc, Tradefilter tf)
 	{
-		
+		//hier werden die Trades vom autocreator eingelesen
 		if (mc.getAutocreatorpathmode() == 1)
 			readAllFilesAC(tl, dirnam, nocanceledflag, showopenorders, normflag, mc, tf);
 		else if (mc.getAutocreatorpathmode() == 3)

@@ -1664,6 +1664,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		if(onlyopenflag==1)
 		{
 			tf.setOnlyRealaccountConnected(true);
+			tf.setShowrealaccounts(true);
 			
 		}
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,

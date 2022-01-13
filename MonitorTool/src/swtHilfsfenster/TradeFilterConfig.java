@@ -47,6 +47,7 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 	private Text text1minProfitfaktor;
 	private Button button1maxdrawdown;
 	private Text text1lastdays;
+	private Button button1realaccounts;
 	private Text text1pz1;
 	private Button button1pz1;
 	private Button button1showConRealaccount;
@@ -382,8 +383,8 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 				}
 				{
 					button1showConRealaccount = new Button(group1, SWT.CHECK | SWT.LEFT);
-					button1showConRealaccount.setText("show only EAs connected to Realaccount and Realaccounts");
-					button1showConRealaccount.setBounds(8, 356, 430, 30);
+					button1showConRealaccount.setText("show only EAs connected to Realaccount     +");
+					button1showConRealaccount.setBounds(8, 356, 232, 30);
 					button1showConRealaccount.setSelection(tf_glob.isOnlyRealaccountConnected());
 				}
 				{
@@ -397,6 +398,16 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 					text1pz1 = new Text(group1, SWT.NONE);
 					text1pz1.setText(String.valueOf(tf_glob.getPz1()));
 					text1pz1.setBounds(249, 383, 37, 25);
+				}
+				{
+					button1realaccounts = new Button(group1, SWT.CHECK | SWT.LEFT);
+					button1realaccounts.setText("show Realaccounts");
+					button1realaccounts.setBounds(249, 355, 107, 30);
+					button1realaccounts.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							button1realaccountsWidgetSelected(evt);
+						}
+					});
 				}
 			}
 			{
@@ -570,6 +581,11 @@ public class TradeFilterConfig extends org.eclipse.swt.widgets.Composite {
 		System.out.println("text1maxdrawdown.keyTraversed, event="+evt);
 		//TODO add your code for text1maxdrawdown.keyTraversed
 		button1maxdrawdown.setSelection(true);
+	}
+	
+	private void button1realaccountsWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1realaccounts.widgetSelected, event="+evt);
+		tf_glob.setShowrealaccounts(button1realaccounts.getSelection());
 	}
 
 }
