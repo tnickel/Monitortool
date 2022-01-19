@@ -15,9 +15,9 @@ public class SqDatabaseHandler extends SqBaseList
 		
 	}
 	
-	void calcResults(String fnam)
+	void calcResults(String fnam,String cpart)
 	{
-		super.SqReadBaseList(fnam,sqrootdir_g); 
+		super.SqReadBaseList(fnam,sqrootdir_g,cpart); 
 		double np=super.calcAvrNettoprofit(null);
 		double retdd=super.calcAvrRetDD(null);
 		double pf=super.calcAvrProfitfaktor(null);

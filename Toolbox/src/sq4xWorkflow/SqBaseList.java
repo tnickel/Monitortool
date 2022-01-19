@@ -31,14 +31,19 @@ public class SqBaseList
 	{
 	}
 	
-	public void SqReadBaseList(String fnam,String sqrootdir)
+	public void SqReadBaseList(String fnam,String sqrootdir,String cpart)
 	{
+		//cpart can be IS or OOS, default ist OOS
 		sumWorkflow.setSqRootdir(sqrootdir);
 		// liste mit den Resultaten wird eingelesen und aufgebaut
 		
 		Inf inf = new Inf();
 		inf.setFilename(fnam);
 		String zeile = inf.readZeile();
+		String kw1="Net profit (Portfolio, "+cpart+")";
+		String kw2="Profit factor (Portfolio, "+cpart+")";
+		String kw3="Stability (Portfolio, "+cpart+")";
+		String kw4="Ret/DD Ratio (Portfolio, "+cpart+")";
 		
 		if(zeile==null)
 			Tracer.WriteTrace(10, "E: SQbaselist defect file<"+fnam+"> -->stop");
@@ -48,13 +53,13 @@ public class SqBaseList
 		for (int i = 0; i < anzheaderparts; i++)
 		{
 			String elemstr = headerparts[i];
-			if (elemstr.contains("Net profit (Portfolio, OOS)"))
+			if (elemstr.contains(kw1))
 				indexNetprofit = i;
-			else if (elemstr.contains("Profit factor (Portfolio, OOS)"))
+			else if (elemstr.contains(kw2))
 				indexPf = i;
-			else if (elemstr.contains("Stability (Portfolio, OOS)"))
+			else if (elemstr.contains(kw3))
 				indexStabil = i;
-			else if (elemstr.contains("Ret/DD Ratio (Portfolio, OOS)"))
+			else if (elemstr.contains(kw4))
 				indexRetDD = i;
 		}
 		if ((indexNetprofit == 0) || (indexPf == 0) || (indexStabil == 0) || (indexRetDD == 0))

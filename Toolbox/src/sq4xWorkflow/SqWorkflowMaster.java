@@ -173,14 +173,14 @@ public class SqWorkflowMaster extends Sq
 		
 	}
 	
-	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag)
+	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart)
 	{
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
 		sr.setResultdir(resultdir_g);
 		sr.setSqRoodir(sqrootdir_g);
-		sr.collectResults();
+		sr.collectResults(databankname);
 		
 		// get resultrootpath out of resultdir
 		String resultroothpath = getSqRootpath(resultdir_g);
@@ -199,20 +199,20 @@ public class SqWorkflowMaster extends Sq
 			
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
 			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
-			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g);
+			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart);
 			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
 		}
 		// copy the results to goggledrive
 		if ((shareddrive_g != null) && (copygoogledriveflag == true))
 		{
 			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to shared drive<\"+sharedrive_g+\">");
-			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag);
+			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag,databankname);
 		}
 		// copy the results to backupdrive
 		if ((backupdrive_g != null) && (copybackupflag == true))
 		{
 			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to backup drive<\"+backupdrive_g+\">");
-			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag);
+			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag,databankname);
 		}
 		// zeige verkleinerte resultliste
 		if (showresultsflag == true)
@@ -224,7 +224,7 @@ public class SqWorkflowMaster extends Sq
 	}
 	
 	private void copyDrive(String sqrootdir, String shareddrive, String outputname, String masterfile,
-			Boolean showresultsflag)
+			Boolean showresultsflag,String databankname)
 	{
 		// sqrootdir: is the path to the sq, this is the rootpath
 		// shareddrive: is the path to the backup/shared-drive
@@ -250,7 +250,7 @@ public class SqWorkflowMaster extends Sq
 		SqCollectStoreResultsMain gr = new SqCollectStoreResultsMain();
 		gr.setResultdir(portfolios);
 		gr.setSqRoodir(sqrootdir);
-		gr.collectResults();
+		gr.collectResults(databankname);
 		
 		// masterfile kopieren
 		gr.copyMasterfile(masterfile, shareddrive + "\\" + outputname);

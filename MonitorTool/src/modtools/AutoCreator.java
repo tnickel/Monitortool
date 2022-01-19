@@ -24,8 +24,17 @@ public class AutoCreator
 	
 	static public String getPkz1(Metaconfig meconf, String comment)
 	{
+		String sourcedir_s="";
 		String appdata = meconf.getAppdata();
-		String sourcedir_s = appdata + "\\tester\\files\\AC_Entwicklungen\\" + calcCommentPrefix(comment);
+		
+		int mode=meconf.getAutocreatorpathmode();
+		if((mode==1)||(mode==2))
+			sourcedir_s = appdata + "\\tester\\files\\AC_Entwicklungen\\" + calcCommentPrefix(comment);
+		else if(mode==3)
+			sourcedir_s=meconf.getAutocreatorpath();
+		else
+			Tracer.WriteTrace(10, "E:unknown mode=<"+mode+">");
+		
 		String commentpostfix = calcCommentPostfix(comment);
 		String fsource_stats = sourcedir_s + "\\" + commentpostfix + "_stats.csv";
 		

@@ -31,7 +31,7 @@ public class SqCollectStoreResultsMain
 		this.sqroodir_g = sqroodir;
 	}
 	
-	public void collectResults()
+	public void collectResults(String databankname)
 	{
 		//Hier werden alle results des SQ-Generator gesammelt.
 		//Hierzu muss man in allen projekten in das Portfolioverzeichniss schauen und die
@@ -65,7 +65,7 @@ public class SqCollectStoreResultsMain
 			//bsp: projetname=Q63 GBPUSD L0_--01800
 			String projectname=FileAccess.holeFileSystemName();
 			String portfoliosrcdir = sqroodir_g + "\\user\\Projects\\" + projectname
-					+ "\\databanks\\portfolio";
+					+ "\\databanks\\"+databankname;
 			File quelldir_f=new File(portfoliosrcdir);
 			File zieldir_f=new File(resultdir_g);
 			
@@ -74,7 +74,7 @@ public class SqCollectStoreResultsMain
 			{
 				//kopiert alle sqx aus dem quelldir nach zieldir, in den zielnamen wird der projectname eingebaut
 				//bsp für zielfile
-				Tracer.WriteTrace(20, "I:collect portfolio <"+quelldir_f.getAbsolutePath()+">");
+				Tracer.WriteTrace(20, "I:collect data fram databank<"+databankname+"> <"+quelldir_f.getAbsolutePath()+">");
 				ff.copyDirAllSqxProjektname(quelldir_f, zieldir_f,projectname);
 			} catch (FileNotFoundException e)
 			{

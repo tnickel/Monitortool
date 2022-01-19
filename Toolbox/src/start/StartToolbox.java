@@ -19,8 +19,10 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -215,6 +217,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Combo combo1cpart;
+	private Label label31;
+	private Text text4databankname;
 	private Label label30;
 	private Label label29;
 	private Text text4magicprefix;
@@ -320,7 +325,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							CTtext2verzeichniss = new Text(composite1, SWT.NONE);
 							CTtext2verzeichniss.setBounds(36, 25, 1263, 22);
-							String rdir=Toolboxconf.getPropAttribute("commenttool_rdir");
+							String rdir = Toolboxconf.getPropAttribute("commenttool_rdir");
 							setWorkdir(rdir);
 							CTtext2verzeichniss.setText(rdir);
 							
@@ -1508,7 +1513,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label28 = new Label(group2filter, SWT.NONE);
 								label28.setText(
 										"Collect the portfolios from Step2 =\"SQ rootdir/usr/projects/<...>/databanks/portfolio\" and store this to this directorys below");
-								label28.setBounds(12, 617, 1126, 25);
+								label28.setBounds(12, 617, 587, 25);
 							}
 							{
 								button8showprojectdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
@@ -1599,7 +1604,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								GridLayout composite16Layout = new GridLayout();
 								composite16Layout.makeColumnsEqualWidth = true;
 								composite16.setLayout(composite16Layout);
-								composite16.setBounds(7, 605, 1144, 210);
+								composite16.setBounds(-6, 721, 1144, 210);
 							}
 							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
@@ -1607,6 +1612,24 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								composite15Layout.makeColumnsEqualWidth = true;
 								composite15.setLayout(composite15Layout);
 								composite15.setBounds(7, 167, 1143, 416);
+							}
+							{
+								text4databankname = new Text(group2filter, SWT.NONE);
+								text4databankname.setText("Portfolio");
+								text4databankname.setBounds(646, 633, 169, 15);
+								text4databankname.setToolTipText(
+										"This is the the there the portfolio is stored, the default is the databankname portfolio");
+							}
+							{
+								label31 = new Label(group2filter, SWT.NONE);
+								label31.setText("Databankname for Analysis");
+								label31.setBounds(646, 615, 142, 20);
+							}
+							{
+								combo1cpart = new Combo(group2filter, SWT.NONE);
+								combo1cpart.setText("OOS");
+								combo1cpart.setBounds(821, 633, 60, 19);
+								
 							}
 						}
 					}
@@ -1709,7 +1732,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		int mode = enddata_glob.getMode();
 		setGlobalMode(mode);
-		
+		combo1cpart.add("OOS");
+		combo1cpart.add("IS");
 	}
 	
 	private void setGlobalMode(int mode)
@@ -1771,7 +1795,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.7.1");
+		shell.setText("Toolbox V1.2.7.2");
 		
 		while (!shell.isDisposed())
 		{
@@ -1789,7 +1813,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button1setdir.widgetSelected, event=" + evt);
 		// TODO add your code for button1setdir.widgetSelected
-		String verz=CTtext2verzeichniss.getText();
+		String verz = CTtext2verzeichniss.getText();
 		String dirname = cw_glob.selectDirectory(verz);
 		CTtext2verzeichniss.setText(dirname);
 	}
@@ -1809,8 +1833,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private void CTRenameFiles2WidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("CTbutton2.widgetSelected, event=" + evt);
-
-		Toolboxconf.setPropAttribute("commenttool_rdir",CTtext2verzeichniss.getText());
+		
+		Toolboxconf.setPropAttribute("commenttool_rdir", CTtext2verzeichniss.getText());
 		cw_glob.setFileprefix(CTtext1prefix.getText());
 		cw_glob.setMonthYear(text4magicprefix.getText());
 		cw_glob.renameAllFiles();
@@ -2343,7 +2367,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String pd = masterfile_f.getParent();
 		if ((pd != null) && (pd.contains("\\")))
 		{
-			String noutdir=pd.substring(pd.lastIndexOf("\\")+1);
+			String noutdir = pd.substring(pd.lastIndexOf("\\") + 1);
 			outputname.setText(noutdir);
 			ModifiedOutputDirectory();
 		}
@@ -2381,6 +2405,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
+		String cpart="OOS";
+		int idx = combo1cpart.getSelectionIndex();
+		if(idx!=-1)
+			cpart = combo1cpart.getItem(idx);
 		
 		// button collect results !!!!!!!!!!!!
 		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
@@ -2388,14 +2416,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		getInterfaceData();
 		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
-
+		
 		// collect all results and write infos in file
 		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
-				button9showresults.getSelection());
+				button9showresults.getSelection(), text4databankname.getText(), cpart);
 		refreshProjectfilesanzahlMessages();
 		
-		if(button9shareddrive.getSelection())
-			Toolboxconf.backupToolboxconf(text4shareddrive.getText()+"\\"+outputname.getText());
+		if (button9shareddrive.getSelection())
+			Toolboxconf.backupToolboxconf(text4shareddrive.getText() + "\\" + outputname.getText());
 		Tracer.WriteTrace(20, "I:all results collected and stored under <" + text4resultdir.getText() + ">");
 	}
 	
