@@ -217,13 +217,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
-	private Combo combo1cpart;
 	private Label label31;
+	private Combo combo1cpart;
 	private Text text4databankname;
 	private Label label30;
 	private Label label29;
 	private Text text4magicprefix;
-	private Composite composite16;
 	private Button button9showresults;
 	private Button button9backupdrive;
 	private Button button9shareddrive;
@@ -1600,13 +1599,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								composite16 = new Composite(group2filter, SWT.BORDER);
-								GridLayout composite16Layout = new GridLayout();
-								composite16Layout.makeColumnsEqualWidth = true;
-								composite16.setLayout(composite16Layout);
-								composite16.setBounds(-6, 721, 1144, 210);
-							}
-							{
 								composite15 = new Composite(group2filter, SWT.BORDER);
 								GridLayout composite15Layout = new GridLayout();
 								composite15Layout.makeColumnsEqualWidth = true;
@@ -1616,20 +1608,21 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4databankname = new Text(group2filter, SWT.NONE);
 								text4databankname.setText("Portfolio");
-								text4databankname.setBounds(646, 633, 169, 15);
+								text4databankname.setBounds(363, 605, 54, 15);
 								text4databankname.setToolTipText(
 										"This is the the there the portfolio is stored, the default is the databankname portfolio");
 							}
 							{
-								label31 = new Label(group2filter, SWT.NONE);
-								label31.setText("Databankname for Analysis");
-								label31.setBounds(646, 615, 142, 20);
-							}
-							{
 								combo1cpart = new Combo(group2filter, SWT.NONE);
 								combo1cpart.setText("OOS");
-								combo1cpart.setBounds(821, 633, 60, 19);
+								combo1cpart.setBounds(423, 600, 60, 19);
 								
+							}
+							{
+								label31 = new Label(group2filter, SWT.NONE);
+								label31.setText("(i)");
+								label31.setBounds(1461, 731, 12, 16);
+								label31.setToolTipText("Please activate in SQ configuration/databanks/synchronisize to files automaticaly..");
 							}
 						}
 					}
@@ -2405,6 +2398,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
+		//hier werden die Resultate eingesammelt
+		//Als erstes wird mit cpart und combo1cpart gesagt was denn gesammelt werden soll
 		String cpart="OOS";
 		int idx = combo1cpart.getSelectionIndex();
 		if(idx!=-1)
@@ -2418,6 +2413,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		
 		// collect all results and write infos in file
+		// holt alle resulate aus den workflows
 		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
 				button9showresults.getSelection(), text4databankname.getText(), cpart);
 		refreshProjectfilesanzahlMessages();
@@ -2437,7 +2433,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		String resultdir = SWTwindow.DirDialog(getDisplay(), dd);
 		if (resultdir == null)
 			resultdir = dd;
-		
+
+		//C:\\forex\\toolbox\\SQ\\3 Results\\user\\projects\\Retester\\databanks\\Results
 		sqprojects.setResultdir(resultdir);
 		// show new resultdir
 		text4resultdir.setText(resultdir);

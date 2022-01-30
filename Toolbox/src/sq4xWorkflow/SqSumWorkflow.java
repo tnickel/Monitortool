@@ -142,10 +142,17 @@ public class SqSumWorkflow
 	}
 	private int extractAnzStrategien(String mem,String fnam)
 	{
+		// Wir wollen wissen wieviele Strategien sich denn im Portfolio befinden
+		// Hierzu müssen wir im Logfile die Stelle suchen wo das Portfolio generiert wird.
+		
+		
 		
 		//this text will be searched
 		//'Portfolio created from 47 strategies'
 	
+		
+		//Portfolio created from 9 strategies from source databank 'Fertig' saved to target databank 'Portfolio'.
+		
 		if((mem==null)||(mem.contains("Portfolio created from ")==false))
 		{
 			Tracer.WriteTrace(20, "W:cant find string 'Portfolio created from' in <"+fnam+">" );

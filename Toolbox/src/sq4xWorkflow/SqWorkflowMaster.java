@@ -177,13 +177,22 @@ public class SqWorkflowMaster extends Sq
 	{
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
+
+		
+		//Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein bestimmtes verzeichniss vom sq
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
+		//resultdir=verzeichniss wo das hin soll
 		sr.setResultdir(resultdir_g);
+		//sqrootdir ist das rootdir des sqs den wir verwenden
 		sr.setSqRoodir(sqrootdir_g);
+		//databankname sagt uns was wir einsammeln wollen
 		sr.collectResults(databankname);
 		
 		// get resultrootpath out of resultdir
 		String resultroothpath = getSqRootpath(resultdir_g);
+		
+		//Step2: dann exportieren wir die gesammelten daten mit dem sqli interface
+		//Falls showresults angewählt ist wird das ganze noch schön ausgegeben
 		
 		// Datenbank wird exportiert
 		// wird mit cli befehlen gemacht siehe

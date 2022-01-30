@@ -74,8 +74,8 @@ public class SqCollectStoreResultsMain
 			{
 				//kopiert alle sqx aus dem quelldir nach zieldir, in den zielnamen wird der projectname eingebaut
 				//bsp für zielfile
-				Tracer.WriteTrace(20, "I:collect data fram databank<"+databankname+"> <"+quelldir_f.getAbsolutePath()+">");
-				ff.copyDirAllSqxProjektname(quelldir_f, zieldir_f,projectname);
+				Tracer.WriteTrace(20, "I:collect data fram databank<"+databankname+"> <"+quelldir_f.getAbsolutePath()+"> store this to <"+zieldir_f+">");
+				ff.copyDirAllSqxProjektname(quelldir_f, zieldir_f,projectname,databankname);
 			} catch (FileNotFoundException e)
 			{
 				// TODO Auto-generated catch block
