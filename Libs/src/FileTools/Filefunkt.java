@@ -18,7 +18,7 @@ public class Filefunkt
 	private BufferedInputStream in = null;
 	private BufferedOutputStream out = null;
 	
-	public void copyDirAllSqxProjektname(File quelle, File ziel, String projectname)
+	public void copyDirAllSqxProjektname(File quelle, File ziel, String projectname,String datenbankname)
 			throws FileNotFoundException, IOException
 	// kopiert alle sqx aus dem quelldir nach zieldir, in den zielnamen wird der
 	// projectname eingebaut
@@ -27,7 +27,9 @@ public class Filefunkt
 		int j = 0;
 		File[] files = quelle.listFiles();
 		
-		// no files
+		// no files, daten aus builder, retester und optimizer werden nicht aufgesammelt, die müssen wir hier ausklammern da diese standart verzeichniss
+		// unerwünscht immer da sind
+		// Wir sammeln z.B. aus C:\\forex\\toolbox\\SQ\\2 Generator\\user\\projects\\Q86 GBPJPY StrategyLab_+00000
 		if ((files == null) || (quelle.getName().contains("Builder")) || (quelle.getName().contains("Retester"))
 				|| (quelle.getName().contains("Optimizer")))
 		{
@@ -42,7 +44,7 @@ public class Filefunkt
 			{
 				copyDirAllSqxProjektname(file,
 						new File(ziel.getAbsolutePath() + System.getProperty("file.separator") + file.getName()),
-						projectname);
+						projectname,datenbankname);
 			} else
 			{
 				// cut "Merged portfolio" out of the name

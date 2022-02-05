@@ -38,7 +38,7 @@ public class MqlSqPatcher extends Patcher
 			}
 		}
 
-		Mbox.Infobox("attrib <" + lotkeyword + "> not found in file <"
+		Mbox.Infobox("Sq3attrib <" + lotkeyword + "> not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 	}
@@ -70,7 +70,7 @@ public class MqlSqPatcher extends Patcher
 			}
 		}
 
-		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword2+">not found in file <"
+		Mbox.Infobox("Sq4 attrib <" + lotkeyword + "> or <"+lotkeyword2+">not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 	}
@@ -97,14 +97,14 @@ public class MqlSqPatcher extends Patcher
 			
 		}
 
-		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
+		Mbox.Infobox("EA Studio attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 	}
 	public boolean patchLotsizeExpertStudioPortfolio(Ea ea, Metaconfig meRealconf)
 	{
 		// falls globale config gewünscht
-		String lotkeyword = "static input double Entry_Amount      =";
+		String lotkeyword = "static input double Entry_Amount";
 		String lotkeywordrepl="extern double Entry_Amount      =";
 		
 							 
@@ -124,7 +124,7 @@ public class MqlSqPatcher extends Patcher
 			
 		}
 
-		Mbox.Infobox("attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
+		Mbox.Infobox("Ea Studio Port attrib <" + lotkeyword + "> or <"+lotkeyword+">not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 	}
@@ -150,7 +150,7 @@ public class MqlSqPatcher extends Patcher
 				return true;
 			}
 		}
-		Mbox.Infobox("attrib <" + kw + "> not found in file <"
+		Mbox.Infobox("pcsq4 attrib <" + kw + "> not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 		
@@ -178,7 +178,7 @@ public class MqlSqPatcher extends Patcher
 				return true;
 			}
 		}
-		Mbox.Infobox("attrib <" + kw + "> not found in file <"
+		Mbox.Infobox("pcesPort attrib <" + kw + "> not found in file <"
 				+ ea.getEafilename() + ">");
 		return false;
 
