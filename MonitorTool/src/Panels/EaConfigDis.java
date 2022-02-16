@@ -469,7 +469,19 @@ public class EaConfigDis extends javax.swing.JPanel
 			jTextField1.setText("AutoCreator");
 			jTextField1_lots.setEnabled(false);
 			jButton2deleteEA.setEnabled(true);
+			
+			String apath=meconf.getAppdata();
+			String bpath=meconf.getAutocreatortestdir();
+			if(bpath.contains(apath)==false)
+			{
+				//falls der Metatrader so konfiguriert ist das er nur Eas anzeigen soll dann sind diese optionen zu disablen
+				jButton2deleteEA.setEnabled(false);
+				jButton2tradecopyonoff.setEnabled(false);
+				
+			}
 		}
+		
+		
 		
 		jTextField1broker.setEditable(false);
 		jTextField1channel.setEditable(false);

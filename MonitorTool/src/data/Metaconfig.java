@@ -109,6 +109,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private String autocreatorpath="";
 	private String autocreatorbackuppath="";
 	private int useautocreatorbackup=1;
+	private String autocreatortestdir="";
 	
 	public Metaconfig(String mname)
 	{
@@ -190,7 +191,8 @@ public class Metaconfig implements Comparable<Metaconfig>
 				useautocreatorbackup=SG.get_zahl(SG.nteilstring(zeile, "#", 38));
 			if(trennanz>39)
 				autocreatorbackuppath= SG.nteilstring(zeile, "#", 39);
-				
+			if(trennanz>40)
+				autocreatortestdir= SG.nteilstring(zeile, "#",40);
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -716,6 +718,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public void setAutocreatorpath(String autocreatorpath)
 	{
 		this.autocreatorpath = autocreatorpath;
+	}
+
+	public String getAutocreatortestdir()
+	{
+		return autocreatortestdir;
+	}
+
+	public void setAutocreatortestdir(String autocreatortestdir)
+	{
+		this.autocreatortestdir = autocreatortestdir;
 	}
 
 	public String getInitMetaversion()

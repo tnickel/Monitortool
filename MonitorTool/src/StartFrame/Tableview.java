@@ -191,7 +191,7 @@ public class Tableview extends TableViewBasic
 		String fnam2 = filedata + "/history.txt";
 		String fnam3 = filedata + "/history_open.txt";
 		String fnam5 = filedata + "/history_transfer.txt";
-		String dirnam6 = mc.getAppdata() + "\\tester\\files\\Ac_Entwicklungen";
+		String dirnam6 = mc.getAutocreatortestdir() + "\\Ac_Entwicklungen";
 		
 		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);

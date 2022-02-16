@@ -8,11 +8,9 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -31,6 +29,7 @@ import gui.Dialog;
 import gui.Mbox;
 import hiflsklasse.Swttool;
 import hiflsklasse.Tracer;
+import modtools.AutoCreator;
 import modtools.MetaStarter;
 
 /**
@@ -57,6 +56,9 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Button button1setactestdir;
+	private Text text1autocreatortestdir;
+	private Label label13;
 	private Label label12;
 	private Button button1usebackupdir;
 	private Button button1setbackup;
@@ -155,8 +157,9 @@ public class SwtEditBrokerConfig
 				Brokername.setText(me.getBrokername());
 		}
 		{
-			MtRoot = new Text(sh, SWT.NONE);
+			MtRoot = new Text(sh, SWT.BORDER);
 			MtRoot.setBounds(7, 220, 524, 30);
+			MtRoot.setEnabled(false);
 			if (me.getMqldata() != null)
 				MtRoot.setText(me.getNetworkshare_INSTALLDIR());
 		}
@@ -169,7 +172,7 @@ public class SwtEditBrokerConfig
 		{
 			SaveExit = new Button(sh, SWT.PUSH | SWT.CENTER);
 			SaveExit.setText("SaveConfig");
-			SaveExit.setBounds(1149, 647, 210, 30);
+			SaveExit.setBounds(1151, 691, 210, 30);
 			SaveExit.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -207,7 +210,7 @@ public class SwtEditBrokerConfig
 		{
 			installEas = new Button(sh, SWT.PUSH | SWT.CENTER | SWT.BORDER);
 			installEas.setText("INSTALL All EAs on (Demo/Real)Account");
-			installEas.setBounds(12, 623, 337, 48);
+			installEas.setBounds(12, 687, 337, 48);
 			installEas.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -230,7 +233,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		progressBar1 = new ProgressBar(sh, SWT.NONE);
-		progressBar1.setBounds(12, 683, 1347, 23);
+		progressBar1.setBounds(12, 741, 1347, 23);
 	}
 	{
 		lotsize = new Text(sh, SWT.BORDER);
@@ -523,8 +526,8 @@ public class SwtEditBrokerConfig
 	}
 	{
 		button1AcEntwicklungPath = new Button(sh, SWT.RADIO | SWT.LEFT);
-		button1AcEntwicklungPath.setText("use default path");
-		button1AcEntwicklungPath.setBounds(806, 504, 130, 24);
+		button1AcEntwicklungPath.setText("use default");
+		button1AcEntwicklungPath.setBounds(806, 536, 130, 24);
 		button1AcEntwicklungPath.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungPathWidgetSelected(evt);
@@ -535,7 +538,7 @@ public class SwtEditBrokerConfig
 	{
 		button1AcEntwicklungNewestDir = new Button(sh, SWT.RADIO | SWT.LEFT);
 		button1AcEntwicklungNewestDir.setText("use newest directory");
-		button1AcEntwicklungNewestDir.setBounds(806, 527, 136, 30);
+		button1AcEntwicklungNewestDir.setBounds(806, 557, 136, 30);
 		button1AcEntwicklungNewestDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungNewestDirWidgetSelected(evt);
@@ -545,7 +548,7 @@ public class SwtEditBrokerConfig
 	{
 		button1AcEntwicklungUseThisDir = new Button(sh, SWT.RADIO | SWT.LEFT);
 		button1AcEntwicklungUseThisDir.setText("use this directory");
-		button1AcEntwicklungUseThisDir.setBounds(806, 557, 112, 30);
+		button1AcEntwicklungUseThisDir.setBounds(808, 600, 112, 30);
 		button1AcEntwicklungUseThisDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungUseThisDirWidgetSelected(evt);
@@ -553,14 +556,15 @@ public class SwtEditBrokerConfig
 		});
 	}
 	{
-		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.NONE);
+		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.BORDER);
 		text1AcEntwicklungUseThisDirectory.setText("set directory");
-		text1AcEntwicklungUseThisDirectory.setBounds(930, 563, 397, 18);
+		text1AcEntwicklungUseThisDirectory.setBounds(932, 607, 397, 18);
+		text1AcEntwicklungUseThisDirectory.setEditable(false);
 	}
 	{
 		button1AcEntwicklungSetLoadDir = new Button(sh, SWT.PUSH | SWT.CENTER);
 		button1AcEntwicklungSetLoadDir.setText("Set");
-		button1AcEntwicklungSetLoadDir.setBounds(1333, 563, 26, 18);
+		button1AcEntwicklungSetLoadDir.setBounds(1335, 607, 26, 18);
 		button1AcEntwicklungSetLoadDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungSetLoadDirWidgetSelected(evt);
@@ -569,14 +573,15 @@ public class SwtEditBrokerConfig
 		});
 	}
 	{
-		backuppath = new Text(sh, SWT.NONE);
+		backuppath = new Text(sh, SWT.BORDER);
 		backuppath.setText("set backupdirectory");
-		backuppath.setBounds(930, 613, 397, 22);
+		backuppath.setBounds(932, 657, 397, 22);
+		backuppath.setEditable(false);
 	}
 	{
 		button1setbackup = new Button(sh, SWT.PUSH | SWT.CENTER);
-		button1setbackup.setText("set");
-		button1setbackup.setBounds(1333, 613, 26, 22);
+		button1setbackup.setText("Set");
+		button1setbackup.setBounds(1333, 657, 26, 22);
 		button1setbackup.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1setbackupWidgetSelected(evt);
@@ -586,13 +591,34 @@ public class SwtEditBrokerConfig
 	{
 		button1usebackupdir = new Button(sh, SWT.CHECK | SWT.LEFT);
 		button1usebackupdir.setText("use backupdir");
-		button1usebackupdir.setBounds(806, 613, 98, 22);
+		button1usebackupdir.setBounds(808, 657, 98, 22);
 		button1usebackupdir.setSelection(true);
 	}
 	{
 		label12 = new Label(sh, SWT.NONE);
 		label12.setText("___   Autocreator Backup   _______________________________________________________________________________________________________________________________________________");
-		label12.setBounds(806, 592, 551, 21);
+		label12.setBounds(808, 636, 551, 21);
+	}
+	{
+		label13 = new Label(sh, SWT.NONE);
+		label13.setText("__________________________________");
+		label13.setBounds(810, 577, 365, 30);
+	}
+	{
+		text1autocreatortestdir = new Text(sh, SWT.BORDER);
+		text1autocreatortestdir.setText("set autocreatortestdir");
+		text1autocreatortestdir.setBounds(806, 509, 523, 21);
+		text1autocreatortestdir.setEditable(false);
+	}
+	{
+		button1setactestdir = new Button(sh, SWT.PUSH | SWT.CENTER);
+		button1setactestdir.setText("Set");
+		button1setactestdir.setBounds(1335, 509, 25, 19);
+		button1setactestdir.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				button1setactestdirWidgetSelected(evt);
+			}
+		});
 	}
 
 	sh.open();
@@ -783,6 +809,8 @@ public class SwtEditBrokerConfig
 		if(me_glob.getAutocreatorpath()!=null)
 		text1AcEntwicklungUseThisDirectory.setText(me_glob.getAutocreatorpath());
 		
+		if(me_glob.getAutocreatortestdir()!=null)
+			text1autocreatortestdir.setText(me_glob.getAutocreatortestdir());
 		
 		if(me_glob.getAutocreatorbackuppath()!=null)
 			backuppath.setText(me_glob.getAutocreatorbackuppath());
@@ -1028,15 +1056,23 @@ public class SwtEditBrokerConfig
 			Tracer.WriteTrace(20, "Error: This metatrader is already configured");
 			return;
 		} else
-		{ // fnam=D:\\Forex\\mt4\\audrn2
+		{ // fnam=D:\\Forex\\mt4\\audrn2+
 			me_glob.setNetworkshare(fnam);
 			if ((GlobalVar.getNetzwerkshareprefix() == null) || ((GlobalVar.getNetzwerkshareprefix().length() < 2)))
 			{
 				// if networkshareprefix is not set, then set this global variable
 				String pref = fnam.substring(0, fnam.lastIndexOf("\\"));
+				
 				GlobalVar.setNetworkshareprefix(pref);
 				GlobalVar.save();
 			}
+		}
+		if(me_glob.getAccounttype()==4)
+		{
+			//if Autocreator Account
+			me_glob.setAutocreatortestdir(fnam+"\\tester\\files");
+			text1autocreatortestdir.setText(fnam+"\\tester\\files");
+			
 		}
 		me_glob.getInitMetaversion();
 		
@@ -1389,5 +1425,23 @@ public class SwtEditBrokerConfig
 		System.out.println("button1AcEntwicklungNewestDir.widgetSelected, event="+evt);
 		//TODO add your code for button1AcEntwicklungNewestDir.widgetSelected
 		setBackupVisible(true);
+	}
+	
+	
+	
+	private void button1setactestdirWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1setactestdir.widgetSelected, event="+evt);
+		//set ac path
+				String fnam="";
+				
+				String path=text1autocreatortestdir.getText();
+				if(path!=null)
+					fnam = Dialog.DirDialog(dis_glob, path);
+				else
+					fnam = Dialog.DirDialog(dis_glob, "");
+				
+				fnam=AutoCreator.CheckFilesRootDir(fnam);
+				me_glob.setAutocreatortestdir(fnam);
+				text1autocreatortestdir.setText(fnam);
 	}
 }

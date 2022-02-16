@@ -112,6 +112,12 @@ public class TableViewBasic
 		//hier werden alle files für ein bestimmtes directory gelesen
 		
 		File[] files = dir.listFiles();
+
+		if(files==null)
+		{
+			Tracer.WriteTrace(20,"readOneAcDir: files ==Null");
+			return;
+		}
 		int anzf = files.length;
 
 		if(anzf<3)

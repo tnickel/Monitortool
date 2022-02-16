@@ -97,7 +97,9 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			
 			// Spalte 1 ist der backtest
 			AutoCreator ac = new AutoCreator();
-			String fname = meconf.getAppdata() + "\\tester\\files\\Speicherort_sys_pics\\" + comment + ".png";
+			
+			String fname = meconf.getAutocreatortestdir()+"\\Speicherort_sys_pics\\" + comment + ".png";
+			
 			File fnam_f = new File(fname);
 			if (fnam_f.exists() == true)
 			{

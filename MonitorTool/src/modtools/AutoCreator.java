@@ -76,11 +76,13 @@ public class AutoCreator
 	static public void copyToAutoCreator(Metaconfig meconf, String comment, String newName, JFreeChart chart)
 	{
 		String appdata = "";
+		String testdir="";
 		String sourcedir_s = "";
 		// kopiert einen Ea ins autocreator verzeichniss
 		
 		int mode = meconf.getAutocreatorpathmode();
 		appdata = meconf.getAppdata();
+		testdir = meconf.getAutocreatortestdir();
 		
 		if ((appdata == null) || (appdata.length() < 2))
 			Tracer.WriteTrace(10, "E: no autocreatorpath path=<" + appdata + ">");
@@ -89,7 +91,7 @@ public class AutoCreator
 		{
 			// falls default=1 oder newestdir=2
 			// sourcdir_s=D:\Forex\mt4\Pepperstone\tester\files\AC_Entwicklungen\10003
-			sourcedir_s = appdata + "\\tester\\files\\AC_Entwicklungen\\" + calcCommentPrefix(comment);
+			sourcedir_s = testdir+"\\AC_Entwicklungen\\" + calcCommentPrefix(comment);
 		} else if (mode == 3)
 		{
 			sourcedir_s = meconf.getAutocreatorpath();
@@ -256,5 +258,46 @@ public class AutoCreator
 		return jPanel;
 		
 	}
-	
+	public static String CheckFilesRootDir(String fnam)
+	{
+		//hier wird der eingegebene Pfad auf den richtigen korregiert
+		//wir möchten den Pfad haben
+		//D:\Forex\mt4\gbebroker17023\tester\files
+		
+		
+		
+		if(fnam.endsWith("tester\\files")==true)
+		{
+			return fnam;
+		}
+		
+		if(fnam.endsWith("tester")==true)
+		{
+			//eingabe://D:\Forex\mt4\gbebroker17023\tester
+			//korrektur:D:\Forex\mt4\gbebroker17023\tester\files
+			
+			File fneu=new File(fnam+"\\files");
+			if(fneu.exists())
+				return fnam+"\\files";
+		}
+		//eingabe:D:\Forex\mt4\gbebroker17023
+		if((new File(fnam+"\\MQL4").exists())&&(new File(fnam+"\\tester\\files").exists()))
+		{
+			//eingabe:D:\Forex\mt4\gbebroker17023
+			//korrektur:D:\Forex\mt4\gbebroker17023\tester\files
+			return fnam+"\\tester\\files";
+		}
+		if(fnam.endsWith("tester\\files\\AC_Entwicklungen"))
+		{
+			//eingabe:D:\Forex\mt4\gbebroker17023\tester\files\AC_Entwicklungen
+			//korrektur:D:\Forex\mt4\gbebroker17023\tester\files
+			fnam=fnam.replace("\\AC_Entwicklungen", "");
+			return fnam;
+		
+		}
+		
+		Tracer.WriteTrace(10, "Error: no valid Dir, for example use: D:\\Forex\\mt4\\gbebroker17023\\tester\\files");
+		return "invalid path";
+		
+	}
 }
