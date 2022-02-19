@@ -148,8 +148,8 @@ public class Patcher
 		for (int i = 0; i < anz; i++)
 		{
 			String zeile = zeilenspeicher[i];
-			if (zeile != null)
-				if (zeile.toLowerCase().contains("static input int magic_number") == true)
+			if (zeile != null)                    
+				if ((zeile.toLowerCase().contains("magic_number") == true)&&(zeile.toLowerCase().contains("static input int")))
 				{
 					zeilenspeicher[i] = "static input int Magic_Number = "+magic+";";
 					return;
@@ -294,19 +294,21 @@ public class Patcher
 	protected void addVariablesExpertStudio()
 	{
 		int anz = zeilenspeicher.length;
-		String keyword="bool     setProtectionSeparately=false;";
-		               
+		String keyword1="setProtectionSeparately";
+		String keyword2="bool";
+		String keyword3="false";
+		
 		for (int i = 0; i < anz; i++)
 		{
 			String zeile = zeilenspeicher[i];
 			if (zeile != null)
-				if (zeile.contains(keyword) == true)
+				if ((zeile.contains(keyword1) == true)&&(zeile.contains(keyword2))&&(zeile.contains(keyword3)))
 				{
 					 addnewline(i+1,"string lotconfigmem[100];");
 					 return;
 				}
 		}
-		Tracer.WriteTrace(10, "Error: 'ExpertStudio' kann zeilenspeicher nicht hinzufuegen addvariables keyword<"+keyword+"> not found--> stop");
+		Tracer.WriteTrace(10, "Error: 'ExpertStudio' kann zeilenspeicher nicht hinzufuegen addvariables keyword1<"+keyword1+"> keyword2<"+keyword2+"> not found--> stop");
 	}
 	protected void addVariablesExpertStudioPortfolio()
 	{

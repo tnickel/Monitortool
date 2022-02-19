@@ -39,6 +39,8 @@ public class MqlPatch extends MqlSqPatcher
 			return 0;
 		}
 		
+		
+		
 		String[] parts = expertname_glob.split(" ");
 		int anzp=parts.length;
 		if(anzp<3)
@@ -61,7 +63,7 @@ public class MqlPatch extends MqlSqPatcher
 				return frame[i];
 		}
 		
-		Tracer.WriteTrace(10, "found no symbol in <"+expertname_glob+">");
+		Tracer.WriteTrace(10, "found no period in <"+expertname_glob+">");
 		return 0;
 	}
 
