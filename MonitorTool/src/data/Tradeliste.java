@@ -482,15 +482,16 @@ public class Tradeliste
 		// erst wird geprüft ob der trade schon in der Speicherliste ist
 		int trans = elem.getTransactionnumber();
 		String broker = elem.getBroker();
+		int magic = elem.getMagic();
 		
-		if (transactionmenge.contains(broker + trans) == false)
+		if (transactionmenge.contains(broker + trans+magic) == false)
 		{
 			/*
 			 * Tracer.WriteTrace(20, "Info: neuen Trade aufnehmen broker=" +
 			 * elem.getBroker() + "  transaktion=" + elem.getTransactionnumber() +
 			 * "  closetime=" + elem.getClosetime());
 			 */
-			transactionmenge.add(broker + trans);
+			transactionmenge.add(broker + trans+magic);
 			tradeliste.add(elem);
 			return true;
 		} else
