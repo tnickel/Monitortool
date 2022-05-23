@@ -31,6 +31,11 @@ public class Ealiste
 		
 	}
 	
+	public ArrayList<Ea> getEaListe()
+	{
+		return ealiste;
+	}
+	
 	public void expand(Profitliste pl)
 	{
 		// die ealiste wird aus der Profitliste erweitert
@@ -659,6 +664,48 @@ public class Ealiste
 		// und tmp umbenennen
 		FileAccess.FileMove(tradeliste_tmp, ealistenam);
 		
+	}
+	public void CopyDirectoryEalxx(String quellverz, String zielverz, String postfix, int laengenvergleich)
+	{
+		// kopiert das quellverz ins zielverzeichniss
+		// falls postfix != null, werden nur files mit dem Postfix kopiert
+
+		File quell=new File(quellverz);
+		
+		
+	
+	File[] files1 = quell.listFiles();
+	for(File file : files1) 
+	{
+		if(file != null) 
+		{
+		
+		
+			String fnam = file.getAbsolutePath();
+			
+			if (postfix != null)
+				if (fnam.contains(postfix) == false)
+					continue;
+				
+			if(checkFileInList_dep(fnam))
+				FileAccess.copyFile3(quellverz + "\\" + fnam, zielverz + "\\" + fnam, 1);
+		}
+	}
+	}
+	private boolean checkFileInList_dep(String fnam)
+	{
+		int anz=ealiste.size();
+		for(int i=0; i<anz; i++)
+		{
+			Ea ea=ealiste.get(i);
+			if(ea.getEafilename()==null)
+				continue;
+			
+			if(ea.getEafilename().contains(fnam))
+				return true;
+
+		}
+		return false;
 	}
 	
 }

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
+import data.Ealiste;
 import data.Metaconfig;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
@@ -35,11 +36,15 @@ public class AutoCreator
 		else
 			Tracer.WriteTrace(10, "E:unknown mode=<"+mode+">");
 		
+		//1:First try to find stat file
 		String commentpostfix = calcCommentPostfix(comment);
 		String fsource_stats = sourcedir_s + "\\" + commentpostfix + "_stats.csv";
-		
 		if (new File(fsource_stats).exists() == false)
-			return ("nostat");
+		{
+		return ("nostat");
+		}
+			
+			
 		
 		Inf inf = new Inf();
 		inf.setFilename(fsource_stats);
@@ -73,7 +78,7 @@ public class AutoCreator
 		deleteThreeAutoFiles(sourcedir_s, appdata + "\\MQL4\\files", comment);
 	}
 	
-	static public void copyToAutoCreator(Metaconfig meconf, String comment, String newName, JFreeChart chart)
+	static public void copyToAutoCreator(Metaconfig meconf, String comment, String newName, JFreeChart chart,Ealiste eal)
 	{
 		String appdata = "";
 		String testdir="";
@@ -104,10 +109,12 @@ public class AutoCreator
 		
 		if (meconf.getUseautocreatorbackup() == 1)
 		{
+			
 			copyToBackup(sourcedir_s, meconf.getAutocreatorbackuppath() + "\\foundstrategies", comment);
 			
 			String newdir = newName.substring(0, newName.lastIndexOf("_"));
-			copyAllToBackup(sourcedir_s, meconf.getAutocreatorbackuppath() + "\\" + newdir);
+			//hier werden alle Eas die angezeigt werden ins backupverzeichniss kopiert
+			copyAllToBackup(sourcedir_s, meconf.getAutocreatorbackuppath() + "\\" + newdir,eal);
 		}
 		// del delcomfile
 		File f = new File(sourcedir_s, appdata + "\\MQL4\\files\\" + comment + ".delcom");
@@ -148,7 +155,7 @@ public class AutoCreator
 		FileAccess.copyFile3(fsource_stats, destdir_s + "\\" + commentpostfix + "_stats.csv", 1);
 	}
 	
-	static private void copyAllToBackup(String sourcedir_s, String destdir_s)
+	static private void copyAllToBackup(String sourcedir_s, String destdir_s,Ealiste eal)
 	{
 		
 		if (new File(destdir_s).exists() == false)
@@ -156,7 +163,7 @@ public class AutoCreator
 				Tracer.WriteTrace(10, "E:can´t generate dir <" + destdir_s + ">");
 				
 		// kopiert das ganze directoy, kopiert file nur wenn die längen von beiden files
-		// unterschiedlich sind
+		// unterschiedlich sind, 
 		FileAccess.CopyDirectory3(sourcedir_s, destdir_s, ".csv", 1);
 		
 	}

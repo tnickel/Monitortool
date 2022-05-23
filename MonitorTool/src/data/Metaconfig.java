@@ -754,15 +754,7 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Filedata = orpath + "\\MQL4\\Files";
 			metaversion = ">=600";
 			mtversnumber = ">=600";
-		} else if (fna4.exists())
-		{
-			Appdata = fnam;
-			Mqldata = fnam + "\\MQL4";
-			Expertdata = fnam + "\\MQL4\\Experts";
-			Filedata = fnam + "\\MQL4\\Files";
-			metaversion = ">=600";
-			mtversnumber = ">=600";
-		} else if (fna5.exists())
+		}  else if (fna5.exists())
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL5";
@@ -770,9 +762,19 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Filedata = fnam + "\\MQL5\\Files";
 			metaversion = ">=600";
 			mtversnumber = ">=600";
-		} else
+		} else 
 		{
-			Tracer.WriteTrace(10, "Error in InitMetaversion, cant determine Metatrader version");
+			Appdata = fnam;
+			Mqldata = fnam + "\\MQL4";
+
+			File mql4=new File(Mqldata);
+			if(mql4.exists()==false)
+				mql4.mkdir();
+			
+			Expertdata = fnam + "\\MQL4\\Experts";
+			Filedata = fnam + "\\MQL4\\Files";
+			metaversion = ">=600";
+			mtversnumber = ">=600";
 		}
 		
 		return (mtversnumber);

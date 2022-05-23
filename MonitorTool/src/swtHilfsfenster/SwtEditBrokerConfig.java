@@ -526,7 +526,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		button1AcEntwicklungPath = new Button(sh, SWT.RADIO | SWT.LEFT);
-		button1AcEntwicklungPath.setText("use default");
+		button1AcEntwicklungPath.setText("Mode1: use default");
 		button1AcEntwicklungPath.setBounds(806, 536, 130, 24);
 		button1AcEntwicklungPath.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
@@ -537,7 +537,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		button1AcEntwicklungNewestDir = new Button(sh, SWT.RADIO | SWT.LEFT);
-		button1AcEntwicklungNewestDir.setText("use newest directory");
+		button1AcEntwicklungNewestDir.setText("Mode2: use newest directory");
 		button1AcEntwicklungNewestDir.setBounds(806, 557, 136, 30);
 		button1AcEntwicklungNewestDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
@@ -547,8 +547,8 @@ public class SwtEditBrokerConfig
 	}
 	{
 		button1AcEntwicklungUseThisDir = new Button(sh, SWT.RADIO | SWT.LEFT);
-		button1AcEntwicklungUseThisDir.setText("use this directory");
-		button1AcEntwicklungUseThisDir.setBounds(808, 600, 112, 30);
+		button1AcEntwicklungUseThisDir.setText("Mode3: use this directory");
+		button1AcEntwicklungUseThisDir.setBounds(808, 600, 154, 30);
 		button1AcEntwicklungUseThisDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungUseThisDirWidgetSelected(evt);
@@ -558,7 +558,7 @@ public class SwtEditBrokerConfig
 	{
 		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.BORDER);
 		text1AcEntwicklungUseThisDirectory.setText("set directory");
-		text1AcEntwicklungUseThisDirectory.setBounds(932, 607, 397, 18);
+		text1AcEntwicklungUseThisDirectory.setBounds(974, 607, 355, 18);
 		text1AcEntwicklungUseThisDirectory.setEditable(false);
 	}
 	{
@@ -575,7 +575,7 @@ public class SwtEditBrokerConfig
 	{
 		backuppath = new Text(sh, SWT.BORDER);
 		backuppath.setText("set backupdirectory");
-		backuppath.setBounds(932, 657, 397, 22);
+		backuppath.setBounds(974, 657, 355, 22);
 		backuppath.setEditable(false);
 	}
 	{
@@ -1350,8 +1350,8 @@ public class SwtEditBrokerConfig
 		String auctmp = auc_prefix.getText();
 		if (auctmp == null)
 			return;
-		if (auctmp.length() > 6)
-			Tracer.WriteTrace(10, "Maxlen Strategyprefix<" + auctmp + "= 6");
+		if (auctmp.length() > 7)
+			Tracer.WriteTrace(10, "Maxlen Strategyprefix<" + auctmp + "= 7");
 		if (auctmp.contains("_"))
 			Tracer.WriteTrace(10, "character _ is not allowed in Strategyprefix<" + auctmp + ">");
 		

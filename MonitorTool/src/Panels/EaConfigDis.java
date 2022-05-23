@@ -468,7 +468,10 @@ public class EaConfigDis extends javax.swing.JPanel
 		{
 			jTextField1.setText("AutoCreator");
 			jTextField1_lots.setEnabled(false);
-			jButton2deleteEA.setEnabled(true);
+			
+			
+			if(GlobalVar.getAutocreatormode()==1)
+				jButton2deleteEA.setEnabled(false);
 			
 			String apath=meconf.getAppdata();
 			String bpath=meconf.getAutocreatortestdir();
@@ -667,7 +670,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		if(anz>2)
 			Tracer.WriteTrace(10, "E:In String <"+new_name+"> maxanz of '_'=2 but I got<"+anz+">");
 		else
-			AutoCreator.copyToAutoCreator(meconf,comment_glob,new_name,chart_glob);
+			AutoCreator.copyToAutoCreator(meconf,comment_glob,new_name,chart_glob,eal_glob);
 		
 	}
 	
