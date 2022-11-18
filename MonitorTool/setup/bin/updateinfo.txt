@@ -1,3 +1,6 @@
+V0.604 17.11.2022
+-Add functionality to shudown on friday 9PM
+
 V0.458 (Betaversion) (30.12.2020)
 -Refresh userinterface
 -make eas with symbols installable (shares)

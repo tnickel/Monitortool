@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/MonitorTool/setup" />
-  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.602" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8">
+  <application name="Monitortool" applicationId="3556-7518-3729-8119" mediaDir="//ds918/Forex/tmp" compression="5" shortName="Monitortool" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.604" autoSave="true" macVolumeId="3ae3d2fd18438f78" javaMinVersion="1.8" javaMaxVersion="1.8">
     <variables>
       <variable name="deleteConfig" value="0" description="If this value is 1, the config will be deleted" />
     </variables>
@@ -161,6 +161,13 @@ configurationObject.setText(instdir);
                   <property name="variableName" type="string">createDesktopLinkAction</property>
                 </serializedBean>
               </formComponent>
+              <formComponent name="Add to Autostart" id="162" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+                <serializedBean>
+                  <property name="checkboxText" type="string">Add to Autostart</property>
+                  <property name="initiallySelected" type="boolean" value="true" />
+                  <property name="variableName" type="string">addToAutostart</property>
+                </serializedBean>
+              </formComponent>
             </formComponents>
           </screen>
           <screen id="15" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true" rollbackBarrierExitCode="0">
@@ -188,16 +195,33 @@ configurationObject.setText(instdir);
                 </serializedBean>
                 <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
               </action>
-              <action id="157" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action name="Calc Autostartname" id="163" beanClass="com.install4j.runtime.beans.actions.control.RunScriptAction" enabled="false" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="file">
-                    <object class="java.io.File">
-                      <string>${installer:sys.installationDir}/bin/taskkillallmetatrader.bat</string>
+                  <property name="script">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">String instfullname=(String)context.getVariable("sys.installationDir");
+String instpath=instfullname.replace(":","");
+instpath=instpath.replace("\\","");
+context.setVariable("AutostartName", "_"+instpath);
+return true;</property>
                     </object>
                   </property>
-                  <property name="name" type="string">TaskkillAllMetatrader</property>
                 </serializedBean>
-                <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
+              </action>
+              <action id="164" beanClass="com.install4j.runtime.beans.actions.control.SetVariableAction" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="failIfNull" type="boolean" value="true" />
+                  <property name="script">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">String instfullname=(String)context.getVariable("sys.installationDir");
+String instpath=instfullname.replace(":","_");
+instpath=instpath.replace("\\","_");
+
+return ("_"+instpath);</property>
+                    </object>
+                  </property>
+                  <property name="variableName" type="string">AutostartName</property>
+                </serializedBean>
               </action>
               <action id="159" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
@@ -216,6 +240,28 @@ configurationObject.setText(instdir);
                 </serializedBean>
                 <condition>String delconfig=context.getCompilerVariable("deleteConfig");
 return(delconfig.equalsIgnoreCase("1"));</condition>
+              </action>
+              <action id="157" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="file">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/taskkillallmetatrader.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">TaskkillAllMetatrader</property>
+                </serializedBean>
+                <condition>context.getBooleanVariable("createDesktopLinkAction")</condition>
+              </action>
+              <action id="161" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/startmonitor.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">${compiler:sys.fullName}${installer:AutostartName}</property>
+                </serializedBean>
+                <condition>context.getBooleanVariable("addToAutostart")</condition>
               </action>
             </actions>
             <formComponents>

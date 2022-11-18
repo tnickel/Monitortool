@@ -1,0 +1,18 @@
+Tracer:I: rootpath=D:\git\Monitortool\MonitorTool\setup
+okbutton.widgetSelected, event=SelectionEvent{Button {ok} time=779546 data=null item=null detail=0 x=0 y=0 width=0 height=0 stateMask=0x0 text=null doit=true}
+Tracer:I:I dont kill all Metatrader because startstop=0 && forceflag=0
+ReloadAllData
+Tracer:Info: TradeTable anzeigen
+Tracer:sorting table
+Tracer:build profittable
+calcdd start
+calcdd end
+calcpf end
+Ealiste erweitern
+Tracer:Info: Profittable anzeigen
+Tracer:show profittable
+Tracer:Info: speichern
+Tracer:I: a new installation was done, I will update all historyexporter
+Tracer:I:stop all Metatrader
+this.widgetDisposed, event=DisposeEvent{StartMonitor {} time=788328 data=null}
+Tracer:I:I dont kill all Metatrader because startstop=0 && forceflag=0

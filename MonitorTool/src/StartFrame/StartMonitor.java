@@ -41,6 +41,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 
 import Panels.ConfigAttributes;
 import Sync.LockTradeliste;
+import aut.FridayClose;
 import data.GlobalVar;
 import data.Lic;
 import data.Rootpath;
@@ -1309,6 +1310,10 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			doAutostart();
 			
 			Display.getDefault().timerExec(200, startAfter200ms);
+	
+			//If the metatrader will be closed all at friday 9pm
+			if(GlobalVar.getShutdownFriday()==1)
+				FridayClose.startTimer(smw);
 			
 			this.layout();
 		} catch (Exception e)
@@ -1517,9 +1522,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	private void init()
 	{
-		
-		
-		
 		
 			MetaStarter.KillAllMetatrader(0);
 

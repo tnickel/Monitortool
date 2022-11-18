@@ -43,6 +43,7 @@ public class SwtEditGlobalConfig
 	private Label label12maxpongtime;
 	private Text text1maxpongtime;
 	private Button button1freeware;
+	private Button button1shutdownfriday;
 	private Button button1mtautomaticstartstop;
 	private Label label7;
 	private Label label13;
@@ -338,7 +339,7 @@ public class SwtEditGlobalConfig
 		{
 			button1mtautomaticstartstop = new Button(sh, SWT.CHECK | SWT.LEFT);
 			button1mtautomaticstartstop.setText("Metatrader automatic start/stop");
-			button1mtautomaticstartstop.setBounds(290, 324, 178, 30);
+			button1mtautomaticstartstop.setBounds(290, 324, 207, 30);
 			if(GlobalVar.getMetatraderautostartstop()==1)
 				button1mtautomaticstartstop.setSelection(true);
 			else
@@ -349,6 +350,16 @@ public class SwtEditGlobalConfig
 					button1mtautomaticstartstopWidgetSelected(evt);
 				}
 			});
+		}
+		{
+			button1shutdownfriday = new Button(sh, SWT.CHECK | SWT.LEFT);
+			button1shutdownfriday.setText("Shutdown all Metatrader Friday 9 PM");
+			button1shutdownfriday.setBounds(290, 398, 225, 30);
+			if(GlobalVar.getShutdownFriday()==1)
+				button1shutdownfriday.setSelection(true);
+			else
+				button1shutdownfriday.setSelection(false);
+		
 		}
 
 		init();
@@ -452,9 +463,13 @@ public class SwtEditGlobalConfig
 		else
 			GlobalVar.setAutostartfeature(0);
 		
+		if(button1shutdownfriday.getSelection()==true)
+			GlobalVar.setShutdownFriday(1);
+		else
+			GlobalVar.setShutdownFriday(0);
 		
 			GlobalVar.setPortableflag(1);
-		
+			
 		
 		if(askforupdate.getSelection()==true)
 			GlobalVar.setAskforUpdateflag(1);

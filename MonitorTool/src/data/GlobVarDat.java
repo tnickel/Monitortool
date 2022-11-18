@@ -28,6 +28,7 @@ public class GlobVarDat
 	int lastcopytrademagic=100;
 	int autocreatormode=0;
 	int Metatraderautostartstop=0;
+	int shutdownfridayflag=0;
 	
 	public String getUsername()
 	{
@@ -229,6 +230,13 @@ public class GlobVarDat
 	{
 		this.Metatraderautostartstop = Metatraderautostartstop;
 	}
-	
-	
+	public int getShutdownfridayflag()
+	{
+		return shutdownfridayflag;
+	}
+	public void setShutdownfridayflag(int shutdownfridayflag)
+	{
+		this.shutdownfridayflag = shutdownfridayflag;
+	}
+
 }
