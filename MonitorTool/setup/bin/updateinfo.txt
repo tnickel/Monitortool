@@ -1,3 +1,6 @@
+V0.605 21.11.2022
+-Bugfix shutdown on friday
+
 V0.604 17.11.2022
 -Add functionality to shudown on friday 9PM
 
