@@ -43,6 +43,8 @@ public class SwtEditGlobalConfig
 	private Label label12maxpongtime;
 	private Text text1maxpongtime;
 	private Button button1freeware;
+	private Label label1;
+	private Text text1profitTax;
 	private Button button1shutdownfriday;
 	private Button button1mtautomaticstartstop;
 	private Label label7;
@@ -361,6 +363,17 @@ public class SwtEditGlobalConfig
 				button1shutdownfriday.setSelection(false);
 		
 		}
+		{
+			text1profitTax = new Text(sh, SWT.NONE);
+			String pt=String.valueOf(GlobalVar.getProfittax());
+			text1profitTax.setText(pt);
+			text1profitTax.setBounds(290, 434, 22, 19);
+		}
+		{
+			label1 = new Label(sh, SWT.NONE);
+			label1.setText("Profit Tax in %");
+			label1.setBounds(317, 434, 76, 19);
+		}
 
 		init();
 		sh.pack();
@@ -470,7 +483,8 @@ public class SwtEditGlobalConfig
 		
 			GlobalVar.setPortableflag(1);
 			
-		
+		GlobalVar.setProfittax(Integer.valueOf(text1profitTax.getText()));
+			
 		if(askforupdate.getSelection()==true)
 			GlobalVar.setAskforUpdateflag(1);
 		else

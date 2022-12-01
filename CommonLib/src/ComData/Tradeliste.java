@@ -25,11 +25,6 @@ import mtools.Mlist;
 
 
 
-
-
-
-
-
 public class Tradeliste
 {
 	private static int isloaded = 0;

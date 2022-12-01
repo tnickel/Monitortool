@@ -29,6 +29,7 @@ public class GlobVarDat
 	int autocreatormode=0;
 	int Metatraderautostartstop=0;
 	int shutdownfridayflag=0;
+	int ProfitTax=0;
 	
 	public String getUsername()
 	{
@@ -237,6 +238,14 @@ public class GlobVarDat
 	public void setShutdownfridayflag(int shutdownfridayflag)
 	{
 		this.shutdownfridayflag = shutdownfridayflag;
+	}
+	public int getProfitTax()
+	{
+		return ProfitTax;
+	}
+	public void setProfitTax(int profitTax)
+	{
+		ProfitTax = profitTax;
 	}
 
 }

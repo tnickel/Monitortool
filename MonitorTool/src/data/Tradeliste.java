@@ -129,19 +129,12 @@ public class Tradeliste
 	public void initTL(Brokerview bview, int forceflag, Tradefilter tf)
 	{
 		// falls forceflag=1 ist wird die Tradeliste auf jeden Fall geladen
-		
 		if (bview == null)
 			return;
 		
 			brokerview_glob = bview;
-			
-			
-			
-			
 			tradeliste.clear();
 			transactionmenge.clear();
-			
-		
 	}
 	
 	public ArrayList<String> calcBrokerliste(int magic)
@@ -181,7 +174,6 @@ public class Tradeliste
 				brokerliste.add(meconf.getBrokername());
 			}
 		}
-		
 		return brokerliste;
 	}
 	

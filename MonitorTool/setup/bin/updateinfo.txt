@@ -1,3 +1,9 @@
+V0.607 1.12.2022
+-bugfix shutdown on friday
+
+V0.606 21.11.2022
+-Tax Feature.  The taxes are deducted from the profit. The taxes are configured in percent
+
 V0.605 21.11.2022
 -Bugfix shutdown on friday
 

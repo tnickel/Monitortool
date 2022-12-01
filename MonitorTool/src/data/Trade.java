@@ -64,7 +64,8 @@ public class Trade implements Comparable<Trade>
 			closeprice = Float.parseFloat(SG.nteilstring(zeile, "#", 4));
 			commision = Float.parseFloat(SG.nteilstring(zeile, "#", 5));
 			orderswap = Float.parseFloat(SG.nteilstring(zeile, "#", 6));
-			profit = SG.get_float_zahl((SG.nteilstring(zeile, "#", 7)), 2);
+			profit = correctTax(SG.get_float_zahl((SG.nteilstring(zeile, "#", 7)), 2));
+			
 
 			// nachkommastellen abscheiden
 			// profit=Float.parseFloat(f.format(profit));
@@ -135,7 +136,24 @@ public class Trade implements Comparable<Trade>
 			return;
 		}
 	}
-
+	private double correctTax(double prof)
+	{
+		if((prof<=0)||(GlobalVar.getProfittax()==0))
+		  return prof;
+		else
+		{
+			
+			double faktor=((double)GlobalVar.getProfittax())/100;
+			double tax=prof*faktor;
+			return(prof-tax);
+			
+		}
+		
+		
+		
+	}
+	
+	
 	public Trade(String zeile)
 	{
 		//hier wird eine Tradezeile aufgebaut

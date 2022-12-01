@@ -250,7 +250,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.605");
+		return("Monitortool V0.607");
 	}
 	
 	public static String calcHeadline()
@@ -341,6 +341,17 @@ public class GlobalVar
 		gc.setShutdownfridayflag(flag);
 	}
 	
+	public static int getProfittax()
+	{
+		return gc.getProfitTax();
+	}
+
+	public static void  setProfittax(int profittax)
+	{
+		gc.setProfitTax(profittax);
+		
+	}
+
 	static public void save()
 	{
 		Inf inf = new Inf();
