@@ -1,4 +1,4 @@
-package sq4xWorkflow;
+package FileTools;
 
 import hiflsklasse.Tracer;
 

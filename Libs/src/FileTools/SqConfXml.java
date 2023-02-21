@@ -1,19 +1,18 @@
-package sq4xWorkflow;
-
-import hiflsklasse.Tracer;
+package FileTools;
 
 public class SqConfXml extends SqString
 {
 	//klasse um das xml zu verarbeiten
 	private String mem_g=null;
 	
-	SqConfXml(String mem)
+	public SqConfXml(String mem)
 	{ 
 		mem_g=mem;
 	}
 	
-	public void setSearchpattern(String pattern1, String pattern2)
+	public void setSearchPattern(String pattern1, String pattern2)
 	{
+		//Hier wird ein suchwort gesetzt. Pattern1 ist der prefix des suchwortes und pattern2 der postfix
 		ResetCounter();
 		super.suchwort1=pattern1;
 		super.suchwort2=pattern2;

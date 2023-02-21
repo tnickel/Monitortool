@@ -5,33 +5,34 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import hiflsklasse.Tracer;
+import sq4xWorkflow.SqDate;
 
-public class ProjZipper
+public class ProjZipperMem_depricated
 {
-	//class to handle zipped project files
-	//this class handle only one project.cfx
-	//this class has all function for zipping and unzipping
+	
+	//This class read all files in a bufferarray
 	
 	//source https://www.straub.as/java/io/io10.html
 	private ZipFile zipFile_glob=null;
 	private String zipfilename_glob=null;
-	private byte[] buffer_glob=null;
+	private byte[][] buffer_glob=null;
+	private byte[][] buffer_backup_glob=null;
+	private int anzfiles_glob=0;
+	private ZipEntry[] zipstore_glob=null;
 	private BufferedReader br_glob = null;
-	private String bufferstring_glob=null;
 	
-	public ProjZipper(String filename)
+	public ProjZipperMem_depricated(String filename)
 	{
 		try
 		{
 		   zipfilename_glob=filename;
 		   zipFile_glob = new ZipFile(filename) ;
-		   ReadZipMem("config.xml");
+		   ReadZipMem();
 		}
 		catch(IOException ex)
 		{
@@ -52,22 +53,24 @@ public class ProjZipper
 		}
 	}
 
-	private void ReadZipMem(String fname)
+	private void ReadZipMem()
 	{
 		//read zipfile in memory
 		
 		Enumeration<? extends ZipEntry> enu = zipFile_glob.entries()  ;
-
+		int index=0;
 		while (enu.hasMoreElements())
 		{
 		   ZipEntry zipEntry = (ZipEntry)enu.nextElement() ;
-		   if(zipEntry.getName().contains(fname))
-			   ReadMemBinaer(zipEntry);
+		    ReadMemBinaer(index,zipEntry);
+		    zipstore_glob[index]=zipEntry;
+			index++;
 		}
-		Tracer.WriteTrace(20, "zipentry<"+fname+"> loaded <"+zipfilename_glob+">");
+		anzfiles_glob=index;
+		Tracer.WriteTrace(20, "zipentry loaded <"+zipfilename_glob+">");
 	}
 	
-	private void ReadMemBinaer(ZipEntry zipEntry)
+	private void ReadMemBinaer(int index,ZipEntry zipEntry)
 	{
 		//the zipped file will be endcoded and stored as bytearry in memory
 		BufferedInputStream bis = null;
@@ -78,8 +81,10 @@ public class ProjZipper
 		   int avail = bis.available();
 		   if ( avail>0 )
 		   {
-		      buffer_glob = new byte[avail] ;
-		      bis.read(buffer_glob, 0, avail) ;
+		      buffer_glob[index] = new byte[avail] ;
+		      bis.read(buffer_glob[index], 0, avail) ;
+		      //store in the backupstore a clone
+		      buffer_backup_glob[index]=buffer_glob[index].clone();
 		   }
 		  
 		  
@@ -127,4 +132,29 @@ public class ProjZipper
 	}
 	
   }
+  public void modifyProject(int daysoffset_i)
+	{
+	  for(int i=0; i<anzfiles_glob; i++)
+	  {
+		  byte[] memstring_mod_g =buffer_glob[i];
+		
+		// jetzt wird das datum gesucht und entsprechend modifiziert
+		// Suche <Project name="EURUSD - H1 -2year NEW" version="126.2189">
+		
+		SqConfXml sxml = new SqConfXml(memstring_mod_g);
+		sxml.setSearchpattern("<Project name=\"", "\"");
+		String projektname = sxml.getProjectName();
+		Tracer.WriteTrace(20, "projektname=" + projektname);
+		
+		sxml.setSearchpattern("<Setup dateFrom=", " test");
+		memstring_mod_g = sxml.modifyAllPatterns(daysoffset_i);
+		
+		sxml.setSearchpattern("<Range dateFrom=", " />");
+		memstring_mod_g = sxml.modifyAllPatterns(daysoffset_i);
+		
+		// replace back X@X
+		memstring_mod_g = SqDate.replaceBack(memstring_mod_g);
+	  }
+	}
+  
 }

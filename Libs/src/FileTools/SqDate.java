@@ -1,4 +1,4 @@
-package sq4xWorkflow;
+package FileTools;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,11 +1,13 @@
 package sq4xWorkflow;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 import org.eclipse.swt.widgets.Display;
 
 import FileTools.Filefunkt;
+import FileTools.SqZipper;
 import gui.Viewer;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
@@ -23,6 +25,8 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setMasterfile(String masterfile_g)
 	{
+		//the masterfile is the sourcefile which contains the workflow
+		//The workflow generator works with this file
 		this.masterfile_g = masterfile_g;
 	}
 	
@@ -38,6 +42,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setResultdir(String resultdir_g)
 	{
+		//the resultdir is the directory where the calculated workflows will be stored
 		this.resultdir_g = resultdir_g;
 	}
 	
@@ -48,6 +53,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setSharedDrive(String dir)
 	{
+		//the shared drive directory is the directory where the backups will be shared
 		this.shareddrive_g = dir;
 	}
 	
@@ -58,6 +64,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setBackupDrive(String dir)
 	{
+		//in this directory, the backups will be copied
 		this.backupdrive_g = dir;
 	}
 	
@@ -68,22 +75,25 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setBackcount(String days)
 	{
-		// negative for the past
+		// negative for the the days in the past
 		this.backcount_g = Integer.valueOf(days);
 	}
 	
 	public void setFuturecount(String days)
 	{
+		// positive for days in the future
 		this.futurecount_g = Integer.valueOf(days);
 	}
 	
 	public void setStepvalue(String steps)
 	{
+		//this is the step for the day-stepping
 		this.stepvalue_g = Integer.valueOf(steps);
 	}
 	
 	public void setOutputname(String outputname)
 	{
+		//outputname for the workflow
 		this.outputname_g = outputname;
 	}
 	
@@ -137,8 +147,12 @@ public class SqWorkflowMaster extends Sq
 	
 	public void genWorkflow()
 	{
-		// Hier wird die workflowgenerierung druchgeführt
-		File tmpdir_f=new File("c:\\tmp");
+		// This is the masterfunction for the workflow generation
+		//the results will be stored first in the tmp-directory
+
+		deleteProjectfiles();
+		
+		File tmpdir_f=new File("c:\\tmp\\sq");
 		if(tmpdir_f.exists()==false)
 			if(tmpdir_f.mkdir()==false)
 				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
@@ -149,24 +163,49 @@ public class SqWorkflowMaster extends Sq
 		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
 		
+		//unzipp all
+		SqZipper sqzip=new SqZipper();
+		try
+		{
+			sqzip.unzip(masterfile_g, "c:\\tmp\\sq");
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
-		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain(masterfile_g);
+		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain("c:\\tmp\\sq");
+		//generate many workflow, to this in the loop
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
 		{
 			jp.update(loopcount);
 			
 			// modify project
 			offset = i * stepvalue_g;
+			
 			psq.modifyProject(offset);
 			// save projekt
-			psq.saveTmpProjectfile();
+			psq.saveToTmpDir();
+			
+			//das ganze muss wieder gezipped werden
+			
+		    try
+			{
+				sqzip.zip("c:\\tmp\\sq", "c:\\tmp\\workflow_tmp.zip");
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			String workflowname = calcWorkflowname(i, offset);
 			
 			// copy to destination
-			psq.copyToSq(sqrootdir_g, workflowname);
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
 			psq.cleanLogfiles(sqrootdir_g, workflowname);
+			psq.Reset();
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
 		jp.end();

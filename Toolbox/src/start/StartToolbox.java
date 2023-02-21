@@ -1567,7 +1567,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button9shareddrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
 								button9shareddrive.setBounds(992, 706, 26, 25);
-								button9shareddrive.setSelection(true);
 								button9shareddrive.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1578,7 +1577,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button9backupdrive = new Button(group2filter, SWT.CHECK | SWT.LEFT);
 								button9backupdrive.setBounds(991, 752, 27, 25);
-								button9backupdrive.setSelection(true);
 								button9backupdrive.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1788,7 +1786,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.7.2");
+		shell.setText("Toolbox V1.2.8.0");
 		
 		while (!shell.isDisposed())
 		{
