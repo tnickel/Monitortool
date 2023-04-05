@@ -95,7 +95,7 @@ public class TradeMonitorWork
 		String magic=String.valueOf(selectedProfitelem_glob.getMagic());
 		String broker=selectedProfitelem_glob.getBroker();
 		
-		Tradeliste etl = tv_glob.buildTradeliste(magic,broker);
+		Tradeliste etl = tv_glob.buildTradeliste(magic,broker,0,"nix");
 		SwtShowTradeliste st = new SwtShowTradeliste();
 		st.init(Display.getDefault(), etl,tv_glob,magic,broker);
 	}
@@ -106,7 +106,7 @@ public class TradeMonitorWork
 
 		// die aktuelle profitliste laden
 		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()),
-				pro.getBroker());
+				pro.getBroker(),0,"nix");
 
 		if (eatradeliste == null)
 			return;
