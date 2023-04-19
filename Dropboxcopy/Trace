@@ -31,3 +31,4 @@
 09:34:37_181(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\1.del> to<C:\Forex\MT4\AtTestmon1\deleted\1.del>
 09:34:38_069(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\3125.del> to<C:\Forex\MT4\AtTestmon1\deleted\3125.del>
 09:34:49_597(main): Error: can´t move file from<C:\Forex\MT4\AtTestmon1\profiles\default\TickDataExportEA USDJPY M1 1.chr> to<C:\Forex\MT4\AtTestmon1\deleted\TickDataExportEA USDJPY M1 1.chr>
+12:59:00_750(main): Falscher Verzeichnissaufbau userdir<D:\git\Monitortool\Dropboxcopy>

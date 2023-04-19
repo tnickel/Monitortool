@@ -144,7 +144,7 @@ public class SwtEditBrokerConfig
 			return;
 		}
 		sh.pack();
-		sh.setSize(1508, 862);
+		sh.setSize(1272, 811);
 		{
 			label2 = new Label(sh, SWT.NONE);
 			label2.setText("Brokername e.g. (Alpari1)");
@@ -158,7 +158,7 @@ public class SwtEditBrokerConfig
 		}
 		{
 			MtRoot = new Text(sh, SWT.BORDER);
-			MtRoot.setBounds(7, 220, 524, 30);
+			MtRoot.setBounds(7, 220, 353, 30);
 			MtRoot.setEnabled(false);
 			if (me.getMqldata() != null)
 				MtRoot.setText(me.getNetworkshare_INSTALLDIR());
@@ -172,7 +172,7 @@ public class SwtEditBrokerConfig
 		{
 			SaveExit = new Button(sh, SWT.PUSH | SWT.CENTER);
 			SaveExit.setText("SaveConfig");
-			SaveExit.setBounds(1151, 691, 210, 30);
+			SaveExit.setBounds(808, 691, 210, 30);
 			SaveExit.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt)
 				{
@@ -223,7 +223,7 @@ public class SwtEditBrokerConfig
 	{
 		setquellverz = new Button(sh, SWT.PUSH | SWT.LEFT);
 		setquellverz.setText("set EA sourcedir");
-		setquellverz.setBounds(537, 297, 184, 30);
+		setquellverz.setBounds(366, 258, 108, 30);
 		setquellverz.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt)
 			{
@@ -233,7 +233,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		progressBar1 = new ProgressBar(sh, SWT.NONE);
-		progressBar1.setBounds(12, 741, 1347, 23);
+		progressBar1.setBounds(12, 741, 1019, 23);
 	}
 	{
 		lotsize = new Text(sh, SWT.BORDER);
@@ -258,7 +258,7 @@ public class SwtEditBrokerConfig
 	{
 		setmetatraderdir = new Button(sh, SWT.PUSH | SWT.LEFT);
 		setmetatraderdir.setText("set metatrader dir");
-		setmetatraderdir.setBounds(537, 220, 184, 25);
+		setmetatraderdir.setBounds(366, 220, 108, 25);
 		setmetatraderdir.setToolTipText("The monitor copy alle *.mq4 to this location");
 		setmetatraderdir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt)
@@ -317,7 +317,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		text1mqldir = new Text(sh, SWT.BORDER);
-		text1mqldir.setBounds(7, 258, 714, 30);
+		text1mqldir.setBounds(7, 258, 353, 30);
 		text1mqldir.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
 		text1mqldir.setToolTipText("This is the path were I am looking for historyxeporter.txt");
 		text1mqldir.setEditable(false);
@@ -370,7 +370,7 @@ public class SwtEditBrokerConfig
 	{
 		button1tradecopy = new Button(sh, SWT.CHECK | SWT.LEFT);
 		button1tradecopy.setText("Inst fxblue tradecopy");
-		button1tradecopy.setBounds(806, 240, 213, 30);
+		button1tradecopy.setBounds(806, 240, 141, 30);
 		button1tradecopy.setSelection(me_glob.isInsttradecopy());
 		
 	}
@@ -404,19 +404,19 @@ public class SwtEditBrokerConfig
 	{
 		label4 = new Label(sh, SWT.NONE);
 		label4.setText("use magic");
-		label4.setBounds(1065, 244, 86, 30);
+		label4.setBounds(1010, 248, 86, 30);
 		label4.setToolTipText("This magic will be automaticaly set. In problem cases you can set this magic by hand");
 	}
 	{
 		text1usemagic = new Text(sh, SWT.BORDER);
 		text1usemagic.setText("0");
-		text1usemagic.setBounds(1022, 244, 35, 26);
+		text1usemagic.setBounds(968, 248, 35, 26);
 		if (me_glob.getTradecopymagic() > 0)
 			text1usemagic.setText(String.valueOf(me_glob.getTradecopymagic()));
 	}
 	{
 		text1suffix = new Text(sh, SWT.BORDER);
-		text1suffix.setBounds(1207, 244, 49, 22);
+		text1suffix.setBounds(1091, 248, 49, 22);
 		if (me_glob.getSuffix() != null)
 			text1suffix.setText(me_glob.getSuffix());
 		
@@ -424,7 +424,7 @@ public class SwtEditBrokerConfig
 	{
 		label7suffix = new Label(sh, SWT.NONE);
 		label7suffix.setText("trade suffix receiver");
-		label7suffix.setBounds(1262, 244, 132, 30);
+		label7suffix.setBounds(1146, 248, 118, 30);
 		label7suffix.setToolTipText(
 				"Use this trade suffix only if your Realbroker trade on different currency pairs. For example. The demobroker have EURUSD and the Realbroker have EURUSD.r so you should choose the suffix \".r\". This Suffix will refresed if you switch on/off the EA !!");
 	}
@@ -445,7 +445,7 @@ public class SwtEditBrokerConfig
 	{
 		link1 = new Link(sh, SWT.NONE);
 		link1.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
-		link1.setBounds(727, 220, 60, 30);
+		link1.setBounds(480, 220, 60, 30);
 		link1.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt)
 			{
@@ -457,7 +457,7 @@ public class SwtEditBrokerConfig
 	{
 		link2 = new Link(sh, SWT.NONE);
 		link2.setText("<a href=\"https://youtu.be/hEsY-6wOrLI\">info</a>");
-		link2.setBounds(727, 301, 42, 30);
+		link2.setBounds(480, 258, 42, 30);
 		link2.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt)
 			{
@@ -512,7 +512,7 @@ public class SwtEditBrokerConfig
 	{
 		label9 = new Label(sh, SWT.NONE);
 		label9.setText("___   Settings for Autocreator    ________________________________________________________________________________________________");
-		label9.setBounds(806, 418, 553, 19);
+		label9.setBounds(806, 418, 388, 19);
 	}
 	{
 		label10 = new Label(sh, SWT.NONE);
@@ -522,7 +522,7 @@ public class SwtEditBrokerConfig
 	{
 		label11 = new Label(sh, SWT.NONE);
 		label11.setText("___ Autocreator AC Entwicklung Path Configuration ______________________________________________________________________________________________________");
-		label11.setBounds(806, 483, 554, 22);
+		label11.setBounds(806, 483, 388, 22);
 	}
 	{
 		button1AcEntwicklungPath = new Button(sh, SWT.RADIO | SWT.LEFT);
@@ -558,13 +558,13 @@ public class SwtEditBrokerConfig
 	{
 		text1AcEntwicklungUseThisDirectory = new Text(sh, SWT.BORDER);
 		text1AcEntwicklungUseThisDirectory.setText("set directory");
-		text1AcEntwicklungUseThisDirectory.setBounds(974, 607, 355, 18);
+		text1AcEntwicklungUseThisDirectory.setBounds(974, 607, 177, 18);
 		text1AcEntwicklungUseThisDirectory.setEditable(false);
 	}
 	{
 		button1AcEntwicklungSetLoadDir = new Button(sh, SWT.PUSH | SWT.CENTER);
 		button1AcEntwicklungSetLoadDir.setText("Set");
-		button1AcEntwicklungSetLoadDir.setBounds(1335, 607, 26, 18);
+		button1AcEntwicklungSetLoadDir.setBounds(1163, 607, 26, 18);
 		button1AcEntwicklungSetLoadDir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1AcEntwicklungSetLoadDirWidgetSelected(evt);
@@ -575,13 +575,13 @@ public class SwtEditBrokerConfig
 	{
 		backuppath = new Text(sh, SWT.BORDER);
 		backuppath.setText("set backupdirectory");
-		backuppath.setBounds(974, 657, 355, 22);
+		backuppath.setBounds(974, 657, 177, 22);
 		backuppath.setEditable(false);
 	}
 	{
 		button1setbackup = new Button(sh, SWT.PUSH | SWT.CENTER);
 		button1setbackup.setText("Set");
-		button1setbackup.setBounds(1333, 657, 26, 22);
+		button1setbackup.setBounds(1163, 657, 26, 22);
 		button1setbackup.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1setbackupWidgetSelected(evt);
@@ -597,7 +597,7 @@ public class SwtEditBrokerConfig
 	{
 		label12 = new Label(sh, SWT.NONE);
 		label12.setText("___   Autocreator Backup   _______________________________________________________________________________________________________________________________________________");
-		label12.setBounds(808, 636, 551, 21);
+		label12.setBounds(808, 636, 343, 21);
 	}
 	{
 		label13 = new Label(sh, SWT.NONE);
@@ -607,13 +607,13 @@ public class SwtEditBrokerConfig
 	{
 		text1autocreatortestdir = new Text(sh, SWT.BORDER);
 		text1autocreatortestdir.setText("set autocreatortestdir");
-		text1autocreatortestdir.setBounds(806, 509, 523, 21);
+		text1autocreatortestdir.setBounds(806, 509, 345, 21);
 		text1autocreatortestdir.setEditable(false);
 	}
 	{
 		button1setactestdir = new Button(sh, SWT.PUSH | SWT.CENTER);
 		button1setactestdir.setText("Set");
-		button1setactestdir.setBounds(1335, 509, 25, 19);
+		button1setactestdir.setBounds(1163, 509, 25, 19);
 		button1setactestdir.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent evt) {
 				button1setactestdirWidgetSelected(evt);
