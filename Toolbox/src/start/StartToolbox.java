@@ -2377,12 +2377,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			sqrootdir = dd;
 		
 		// check sqrootdir
-		String licfile = sqrootdir + "\\licenceFile.lic";
+		String licfile = sqrootdir + "\\StrategyQuantX.exe";
 		File sqr = new File(licfile);
 		if (sqr.exists() == false)
 		{
 			Tracer.WriteTrace(10,
-					"This is not an valid SQ installation licenseFile.lic is missing under <" + licfile + ">");
+					"This is not an valid SQ installation StrategyQuantX.exe is missing under <" + licfile + ">");
 			return;
 		}
 		sqprojects.setSqrootdir(sqrootdir);

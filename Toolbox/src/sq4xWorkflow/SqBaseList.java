@@ -117,7 +117,7 @@ public class SqBaseList
 		
 		if(anz==0)
 		{
-			Tracer.WriteTrace(10, "I: no data in SQ3, list is empty");
+			Tracer.WriteTrace(10, "I: no data in SQ4, list is empty");
 			return;
 		}
 		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD#trades");

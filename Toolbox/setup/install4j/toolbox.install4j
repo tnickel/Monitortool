@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/Toolbox/setup" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.2.8.0" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.2.8.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="115" />
@@ -210,11 +210,11 @@ if(sqroot_f.isDirectory()==false)
    return false;
  }
  
-String license="licenceFile.lic";
-File lic_f=new File(sqroot+"\\licenseFile.lic");
+String license="StrategyQuantX.exe";
+File lic_f=new File(sqroot+"\\StrategyQuantX.exe");
 if(lic_f.isFile()==false)
  {
-   Util.showMessage("E: licenseFile.lic is missing in &lt;"+sqroot_f.getPath()+"&gt;");
+   Util.showMessage("E: StrategyQuantX.exe is missing in &lt;"+sqroot_f.getPath()+"&gt;");
    return false;
  }
  

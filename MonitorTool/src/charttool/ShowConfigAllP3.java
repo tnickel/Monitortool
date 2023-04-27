@@ -54,18 +54,19 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			Brokerview bv, Profitliste profliste)
 	{
 		super("title");
-		int anz = 5;
+		int anz = 4;
 		display_glob = display;
 		JFrame frame = new JFrame("frame");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(2, 10));
-		frame.setSize(300, 250);
-		frame.setPreferredSize(new java.awt.Dimension(2500, 2000));
+		frame.getContentPane().setLayout(new GridLayout(2, 3));
+		frame.setSize(100, 250);
+		frame.setPreferredSize(new java.awt.Dimension(500, 500));
 		anz = alltradelist.size();
 		
 		// das ganze hat ein grid layout mit 3 Spalten
-		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 3));
-		panelx.setPreferredSize(new java.awt.Dimension(2400, anz * 350));
+		DemoPanelX panelx = new DemoPanelX(new GridLayout(0, 2));
+		panelx.setSize(100,50);
+		panelx.setPreferredSize(new java.awt.Dimension(400, anz * 350));
 		
 		for (int i = 0; i < anz; i++)
 		{
@@ -98,8 +99,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 			// Spalte 1 ist der backtest
 			AutoCreator ac = new AutoCreator();
 			
-			String fname = meconf.getAutocreatortestdir()+"\\Speicherort_sys_pics\\" + comment + ".png";
-			
+		/*	String fname = meconf.getAutocreatortestdir()+"\\Speicherort_sys_pics\\" + comment + ".png";
 			File fnam_f = new File(fname);
 			if (fnam_f.exists() == true)
 			{
@@ -107,7 +107,7 @@ public class ShowConfigAllP3 extends ApplicationFrame
 				panelx.add(jp);
 			} else
 				panelx.add(new JPanel());
-			
+			*/
 			frame.getContentPane().setLayout(new BorderLayout());
 			
 			// spalte 2 die tradeliste
