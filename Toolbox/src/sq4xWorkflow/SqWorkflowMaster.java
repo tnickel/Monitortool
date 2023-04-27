@@ -134,7 +134,7 @@ public class SqWorkflowMaster extends Sq
 	public void deleteProjectfiles()
 	{
 		// check if rootdir is correct
-		File ll = new File(sqrootdir_g + "\\licenceFile.lic");
+		File ll = new File(sqrootdir_g + "\\StrategyQuantX.exe");
 		if (ll.exists() == false)
 			Tracer.WriteTrace(10, "E:Bad Strategyquant Installation Rootpath= <" + sqrootdir_g + ">");
 		

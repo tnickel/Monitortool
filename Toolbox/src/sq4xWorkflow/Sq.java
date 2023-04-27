@@ -15,9 +15,9 @@ public class Sq
 		if(path.contains("\\user"))
 		{
 			rp=path.substring(0,path.indexOf("\\user"));
-			File lfile=new File(rp+"\\licenceFile.lic");
+			File lfile=new File(rp+"\\StrategyQuantX.exe");
 			if(lfile.exists()==false)
-				Tracer.WriteTrace(10, "E: SQ dir <"+rp+"> don´t contains license.lic");
+				Tracer.WriteTrace(10, "E: SQ dir <"+rp+"> don´t contains StrategyQuantX.exe");
 			return rp;
 	
 		}

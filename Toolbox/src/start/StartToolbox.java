@@ -1606,14 +1606,14 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4databankname = new Text(group2filter, SWT.NONE);
 								text4databankname.setText("Portfolio");
-								text4databankname.setBounds(363, 605, 54, 15);
+								text4databankname.setBounds(334, 595, 83, 20);
 								text4databankname.setToolTipText(
 										"This is the the there the portfolio is stored, the default is the databankname portfolio");
 							}
 							{
 								combo1cpart = new Combo(group2filter, SWT.NONE);
 								combo1cpart.setText("OOS");
-								combo1cpart.setBounds(423, 600, 60, 19);
+								combo1cpart.setBounds(423, 596, 60, 22);
 								
 							}
 							{
