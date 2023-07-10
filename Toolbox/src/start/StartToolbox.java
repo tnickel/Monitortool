@@ -1786,7 +1786,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.8.2");
+		shell.setText("Toolbox V1.2.8.3");
 		
 		while (!shell.isDisposed())
 		{
@@ -2377,7 +2377,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			sqrootdir = dd;
 		
 		// check sqrootdir
-		String licfile = sqrootdir + "\\licenceFile.lic";
+		String licfile = sqrootdir + "\\StrategyQuantX.exe";
 		File sqr = new File(licfile);
 		if (sqr.exists() == false)
 		{
