@@ -14,6 +14,9 @@ public class Mt4Backtester
 		//rootpath: ist der pfad wo das installationspacket ist
 		//appdata ist das appdata des jeweiligen Metatrader
 		
+		if(appdata.contains("mt5"))
+			return;
+		
 		FileAccessDyn fd = new FileAccessDyn();
 		String backtest_ini = rootpath + "\\install\\MT4_backtests\\backtestconfig.ini";
 

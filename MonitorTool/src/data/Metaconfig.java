@@ -102,14 +102,14 @@ public class Metaconfig implements Comparable<Metaconfig>
 	// mttype=mt4 or mt5
 	private String mttype = "";
 	// AucPrefix is the prefix for autcreator copy ea
-	private String aucPrefix="";
+	private String aucPrefix = "";
 	// Autocreatorpathmode: 1=default, 2= newestdir, 3= use this path
-	private int autocreatorpathmode=1;
-	//dies ist der path wo das monitortool die generierten eas sucht
-	private String autocreatorpath="";
-	private String autocreatorbackuppath="";
-	private int useautocreatorbackup=1;
-	private String autocreatortestdir="";
+	private int autocreatorpathmode = 1;
+	// dies ist der path wo das monitortool die generierten eas sucht
+	private String autocreatorpath = "";
+	private String autocreatorbackuppath = "";
+	private int useautocreatorbackup = 1;
+	private String autocreatortestdir = "";
 	
 	public Metaconfig(String mname)
 	{
@@ -183,16 +183,16 @@ public class Metaconfig implements Comparable<Metaconfig>
 				mttype = SG.nteilstring(zeile, "#", 34);
 			if (trennanz > 35)
 				aucPrefix = SG.nteilstring(zeile, "#", 35);
-			if(trennanz> 36)
-				autocreatorpathmode=SG.get_zahl(SG.nteilstring(zeile, "#", 36));
-			if(trennanz>37)
-				autocreatorpath= SG.nteilstring(zeile, "#", 37);
-			if(trennanz> 38)
-				useautocreatorbackup=SG.get_zahl(SG.nteilstring(zeile, "#", 38));
-			if(trennanz>39)
-				autocreatorbackuppath= SG.nteilstring(zeile, "#", 39);
-			if(trennanz>40)
-				autocreatortestdir= SG.nteilstring(zeile, "#",40);
+			if (trennanz > 36)
+				autocreatorpathmode = SG.get_zahl(SG.nteilstring(zeile, "#", 36));
+			if (trennanz > 37)
+				autocreatorpath = SG.nteilstring(zeile, "#", 37);
+			if (trennanz > 38)
+				useautocreatorbackup = SG.get_zahl(SG.nteilstring(zeile, "#", 38));
+			if (trennanz > 39)
+				autocreatorbackuppath = SG.nteilstring(zeile, "#", 39);
+			if (trennanz > 40)
+				autocreatortestdir = SG.nteilstring(zeile, "#", 40);
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -704,32 +704,32 @@ public class Metaconfig implements Comparable<Metaconfig>
 	{
 		return autocreatorpathmode;
 	}
-
+	
 	public void setAutocreatorpathmode(int autocreatorpathmode)
 	{
 		this.autocreatorpathmode = autocreatorpathmode;
 	}
-
+	
 	public String getAutocreatorpath()
 	{
 		return autocreatorpath;
 	}
-
+	
 	public void setAutocreatorpath(String autocreatorpath)
 	{
 		this.autocreatorpath = autocreatorpath;
 	}
-
+	
 	public String getAutocreatortestdir()
 	{
 		return autocreatortestdir;
 	}
-
+	
 	public void setAutocreatortestdir(String autocreatortestdir)
 	{
 		this.autocreatortestdir = autocreatortestdir;
 	}
-
+	
 	public String getInitMetaversion()
 	{
 		String fnam = networkshare;
@@ -754,21 +754,21 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Filedata = orpath + "\\MQL4\\Files";
 			metaversion = ">=600";
 			mtversnumber = ">=600";
-		}  else if (fna5.exists())
+		} else if (fna5.exists())
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL5";
-			Expertdata = fnam + "\\MQL5\\Experts";
+			Expertdata = fnam + "\\MQL5\\Experts\\SQ";
 			Filedata = fnam + "\\MQL5\\Files";
 			metaversion = ">=600";
 			mtversnumber = ">=600";
-		} else 
+		} else
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL4";
-
-			File mql4=new File(Mqldata);
-			if(mql4.exists()==false)
+			
+			File mql4 = new File(Mqldata);
+			if (mql4.exists() == false)
 				mql4.mkdir();
 			
 			Expertdata = fnam + "\\MQL4\\Experts";
@@ -840,35 +840,35 @@ public class Metaconfig implements Comparable<Metaconfig>
 	{
 		return aucPrefix;
 	}
-
+	
 	public void setAucPrefix(String aucPrefix)
 	{
 		this.aucPrefix = aucPrefix;
 	}
-
+	
 	public String getAutocreatorbackuppath()
 	{
 		return autocreatorbackuppath;
 	}
-
+	
 	public void setAutocreatorbackuppath(String autocreatorbackuppath)
 	{
 		this.autocreatorbackuppath = autocreatorbackuppath;
 	}
-
+	
 	public int getUseautocreatorbackup()
 	{
 		return useautocreatorbackup;
 	}
-
+	
 	public void setUseautocreatorbackup(int useautocreatorbackup)
 	{
 		this.useautocreatorbackup = useautocreatorbackup;
 	}
-
+	
 	public void pongCheck()
 	{
-		//prüft ob es einen zu alten pong gibt.
+		// prüft ob es einen zu alten pong gibt.
 		
 		// directory von .../files holen
 		File dir = new File(this.getFiledata());
@@ -878,17 +878,17 @@ public class Metaconfig implements Comparable<Metaconfig>
 		{ // Erforderliche Berechtigungen etc. sind vorhanden
 			for (int i = 0; i < files.length; i++)
 			{
-				//System.out.print(files[i].getAbsolutePath());
+				// System.out.print(files[i].getAbsolutePath());
 				if (files[i].isFile())
 				{
 					
-					String fpath=files[i].getAbsolutePath();
-					if(fpath.toLowerCase().contains("pong"))
+					String fpath = files[i].getAbsolutePath();
+					if (fpath.toLowerCase().contains("pong"))
 					{
-						if(checkOldPong(fpath)==true)
+						if (checkOldPong(fpath) == true)
 						{
 							this.setPongerrorflag(1);
-							Tracer.WriteTrace(20, "I:found old pong <"+fpath+">");
+							Tracer.WriteTrace(20, "I:found old pong <" + fpath + ">");
 							return;
 						}
 						
@@ -896,7 +896,6 @@ public class Metaconfig implements Comparable<Metaconfig>
 				}
 			}
 		}
-		
 		
 		this.setPongerrorflag(0);
 		
@@ -990,6 +989,50 @@ public class Metaconfig implements Comparable<Metaconfig>
 			return;
 		else if (clofile.delete() == false)
 			Tracer.WriteTrace(10, "E:RemoveCloseAllTrades: cant remove file <" + clofile.getAbsolutePath() + ">");
+	}
+	
+	public void backupProfiles()
+	{
+		// Diese Funktion wird für Metatrader 5 verwendet,die eas lassen sich hier nicht
+		// so einfach installieren
+		// 1) Man muss nachdem man die eas installiert hat, den metatrader einmal kurz
+		// start
+		// 2) Dann nochmal die configfiles im Mt5 schreiben
+		// 3) Dies wird durch den backupmechanismus getätigt
+		
+		String chrdir = this.getAppdata() + "\\MQL5\\profiles\\charts\\default";
+		String backupdir = this.getAppdata() + "\\MQL5\\profiles\\charts\\default\\backup";
+		File bdir = new File(backupdir);
+		
+		// backup leeren falls es schon vorhanden
+		if (bdir.exists() == true)
+			FileAccess.deleteDirectoryContent(bdir);
+		
+		// wenn nicht vorhanden, dann erzeuge das backupdir
+		if (bdir.exists() == false)
+			if (bdir.mkdir() == false)
+				Tracer.WriteTrace(10, "E:error gendir <" + bdir + ">");
+			
+		// mache das backup
+		FileAccess.CopyDirectory(chrdir, backupdir, null);
+		
+	}
+	
+	public void restoreProfiles()
+	{
+		String chrdir = this.getAppdata() + "\\MQL5\\profiles\\charts\\default";
+		String backupdir = this.getAppdata() + "\\MQL5\\profiles\\charts\\default\\backup";
+		File bdir = new File(backupdir);
+		File cdir = new File(chrdir);
+		
+		if (bdir.exists() == false)
+			Tracer.WriteTrace(10, "E: cant find backupdir <" + bdir.getAbsolutePath() + ">");
+		
+		FileAccess.deleteDirectoryContentPostfix(cdir, ".chr");
+		
+		// mache restore
+		FileAccess.CopyDirectory(backupdir, chrdir, null);
+		
 	}
 	
 	public int compareTo(Metaconfig metatrader)

@@ -1,6 +1,7 @@
 package hiflsklasse;
 
 import java.io.BufferedReader;
+import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -887,14 +888,14 @@ public class FileAccess
 		File[] files = dir.listFiles();
 		if (files != null)
 		{
-			for (int i = 0; i < files.length; i++)
+			for (int i = 1; i < files.length; i++)
 			{
 				File fnam = files[i];
 				if (fnam.getPath().endsWith(postfix))
 				{
 					files[i].delete(); // Datei löschen
 				} else
-					Tracer.WriteTrace(10,
+					Tracer.WriteTrace(20,
 							"E:cant delete file <" + fnam.getName() + "> only postfix <" + postfix + "> is allowed");
 			}
 			
@@ -1279,6 +1280,37 @@ public class FileAccess
 		FileAccess.FileDelete(zielfiletmp, 0);
 	}
 	
+	static public void FileReplaceString2(String filePath, String searchString, String replacementString)
+			throws IOException
+	{
+		
+		File file = new File(filePath);
+		File tempFile = new File(file.getAbsolutePath() + ".tmp");
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(file));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile)))
+		{
+			
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				line = line.replace(searchString, replacementString);
+				writer.write(line +"\n");
+			}
+		}
+		
+		if (file.delete())
+		{
+			if (!tempFile.renameTo(file))
+			{
+				throw new IOException("Konnte temporäre Datei nicht in Originaldatei umbenennen.");
+			}
+		} else
+		{
+			throw new IOException("Konnte Originaldatei nicht löschen.");
+		}
+	}
+
 	static public boolean FileContainString(String filename, String suchtext)
 	{
 		String quellfile = filename;

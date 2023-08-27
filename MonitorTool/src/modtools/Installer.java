@@ -40,11 +40,13 @@ public class Installer
 	public void UpdateHistoryExporter(Display dis, Brokerview brokerview)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
-		
 		// in dieser funktion wird nur der neue HistoryExporter kopiert
 		// ausserdem die neue monitorlib
 		// weiterhin das RestartTerminal.bat
 		int anz = brokerview.getAnz();
+		String histexporter_quelle = null;
+		String monitorlib_quelle = null;
+		String monitorlib_quelle2 = null;
 		
 		if (anz == 0)
 		{
@@ -60,18 +62,34 @@ public class Installer
 			String bnam = meconf.getBrokername();
 			// Mlist.add("update<" + bnam + ">", 1);
 			
-			String histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
+			if ((meconf.getMttype().toLowerCase() != "mt4") && (meconf.getMttype().toLowerCase() != "mt5"))
+				Tracer.WriteTrace(10, "E:UpdateHistoryExporter mttype=<" + meconf.getMttype() + "> not supported");
 			
-			String monitorlib_quelle = Rootpath.getRootpath() + "\\install\\MT4_Include\\monitorlib.mqh";
-			String restart_quelle = Rootpath.getRootpath() + "\\install\\RestartTerminal.bat";
+			if (meconf.getMttype().toLowerCase().equals("mt4"))
+				histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
+			else if (meconf.getMttype().toLowerCase().equals("mt5"))
+				histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT5_experts\\SQ\\historyexporter.mq5";
+			
+			if (meconf.getMttype().toLowerCase().equals("mt4"))
+			{
+				monitorlib_quelle = Rootpath.getRootpath() + "\\install\\MT4_Include\\monitorlib.mqh";
+				// kopiere die Monitorlib
+				fd.copyFile3(monitorlib_quelle, meconf.getMqldata() + "//include//monitorlib.mqh", 1);
+			}
+			else
+			{
+				monitorlib_quelle = Rootpath.getRootpath() + "\\install\\MT5_Include\\monitorlib.mqh";
+				monitorlib_quelle2 = Rootpath.getRootpath() + "\\install\\MT5_Include\\monitorlib_mt5.mqh";
+				// kopiere die Monitorlib
+				fd.copyFile3(monitorlib_quelle, meconf.getMqldata() + "//include//monitorlib.mqh", 1);
+				fd.copyFile3(monitorlib_quelle2, meconf.getMqldata() + "//include//monitorlib_mt5.mqh", 1);
+			}
 			
 			// Kopiere den historyexporter
-			fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "//historyexporter.mq4", 1);
-			
-			// kopiere die Monitorlib
-			fd.copyFile3(monitorlib_quelle, meconf.getMqldata() + "//include//monitorlib.mqh", 1);
-			
-			FileAccess.FileDelete(meconf.getMqldata() + "//include//monitorlib.ex4", 0);
+			if (meconf.getMttype().toLowerCase().equals("mt4"))
+				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "//historyexporter.mq4", 1);
+			else if (meconf.getMttype().toLowerCase().equals("mt5"))
+				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "//historyexporter.mq5", 1);
 			
 			FileAccess.FileDelete(meconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 			
@@ -86,15 +104,26 @@ public class Installer
 	private void copyInstHistoryExporter(Metaconfig metaconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
+		String histexporter_quelle = null;
+		String histexporterchr_quelle = null;
 		
-		String histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
-		String histexporterchr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\historyexporter.chr";
-		
+		// Kopiere den historyexporter
+		if (metaconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
+			histexporterchr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\historyexporter.chr";
+			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq4");
+		} else if (metaconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT5_experts\\historyexporter.mq5";
+			histexporterchr_quelle = Rootpath.getRootpath() + "\\install\\MT5_profiles\\historyexporter.chr";
+			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq5");
+		}
 		Tracer.WriteTrace(20,
 				"I: copy histroyexporter from<" + histexporter_quelle + "> to<" + metaconf.getExpertdata() + ">");
 		
-		// Kopiere den historyexporter
-		fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq4");
+		
+		
 		FileAccess.FileDelete(metaconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 		
 		Tracer.WriteTrace(20, "I: special profile1");
@@ -107,19 +136,26 @@ public class Installer
 	
 	private void copyTickdataExporter(Metaconfig metaconf)
 	{
-		FileAccessDyn fd = new FileAccessDyn();
-		String histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\GenBuilder_TickDataExportEA.mq4";
-		String histexporterchr_quelle = Rootpath.getRootpath()
-				+ "\\install\\MT4_profiles\\GenBuilder_TickDataExportEA.chr";
-		
-		Tracer.WriteTrace(20,
-				"I:copy tickdataexporter from<" + histexporter_quelle + "> to<" + metaconf.getExpertdata() + ">");
-		
-		// Kopiere den Tickdataexporter
-		fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//GenBuilder_TickDataExportEA.mq4");
-		
-		Profiler profiler = new Profiler(metaconf);
-		profiler.createSpecialProfile(histexporterchr_quelle, "GenBuilder_TickDataExportEA");
+		if (metaconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			FileAccessDyn fd = new FileAccessDyn();
+			String histexporter_quelle = Rootpath.getRootpath()
+					+ "\\install\\MT4_experts\\GenBuilder_TickDataExportEA.mq4";
+			String histexporterchr_quelle = Rootpath.getRootpath()
+					+ "\\install\\MT4_profiles\\GenBuilder_TickDataExportEA.chr";
+			
+			Tracer.WriteTrace(20,
+					"I:copy tickdataexporter from<" + histexporter_quelle + "> to<" + metaconf.getExpertdata() + ">");
+			
+			// Kopiere den Tickdataexporter
+			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//GenBuilder_TickDataExportEA.mq4");
+			
+			Profiler profiler = new Profiler(metaconf);
+			profiler.createSpecialProfile(histexporterchr_quelle, "GenBuilder_TickDataExportEA");
+		} else if (metaconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			Tracer.WriteTrace(10, "Error: TickdataExporter for MT5 not supported at the moment");
+		}
 		
 	}
 	
@@ -132,11 +168,27 @@ public class Installer
 	private void copyMyFxbookEa(Metaconfig meconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
-		String myfxbookea = Rootpath.getRootpath() + "\\install\\MT4_experts\\Myfxbook.ex4";
-		if (fd.copyFile2(myfxbookea, meconf.getExpertdata() + "\\Myfxbook.ex4") == false)
-			Tracer.WriteTrace(10, "E:cant copy myfxbook ea");
+		String myfxbookea = null;
+		String expertdll_quelle = null;
 		
-		String expertdll_quelle = Rootpath.getRootpath() + "\\install\\MT4_libraries\\Myfxbook.dll";
+		// Mt4
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			myfxbookea = Rootpath.getRootpath() + "\\install\\MT4_experts\\Myfxbook.ex4";
+			if (fd.copyFile2(myfxbookea, meconf.getExpertdata() + "\\Myfxbook.ex4") == false)
+				Tracer.WriteTrace(10, "E:cant copy myfxbook ea");
+			
+			expertdll_quelle = Rootpath.getRootpath() + "\\install\\MT4_libraries\\Myfxbook.dll";
+		}
+		// mt5
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			myfxbookea = Rootpath.getRootpath() + "\\install\\MT5_experts\\Myfxbook.ex5";
+			if (fd.copyFile2(myfxbookea, meconf.getExpertdata() + "\\Myfxbook.ex5") == false)
+				Tracer.WriteTrace(10, "E:cant copy myfxbook ea");
+			
+			expertdll_quelle = Rootpath.getRootpath() + "\\install\\MT5_libraries\\Myfxbook.dll";
+		}
 		
 		Tracer.WriteTrace(20, "I: copy myfxbookea from<" + myfxbookea + "> to<" + meconf.getAppdata() + ">");
 		
@@ -151,45 +203,92 @@ public class Installer
 		
 	}
 	
-	private void copyMonitorlib(Metaconfig meconf)
+	private void copyIncludes(Metaconfig meconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
-		String monitorlib_quelle = Rootpath.getRootpath() + "\\install\\MT4_Include\\monitorlib.mqh";
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			fd.copyFile2(Rootpath.getRootpath() + "\\install\\MT4_Include\\monitorlib.mqh", meconf.getMqldata() + "//include//monitorlib.mqh");
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			fd.copyFile2(Rootpath.getRootpath() + "\\install\\MT5_Include\\monitorlib.mqh", meconf.getMqldata() + "//include//monitorlib.mqh");
+			fd.copyFile2(Rootpath.getRootpath() + "\\install\\MT5_Include\\monitorlib_mt5.mqh", meconf.getMqldata() + "//include//monitorlib_mt5.mqh");
+			fd.copyFile2(Rootpath.getRootpath() + "\\install\\MT5_Include\\MT4Orders.mqh", meconf.getMqldata() + "//include//MT4Orders.mqh");
+			fd.copyFile2(Rootpath.getRootpath() + "\\install\\MT5_Include\\mql4_to_mql5.mqh", meconf.getMqldata() + "//include//mql4_to_mql5.mqh");
+		}
 		
-		Tracer.WriteTrace(20,
-				"I: copy monitorlib from<" + monitorlib_quelle + "> to<" + meconf.getMqldata() + "//include//" + ">");
-		
-		// Kopiere den historyexporter
-		fd.copyFile2(monitorlib_quelle, meconf.getMqldata() + "//include//monitorlib.mqh");
 		
 	}
 	
 	private void loescheAltes(String quellverz, Metaconfig meconf)
 	{
-		FileAccessDyn fd = new FileAccessDyn();
-		// Das alte löschen
-		Mlist.add("I:delete all mql on destbroker <" + meconf.getMqldata() + ">", 1);
-		FileAccess.FilesDelete(quellverz + "\\realinstall", ".mq4");
-		FileAccess.FilesDelete(quellverz + "\\install", ".mq4");
-		FileAccess.FilesDelete(meconf.getExpertdata(), ".mq4");
-		FileAccess.FilesDelete(meconf.getExpertdata(), ".ex4");
-		FileAccess.FilesDelete(meconf.getExpertdata(), ".log");
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			
+			FileAccessDyn fd = new FileAccessDyn();
+			// Das alte löschen
+			Mlist.add("I:delete all mql on destbroker <" + meconf.getMqldata() + ">", 1);
+			FileAccess.FilesDelete(quellverz + "\\realinstall", ".mq4");
+			FileAccess.FilesDelete(quellverz + "\\install", ".mq4");
+			FileAccess.FilesDelete(meconf.getExpertdata(), ".mq4");
+			FileAccess.FilesDelete(meconf.getExpertdata(), ".ex4");
+			FileAccess.FilesDelete(meconf.getExpertdata(), ".log");
+			
+			// hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr
+			// files nicht löschen sonst sind die verbindungen
+			// bei der überinstallation weg!!
+			FileAccess.FilesDelete(meconf.getAppdata() + "\\profiles\\default", ".chr");
+			FileAccess.FilesDelete(meconf.getExpertdata(), ".dat");
+		} else if (meconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			
+			FileAccessDyn fd = new FileAccessDyn();
+			// Das alte löschen
+			Mlist.add("I:delete all mql on destbroker <" + meconf.getMqldata() + ">", 1);
+			
+			FileAccess.FilesDelete(quellverz + "\\realinstall", ".mq5");
+			FileAccess.FilesDelete(quellverz + "\\install", ".mq5");
+			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".mq5");
+			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".ex5");
+			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".log");
+			File sqdir = new File(meconf.getExpertdata() + "\\SQ");
+			if (sqdir.exists() == true)
+				if (sqdir.delete() == false)
+					Tracer.WriteTrace(10, "E: can´t delete directory <" + sqdir + ">");
+				else if (sqdir.mkdir() == false)
+					Tracer.WriteTrace(10, "E:can´t create dir <" + sqdir + ">");
+					
+			// hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr
+			// files nicht löschen sonst sind die verbindungen
+			// bei der überinstallation weg!!
+			FileAccess.FilesDelete(meconf.getAppdata() + "\\MQL5\\profiles\\charts\\default", ".chr");
+			FileAccess.FilesDelete(meconf.getAppdata(), "\\MQL5\\experts.dat");
+			
+		} else
+			Tracer.WriteTrace(10, "E: not supported 134545454543");
 		
-		// hier muss abfrage rein das dies kein tradechannel ist, die tradechannel *.chr
-		// files nicht löschen sonst sind die verbindungen
-		// bei der überinstallation weg!!
-		FileAccess.FilesDelete(meconf.getAppdata() + "\\profiles\\default", ".chr");
-		FileAccess.FilesDelete(meconf.getExpertdata(), ".dat");
 	}
 	
 	private void kopiereIndikatoren(Metaconfig meconf)
 	{
 		FileAccessDyn fd = new FileAccessDyn();
 		Mlist.add("I:install indicators", 1);
-		String indiverz_quelle = Rootpath.getRootpath() + "\\install\\MT4_indikatoren";
+		String indiverz_quelle = null;
+		
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			indiverz_quelle = Rootpath.getRootpath() + "\\install\\MT4_indikatoren";
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+			indiverz_quelle = Rootpath.getRootpath() + "\\install\\MT5_indikatoren";
+		else
+			Tracer.WriteTrace(10, "E:KopiereIndikatoren meconf-mql4type not supported");
+		
 		String inidverz_ziel = meconf.getMqldata() + "\\indicators";
 		Tracer.WriteTrace(20, "I:copy indicators from <" + indiverz_quelle + "> to <" + inidverz_ziel + ">");
-		FileAccess.CopyDirectory(indiverz_quelle, inidverz_ziel, ".mq4");
+		
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			FileAccess.CopyDirectory(indiverz_quelle, inidverz_ziel, ".mq4");
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+			FileAccess.CopyDirectory(indiverz_quelle, inidverz_ziel, ".mq5");
+		
 	}
 	
 	private void InstallSernumber(Metaconfig meconf)
@@ -217,6 +316,8 @@ public class Installer
 	private void kopiereEaSysteme(String mqlquellverz, ProgressBar progressBar1, Metaconfig metaconfig,
 			Metaconfig metarealconfig, String zwischenspeichernam, int realpatchflag, Ealiste eal, Tableview tv)
 	{
+		// Dies ist die Funktion die die EAs installiert
+		
 		FileAccessDyn fd = new FileAccessDyn();
 		// realpatchflag=1 realsysteme werden noch besonders gepatched
 		// und die *.ex4 werden auch gelöscht
@@ -229,22 +330,36 @@ public class Installer
 		else
 			profiler = new Profiler(metarealconfig);
 		
-		String cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
+		String cfg_quelle = null;
+		String mqlpostfix = null;
+		
+		if (metaconfig.getMttype().toLowerCase().equals("mt4"))
+		{
+			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
+			mqlpostfix = ".mq4";
+		} else if (metaconfig.getMttype().toLowerCase().equals("mt5"))
+		{
+			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT5_profiles\\chrmaster.chr";
+			mqlpostfix = ".mq5";
+		} else
+			Tracer.WriteTrace(10, "E:kopiere EaSysteme mtversion <" + metaconfig.getMetaversion() + "> not supported");
+		
 		Tracer.WriteTrace(20, "Rootpath<" + Rootpath.getRootpath() + "> mqlquellverz<" + mqlquellverz + ">");
 		
 		// Falls Tradesuffix gesetzt dann wird z.B.
 		// Q80 EURUSD M15 134.mq4 nach Q80 EURUSD.r M15 134.mq4 renamed
+		// 1)Namensanpassung
 		fadyn.initFileSystemList(mqlquellverz, 1);
 		int anz = fadyn.holeFileAnz();
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
-			if (mqlquellnam.endsWith(".mq4"))
+			if (mqlquellnam.endsWith(mqlpostfix))
 			{
 				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
 				// den mqlnamen bestimmen
-				if (mqlquellnam.endsWith(".mq4"))
-					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
+				if (mqlquellnam.endsWith(mqlpostfix))
+					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
 				
 				// Den quellnamen renamen das Keyword Strategy muss raus
 				String tradesuffix = metaconfig.getTradesuffixsender();
@@ -260,25 +375,27 @@ public class Installer
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
-			if ((mqlquellnam.endsWith(".mq4")) || (mqlquellnam.endsWith(".sqx")))
+			if ((mqlquellnam.endsWith(mqlpostfix)) || (mqlquellnam.endsWith(".sqx")))
 			{
 				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
 				// den mqlnamen bestimmen
-				if (mqlquellnam.endsWith(".mq4"))
-					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".mq4"));
+				if (mqlquellnam.endsWith(mqlpostfix))
+					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
 				if (mqlquellnam.endsWith(".sqx"))
 					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".sqx"));
 				
 				// Den quellnamen renamen das Keyword Strategy muss raus
-				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam);
+				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
 			}
 		}
 		
-		// hole die Mq4-files ins temporäre install verzeichniss
+		// 2) Kopiere ins tmp-install-verzeichniss
+		// kopiere die Mq4-files ins temporäre install verzeichniss
 		fadyn.initFileSystemList(mqlquellverz, 1);
 		anz = fadyn.holeFileAnz();
 		progressBar1.setMinimum(0);
 		progressBar1.setMaximum(anz - 1);
+		
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
@@ -291,11 +408,11 @@ public class Installer
 			if (mqlquellnam.contains(".exe") == true)
 				continue;
 			
-			// import tradeliste falls eine da ist
+			// 2a)import tradeliste falls eine da ist
 			CheckTradeListenImport(tv, metaconfig.getMqlquellverz() + "\\" + mqlquellnam, metaconfig.getBrokername());
 			
-			// hier werden nur mq4-files verarbeitet
-			if (mqlquellnam.contains(".mq4") == false)
+			// hier werden nur mq4/5-files verarbeitet
+			if (mqlquellnam.contains(mqlpostfix) == false)
 				continue;
 			
 			Tracer.WriteTrace(20, "mqlquellnam<" + mqlquellnam + "> mqlquellverz<" + mqlquellverz + "> zielshare<"
@@ -304,17 +421,19 @@ public class Installer
 			int magic = Eaclass.calcMagic(mqlquellnam);
 			String brokername = metaconfig.getBrokername();
 			
+			// hole Daten aus dem Mql-File
 			Patcher pat = new Patcher();
 			pat.setFilename(mqlquellverz + "\\" + mqlquellnam);
 			String sl = pat.getSl();
 			String tp = pat.getTp();
 			int eatype = pat.getEaType();
 			
+			// Die Ea-Daten werden in die Datenstruktur aufgenommen
 			Ea ea = eaAufnahme(eal, mqlquellnam, magic, brokername, sl, tp, eatype);
 			// remove old *.del files out of ../files
 			removeEaDels(magic, metaconfig);
 			
-			// hier wird das Mql-File geschrieben
+			// hier wird das Mql-File geschrieben, aber wohin?
 			
 			MqlPatch mqlp = writeMqlFileZwischenspeicher(mqlquellnam, mqlquellverz, zwischenspeichernam, realpatchflag,
 					metaconfig, metarealconfig, ea);
@@ -332,11 +451,14 @@ public class Installer
 			}
 			
 			// Schreibt das Metatrader generierte chr.file
-			
+			// Schreibt das Profile
 			if (realpatchflag == 1)
 				profiler.createProfile(mqlp, cfg_quelle, ea, metarealconfig);
 			else
+			{
 				profiler.createProfile(mqlp, cfg_quelle, ea, metaconfig);
+				
+			}
 			
 		}
 		eal.store(0);
@@ -348,14 +470,22 @@ public class Installer
 			loescheMqlCache(metaconfig.getMqldata());
 		else
 			loescheMqlCache(metarealconfig.getMqldata());
+		
 	}
 	
-	private void renameQuellnamFiles(String fnamsource)
+	private void renameQuellnamFiles(String fnamsource,String mtversion)
 	{
+		String endung=".mq4";
+		
 		if (fnamsource.contains("Strategy"))
 		{
-			File fnamsource_f = new File(fnamsource + ".mq4");
-			File fnamdest_f = new File(fnamsource.replace("Strategy", "") + ".mq4");
+			//endung ist .mq4 oder .mq5
+			if(mtversion.toLowerCase().equals("mt5"))
+				endung=".mq5";
+			
+			
+			File fnamsource_f = new File(fnamsource + endung);
+			File fnamdest_f = new File(fnamsource.replace("Strategy", "") + endung);
 			if (fnamsource_f.renameTo(fnamdest_f) == false)
 				Tracer.WriteTrace(10, "E: can´t rename file <" + fnamsource_f.getAbsolutePath() + "> to <"
 						+ fnamdest_f.getAbsolutePath() + ">");
@@ -452,7 +582,7 @@ public class Installer
 			
 	}
 	
-	public boolean InstalliereEinRealEaSystemFromDemobroker(Tableview tableview, Profit prof, Metaconfig meconf,
+	public boolean InstalliereEinRealEaSystemFromDemobroker_dep(Tableview tableview, Profit prof, Metaconfig meconf,
 			Metaconfig meRealconf, Ealiste eal)
 	{
 		
@@ -494,8 +624,8 @@ public class Installer
 		// flags setzen, fuer magic, broker, instfrombroker
 		eal.setInstFrom(magic, meconf.getconnectedBroker(), meconf.getBrokername());
 		
-		// Schreibt das mq4-File
-		MqlPatch mqlp = writeMqlInstOneRealsystem(mqlquellnam, quellverz, quellinstallverz, zielverz, meconf,
+		// Schreibt das mq4/5-File
+		MqlPatch mqlp = writeMqlInstOneRealsystem_dep(mqlquellnam, quellverz, quellinstallverz, zielverz, meconf,
 				meRealconf, ea);
 		
 		// lösche den mqlcache.dat
@@ -519,7 +649,14 @@ public class Installer
 	
 	public void InstalliereMyFxbookConfig(Metaconfig meconf)
 	{
-		String cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
+		String cfg_quelle = null;
+		
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT5_profiles\\chrmaster.chr";
+		else
+			Tracer.WriteTrace(10, "E: internal mt4/mt5 mttype not set");
 		
 		String zielsharename = meconf.getAppdata() + "\\profiles\\default\\myfxbook.chr";
 		
@@ -563,7 +700,28 @@ public class Installer
 		loescheAltes(mqlquellverz, metaconfig);
 		// InitMetatrader(metaconfig, 1); das wird beim save gemacht
 		kopiereEaSysteme(mqlquellverz, progressBar1, metaconfig, metarealconfig, "install", 0, eal, tv);
+		
 		metaconfig.setInstallationstatus(1);
+		
+		if (metaconfig.getMttype().toLowerCase().equals("mt5"))
+		{
+			metaconfig.backupProfiles();
+			
+			// 1 Start & Stop MT5
+			MetaStarter.StartMetatrader(metaconfig, metaconfig.getAppdata() + "\\startmetatrader_portable.bat");
+			try
+			{
+				Thread.sleep(5000);
+			} catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			MetaStarter.KillAllMetatrader(1);
+			
+			metaconfig.restoreProfiles();
+		}
+		
 		ready(dis);
 		return;
 	}
@@ -579,22 +737,21 @@ public class Installer
 		
 		if (metaconfig == null)
 			Tracer.WriteTrace(10, "E: metaconfig=null");
-		if ((metaconfig.getMttype()==null)||(metaconfig.getMttype().contains("mt4")))
-		{
-			if (metaconfig.isInsthistoryexporter())
-				copyInstHistoryExporter(metaconfig);
-			if (metaconfig.getUsemyfxbookflag() == 1)
-				copyMyFxbookEa(metaconfig);
-			if (metaconfig.isInsttradecopy())
-				copyTradecopy(metaconfig);
-			if (metaconfig.isInsttickdataexporter())
-				copyTickdataExporter(metaconfig);
-			
-			copyBacktestEnvironment(metaconfig);
-			copyMonitorlib(metaconfig);
-			kopiereIndikatoren(metaconfig);
-			setFridayend(metaconfig, metaconfig.getClosefridayflag());
-		}
+		
+		if (metaconfig.isInsthistoryexporter())
+			copyInstHistoryExporter(metaconfig);
+		if (metaconfig.getUsemyfxbookflag() == 1)
+			copyMyFxbookEa(metaconfig);
+		if (metaconfig.isInsttradecopy())
+			copyTradecopy(metaconfig);
+		if (metaconfig.isInsttickdataexporter())
+			copyTickdataExporter(metaconfig);
+		
+		copyBacktestEnvironment(metaconfig);
+		copyIncludes(metaconfig);
+		kopiereIndikatoren(metaconfig);
+		setFridayend(metaconfig, metaconfig.getClosefridayflag());
+		
 		InstallSernumber(metaconfig);
 		metaconfig.setInstallationstatus(1);
 		setFridayend(metaconfig, metaconfig.getClosefridayflag());
@@ -708,10 +865,11 @@ public class Installer
 		
 	}
 	
-	private MqlPatch writeMqlInstOneRealsystem(String eanam, String quellverz, String quellinstallverz, String zielverz,
-			Metaconfig meconf, Metaconfig meRealconf, Ea ea)
+	private MqlPatch writeMqlInstOneRealsystem_dep(String eanam, String quellverz, String quellinstallverz,
+			String zielverz, Metaconfig meconf, Metaconfig meRealconf, Ea ea)
 	{
 		
+		Tracer.WriteTrace(10, "E: writeMqlInstOneRealsystem_dep!!");
 		FileAccessDyn fd = new FileAccessDyn();
 		// Schribt das jeweilige mql-File
 		MqlPatch mqlpatch = new MqlPatch();
@@ -735,12 +893,12 @@ public class Installer
 		mqlpatch.setMagic(magic);
 		
 		mqlpatch.patchMqlProtection();
-		mqlpatch.patchInit();
+		mqlpatch.patchInit(meconf.getMttype());
 		mqlpatch.patchVariables();
 		mqlpatch.patchGBMeta600();
 		
 		// abschaltautomatik hinzufügen
-		mqlpatch.addAbschaltAutomatic("");
+		mqlpatch.addAbschaltAutomatic("", meconf.getMttype());
 		mqlpatch.patchLotsize(ea, meRealconf);
 		mqlpatch.patchComment(ea);
 		
@@ -771,6 +929,7 @@ public class Installer
 	private MqlPatch writeMqlFileZwischenspeicher(String quellnam, String quellverz, String zwischenspeichernam,
 			int realpatchflag, Metaconfig meconf, Metaconfig meRealconf, Ea ea)
 	{
+		// Hier wird nur in dem Zwischenspeicher gespeichert
 		// quellnam: B29 EURUSD M1 0.19036.mq4
 		// quellverz:
 		// C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FinFx
@@ -804,7 +963,7 @@ public class Installer
 		int magic = Eaclass.calcMagic(quellnam);
 		mqlpatch.setMagic(magic);
 		mqlpatch.patchMqlProtection();
-		mqlpatch.patchInit();
+		mqlpatch.patchInit(meconf.getMttype());
 		mqlpatch.patchVariables();
 		mqlpatch.patchGBMeta600();
 		mqlpatch.patchSleeptimemod();
@@ -812,7 +971,7 @@ public class Installer
 		
 		if (realpatchflag == 1)
 		{
-			mqlpatch.addAbschaltAutomatic("");
+			mqlpatch.addAbschaltAutomatic("", meconf.getMttype());
 			mqlpatch.patchLotsize(ea, meRealconf);
 		} else
 			mqlpatch.patchLotsize(ea, meconf);
@@ -824,7 +983,14 @@ public class Installer
 		// sq3.8.2=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq3
 		// sq4=C:\Forex\monitorDevelop2\Install\Mt4_additionalcode\ea_postcode.sq4
 		// sea=Studio Expert Advisor
-		String postfilename = Rootpath.getRootpath() + "\\install\\Mt4_additionalcode\\ea_postcode";
+		String postfilename = null;
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			postfilename = Rootpath.getRootpath() + "\\install\\Mt4_additionalcode\\ea_postcode";
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+			postfilename = Rootpath.getRootpath() + "\\install\\Mt5_additionalcode\\ea_postcode";
+    	else
+		  Tracer.WriteTrace(10, "E:write mqlspeicher 123");
+		
 		mqlpatch.addPostcode(postfilename);
 		mqlpatch.writeMemFile(mqlziel);
 		
@@ -833,15 +999,35 @@ public class Installer
 		else
 			zielverzexpert = meconf.getExpertdata();
 			
-		// Hier wird auf dem share kopiert
+		// Hier wird auf dem share kopiert, also ins Metatrader 4/5 -Verzeichnis
 		// mql installieren
-		fd.copyFile2(mqlziel, zielverzexpert + "//" + mqlpatch.getExpertname());
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+			fd.copyFile2(mqlziel, zielverzexpert + "//" + mqlpatch.getExpertname());
+		else if (meconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			File fna=new File(zielverzexpert );
+			if(fna.exists()==false)
+				if(fna.mkdir()==false)
+					Tracer.WriteTrace(10, "E:Mqlpatch can´t create directory <"+fna.getAbsolutePath()+">");
+			fd.copyFile2(mqlziel, zielverzexpert +"\\" + mqlpatch.getExpertname());
+		}
+		else
+			Tracer.WriteTrace(10, "E:not supported jjfdjfjdj");
 		
 		// und das ex4 löschen
 		String ex4filename = zielverzexpert + "//" + mqlpatch.getExpertname();
-		File ex4file = new File(ex4filename.replace(".mq4", ".ex4"));
-		if (ex4file.exists())
-			ex4file.delete();
+		if (meconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			File ex4file = new File(ex4filename.replace(".mq4", ".ex4"));
+			if (ex4file.exists())
+				ex4file.delete();
+		} else if (meconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			// und das ex5 löschen
+			File ex5file = new File(ex4filename.replace(".mq5", ".ex5"));
+			if (ex5file.exists())
+				ex5file.delete();
+		}
 		
 		Mlist.add("I: write mql-file <" + quellnam + ">", 1);
 		
@@ -853,7 +1039,7 @@ public class Installer
 	{
 		double lotsize = meconf.getLotsize();
 		String zielverzexpert = meconf.getExpertdata();
-		String zielFiles = zielverzexpert.replace("Experts", "Files");
+		String zielFiles = meconf.getMqldata()+"\\files";
 		
 		String zf = zielFiles + "\\" + magic + ".lot";
 		File zff = new File(zf);
@@ -1337,28 +1523,54 @@ public class Installer
 	
 	private void copyTradecopy(Metaconfig metaconf)
 	{
-		FileAccessDyn fd = new FileAccessDyn();
-		
-		String _quelleRec = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
-		String _quelleSend = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
-		String _quellelib = Rootpath.getRootpath() + "\\install\\MT4_libraries\\FXBlueQuickChannel.dll";
-		String _recfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierReceiverFilter.ex4";
-		String _sendfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierSenderFilter.ex4";
-		// String chr_quelle = Rootpath.getRootpath() +
-		// "\\install\\MT4_profiles\\tradecopysender.chr";
-		
-		Tracer.WriteTrace(20, "I: copy tradcopier from<" + _quelleRec + "> and <" + _quelleSend + ">  to<"
-				+ metaconf.getExpertdata() + ">");
-		
-		// Kopiere den Tradecopierer und Tradereceiver
-		fd.copyFile2(_quelleRec, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Receiver.ex4");
-		fd.copyFile2(_quelleSend, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Sender.ex4");
-		fd.copyFile2(_quellelib, metaconf.getMqldata() + "\\libraries\\FXBlueQuickChannel.dll");
-		
-		// kopiere die filterfiles
-		fd.copyFile2(_recfilter, metaconf.getMqldata() + "\\libraries\\CopierReceiverFilter.ex4");
-		fd.copyFile2(_sendfilter, metaconf.getMqldata() + "\\libraries\\CopierSenderFilter.ex4");
-		FileAccess.FileDelete(metaconf.getMqldata() + "\\Experts\\mqlcache.dat", 1);
+		if (metaconf.getMttype().toLowerCase().equals("mt4"))
+		{
+			FileAccessDyn fd = new FileAccessDyn();
+			String _quelleRec = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Receiver.ex4";
+			String _quelleSend = Rootpath.getRootpath() + "\\install\\MT4_experts\\FX Blue - TradeCopy Sender.ex4";
+			String _quellelib = Rootpath.getRootpath() + "\\install\\MT4_libraries\\FXBlueQuickChannel.dll";
+			String _recfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierReceiverFilter.ex4";
+			String _sendfilter = Rootpath.getRootpath() + "\\install\\MT4_libraries\\CopierSenderFilter.ex4";
+			// String chr_quelle = Rootpath.getRootpath() +
+			// "\\install\\MT4_profiles\\tradecopysender.chr";
+			
+			Tracer.WriteTrace(20, "I: copy tradcopier from<" + _quelleRec + "> and <" + _quelleSend + ">  to<"
+					+ metaconf.getExpertdata() + ">");
+			
+			// Kopiere den Tradecopierer und Tradereceiver
+			fd.copyFile2(_quelleRec, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Receiver.ex4");
+			fd.copyFile2(_quelleSend, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Sender.ex4");
+			fd.copyFile2(_quellelib, metaconf.getMqldata() + "\\libraries\\FXBlueQuickChannel.dll");
+			
+			// kopiere die filterfiles
+			fd.copyFile2(_recfilter, metaconf.getMqldata() + "\\libraries\\CopierReceiverFilter.ex4");
+			fd.copyFile2(_sendfilter, metaconf.getMqldata() + "\\libraries\\CopierSenderFilter.ex4");
+			FileAccess.FileDelete(metaconf.getMqldata() + "\\Experts\\mqlcache.dat", 1);
+		} else if (metaconf.getMttype().toLowerCase().equals("mt5"))
+		{
+			FileAccessDyn fd = new FileAccessDyn();
+			String _quelleRec = Rootpath.getRootpath() + "\\install\\MT5_experts\\FX Blue - TradeCopy Receiver.ex5";
+			String _quelleSend = Rootpath.getRootpath() + "\\install\\MT5_experts\\FX Blue - TradeCopy Sender.ex5";
+			String _quellelib = Rootpath.getRootpath() + "\\install\\MT5_libraries\\FXBlueQuickChannel64.dll";
+			String _recfilter = Rootpath.getRootpath() + "\\install\\MT5_libraries\\CopierReceiverFilter.ex5";
+			String _sendfilter = Rootpath.getRootpath() + "\\install\\MT5_libraries\\CopierSenderFilter.ex5";
+			// String chr_quelle = Rootpath.getRootpath() +
+			// "\\install\\MT4_profiles\\tradecopysender.chr";
+			
+			Tracer.WriteTrace(20, "I: copy tradcopier from<" + _quelleRec + "> and <" + _quelleSend + ">  to<"
+					+ metaconf.getExpertdata() + ">");
+			
+			// Kopiere den Tradecopierer und Tradereceiver
+			fd.copyFile2(_quelleRec, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Receiver.ex5");
+			fd.copyFile2(_quelleSend, metaconf.getExpertdata() + "\\FX Blue - TradeCopy Sender.ex5");
+			fd.copyFile2(_quellelib, metaconf.getMqldata() + "\\libraries\\FXBlueQuickChannel64.dll");
+			
+			// kopiere die filterfiles
+			fd.copyFile2(_recfilter, metaconf.getMqldata() + "\\libraries\\CopierReceiverFilter.ex5");
+			fd.copyFile2(_sendfilter, metaconf.getMqldata() + "\\libraries\\CopierSenderFilter.ex5");
+			FileAccess.FileDelete(metaconf.getMqldata() + "\\Experts\\mqlcache.dat", 1);
+			
+		}
 		
 	}
 	
@@ -1367,16 +1579,31 @@ public class Installer
 		// hier wird nur rüberkopiert, also die *.chr files auf sender und
 		// empfängerseite
 		
+		String _quelleSender = null;
+		String _quelleReceiver=null;
+		
 		String brokername = metaconfdemo.getBrokername();
-		
 		FileAccessDyn fd = new FileAccessDyn();
-		String _quelleSender = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopySender.chr";
-		String _quelleReceiver = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopyReceiver.chr";
-		
+	
 		// 1) TradecopySender.chr wird rüberkopiert
 		Profiler prof1 = new Profiler(metaconfdemo);
 		String fnam1 = prof1.getFreeChartName();
-		String senderconfigfile = metaconfdemo.getAppdata() + "\\profiles\\default\\" + fnam1;
+		String senderconfigfile=null;
+		if(metaconfdemo.getMttype().toLowerCase().equals("mt4"))
+		{
+			senderconfigfile = metaconfdemo.getAppdata() + "\\profiles\\default\\" + fnam1;
+			_quelleSender = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopySender.chr";
+			_quelleReceiver = Rootpath.getRootpath() + "\\install\\MT4_profiles\\TradeCopyReceiver.chr";
+		}
+		else if(metaconfdemo.getMttype().toLowerCase().equals("mt5"))
+		{
+			senderconfigfile = metaconfdemo.getAppdata() + "\\mql5\\profiles\\charts\\default\\" + fnam1;
+			_quelleSender = Rootpath.getRootpath() + "\\install\\MT5_profiles\\TradeCopySender.chr";
+			_quelleReceiver = Rootpath.getRootpath() + "\\install\\MT5_profiles\\TradeCopyReceiver.chr";
+		}
+		else
+			Tracer.WriteTrace(10, "E: only mt4 or mt5 allowed -> stop");
+		
 		if (fd.copyFile2(_quelleSender, senderconfigfile) == false)
 			Tracer.WriteTrace(10,
 					"E:copyconfig:cant copy file from<" + _quelleSender + "> to<" + senderconfigfile + "> ");
@@ -1389,7 +1616,14 @@ public class Installer
 		// 2) TradecopyReceiver.chr wird rüberkopiert
 		Profiler prof2 = new Profiler(metaconfreal);
 		String fnam2 = prof2.getFreeChartName();
-		String empfaengerconfigfile = metaconfreal.getAppdata() + "\\profiles\\default\\" + fnam2;
+		
+		String empfaengerconfigfile=null;
+
+		if(metaconfdemo.getMttype().toLowerCase().equals("mt4"))
+			empfaengerconfigfile = metaconfreal.getAppdata() + "\\profiles\\default\\" + fnam2;
+		else if(metaconfdemo.getMttype().toLowerCase().equals("mt5"))
+			empfaengerconfigfile = metaconfreal.getAppdata() + "\\mql5\\profiles\\charts\\default\\" + fnam2;
+		
 		if (fd.copyFile2(_quelleReceiver, empfaengerconfigfile) == false)
 			Tracer.WriteTrace(10,
 					"E:copyconfig:cant copy file from<" + _quelleReceiver + "> to<" + empfaengerconfigfile + "> ");
@@ -1402,5 +1636,9 @@ public class Installer
 		// clean the cache
 		FileAccess.FileDelete(metaconfdemo.getMqldata() + "//Experts//mqlcache.dat", 1);
 		FileAccess.FileDelete(metaconfreal.getMqldata() + "//Experts//mqlcache.dat", 1);
+		FileAccess.FileDelete(metaconfdemo.getMqldata() + "//experts.dat", 1);
+		FileAccess.FileDelete(metaconfreal.getMqldata() + "//experts.dat", 1);
+		
+		
 	}
 }

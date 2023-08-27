@@ -74,7 +74,8 @@ public class TradeCopy
 		
 		
 		chrdemo.patchCurPair(meconf_sel_glob.getHistexportcurrency());
-		chrdemo.writeMemFile(null);
+		chrdemo.writeMemFileCoding(null, "ISO-8859-1");
+		chrdemo.close();
 		
 		// 3)patchen am realborker config
 		// 3.1 suche erst mal das empfanger profile des realaccount
@@ -89,7 +90,8 @@ public class TradeCopy
 		chrreal.patchReceiverMagic(meconf_sel_glob.getTradecopymagic());
 		chrreal.patchCurPair(meconf_real_glob.getHistexportcurrency());
 		chrreal.patchSuffix(meconf_real_glob.getSuffix());
-		chrreal.writeMemFile(null);
+		chrreal.writeMemFileCoding(null,"ISO-8859-1");
+		chrreal.close();
 	}
 	
 	

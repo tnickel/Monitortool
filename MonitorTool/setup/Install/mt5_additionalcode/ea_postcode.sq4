@@ -1,0 +1,96 @@
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+//1.0 21.08.2023 initial release for Mt5-Eas
+
+
+
+
+
+void initlotconfig(string mn)
+  {
+   int handle=0;
+   string magno=mn;
+   string such=magno;
+//gen configfile magno.lot if not available
+   if(checkfile(such+".lot")==0)
+     {
+      handle=FileOpen(such+".lot", FILE_CSV|FILE_WRITE|FILE_ANSI);
+      if(handle>0)
+        {
+         if(FileWriteString(handle,"\Install\Mt4_additionalcode SQ 4.X \n")==false)
+            Log("Error cant write file <"+such+".lot>");
+
+         if(FileWriteString(handle,"extern double mmLotsIfNoMM = 0.01;\n")==false)
+            Log("Error cant write file <"+such+".lot>");
+
+
+         FileClose(handle);
+        }
+      else
+         Log("ERROR cant create file <"+such+".lot>");
+     }
+   ObjectCreate(0,"lots",OBJ_LABEL,0,0,0,0,0,0,0);
+   ObjectSetString(0,"lots",OBJPROP_TEXT,"lots=" + mmLots);
+   ObjectSetInteger(0,"lots",OBJPROP_XDISTANCE,50);
+   ObjectSetInteger(0,"lots",OBJPROP_YDISTANCE,60);
+   ObjectSetInteger(0,"lots",OBJPROP_CORNER,CORNER_LEFT_UPPER);
+   ObjectSetInteger(0,"lots",OBJPROP_COLOR,clrAliceBlue);
+  }
+
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+bool lotconfig(string mn)
+  {
+//return true: falls magic.lot vorhanden
+//return false: falls kein magic.lot vorhanden
+   string magno=mn;
+   string such=magno;
+   int handle=0;
+   string filelots_str=NULL;
+   string line_str=NULL;
+   int i=0;
+   double lots_val=0.01;
+
+   initlotconfig(mn);
+
+//falls eine lotconfig für eine bestimmte magic vorhanden ist, dann lese die werte aus dem file
+   if(checkfile(such+".lot")==1)
+     {
+      handle=FileOpen(such+".lot", FILE_CSV|FILE_READ|FILE_ANSI);
+      if(handle>0)
+        {
+         while(!FileIsEnding(handle))
+           {
+            line_str=FileReadString(handle);
+            lotconfigmem[i]=line_str;
+            i++;
+           }
+         FileClose(handle);
+        }
+      //betrachte die nächste zeile
+      for(i=0; i<20; i++)
+        {
+         line_str=lotconfigmem[i];
+
+         if(StringFind(line_str,"mmLotsIfNoMM",0)>=0)
+           {
+            mmLots=extract_doubleval(line_str,0,5,MagicNumber);
+            break;
+           }
+        }
+
+      Log("use *.lot ---config ***********************");
+      Log("mmLotsIfNoMM="+mmLots);
+
+      //dann zeige die aktuelle lotsize an
+      ObjectSetString(0,"lots",OBJPROP_TEXT,"lots=" + mmLots);
+      return(true);
+     }
+   return false;
+  }
+//+------------------------------------------------------------------+
+

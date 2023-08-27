@@ -324,10 +324,10 @@ public class Inf
 	}
 
 	private XStream xstream;
-	public synchronized void saveXST( Object data)
+	public  void saveXST( Object data)
 	{
 		FileWriter toFile=null;
-		initStream();
+		xstream = new XStream(new DomDriver());
 		File file = new File(filename_glob);
 		try
 		{
@@ -350,11 +350,11 @@ public class Inf
 		}
 	}
 
-	synchronized public Object loadXST()
+	 public Object loadXST()
 	{
 		Object temp = null;
 		File file = new File(filename_glob);
-		initStream();
+		xstream = new XStream(new DomDriver());
 		try
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -367,9 +367,6 @@ public class Inf
 		return temp;
 	}
 
-	private void initStream()
-	{
-		xstream = new XStream(new DomDriver());
-	}
+	
 	
 }

@@ -1,9 +1,11 @@
 package modtools;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import FileTools.StringInFile;
 import Metriklibs.FileAccessDyn;
 import data.Ea;
 import data.Metaconfig;
@@ -33,7 +35,14 @@ public class Profiler
 		
 		// z.B. path =
 		// C:\Users\tnickel\AppData\Roaming\MetaQuotes\Terminal\CC6E1102573BF694B8273CD181A4EFF7\profiles\default
-		path = meconf_glob.getAppdata() + "\\profiles\\default";
+
+		if(meconf_glob.getMttype().toLowerCase().equals("mt4"))
+			path = meconf_glob.getAppdata() + "\\profiles\\default";
+		else if(meconf_glob.getMttype().toLowerCase().equals("mt5"))
+			path = meconf_glob.getAppdata() + "\\MQL5\\profiles\\charts\\default";
+		else
+			Tracer.WriteTrace(10, "E:getprofiledir metype unknown <"+meconf_glob.getMttype()+">");
+		
 		if (meconf_glob.getAppdata() == null)
 		{
 			Tracer.WriteTrace(10, "internal error no appdata");
@@ -208,32 +217,9 @@ public class Profiler
 	public Boolean checkKeyword(String filename, String keyword)
 	{
 		// prüft für ein bestimmtes profile ob der keynamen drin ist
-		String profiledir = getprofiledir();
 		
-		File ffnam = new File(filename);
-		if (ffnam.exists() == false)
-		{
-			Mbox.Infobox("profile not exists <" + ffnam.getAbsoluteFile() + ">");
-			return false;
-		}
-		if (ffnam.length() < 5)
-		{
-			Tracer.WriteTrace(20, "profile bad <" + ffnam.getAbsoluteFile() + ">");
-			return false;
-		}
-		Inf inf = new Inf();
-		inf.setFilename(filename);
-		inf.close();
-		
-		// Tracer.WriteTrace(20, "I: checkprofile index<"+i+">");
-		String mem = inf.readMemFile(8000);
-		inf.close();
-		if (mem.toLowerCase().contains(keyword.toLowerCase()))
-		{
-			
-			return true;
-		}
-		return false;
+		return(StringInFile.isStringInFile(filename, keyword,0));
+	
 	}
 	public Boolean checkKeywordExakt(String filename, String keyword)
 	{
@@ -251,20 +237,7 @@ public class Profiler
 			Tracer.WriteTrace(20, "profile bad <" + ffnam.getAbsoluteFile() + ">");
 			return false;
 		}
-		Inf inf = new Inf();
-		inf.setFilename(filename);
-
-        String zeile=null;
-        while((zeile=inf.readZeile())!=null)
-        {
-        	if(zeile.toLowerCase().equals(keyword.toLowerCase()))
-        	{
-        		inf.close();
-        		return true;
-        	}
-        }
-		inf.close();
-		return false;
+		return(StringInFile.isStringInFile(filename, keyword,1));
 	
 	}
 	public Boolean delAllProfiles(String eaname, String channel)
@@ -361,13 +334,18 @@ public class Profiler
 			return;
 		}
 		// den namen des Zielfile ermitteln
-		String zielfile = meconf_glob.getAppdata() + "\\profiles\\default\\" + getFreeChartName();
+		//String zielfile = meconf_glob.getAppdata() + "\\profiles\\default\\" + getFreeChartName();
+
+		String zielfile = getprofiledir() + "\\" + getFreeChartName();
 		fd.copyFile2(quelle, zielfile);
 		
 		// das spezielle profile muss noch modifziert werden bzgl. cur postfix
 		
 		String histcurrencystring = meconf_glob.getHistexportcurrency();
-		FileAccess.FileReplaceString(zielfile, "symbol=EURUSD", "symbol=" + histcurrencystring);
+		
+		//das ist die neuste und Beste funktion um in einer Datei einen String zu ersetzen, utf-8 und utf-16 werden beachtet.
+		StringInFile.Replace(zielfile, "symbol=EURUSD", "symbol=" + histcurrencystring);
+		
 	}
 	
 	public void checkDoubleEa(String expertname, String path)
@@ -394,15 +372,16 @@ public class Profiler
 			return;
 		
 		// zielfile ermitteln
-		String zielfile = meconf_glob.getAppdata() + "\\profiles\\default\\" + getFreeChartName();
-		
+		//String zielfile = meconf_glob.getAppdata() + "\\profiles\\default\\" + getFreeChartName();
+		String zielfile = getprofiledir()+"\\" + getFreeChartName();
 		writeChrFile(mqlpatch, quelle, zielfile, ea, meconf);
 	}
 	
 	private void writeChrFile(MqlPatch mqlpatch, String quelle, String zielfile, Ea ea, Metaconfig meconf)
 	{
-		int period = mqlpatch.getPeriod();
+		int period = mqlpatch.getPeriodMt4();
 		String symbol = "";
+		String mtype=meconf.getMttype().toLowerCase();
 		
 		// lösche das chrfile falls schon da
 		
@@ -410,24 +389,40 @@ public class Profiler
 			FileAccess.FileDelete(zielfile, 0);
 		
 		symbol = mqlpatch.getSymbol(meconf_glob);
-		
-		String expertname = mqlpatch.getExpertname().replace(".mq4", "");
+		String expertname=null;
+		if(meconf.getMttype().toLowerCase().equals("mt4"))
+		    expertname = mqlpatch.getExpertname().replace(".mq4", "");
+		else if(meconf.getMttype().toLowerCase().equals("mt5"))
+			 expertname = mqlpatch.getExpertname().replace(".mq5", "");
+		else
+			Tracer.WriteTrace(10, "E: mtype <"+meconf.getMttype()+"> not supported");
 		
 		ChrFile cfgpatch = new ChrFile();
 		cfgpatch.setFilename(quelle);
 		cfgpatch.readMemFile();
-		cfgpatch.setPeriod(period);
+		
+		if(meconf.getMttype().toLowerCase().equals("mt4"))
+			cfgpatch.setPeriodMt4(period);
+		else if(meconf.getMttype().toLowerCase().equals("mt5"))
+			cfgpatch.setPeriodMt5(mqlpatch.getMt5Type(),mqlpatch.getMt5Size(),quelle);
+		else
+			Tracer.WriteTrace(10, "E:unkown period mt5 3454545");
+		
 		String curpostfix = meconf.getCurpostfix();
 		if (curpostfix != null)
 			cfgpatch.setSymbol(symbol + curpostfix);
 		cfgpatch.setExpertname(expertname);
-		cfgpatch.setYellowmessage(expertname);
+		if(meconf.getMttype().toLowerCase().equals("mt5"))
+			cfgpatch.setMt5Expertpath("path=Experts\\SQ\\"+expertname+".ex5");
+		
+		if(meconf.getMttype().toLowerCase().equals("mt4"))
+		  cfgpatch.setYellowmessage(expertname);
 		
 		if (ea == null)
 			Tracer.WriteTrace(10, "ea <" + quelle + "> nicht bekannt");
 		
 		cfgpatch.writeMemFile(zielfile);
-		
+	
 		ea.setSymbol(symbol);
 		ea.setPeriod(period);
 		Mlist.add("I:write cfg-file<" + zielfile + ">", 1);

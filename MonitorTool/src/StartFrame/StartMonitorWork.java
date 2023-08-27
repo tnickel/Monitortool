@@ -257,7 +257,7 @@ public class StartMonitorWork
 		// hier wird die Ealiste für das mittlere Fenster aufgebaut
 		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag);
 		
-		brokerview_glob.SaveBrokerTable();
+		//brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
 	}
 	
@@ -268,7 +268,7 @@ public class StartMonitorWork
 		Metaconfig me = brokerview_glob.getMetaconfig(glob_selectedBrokerShare);
 		
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
-		sc.init(display_glob, me, brokerview_glob, 0, tv_glob);
+		sc.init(display_glob, me, brokerview_glob, 0, tv_glob,"editconfig");
 		buildBrokerliste(table3, 0);
 	}
 	
@@ -366,9 +366,9 @@ public class StartMonitorWork
 		Metaconfig me = new Metaconfig("##0######0######");
 		
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
-		sc.init(display_glob, me, brokerview_glob, 1, tv_glob);
+		sc.init(display_glob, me, brokerview_glob, 1, tv_glob,"addbroker");
 		buildBrokerliste(table3, 0);
-		
+		brokerview_glob.SaveBrokerTable();
 	}
 	
 	public void deletebroker(Table table3)
@@ -508,6 +508,7 @@ public class StartMonitorWork
 	public void saveAndExit()
 	{
 		tv_glob.store();
+		brokerview_glob.SaveBrokerTable();
 		System.exit(0);
 	}
 	
@@ -553,7 +554,7 @@ public class StartMonitorWork
 		return (tv_glob.deleteEas());
 	}
 	
-	public void installAutoEa()
+	public void installAutoEa_dep()
 	{
 		// installiert einen Einzigen EA
 		Profit prof = selectedProfitelem_glob;
@@ -580,7 +581,7 @@ public class StartMonitorWork
 		}
 		
 		Installer inst = new Installer();
-		if (inst.InstalliereEinRealEaSystemFromDemobroker(tv_glob, prof, meconf, meRealconf,
+		if (inst.InstalliereEinRealEaSystemFromDemobroker_dep(tv_glob, prof, meconf, meRealconf,
 				tv_glob.getEaliste()) == true)
 		{
 			Mbox.Infobox("EA magic<" + prof.getMagic() + "> installed on broker <" + meconf.getconnectedBroker() + ">");

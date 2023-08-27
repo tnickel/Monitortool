@@ -1843,6 +1843,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// add new broker
 		System.out.println("addbroker.widgetSelected, event=" + evt);
 		smw.addnewbroker(table3);
+		
 	}
 
 	private void deletebrokerWidgetSelected(SelectionEvent evt)
@@ -1912,13 +1913,13 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 
 	}
 
-	private void installautoeaWidgetSelected(SelectionEvent evt)
+	/*private void installautoeaWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("installautoea.widgetSelected, event=" + evt);
 		// Installiert einen AutoEa
 		smw.installAutoEa();
 	}
-
+*/
 	private void automaticOnOffWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("automaticOnOff.widgetSelected, event=" + evt);

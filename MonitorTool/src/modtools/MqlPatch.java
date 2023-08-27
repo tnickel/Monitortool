@@ -23,54 +23,28 @@ public class MqlPatch extends MqlSqPatcher
 		this.expertname_glob = expertname;
 	}
 
-	public int getPeriod()
+	public int getPeriodMt4()
 	{
-		//expertname_glob=Q67 EURUSD M15 3.100.112.mq4
-		
-		String[] periodenzeichen =
-		{ "M15", "H1", "M1", "M5", "M30", "H4", "D1" };
-		Integer[] frame =
-		{ 15, 60, 1, 5, 30, 240, 1440 };
-		
-		
-		if(expertname_glob.endsWith(".mq4")==false)
-		{
-			Tracer.WriteTrace(10, "expertname should end with .mq4 but I got <"+expertname_glob+">");
-			return 0;
-		}
-		
-		
-		
-		String[] parts = expertname_glob.split(" ");
-		int anzp=parts.length;
-		if(anzp<3)
-		{
-			Tracer.WriteTrace(10, "wrong format expertname should have [Currencystring] [Timeframe] [Magic].mq4 \n for example 'Q67 EURUSD M15 3.100.112.mq4'");
-		}
-	
-		String period_found=parts[anzp-2];
-		
-		if(period_found==null)
-		{
-			Tracer.WriteTrace(10, "problem with period in <"+expertname_glob+"> -> STOP");
-			return 0;
-		}
-		
-		int anz = periodenzeichen.length;
-		for (int i = 0; i < anz; i++)
-		{
-			if (period_found.contains(periodenzeichen[i]))
-				return frame[i];
-		}
-		
-		Tracer.WriteTrace(10, "found no period in <"+expertname_glob+">");
-		return 0;
+		MtTypeSizePeriod m4=new MtTypeSizePeriod(expertname_glob);
+		return m4.getMt4Period();
 	}
-
+	
+	public int getMt5Type()
+	{
+		MtTypeSizePeriod m5=new MtTypeSizePeriod(expertname_glob);
+		return m5.getMt5Type();
+	}
+	
+	public int getMt5Size()
+	{
+		MtTypeSizePeriod m5=new MtTypeSizePeriod(expertname_glob);
+		return m5.getMt5Size();
+	}
+	
 	public String getSymbol(Metaconfig meconfig)
 	{
 		//expertname_glob=Q67 EURUSD M15 3.100.112.mq4
-		if(expertname_glob.endsWith(".mq4")==false)
+		if((expertname_glob.endsWith(".mq4")==false)&&(expertname_glob.endsWith(".mq5")==false))
 		{
 			Tracer.WriteTrace(10, "expertname should end with .mq4 but I got <"+expertname_glob+">");
 			return null;
@@ -125,15 +99,15 @@ public class MqlPatch extends MqlSqPatcher
 		
 		
 	}
-	public boolean patchInit()
+	public boolean patchInit(String mtype)
 	{
 		//sq4 and Ea Studio same inits
 		if(isSq4x==1)
-			patchInitSq4x();
+			patchInitSq4x(mtype);
 		else if(isSq4x==0)
-			patchInitSq3();
+			patchInitSq3(mtype);
 		else if(isSq4x==2)
-			patchInitStudioBuilder();
+			patchInitStudioBuilder(mtype);
 		return true;
 	}
 
@@ -172,12 +146,12 @@ public class MqlPatch extends MqlSqPatcher
 			
 	}
 
-	public void addAbschaltAutomatic(String kennung)
+	public void addAbschaltAutomatic(String kennung, String mtype)
 	{
 		if(isSq4x==1)
-			addAbschaltAutomaticSq4x(kennung,expertname_glob);
+			addAbschaltAutomaticSq4x(kennung,expertname_glob,mtype);
 		else
-			addAbschaltAutomaticSq3(kennung,expertname_glob);
+			addAbschaltAutomaticSq3(kennung,expertname_glob,mtype);
 			
 	}
 	protected void addPostcode(String postfilename)

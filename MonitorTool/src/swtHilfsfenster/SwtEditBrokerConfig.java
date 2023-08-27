@@ -119,12 +119,14 @@ public class SwtEditBrokerConfig
 	private Tableview tableview_glob = null;
 	private int newflag_glob = 0;
 	private SwtEditBrokerConfigWork work = new SwtEditBrokerConfigWork();
+	private String actionmode_glob="addbroker";
 	
-	public void init(Display dis, Metaconfig me, Brokerview bv, int newflag, Tableview tv)
+	public void init(Display dis, Metaconfig me, Brokerview bv, int newflag, Tableview tv,String actionmode)
 	{
 		// newflag=1, eine neue config wird hinzugefügt
 		bv_glob = bv;
 		me_glob = me;
+		actionmode_glob=actionmode;
 		tableview_glob = tv;
 		dis_glob = dis;
 		newflag_glob = newflag;
@@ -317,7 +319,7 @@ public class SwtEditBrokerConfig
 	}
 	{
 		text1mqldir = new Text(sh, SWT.BORDER);
-		text1mqldir.setBounds(7, 258, 714, 30);
+		text1mqldir.setBounds(7, 257, 714, 30);
 		text1mqldir.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
 		text1mqldir.setToolTipText("This is the path were I am looking for historyxeporter.txt");
 		text1mqldir.setEditable(false);
@@ -620,12 +622,13 @@ public class SwtEditBrokerConfig
 			}
 		});
 	}
-
+	initBrokereditM(actionmode);
+	refreshbuttons(actionmode);
 	sh.open();
 	
-	initBrokereditM();
 	
-	refreshbuttons();
+	
+	
 	
 	while((!sh.isDisposed())&&(exitflag==0))
 	
@@ -640,14 +643,14 @@ public class SwtEditBrokerConfig
 	
 	}
 	
-	private void refreshbuttons()
+	private void refreshbuttons(String actionmode)
 	{
 		build_combobox(combo1, bv_glob);
 		
 		if (me_glob.getAccounttype() == 1)
 		{
 			
-			setDemoaccount();
+			setDemoaccount(actionmode);
 		} else if(me_glob.getAccounttype()==2)
 		{
 			setRealaccount();
@@ -747,12 +750,13 @@ public class SwtEditBrokerConfig
 		return true;
 	}
 	
-	void initBrokereditM()
+	void initBrokereditM(String actionmode)
 	{
 		//bei create account wird erst default mässig auf demoaccount gesetzt
 		if(me_glob.getAccounttype() == 0)
-			setDemoaccount();
-		
+			setDemoaccount(actionmode);
+		if(me_glob.getAccounttype() == 2)
+			setRealaccount();
 		
 		me_glob.setValiditydays(999999);
 		me_glob.setStoretrades(true);
@@ -818,6 +822,9 @@ public class SwtEditBrokerConfig
 			button1usebackupdir.setSelection(true);
 		else
 			button1usebackupdir.setSelection(false);
+		
+		if(actionmode.equals("addbroker"))
+			installEas.setEnabled(false);
 	}
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{
@@ -890,11 +897,9 @@ public class SwtEditBrokerConfig
 		GlobalVar.save();
 		
 		// hier wird die ganze Brokerconfig abgespeichert
+	
 		
-		if (newflag_glob == 1)
-			bv_glob.addElem(me_glob);
 		
-		bv_glob.SaveBrokerTable();
 		
 		if (button1symbolreplacement.getSelection() == true)
 		{
@@ -903,6 +908,10 @@ public class SwtEditBrokerConfig
 			s.ShowReplaceResults();
 			
 		}
+		
+		if (newflag_glob == 1)
+			bv_glob.addElem(me_glob);
+		bv_glob.SaveBrokerTable();
 		
 		exitflag = 1;
 		if (dis_glob.getActiveShell() != null)
@@ -916,14 +925,19 @@ public class SwtEditBrokerConfig
 		// Install demo
 		MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
-		
+		//bv_glob.SaveBrokerTable();
 		String selbroker = me_glob.getconnectedBroker();
 		Metaconfig metatraderrealconfig = bv_glob.getMetaconfigByBrokername(selbroker);
 		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
+		
+		//schaue hier nach was kaputt gemacht wird
+		
 		work.installDemoEas(dis_glob, progressBar1, me_glob, metatraderrealconfig, MqlQuellverzeichniss.getText(),
 				tableview_glob);
-		bv_glob.SaveBrokerTable();
+		
+		//savebrokertable kanllt da vorab was an der brokertable geändert wurde, stelle fest was es genau war
+		
 		
 		return true;
 	}
@@ -1214,10 +1228,10 @@ public class SwtEditBrokerConfig
 	private void AutoDemoaccountWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("AutoDemoaccount.widgetSelected, event=" + evt);
-		setDemoaccount();
+		setDemoaccount(actionmode_glob);
 	}
 	
-	private void setDemoaccount()
+	private void setDemoaccount(String actionmode)
 	{
 		// 1=demoaccount
 		// 2=realacccount
@@ -1245,7 +1259,9 @@ public class SwtEditBrokerConfig
 		text1suffix.setEnabled(false);
 		label7suffix.setEnabled(false);
 		combo1.setEnabled(true);
-		installEas.setEnabled(true);
+		
+		if(actionmode.equals("editbroker"))
+				installEas.setEnabled(true);
 		text1usemagic.setEnabled(true);
 		label4.setEnabled(true);
 		tradesuffixsender.setEnabled(true);
@@ -1269,6 +1285,7 @@ public class SwtEditBrokerConfig
 		me_glob.setAccounttype(2);
 		text1usemagic.setText("0");
 		
+		button1realaccountsel.setSelection(true);
 		GbAutomaticaccountflag.setSelection(false);
 		button1autocreator.setSelection(false);
 		button1showonlyinstalledeas.setEnabled(false);

@@ -25,7 +25,7 @@ public class SwtEditBrokerConfigWork
 		MessageBox dialog = new MessageBox(dis.getActiveShell(),
 				SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
 		dialog.setText("My info");
-		dialog.setMessage("Do you really want to do this?");
+		dialog.setMessage("Do you really want to install EAs?");
 		if (dialog.open() != 32)
 			return false;
 
@@ -137,6 +137,8 @@ public class SwtEditBrokerConfigWork
 			String fnam = fdyn.holeFileSystemName();
 
 			if (fnam.contains(".mq4"))
+				return true;
+			if(fnam.contains(".mq5"))
 				return true;
 		}
 		return false;

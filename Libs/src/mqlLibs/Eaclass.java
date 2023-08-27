@@ -14,17 +14,25 @@ public class Eaclass
 		// 454.6035_2.mq4
 		// die Magic muss am ende stehen
 		
+		String mqlpostfix=null;
+		if(quellnam.contains(".mq4"))
+			mqlpostfix=".mq4";
+		else if (quellnam.contains(".mq5"))
+			mqlpostfix=".mq5";
+		else
+			Tracer.WriteTrace(10, "Error:calc magic '.mq4/5'-kennung fehlt im file <"
+					+ quellnam + ">");
+		
+		
 		//new format
 		//Q05 EURUSD H1Strategy 0.2.26010.mq4
-		if (quellnam.contains(".mq4") == false)
-			Tracer.WriteTrace(10, "Error: '.mq4'-kennung fehlt im file <"
-					+ quellnam + ">");
+	
 		
 		if(quellnam.contains(" ")==false)
 			Tracer.WriteTrace(10, "E:wrong EA name <"+quellnam+"> name should contains [currency] [timeframe] [magic].mql with spaces");
 		
 		String keyword = quellnam.substring(quellnam.lastIndexOf(" "),
-				quellnam.indexOf(".mq4"));
+				quellnam.indexOf(mqlpostfix));
 
 		keyword = keyword.replace(".", "");
 		keyword = keyword.replace("_", "");
@@ -36,7 +44,7 @@ public class Eaclass
 			keyword = keyword.substring(1, keyword.length());
 
 		if (keyword.length() > 11)
-			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits");
+			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits quellnam<"+quellnam+">");
 	
 		return SG.get_zahl(keyword);
 	}
@@ -48,15 +56,24 @@ public class Eaclass
 		
 		//new format
 		//Q05 EURUSD H1Strategy 0.2.26010.mq4
-		if (quellnam.contains(".mq4") == false)
+
+		String mqlpostfix=null;
+		if(quellnam.contains(".mq4"))
+			mqlpostfix=".mq4";
+		else if (quellnam.contains(".mq5"))
+			mqlpostfix=".mq5";
+		else
+		{
+			Tracer.WriteTrace(20, "Warning: calcMagicSimple '.mq4/5'-kennung fehlt im file oder EA nicht auf platte<"
+					+ quellnam + ">");
 			return 0;
-		
+		}
 		if(quellnam.contains(" ")==false)
 			return 0;
 			
 		
 		String keyword = quellnam.substring(quellnam.lastIndexOf(" "),
-				quellnam.indexOf(".mq4"));
+				quellnam.indexOf(mqlpostfix));
 
 		keyword = keyword.replace(".", "");
 		keyword = keyword.replace("_", "");
@@ -68,7 +85,7 @@ public class Eaclass
 			keyword = keyword.substring(1, keyword.length());
 
 		if (keyword.length() > 11)
-			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits");
+			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits <"+quellnam+">");
 	
 		return SG.get_zahl(keyword);
 	}

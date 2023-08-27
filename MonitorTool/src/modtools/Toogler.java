@@ -34,7 +34,7 @@ public class Toogler
 			if (mc == null)
 				Tracer.WriteTrace(10, "E:unknown broker<" + selbroker + ">");
 			
-			//check
+			//check if connected to realbroker
 			String realbroker = mc.getconnectedBroker();
 			if((realbroker==null)||(realbroker.length()==0)||(realbroker.contains("select realaccount")))
 			{

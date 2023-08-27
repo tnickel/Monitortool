@@ -387,7 +387,7 @@ public class Ealiste
 		this.store(1);
 		
 		// 5) profiles mit einer bestimmten magic löschen
-		delProfilesMagic(magic, appdata);
+		delProfilesMagic(magic, appdata,meconf.getMttype().toLowerCase());
 		
 		// 6) den <magic>.del eintrag im files verzeichniss machen
 		makeDelEntry(magic, appdata);
@@ -463,12 +463,12 @@ public class Ealiste
 			Tracer.WriteTrace(10, "E:1215 expertdata=null");
 	}
 
-	private void delProfilesMagic(int magic, String appdata)
+	private void delProfilesMagic(int magic, String appdata,String mtype)
 	{
 		// hier wird geschaut in welchen char-files die magic vorkommt und die files wo
 		// die magic vorkommt werden gelöscht
 		
-		ArrayList<String> plist = genFileliste600plus(appdata + "\\profiles\\default", magic);
+		ArrayList<String> plist = genFileliste600plus(appdata + "\\profiles\\default", magic,mtype);
 		FilesLoeschen(appdata + "\\profiles\\default", appdata, plist, magic);
 	}
 
@@ -552,7 +552,7 @@ public class Ealiste
 		return flist;
 	}
 	
-	private ArrayList<String> genFileliste600plus(String path, int magic)
+	private ArrayList<String> genFileliste600plus(String path, int magic,String mtype)
 	{
 		// holt die filenamen mit einer bestimmten magic und speichert die in der
 		// fileliste
@@ -602,7 +602,7 @@ public class Ealiste
 			keyword = keyword.substring(1, keyword.length());
 		
 		if (keyword.length() > 9)
-			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits");
+			Mbox.Infobox("Magic<" + keyword + "> too long max 9 digits quellnam<"+quellnam+">");
 		return SG.get_zahl(keyword);
 	}
 	

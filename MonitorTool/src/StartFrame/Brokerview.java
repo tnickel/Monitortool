@@ -426,7 +426,7 @@ public class Brokerview
 		}
 	}
 
-	private synchronized void  postprocess()
+	private  void  postprocess()
 	{
 		// die config abspeichern
 

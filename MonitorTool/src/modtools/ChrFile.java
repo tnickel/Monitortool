@@ -6,6 +6,7 @@ import StartFrame.Brokerview;
 import data.Ealiste;
 import data.Profitliste;
 import gui.Mbox;
+import hiflsklasse.Tracer;
 
 public class ChrFile extends Patcher
 {
@@ -28,7 +29,7 @@ public class ChrFile extends Patcher
 		}
 	}
 
-	public void setPeriod(int period)
+	public void setPeriodMt4(int period)
 	{
 		int anz = zeilenspeicher.length;
 		for (int i = 0; i < anz; i++)
@@ -40,6 +41,36 @@ public class ChrFile extends Patcher
 				return;
 			}
 		}
+	}
+	public void setPeriodMt5(int type, int size,String fnam)
+	{
+		//setze type und size
+		int t=-1;
+		int s=-1;
+		
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile = zeilenspeicher[i];
+			
+			//ende errreicht
+			if(zeile==null)
+				return;
+			
+			if (zeile.contains("period_type=") == true)
+			{
+				zeilenspeicher[i] = "period_type=" + type;
+				t=type;
+			}
+			if (zeile.contains("period_size=") == true)
+			{
+				zeilenspeicher[i] = "period_size=" + size;
+				s=size;
+			}
+		}
+		
+		if((t==-1)||(s==-1))
+			Tracer.WriteTrace(10, "period_type not found <t="+t+" s="+s+">-> stop");
 	}
 
 	public void setExpertname(String expertname)
@@ -53,6 +84,22 @@ public class ChrFile extends Patcher
 					.contains("name=") == true)))
 			{
 				zeilenspeicher[i + 1] = "name=" + expertname;
+
+				return;
+			}
+		}
+	}
+	public void setMt5Expertpath(String path)
+	{
+		int anz = zeilenspeicher.length;
+		for (int i = 0; i < anz; i++)
+		{
+			String zeile0 = zeilenspeicher[i];
+			String zeile2 = zeilenspeicher[i + 2];
+			if (((zeile0.contains("<expert>") == true) && (zeile2
+					.contains("path=") == true)))
+			{
+				zeilenspeicher[i + 2] = path;
 
 				return;
 			}
@@ -252,12 +299,13 @@ public class ChrFile extends Patcher
 		for (int i = 0; i < anz; i++)
 		{
 			String zeile0 = zeilenspeicher[i];
-			if (zeile0.contains("Channel=") == true) 
+			if ((zeile0!=null)&&(zeile0.contains("Channel=") == true)) 
 			{
 				zeilenspeicher[i] = "Channel=" + broker;
 				return;
 			}
 		}
+		Tracer.WriteTrace(10, "E: keyword Channel= missing in chr- file");
 	}
 	public void patchSuffix(String suffix)
 	{
