@@ -762,7 +762,22 @@ public class Metaconfig implements Comparable<Metaconfig>
 			Filedata = fnam + "\\MQL5\\Files";
 			metaversion = ">=600";
 			mtversnumber = ">=600";
-		} else
+		} 
+		 else if (mttype=="mt5")
+			{
+				Appdata = fnam;
+				Mqldata = fnam + "\\MQL5";
+				Expertdata = fnam + "\\MQL5\\Experts\\SQ";
+				Filedata = fnam + "\\MQL5\\Files";
+				metaversion = ">=600";
+				mtversnumber = ">=600";
+				
+				File mql5 = new File(Mqldata);
+				if (mql5.exists() == false)
+					mql5.mkdir();
+				
+			} 
+	else
 		{
 			Appdata = fnam;
 			Mqldata = fnam + "\\MQL4";
@@ -1038,5 +1053,43 @@ public class Metaconfig implements Comparable<Metaconfig>
 	public int compareTo(Metaconfig metatrader)
 	{
 		return -1;
+	}
+	public void genPortableBatch()
+	{
+		//generiert das portable file \\startmetatrader_portable.bat
+		
+		String portextension="";
+		
+		if (GlobalVar.getPortableflag() == 1)
+			portextension = " /portable";
+		
+		String metatraderexepath = null;
+		if (getMttype().toLowerCase().equals("mt4"))
+			metatraderexepath = getNetworkshare_INSTALLDIR() + "\\terminal.exe";
+		else if (getMttype().toLowerCase().equals("mt5"))
+			metatraderexepath = getNetworkshare_INSTALLDIR() + "\\terminal64.exe";
+		else
+			Tracer.WriteTrace(10, "E: metatype not supportet 111122");
+		
+		Inf inflocal = new Inf();
+		String metatraderstartbatfile = "";
+		metatraderstartbatfile = getNetworkshare_INSTALLDIR() + "\\startmetatrader_portable.bat";
+		
+		inflocal.setFilename(metatraderstartbatfile);
+		if (FileAccess.FileAvailable(metatraderstartbatfile))
+			FileAccess.FileDelete(metatraderstartbatfile, 0);
+	
+		// schreibt die lokale startdatei für den metatrader
+		inflocal.writezeile("start /MIN \"\" \"" + metatraderexepath + "\"" + portextension);
+		inflocal.writezeile("exit");
+		inflocal.close();
+		
+	}
+	public Boolean isAvailablePortablebatch()
+	{
+		String metatraderstartbatfile = "";
+		metatraderstartbatfile = getNetworkshare_INSTALLDIR() + "\\startmetatrader_portable.bat";
+		File fnam=new File(metatraderstartbatfile);
+		return (fnam.exists());
 	}
 }

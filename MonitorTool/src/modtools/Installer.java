@@ -247,10 +247,10 @@ public class Installer
 			
 			FileAccess.FilesDelete(quellverz + "\\realinstall", ".mq5");
 			FileAccess.FilesDelete(quellverz + "\\install", ".mq5");
-			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".mq5");
-			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".ex5");
-			FileAccess.FilesDelete(meconf.getExpertdata() + "\\SQ", ".log");
-			File sqdir = new File(meconf.getExpertdata() + "\\SQ");
+			FileAccess.FilesDelete(meconf.getExpertdata() , ".mq5");
+			FileAccess.FilesDelete(meconf.getExpertdata() , ".ex5");
+			FileAccess.FilesDelete(meconf.getExpertdata() , ".log");
+			File sqdir = new File(meconf.getExpertdata() );
 			if (sqdir.exists() == true)
 				if (sqdir.delete() == false)
 					Tracer.WriteTrace(10, "E: can´t delete directory <" + sqdir + ">");
@@ -708,16 +708,7 @@ public class Installer
 			metaconfig.backupProfiles();
 			
 			// 1 Start & Stop MT5
-			MetaStarter.StartMetatrader(metaconfig, metaconfig.getAppdata() + "\\startmetatrader_portable.bat");
-			try
-			{
-				Thread.sleep(5000);
-			} catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			MetaStarter.KillAllMetatrader(1);
+			MetaStarter.StartStopMetatrader(metaconfig);
 			
 			metaconfig.restoreProfiles();
 		}

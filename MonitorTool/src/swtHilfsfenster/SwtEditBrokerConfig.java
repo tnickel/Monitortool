@@ -845,6 +845,13 @@ public class SwtEditBrokerConfig
 			MetaStarter.KillAllMetatrader(0);
 		meRefreshConfig();
 		
+		if(me_glob.isAvailablePortablebatch()==false)
+		{
+			me_glob.genPortableBatch();
+			MetaStarter.StartStopMetatrader(me_glob);
+		}
+		
+		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 		me_glob.setHistexportcurrency(text1currencypair.getText());
 		me_glob.setInsttradecopy(button1tradecopy.getSelection());
@@ -913,6 +920,8 @@ public class SwtEditBrokerConfig
 			bv_glob.addElem(me_glob);
 		bv_glob.SaveBrokerTable();
 		
+		
+		
 		exitflag = 1;
 		if (dis_glob.getActiveShell() != null)
 			dis_glob.getActiveShell().dispose();
@@ -935,8 +944,6 @@ public class SwtEditBrokerConfig
 		
 		work.installDemoEas(dis_glob, progressBar1, me_glob, metatraderrealconfig, MqlQuellverzeichniss.getText(),
 				tableview_glob);
-		
-		//savebrokertable kanllt da vorab was an der brokertable geändert wurde, stelle fest was es genau war
 		
 		
 		return true;

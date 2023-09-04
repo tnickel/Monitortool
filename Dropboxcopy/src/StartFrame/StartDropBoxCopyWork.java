@@ -49,7 +49,7 @@ public class StartDropBoxCopyWork
 		FileAccess.initFileSystemList(dirnam, 0);
 		int anz = FileAccess.holeFileAnz();
 
-		// Sucht die Metatraderverzeichnisse
+		// Sucht die Metatraderverzeichnisse mt4
 		for (int i = 0; i < anz; i++)
 		{
 			String fnam = DropGlobalVar.getMetarootpath() + "\\"
@@ -65,6 +65,22 @@ public class StartDropBoxCopyWork
 			}
 		}
 
+		// Sucht die Metatraderverzeichnisse mt5
+				for (int i = 0; i < anz; i++)
+				{
+					String fnam = DropGlobalVar.getMetarootpath() + "\\"
+							+ FileAccess.holeFileSystemName();
+					File mnam = new File(fnam + "\\terminal64.exe");
+					Mlist.add("check <" + fnam + ">", 1);
+					// falls dies ein Metatraderverzeichniss ist
+					if (mnam.exists() == true)
+					{
+						metaconfliste.addElem(mnam.getAbsolutePath(), 1);
+						metaconfliste.setValid(fnam+ "\\terminal.exe");
+						Mlist.add("Found MT5 <" + mnam + ">");
+					}
+				}
+		
 		// Sucht in den FstVerzeichnissen
 		dirnam = DropGlobalVar.getFstrootpath();
 		FileAccess.initFileSystemList(dirnam, 0);

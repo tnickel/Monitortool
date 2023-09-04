@@ -67,6 +67,9 @@ public class MetaStarter
 		for (int i = 0; i < anz; i++)
 		{
 			Metaconfig meconf = brokerview.getElem(i);
+			if (meconf.getOn() == 0)
+				continue;
+			
 			
 			if (meconf.getMttype().toLowerCase().equals("mt4"))
 				metatraderexepath = meconf.getNetworkshare_INSTALLDIR() + "\\terminal.exe";
@@ -75,6 +78,8 @@ public class MetaStarter
 			else
 				Tracer.WriteTrace(10, "E: metatype not supportet 111122");
 			
+			meconf.genPortableBatch();
+			
 			Inf inflocal = new Inf();
 			String metatraderstartbatfile = "";
 			metatraderstartbatfile = meconf.getNetworkshare_INSTALLDIR() + "\\startmetatrader_portable.bat";
@@ -82,9 +87,6 @@ public class MetaStarter
 			inflocal.setFilename(metatraderstartbatfile);
 			if (FileAccess.FileAvailable(metatraderstartbatfile))
 				FileAccess.FileDelete(metatraderstartbatfile, 0);
-			
-			if (meconf.getOn() == 0)
-				continue;
 			
 			infall.writezeile("start /MIN \"\" \"" + metatraderexepath + "\"" + portextension);
 			infall.writezeile("timeout 5");
@@ -187,6 +189,22 @@ public class MetaStarter
 		}
 		
 	}
+	
+	static public void StartStopMetatrader(Metaconfig meconf)
+	//start and stop metatrader after 5 seconds in portablemode
+	{
+		StartMetatrader(meconf, meconf.getAppdata() + "\\startmetatrader_portable.bat");
+		try
+		{
+			Thread.sleep(5000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		KillAllMetatrader(1);
+	}
+	
 	
 	static public boolean StartMetatrader(Metaconfig meconf, String batchfile)
 	{
