@@ -3,6 +3,7 @@ package sq4xWorkflow;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 import comperatoren.SqBaseElemComperator;
 import hiflsklasse.Inf;
@@ -120,7 +121,7 @@ public class SqBaseList
 			Tracer.WriteTrace(10, "I: no data in SQ3, list is empty");
 			return;
 		}
-		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD#trades");
+		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD#Strategies");
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem sbe = baselist.get(i);
@@ -128,18 +129,19 @@ public class SqBaseList
 			if (cleanname.equals(lastcleanname) == false)
 			{
 				// falls sich der cleanname geändert hat füge Leerzeile ein und gehe weiter
-				zeile = "\"===================================================================================== \"#0.0#0.0#0.0#0.0#0";
+				zeile = "\"===================== \"#0.0#0.0#0.0#0.0#0";
 				inf.writezeile(zeile);
 			}
 			lastcleanname = cleanname;
-			zeile = sbe.getStrategyname() + "#" + sbe.getNetprofit() + "#" + sbe.getProfitfaktor() + "#"
-					+ sbe.getStability() + "#" + sbe.getRetdd()+"#0";
+		
+			zeile = sbe.getStrategyname() + "#" + String.format(Locale.US,"%.2f",sbe.getNetprofit()) + "#" + String.format(Locale.US,"%.2f",sbe.getProfitfaktor()) + "#"
+					+ String.format(Locale.US,"%.2f",sbe.getStability()) + "#" + String.format(Locale.US,"%.2f",sbe.getRetdd())+"#0";
 			inf.writezeile(zeile);
 		}
 		lastcleanname="";
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
 		zeile = "average results  #0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
@@ -151,9 +153,9 @@ public class SqBaseList
 			if (cleanname.equals(lastcleanname) == true)
 				continue;
 			lastcleanname = cleanname;
-			zeile = "average results <" + cleanname + ">=" + "#" + calcAvrNettoprofit(cleanname) + "#"
-					+ calcAvrProfitfaktor(cleanname) + "#" + calcAvrStability(cleanname) + "#"
-					+ calcAvrRetDD(cleanname)+"#"+sumWorkflow.calcAnzTradesAusLogfile(cleanname);
+			zeile = "average results <" + cleanname + ">=" + "#" + String.format(Locale.US,"%.2f",calcAvrNettoprofit(cleanname)) + "#"
+					+ String.format(Locale.US,"%.2f",calcAvrProfitfaktor(cleanname)) + "#" + String.format(Locale.US,"%.2f",calcAvrStability(cleanname)) + "#"
+					+ String.format(Locale.US,"%.2f",calcAvrRetDD(cleanname))+"#"+sumWorkflow.calcAnzTradesAusLogfile(cleanname);
 			inf.writezeile(zeile);
 			
 		}
@@ -179,15 +181,15 @@ public class SqBaseList
 			inf.writezeile(zeile);
 		}
 		*/
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
 		zeile = "#0.0#0.0#0.0#0.0#0";
 		inf.writezeile(zeile);
-		zeile = "overall average results=" + "#" + calcAvrNettoprofit(null) + "#" + calcAvrProfitfaktor(null) + "#"
-				+ calcAvrStability(null) + "#" + calcAvrRetDD(null)+"#0";
+		zeile = "overall average results=" + "#" + String.format(Locale.US,"%.2f",calcAvrNettoprofit(null)) + "#" + String.format(Locale.US,"%.2f",calcAvrProfitfaktor(null)) + "#"
+				+ String.format(Locale.US,"%.2f",calcAvrStability(null)) + "#" + String.format(Locale.US,"%.2f",calcAvrRetDD(null))+"#0";
 		inf.writezeile(zeile);
-		zeile = "overall standart deviation=" + "#" + calcStddevNettoprofit(null) + "#" + calcStddevProfitfaktor(null)
-				+ "#" + calcStddevStability(null) + "#" + calcStddevRetDD(null)+"#0";
+		zeile = "overall standart deviation=" + "#" + String.format(Locale.US,"%.2f",calcStddevNettoprofit(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevProfitfaktor(null))
+				+ "#" + String.format(Locale.US,"%.2f",calcStddevStability(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevRetDD(null))+"#0";
 		inf.writezeile(zeile);
 		inf.close();
 		

@@ -152,7 +152,13 @@ public class SqWorkflowMaster extends Sq
 
 		deleteProjectfiles();
 		
-		File tmpdir_f=new File("c:\\tmp\\sq");
+		File tmpdir_f=new File("c:\\tmp");
+		if(tmpdir_f.exists()==false)
+			if(tmpdir_f.mkdir()==false)
+				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
+		
+		
+		tmpdir_f=new File("c:\\tmp\\sq");
 		if(tmpdir_f.exists()==false)
 			if(tmpdir_f.mkdir()==false)
 				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
