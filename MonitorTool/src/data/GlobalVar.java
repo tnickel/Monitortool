@@ -18,6 +18,7 @@ public class GlobalVar
 	static int silentmode=0;
 	static int askforupdate=1;
 	static int metatraderrunning=0;
+
 	
 	
 	
@@ -352,7 +353,18 @@ public class GlobalVar
 		gc.setProfitTax(profittax);
 		
 	}
+	public static int getNickcounter()
+	{
+		return gc.getNickcounter();
+	}
 
+	public static void  setNickcounter(int nc)
+	{
+		gc.setNickcounter(nc);
+		
+	}
+	
+	
 	static public void save()
 	{
 		Inf inf = new Inf();

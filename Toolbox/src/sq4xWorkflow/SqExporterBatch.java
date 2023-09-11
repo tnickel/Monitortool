@@ -70,6 +70,12 @@ public class SqExporterBatch
 			if(respfile_f.delete()==false)
 				Tracer.WriteTrace(10, "E: can´t delete file <"+respfile_f.getPath()+"> --> stop");
 		
+		File databankfile_f=new File(databankfile);
+		if (databankfile_f.exists())
+			if(databankfile_f.delete()==false)
+				Tracer.WriteTrace(10, "E: can´t delete file <"+databankfile_f.getPath()+"> --> stop");
+		
+		
 		// Der Progressslider zeigt das was aufgesammelt wird
 		JToolboxProgressWin jp = new JToolboxProgressWin("export results", 0, 100);
 		

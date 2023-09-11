@@ -150,7 +150,7 @@ public class SqWorkflowMaster extends Sq
 		// This is the masterfunction for the workflow generation
 		//the results will be stored first in the tmp-directory
 
-		deleteProjectfiles();
+		//deleteProjectfiles();
 		
 		File tmpdir_f=new File("c:\\tmp");
 		if(tmpdir_f.exists()==false)

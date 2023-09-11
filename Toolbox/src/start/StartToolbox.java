@@ -1,8 +1,6 @@
 package start;
 
 import java.io.File;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -19,7 +17,6 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -50,7 +47,6 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
-import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -1786,7 +1782,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.8.4");
+		shell.setText("Toolbox V1.2.8.7    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2329,9 +2325,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 					"E: directory <" + text4shareddrive.getText() + "\\" + outputname.getText() + "> should be empty");
 			return;
 		}
-		
-		sqprojects.genWorkflow();
-		refreshProjectfilesanzahlMessages();
+		int ret=Mbox.QuestBox("Warning","All old Workflows will be deleted !!\n Do you want to do this?");
+		Tracer.WriteTrace(20, "Info: ret="+ret);
+		if(ret==32)
+		{
+			sqprojects.genWorkflow();
+			refreshProjectfilesanzahlMessages();
+		}
 	}
 	
 	private void button7setWidgetSelected(SelectionEvent evt)
@@ -2396,6 +2396,9 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
+		//Gewinn%, DD% und evtl. Gew./DD%
+		
+		
 		//hier werden die Resultate eingesammelt
 		//Als erstes wird mit cpart und combo1cpart gesagt was denn gesammelt werden soll
 		String cpart="OOS";

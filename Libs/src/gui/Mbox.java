@@ -55,6 +55,15 @@ public class Mbox
 		else
 			Tracer.WriteTrace(10, "Info: <"+infostring+">");
 	}
+	static public int QuestBox(String header,String message)
+	{
+		
+		MessageBox dialog =
+			    new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_QUESTION | SWT.OK| SWT.CANCEL);
+			dialog.setText(header);
+			dialog.setMessage(message);
+			return(dialog.open());
+	}
 }
 	
 

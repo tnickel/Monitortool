@@ -64,6 +64,12 @@ public class SqCollectStoreResultsMain
 			jp.update(i);
 			//bsp: projetname=Q63 GBPUSD L0_--01800
 			String projectname=FileAccess.holeFileSystemName();
+			if(projectname.equals("Builder"))
+				continue;
+			if(projectname.equals("Retester"))
+				continue;
+			if(projectname.equals("Optimizer"))
+				continue;
 			String portfoliosrcdir = sqroodir_g + "\\user\\Projects\\" + projectname
 					+ "\\databanks\\"+databankname;
 			File quelldir_f=new File(portfoliosrcdir);

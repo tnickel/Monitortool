@@ -45,6 +45,7 @@ public class SqBaseList
 		String kw2="Profit factor (Portfolio, "+cpart+")";
 		String kw3="Stability (Portfolio, "+cpart+")";
 		String kw4="Ret/DD Ratio (Portfolio, "+cpart+")";
+	
 		
 		if(zeile==null)
 			Tracer.WriteTrace(10, "E: SQbaselist defect file<"+fnam+"> -->stop");

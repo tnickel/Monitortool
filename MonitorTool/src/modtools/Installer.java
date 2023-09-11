@@ -375,7 +375,7 @@ public class Installer
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
-			if ((mqlquellnam.endsWith(mqlpostfix)) || (mqlquellnam.endsWith(".sqx")))
+			if ((mqlquellnam.endsWith(mqlpostfix)) )
 			{
 				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
 				// den mqlnamen bestimmen
@@ -386,8 +386,13 @@ public class Installer
 				
 				// Den quellnamen renamen das Keyword Strategy muss raus
 				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
+				
+				if(mqlnam.contains("nick"))
+					Magicfix.renameMagicNick(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
 			}
 		}
+		
+		GlobalVar.save();
 		
 		// 2) Kopiere ins tmp-install-verzeichniss
 		// kopiere die Mq4-files ins temporäre install verzeichniss
