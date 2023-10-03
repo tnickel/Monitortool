@@ -387,8 +387,8 @@ public class Installer
 				// Den quellnamen renamen das Keyword Strategy muss raus
 				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
 				
-				if(mqlnam.contains("nick"))
-					Magicfix.renameMagicNick(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
+				if(mqlnam.contains("date"))
+					Magicfix.renameMagicDate(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
 			}
 		}
 		

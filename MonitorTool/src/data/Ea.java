@@ -486,17 +486,35 @@ public class Ea implements Comparable<Ea>
 	}
 	public Boolean checkIfInstalled(Metaconfig meconf)
 	{
-			String fnam=meconf.getMqldata()+"\\experts\\"+eafilename;
-			fnam=fnam.replace(".mq4", "");
-			//fnam=fnam.replace(".", "");
-			fnam=fnam+".mq4";
-		
-			File eanam=new File(fnam);
-			if(eanam.exists()==false)
-				Tracer.WriteTrace(20, "I:EA <"+eanam.getAbsolutePath()+"> -> old trades of this ea, I don´t show this");
+			String fnam=meconf.getMqldata()+"\\experts\\"+eafilename; 
 			
-			return(eanam.exists());
-	
+			if(fnam.contains(".mq4"))
+			{
+				fnam=meconf.getMqldata()+"\\experts\\"+eafilename;
+				fnam=fnam.replace(".mq4", "");
+				//fnam=fnam.replace(".", "");
+				fnam=fnam+".mq4";
+		
+				File eanam=new File(fnam);
+				if(eanam.exists()==false)
+					Tracer.WriteTrace(20, "I:EA <"+eanam.getAbsolutePath()+"> -> old trades of this ea, I don´t show this");
+			
+				return(eanam.exists());
+			}
+			else if (fnam.contains(".mq5"))
+			{
+				fnam=meconf.getMqldata()+"\\experts\\SQ\\"+eafilename;
+				fnam=fnam.replace(".mq5", "");
+				//fnam=fnam.replace(".", "");
+				fnam=fnam+".mq5";
+		
+				File eanam=new File(fnam);
+				if(eanam.exists()==false)
+					Tracer.WriteTrace(20, "I:EA <"+eanam.getAbsolutePath()+"> -> old trades of this ea, I don´t show this");
+			
+				return(eanam.exists());
+			}
+		return false;
 	}
 	
 	public String getTradelogikinfo()

@@ -251,7 +251,7 @@ public class GlobalVar
 	
 	public static String calcVersionstring()
 	{
-		return("Monitortool V0.705");
+		return("Monitortool V0.706");
 	
 	}
 	
@@ -353,14 +353,14 @@ public class GlobalVar
 		gc.setProfitTax(profittax);
 		
 	}
-	public static int getNickcounter()
+	public static int getDatecounter()
 	{
-		return gc.getNickcounter();
+		return gc.getDatecounter();
 	}
 
-	public static void  setNickcounter(int nc)
+	public static void  setDatecounter(int nc)
 	{
-		gc.setNickcounter(nc);
+		gc.setDatecounter(nc);
 		
 	}
 	

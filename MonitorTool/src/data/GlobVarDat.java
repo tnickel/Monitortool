@@ -30,7 +30,7 @@ public class GlobVarDat
 	int Metatraderautostartstop=0;
 	int shutdownfridayflag=0;
 	int ProfitTax=0;
-	int nickcounter=0;
+	int datecounter=0;
 	
 	public String getUsername()
 	{
@@ -248,13 +248,13 @@ public class GlobVarDat
 	{
 		ProfitTax = profitTax;
 	}
-	public int getNickcounter()
+	public int getDatecounter()
 	{
-		return nickcounter;
+		return datecounter;
 	}
-	public void setNickcounter(int nickcounter)
+	public void setDatecounter(int datecounter)
 	{
-		this.nickcounter = nickcounter;
+		this.datecounter = datecounter;
 	}
 
 }

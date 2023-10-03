@@ -8,7 +8,9 @@ import org.eclipse.swt.widgets.Display;
 
 import FileTools.Filefunkt;
 import FileTools.SqZipper;
+import data.Toolboxconf;
 import gui.Viewer;
+import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
 
@@ -164,10 +166,9 @@ public class SqWorkflowMaster extends Sq
 				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
 		
 		
-		int offset = 0;
+		
 		// some initialisation progressslider and dfformat
-		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
-		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
+		
 		
 		//unzipp all
 		SqZipper sqzip=new SqZipper();
@@ -182,6 +183,20 @@ public class SqWorkflowMaster extends Sq
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
+	
+		if(Toolboxconf.getPropAttribute("deltadays").equals("true"))
+			LoopDeltaD(sqzip);
+		else
+			LoopDeltaDFile(sqzip);
+		
+		
+	}
+	private void LoopDeltaD(SqZipper sqzip)
+	{
+		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
+		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
+		
+		int offset = 0;
 		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain("c:\\tmp\\sq");
 		//generate many workflow, to this in the loop
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
@@ -194,7 +209,54 @@ public class SqWorkflowMaster extends Sq
 			psq.modifyProject(offset);
 			// save projekt
 			psq.saveToTmpDir();
+			//das ganze muss wieder gezipped werden
 			
+		    try
+			{
+				sqzip.zip("c:\\tmp\\sq", "c:\\tmp\\workflow_tmp.zip");
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String workflowname = calcWorkflowname(i, offset);
+			
+			// copy to destination
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
+			psq.cleanLogfiles(sqrootdir_g, workflowname);
+			psq.Reset();
+			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
+		}
+		jp.end();
+		
+	}
+	private void LoopDeltaDFile(SqZipper sqzip)
+	{
+		Inf inf = new Inf();
+		inf.setFilename(Toolboxconf.getPropAttribute("deltadaysfile"));
+		String line=inf.readZeile();
+		inf.close();
+		
+	    String[] strArr = line.split(",");
+	    	
+		
+		int anzsteps = strArr.length;
+		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
+		
+		int offset = 0;
+		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain("c:\\tmp\\sq");
+		//generate many workflow, to this in the loop
+		for (int i = 0, loopcount = 0; i < anzsteps; i++, loopcount++)
+		{
+			jp.update(loopcount);
+			
+			// modify project
+			offset = Integer.valueOf(strArr[i]);
+			
+			psq.modifyProject(offset);
+			// save projekt
+			psq.saveToTmpDir();
 			//das ganze muss wieder gezipped werden
 			
 		    try

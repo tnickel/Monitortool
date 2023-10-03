@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -47,6 +49,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -213,6 +216,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button SelektorUseDeltaDaysConfigfile;
+	private Button selektorShiftDays;
+	private Button setdeltadays;
+	private Text deltadaysconfigfile;
 	private Label label31;
 	private Combo combo1cpart;
 	private Text text4databankname;
@@ -222,7 +229,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private Button button9showresults;
 	private Button button9backupdrive;
 	private Button button9shareddrive;
-	private Composite composite15;
 	private Button button8;
 	private Text text4workflowstore;
 	private Label label29anzfiles;
@@ -1270,7 +1276,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
-							group2filter.setBounds(0, 6, 1611, 823);
+							group2filter.setBounds(0, -54, 1611, 823);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
@@ -1290,12 +1296,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4filterdestdir = new Text(group2filter, SWT.NONE);
 								text4filterdestdir.setText(Toolboxconf.getPropAttribute("sqrootdir"));
-								text4filterdestdir.setBounds(12, 183, 811, 30);
+								text4filterdestdir.setBounds(12, 162, 811, 30);
 							}
 							{
 								button7setdestdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7setdestdir.setText("set SQ Rootdir");
-								button7setdestdir.setBounds(829, 183, 236, 32);
+								button7setdestdir.setBounds(829, 162, 236, 32);
 								button7setdestdir.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1306,7 +1312,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4filterkeyword = new Text(group2filter, SWT.NONE);
 								text4filterkeyword.setText(Toolboxconf.getPropAttribute("anzdays"));
-								text4filterkeyword.setBounds(12, 238, 68, 30);
+								text4filterkeyword.setBounds(12, 204, 68, 30);
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
@@ -1323,17 +1329,17 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								label22 = new Label(group2filter, SWT.NONE);
 								label22.setText("delta days");
-								label22.setBounds(92, 238, 153, 30);
+								label22.setBounds(92, 204, 153, 30);
 							}
 							{
 								steps = new Text(group2filter, SWT.NONE);
 								steps.setText(Toolboxconf.getPropAttribute("backcount"));
-								steps.setBounds(257, 238, 43, 30);
+								steps.setBounds(257, 204, 43, 30);
 							}
 							{
 								label23 = new Label(group2filter, SWT.NONE);
 								label23.setText("steps back");
-								label23.setBounds(306, 238, 98, 30);
+								label23.setBounds(306, 204, 98, 30);
 							}
 							{
 								outputname = new Text(group2filter, SWT.NONE);
@@ -1366,12 +1372,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								text4stepsfuture = new Text(group2filter, SWT.NONE);
 								text4stepsfuture.setText(Toolboxconf.getPropAttribute("futurecount"));
-								text4stepsfuture.setBounds(428, 238, 41, 30);
+								text4stepsfuture.setBounds(428, 204, 41, 30);
 							}
 							{
 								label25 = new Label(group2filter, SWT.NONE);
 								label25.setText("steps future");
-								label25.setBounds(481, 238, 106, 30);
+								label25.setBounds(481, 204, 106, 30);
 							}
 							{
 								label26 = new Label(group2filter, SWT.NONE);
@@ -1593,13 +1599,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								composite15 = new Composite(group2filter, SWT.BORDER);
-								GridLayout composite15Layout = new GridLayout();
-								composite15Layout.makeColumnsEqualWidth = true;
-								composite15.setLayout(composite15Layout);
-								composite15.setBounds(7, 167, 1143, 416);
-							}
-							{
 								text4databankname = new Text(group2filter, SWT.NONE);
 								text4databankname.setText("Portfolio");
 								text4databankname.setBounds(334, 595, 83, 20);
@@ -1617,6 +1616,38 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label31.setText("(i)");
 								label31.setBounds(1461, 731, 12, 16);
 								label31.setToolTipText("Please activate in SQ configuration/databanks/synchronisize to files automaticaly..");
+							}
+							{
+								deltadaysconfigfile = new Text(group2filter, SWT.NONE);
+								deltadaysconfigfile.setText(Toolboxconf.getPropAttribute("deltadaysfile"));
+								deltadaysconfigfile.setBounds(12, 244, 457, 30);
+							}
+							{
+								setdeltadays = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								setdeltadays.setText("set file");
+								setdeltadays.setSize(60, 30);
+								setdeltadays.setBounds(481, 246, 60, 30);
+								setdeltadays.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										setdateconfigfile(evt);
+									}
+								});
+							}
+							{
+								selektorShiftDays = new Button(group2filter, SWT.RADIO | SWT.LEFT);
+								selektorShiftDays.setText("Shift Days");
+								selektorShiftDays.setBounds(639, 204, 120, 30);
+								selektorShiftDays.setSelection(true);
+								selektorShiftDays.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										selektorShiftDaysWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								SelektorUseDeltaDaysConfigfile = new Button(group2filter, SWT.RADIO | SWT.LEFT);
+								SelektorUseDeltaDaysConfigfile.setText("Use datefile");
+								SelektorUseDeltaDaysConfigfile.setBounds(639, 246, 95, 30);
 							}
 						}
 					}
@@ -1721,6 +1752,17 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		setGlobalMode(mode);
 		combo1cpart.add("OOS");
 		combo1cpart.add("IS");
+
+		if(Toolboxconf.getPropAttribute("shiftdays").equals("false"))
+		{
+			selektorShiftDays.setSelection(false);
+			SelektorUseDeltaDaysConfigfile.setSelection(true);
+		}
+		else
+		{
+			selektorShiftDays.setSelection(true);
+			SelektorUseDeltaDaysConfigfile.setSelection(false);
+		}
 	}
 	
 	private void setGlobalMode(int mode)
@@ -1782,7 +1824,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.8.7    "+userdir);
+		shell.setText("Toolbox V1.2.9.0    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2393,6 +2435,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("sqrootdir", sqrootdir);
 		label29anzfiles.setText(String.valueOf(sqprojects.getAnzProjectfiles()));
 	}
+	private void buttonSetConfigfileSelected(SelectionEvent evt)
+	{}
 	
 	private void collectresultsbuttonWidgetSelected(SelectionEvent evt)
 	{
@@ -2411,6 +2455,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// get all information from the visual interface
 		getInterfaceData();
 		
+		if (button9shareddrive.getSelection())
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		
 		// collect all results and write infos in file
@@ -2621,6 +2666,31 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// TODO add your code for button9showresults.widgetSelected
 	}
 	
+	private void setdateconfigfile(SelectionEvent evt) {
+		System.out.println("setdeltadays.widgetSelected, event="+evt);
+		String dd = Toolboxconf.getPropAttribute("deltadaysfile");
+		
+		// ask user for destdir
+		String deltadaysfile = SWTwindow.FileDialog(getDisplay(), dd);
+		if (deltadaysfile == null)
+			Tracer.WriteTrace(10, "Error: empty file<"+deltadaysfile+">");
+
+		deltadaysconfigfile.setText(deltadaysfile);
+		Toolboxconf.setPropAttribute("deltadaysfile", deltadaysfile);
+		
+	}
+	
+	private void selektorShiftDaysWidgetSelected(SelectionEvent evt) {
+		System.out.println("selektorShiftDays.widgetSelected, event="+evt);
+		if(selektorShiftDays.getSelection()==false)
+			Toolboxconf.setPropAttribute("shiftdays", "false");
+		else
+			Toolboxconf.setPropAttribute("shiftdays", "true");
+		
+		
+			
+	}
+
 	final Runnable inittimer = new Runnable() {
 		public void run()
 		{
