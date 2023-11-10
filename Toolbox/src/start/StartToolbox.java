@@ -1,8 +1,6 @@
 package start;
 
 import java.io.File;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -43,13 +41,13 @@ import data.Metriktools;
 import data.RtTools;
 import data.Toolboxconf;
 import data.TradefilterVerarbeitung;
+import graphic.SumChart;
 import gui.Guitools;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
-import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -244,7 +242,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private Button button8showResultdir;
 	private Button button8showshareddir;
 	private Button button8showbackupdir;
-	private Composite composite14;
 	private Label label27;
 	private Button button8saveinfomassage;
 	private Text text4infotext;
@@ -307,7 +304,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			init();
-			this.setSize(1683, 976);
+			this.setSize(1611, 904);
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			this.setLayout(null);
 			{
@@ -1280,12 +1277,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
-								FilterSourceDir.setBounds(18, 40, 1120, 30);
+								FilterSourceDir.setBounds(12, 82, 1120, 30);
 							}
 							{
 								button7set = new Button(group2filter, SWT.PUSH | SWT.CENTER);
 								button7set.setText("Step1: set Masterfile");
-								button7set.setBounds(1170, 40, 285, 72);
+								button7set.setBounds(1162, 57, 285, 72);
 								button7set.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
 									{
@@ -1410,14 +1407,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label27 = new Label(group2filter, SWT.NONE);
 								label27.setText("please add additional description to this box above");
 								label27.setBounds(12, 511, 701, 30);
-							}
-							{
-								composite14 = new Composite(group2filter, SWT.BORDER);
-								GridLayout composite14Layout = new GridLayout();
-								composite14Layout.makeColumnsEqualWidth = true;
-								composite14.setLayout(composite14Layout);
-								composite14.setBounds(6, 17, 1145, 97);
-								composite14.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 							}
 							{
 								button8showbackupdir = new Button(group2filter, SWT.PUSH | SWT.CENTER);
@@ -1824,7 +1813,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.9.0    "+userdir);
+		shell.setText("Toolbox V1.2.9.4    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2361,6 +2350,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		SqGoogle.WriteInfomessage(text4shareddrive.getText(), outputname.getText(), text4infotext.getText());
 		
+		if (button9shareddrive.getSelection())
 		if (sqprojects.checkEmptyShareddrive() == false)
 		{
 			Mbox.Infobox(
@@ -2442,6 +2432,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	{
 		//Gewinn%, DD% und evtl. Gew./DD%
 		
+	
 		
 		//hier werden die Resultate eingesammelt
 		//Als erstes wird mit cpart und combo1cpart gesagt was denn gesammelt werden soll
@@ -2463,6 +2454,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
 				button9showresults.getSelection(), text4databankname.getText(), cpart);
 		refreshProjectfilesanzahlMessages();
+		
+		
 		
 		if (button9shareddrive.getSelection())
 			Toolboxconf.backupToolboxconf(text4shareddrive.getText() + "\\" + outputname.getText());
@@ -2668,6 +2661,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	
 	private void setdateconfigfile(SelectionEvent evt) {
 		System.out.println("setdeltadays.widgetSelected, event="+evt);
+		System.out.println("blup");
+		
 		String dd = Toolboxconf.getPropAttribute("deltadaysfile");
 		
 		// ask user for destdir

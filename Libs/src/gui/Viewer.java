@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -47,17 +49,28 @@ public class Viewer extends SwtTools
 			Tracer.WriteTrace(10, "I: can't read file <" + fnam + ">");
 			return;
 		}
+		
 		Shell sh = new Shell(dis);
 		sh.setLayout(new FillLayout());
+		sh.setSize(100, 100);
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkit.getScreenSize();
 		
 		GridLayout gridLayout = new GridLayout();
+		
 		Composite composite = new Composite(sh, SWT.FULL_SELECTION);
 		composite.setLayout(gridLayout);
+		composite.setSize(100,100);
 		Table table = new Table(composite, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+		table.setSize(100, 100);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
+		
+		
+		
+		
 		
 		String[] titles = null;
 		

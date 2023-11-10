@@ -2,6 +2,7 @@ package sq4xWorkflow;
 
 import java.util.ArrayList;
 
+import graphic.SumChart;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
@@ -15,16 +16,15 @@ public class SqDatabaseHandler extends SqBaseList
 		
 	}
 	
-	void calcResults(String fnam,String cpart)
+	void calcResults(String fnam,String cpart,String portfolioname)
 	{
-		super.SqReadBaseList(fnam,sqrootdir_g,cpart); 
+		super.SqReadBaseList(fnam,sqrootdir_g,cpart,portfolioname); 
 		double np=super.calcAvrNettoprofit(null);
 		double retdd=super.calcAvrRetDD(null);
 		double pf=super.calcAvrProfitfaktor(null);
 		double stabil=super.calcAvrStability(null);
 
 		Tracer.WriteTrace(10, "show results retdd="+retdd+" pf="+pf+"  stabil="+stabil);
-		
 	}
 	
 	

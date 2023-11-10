@@ -2,6 +2,8 @@ package sq4xWorkflow;
 
 import java.util.Comparator;
 
+import hiflsklasse.Tracer;
+
 public class SqBaseElem
 {
 	// dieses ist ein listenelement der Datenbasis
@@ -86,6 +88,32 @@ public class SqBaseElem
 		return subnam;
 		
 	}
+	
+	public int getIndexVal()
+	{
+		//realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
+		if(strategyname.contains("Merged portfolio"))
+		{
+			String subnam=null;
+			String firstmarker="";
+			subnam=strategyname.substring(0,strategyname.indexOf("Merged portfolio"));
+
+			if(subnam.contains("_+"))
+				firstmarker="_+";
+			else if(subnam.contains("_--"))
+				firstmarker="_--";
+			else
+				Tracer.WriteTrace(10, "E: cant find pattern '_+' or '_--' in Merged Portfolio Name -> stop 1702");
+			
+			subnam=subnam.substring(subnam.indexOf(firstmarker)+firstmarker.length());
+			int retval=Integer.valueOf(subnam);
+			return (retval);
+		}
+		else
+			Tracer.WriteTrace(10, "E: cant find name Merged portfolio -> stop 1701");
+		return 0;
+	}
+	
 	public int compare(Object e1, Object e2)
 	{
 		

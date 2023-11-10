@@ -9,7 +9,7 @@ import hiflsklasse.Tracer;
 public class SqSumWorkflow
 {
 	//was ist in der Arrayliste gespeichert ?
-	//in al ist die Gesammtliste für die Tabelle gepseichert
+	//in al ist die Gesammtliste für die Tabelle gespeichert
 	//Ein SqSumElem ist ein Summenelement für einen einzelen workflow
 	//die al-liste beinhaltet alle workflows
 	private ArrayList<SqSumElem> al = new  ArrayList<SqSumElem>();

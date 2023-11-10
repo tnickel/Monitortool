@@ -9,10 +9,15 @@ import org.eclipse.swt.widgets.Display;
 import FileTools.Filefunkt;
 import FileTools.SqZipper;
 import data.Toolboxconf;
+import graphic.SumChart;
 import gui.Viewer;
+import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 
 public class SqWorkflowMaster extends Sq
 // this is the masterclass for all sq4x handling
@@ -184,7 +189,9 @@ public class SqWorkflowMaster extends Sq
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
 	
-		if(Toolboxconf.getPropAttribute("deltadays").equals("true"))
+		
+		
+		if(Toolboxconf.getPropAttribute("shiftdays").equals("true"))
 			LoopDeltaD(sqzip);
 		else
 			LoopDeltaDFile(sqzip);
@@ -268,7 +275,7 @@ public class SqWorkflowMaster extends Sq
 				e.printStackTrace();
 			}
 			
-			String workflowname = calcWorkflowname(i, offset);
+			String workflowname = calcWorkflownameFilename(i, offset);
 			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
@@ -315,8 +322,10 @@ public class SqWorkflowMaster extends Sq
 			
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
 			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
-			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart);
+			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart,databankname);
 			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+			sb.ShowChart();
+		
 		}
 		// copy the results to goggledrive
 		if ((shareddrive_g != null) && (copygoogledriveflag == true))
@@ -349,6 +358,7 @@ public class SqWorkflowMaster extends Sq
 		// verzeichnissstruktur in googledrive herstellen
 		String destdir = shareddrive + "\\" + outputname;
 		String portfolios = destdir + "\\portfolios";
+		String projects=destdir+"\\projects";
 		
 		// check if destdir exists
 		File wfdir_f = new File(destdir);
@@ -377,7 +387,22 @@ public class SqWorkflowMaster extends Sq
 			gr.copyResultfile("c:\\tmp\\DatabankExport.csv", shareddrive + "\\" + outputname);
 			gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv", shareddrive + "\\" + outputname);
 		}
-		
+		//das ganze Projects kopieren
+		//projects erzeugen
+		File sqrootdir_f=new File(sqrootdir+"\\user\\projects");
+		File projects_f = new File(projects);
+		if (projects_f.exists() == false)
+			if(projects_f.mkdir()==false)
+				Tracer.WriteTrace(10, "E: can´t create directory <"+projects_f.getPath()+"> --> stop");
+		try
+		{
+			FileAccess.CopyDirectory4(sqrootdir_f, projects_f);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Tracer.WriteTrace(10, "E:stop on filecopy");
+		}
 	}
 	
 	private String calcWorkflowname(int index, int offset)
@@ -391,5 +416,15 @@ public class SqWorkflowMaster extends Sq
 		
 		return wfname;
 	}
-	
+	private String calcWorkflownameFilename(int index, int offset)
+	{
+		DecimalFormat df = new DecimalFormat("00000");
+		String wfname = null;
+		if(index>0)
+			wfname = outputname_g + "_-" + df.format(offset);
+		else
+			wfname = outputname_g + "_+" + df.format(offset);
+		
+		return wfname;
+	}
 }

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import comperatoren.SqBaseElemComperator;
+import graphic.SumChart;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import statistic.Statistics;
@@ -27,14 +28,16 @@ public class SqBaseList
 	int indexPf = 0;
 	int indexStabil = 0;
 	int indexRetDD = 0;
+	private String databankname_glob=null;
 	
 	SqBaseList()
 	{
 	}
 	
-	public void SqReadBaseList(String fnam,String sqrootdir,String cpart)
+	public void SqReadBaseList(String fnam,String sqrootdir,String cpart,String databankname)
 	{
 		//cpart can be IS or OOS, default ist OOS
+		databankname_glob=databankname;
 		sumWorkflow.setSqRootdir(sqrootdir);
 		// liste mit den Resultaten wird eingelesen und aufgebaut
 		
@@ -343,5 +346,9 @@ public class SqBaseList
 		}
 		return (Statistics.stddv(dl,dlcount));
 	}
-	
+	public void ShowChart()
+	{
+		//hier wir die graphik vom freechart angezeigt.
+		SumChart.ShowChart(baselist,databankname_glob);
+	}
 }

@@ -1,19 +1,28 @@
 package graphic;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.LogAxis;
+import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -39,7 +48,7 @@ public class SumChart extends ApplicationFrame
 		/**
 		 * Creates a new instance.
 		 */
-		public MyDemoPanel(ArrayList<SqBaseElem> baselist,String  dbn)
+		public MyDemoPanel(ArrayList<SqBaseElem> baselist, String dbn)
 		{
 			super(new BorderLayout());
 			this.data1 = createSampleData(baselist);
@@ -53,25 +62,25 @@ public class SumChart extends ApplicationFrame
 		 */
 		private XYDataset createSampleData(ArrayList<SqBaseElem> baselist)
 		{
-			int anz=baselist.size();
-			double sumprof=0;
+			int anz = baselist.size();
+			double sumprof = 0;
 			XYSeries seriesSum = new XYSeries("Sum Profit");
 			XYSeries seriesProfit = new XYSeries("Profit");
 			
 			XYSeriesCollection result = new XYSeriesCollection(seriesSum);
-			for(int i=0; i<anz; i++)
+			for (int i = anz - 1; i >= 0; i--)
 			{
 				
-				SqBaseElem be=baselist.get(i);
-				double neprof=be.getNetprofit();
-				int index=be.getIndexVal();
-				seriesSum.add(index,neprof+sumprof);
-				seriesProfit.add(index,neprof);
-				sumprof=sumprof+neprof;
+				SqBaseElem be = baselist.get(i);
+				double neprof = be.getNetprofit();
+				int index = be.getIndexVal();
+				index = index * -1;
+				seriesSum.add(index, neprof + sumprof);
+				seriesProfit.add(index, neprof);
+				sumprof = sumprof + neprof;
 			}
 			result.addSeries(seriesProfit);
 			return result;
-			
 			
 		}
 		
@@ -110,6 +119,10 @@ public class SumChart extends ApplicationFrame
 			plot.setRangeGridlinePaint(Color.white);
 			plot.setAxisOffset(new RectangleInsets(4, 4, 4, 4));
 			
+			// horizontal line to mark 0
+			ValueMarker mark = new ValueMarker(0, Color.YELLOW, new BasicStroke(3), Color.YELLOW, null, 0.5f);
+			plot.addRangeMarker(mark);
+			
 			// create and return the chart panel...
 			JFreeChart chart = new JFreeChart(databankname, JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 			addChart(chart);
@@ -129,20 +142,28 @@ public class SumChart extends ApplicationFrame
 		{
 			
 			// create subplot 1...
-			NumberAxis xAxis = new NumberAxis("X");
+			NumberAxis xAxis = new NumberAxis("Days in the Past");
 			xAxis.setAutoRangeIncludesZero(false);
-			NumberAxis yAxis = new NumberAxis("Y");
-			yAxis.setAutoRangeIncludesZero(false);
+			NumberAxis yAxis = new NumberAxis("Profit in Euro");
+			yAxis.setAutoRangeIncludesZero(true);
 			
+				
 			XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer();
 			XYPlot plot = new XYPlot(this.data1, xAxis, yAxis, renderer1);
 			plot.setBackgroundPaint(Color.lightGray);
 			plot.setDomainGridlinePaint(Color.white);
 			plot.setRangeGridlinePaint(Color.white);
 			plot.setAxisOffset(new RectangleInsets(4, 4, 4, 4));
-			
+			 plot.setRangeAxis(yAxis);
+			 
 			// create and return the chart panel...
 			JFreeChart chart = new JFreeChart(databankname, JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+
+			
+	    
+	       
+		
+			
 			addChart(chart);
 			ChartUtilities.applyCurrentTheme(chart);
 			ChartPanel chartPanel = new ChartPanel(chart, false);
@@ -158,10 +179,10 @@ public class SumChart extends ApplicationFrame
 	 * @param title
 	 *            the frame title.
 	 */
-	public SumChart(String title, ArrayList<SqBaseElem> baselist,String databankname)
+	public SumChart(String title, ArrayList<SqBaseElem> baselist, String databankname)
 	{
 		super(title);
-		JPanel content = createDemoPanel(baselist,databankname);
+		JPanel content = createDemoPanel(baselist, databankname);
 		getContentPane().add(content);
 	}
 	
@@ -170,9 +191,9 @@ public class SumChart extends ApplicationFrame
 	 *
 	 * @return A panel.
 	 */
-	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist,String databankname)
+	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist, String databankname)
 	{
-		return new MyDemoPanel(baselist,databankname);
+		return new MyDemoPanel(baselist, databankname);
 	}
 	
 	/**
@@ -181,15 +202,59 @@ public class SumChart extends ApplicationFrame
 	 * @param args
 	 *            ignored.
 	 */
-
 	
-	public static void ShowChart(ArrayList<SqBaseElem> baselist,String databankname)
+	public static void ShowChart(ArrayList<SqBaseElem> baselist, String databankname)
 	{
-		SumChart appFrame = new SumChart("Profit Overview", baselist,databankname);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkit.getScreenSize();
 		
-		appFrame.setPreferredSize(new java.awt.Dimension(3000, 1500));
+		SumChart appFrame = new SumChart("Profit Overview", baselist, databankname);
+		
+		appFrame.setPreferredSize(
+				new java.awt.Dimension((int) (screenSize.getWidth() * 0.5), (int) (screenSize.getHeight() * 0.5)));
 		appFrame.pack();
 		RefineryUtilities.centerFrameOnScreen(appFrame);
 		appFrame.setVisible(true);
 	}
+	
+	public static void ShowChart2(ArrayList<SqBaseElem> baselist, String databankname)
+	{
+	        XYSeries series = new XYSeries("First");
+	        series.add(1.0, 1.0);
+	        series.add(2.0, 10.0);
+	        series.add(3.0, 100.0);
+	        series.add(4.0, 1000.0);
+	        series.add(5.0, 10000.0);
+	        series.add(6.0, 100000.0);
+	        series.add(7.0, 1000000.0);
+	        series.add(8.0, 10000000.0);
+
+	        XYSeriesCollection dataset = new XYSeriesCollection();
+	        dataset.addSeries(series);
+
+	        JFreeChart chart = ChartFactory.createXYLineChart(
+	            "XY Chart",
+	            "x-axis",
+	            "y-axis",
+	            dataset,
+	            PlotOrientation.VERTICAL,
+	            false,
+	            false,
+	            false
+	            );
+	    
+	        LogarithmicAxis yAxis = new LogarithmicAxis("Y");
+	    
+	        XYPlot plot = chart.getXYPlot();
+	        plot.setRangeAxis(yAxis);
+	    
+	        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer)plot.getRenderer();
+	        renderer.setSeriesShapesVisible(0, true);
+	    
+	        ChartFrame frame = new ChartFrame("My Chart", chart);
+	        frame.pack();
+	        frame.setVisible(true);
+	   
+	}
+	
 }

@@ -1,7 +1,6 @@
 package hiflsklasse;
 
 import java.io.BufferedReader;
-import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
@@ -1246,6 +1247,59 @@ public class FileAccess
 		}
 	}
 	
+	public static void CopyDirectory4(File src, File dest) throws IOException
+	//copy directory and all subdirectorys
+	{
+		  if(!src.exists()){
+
+	           Tracer.WriteTrace(10,"Directory does not exist.<"+src.getPath()+">");
+	           //just exit
+	           System.exit(0);
+		  }
+	    if (src.isDirectory())
+		{
+			
+			// if directory not exists, create it
+			if (!dest.exists())
+			{
+				dest.mkdir();
+				System.out.println("Directory copied from " + src + "  to " + dest);
+			}
+			
+			// list all the directory contents
+			String files[] = src.list();
+			
+			for (String file : files)
+			{
+				// construct the src and dest file structure
+				File srcFile = new File(src, file);
+				File destFile = new File(dest, file);
+				// recursive copy
+				CopyDirectory4(srcFile, destFile);
+			}
+			
+		} else
+		{
+			// if file, then copy it
+			// Use bytes stream to support all file types
+			InputStream in = new FileInputStream(src);
+			OutputStream out = new FileOutputStream(dest);
+			
+			byte[] buffer = new byte[1024];
+			
+			int length;
+			// copy the file content in bytes
+			while ((length = in.read(buffer)) > 0)
+			{
+				out.write(buffer, 0, length);
+			}
+			
+			in.close();
+			out.close();
+			System.out.println("File copied from " + src + " to " + dest);
+		}
+	}
+	
 	static public void FileReplaceString(String filename, String vorher, String nachher)
 	{
 		
@@ -1295,7 +1349,7 @@ public class FileAccess
 			while ((line = reader.readLine()) != null)
 			{
 				line = line.replace(searchString, replacementString);
-				writer.write(line +"\n");
+				writer.write(line + "\n");
 			}
 		}
 		
@@ -1310,7 +1364,7 @@ public class FileAccess
 			throw new IOException("Konnte Originaldatei nicht löschen.");
 		}
 	}
-
+	
 	static public boolean FileContainString(String filename, String suchtext)
 	{
 		String quellfile = filename;

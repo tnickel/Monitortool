@@ -94,7 +94,7 @@ public class SqExporterBatch
 		jp.end();
 		
 		if(respfile_f.exists()==false)
-			Tracer.WriteTrace(10, "E: license problem with Toolbox3 SQ Results, please start/stop this SQ -> END Monitortool");
+			Tracer.WriteTrace(10, "E: respfile missing<"+respfile_f.getAbsolutePath()+"> SQ Results, please start/stop this SQ -> END Monitortool");
 		
 		inf=new Inf();
 		inf.setFilename(respfile_f.getPath());
@@ -122,6 +122,8 @@ public class SqExporterBatch
 			while ((line = lsOut.readLine()) != null)
 			{
 				System.out.println(line);
+				if(line.contains("Missing license"))
+					Tracer.WriteTrace(10, "E: Problem with license of SQ3 start/stop SQ3 and check it");
 			}
 		} catch (Exception e)
 		{
