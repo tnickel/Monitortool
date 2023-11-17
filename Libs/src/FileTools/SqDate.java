@@ -72,7 +72,9 @@ public class SqDate
 	static public String  replaceBack(String mem)
 	{
 		
-		return(mem.replace("X@X", "ate"));
+		return(StringReplacer.replaceAll(mem,"X@X","ate"));
+		
+		//return(mem.replace("X@X", "ate"));
 		
 	}
 }

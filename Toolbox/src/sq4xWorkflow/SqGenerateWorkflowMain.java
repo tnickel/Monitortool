@@ -6,7 +6,6 @@ import java.io.IOException;
 import FileTools.Filefunkt;
 import FileTools.SqConfXml;
 import FileTools.SqDate;
-import FileTools.Zipper;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
@@ -18,9 +17,9 @@ public class SqGenerateWorkflowMain
 	private String projectdir_g = "";
 	
 	String[] memstring_g = new String[100];
-	String[] memstring_backup_g=null;
+	String[] memstring_backup_g = null;
 	String[] name_g = new String[100];
-	String[] name_backup_g=null;
+	String[] name_backup_g = null;
 	
 	int anzfiles_g = 0;
 	
@@ -32,9 +31,9 @@ public class SqGenerateWorkflowMain
 	
 	void Reset()
 	{
-		//Restore the old data
-		memstring_g=memstring_backup_g.clone();
-		name_g=name_backup_g.clone();
+		// Restore the old data
+		memstring_g = memstring_backup_g.clone();
+		name_g = name_backup_g.clone();
 	}
 	
 	void loadProjectfiles()
@@ -58,8 +57,8 @@ public class SqGenerateWorkflowMain
 			inf.close();
 		}
 		anzfiles_g = index;
-		memstring_backup_g=memstring_g.clone();
-		name_backup_g=name_g.clone();
+		memstring_backup_g = memstring_g.clone();
+		name_backup_g = name_g.clone();
 	}
 	
 	public void saveToTmpDir()
@@ -68,7 +67,8 @@ public class SqGenerateWorkflowMain
 		for (int i = 0; i < anzfiles_g; i++)
 		{
 			String fnam = name_g[i];
-			//delete the original file
+			//Tracer.WriteTrace(20, "I:working with file <"+fnam+">");
+			// delete the original file
 			File fnam_f = new File(fnam);
 			if (fnam_f.exists() == false)
 				Tracer.WriteTrace(10, "Error: internal, file not exists<" + fnam + ">");
@@ -78,20 +78,55 @@ public class SqGenerateWorkflowMain
 			Inf inf2 = new Inf();
 			inf2.setFilename(fnam);
 			
-			String[] parts = memstring_g[i].split("@@@@@");
+			// String[] parts = memstring_g[i].split("@@@@@");
+			// hier holt er sich den speicher der ein file representiert
+			String mem = memstring_g[i];
+			
+			
+			int offset=0;
 			
 			// schreib das File auf platte
-			int anz = parts.length;
+			int anz = 100000; // max 100000 zeilen
 			for (int j = 0; j < anz; j++)
 			{
-				inf2.writezeile(parts[j]);
+				String zeile = null;
+				
+				
+				
+				//int foundpos = mem.indexOf("@@@@@");
+				
+				int foundpos=mem.indexOf("@@@@@",offset);
+				//Tracer.WriteTrace(20, "I:foundpos=<"+foundpos+"> offset=<"+offset+">");
+				
+				if(foundpos>mem.length())
+					break;
+				
+				if (foundpos == -1)
+				{ // the end has reached, write the rest
+					//Tracer.WriteTrace(20, "I:filelen="+mem.length()+" foundpos=<"+foundpos+">");
+					
+					zeile=mem.substring(offset);
+					inf2.writeFastZeile(zeile);
+			
+					break;
+					
+				} else
+				{
+					//take the line
+					zeile = mem.substring(offset, foundpos);
+					inf2.writeFastZeile(zeile);
+					//increase offset
+					offset=foundpos+5;
+				}
+				
+				
 			}
 			inf2.close();
 		}
 		
 	}
 	
-	public void copyToSq(String sqrootdir, String tmpcfx,String destname)
+	public void copyToSq(String sqrootdir, String tmpcfx, String destname)
 	{
 		// das fertig generierte wird in die sq verzeichnisse kopiert
 		String newdir = sqrootdir + "\\user\\projects\\" + destname;

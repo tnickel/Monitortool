@@ -42,7 +42,9 @@ public class SqConfXml extends SqString
 				break;
 			SqDate sd=new SqDate(setupdate);
 			String moddate=sd.StringGetModDateString(days);
-			mem_g=mem_g.replace(setupdate, moddate);
+			//mem_g=mem_g.replace(setupdate, moddate);
+			//mem_g.replaceAll(setupdate, moddate);
+			mem_g =  StringReplacer.replaceAll(mem_g, setupdate, moddate);
 		}
 	
 		return mem_g;
