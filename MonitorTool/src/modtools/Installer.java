@@ -62,13 +62,13 @@ public class Installer
 			String bnam = meconf.getBrokername();
 			// Mlist.add("update<" + bnam + ">", 1);
 			
-			if ((meconf.getMttype().toLowerCase() != "mt4") && (meconf.getMttype().toLowerCase() != "mt5"))
+			if ((meconf.getMttype().toLowerCase().equals("mt4")==false) && (meconf.getMttype().toLowerCase().equals("mt5")==false))
 				Tracer.WriteTrace(10, "E:UpdateHistoryExporter mttype=<" + meconf.getMttype() + "> not supported");
 			
 			if (meconf.getMttype().toLowerCase().equals("mt4"))
 				histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
 			else if (meconf.getMttype().toLowerCase().equals("mt5"))
-				histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT5_experts\\SQ\\historyexporter.mq5";
+				histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT5_experts\\historyexporter.mq5";
 			
 			if (meconf.getMttype().toLowerCase().equals("mt4"))
 			{
@@ -87,9 +87,9 @@ public class Installer
 			
 			// Kopiere den historyexporter
 			if (meconf.getMttype().toLowerCase().equals("mt4"))
-				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "//historyexporter.mq4", 1);
+				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "\\historyexporter.mq4", 1);
 			else if (meconf.getMttype().toLowerCase().equals("mt5"))
-				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "//historyexporter.mq5", 1);
+				fd.copyFile3(histexporter_quelle, meconf.getExpertdata() + "\\historyexporter.mq5", 1);
 			
 			FileAccess.FileDelete(meconf.getMqldata() + "//Experts//mqlcache.dat", 1);
 			
@@ -336,11 +336,11 @@ public class Installer
 		if (metaconfig.getMttype().toLowerCase().equals("mt4"))
 		{
 			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\chrmaster.chr";
-			mqlpostfix = ".mq4";
+		
 		} else if (metaconfig.getMttype().toLowerCase().equals("mt5"))
 		{
 			cfg_quelle = Rootpath.getRootpath() + "\\install\\MT5_profiles\\chrmaster.chr";
-			mqlpostfix = ".mq5";
+		
 		} else
 			Tracer.WriteTrace(10, "E:kopiere EaSysteme mtversion <" + metaconfig.getMetaversion() + "> not supported");
 		
@@ -354,12 +354,17 @@ public class Installer
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
+			if (mqlquellnam.endsWith(".mq5"))
+				mqlpostfix=".mq5";
+			else if(mqlquellnam.endsWith(".mq4"))
+				mqlpostfix=".mq4";
+
 			if (mqlquellnam.endsWith(mqlpostfix))
 			{
 				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
 				// den mqlnamen bestimmen
-				if (mqlquellnam.endsWith(mqlpostfix))
-					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
+			
+				mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
 				
 				// Den quellnamen renamen das Keyword Strategy muss raus
 				String tradesuffix = metaconfig.getTradesuffixsender();
@@ -367,30 +372,50 @@ public class Installer
 					renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),
 							metaconfig.getMqlquellverz() + "\\" + mqlnam);
 			}
+			
 		}
 		
-		// Remove substring "Strategy" out of quellname
-		fadyn.initFileSystemList(mqlquellverz, 1);
-		anz = fadyn.holeFileAnz();
-		for (int i = 0; i < anz; i++)
-		{
-			String mqlquellnam = fadyn.holeFileSystemName();
-			if ((mqlquellnam.endsWith(mqlpostfix)) )
-			{
-				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
-				// den mqlnamen bestimmen
-				if (mqlquellnam.endsWith(mqlpostfix))
-					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
-				if (mqlquellnam.endsWith(".sqx"))
-					mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(".sqx"));
-				
-				// Den quellnamen renamen das Keyword Strategy muss raus
-				renameQuellnamFiles(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
-				
-				if(mqlnam.contains("date"))
-					Magicfix.renameMagicDate(metaconfig.getMqlquellverz() + "\\" + mqlnam,metaconfig.getMttype());
-			}
+		// 0)Remove substring "Strategy" out of quellname
+		File fdir=new File(mqlquellverz);
+		File[] files = fdir.listFiles();
+		if (files != null) {
+            for (File file : files) 
+            {
+            	String fnamold=file.getName();
+               	if(fnamold.contains("Strategy"))
+            	{
+ 		       	  File newFilename = new File(mqlquellverz + File.separator + fnamold.replace("Strategy", ""));
+            	  if(file.renameTo(newFilename)==false)
+            		  Tracer.WriteTrace(10, "E:4554 cant rename filename <"+newFilename.getAbsolutePath()+">");
+            	}
+            }
 		}
+		
+		
+		
+		//1) //date behandlung
+		//kommt im namen date vor dann wird die magic durch ein date ersetzt. das zugehörige sqx file wird anschliessend umbenannt.
+		
+		File fdir2=new File(mqlquellverz);
+		File[] files2 = fdir2.listFiles();
+		if (files2 != null) {
+            for (File file : files2) 
+            {
+            	String fnamold=file.getName();
+               	if((fnamold.toLowerCase().contains("date"))&&(fnamold.contains(".sqx")==false))
+            	{
+               		Magicfix.renameMagicDate(mqlquellverz + File.separator +fnamold.substring(0,fnamold.lastIndexOf(".")),metaconfig.getMttype());
+            	}
+            }
+		}
+		
+		
+		
+		
+		
+	
+		
+		
 		
 		GlobalVar.save();
 		
@@ -417,9 +442,12 @@ public class Installer
 			CheckTradeListenImport(tv, metaconfig.getMqlquellverz() + "\\" + mqlquellnam, metaconfig.getBrokername());
 			
 			// hier werden nur mq4/5-files verarbeitet
-			if (mqlquellnam.contains(mqlpostfix) == false)
+			if ((metaconfig.getMttype().toLowerCase().equals("mt5"))&&(mqlquellnam.contains(".mq5") == false))
+				continue;
+			if ((metaconfig.getMttype().toLowerCase().equals("mt4"))&&(mqlquellnam.contains(".mq4") == false))
 				continue;
 			
+						
 			Tracer.WriteTrace(20, "mqlquellnam<" + mqlquellnam + "> mqlquellverz<" + mqlquellverz + "> zielshare<"
 					+ metaconfig.getMqldata() + "> zwischenspeichernam<" + zwischenspeichernam + ">");
 			

@@ -1064,7 +1064,9 @@ public class Metaconfig implements Comparable<Metaconfig>
 			portextension = " /portable";
 		
 		String metatraderexepath = null;
-		if (getMttype().toLowerCase().equals("mt4"))
+		if(getMttype()==null)
+			metatraderexepath = getNetworkshare_INSTALLDIR() + "\\terminal.exe";
+		else if (getMttype().toLowerCase().equals("mt4"))
 			metatraderexepath = getNetworkshare_INSTALLDIR() + "\\terminal.exe";
 		else if (getMttype().toLowerCase().equals("mt5"))
 			metatraderexepath = getNetworkshare_INSTALLDIR() + "\\terminal64.exe";

@@ -25,6 +25,7 @@ import data.Historyexporter;
 import data.Marklines;
 import data.Metaconfig;
 import data.Profit;
+import data.ProfitTableStatistik;
 import data.Profitliste;
 import data.Rootpath;
 import data.TableViewBasic;
@@ -479,7 +480,7 @@ public class Tableview extends TableViewBasic
 	
 	
 	
-	public void ShowProfitTable()
+	public ProfitTableStatistik ShowProfitTable()
 	{
 		// Die Profittable ist die grosse Tabelle im Hauptscreen in der Mitte
 		Tracer.WriteTrace(50, "Show Profittable for debug");
@@ -499,6 +500,7 @@ public class Tableview extends TableViewBasic
 		table.clearAll();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
+		ProfitTableStatistik pfts=new ProfitTableStatistik();
 		
 		float gew10 = 0, gew30 = 0, gewall = 0;
 		
@@ -525,6 +527,7 @@ public class Tableview extends TableViewBasic
 			gew10 = prof.getZehntagegewinn();
 			gew30 = prof.getDreizigtragegewinn();
 			gewall = prof.getGesgewinn();
+			pfts.addvalue(gew10, gew30, gewall);
 			Ea ea = eal_glob.getEa(prof.getMagic(), prof.getBroker());
 			
 			String comment = prof.getComment();// tl.getComment(prof.getMagic());
@@ -629,7 +632,7 @@ public class Tableview extends TableViewBasic
 			{
 				table.getColumn(i).pack();
 			}
-		
+		return pfts;
 	}
 	
 	public void CalcSelectedProfits()

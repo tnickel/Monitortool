@@ -14,7 +14,7 @@ public class Mt4Backtester
 		//rootpath: ist der pfad wo das installationspacket ist
 		//appdata ist das appdata des jeweiligen Metatrader
 		
-		if(appdata.contains("mt5"))
+		if(appdata.toLowerCase().contains("mt5"))
 			return;
 		
 		FileAccessDyn fd = new FileAccessDyn();

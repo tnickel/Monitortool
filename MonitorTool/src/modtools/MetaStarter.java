@@ -71,7 +71,9 @@ public class MetaStarter
 				continue;
 			
 			
-			if (meconf.getMttype().toLowerCase().equals("mt4"))
+			if(meconf.getMttype()==null)
+				metatraderexepath = meconf.getNetworkshare_INSTALLDIR() + "\\terminal.exe";
+			else if (meconf.getMttype().toLowerCase().equals("mt4"))
 				metatraderexepath = meconf.getNetworkshare_INSTALLDIR() + "\\terminal.exe";
 			else if (meconf.getMttype().toLowerCase().equals("mt5"))
 				metatraderexepath = meconf.getNetworkshare_INSTALLDIR() + "\\terminal64.exe";
@@ -196,7 +198,7 @@ public class MetaStarter
 		StartMetatrader(meconf, meconf.getAppdata() + "\\startmetatrader_portable.bat");
 		try
 		{
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block

@@ -130,6 +130,12 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private Button addbroker;
 	private MenuItem updateHistoryExporter;
 	private MenuItem backup, transfer, config, info, transferuserdata;
+	private Label label8;
+	private Text profall;
+	private Label label7;
+	private Text prof30;
+	private Label label6;
+	private Text prof7;
 	private Button button2checkopentrades;
 	private Button button2ConfigAttributes;
 	private Button AutoCreator;
@@ -187,6 +193,65 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setFont(SWTResourceManager.getFont("Segoe UI", 8, 0, false, false));
 			this.setToolTipText("If you cklick this button all symbols of the symbol replacementable will be replaced \r\n\r\r\nFor example\r\n\r\r\nD:\\Forex\\MonitortoolDevelop\\conf\replacesymbols.txt\r\n\r\r\nag2102,ag2115\r\n\r\r\nag2103,ag2116\r\n\r\r\n..\r\n\r\r\n..\r\n\r\r\n");
+			{
+				label8 = new Label(this, SWT.NONE);
+				FormData label8LData = new FormData();
+				label8LData.left =  new FormAttachment(0, 1000, 892);
+				label8LData.top =  new FormAttachment(0, 1000, 620);
+				label8LData.width = 46;
+				label8LData.height = 16;
+				label8.setLayoutData(label8LData);
+				label8.setText("All Profit");
+			}
+			{
+				profall = new Text(this, SWT.NONE);
+				FormData profallLData = new FormData();
+				profallLData.left =  new FormAttachment(0, 1000, 823);
+				profallLData.top =  new FormAttachment(0, 1000, 620);
+				profallLData.width = 57;
+				profallLData.height = 16;
+				profall.setLayoutData(profallLData);
+				profall.setText("text1");
+			}
+			{
+				label7 = new Label(this, SWT.NONE);
+				FormData label7LData = new FormData();
+				label7LData.left =  new FormAttachment(0, 1000, 734);
+				label7LData.top =  new FormAttachment(0, 1000, 620);
+				label7LData.width = 77;
+				label7LData.height = 16;
+				label7.setLayoutData(label7LData);
+				label7.setText("Monthly Profit");
+			}
+			{
+				prof30 = new Text(this, SWT.NONE);
+				FormData prof30LData = new FormData();
+				prof30LData.left =  new FormAttachment(0, 1000, 637);
+				prof30LData.top =  new FormAttachment(0, 1000, 620);
+				prof30LData.width = 85;
+				prof30LData.height = 16;
+				prof30.setLayoutData(prof30LData);
+				prof30.setText("text1");
+			}
+			{
+				label6 = new Label(this, SWT.NONE);
+				FormData label6LData = new FormData();
+				label6LData.left =  new FormAttachment(0, 1000, 560);
+				label6LData.top =  new FormAttachment(0, 1000, 620);
+				label6LData.width = 71;
+				label6LData.height = 16;
+				label6.setLayoutData(label6LData);
+				label6.setText("Weekly Profit");
+			}
+			{
+				FormData prof7LData = new FormData();
+				prof7LData.left =  new FormAttachment(0, 1000, 463);
+				prof7LData.top =  new FormAttachment(0, 1000, 620);
+				prof7LData.width = 85;
+				prof7LData.height = 16;
+				prof7 = new Text(this, SWT.NONE);
+				prof7.setLayoutData(prof7LData);
+			}
 			{
 				button2checkopentrades = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2checkopentradesLData = new FormData();
@@ -1600,15 +1665,9 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			// buttons wieder einschalten
 
 			toggleallprofits.setEnabled(true);
-			
 			manualonoff.setEnabled(true);
-		
-
 			configea.setEnabled(true);
-
-			
-
-			
+		
 		}
 		Tradeanzahl ta = smw.calcTradeanzahl();
 		anzincommingtrades.setText(String.valueOf(ta.getAnztrades()));
@@ -1635,7 +1694,6 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	{
 		// Nur jede 15 minuten beim Server checken
 		Date aktdate = Mondate.getAktDate();
-
 		
 		/*MonitorClient.main(new String[]
 		{ "start client" }); */
@@ -1670,7 +1728,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			
 		}
 		smw.loadallbroker(dis_glob, table1, table2, table3, tf,
-				anzincommingtrades, anzeas, broker, 1, 1,onlyopenflag);
+				anzincommingtrades, anzeas, broker, 1, 1,onlyopenflag,prof7,prof30,profall);
 	
 	
 		
@@ -1716,7 +1774,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			forceflag = 1;
 
 		smw.brokerselected(name, tf, table1, table2, table3, broker, dis_glob,
-				1, forceflag,0);
+				1, forceflag,0,prof7,prof30,profall);
 
 		DisTool.arrowCursor();
 		setBrokermode(1);
@@ -2064,7 +2122,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// hier werden die selektierten EA in einer gemeinssamen graphik
 		// angezeigt
 
-		smw.showselprofits(table2);
+		smw.showselprofits(table2,broker.getText());
 	}
 
 	private void importeasWidgetSelected(SelectionEvent evt)
@@ -2185,7 +2243,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		
 		//und jetzt muss der reloadbutton getätigt werden, d.h. die Tades für den Broker werden neu angezeigt
 		smw.brokerselected(selbrokerpath_g, tf, table1, table2, table3, broker, dis_glob,
-				1, 0,0);
+				1, 0,0,prof7,prof30,profall);
 	}
 
 	private void text1daysKeyTraversed(TraverseEvent evt)

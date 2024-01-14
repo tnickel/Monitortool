@@ -6,9 +6,12 @@ import hiflsklasse.Inf;
 
 public class Mecalc
 {
-	//hier werden berechnungen auf der Metriktabelle gemacht
+	//hier werden berechnungen auf der Metriktabelle gemacht 
+	//Was soll das, warum ist nicht beschrieben wozu die berechnungen gebrauht werden und was berechnet wird???
+	//Funktion wird in der Toolbox benutzt
 	public void calc50_100_write(Metriktabelle met50,Metriktabelle met100,String zielfile,String attributname)
 	{
+		
 		File zfile= new File(zielfile);
 		if(zfile.exists())
 			zfile.delete();

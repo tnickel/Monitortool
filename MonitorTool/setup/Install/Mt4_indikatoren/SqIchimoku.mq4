@@ -59,8 +59,8 @@ void OnInit(void)
    SetIndexLabel(2,NULL);
    SetIndexStyle(5,DRAW_LINE,STYLE_DOT);
    SetIndexBuffer(5,ExtSpanA2_Buffer);
-   //SetIndexDrawBegin(5,InpKijun+ExtBegin-1);
-   //SetIndexShift(5,InpKijun);
+   SetIndexDrawBegin(5,InpKijun+ExtBegin-1);
+   SetIndexShift(5,InpKijun);
    SetIndexLabel(5,"Senkou Span A");
 //---
    SetIndexStyle(3,DRAW_HISTOGRAM,STYLE_DOT);
@@ -70,8 +70,8 @@ void OnInit(void)
    SetIndexLabel(3,NULL);
    SetIndexStyle(6,DRAW_LINE,STYLE_DOT);
    SetIndexBuffer(6,ExtSpanB2_Buffer);
-   //SetIndexDrawBegin(6,InpKijun+InpSenkou-1);
-   //SetIndexShift(6,InpKijun);
+   SetIndexDrawBegin(6,InpKijun+InpSenkou-1);
+   SetIndexShift(6,InpKijun);
    SetIndexLabel(6,"Senkou Span B");
 //---
    SetIndexStyle(4,DRAW_LINE);
@@ -116,6 +116,12 @@ int OnCalculate(const int rates_total,
    
    if(prev_calculated>0)
       pos=prev_calculated-1;
+      
+   int chikouStart = rates_total > InpKijun ? rates_total - InpKijun : 0;
+   
+   for(int a=chikouStart; a<rates_total; a++){
+      ExtChikouBuffer[a]=close[rates_total-1];
+   }   
       
    for(i=pos; i<rates_total; i++)
      {
@@ -209,14 +215,16 @@ int OnCalculate(const int rates_total,
   
 //--- Chikou Span
    pos=0;
+   
    if(prev_calculated>1)
       pos=prev_calculated-1;
    for(i=pos; i<rates_total; i++){
-      ExtChikouBuffer[i]=0;
+      ExtChikouBuffer[i]=close[rates_total-1];
       if(i >= InpKijun){
          ExtChikouBuffer[i-InpKijun]=close[i];
       }
    }
+  
 //---
    return(rates_total);
   }

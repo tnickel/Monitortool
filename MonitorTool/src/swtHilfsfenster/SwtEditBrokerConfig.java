@@ -382,12 +382,12 @@ public class SwtEditBrokerConfig
 			text1currencypair.setText(me_glob.getHistexportcurrency());
 		else
 			text1currencypair.setText("EURUSD");
-		text1currencypair.setBounds(803, 214, 94, 26);
+		text1currencypair.setBounds(800, 188, 94, 26);
 	}
 	{
 		label1 = new Label(sh, SWT.NONE);
-		label1.setText("use currency pair");
-		label1.setBounds(904, 214, 99, 30);
+		label1.setText("use currency pair for historyexporter");
+		label1.setBounds(805, 220, 222, 30);
 		label1.setToolTipText(
 				"The historyexporter need a currencypair, I use EURUSD as standart currencypair. If your broker don´t have EURUSD as currencypair you can choose an other pari");
 	}
@@ -470,19 +470,19 @@ public class SwtEditBrokerConfig
 	}
 	{
 		tradesuffixsender = new Text(sh, SWT.BORDER);
-		tradesuffixsender.setBounds(1021, 214, 49, 20);
+		tradesuffixsender.setBounds(1065, 212, 49, 20);
 		if (me_glob.getTradesuffixsender() != null)
 			tradesuffixsender.setText(me_glob.getTradesuffixsender());
 	}
 	{
 		label7 = new Label(sh, SWT.NONE);
 		label7.setText("currency add");
-		label7.setBounds(1080, 214, 78, 20);
+		label7.setBounds(1118, 212, 78, 20);
 	}
 	{
 		label8 = new Label(sh, SWT.NONE);
 		label8.setText("(info)");
-		label8.setBounds(1158, 214, 44, 20);
+		label8.setBounds(1202, 212, 44, 20);
 		label8.setToolTipText(
 				"If currency add is set the currency name will be renamed before installation. For example: add=.r than EURUSD will be named to EURUSD.r");
 	}
@@ -940,7 +940,7 @@ public class SwtEditBrokerConfig
 		
 		me_glob.setLotsize(Double.valueOf(lotsize.getText()));
 		
-		//schaue hier nach was kaputt gemacht wird
+		//Installiere die EAs
 		
 		work.installDemoEas(dis_glob, progressBar1, me_glob, metatraderrealconfig, MqlQuellverzeichniss.getText(),
 				tableview_glob);

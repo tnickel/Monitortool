@@ -9,8 +9,6 @@
 #property indicator_chart_window
 #property indicator_buffers 1
 #property indicator_color1 Red
-#property indicator_color2 Red
-#property indicator_color3 Red
 //---- input parameters
 extern int       kama_period = 10;
 extern double    fast_ma_period = 2.0;

@@ -1,3 +1,10 @@
+V0.707 17.11.23
+-update historyexporter for mt5
+-bugfixes
+-feature if you set keyord LIFE in message then this account will be shown as marked life account
+-bugfix, show accountnumber in mt5
+-bugfix update history exporter
+
 V0.607 1.12.2022
 -bugfix shutdown on friday
 

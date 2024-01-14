@@ -72,6 +72,7 @@ public class CorrelationResultliste
 	
 	public static float holeAttribCorel(int filterindex,String attrib)
 	{
+		//holt für ein Attribut den Korrelationswert
 		Corelresultliste corl=reslist_glob.get(filterindex);
 		Corelresultelem coreelem=corl.getElem(attrib);
 
