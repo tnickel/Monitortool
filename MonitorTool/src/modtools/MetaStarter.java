@@ -174,13 +174,25 @@ public class MetaStarter
 		// taskkill /IM terminal.exe /F
 		try
 		{
-			Process p = Runtime.getRuntime().exec("taskkill /IM terminal.exe  /F");
+			Process p = Runtime.getRuntime().exec("taskkill /IM terminal.exe");
+			Thread.sleep(5000);
+			p.destroy();
+			
+			
+			 p = Runtime.getRuntime().exec("taskkill /IM terminal64.exe");
+					Thread.sleep(1000);
+					p.destroy();
+				
+			
+			 p = Runtime.getRuntime().exec("taskkill /F  /IM terminal.exe  ");
 			Thread.sleep(1000);
 			p.destroy();
 			
-			 p = Runtime.getRuntime().exec("taskkill /IM terminal64.exe  /F");
+			
+			 p = Runtime.getRuntime().exec("taskkill /F  /IM terminal64.exe  ");
 			Thread.sleep(1000);
 			p.destroy();
+			
 			
 		} catch (IOException e)
 		{

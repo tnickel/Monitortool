@@ -47,6 +47,8 @@ public class CalOpt100
 
 		// die filterzeiträume aus den Tabellen generieren, bzw
 		// die einlesen wenn die auf platte
+		// In den Dateien.filter stehen zu den Metriken Filter. Hier kann man wertebereiche vorgeben wenn man möchte
+		// auch kann man sagen ob man hier die Metrik für die Analyse betrachten möchte, man setzt dann einfach ein flag.
 		filtzeitraume_glob.genAllFilterzeitraume(met_glob);
 		if (filtzeitraume_glob.getAnz() < 2)
 			Tracer.WriteTrace(10, "E:filterzeitraume init fehler anz="
@@ -215,8 +217,10 @@ public class CalOpt100
 	{
 		//für jede Metrik wird die person Correlation ermittelt
 		// die metriktabellen wurden schon eingelesen
+		
 		readMetriktabellen();
 		// als nächstes wird korreliert
+		
 		CorrelationResultliste.CalcPersonCorrelation(met_glob);
 		if(showflag==1)
 			CorrelationResultliste.zeigeTabelle(Metrikglobalconf.getFilterpath()+"\\correlation.txt");

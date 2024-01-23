@@ -100,7 +100,7 @@ public class CorrelationResultliste
 	
 		reslist_glob.clear();
 		Metriktabelle endtable = met.holeEndtestMetriktable();
-		double[] endvektor = endtable.calcAttribvektor("Net profit");
+		double[] endvektor = endtable.calcAttribvektor("Net profit (OOS)");
 
 		// anzahl der tabellen bestimmen
 		int anztab = met.getAnz();
@@ -159,6 +159,7 @@ public class CorrelationResultliste
 			for(int j=0; j<anz; j++)
 			{
 				Corelresultelem ce=cr.getElem(j);
+				
 				inf.writezeile(ce.getAttribname()+"#"+ce.getVal());
 			}
 			inf.writezeile("...............#...............");

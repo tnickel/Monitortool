@@ -44,6 +44,7 @@ public class SqBaseList
 		Inf inf = new Inf();
 		inf.setFilename(fnam);
 		String zeile = inf.readZeile();
+		//Diese Attribute werden aus der SQX-exportierten liste ausgewertet.
 		String kw1="Net profit (Portfolio, "+cpart+")";
 		String kw2="Profit factor (Portfolio, "+cpart+")";
 		String kw3="Stability (Portfolio, "+cpart+")";
@@ -109,6 +110,8 @@ public class SqBaseList
 		
 		String cleanname = null, lastcleanname = null;
 		String zeile = null;
+		int gesTradesInPortfolios=0;
+		double profperTradeSum=0;
 		
 		File sqbf = new File(sqbasefile);
 		if (sqbf.exists())
@@ -125,7 +128,7 @@ public class SqBaseList
 			Tracer.WriteTrace(10, "I: no data in SQ3, list is empty");
 			return;
 		}
-		inf.writezeile("***Name#NetProfit.#Pf#Stability#RetDD#Strategies");
+		inf.writezeile("***Name#NetProfit.#Prof per Trade#Pf#Stability#RetDD#Strategies#0");
 		for (int i = 0; i < anz; i++)
 		{
 			SqBaseElem sbe = baselist.get(i);
@@ -133,21 +136,21 @@ public class SqBaseList
 			if (cleanname.equals(lastcleanname) == false)
 			{
 				// falls sich der cleanname geändert hat füge Leerzeile ein und gehe weiter
-				zeile = "\"===================== \"#0.0#0.0#0.0#0.0#0";
+				zeile = "\"===================== \"#0.0#0.0#0.0#0.0#0.0#0#0";
 				inf.writezeile(zeile);
 			}
 			lastcleanname = cleanname;
 		
-			zeile = sbe.getStrategyname() + "#" + String.format(Locale.US,"%.2f",sbe.getNetprofit()) + "#" + String.format(Locale.US,"%.2f",sbe.getProfitfaktor()) + "#"
-					+ String.format(Locale.US,"%.2f",sbe.getStability()) + "#" + String.format(Locale.US,"%.2f",sbe.getRetdd())+"#0";
+			zeile = sbe.getStrategyname() + "#" + String.format(Locale.US,"%.2f",sbe.getNetprofit()) + "#0#" + String.format(Locale.US,"%.2f",sbe.getProfitfaktor()) + "#"
+					+ String.format(Locale.US,"%.2f",sbe.getStability()) + "#" + String.format(Locale.US,"%.2f",sbe.getRetdd())+"#0#0";
 			inf.writezeile(zeile);
 		}
 		lastcleanname="";
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
-		zeile = "average results  #0.0#0.0#0.0#0.0#0";
+		zeile = "average results  #0.0#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
 		for (int i = 0; i < anz; i++)
 		{
@@ -157,44 +160,32 @@ public class SqBaseList
 			if (cleanname.equals(lastcleanname) == true)
 				continue;
 			lastcleanname = cleanname;
-			zeile = "average results <" + cleanname + ">=" + "#" + String.format(Locale.US,"%.2f",calcAvrNettoprofit(cleanname)) + "#"
+			int trades=sumWorkflow.calcAnzTradesAusLogfile(cleanname);
+			gesTradesInPortfolios=gesTradesInPortfolios+trades;
+			
+			double avrnetprof=calcAvrNettoprofit(cleanname); //Das ist der nettoprofit der links in der Zeile steht
+			double netprofitPerTrade=(avrnetprof/trades);//Wir wollen den durchschnittlichen profit für einen trade ermitteln
+			profperTradeSum=profperTradeSum+netprofitPerTrade; //wir summieren das ganze
+			zeile = "average results <" + cleanname + ">=" + "#" + String.format(Locale.US,"%.2f",avrnetprof) + "#"+String.format(Locale.US,"%3.1f",(avrnetprof/trades))+"#"
 					+ String.format(Locale.US,"%.2f",calcAvrProfitfaktor(cleanname)) + "#" + String.format(Locale.US,"%.2f",calcAvrStability(cleanname)) + "#"
-					+ String.format(Locale.US,"%.2f",calcAvrRetDD(cleanname))+"#"+sumWorkflow.calcAnzTradesAusLogfile(cleanname);
+					+ String.format(Locale.US,"%.2f",calcAvrRetDD(cleanname))+"#"+trades+"#0";
 			inf.writezeile(zeile);
 			
 		}
-		zeile = "#0.0#0.0#0.0#0.0#0";
+		zeile = "#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
 
-		/*
-		zeile = "standart deviation  #0.0#0.0#0.0#0.0";
+	
+		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
-		
-		for (int i = 0; i < anz; i++)
-		{
-			SqBaseElem sbe = baselist.get(i);
-			cleanname = sbe.getCleanName();
-			
-			if (cleanname.equals(lastcleanname) == true)
-				continue;
-			lastcleanname = cleanname;
-			
-			zeile = "standart deviation <" + cleanname + ">=" + "#" + calcStddevNettoprofit(cleanname) + "#"
-					+ calcStddevProfitfaktor(cleanname) + "#" + calcStddevStability(cleanname) + "#"
-					+ calcStddevRetDD(cleanname);
-			inf.writezeile(zeile);
-		}
-		*/
-		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0";
+		zeile = "#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
-		zeile = "#0.0#0.0#0.0#0.0#0";
+		zeile = "overall average results=" + "#" + String.format(Locale.US,"%.2f",calcAvrNettoprofit(null)) + "#"+String.format(Locale.US,"%.2f",(profperTradeSum/anz))+"#" + String.format(Locale.US,"%.2f",calcAvrProfitfaktor(null)) + "#"
+				+ String.format(Locale.US,"%.2f",calcAvrStability(null)) + "#" + String.format(Locale.US,"%.2f",calcAvrRetDD(null))+"#0#0#0";
 		inf.writezeile(zeile);
-		zeile = "overall average results=" + "#" + String.format(Locale.US,"%.2f",calcAvrNettoprofit(null)) + "#" + String.format(Locale.US,"%.2f",calcAvrProfitfaktor(null)) + "#"
-				+ String.format(Locale.US,"%.2f",calcAvrStability(null)) + "#" + String.format(Locale.US,"%.2f",calcAvrRetDD(null))+"#0";
-		inf.writezeile(zeile);
-		zeile = "overall standart deviation=" + "#" + String.format(Locale.US,"%.2f",calcStddevNettoprofit(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevProfitfaktor(null))
-				+ "#" + String.format(Locale.US,"%.2f",calcStddevStability(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevRetDD(null))+"#0";
-		inf.writezeile(zeile);
+		//zeile = "overall standart deviation=" + "#" + String.format(Locale.US,"%.2f",calcStddevNettoprofit(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevProfitfaktor(null))
+		//		+ "#" + String.format(Locale.US,"%.2f",calcStddevStability(null)) + "#" + String.format(Locale.US,"%.2f",calcStddevRetDD(null))+"#0";
+		//inf.writezeile(zeile);
 		inf.close();
 		
 	}

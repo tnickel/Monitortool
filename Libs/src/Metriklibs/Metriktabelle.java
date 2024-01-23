@@ -127,7 +127,7 @@ public class Metriktabelle
 			Tracer.WriteTrace(10, "I:Metrikfile.csv <" + filename + "> missing");
 
 		// die Attribute für die Klasse setzten
-		String firstzeile = inf.readZeile();
+		String firstzeile = inf.readZeile().replace("\"","");
 		Metrikzeile metzeile = new Metrikzeile();
 		metzeile.setzeAttribute(firstzeile);
 
@@ -136,10 +136,12 @@ public class Metriktabelle
 		while (5 == 5)
 		{
 
-			String zeile = inf.readZeile();
+			String zeile = inf.readZeile();//.replace("#", "anz");
 			if (zeile == null)
 				break;
 
+			zeile=zeile.replace("\"","");
+			
 			metzeile = new Metrikzeile();
 			// die Metrikzeile bauen
 			metzeile.setzeAttribute(firstzeile);
@@ -250,7 +252,7 @@ public class Metriktabelle
 		for (int i = 0; i < anzspalten; i++)
 		{
 			Metrikentry me = mez.holeEntry(i);
-			if (me.getAttributName().equals(attribname))
+			if (me.getAttributName().toLowerCase().contains(attribname.toLowerCase()))
 			{
 				// die position gefunden
 				result = calcAttribvektor(i);
@@ -258,7 +260,7 @@ public class Metriktabelle
 			}
 		}
 		Tracer.WriteTrace(10,
-				"internal nettprofit nicht in endtesttabelle gefunden");
+				"internal attribname<"+attribname+"> nicht in endtesttabelle gefunden");
 		return null;
 	}
 
@@ -420,6 +422,8 @@ public class Metriktabelle
 		float fval = 0;
 		// an dieser position steht der floatwert für das attribut
 		// mapturbo!
+		if(valuemappos==null)
+			Tracer.WriteTrace(10, "E: internal this is null holeFloatwert");
 		int floatpos = valuemappos.get(valuename);
 
 		Metrikentry me = examplezeile.holeEntry(floatpos);
@@ -430,7 +434,7 @@ public class Metriktabelle
 		{
 			// falls der metrikentry ein float-attribut hat, dann wird der wert
 			// ausgelesen
-			if (me.getAttributflag() == 2)
+			if (me.getAttributflag() == 2)//2 heisst floatwert
 			{
 				fval = Float.valueOf(me.getValue());
 				return fval;

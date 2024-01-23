@@ -4,7 +4,7 @@ public class Metrikentry
 {
 	// 0= nicht aktiv, 1=string, 2=float
 	int attributflag = 0;
-	String attributname = null;
+		String attributname = null;
 	String value = null;
 
 	public String getAttributName()
@@ -24,7 +24,10 @@ public class Metrikentry
 
 	public void setValue(String strvalue)
 	{
-		this.value = new String(strvalue);
+		
+		this.value = new String(strvalue.replace("\"", ""));
+	
+			
 		try
 		{
 			float a = Float.valueOf(value);

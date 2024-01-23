@@ -122,11 +122,9 @@ public class StartMonitorWork
 		
 	}
 	
-
-	
 	public void loadallbroker(Display dis, Table table1, Table table2, Table table3, Tradefilter tf,
 			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag,
-			int onlyopenflag,Text prof7,Text prof30,Text profall)
+			int onlyopenflag, Text prof7, Text prof30, Text profall)
 	{
 		// forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
@@ -134,7 +132,7 @@ public class StartMonitorWork
 		// SWT.CURSOR_WAIT));
 		// falls profitnormalisierung==true dann werden die gewinne auf lotsize
 		// 0.1 umgerechnet
-		ProfitTableStatistik pfts= null;
+		ProfitTableStatistik pfts = null;
 		
 		buildBrokerliste(table3, forceloadflag);
 		broker.setText("load all active broker");
@@ -180,11 +178,11 @@ public class StartMonitorWork
 		tv_glob.CalcProfitTable(null, 1);
 		
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
-		pfts=tv_glob.ShowProfitTable();
+		pfts = tv_glob.ShowProfitTable();
 		prof7.setText(pfts.getProf7());
 		prof30.setText(pfts.getProf30());
 		profall.setText(pfts.getProfAll());
-		if(onlyopenflag==1)
+		if (onlyopenflag == 1)
 		{
 			tv_glob.dumpProfitliste("ProfitlisteVorCheck");
 			tv_glob.checkProfitliste();
@@ -223,9 +221,9 @@ public class StartMonitorWork
 	}
 	
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1, Table table2, Table table3, Display dis,
-			int showflag, int forceloadflag, int onlyopenflag,Text prof7,Text prof30, Text profall)
+			int showflag, int forceloadflag, int onlyopenflag, Text prof7, Text prof30, Text profall)
 	{
-		ProfitTableStatistik pfts=new ProfitTableStatistik();
+		ProfitTableStatistik pfts = new ProfitTableStatistik();
 		// dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
 		
@@ -236,16 +234,16 @@ public class StartMonitorWork
 		// die profittable für einen bestimmten broker berechnen
 		tv_glob.CalcProfitTable(brokername, 1);
 		// die profittabelle anzeigen
-		pfts=tv_glob.ShowProfitTable();
+		pfts = tv_glob.ShowProfitTable();
 		prof7.setText(pfts.getProf7());
 		prof30.setText(pfts.getProf30());
 		profall.setText(pfts.getProfAll());
 		
-		
 	}
 	
 	public void brokerselected(String name, Tradefilter tf, Table table1, Table table2, Table table3,
-			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag, int onlyopenflag,Text prof7,Text prof30, Text profall)
+			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag, int onlyopenflag,
+			Text prof7, Text prof30, Text profall)
 	{
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
@@ -264,9 +262,9 @@ public class StartMonitorWork
 		// if (me.getInstallationstatus() != 0)
 		
 		// hier wird die Ealiste für das mittlere Fenster aufgebaut
-		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag,prof7,prof30,profall);
+		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag, prof7, prof30, profall);
 		
-		//brokerview_glob.SaveBrokerTable();
+		// brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
 	}
 	
@@ -277,7 +275,7 @@ public class StartMonitorWork
 		Metaconfig me = brokerview_glob.getMetaconfig(glob_selectedBrokerShare);
 		
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
-		sc.init(display_glob, me, brokerview_glob, 0, tv_glob,"editconfig");
+		sc.init(display_glob, me, brokerview_glob, 0, tv_glob, "editconfig");
 		buildBrokerliste(table3, 0);
 	}
 	
@@ -294,7 +292,7 @@ public class StartMonitorWork
 		String broker = selectedProfitelem_glob.getBroker();
 		
 		SwtShowTradeliste st = new SwtShowTradeliste();
-		Tradeliste etl = tv_glob.buildTradeliste(magic, broker, -1,null);
+		Tradeliste etl = tv_glob.buildTradeliste(magic, broker, -1, null);
 		
 		st.init(display_glob, etl, tv_glob, broker, magic);
 		
@@ -375,7 +373,7 @@ public class StartMonitorWork
 		Metaconfig me = new Metaconfig("##0######0######");
 		
 		SwtEditBrokerConfig sc = new SwtEditBrokerConfig();
-		sc.init(display_glob, me, brokerview_glob, 1, tv_glob,"addbroker");
+		sc.init(display_glob, me, brokerview_glob, 1, tv_glob, "addbroker");
 		buildBrokerliste(table3, 0);
 		brokerview_glob.SaveBrokerTable();
 	}
@@ -394,7 +392,7 @@ public class StartMonitorWork
 		
 	}
 	
-	public void showProfitGraphik()
+	public void showProfitGraphik(Text prof7, Text prof30, Text profall, int anzEas)
 	{
 		// die tradeliste für einen bestimmten ea generieren und anzeigen
 		Profit pro = selectedProfitelem_glob;
@@ -405,7 +403,7 @@ public class StartMonitorWork
 			return;
 		}
 		// die aktuelle profitliste laden
-		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1,null);
+		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1, null);
 		
 		if (eatradeliste == null)
 			return;
@@ -414,7 +412,8 @@ public class StartMonitorWork
 		String headline = pro.getBroker() + ":" + pro.getSymbol() + ":" + pro.getMagic() + ":" + ea.getInfo() + ":"
 				+ pro.getComment();
 		
-		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, headline, null);
+		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, headline, null, prof7, prof30, profall,
+				anzEas);
 		
 		// das demopanel im hauptscreen unten rechtes anzeigen
 		// JPanel jp = Profitanzeige.createDemoPanel(eatradeliste, headline);
@@ -432,7 +431,7 @@ public class StartMonitorWork
 			return;
 		}
 		// die aktuelle profitliste laden
-		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1,null);
+		Tradeliste eatradeliste = tv_glob.buildTradeliste(String.valueOf(pro.getMagic()), pro.getBroker(), -1, null);
 		
 		if (eatradeliste == null)
 			return;
@@ -455,13 +454,14 @@ public class StartMonitorWork
 		
 	}
 	
-	public void showselprofits(Table table2,String brokername)
+	public void showselprofits(Table table2, String brokername, Text prof7, Text prof30, Text profall, int anzEas)
 	{
 		// hier wird die gewinnkurve mehrerer EA´s in einer graphik angezeigt
 		Tradeliste eatradeliste = tv_glob.buildTradelisteAllSel(0);
 		if (eatradeliste == null)
 			return;
-		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, brokername+": profits", null);
+		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, brokername + ": profits", null, prof7,
+				prof30, profall, anzEas);
 	}
 	
 	public void showselprofitstradelistportfolio(Table table2)
@@ -877,7 +877,7 @@ public class StartMonitorWork
 		DisTool.UpdateDisplay();
 	}
 	
-	public void showBacktest(boolean forceflag)
+	public void showBacktest(boolean forceflag, Text prof7, Text prof30, Text profall,int anzEas)
 	{
 		Profit pro = selectedProfitelem_glob;
 		
@@ -907,7 +907,7 @@ public class StartMonitorWork
 			showBacktestGif(filename.replace(".jpg", ".gif"));
 		else
 			// 3)kein bild dann schaue ob man es aus dem xml-file genieren kann
-			showBacktestXml(filename);
+			showBacktestXml(filename, prof7, prof30, profall,anzEas);
 	}
 	
 	private void showBacktestJPG(String fnam)
@@ -920,7 +920,7 @@ public class StartMonitorWork
 		SwtPicture.mainx(fnam);
 	}
 	
-	private boolean showBacktestXml(String storefilename)
+	private boolean showBacktestXml(String storefilename, Text prof7, Text prof30, Text profall, int anzEas)
 	{
 		// das bild wird anschliessend unter storefilename abgespeichtert
 		
@@ -944,7 +944,8 @@ public class StartMonitorWork
 		Ea ea = tv_glob.getEaliste().getEa(pro.getMagic(), pro.getBroker());
 		String headline = pro.getBroker() + ":" + pro.getMagic() + ":" + ea.getInfo();
 		
-		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, headline, storefilename);
+		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf", eatradeliste, headline, storefilename, prof7, prof30,
+				profall, anzEas);
 		
 		return true;
 	}

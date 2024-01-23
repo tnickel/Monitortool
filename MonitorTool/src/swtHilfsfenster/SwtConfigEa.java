@@ -517,7 +517,7 @@ public class SwtConfigEa extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("ShowProfit.widgetSelected, event=" + evt);
 		// TODO add your code for ShowProfit.widgetSelected
-		smw_glob.showProfitGraphik();
+		smw_glob.showProfitGraphik(null,null,null,0);
 	}
 
 	

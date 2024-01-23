@@ -1,5 +1,6 @@
 package sq4xWorkflow;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import hiflsklasse.FileAccess;
@@ -118,7 +119,10 @@ public class SqSumWorkflow
 		//geholt
 		//es werden alle trades für einen bestimmten workflow aufsummiert
 		//ein workflow kann ja mehrmals durchlaufen werden
-		int stratcount=0;
+		int stratcount_newest=0;
+		long lastmodified_newest=0;
+		
+		int scount=0;
 		FileAccess.initFileSystemList(workflowdir+"\\log", 1);
 		int anz = FileAccess.holeFileAnz();
 		if (anz > 0)
@@ -126,16 +130,26 @@ public class SqSumWorkflow
 			for (int i = 0; i < anz; i++)
 			{
 				String fnam=workflowdir+"\\log\\"+FileAccess.holeFileSystemName();
+				File fnam_f=new File(fnam);
 				if(fnam.contains(".log"))
 				{
 					Inf inf=new Inf();
 					inf.setFilename(fnam);
 					String mem=inf.readMemFile(50000);
-					stratcount=stratcount+extractAnzStrategien( mem, fnam);
+					scount=extractAnzStrategien( mem, fnam);
+					long lmodified=fnam_f.lastModified();
+					if(scount>0)
+					if(lmodified>lastmodified_newest)
+					{
+						//found newer file, than take the dater
+						lastmodified_newest=lmodified;
+						stratcount_newest=scount;
+					}
+					
 					inf.close();
 				}
 			}
-			return stratcount;
+			return stratcount_newest;
 		}
 		Tracer.WriteTrace(20, "I: no logfiles in <" + workflowdir+"\\log" + ">");
 		return 0;
@@ -155,7 +169,7 @@ public class SqSumWorkflow
 		
 		if((mem==null)||(mem.contains("Portfolio created from ")==false))
 		{
-			Tracer.WriteTrace(20, "W:cant find string 'Portfolio created from' in <"+fnam+">" );
+			Tracer.WriteTrace(20, "I:cant find string 'Portfolio created from' in <"+fnam+">" );
 			return 0;
 		}
 		String memsub=mem.substring(mem.indexOf("Portfolio created from ")+23);
@@ -163,7 +177,7 @@ public class SqSumWorkflow
 		
 		if((memsub==null)||(memsub.contains(" strategies")==false))
 		{
-			Tracer.WriteTrace(20, "W:cant find string ' strategies' after string 'Portfolio created from' in <"+fnam+">" );
+			Tracer.WriteTrace(20, "I:cant find string ' strategies' after string 'Portfolio created from' in <"+fnam+">" );
 			return 0;
 		}
 		memsub=memsub.substring(0,memsub.indexOf(" strategies"));

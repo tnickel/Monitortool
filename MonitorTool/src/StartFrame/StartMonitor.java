@@ -1914,7 +1914,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 	private void showprofitWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("showprofit.widgetSelected, event=" + evt);
-		smw.showProfitGraphik();
+		smw.showProfitGraphik(prof7,prof30,profall,0);
 	}
 
 	
@@ -2122,7 +2122,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		// hier werden die selektierten EA in einer gemeinssamen graphik
 		// angezeigt
 
-		smw.showselprofits(table2,broker.getText());
+		smw.showselprofits(table2,broker.getText(),prof7,prof30,profall,table2.getItemCount());
 	}
 
 	private void importeasWidgetSelected(SelectionEvent evt)

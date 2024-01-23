@@ -240,6 +240,7 @@ public class SqWorkflowMaster extends Sq
 	}
 	private void LoopDeltaDFile(SqZipper sqzip)
 	{
+		//Das DeltaDfile ist ein configfile wo die Shifts vorgegeben werden
 		Inf inf = new Inf();
 		inf.setFilename(Toolboxconf.getPropAttribute("deltadaysfile"));
 		String line=inf.readZeile();
@@ -276,7 +277,6 @@ public class SqWorkflowMaster extends Sq
 			}
 			
 			String workflowname = calcWorkflownameFilename(i, offset);
-			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
 			psq.cleanLogfiles(sqrootdir_g, workflowname);
@@ -284,14 +284,12 @@ public class SqWorkflowMaster extends Sq
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
 		jp.end();
-		
 	}
 	
 	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart)
 	{
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
-
 		
 		//Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein bestimmtes verzeichniss vom sq
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();

@@ -69,7 +69,7 @@ public class Metriktabellen
 
 	public void getallFilterzeitraume(ArrayList<Filterzeitraum> filtzeitraume)
 	{
-		// fuer alle metriktabellen weden die filterzeitraume generiert und
+		// fuer alle metriktabellen werden die filterzeitraume generiert und
 		// zurückgeliefert
 
 		int anz = getAnz();
@@ -157,12 +157,12 @@ public class Metriktabellen
 		if(endfitfilter.isNettoflag())
 		{
 			// jetzt den floatwert für oos
-			val = endtabelle.holeFloatwert(mz,"Net profit");
+			val = endtabelle.holeFloatwert(mz,"Net profit (OOS)");
 		}
 		else if(endfitfilter.isNettostabilflag())
 		{
-			val = endtabelle.holeFloatwert(mz,"Net profit");
-			val2= endtabelle.holeFloatwert(mz,"Stability");
+			val = endtabelle.holeFloatwert(mz,"Net profit (OOS)");
+			val2= endtabelle.holeFloatwert(mz,"Stability (OOS)");
 			val=val*val2;
 		}
 		else if(endfitfilter.isNettorobustflag())
@@ -172,12 +172,12 @@ public class Metriktabellen
 		else if(endfitfilter.isNettorobuststabilflag())
 		{
 			val = endtabelle.holeFloatwert(mz,"Net profit (RT)");
-			val2= endtabelle.holeFloatwert(mz,"Stability");
+			val2= endtabelle.holeFloatwert(mz,"Stability (OOS)");
 			val=val*val2;
 		}
 		else if(endfitfilter.isStabilflag())
 		{
-			val= endtabelle.holeFloatwert(mz,"Stability");
+			val= endtabelle.holeFloatwert(mz,"Stability (OOS)");
 		}
 		else
 			Tracer.WriteTrace(10, "E: internal error, endfitfilter not set");

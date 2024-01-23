@@ -33,7 +33,10 @@ public class Metrikzeile
 		// die erste Zeile beinhaltet die attributsnamen
 		// in der Arrylist wird jedes Attribut abgelegt
 		// als ersten werden schon mal die Namen abgelegt
-		String[] segs = zeile.split(Pattern.quote(","));
+		
+		String splitter=calcSplitter(zeile);
+				
+		String[] segs = zeile.split(Pattern.quote(splitter));
 		int anzattribs = segs.length;
 		for (int i = 0; i < anzattribs; i++)
 		{
@@ -44,8 +47,9 @@ public class Metrikzeile
 	public void  baueMetrikzeile(String zeile)
 	{
 		ArrayList<Metrikentry> metrikzeile = new ArrayList<Metrikentry>();
-		String[] segs = zeile.split(Pattern.quote(","));
-		segs = zeile.split(Pattern.quote(","));
+		String splitter=calcSplitter(zeile);
+		String[] segs = zeile.split(Pattern.quote(splitter));
+		segs = zeile.split(Pattern.quote(splitter));
 		int anzattribs = segs.length;
 		
 		if(segs.length!=attributlist.size())
@@ -92,5 +96,16 @@ public class Metrikzeile
 	public Metrikentry holeEntry(int pos)
 	{
 		return (examplezeile.get(pos));
+	}
+	private String calcSplitter(String zeile)
+	{
+		if(zeile.contains(";"))
+			return (";");
+		else if(zeile.contains(","))
+			return (",");
+		else
+			Tracer.WriteTrace(10, "E: cant find spliter ', or ; in zeile<"+zeile+">'");
+		return null;
+					
 	}
 }
