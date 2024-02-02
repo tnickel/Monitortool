@@ -16,10 +16,10 @@ public class SqDatabaseHandler extends SqBaseList
 		
 	}
 	
-	void calcResults(String fnam,String cpart,String portfolioname)
+	void calcResults(String fnam,String cpart,String portfolioname,int normationtrades)
 	{
-		super.SqReadBaseList(fnam,sqrootdir_g,cpart,portfolioname); 
-		double np=super.calcAvrNettoprofit(null);
+		super.SqReadBaseList(fnam,sqrootdir_g,cpart,portfolioname,normationtrades); 
+		double np=super.calcAvrNettoprofit(null,normationtrades);
 		double retdd=super.calcAvrRetDD(null);
 		double pf=super.calcAvrProfitfaktor(null);
 		double stabil=super.calcAvrStability(null);

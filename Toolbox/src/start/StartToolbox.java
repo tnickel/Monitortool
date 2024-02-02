@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -12,6 +14,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.TouchEvent;
+import org.eclipse.swt.events.TouchListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
@@ -48,6 +52,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -214,6 +219,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button fullreportselection;
+	private Label normlabel;
+	private Button nomalizeselection;
+	private Text normn;
+	private Label label32;
+	private Button normnflag;
+	private Text nomationn;
 	private Button SelektorUseDeltaDaysConfigfile;
 	private Button selektorShiftDays;
 	private Button setdeltadays;
@@ -1578,7 +1590,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							{
 								button9showresults = new Button(group2filter, SWT.CHECK | SWT.LEFT);
 								button9showresults.setText("Show Results");
-								button9showresults.setBounds(821, 781, 161, 30);
+								button9showresults.setBounds(720, 789, 95, 29);
 								button9showresults.setSelection(true);
 								button9showresults.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent evt)
@@ -1596,9 +1608,15 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								combo1cpart = new Combo(group2filter, SWT.NONE);
-								combo1cpart.setText("OOS");
-								combo1cpart.setBounds(423, 596, 60, 22);
+								combo1cpart.setText(Toolboxconf.getPropAttribute("combo1cpart"));
 								
+								combo1cpart.setBounds(423, 596, 60, 22);
+								combo1cpart.addModifyListener(new ModifyListener() {
+									public void modifyText(ModifyEvent evt) {
+										combo1cpartModifyText(evt);
+									}
+								});
+
 							}
 							{
 								label31 = new Label(group2filter, SWT.NONE);
@@ -1637,6 +1655,62 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								SelektorUseDeltaDaysConfigfile = new Button(group2filter, SWT.RADIO | SWT.LEFT);
 								SelektorUseDeltaDaysConfigfile.setText("Use datefile");
 								SelektorUseDeltaDaysConfigfile.setBounds(639, 246, 95, 30);
+							}
+							{
+								normn = new Text(group2filter, SWT.NONE);
+								normn.setText("10");
+								normn.setText(Toolboxconf.getPropAttribute("normn"));
+								normn.setBounds(833, 789, 29, 22);
+								normn.addModifyListener(new ModifyListener() {
+									public void modifyText(ModifyEvent evt)
+									{
+										normnModifyText(evt);
+									}
+								});
+								normn.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										normnWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								nomalizeselection = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								nomalizeselection.setText("Normalize");
+								nomalizeselection.setBounds(874, 781, 85, 30);
+								if(Toolboxconf.getPropAttribute("normn").equals("0"))
+									nomalizeselection.setSelection(false);
+								else
+									nomalizeselection.setSelection(true);
+								nomalizeselection.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										nomalizeselectionWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								normlabel = new Label(group2filter, SWT.NONE);
+								normlabel.setText("(i)");
+								normlabel.setBounds(950, 823, 60, 31);
+							}
+							{
+								label32 = new Label(group2filter, SWT.NONE);
+								label32.setText("(i)");
+								label32.setBounds(965, 789, 18, 22);
+								label32.setToolTipText("One problem is that some workflows sometimes produce a lot of strategies. \r\nThese many strategies can distort the result. \r\nFor example, a workflow produces 1000 strategies. \r\nIf they are positive overall, the results\r\nof the other workflows are ignored. \r\nIf this flag is activated, we limit the maximum number of strategies. \r\nN= generated strategies. \r\nX=Max allowed strategies, \r\nSUM = total winnings. \r\nIf N>X than Profit=(SUM/N)*X. \r\n\r\n=>so profit/loss is limited by this number.");
+							}
+							{
+								fullreportselection = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								fullreportselection.setText("Show full Report");
+								fullreportselection.setBounds(1030, 781, 114, 30);
+								if(Toolboxconf.getPropAttribute("fullreportselection").equals("1"))
+										fullreportselection.setSelection(true);
+								else
+									fullreportselection.setSelection(false);
+								fullreportselection.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										fullreportselectionWidgetSelected(evt);
+									}
+								});
 							}
 						}
 					}
@@ -1813,7 +1887,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.2.9.6    "+userdir);
+		shell.setText("Toolbox V1.3.1.1    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2436,10 +2510,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		//hier werden die Resultate eingesammelt
 		//Als erstes wird mit cpart und combo1cpart gesagt was denn gesammelt werden soll
-		String cpart="OOS";
-		int idx = combo1cpart.getSelectionIndex();
-		if(idx!=-1)
-			cpart = combo1cpart.getItem(idx);
+		String	cpart=combo1cpart.getText();
+	
 		
 		// button collect results !!!!!!!!!!!!
 		System.out.println("collectresultsbutton.widgetSelected, event=" + evt);
@@ -2451,8 +2523,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		// collect all results and write infos in file
 		// holt alle resulate aus den workflows
+		int normval=Integer.valueOf(normn.getText());
+		
 		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
-				button9showresults.getSelection(), text4databankname.getText(), cpart);
+				button9showresults.getSelection(), text4databankname.getText(), cpart,normval,fullreportselection.getSelection(),outputname.getText());
 		refreshProjectfilesanzahlMessages();
 		
 		
@@ -2684,6 +2758,47 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		
 		
 			
+	}
+	
+	private void nomalizeselectionWidgetSelected(SelectionEvent evt) {
+		System.out.println("nomalizeselection.widgetSelected, event="+evt);
+		//TODO add your code for nomalizeselection.widgetSelected
+		if(nomalizeselection.getSelection()==true)
+			normn.setEnabled(true);
+		else
+		{
+			normn.setEnabled(false);
+			normn.setText("0");
+		}
+	}
+	
+	private void normnWidgetSelected(SelectionEvent evt) {
+		System.out.println("normn.widgetSelected, event="+evt);
+		//TODO add your code for normn.widgetSelected
+	}
+	private void normnModifyText(ModifyEvent evt)
+	{
+		System.out.println("normn.modifyText, event=" + evt);
+		//The normvalue has changed
+		String nm=normn.getText();
+		Toolboxconf.setPropAttribute("normn", nm);
+		
+	}
+	
+	private void combo1cpartModifyText(ModifyEvent evt) {
+		System.out.println("combo1cpart.modifyText, event="+evt);
+		//TODO add your code for combo1cpart.modifyText
+		String sel=combo1cpart.getText();
+		Toolboxconf.setPropAttribute("combo1cpart",sel);
+	}
+	
+	private void fullreportselectionWidgetSelected(SelectionEvent evt) {
+		System.out.println("fullreportselection.widgetSelected, event="+evt);
+		boolean sel=fullreportselection.getSelection();
+		if(sel==true)
+			Toolboxconf.setPropAttribute("fullreportselection","1");
+		else
+			Toolboxconf.setPropAttribute("fullreportselection","0");
 	}
 
 	final Runnable inittimer = new Runnable() {

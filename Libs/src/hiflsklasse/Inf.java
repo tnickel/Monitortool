@@ -146,6 +146,9 @@ public class Inf
 		}
 	}
 	
+	
+	
+	
 	public String readZeilen()
 	{
 		// liest alle zeilen und liefert einen string zurück

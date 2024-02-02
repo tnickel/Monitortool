@@ -50,7 +50,8 @@ public class SqSumElem
 		if (baseelem == null)
 			baseelem = new SqBaseElem();
 		
-		baseelem.setNetprofit(baseelem.getNetprofit() + be.getNetprofit());
+		
+		baseelem.addNetprofit(be.getNetprofit(0));
 		baseelem.setProfitfaktor(baseelem.getProfitfaktor() + be.getProfitfaktor());
 		baseelem.setRetdd(baseelem.getRetdd() + be.getRetdd());
 		baseelem.setStability(baseelem.getStability() + be.getStability());
@@ -63,9 +64,9 @@ public class SqSumElem
 	
 	
 	
-	public double getNetprofit()
+	public double getNetprofit(int normf)
 	{
-		return ((baseelem.getNetprofit()));
+		return ((baseelem.getNetprofit(normf)));
 	}
 	
 	public double getAvrProfitfaktor()

@@ -48,10 +48,10 @@ public class SumChart extends ApplicationFrame
 		/**
 		 * Creates a new instance.
 		 */
-		public MyDemoPanel(ArrayList<SqBaseElem> baselist, String dbn)
+		public MyDemoPanel(ArrayList<SqBaseElem> baselist, String dbn,int normf)
 		{
 			super(new BorderLayout());
-			this.data1 = createSampleData(baselist);
+			this.data1 = createSampleData(baselist,normf);
 			add(createContent(dbn));
 		}
 		
@@ -60,7 +60,7 @@ public class SumChart extends ApplicationFrame
 		 *
 		 * @return a sample dataset.
 		 */
-		private XYDataset createSampleData(ArrayList<SqBaseElem> baselist)
+		private XYDataset createSampleData(ArrayList<SqBaseElem> baselist,int normf)
 		{
 			int anz = baselist.size();
 			double sumprof = 0;
@@ -72,9 +72,9 @@ public class SumChart extends ApplicationFrame
 			{
 				
 				SqBaseElem be = baselist.get(i);
-				double neprof = be.getNetprofit();
+				double neprof = be.getNetprofit(normf);
 				int index = be.getIndexVal();
-				index = index * -1;
+			
 				seriesSum.add(index, neprof + sumprof);
 				seriesProfit.add(index, neprof);
 				sumprof = sumprof + neprof;
@@ -179,10 +179,10 @@ public class SumChart extends ApplicationFrame
 	 * @param title
 	 *            the frame title.
 	 */
-	public SumChart(String title, ArrayList<SqBaseElem> baselist, String databankname)
+	public SumChart(String title, ArrayList<SqBaseElem> baselist, String databankname,int normf)
 	{
 		super(title);
-		JPanel content = createDemoPanel(baselist, databankname);
+		JPanel content = createDemoPanel(baselist, databankname,normf);
 		getContentPane().add(content);
 	}
 	
@@ -191,9 +191,9 @@ public class SumChart extends ApplicationFrame
 	 *
 	 * @return A panel.
 	 */
-	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist, String databankname)
+	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist, String databankname,int normf)
 	{
-		return new MyDemoPanel(baselist, databankname);
+		return new MyDemoPanel(baselist, databankname, normf);
 	}
 	
 	/**
@@ -203,12 +203,12 @@ public class SumChart extends ApplicationFrame
 	 *            ignored.
 	 */
 	
-	public static void ShowChart(ArrayList<SqBaseElem> baselist, String databankname)
+	public static void ShowChart(ArrayList<SqBaseElem> baselist, String databankname,int normf)
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkit.getScreenSize();
 		
-		SumChart appFrame = new SumChart("Profit Overview", baselist, databankname);
+		SumChart appFrame = new SumChart("Profit Overview", baselist, databankname,normf);
 		
 		appFrame.setPreferredSize(
 				new java.awt.Dimension((int) (screenSize.getWidth() * 0.5), (int) (screenSize.getHeight() * 0.5)));

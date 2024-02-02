@@ -162,7 +162,7 @@ public class CorrelationResultliste
 				
 				inf.writezeile(ce.getAttribname()+"#"+ce.getVal());
 			}
-			inf.writezeile("...............#...............");
+			inf.writezeile("..............#................");
 		}
 		Viewer v= new Viewer();
 		v.viewTableExtFile(Display.getDefault(), fnam);

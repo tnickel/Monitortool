@@ -286,10 +286,13 @@ public class SqWorkflowMaster extends Sq
 		jp.end();
 	}
 	
-	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart)
+	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart,int normation,boolean fullreportflag,String outputname)
 	{
+		//normation: 0-no normation
+		//normation= n  then calculate  res=(sumwin/anz-strategies) * n
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
+		
 		
 		//Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein bestimmtes verzeichniss vom sq
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
@@ -320,8 +323,8 @@ public class SqWorkflowMaster extends Sq
 			
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
 			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
-			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart,databankname);
-			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv");
+			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart,databankname,normation);
+			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv",databankname,normation,fullreportflag,outputname,cpart);
 			sb.ShowChart();
 		
 		}

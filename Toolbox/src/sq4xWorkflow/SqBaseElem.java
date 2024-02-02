@@ -17,8 +17,9 @@ public class SqBaseElem
 	private double profitfaktor = 0;
 	private double stability = 0;
 	private double retdd = 0;
-	
-	
+	private double avrprofitpertrade = 0;
+	private int anzTrades_glob = 0;
+	private int normfaktor = 0;
 	
 	public String getStrategyname()
 	{
@@ -30,14 +31,39 @@ public class SqBaseElem
 		this.strategyname = strategyname;
 	}
 	
-	public double getNetprofit()
+	public double getNetprofit(int normf)
 	{
+		double np = 0;
+		if (normf > 0)
+		{
+			// falls normiert werden muss, wir also mehr trades haben als den normfaktor
+			if (anzTrades_glob == 0)
+				return 0;
+			
+			np = ((netprofit / anzTrades_glob) * normf);
+			return np;
+			
+		}
+		// keine normierung dann gib einfach den netprofit zurück
+		return netprofit;
+	}
+	
+	public double getSumNetprofit()
+	{
+		double np = 0;
+		
+		// keine normierung dann gib einfach den netprofit zurück
 		return netprofit;
 	}
 	
 	public void setNetprofit(double netprofit)
 	{
 		this.netprofit = netprofit;
+	}
+	
+	public void addNetprofit(double netprofi)
+	{
+		this.netprofit = this.netprofit + netprofi;
 	}
 	
 	public double getProfitfaktor()
@@ -70,20 +96,45 @@ public class SqBaseElem
 		this.retdd = retdd;
 	}
 	
+	public double getAvrprofitpertrade()
+	{
+		return avrprofitpertrade;
+	}
 	
+	public void setAvrprofitpertrade(double avrprofitpertrade)
+	{
+		this.avrprofitpertrade = avrprofitpertrade;
+	}
 	
-
+	public int getAnzTrades()
+	{
+		return anzTrades_glob;
+	}
 	
-
+	public void setAnzTrades(int anzTrades)
+	{
+		this.anzTrades_glob = anzTrades;
+	}
+	
+	public int getNormfaktor()
+	{
+		return normfaktor;
+	}
+	
+	public void setNormfaktor(int normfaktor)
+	{
+		this.normfaktor = normfaktor;
+	}
+	
 	public String getCleanName()
 	{
-		//realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
-		//cleanname="Q63 GBPUSD L3_+00000";
-		String subnam=null;
-		if(strategyname.contains("Merged portfolio"))
-			subnam=strategyname.substring(0,strategyname.indexOf("Merged portfolio"));
+		// realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
+		// cleanname="Q63 GBPUSD L3_+00000";
+		String subnam = null;
+		if (strategyname.contains("Merged portfolio"))
+			subnam = strategyname.substring(0, strategyname.indexOf("Merged portfolio"));
 		else
-			subnam=strategyname;
+			subnam = strategyname;
 		
 		return subnam;
 		
@@ -91,26 +142,37 @@ public class SqBaseElem
 	
 	public int getIndexVal()
 	{
-		//realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
-		if(strategyname.contains("Merged portfolio"))
+		boolean negindexflag=false;
+		// realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
+		if (strategyname.contains("Merged portfolio"))
 		{
-			String subnam=null;
-			String firstmarker="";
-			subnam=strategyname.substring(0,strategyname.indexOf("Merged portfolio"));
-
-			if(subnam.contains("_+"))
-				firstmarker="_+";
-			else if(subnam.contains("_--"))
-				firstmarker="_--";
+			String subnam = null;
+			String firstmarker = "";
+			subnam = strategyname.substring(0, strategyname.indexOf("Merged portfolio"));
+			
+			if (subnam.contains("_+"))
+			{
+				firstmarker = "_+";
+				//positiver index gefunden
+			}
+			else if (subnam.contains("_--"))
+			{
+				firstmarker = "_--";
+				//negativer index gefunden
+				negindexflag=true;
+			}
 			else
 				Tracer.WriteTrace(10, "E: cant find pattern '_+' or '_--' in Merged Portfolio Name -> stop 1702");
 			
-			subnam=subnam.substring(subnam.indexOf(firstmarker)+firstmarker.length());
-			int retval=Integer.valueOf(subnam);
-			return (retval);
-		}
-		else
-			Tracer.WriteTrace(10, "E: cant find name Merged portfolio -> stop 1701");
+			subnam = subnam.substring(subnam.indexOf(firstmarker) + firstmarker.length());
+			int retval = Integer.valueOf(subnam);
+
+			if(negindexflag==true)
+				return(-retval);
+			else
+				return (retval);
+		} else
+			Tracer.WriteTrace(10, "E: cant find name Merged portfolio in <" + strategyname + "> -> stop 1701");
 		return 0;
 	}
 	

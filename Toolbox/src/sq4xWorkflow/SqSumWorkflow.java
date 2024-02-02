@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
+import hiflsklasse.TextProzessor;
 import hiflsklasse.Tracer;
 
 public class SqSumWorkflow
@@ -105,13 +106,13 @@ public class SqSumWorkflow
 		}
 		
 	}
-	public int calcAnzTradesAusLogfile(String cleanname)
+	public int calcAnzTradesAusLogfile(String cleanname,String portfolioname)
 	{
 		String workflowdir=sqrootdir_g+"\\user\\projects\\"+cleanname.replace("\"", "");
-		int anz=collectAllTradesFromLogfiles(workflowdir);
+		int anz=collectAllTradesFromLogfiles(workflowdir,portfolioname);
 		return anz;
 	}
-	private int collectAllTradesFromLogfiles(String workflowdir)
+	private int collectAllTradesFromLogfiles(String workflowdir,String portfolioname)
 	{
 		//zählt wieviel strategien generiert wurden
 		//diese informationen werden aus den logfiles bsp:
@@ -135,8 +136,8 @@ public class SqSumWorkflow
 				{
 					Inf inf=new Inf();
 					inf.setFilename(fnam);
-					String mem=inf.readMemFile(50000);
-					scount=extractAnzStrategien( mem, fnam);
+					
+					scount=extractAnzStrategien( fnam,portfolioname);
 					long lmodified=fnam_f.lastModified();
 					if(scount>0)
 					if(lmodified>lastmodified_newest)
@@ -154,25 +155,35 @@ public class SqSumWorkflow
 		Tracer.WriteTrace(20, "I: no logfiles in <" + workflowdir+"\\log" + ">");
 		return 0;
 	}
-	private int extractAnzStrategien(String mem,String fnam)
+	private int extractAnzStrategien(String fnam,String portfolioname)
 	{
 		// Wir wollen wissen wieviele Strategien sich denn im Portfolio befinden
 		// Hierzu müssen wir im Logfile die Stelle suchen wo das Portfolio generiert wird.
-		
-		
-		
+	
 		//this text will be searched
 		//'Portfolio created from 47 strategies'
+		//Portfolio created from 2 strategies from source databank 'Endtest4M' saved to target databank 'Portfolio4M'.
 	
 		
-		//Portfolio created from 9 strategies from source databank 'Fertig' saved to target databank 'Portfolio'.
+		//check 3 keywords we need
+		//if we don´t have it all we set #anz strategies to 0
+
+		TextProzessor tp=new TextProzessor(fnam);
+		//es wird die Zeile gesucht die die 3 keywörter enthält
+		String kw1="Portfolio created from ";
+		String kw2=" strategies";
+		String kw3="saved to target databank '"+portfolioname.toLowerCase()+"'";
 		
-		if((mem==null)||(mem.contains("Portfolio created from ")==false))
+		String line=tp.getLineWithWords(kw1,kw2,kw3);
+		
+		
+		if(line==null)
 		{
-			Tracer.WriteTrace(20, "I:cant find string 'Portfolio created from' in <"+fnam+">" );
-			return 0;
+			Tracer.WriteTrace(20,"I:cant find string ' strategies' after string 'Portfolio created from' in <"+fnam+"> line<"+line+"> kw1<"+kw1+"> kw2<"+kw2+"> kw3<"+kw3+">");
+			return 0;//no strategies in portfolio
 		}
-		String memsub=mem.substring(mem.indexOf("Portfolio created from ")+23);
+		
+		String memsub=line.substring(line.indexOf("Portfolio created from ")+23);
 		
 		
 		if((memsub==null)||(memsub.contains(" strategies")==false))
