@@ -108,17 +108,22 @@ public class Installer
 		String histexporterchr_quelle = null;
 		
 		// Kopiere den historyexporter
-		if (metaconf.getMttype().toLowerCase().equals("mt4"))
+		if (metaconf.getMttype().toLowerCase().contains("mt4"))
 		{
 			histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT4_experts\\historyexporter.mq4";
 			histexporterchr_quelle = Rootpath.getRootpath() + "\\install\\MT4_profiles\\historyexporter.chr";
-			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq4");
-		} else if (metaconf.getMttype().toLowerCase().equals("mt5"))
+			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "\\historyexporter.mq4");
+		} else if (metaconf.getMttype().toLowerCase().contains("mt5"))
 		{
 			histexporter_quelle = Rootpath.getRootpath() + "\\install\\MT5_experts\\historyexporter.mq5";
 			histexporterchr_quelle = Rootpath.getRootpath() + "\\install\\MT5_profiles\\historyexporter.chr";
-			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "//historyexporter.mq5");
-		}
+			File sqdir=new File(metaconf.getExpertdata());
+			if(sqdir.exists()==false)
+				if(sqdir.mkdir()==false)
+					Tracer.WriteTrace(10, "E:can´t create dir <"+sqdir.getAbsolutePath()+">");
+			
+			fd.copyFile2(histexporter_quelle, metaconf.getExpertdata() + "\\historyexporter.mq5");
+		} else
 		Tracer.WriteTrace(20,
 				"I: copy histroyexporter from<" + histexporter_quelle + "> to<" + metaconf.getExpertdata() + ">");
 		
@@ -354,23 +359,29 @@ public class Installer
 		for (int i = 0; i < anz; i++)
 		{
 			String mqlquellnam = fadyn.holeFileSystemName();
+			
+			if(mqlquellnam==null)
+				Tracer.WriteTrace(10, "E:mqlquellnam==null->STOP 1735");
+			
 			if (mqlquellnam.endsWith(".mq5"))
 				mqlpostfix=".mq5";
 			else if(mqlquellnam.endsWith(".mq4"))
 				mqlpostfix=".mq4";
+			else if(mqlquellnam.endsWith(".sqx"))
+				mqlpostfix=".sqx";
 
-			if (mqlquellnam.endsWith(mqlpostfix))
+			if ((mqlpostfix!=null)&&(mqlquellnam.endsWith(mqlpostfix)))
 			{
 				Tracer.WriteTrace(20, "rename quellnam<" + mqlquellnam + ">");
 				// den mqlnamen bestimmen
 			
 				mqlnam = mqlquellnam.substring(0, mqlquellnam.indexOf(mqlpostfix));
 				
-				// Den quellnamen renamen das Keyword Strategy muss raus
+				// Den quellnamen renamen das Keyword Strategy muss raus und das währungspaar muss mit suffix angepasst werden (tradesuffix)
 				String tradesuffix = metaconfig.getTradesuffixsender();
-				if ((tradesuffix != null) && (tradesuffix.length() > 1))
-					renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),
-							metaconfig.getMqlquellverz() + "\\" + mqlnam);
+				if ((tradesuffix != null) && (tradesuffix.length() >= 1))
+				renameQuellnamTradeSuffixFile(metaconfig.getTradesuffixsender(),
+							metaconfig.getMqlquellverz() + "\\" + mqlnam,mqlpostfix);
 			}
 			
 		}
@@ -528,19 +539,25 @@ public class Installer
 		}
 	}
 	
-	private void renameQuellnamTradeSuffixFile(String tradesuffix, String fnamsource)
+	private void renameQuellnamTradeSuffixFile(String tradesuffix, String fnamsource,String mqlpostfix)
 	{
 		// falls tradesuffix gesetzt ist dann wird
 		// Q80 EURUSD M15 1234.mq4 nach Q80 EURUSD.r M15 1234.mq4 renamed
+		int curindex=0;
 		
-		File fnamsource_f = new File(fnamsource + ".mq4");
+		File fnamsource_f = new File(fnamsource + mqlpostfix);
 		// falls der tradesuffix noch nicht drin ist
 		if (fnamsource.contains(tradesuffix) == false)
 		{
 			// splite auf
 			String[] parts = fnamsource_f.getAbsolutePath().split(" ");
 			// hole die position der currency
-			int curindex = parts.length - 3;
+			
+			if(fnamsource_f.getAbsolutePath().toLowerCase().contains("datestrategy"))
+					curindex = parts.length - 4;
+			else		
+					curindex = parts.length - 3;
+			
 			String currency = parts[curindex];
 			currency = currency + tradesuffix;
 			parts[curindex] = currency;

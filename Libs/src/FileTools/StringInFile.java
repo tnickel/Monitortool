@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import hiflsklasse.Tracer;
@@ -52,17 +53,17 @@ public class StringInFile
 	{
 		//hier wird der sourcestring durch einen targetstring in einem file ersetzt, die coding wird beachtet
 		List<String> list;
+		List<String> modifiedList = new ArrayList<>();
 		try
 		{
 			list = Files.readAllLines(Paths.get(filename), coding);
 			
 			for (String elem : list)
-			{
-				elem.replace(targetstring, sourcestring);
-			}
+				modifiedList.add(elem.replace(sourcestring,targetstring));
+
 			
 			Path path = Paths.get(filename);
-			Files.write(path, list);
+			Files.write(path, modifiedList);
 		
 		
 		

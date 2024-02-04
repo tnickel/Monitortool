@@ -231,7 +231,9 @@ public class SqWorkflowMaster extends Sq
 			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
-			psq.cleanLogfiles(sqrootdir_g, workflowname);
+			
+			//logfiles nicht löschen da hier drin wichtig informationen sind
+			//psq.cleanLogfiles(sqrootdir_g, workflowname);
 			psq.Reset();
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
