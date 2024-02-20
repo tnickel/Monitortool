@@ -156,7 +156,7 @@ public class Tableview extends TableViewBasic
 		return filedata;
 	}
 	
-	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag, int onlyopentrades)
+	public void LoadTradeTable(Metaconfig mc, Display dis, int nostopflag, int showflag, int onlyopentrades,boolean onlytodayflag)
 	{
 		// Hier werden die Trades für einen Broker eingelesen
 		
@@ -170,6 +170,7 @@ public class Tableview extends TableViewBasic
 		// open orders geladen
 		// falls nostopflag ==1 ist dann wird nicht gestoppt
 		// showflag=0; wenn 0 dann wird nix auf dem display ausgegeben
+		// onlytodayflag==true, dann werden nur Trades verwenden wo heute ein close ist
 		
 		// Hier wird eine Tabelle in einer Struktur eingeladen
 		
@@ -195,7 +196,7 @@ public class Tableview extends TableViewBasic
 		String dirnam6 = mc.getAutocreatortestdir() + "\\Ac_Entwicklungen";
 		
 		if ((new File(fnam1).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
-			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+			readTradesFile(tl, fnam1, nocanceledflag, showopenorders, normflag, mc, tf_glob,onlytodayflag);
 		// wenn kein history.txt und kein history_transfer.txt
 		// dann gibt es nix zu lesen
 		if ((new File(fnam2).exists() == false) && (new File(fnam5).exists() == false)
@@ -208,12 +209,12 @@ public class Tableview extends TableViewBasic
 		if ((new File(fnam2).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 		{
 			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam2+">");
-			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+			maxdate = readTradesFile(tl, fnam2, nocanceledflag, showopenorders, normflag, mc, tf_glob,onlytodayflag);
 		}
 		if ((new File(fnam3).exists() == true) && (onlyopentrades == 1))
 		{
 			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam3+">");
-			readTradesFile(tl, fnam3, nocanceledflag, true, normflag, mc, tf_glob);
+			readTradesFile(tl, fnam3, nocanceledflag, true, normflag, mc, tf_glob,onlytodayflag);
 		}	
 		// a)fasse die expired zu einem datenfile zusammen
 		// b)und lade dann das Datenfile
@@ -229,7 +230,7 @@ public class Tableview extends TableViewBasic
 			{
 				Tracer.WriteTrace(20, "I: read histroy.txt  <"+fna+">");
 				Mlist.add("Load expired<" + broker + "><" + filedata + ">");
-				readTradesFile(tl, fna, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+				readTradesFile(tl, fna, nocanceledflag, showopenorders, normflag, mc, tf_glob,onlytodayflag);
 			}
 		}
 		
@@ -237,7 +238,7 @@ public class Tableview extends TableViewBasic
 		if ((new File(fnam5).exists() == true) && (GlobalVar.getAutocreatormode() == 0) && (onlyopentrades == 0))
 		{	
 			Tracer.WriteTrace(20, "I: read histroy.txt  <"+fnam5+">");
-			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob);
+			readTradesFile(tl, fnam5, nocanceledflag, showopenorders, normflag, mc, tf_glob,onlytodayflag);
 		}
 		// lade die Daten vom Auto Creator
 		if ((new File(dirnam6).exists() == true) && (GlobalVar.getAutocreatormode() == 1) && (onlyopentrades == 0))
@@ -260,9 +261,9 @@ public class Tableview extends TableViewBasic
 		
 	}
 	
-	public void ShowTradeTable(Display dis, Table table, String brokername, int maxentrys, int forcesortflag)
+	public void ShowTradeTable(Display dis, Table table, String brokername, int maxentrys, int forcesortflag,boolean onlytodayflag)
 	{
-		tl.ShowTradeTable(dis, table, brokername, maxentrys, tl, tf_glob, forcesortflag);
+		tl.ShowTradeTable(dis, table, brokername, maxentrys, tl, tf_glob, forcesortflag,onlytodayflag);
 	}
 	
 	public void CalcProfitTable(String brokername, int tradefilterflag)
@@ -1492,7 +1493,7 @@ public class Tableview extends TableViewBasic
 		for (int i = 0; i < anz; i++)
 		{
 			Metaconfig mc = brokerview_glob.getElem(i);
-			this.LoadTradeTable(mc, Display.getDefault(), 1, 0, 0);
+			this.LoadTradeTable(mc, Display.getDefault(), 1, 0, 0,false);
 		}
 		
 		// das neue in den selektierten Broker importieren

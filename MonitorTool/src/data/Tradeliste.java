@@ -848,7 +848,7 @@ public class Tradeliste
 	}
 	
 	public void ShowTradeTable(Display dis, Table table, String brokername, int maxentrys, Tradeliste tl,
-			Tradefilter tf, int forcesortflag)
+			Tradefilter tf, int forcesortflag, boolean onlytodayflag)
 	{
 		// Hier wird eine Tabelle aufgebaut
 		//

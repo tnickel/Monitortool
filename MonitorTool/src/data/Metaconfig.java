@@ -110,6 +110,10 @@ public class Metaconfig implements Comparable<Metaconfig>
 	private String autocreatorbackuppath = "";
 	private int useautocreatorbackup = 1;
 	private String autocreatortestdir = "";
+	private int Mt5bugfixing=0;
+	private int EodModification=0;
+	private int CustomCommentFlag=0;
+	private String CustomCommentText="";
 	
 	public Metaconfig(String mname)
 	{
@@ -193,6 +197,14 @@ public class Metaconfig implements Comparable<Metaconfig>
 				autocreatorbackuppath = SG.nteilstring(zeile, "#", 39);
 			if (trennanz > 40)
 				autocreatortestdir = SG.nteilstring(zeile, "#", 40);
+			if (trennanz > 41)
+				Mt5bugfixing = SG.get_zahl(SG.nteilstring(zeile, "#", 41));
+			if (trennanz > 42)
+				EodModification = SG.get_zahl(SG.nteilstring(zeile, "#", 42));
+			if (trennanz > 43)
+				CustomCommentFlag = SG.get_zahl(SG.nteilstring(zeile, "#", 43));
+			if (trennanz > 44)
+				CustomCommentText = SG.nteilstring(zeile, "#", 44);
 			initmagiclist();
 			// processkennung immer löschen
 			processkennung = null;
@@ -880,6 +892,68 @@ public class Metaconfig implements Comparable<Metaconfig>
 	{
 		this.useautocreatorbackup = useautocreatorbackup;
 	}
+	
+	public boolean isMt5bugfixing()
+	{
+		if(Mt5bugfixing==1)
+			return true;
+		else
+			return false;
+		
+	}
+
+	public void setMt5bugfixing(boolean flag)
+	{
+		if(flag==true)
+			Mt5bugfixing=1;
+		else
+			Mt5bugfixing=0;
+		
+	}
+
+	public boolean isEodModification()
+	{
+		if(EodModification==1)
+			return true;
+		else
+			return false;
+	
+	}
+
+	public void setEodModification(boolean flag)
+	{
+		if(flag==true)
+			EodModification = 1;
+		else
+			EodModification=0;
+	}
+	public void setCustomCommentText(String commenttext)
+	{
+		CustomCommentText=commenttext;
+	}
+	public String getCustomCommentText()
+	{
+		if(CustomCommentText==null)
+			return "";
+		else
+		return CustomCommentText;
+	}
+	public boolean isCustomCommentFlag()
+	{
+		if(CustomCommentFlag==1)
+			return true;
+		else
+			return false;
+	}
+	public void setCustomCommentFlag(boolean flag)
+	{
+		if(flag==true)
+			CustomCommentFlag=1;
+		else
+			CustomCommentFlag=0;
+		
+	}
+	
 	
 	public void pongCheck()
 	{

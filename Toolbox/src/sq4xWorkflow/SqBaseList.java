@@ -30,6 +30,8 @@ public class SqBaseList
 	int indexRetDD = 0;
 	private String databankname_glob = null;
 	private int normf_glob=0;
+	private int maxbacksteps_glob=5000;
+	private String sqrootdir_glob=null;
 	
 	SqBaseList()
 	{
@@ -40,6 +42,7 @@ public class SqBaseList
 		// cpart can be IS or OOS, default ist OOS
 		databankname_glob = databankname;
 		normf_glob=normf;
+		sqrootdir_glob=sqrootdir;
 		sumWorkflow.setSqRootdir(sqrootdir);
 		// liste mit den Resultaten wird eingelesen und aufgebaut
 		
@@ -104,7 +107,17 @@ public class SqBaseList
 		sumWorkflow.showList();
 	}
 	
-	public void writeResultlist(String sqbasefile, String portfolioname, int normationtrades,boolean fullreportflag,String outputname,String extension)
+	public int getMaxbacksteps()
+	{
+		return maxbacksteps_glob;
+	}
+
+	public void setMaxbacksteps(int maxbacksteps)
+	{
+		this.maxbacksteps_glob = maxbacksteps;
+	}
+
+	public void writeResultlist(String sqbasefile, String portfolioname, int normationtrades,boolean fullreportflag,String outputname,String extension,int maxstepsback)
 	{
 		// die Resultate der Baselist müssen auf platte und müssen auch als HTML
 		// angezeigt werden
@@ -118,6 +131,8 @@ public class SqBaseList
 		// outputname: for example portfolio
 		// extension: for example IS or OOS
 		//normationtrades=int wert für den normierungsfaktor
+		// maxstepsback: maximal n tage wird in die vergangenheit geschaut. Ist der wert=0, dann keine begrenzung
+		// limitations: pf is limited to 5 and RetDD is limited to 15
 		
 		String cleanname = null, lastcleanname = null;
 		String zeile = null;
@@ -134,13 +149,14 @@ public class SqBaseList
 		inf.setFilename(sqbasefile);
 		// gen resultlist in file in tmp
 		int anz = baselist.size();
+		maxbacksteps_glob=maxstepsback;
 		
 		if (anz == 0)
 		{
 			Tracer.WriteTrace(10, "I: no data in SQ3, list is empty");
 			return;
 		}
-		inf.writezeile("***Name#Norm NetProfit.#SumNetProf#Pf#Stability#RetDD#Strategies#0");
+		inf.writezeile("***Name#Norm NetProfit.#SumNetProf#Pf#Stability#RetDD#Strategies#Endtest");
 		
 	
 		for (int i = 0; i < anz; i++)
@@ -164,6 +180,10 @@ public class SqBaseList
 			
 			if(fullreportflag==true)
 			inf.writezeile(zeile);
+			
+			//weiter wollen wir nicht zurückgehen
+			if(i>maxstepsback-1)
+				break;
 		}
 		lastcleanname = "";
 		zeile = "\"@@@@@@@@@@@@@@@@@@@@@@@@@ \"#0.0#0.0#0.0#0.0#0.0#0#0#0";
@@ -195,9 +215,11 @@ public class SqBaseList
 					+ String.format(Locale.US, "%.2f", avrnetprofohneNormierung) + "#"
 					+ String.format(Locale.US, "%.2f", calcAvrProfitfaktor(cleanname)) + "#"
 					+ String.format(Locale.US, "%.2f", calcAvrStability(cleanname)) + "#"
-					+ String.format(Locale.US, "%.2f", calcAvrRetDD(cleanname)) + "#" + trades + "#0";
+					+ String.format(Locale.US, "%.2f", calcAvrRetDD(cleanname)) + "#" + trades + "#"+getEndtestperiod(sqrootdir_glob,cleanname);
 			inf.writezeile(zeile);
-			
+			//weiter wollen wir nicht zurückgehen
+			if(i>maxstepsback-1)
+				break;
 		}
 		zeile = "#0.0#0.0#0.0#0.0#0#0#0";
 		inf.writezeile(zeile);
@@ -219,6 +241,20 @@ public class SqBaseList
 		
 	}
 	
+	private String getEndtestperiod(String sqrootdir,String cleanname)
+	{
+		String file=sqrootdir+"\\user\\projects\\"+cleanname.replace("\"", "")+"\\enddate.txt";
+		Inf inf=new Inf();
+		inf.setFilename(file);
+		String zeile=inf.readZeile();
+		zeile=zeile.substring(zeile.indexOf("From=")+5);
+		zeile=zeile.replace("\"", "");
+		zeile=zeile.replace( " dateTo=", "-");
+		inf.close();
+		
+		return zeile;
+	}
+	
 	public double calcAvrNettoprofit(String cleanname,int normf)
 	{
 		//normf=normfaktor
@@ -238,6 +274,8 @@ public class SqBaseList
 				sum = sum + netprof;
 				anzc++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (sum / anzc);
 	}
@@ -259,6 +297,8 @@ public class SqBaseList
 				sum = sum + netprof;
 				anzc++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (sum / anzc);
 	}
@@ -277,6 +317,8 @@ public class SqBaseList
 				sum = sum + be.getRetdd();
 				anzc++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (sum / anzc);
 	}
@@ -295,6 +337,8 @@ public class SqBaseList
 				sum = sum + be.getProfitfaktor();
 				anzc++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (sum / anzc);
 	}
@@ -313,6 +357,8 @@ public class SqBaseList
 				sum = sum + be.getStability();
 				anzc++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (sum / anzc);
 	}
@@ -334,6 +380,8 @@ public class SqBaseList
 				// c:<"+dlcount+"> NetProfit<"+be.getNetprofit()+">");
 				dlcount++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		
 		// Statistics.printArray(dl,dlcount);
@@ -356,6 +404,8 @@ public class SqBaseList
 				dl[dlcount] = be.getRetdd();
 				dlcount++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (Statistics.stddv(dl, dlcount));
 	}
@@ -373,6 +423,8 @@ public class SqBaseList
 				dl[dlcount] = be.getProfitfaktor();
 				dlcount++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (Statistics.stddv(dl, dlcount));
 	}
@@ -390,6 +442,8 @@ public class SqBaseList
 				dl[dlcount] = be.getStability();
 				dlcount++;
 			}
+			if(i>maxbacksteps_glob-1)
+				break;
 		}
 		return (Statistics.stddv(dl, dlcount));
 	}
@@ -397,6 +451,6 @@ public class SqBaseList
 	public void ShowChart()
 	{
 		// hier wir die graphik vom freechart angezeigt.
-		SumChart.ShowChart(baselist, databankname_glob,normf_glob);
+		SumChart.ShowChart(baselist, databankname_glob,normf_glob,maxbacksteps_glob);
 	}
 }

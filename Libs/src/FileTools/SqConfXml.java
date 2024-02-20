@@ -42,14 +42,25 @@ public class SqConfXml extends SqString
 				break;
 			SqDate sd=new SqDate(setupdate);
 			String moddate=sd.StringGetModDateString(days);
-			//mem_g=mem_g.replace(setupdate, moddate);
-			//mem_g.replaceAll(setupdate, moddate);
 			mem_g =  StringReplacer.replaceAll(mem_g, setupdate, moddate);
 		}
 	
 		return mem_g;
 	}
 	
+	
+	
+	public String getEndtestdate(String endtestdatabasename,int days)
+	{
+		String edate=super.getEndtestDate(mem_g,endtestdatabasename);
+		if(edate!=null)
+		{
+			SqDate sd=new SqDate(edate);
+			String moddate=sd.StringGetModDateString(days);
+			return moddate;
+		}
+		return null;
+	}
 	
 	public void ResetCounter()
 	{

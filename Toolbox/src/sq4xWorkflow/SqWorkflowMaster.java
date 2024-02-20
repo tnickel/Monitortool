@@ -152,7 +152,7 @@ public class SqWorkflowMaster extends Sq
 		Filefunkt.deleteSubDir(dir, sqrootdir_g);
 	}
 	
-	public void genWorkflow()
+	public void genWorkflow(String EndtestDatabaseName)
 	{
 		// This is the masterfunction for the workflow generation
 		//the results will be stored first in the tmp-directory
@@ -192,14 +192,15 @@ public class SqWorkflowMaster extends Sq
 		
 		
 		if(Toolboxconf.getPropAttribute("shiftdays").equals("true"))
-			LoopDeltaD(sqzip);
+			LoopDeltaD(sqzip,EndtestDatabaseName);
 		else
-			LoopDeltaDFile(sqzip);
+			LoopDeltaDFile(sqzip,EndtestDatabaseName);
 		
 		
 	}
-	private void LoopDeltaD(SqZipper sqzip)
+	private void LoopDeltaD(SqZipper sqzip,String EndtestnameFromDatabase)
 	{
+		//Endtestnamefromdatabase=Diese Datenbasis wollen wir auswerten, hier wollen wir das startdatum und das Endatum wissen.
 		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
 		
@@ -213,7 +214,7 @@ public class SqWorkflowMaster extends Sq
 			// modify project
 			offset = i * stepvalue_g;
 			
-			psq.modifyProject(offset);
+			String enddate=psq.modifyProject(offset,EndtestnameFromDatabase);
 			// save projekt
 			psq.saveToTmpDir();
 			//das ganze muss wieder gezipped werden
@@ -230,7 +231,7 @@ public class SqWorkflowMaster extends Sq
 			String workflowname = calcWorkflowname(i, offset);
 			
 			// copy to destination
-			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,enddate);
 			
 			//logfiles nicht löschen da hier drin wichtig informationen sind
 			//psq.cleanLogfiles(sqrootdir_g, workflowname);
@@ -240,7 +241,7 @@ public class SqWorkflowMaster extends Sq
 		jp.end();
 		
 	}
-	private void LoopDeltaDFile(SqZipper sqzip)
+	private void LoopDeltaDFile(SqZipper sqzip,String EndtestDatabaseName)
 	{
 		//Das DeltaDfile ist ein configfile wo die Shifts vorgegeben werden
 		Inf inf = new Inf();
@@ -264,7 +265,7 @@ public class SqWorkflowMaster extends Sq
 			// modify project
 			offset = Integer.valueOf(strArr[i]);
 			
-			psq.modifyProject(offset);
+			String foundenddate=psq.modifyProject(offset,EndtestDatabaseName);
 			// save projekt
 			psq.saveToTmpDir();
 			//das ganze muss wieder gezipped werden
@@ -280,7 +281,7 @@ public class SqWorkflowMaster extends Sq
 			
 			String workflowname = calcWorkflownameFilename(i, offset);
 			// copy to destination
-			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname);
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,foundenddate);
 			psq.cleanLogfiles(sqrootdir_g, workflowname);
 			psq.Reset();
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
@@ -288,13 +289,13 @@ public class SqWorkflowMaster extends Sq
 		jp.end();
 	}
 	
-	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart,int normation,boolean fullreportflag,String outputname)
+	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart,int normation,boolean fullreportflag,String outputname,int maxstepsback)
 	{
 		//normation: 0-no normation
 		//normation= n  then calculate  res=(sumwin/anz-strategies) * n
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
-		
+		// maxdaysback: dient dazu die analyse nur bis zu einem bestimmten punk in die vergangenheit laufen zu lassen
 		
 		//Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein bestimmtes verzeichniss vom sq
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
@@ -326,7 +327,7 @@ public class SqWorkflowMaster extends Sq
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
 			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
 			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart,databankname,normation);
-			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv",databankname,normation,fullreportflag,outputname,cpart);
+			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv",databankname,normation,fullreportflag,outputname,cpart,maxstepsback);
 			sb.ShowChart();
 		
 		}

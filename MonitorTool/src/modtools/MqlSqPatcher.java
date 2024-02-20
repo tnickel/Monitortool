@@ -48,7 +48,6 @@ public class MqlSqPatcher extends Patcher
 		String lotkeyword3 = "input double mmLots = ";
 		String lotreplace3 = "double mmLots = ";
 		
-		
 		double lotsize = meRealconf.getLotsize();
 		
 		for (int i = 0; i < 20000; i++)
@@ -105,6 +104,76 @@ public class MqlSqPatcher extends Patcher
 		return false;
 	}
 	
+	public boolean patchBugsMt5()
+	{
+		// falls globale config gewünscht
+		String lotkeyword = "input ENUM_ORDER_TYPE_FILLING preferredFillingType = ORDER_FILLING_FOK;";
+		String lotkeywordrepl = "input ENUM_ORDER_TYPE_FILLING preferredFillingType = ORDER_FILLING_RETURN;";
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			if (zeilenspeicher[i].contains(lotkeyword))
+			{
+				zeilenspeicher[i] = lotkeywordrepl;
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
+	
+	public boolean patchEodExitTimeMt5()
+	{
+		String keyword = "input string EODExitTime = ";
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			if (zeilenspeicher[i].contains(keyword))
+			{
+				String timestr = zeilenspeicher[i]
+						.substring(zeilenspeicher[i].indexOf(keyword) + keyword.length());
+				String newtime = modifyTime(timestr);
+				zeilenspeicher[i] = "input string EODExitTime = " + "\"" + newtime + "\";";
+				return true;
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	public boolean patchEodExitTimeMt4()
+	{
+		//extern string EODExitTime = "15:00";
+		String keyword = "extern string EODExitTime = ";
+		
+		for (int i = 0; i < 20000; i++)
+		{
+			
+			if (zeilenspeicher[i] == null)
+				continue;
+			// include einbauen
+			if (zeilenspeicher[i].contains(keyword))
+			{
+				String timestr = zeilenspeicher[i]
+						.substring(zeilenspeicher[i].indexOf(keyword) + keyword.length());
+				String newtime = modifyTime(timestr);
+				zeilenspeicher[i] = "extern string EODExitTime = " + "\"" + newtime + "\";";
+				return true;
+			}
+		}
+	return true;
+	}
+	
 	public boolean patchLotsizeExpertStudioPortfolio(Ea ea, Metaconfig meRealconf)
 	{
 		// falls globale config gewünscht
@@ -132,8 +201,9 @@ public class MqlSqPatcher extends Patcher
 		return false;
 	}
 	
-	public boolean patchCommentSq4x(Ea ea)
+	public boolean patchCommentSq4x(Ea ea,Metaconfig meconf)
 	{
+		String comment="";
 		String eafilename = ea.getEafilename();
 		eafilename = eafilename.replace(".mq4", "");
 		// extern string CustomComment = "Q67_EURUSD_M15Strategy_4_35_155";
@@ -149,7 +219,11 @@ public class MqlSqPatcher extends Patcher
 			if (zeilenspeicher[i].contains(kw))
 			{
 				String mem = zeilenspeicher[i];
-				String comment = eafilename;
+				if(meconf.isCustomCommentFlag()==true)
+					comment=meconf.getCustomCommentText();
+				else
+					comment = eafilename;
+				
 				comment = comment.replace("Strategy", "");
 				
 				zeilenspeicher[i] = "extern string CustomComment = " + "\"" + comment + "\";";
@@ -159,7 +233,11 @@ public class MqlSqPatcher extends Patcher
 			else if (zeilenspeicher[i].contains(kw2))
 			{
 				String mem = zeilenspeicher[i];
-				String comment = eafilename;
+				if(meconf.isCustomCommentFlag()==true)
+					comment=meconf.getCustomCommentText();
+				else
+					comment = eafilename;
+				
 				comment = comment.replace("Strategy", "");
 				
 				zeilenspeicher[i] = "input string CustomComment = " + "\"" + comment + "\";";
@@ -172,8 +250,9 @@ public class MqlSqPatcher extends Patcher
 		
 	}
 	
-	public boolean patchCommentExpertStudio(Ea ea)
+	public boolean patchCommentExpertStudio(Ea ea,Metaconfig meconf)
 	{
+		String comment="";
 		String eafilename = ea.getEafilename();
 		eafilename = eafilename.replace(".mq4", "");
 		// extern string CustomComment = "Q67_EURUSD_M15Strategy_4_35_155";
@@ -187,7 +266,12 @@ public class MqlSqPatcher extends Patcher
 			if (zeilenspeicher[i].contains(kw))
 			{
 				String mem = zeilenspeicher[i];
-				String comment = eafilename;
+				
+				if(meconf.isCustomCommentFlag()==true)
+					comment=meconf.getCustomCommentText();
+				else
+					comment = eafilename;
+			
 				comment = "\"" + comment.replace("Strategy", "") + "\";";
 				
 				zeilenspeicher[i] = "\t\tstring comment    = " + comment;
@@ -199,7 +283,7 @@ public class MqlSqPatcher extends Patcher
 		
 	}
 	
-	public boolean patchCommentFsbPortfolio(Ea ea)
+	public boolean patchCommentFsbPortfolio(Ea ea,Metaconfig meconf)
 	{
 		// hier kann man leider keinen comment einbauen, da nur ein einzelner ea sehr
 		// viele andere Eas beinhaltet
@@ -207,7 +291,7 @@ public class MqlSqPatcher extends Patcher
 		return true;
 	}
 	
-	public boolean patchCommentSq3(Ea ea)
+	public boolean patchCommentSq3(Ea ea,Metaconfig meconf)
 	{
 		return true;
 	}
@@ -344,30 +428,30 @@ public class MqlSqPatcher extends Patcher
 	
 	protected void addIncludes(String mtype)
 	{
-		if ((checkKeyword("#include <monitorlib.mqh>") == false)&&(mtype.toLowerCase().equals("mt5")==false))
+		if ((checkKeyword("#include <monitorlib.mqh>") == false) && (mtype.toLowerCase().equals("mt5") == false))
 		{
 			addnewline(0, "#include <monitorlib.mqh>");
 		}
 		
-		if ((checkKeyword("#include <monitorlib_mt5.mqh>") == false)&&(mtype.toLowerCase().equals("mt5")==true))
+		if ((checkKeyword("#include <monitorlib_mt5.mqh>") == false) && (mtype.toLowerCase().equals("mt5") == true))
 		{
 			addnewline(0, "#include <monitorlib_mt5.mqh>");
 		}
 		
 		// 509er Metatrader version, in der 600+ Metatraderversion darf keine
 		// stdlib mehr rein und auch nicht in mt5
-		if ((checkKeyword("string ErrorDescription(int error_code)") == false)&&(mtype.toLowerCase().equals("mt5")==false))
+		if ((checkKeyword("string ErrorDescription(int error_code)") == false)
+				&& (mtype.toLowerCase().equals("mt5") == false))
 		{
 			if (checkKeyword("#include <stdlib.mqh>") == false)
 			{
 				addnewline(1, "#include <stdlib.mqh>");
 			}
 		}
-	
 		
 	}
 	
-	protected void addAbschaltAutomaticSq3(String kennung, String expertname,String mtype)
+	protected void addAbschaltAutomaticSq3(String kennung, String expertname, String mtype)
 	{
 		addIncludes(mtype);
 		
@@ -456,40 +540,37 @@ public class MqlSqPatcher extends Patcher
 		}
 	}
 	
-	protected void addAbschaltAutomaticSq4x(String kennung, String expertname,String mtype)
+	protected void addAbschaltAutomaticSq4x(String kennung, String expertname, String mtype)
 	{
 		
-
-		//mt5
-		if ((checkKeyword("#include <monitorlib_mt5.mqh>") == false)&&(mtype.toLowerCase().equals("mt5")==true))
+		// mt5
+		if ((checkKeyword("#include <monitorlib_mt5.mqh>") == false) && (mtype.toLowerCase().equals("mt5") == true))
 		{
 			addnewline(0, "#include <monitorlib_mt5.mqh>");
 			
 		}
 		
-		//mt4
-		if ((checkKeyword("#include <monitorlib.mqh>") == false)&&(mtype.toLowerCase().equals("mt5")==false))
+		// mt4
+		if ((checkKeyword("#include <monitorlib.mqh>") == false) && (mtype.toLowerCase().equals("mt5") == false))
 		{
 			addnewline(0, "#include <monitorlib.mqh>");
 		}
 		
 		// 509er Metatrader version, in der 600+ Metatraderversion darf keine
 		// stdlib mehr rein und auch nicht in mt5
-		if ((checkKeyword("string ErrorDescription(int error_code)") == false)&&(mtype.toLowerCase().equals("mt5")==false))
+		if ((checkKeyword("string ErrorDescription(int error_code)") == false)
+				&& (mtype.toLowerCase().equals("mt5") == false))
 		{
 			if (checkKeyword("#include <stdlib.mqh>") == false)
 			{
 				addnewline(1, "#include <stdlib.mqh>");
 			}
 		}
-	
 		
 		// überprüft auf ###Tradecheck
 		// falls das schlüsselwort vorkommt wird da die abschaltautomatik
 		// eingebaut
-
 		
-				
 		for (int i = 0; i < 20000; i++)
 		{
 			if (zeilenspeicher[i] == null)

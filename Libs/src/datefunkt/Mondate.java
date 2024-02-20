@@ -42,6 +42,12 @@ public class Mondate
 		}
      	 return null;
 	}
+	static public String GetDateString(Date d,String formatstring)
+	{
+		SimpleDateFormat df = new SimpleDateFormat( formatstring );
+		String reportDate = df.format(d);
+		return reportDate;
+	}
 	
 	static public Date convTradezeitFormat(String datum,String formatstring)
 	{

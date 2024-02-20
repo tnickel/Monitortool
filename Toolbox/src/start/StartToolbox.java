@@ -14,8 +14,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.TouchEvent;
-import org.eclipse.swt.events.TouchListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Point;
@@ -45,7 +43,6 @@ import data.Metriktools;
 import data.RtTools;
 import data.Toolboxconf;
 import data.TradefilterVerarbeitung;
-import graphic.SumChart;
 import gui.Guitools;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
@@ -219,8 +216,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Label label34;
+	private Text GetEnddateFromDatabase;
+	private Label label33;
+	private Button MaxStepsBackFlag;
+	private Text maxstepsback;
 	private Button fullreportselection;
-	private Label normlabel;
 	private Button nomalizeselection;
 	private Text normn;
 	private Label label32;
@@ -1285,7 +1286,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 						{
 							group2filter = new Group(composite13, SWT.NONE);
 							group2filter.setLayout(null);
-							group2filter.setBounds(0, -54, 1611, 823);
+							group2filter.setBounds(0, -54, 1611, 862);
 							{
 								FilterSourceDir = new Text(group2filter, SWT.NONE);
 								FilterSourceDir.setText(Toolboxconf.getPropAttribute("masterfile"));
@@ -1601,7 +1602,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text4databankname = new Text(group2filter, SWT.NONE);
-								text4databankname.setText("Portfolio");
+								text4databankname.setText(Toolboxconf.getPropAttribute("portfolioname"));
 								text4databankname.setBounds(334, 595, 83, 20);
 								text4databankname.setToolTipText(
 										"This is the the there the portfolio is stored, the default is the databankname portfolio");
@@ -1688,11 +1689,6 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								});
 							}
 							{
-								normlabel = new Label(group2filter, SWT.NONE);
-								normlabel.setText("(i)");
-								normlabel.setBounds(950, 823, 60, 31);
-							}
-							{
 								label32 = new Label(group2filter, SWT.NONE);
 								label32.setText("(i)");
 								label32.setBounds(965, 789, 18, 22);
@@ -1711,6 +1707,38 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 										fullreportselectionWidgetSelected(evt);
 									}
 								});
+							}
+							{
+								maxstepsback = new Text(group2filter, SWT.NONE);
+								maxstepsback.setText("5000");
+								maxstepsback.setBounds(565, 797, 39, 22);
+								maxstepsback.setEnabled(false);
+							}
+							{
+								MaxStepsBackFlag = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								MaxStepsBackFlag.setText("MaxStepsBack");
+								MaxStepsBackFlag.setBounds(610, 789, 98, 30);
+								MaxStepsBackFlag.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										MaxStepsBackFlagWidgetSelected(evt);
+									}
+								});
+							}
+							{
+								label33 = new Label(group2filter, SWT.NONE);
+								label33.setText("Limitations: PF is limited to 5 and RetDD to 15.");
+								label33.setBounds(12, 789, 258, 30);
+							}
+							{
+								GetEnddateFromDatabase = new Text(group2filter, SWT.NONE);
+								GetEnddateFromDatabase.setText(Toolboxconf.getPropAttribute("Endtestname"));
+								GetEnddateFromDatabase.setBounds(829, 328, 93, 21);
+							}
+							{
+								label34 = new Label(group2filter, SWT.NONE);
+								label34.setText("Get Endtest Dates from Database");
+								label34.setBounds(934, 328, 205, 21);
+								label34.setToolTipText("If you klick \"Step2 Generate SQ Workflow\" Toolbox read the dates out of the SQX-Database and write this information into the SQX-Workflow directory.\r\nFor example.\r\nC:\\forex\\Toolbox\\SQ\\2 Generator\\user\\projects\\Nick31_35 optimize_+00014\\Enddate.txt\r\n\r\nThis datafile Enddate.txt will be used in the \"3 Collect Result\" Step.");
 							}
 						}
 					}
@@ -1826,6 +1854,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			selektorShiftDays.setSelection(true);
 			SelektorUseDeltaDaysConfigfile.setSelection(false);
 		}
+		
+		if(Toolboxconf.getPropAttribute("maxstepsback").equals("0"))
+			MaxStepsBackFlag.setSelection(false);
+		else
+			MaxStepsBackFlag.setSelection(true);
+		
 	}
 	
 	private void setGlobalMode(int mode)
@@ -1887,7 +1921,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.3.1.2    "+userdir);
+		shell.setText("Toolbox V1.3.3.0    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2409,6 +2443,10 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Toolboxconf.setPropAttribute("masterfile", FilterSourceDir.getText());
 		Toolboxconf.setPropAttribute("sqrootdir", text4filterdestdir.getText());
 		Toolboxconf.setPropAttribute("anzprojectfiles", label29anzfiles.getText());
+		Toolboxconf.setPropAttribute("portfolioname", text4databankname.getText());
+		Toolboxconf.setPropAttribute("Endtestname", GetEnddateFromDatabase.getText());
+	
+		
 		
 		text4workflowstore.setText("The workflow will be stored in " + sqprojects.getSqRootdir() + "\\user\\projects");
 		refreshProjectfilesanzahlMessages();
@@ -2435,7 +2473,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		Tracer.WriteTrace(20, "Info: ret="+ret);
 		if(ret==32)
 		{
-			sqprojects.genWorkflow();
+			sqprojects.genWorkflow(GetEnddateFromDatabase.getText());
 			refreshProjectfilesanzahlMessages();
 		}
 	}
@@ -2511,6 +2549,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		//hier werden die Resultate eingesammelt
 		//Als erstes wird mit cpart und combo1cpart gesagt was denn gesammelt werden soll
 		String	cpart=combo1cpart.getText();
+		int maxstepsbackval=Integer.valueOf(maxstepsback.getText());
 	
 		
 		// button collect results !!!!!!!!!!!!
@@ -2526,7 +2565,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		int normval=Integer.valueOf(normn.getText());
 		
 		sqprojects.collectResults(button9shareddrive.getSelection(), button9backupdrive.getSelection(),
-				button9showresults.getSelection(), text4databankname.getText(), cpart,normval,fullreportselection.getSelection(),outputname.getText());
+				button9showresults.getSelection(), text4databankname.getText(), cpart,normval,fullreportselection.getSelection(),outputname.getText(),maxstepsbackval
+				);
 		refreshProjectfilesanzahlMessages();
 		
 		
@@ -2799,6 +2839,19 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			Toolboxconf.setPropAttribute("fullreportselection","1");
 		else
 			Toolboxconf.setPropAttribute("fullreportselection","0");
+	}
+	
+	private void MaxStepsBackFlagWidgetSelected(SelectionEvent evt) {
+		System.out.println("MaxDaysBackFlag.widgetSelected, event="+evt);
+		//If selected than activate the number
+		maxstepsback.setEnabled(MaxStepsBackFlag.getSelection());
+		
+		if(MaxStepsBackFlag.getSelection()==true)
+		{
+			Toolboxconf.setPropAttribute("maxstepsback",maxstepsback.getText());
+		}
+		else
+			  Toolboxconf.setPropAttribute("maxstepsback", "0");
 	}
 
 	final Runnable inittimer = new Runnable() {

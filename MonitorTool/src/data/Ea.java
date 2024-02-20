@@ -62,6 +62,22 @@ public class Ea implements Comparable<Ea>
 	
 	int type=0;
 	
+	
+	public boolean isMt5Ea()
+	{
+		if(eafilename.contains(".mq5"))
+			return true;
+		else
+			return false;
+	}
+	public boolean isMt4Ea()
+	{
+		if(eafilename.contains(".mq4"))
+			return true;
+		else
+			return false;
+	}
+	
 	public int getMagic()
 	{
 		return magic;
@@ -163,56 +179,35 @@ public class Ea implements Comparable<Ea>
 		InstFrom = instFrom;
 	}
 
-
-
-
 	public int getPeriod()
 	{
 		return period;
 	}
-
-
-
 
 	public void setPeriod(int period)
 	{
 		this.period = period;
 	}
 
-
-
-
 	public String getEafilename()
 	{
 		return eafilename;
 	}
-
-
-
 
 	public void setEafilename(String eafilename)
 	{
 		this.eafilename = eafilename;
 	}
 
-
-
-
 	public String getSymbol()
 	{
 		return symbol;
 	}
 
-
-
-
 	public void setSymbol(String symbol)
 	{
 		this.symbol = symbol;
 	}
-
-
-
 
 	public int getGd20flag()
 	{

@@ -86,19 +86,48 @@ public class MqlPatch extends MqlSqPatcher
 			
 	}
 	
-	public boolean patchComment(Ea ea)
+	public boolean patchComment(Ea ea,Metaconfig meconf)
 	{
 		if(isSq4x==2)
-			return(patchCommentExpertStudio(ea));
+			return(patchCommentExpertStudio(ea,meconf));
 		else if(isSq4x==1)
-			return(patchCommentSq4x(ea));
+			return(patchCommentSq4x(ea,meconf));
 		else if(isSq4x==4)
-			return(patchCommentFsbPortfolio(ea));
+			return(patchCommentFsbPortfolio(ea,meconf));
 		else
-			return(patchCommentSq3(ea));
+			return(patchCommentSq3(ea,meconf));
 		
 		
 	}
+	
+
+	public boolean patchBugs(Ea ea)
+	{
+		
+		 if(isSq4x==1)
+		 {
+			if(ea.isMt5Ea()==true)
+				return(patchBugsMt5());
+		 }
+		return false;
+		
+		
+	}
+	public boolean patchEodEodExitTime(Ea ea)
+	{
+		
+		 if(isSq4x==1)
+		 {
+			if(ea.isMt5Ea()) 
+				return(patchEodExitTimeMt5());
+			else if(ea.isMt4Ea()) 
+				return(patchEodExitTimeMt4());
+			else
+				Tracer.WriteTrace(10, "E: unknown Ea type 4545334"+ea.getEafilename());
+		 }
+		 return true;
+	}
+	
 	public boolean patchInit(String mtype)
 	{
 		//sq4 and Ea Studio same inits

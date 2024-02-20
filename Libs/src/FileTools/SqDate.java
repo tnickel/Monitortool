@@ -26,6 +26,7 @@ public class SqDate
 		date1_g=datestring.substring(datestring.indexOf("<"+keyword_g+" dateFrom=\"")+17,datestring.indexOf("\" "));
 		date2_g=datestring.substring(datestring.indexOf("dateTo=")+8,datestring.lastIndexOf("\""));
 		Tracer.WriteTrace(20, "date1<"+date1_g+"> date2<"+date2_g+">");
+		
 	}
 	
 	//hier werden n tage vom datum abgezogen oder addiert

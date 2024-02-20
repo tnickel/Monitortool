@@ -56,6 +56,10 @@ public class SwtEditBrokerConfig
 	private Button button1realaccountsel;
 	
 	private Text MqlQuellverzeichniss;
+	private Text CustomComment;
+	private Button SetCustomComment;
+	private Button EodTradingtimeRandomModification;
+	private Button Mt5Bugfixing;
 	private Button button1setactestdir;
 	private Text text1autocreatortestdir;
 	private Label label13;
@@ -440,7 +444,7 @@ public class SwtEditBrokerConfig
 	{
 		button1symbolreplacement = new Button(sh, SWT.CHECK | SWT.LEFT);
 		button1symbolreplacement.setText("Automatic Symbol Replacement");
-		button1symbolreplacement.setBounds(806, 326, 301, 30);
+		button1symbolreplacement.setBounds(806, 326, 196, 30);
 		button1symbolreplacement.setToolTipText(
 				"Make automatic Symbolereplacement after EA installation. This is helpfull if you install bitcoin EAs for example.");
 	}
@@ -622,6 +626,48 @@ public class SwtEditBrokerConfig
 			}
 		});
 	}
+	{
+		Mt5Bugfixing = new Button(sh, SWT.CHECK | SWT.LEFT);
+		Mt5Bugfixing.setText("Mt5Bugfixing");
+		Mt5Bugfixing.setBounds(1057, 295, 158, 29);
+		Mt5Bugfixing.setSelection(me.isMt5bugfixing());
+		Mt5Bugfixing.setToolTipText("If This freature is activated the monitortool will fix some bugs in the mql5 code, at the moment it is only the ORDER_FILLING_RETURN problem see. \r\nhttps://strategyquant.com/forum/topic/the-order-request-could-not-be-completed-error-no-4307/page/2/#post-285171\r\n");
+		Mt5Bugfixing.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				Mt5BugfixingWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		EodTradingtimeRandomModification = new Button(sh, SWT.CHECK | SWT.LEFT);
+		EodTradingtimeRandomModification.setText("EodTradingtimeRandomModification");
+		EodTradingtimeRandomModification.setBounds(1057, 323, 231, 30);
+		EodTradingtimeRandomModification.setSelection(me.isEodModification());
+		EodTradingtimeRandomModification.setToolTipText("The EodTrading Closetime is set by SQX. \r\nFor example if we set the Eod Tradingtime to 15:00 all Eas closes their Trades at 15:00. Sometime it can be a problem if you have installed 20 Eas and all Eas close their trades ast 15:00.\r\nIf you activate this feature the EOD-Tradingtime will be modifed with a random value.\r\nThe EOD-Time will be closed randomly - (0-3) minutes.\r\nFor Example if you use EOD-Tradingtime you will get the following values for the EOD-Tradingtime.\r\n15:00, 14:59, 14.58, 14.57\r\n\r\nThis time is fixed in the mql4/5-code.\r\n");
+		EodTradingtimeRandomModification.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				EodTradingtimeRandomModificationWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		SetCustomComment = new Button(sh, SWT.CHECK | SWT.LEFT);
+		SetCustomComment.setSelection(me.isCustomCommentFlag());
+		SetCustomComment.setText("Set Custom Comment");
+		SetCustomComment.setBounds(1057, 353, 145, 30);
+		SetCustomComment.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				SetCustomCommentWidgetSelected(evt);
+			}
+		});
+	}
+	{
+		CustomComment = new Text(sh, SWT.NONE);
+		CustomComment.setText(me.getCustomCommentText());
+		
+		CustomComment.setBounds(1208, 359, 151, 19);
+		
+	}
 	initBrokereditM(actionmode);
 	refreshbuttons(actionmode);
 	sh.open();
@@ -668,7 +714,7 @@ public class SwtEditBrokerConfig
 			button1lockaccount.setSelection(true);
 		else
 			button1lockaccount.setSelection(false);
-		
+		CustomComment.setEnabled(SetCustomComment.getSelection());
 		Swttool.wupdate(dis_glob);
 		
 	}
@@ -825,6 +871,7 @@ public class SwtEditBrokerConfig
 		
 		if(actionmode.equals("addbroker"))
 			installEas.setEnabled(false);
+		CustomComment.setEnabled(SetCustomComment.getSelection());
 	}
 	private void SaveExitWidgetSelected(SelectionEvent evt)
 	{
@@ -900,6 +947,9 @@ public class SwtEditBrokerConfig
 		else
 			me_glob.setUseautocreatorbackup(0);
 				
+		me_glob.setCustomCommentText(CustomComment.getText());
+		me_glob.setCustomCommentFlag(SetCustomComment.getSelection());
+		
 		// GlobalVar.setLastcopytrademagic(magic);
 		GlobalVar.save();
 		
@@ -1467,5 +1517,23 @@ public class SwtEditBrokerConfig
 				fnam=AutoCreator.CheckFilesRootDir(fnam);
 				me_glob.setAutocreatortestdir(fnam);
 				text1autocreatortestdir.setText(fnam);
+	}
+	
+	private void Mt5BugfixingWidgetSelected(SelectionEvent evt) {
+		System.out.println("Mt5Bugfixing.widgetSelected, event="+evt);
+		//TODO add your code for Mt5Bugfixing.widgetSelected
+		me_glob.setMt5bugfixing(Mt5Bugfixing.getSelection()); 
+	}
+	
+	
+	
+	private void EodTradingtimeRandomModificationWidgetSelected(SelectionEvent evt) {
+		System.out.println("EodTradingtimeRandomModification.widgetSelected, event="+evt);
+		me_glob.setEodModification(EodTradingtimeRandomModification.getSelection());
+	}
+	
+	private void SetCustomCommentWidgetSelected(SelectionEvent evt) {
+		System.out.println("SetCustomComment.widgetSelected, event="+evt);
+		CustomComment.setEnabled(SetCustomComment.getSelection());
 	}
 }

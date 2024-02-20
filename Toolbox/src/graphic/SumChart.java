@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -15,10 +16,8 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.LogAxis;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
@@ -30,6 +29,7 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.RefineryUtilities;
 
+import comperatoren.SqBaseElemComperator;
 import hiflsklasse.DemoPanel;
 import sq4xWorkflow.SqBaseElem;
 
@@ -67,6 +67,8 @@ public class SumChart extends ApplicationFrame
 			XYSeries seriesSum = new XYSeries("Sum Profit");
 			XYSeries seriesProfit = new XYSeries("Profit");
 			
+		
+			
 			XYSeriesCollection result = new XYSeriesCollection(seriesSum);
 			for (int i = anz - 1; i >= 0; i--)
 			{
@@ -78,6 +80,7 @@ public class SumChart extends ApplicationFrame
 				seriesSum.add(index, neprof + sumprof);
 				seriesProfit.add(index, neprof);
 				sumprof = sumprof + neprof;
+				
 			}
 			result.addSeries(seriesProfit);
 			return result;
@@ -179,10 +182,10 @@ public class SumChart extends ApplicationFrame
 	 * @param title
 	 *            the frame title.
 	 */
-	public SumChart(String title, ArrayList<SqBaseElem> baselist, String databankname,int normf)
+	public SumChart(String title, ArrayList<SqBaseElem> baselist, String databankname,int normf,int maxbacksteps)
 	{
 		super(title);
-		JPanel content = createDemoPanel(baselist, databankname,normf);
+		JPanel content = createDemoPanel(baselist, databankname,normf,maxbacksteps);
 		getContentPane().add(content);
 	}
 	
@@ -191,7 +194,7 @@ public class SumChart extends ApplicationFrame
 	 *
 	 * @return A panel.
 	 */
-	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist, String databankname,int normf)
+	public static JPanel createDemoPanel(ArrayList<SqBaseElem> baselist, String databankname,int normf,int maxbacksteps)
 	{
 		return new MyDemoPanel(baselist, databankname, normf);
 	}
@@ -203,12 +206,12 @@ public class SumChart extends ApplicationFrame
 	 *            ignored.
 	 */
 	
-	public static void ShowChart(ArrayList<SqBaseElem> baselist, String databankname,int normf)
+	public static void ShowChart(ArrayList<SqBaseElem> baselist, String databankname,int normf,int maxbacksteps)
 	{
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkit.getScreenSize();
 		
-		SumChart appFrame = new SumChart("Profit Overview", baselist, databankname,normf);
+		SumChart appFrame = new SumChart("Profit Overview", baselist, databankname,normf,maxbacksteps);
 		
 		appFrame.setPreferredSize(
 				new java.awt.Dimension((int) (screenSize.getWidth() * 0.5), (int) (screenSize.getHeight() * 0.5)));

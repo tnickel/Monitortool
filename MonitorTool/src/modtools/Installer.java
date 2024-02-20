@@ -941,7 +941,7 @@ public class Installer
 		// abschaltautomatik hinzufügen
 		mqlpatch.addAbschaltAutomatic("", meconf.getMttype());
 		mqlpatch.patchLotsize(ea, meRealconf);
-		mqlpatch.patchComment(ea);
+		mqlpatch.patchComment(ea,meRealconf);
 		
 		mqlpatch.patchSleeptimemod();
 		// add the postcode from mt4_additional code to every ea
@@ -1008,7 +1008,9 @@ public class Installer
 		mqlpatch.patchVariables();
 		mqlpatch.patchGBMeta600();
 		mqlpatch.patchSleeptimemod();
-		mqlpatch.patchComment(ea);
+		mqlpatch.patchComment(ea,meconf);
+		mqlpatch.patchBugs(ea);
+		mqlpatch.patchEodEodExitTime(ea);
 		
 		if (realpatchflag == 1)
 		{

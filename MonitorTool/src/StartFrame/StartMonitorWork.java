@@ -124,7 +124,7 @@ public class StartMonitorWork
 	
 	public void loadallbroker(Display dis, Table table1, Table table2, Table table3, Tradefilter tf,
 			Text anzincommingtrades, Text anzeas, org.eclipse.swt.widgets.Label broker, int showflag, int forceloadflag,
-			int onlyopenflag, Text prof7, Text prof30, Text profall)
+			int onlyopenflag, Text prof7, Text prof30, Text profall,boolean onlytodayflag)
 	{
 		// forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
@@ -132,6 +132,7 @@ public class StartMonitorWork
 		// SWT.CURSOR_WAIT));
 		// falls profitnormalisierung==true dann werden die gewinne auf lotsize
 		// 0.1 umgerechnet
+		//onlytodayflag: if true, than read only trades from today, which close today
 		ProfitTableStatistik pfts = null;
 		
 		buildBrokerliste(table3, forceloadflag);
@@ -158,7 +159,7 @@ public class StartMonitorWork
 						"Info: try to read <" + mc.getBrokername() + "> on <" + tv_glob.getFiledata(mc) + ">");
 				if (mc.getOn() == 1)
 				{
-					tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag);
+					tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag,onlytodayflag);
 					Tracer.WriteTrace(20, "tradeanzahl in globtradeliste=" + tv_glob.calcTradeanzahl().getAnztrades());
 					
 				}
@@ -174,7 +175,7 @@ public class StartMonitorWork
 		brokerview_glob.ShowBrokerTable(dis, table3, 0);
 		
 		Tracer.WriteTrace(20, "Info: TradeTable anzeigen");
-		tv_glob.ShowTradeTable(display_glob, table1, null, GlobalVar.getShowMaxTradetablesize(), forceloadflag);
+		tv_glob.ShowTradeTable(display_glob, table1, null, GlobalVar.getShowMaxTradetablesize(), forceloadflag,onlytodayflag);
 		tv_glob.CalcProfitTable(null, 1);
 		
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
@@ -221,16 +222,16 @@ public class StartMonitorWork
 	}
 	
 	public void workTrades(Metaconfig mc, Tradefilter tf, Table table1, Table table2, Table table3, Display dis,
-			int showflag, int forceloadflag, int onlyopenflag, Text prof7, Text prof30, Text profall)
+			int showflag, int forceloadflag, int onlyopenflag, Text prof7, Text prof30, Text profall,boolean onlytodayflag)
 	{
 		ProfitTableStatistik pfts = new ProfitTableStatistik();
 		// dieser broker wurde selektiert
 		String brokername = mc.getBrokername();
 		
 		// die Tradetable für einen bestimmten Broker laden
-		tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag);
+		tv_glob.LoadTradeTable(mc, dis, 0, showflag, onlyopenflag,onlytodayflag);
 		// die Tradetable für einen bestimmten broker anzeigen
-		tv_glob.ShowTradeTable(dis, table1, brokername, GlobalVar.getShowMaxTradetablesize(), forceloadflag);
+		tv_glob.ShowTradeTable(dis, table1, brokername, GlobalVar.getShowMaxTradetablesize(), forceloadflag,onlytodayflag);
 		// die profittable für einen bestimmten broker berechnen
 		tv_glob.CalcProfitTable(brokername, 1);
 		// die profittabelle anzeigen
@@ -243,7 +244,7 @@ public class StartMonitorWork
 	
 	public void brokerselected(String name, Tradefilter tf, Table table1, Table table2, Table table3,
 			org.eclipse.swt.widgets.Label broker, Display dis, int showflag, int forceloadflag, int onlyopenflag,
-			Text prof7, Text prof30, Text profall)
+			Text prof7, Text prof30, Text profall,boolean onlytodayflag)
 	{
 		glob_selectedBrokerShare = name;
 		// holt sich die konfiguration
@@ -262,7 +263,7 @@ public class StartMonitorWork
 		// if (me.getInstallationstatus() != 0)
 		
 		// hier wird die Ealiste für das mittlere Fenster aufgebaut
-		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag, prof7, prof30, profall);
+		workTrades(me, tf, table1, table2, table3, dis, showflag, forceloadflag, onlyopenflag, prof7, prof30, profall,onlytodayflag);
 		
 		// brokerview_glob.SaveBrokerTable();
 		System.out.println(name);
@@ -674,7 +675,7 @@ public class StartMonitorWork
 		// showflag=0 dann wird nix auf dem display angezeigt
 		AutomaticCheck_dep gd20 = new AutomaticCheck_dep(tv_glob, brokerview_glob, table1, dis, anzincommingtrades,
 				anzeas);
-		AutomaticCheck_dep.runAutomatic_dep(showflag, 0);
+		AutomaticCheck_dep.runAutomatic_dep(showflag, 0,false);
 	}
 	
 	public void tooggleallprofits()

@@ -1,10 +1,8 @@
 package sq4xWorkflow;
 
-import java.util.Comparator;
-
 import hiflsklasse.Tracer;
 
-public class SqBaseElem
+public class SqBaseElem 
 {
 	// dieses ist ein listenelement der Datenbasis
 	// dies beinhaltet
@@ -68,7 +66,11 @@ public class SqBaseElem
 	
 	public double getProfitfaktor()
 	{
-		return profitfaktor;
+		// profitfkator is limited to 5
+		if (profitfaktor > 5)
+			return 5;
+		else
+			return profitfaktor;
 	}
 	
 	public void setProfitfaktor(double profitfaktor)
@@ -88,7 +90,11 @@ public class SqBaseElem
 	
 	public double getRetdd()
 	{
-		return retdd;
+		// retDD is limited to 15
+		if (retdd > 15)
+			return 15;
+		else
+			return retdd;
 	}
 	
 	public void setRetdd(double retdd)
@@ -142,7 +148,7 @@ public class SqBaseElem
 	
 	public int getIndexVal()
 	{
-		boolean negindexflag=false;
+		boolean negindexflag = false;
 		// realname="Q63 GBPUSD L3_+00000Merged portfolio(10)"
 		if (strategyname.contains("Merged portfolio"))
 		{
@@ -153,22 +159,20 @@ public class SqBaseElem
 			if (subnam.contains("_+"))
 			{
 				firstmarker = "_+";
-				//positiver index gefunden
-			}
-			else if (subnam.contains("_--"))
+				// positiver index gefunden
+			} else if (subnam.contains("_--"))
 			{
 				firstmarker = "_--";
-				//negativer index gefunden
-				negindexflag=true;
-			}
-			else
+				// negativer index gefunden
+				negindexflag = true;
+			} else
 				Tracer.WriteTrace(10, "E: cant find pattern '_+' or '_--' in Merged Portfolio Name -> stop 1702");
 			
 			subnam = subnam.substring(subnam.indexOf(firstmarker) + firstmarker.length());
 			int retval = Integer.valueOf(subnam);
-
-			if(negindexflag==true)
-				return(-retval);
+			
+			if (negindexflag == true)
+				return (-retval);
 			else
 				return (retval);
 		} else
@@ -176,9 +180,5 @@ public class SqBaseElem
 		return 0;
 	}
 	
-	public int compare(Object e1, Object e2)
-	{
-		
-		return -1;
-	}
+
 }

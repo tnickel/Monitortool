@@ -126,7 +126,7 @@ public class SqGenerateWorkflowMain
 		
 	}
 	
-	public void copyToSq(String sqrootdir, String tmpcfx, String destname)
+	public void copyToSq(String sqrootdir, String tmpcfx, String destname,String Enddate)
 	{
 		// das fertig generierte wird in die sq verzeichnisse kopiert
 		String newdir = sqrootdir + "\\user\\projects\\" + destname;
@@ -151,6 +151,14 @@ public class SqGenerateWorkflowMain
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File destinfofile=new File(newdir+"\\enddate.txt");
+		if(destinfofile.exists())
+			if(destinfofile.delete()==false)
+				Tracer.WriteTrace(10, "E:cant delete file <"+destinfofile.getAbsolutePath()+">54542211");
+		Inf inf=new Inf();
+		inf.setFilename(destinfofile.getAbsolutePath());
+		inf.writezeile(Enddate);
+		inf.close();
 		
 	}
 	
@@ -160,8 +168,9 @@ public class SqGenerateWorkflowMain
 		FileAccess.deleteDirectoryContentPostfix(logdir_f, ".log");
 	}
 	
-	public void modifyProject(int daysoffset_i)
+	public String modifyProject(int daysoffset_i,String EndtestDatabaseName)
 	{
+		String FoundEndtestdate=null;
 		for (int i = 0; i < anzfiles_g; i++)
 		{
 			
@@ -169,6 +178,13 @@ public class SqGenerateWorkflowMain
 			// Suche <Project name="EURUSD - H1 -2year NEW" version="126.2189">
 			
 			SqConfXml sxml = new SqConfXml(memstring_g[i]);
+			
+			//hole das Endtestdate
+			String Endtestdate=sxml.getEndtestdate(EndtestDatabaseName,daysoffset_i);
+			if(Endtestdate!=null)
+				FoundEndtestdate=Endtestdate;
+			
+			
 			sxml.setSearchPattern("<Project name=\"", "\"");
 			String projektname = sxml.getProjectName();
 			Tracer.WriteTrace(20, "projektname=" + projektname);
@@ -179,9 +195,14 @@ public class SqGenerateWorkflowMain
 			sxml.setSearchPattern("<Range dateFrom=", " />");
 			memstring_g[i] = sxml.modifyAllPatterns(daysoffset_i);
 			
+		
+			
 			// replace back X@X
 			memstring_g[i] = SqDate.replaceBack(memstring_g[i]);
+			
 		}
+		return FoundEndtestdate;
 	}
+	
 	
 }

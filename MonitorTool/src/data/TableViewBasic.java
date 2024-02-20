@@ -1,7 +1,9 @@
 package data;
 
 import java.io.File;
+import java.util.Date;
 
+import datefunkt.Mondate;
 import filter.Tradefilter;
 import hiflsklasse.Inf;
 import hiflsklasse.SG;
@@ -152,12 +154,12 @@ public class TableViewBasic
 			return false;
 		
 		String fnamcsv = fnamf.getAbsolutePath();
-		readTradesFile(tl, fnamcsv, nocanceledflag, showopenorders, normflag, mc, tf);
+		readTradesFile(tl, fnamcsv, nocanceledflag, showopenorders, normflag, mc, tf,false);
 		return true;
 	}
 	
 	public String readTradesFile(Tradeliste tl, String fnam, boolean nocanceledflag, boolean showopenorders,
-			boolean normflag, Metaconfig mc, Tradefilter tf)
+			boolean normflag, Metaconfig mc, Tradefilter tf,boolean onlytodayflag)
 	{
 		// tl= die tradeliste wird aufgebaut
 		// fnam= das file wird eingelesen
@@ -175,6 +177,9 @@ public class TableViewBasic
 		int zeilcount = -1;
 		int routencount = 0;
 		int lastroutencount = 0;
+		String aktdatestring=Mondate.GetDateString(Mondate.getAktDate(),"yyyy.MM.dd");
+		
+	
 		
 		Tracer.WriteTrace(20, "I:read brokerfile<" + fnam + ">");
 		
@@ -205,6 +210,9 @@ public class TableViewBasic
 				continue;
 			
 			if (zeil.contains("cancelled"))
+				continue;
+			
+			if((onlytodayflag==true)&&(zeil.contains(aktdatestring)==false))
 				continue;
 			
 			// schmutzzeile rausfiltern
