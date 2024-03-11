@@ -2,6 +2,9 @@ package Metriklibs;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
 
@@ -10,7 +13,7 @@ import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
 
-public class CorrelationResultliste
+public class Correlator
 {
 	// hier werden die Ergebnisse festgehalten
 	static ArrayList<Corelresultliste> reslist_glob = new ArrayList<Corelresultliste>();
@@ -135,6 +138,7 @@ public class CorrelationResultliste
 			// addiere die corelliste für den iten-filter
 			reslist_glob.add(ci);
 		}
+	
 	}
 
 	static public void zeigeTabelle(String fnam)
@@ -155,6 +159,8 @@ public class CorrelationResultliste
 		for(int i=0; i<anzl; i++)
 		{
 			Corelresultliste cr=reslist_glob.get(i);
+			cr.SortInternal();
+			
 			int anz=cr.getSize();
 			for(int j=0; j<anz; j++)
 			{

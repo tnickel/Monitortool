@@ -21,8 +21,7 @@ import Metriklibs.Stratelem;
 public class Stratliste
 {
 	//die liste beinhaltet eine Strategiemenge, das ist die Ansammlung der gefundenen
-	//Strategien
-	
+	//Strategien, dies sind also alle Strategien. Im laufe der Zeit wird diese Menge immer geringer da ja ausgefiltert wird.
 	private ArrayList<Stratelem> stratliste_glob = new ArrayList<Stratelem>();
 
 	public Stratliste()
@@ -44,7 +43,7 @@ public class Stratliste
 
 	public void filterSelfile(String fnam)
 	{
-		// in diesem Hashset sind die Strategien die genommen weren, alles
+		// in diesem Hashset sind die Strategien die genommen werden, alles
 		// andere wird rausgefiltert
 		HashSet<String> stratnamenmenge = new HashSet<String>();
 		// es werden nur die Strategien genommen die im Selfile spezifiziert
@@ -88,6 +87,7 @@ public class Stratliste
 		//prüft nach ob der strategiename in der strategieliste ist
 		
 		strname = strname.replace(".str", "");
+		strname = strname.replace(".sqx", "");
 		int anz = stratliste_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
@@ -102,6 +102,9 @@ public class Stratliste
 	public void filterAll(Metriktabellen met, Filterzeitraume filt,
 			int best100flag)
 	{
+		//metriktabellen: 	Das sind die exportierten Tabelle aus dem SQX
+		//filterzeiträume: 	Das sind meine definierten Filter
+		//best100flag: 		??
 		// hier wird alles rausgefiltert was nicht passt.
 		int anzfilter = met.calcanzFilter();
 		// Tracer.WriteTrace(20,
@@ -122,7 +125,7 @@ public class Stratliste
 			if (filteri == null)
 				continue;
 
-			// wird wird geschaut ob man die Strategie mit den aktuellen
+			// es wird geschaut ob man die Strategie mit den aktuellen
 			// Metriken rausfiltern kann
 			// falls dismissflag==1 dann dürfen die metriktabellen unvollständig
 			// sein
@@ -140,7 +143,7 @@ public class Stratliste
 			Filterzeitraum filtzeit, int best100flag, int dismissflag)
 	{
 		// hier wird strategieliste reduziert
-		// mettab: das sind die strategien die zu filtern sind
+		// mettab: das sind die strategien die zu filtern sind, diese Tabelle welche strategien und metriken beinhaltet kommt vom SQX.
 		// filterzeit: hier sind die filterwerte drin nach den es zu filter gilt
 		// stratliste_glob: aus dieser liste wird rausgeworfen wenn strate nicht
 		// den bedingungen genügt
@@ -210,10 +213,10 @@ public class Stratliste
 						+ "> minval<" + filterentry.getAktMinValue()
 						+ "> maxval<" + filterentry.getAktMaxValue() + ">");*/
 
-				return false;
+				return false; //die metrikzeile genügt nicht den bedingungen
 			}
 		}
-		return true;
+		return true;//die metrikzeile ist ok, strategie kann wahrscheinlich bleiben.
 	}
 
 	private Boolean checkEntry(Metrikentry meentry, Filterentry filterentry,

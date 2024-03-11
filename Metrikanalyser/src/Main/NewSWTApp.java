@@ -32,7 +32,7 @@ import userinterface.SetConfig;
 import userinterface.SetCorrelationConfig;
 import userinterface.SetFilter;
 import Metriklibs.EndtestFitnessfilter;
-import calcPack.CalOpt100;
+import calcPack.CalOpt100Sammler;
 import calcPack.CalculationOneSetting;
 
 import com.cloudgarden.resource.SWTResourceManager;
@@ -107,7 +107,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	// calone speichert nur eine filterung
 	CalculationOneSetting calone = new CalculationOneSetting();
 	// in calopt100 werden die besten 100 filterungen ermittelt und gespeichert
-	CalOpt100 calopt100 = new CalOpt100();
+	CalOpt100Sammler calopt100 = new CalOpt100Sammler();
 
 	//hier werden die fitnessfunktionen für den endtest gespeichert
 	EndtestFitnessfilter endtestfitnessfilter_glob= new EndtestFitnessfilter();
@@ -186,7 +186,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						}
 						{
 							button1calc = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							button1calc.setText("Calc");
+							button1calc.setText("Use Filtering");
 							button1calc.setBounds(116, 28, 106, 25);
 							button1calc.addSelectionListener(new SelectionAdapter()
 							{
@@ -330,12 +330,13 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 								button1nettoprofit = new Button(group1, SWT.RADIO | SWT.LEFT);
 								button1nettoprofit.setText("nettoprofit");
 								button1nettoprofit.setBounds(12, 27, 145, 25);
+								button1nettoprofit.setSelection(true);
 							}
 							{
 								button1nettostabilitaet = new Button(group1, SWT.RADIO | SWT.LEFT);
 								button1nettostabilitaet.setText("nettoprofit * stabilitaet");
 								button1nettostabilitaet.setBounds(12, 51, 145, 30);
-								button1nettostabilitaet.setSelection(true);
+								button1nettostabilitaet.setSelection(false);
 							}
 							{
 								button1nettorobust = new Button(group1, SWT.RADIO | SWT.LEFT);
@@ -473,7 +474,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 					}
 				}
 			}
-			readparam();
+			readparam_userinterface();
 			this.layout();
 		} catch (Exception e)
 		{
@@ -481,7 +482,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		}
 	}
 
-	private void readparam()
+	private void readparam_userinterface()
 	{
 		endtestfitnessfilter_glob.setNettoflag(button1nettoprofit.getSelection());
 		endtestfitnessfilter_glob.setNettorobustflag(button1nettorobust.getSelection());
@@ -549,6 +550,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		// hier werden die Datenstrukturen eingelesen und aufgebaut
 		calone.readMetriktabellen();
 
+		//Falls keine Config, dann wird die erzeugt
 		if (calone.checkConfigAvailable() == true)
 			calone.readConfig();
 		else
@@ -593,6 +595,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		// Erst mal alle Metriktabellen einlesen
 		Metrikglobalconf.setStopflag_glob(0);
 		calopt100.readMetriktabellen();
+		readparam_userinterface();
 
 		// falls schon filter da sind die einlesen
 		if (calopt100.checkConfigAvailable() == true)
@@ -617,11 +620,13 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		calopt100.storeResults();
 
 		//
+		
+		// das beste umkopieren
+		calopt100.kopiereBestStrfiles();
 		if (button2showbestresult.getSelection() == true)
 		{
 
-			// das beste umkopieren
-			calopt100.kopiereBestStrfiles();
+			
 
 			// das beste Ergebniss anzeigen
 			calopt100.showGraphik();

@@ -125,14 +125,16 @@ public class Filterzeitraum
 			fi.setAktMaxValue(maxfilevalue - offset_high);
 		}
 	}
-	public void modifyPersonCorel(int filterindex,CorelSetting corelsetting)
+	public void modifySchrankePersonCorel(int filterindex,CorelSetting corelsetting)
 	{
 		// die schranken werden zufällig abgeändert
-		int anz = filterzeitraum.size();
+		//filterindex=i dies ist z.B. _1__dir
+		//
+		int attribanzahl = filterzeitraum.size();
 		Random ran = new Random();
 		
 		//gehe hier durch die einzelnen attribute
-		for (int i = 0; i < anz; i++)
+		for (int i = 0; i < attribanzahl; i++)
 		{
 			// gehe durch die einzelnen attribute
 			Filterentry fi = filterzeitraum.get(i);
@@ -140,7 +142,9 @@ public class Filterzeitraum
 
 			String attrib = fi.getAttribut();
 			
-			float corelval=CorrelationResultliste.holeAttribCorel(filterindex,attrib);
+			//jedes Attribut hat einen correlationswert, wir brauchen diesen Wert da wir nur Attribute ändern dürfen die
+			//aussreichende korrelationswerte aufweisen. Attribute die zu niedrig korreliert sind wollen wir nicht beachten.
+			float corelval=Correlator.holeAttribCorel(filterindex,attrib);
 			
 			
 			//dann überlege ob dieser Wert überhaupt verändert wird
@@ -154,6 +158,7 @@ public class Filterzeitraum
 			
 			int anzsteps = corelsetting.getAnzSteps();//steps werden auf 100 festgesetzt  fi.getAnzSteps();
 			
+			//filevalue=akt schranke
 			float minfilevalue = fi.getMinfilevalue();
 			float maxfilevalue = fi.getMaxfilealue();
 			// zufallszahl
@@ -266,6 +271,7 @@ public class Filterzeitraum
 
 	private void writeSettings(Inf inf)
 	{
+		String marker="";
 		int anz = filterzeitraum.size();
 		inf.writezeile("Attribut\tminMalue\tMaxvalue\tMinfilevalue\tMaxfilevalue\t#Steps\taktMinValue\taktMaxValue\toptflag\t*Infozeile*");
 		for (int i = 0; i < anz; i++)
@@ -276,6 +282,19 @@ public class Filterzeitraum
 					+ fi.getMaxfilealue() + "\t" + fi.getAnzSteps() + "\t"
 					+ fi.getAktMinValue() + "\t" + fi.getAktMaxValue() + "\t"
 					+ fi.getOptflag());
+		}
+		
+		inf.writezeile("_______________________________");
+		for (int i = 0; i < anz; i++)
+		{
+			Filterentry fi = filterzeitraum.get(i);
+			if((fi.getAktMinValue()==fi.getMinfilevalue())&&(fi.getAktMaxValue()==fi.getMaxfilealue()))
+					marker="";
+			else
+				marker="\t\tvalue modified original range =  "+fi.getMinfilevalue()+"---"+fi.getMaxfilealue();
+			
+			inf.writezeile(fi.getAktMinValue()+" < "+fi.getAttribut()+" < "+fi.getAktMaxValue()+"  "+marker);
+			
 		}
 	}
 }

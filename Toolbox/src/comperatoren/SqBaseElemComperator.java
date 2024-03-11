@@ -1,7 +1,6 @@
 package comperatoren;
 
 import java.util.Comparator;
-
 import sq4xWorkflow.SqBaseElem;
 
 public class SqBaseElemComperator implements Comparator<SqBaseElem>

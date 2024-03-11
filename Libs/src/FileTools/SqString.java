@@ -26,7 +26,7 @@ public class SqString
 		// wir suchen
 		// <Databank label="Output databank" name="Output" value="RT3b3" />
 		// "<Setup dateFrom="2003.05.19" dateTo="2023.10.27" testPrecision="2"
-		String suchstring = "<Databank label=\"Output databank\" name=\"Output\" value=\"" + Enddatabasename ;
+		String suchstring = "<Databank label=\"Output databank\" name=\"Output\" value=\"" + Enddatabasename+"\"" ;
 		// <Databank label="Output databank" name="Output" value="Endtest" />
 		
 		if (mem.toLowerCase().contains(suchstring.toLowerCase()))

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
-import calcPack.CalOpt100;
+import calcPack.CalOpt100Sammler;
 
 import Metriklibs.Filterzeitraum;
 import Metriklibs.Metriktabellen;
@@ -149,7 +149,7 @@ public class Filterzeitraume
 	}
 	public void modifyPersonKorrelation(CorelSetting corelsetting)
 	{
-		// hier werden randommässig die schranken modifiziert
+		// hier werden nach der PersonKorrelation die schranken modifiziert
 		// gehe durch alle filterzeiträume und modifiziere
 		int anz = filterzeitraume_glob.size();
 		//anz-1 da letzte tabelle die profittabelle sind
@@ -158,7 +158,7 @@ public class Filterzeitraume
 			// filterzeit beinhaltet ein einzelnes verzeichniss
 			Filterzeitraum filtzeit = filterzeitraume_glob.get(i);
 			// hier werden für jeden Abschnitt die Schranken zufällig geändert
-			filtzeit.modifyPersonCorel(i, corelsetting);
+			filtzeit.modifySchrankePersonCorel(i, corelsetting);
 		}
 	}
 }

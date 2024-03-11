@@ -1,8 +1,9 @@
 package Metriklibs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Corelresultliste
+public class Corelresultliste 
 {
 	//diese liste beinhaltet für einen filter die korrelationswerte
 	ArrayList<Corelresultelem> clist = new ArrayList<Corelresultelem>();
@@ -10,6 +11,7 @@ public class Corelresultliste
 	public void addElem(Corelresultelem ce)
 	{
 		clist.add(ce);
+	
 	}
 	public int getSize()
 	{
@@ -32,4 +34,10 @@ public class Corelresultliste
 		return null;
 		
 	}
+	public void SortInternal()
+	{
+		 Collections.sort(clist);
+		
+	}
+	
 }

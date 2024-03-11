@@ -3,7 +3,7 @@ package data;
 import hilfsklasse.Tracer;
 import filterPack.Filterzeitraume;
 
-public class Best100dat implements Comparable<Best100dat>
+public class Portfolio implements Comparable<Portfolio>
 {
 	//Ein best100dat value ist eine filterprozessmenge
 	//in dieser Menge befinden strategien, ein endresult und filterzeiträume(metriken und schranken)
@@ -51,7 +51,7 @@ public class Best100dat implements Comparable<Best100dat>
 		this.endresult = endresult;
 	}
 
-	public int compareTo(Best100dat b100dat)
+	public int compareTo(Portfolio b100dat)
 	{
 		EndtestResult eres = b100dat.getEndresult();
 		if (eres.getFitnessvalue() < endresult.getFitnessvalue())

@@ -23,13 +23,13 @@ import Metriklibs.Filterzeitraum;
 import datefunkt.Mondate;
 import filterPack.Filterzeitraume;
 
-public class Best100
+public class Best100Portfolios
 {
-	//dies ist die Liste der 100 besten strat
-	private ArrayList<Best100dat> best100list = new ArrayList<Best100dat>();
+	//hier in der liste werden die 100 besten portfolios abgespeicher
+	private ArrayList<Portfolio> best100list = new ArrayList<Portfolio>();
 	private String best100prot_glob = null;
 
-	public Best100()
+	public Best100Portfolios()
 	{
 		// lösche das alte protokoll
 		String fnamroot = Metrikglobalconf.endtestpath_glob;
@@ -39,7 +39,7 @@ public class Best100
 			b100f.delete();
 	}
 
-	// diese Datenstruktur speichert die besten 100 str ab
+	// diese Datenstruktur speichert die besten 100 portfolios ab
 	public void checkAdd(Stratliste stratliste, Filterzeitraume filt,
 			EndtestResult endresult, MFilter mfilter)
 	{
@@ -65,7 +65,7 @@ public class Best100
 				&& (checkIstNeuerWert(endresult) == true))
 		{
 			// es ist noch platz also nehme auf
-			Best100dat b100d = new Best100dat();
+			Portfolio b100d = new Portfolio();
 			b100d.setStratliste(stratliste);
 
 			if (filt.getAnz() < 2)
@@ -90,7 +90,7 @@ public class Best100
 		{
 			// dann schmeisse das letzte weg und nimm das neue auf
 			best100list.remove(99);
-			Best100dat b100d = new Best100dat();
+			Portfolio b100d = new Portfolio();
 			b100d.setStratliste(stratliste);
 
 			nimmAuf(b100d, filt, endresult);
@@ -99,7 +99,7 @@ public class Best100
 		Collections.sort(best100list);
 	}
 
-	private void nimmAuf(Best100dat b100d, Filterzeitraume filt,
+	private void nimmAuf(Portfolio b100d, Filterzeitraume filt,
 			EndtestResult endresult)
 	{
 		// ein neues element wird in der bestenliste aufgenommen
@@ -127,7 +127,7 @@ public class Best100
 		if (best100list.size() == 0)
 			return 0;
 
-		Best100dat b100d = best100list.get(0);
+		Portfolio b100d = best100list.get(0);
 		if (b100d.getEndresult() == null)
 			Tracer.WriteTrace(10, "E:inernal no endresult");
 
@@ -135,7 +135,7 @@ public class Best100
 		return val;
 	}
 
-	public Best100dat holeBestElem()
+	public Portfolio holeBestPortfolio()
 	{
 		// das beste steht am anfang
 
@@ -145,11 +145,12 @@ public class Best100
 		if (best100list.size() == 0)
 			return null;
 
-		Best100dat b100d = best100list.get(0);
-		if (b100d.getEndresult() == null)
+		//an position steht die liste der strategien die am besten abgeschnitten haben
+		Portfolio bestPortfolio = best100list.get(0);
+		if (bestPortfolio.getEndresult() == null)
 			Tracer.WriteTrace(10, "E:inernal no endresult");
 
-		return b100d;
+		return bestPortfolio;
 	}
 
 	public int calcAnzStratBestvalue()
@@ -162,7 +163,7 @@ public class Best100
 		if (best100list.size() == 0)
 			return 0;
 
-		Best100dat b100d = best100list.get(0);
+		Portfolio b100d = best100list.get(0);
 		return (b100d.getStratliste().anz());
 
 	}
@@ -174,7 +175,7 @@ public class Best100
 
 		// letztes Element holen(Das letzte Element ist das schlechteste)
 		int lastelemnr = best100list.size() - 1;
-		Best100dat best100schlechteste = best100list.get(lastelemnr);
+		Portfolio best100schlechteste = best100list.get(lastelemnr);
 		// schaue nach ob neues endresult besser ist
 		if (endresult.getFitnessvalue() > best100schlechteste.getEndresult()
 				.getFitnessvalue())
@@ -195,7 +196,7 @@ public class Best100
 		for (int i = 0; i < anz; i++)
 		{
 			// ein element holen
-			Best100dat best100d = best100list.get(i);
+			Portfolio best100d = best100list.get(i);
 			float val = best100d.getEndresult().getFitnessvalue();
 
 			// das endresult ist schon in der liste
@@ -229,7 +230,7 @@ public class Best100
 		for (int i = 0; i < anzergeb; i++)
 		{
 			// speichere die n-resultate für jeden eintrag ist der best100 liste
-			Best100dat b100d = best100list.get(i);
+			Portfolio b100d = best100list.get(i);
 
 			Filterzeitraume filtr = b100d.holeFilterzeitraume();
 
@@ -284,7 +285,7 @@ public class Best100
 			item.setText(0, String.valueOf(ipos));
 
 			// Boerblatt
-			Best100dat b100d=best100list.get(i);
+			Portfolio b100d=best100list.get(i);
 
 			float val=b100d.getEndresult().fitnessvalue;
 			Stratliste stratl=b100d.getStratliste();

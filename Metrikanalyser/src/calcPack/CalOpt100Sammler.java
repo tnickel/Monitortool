@@ -12,11 +12,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
 import work.CommentWork;
-import Metriklibs.CorrelationResultliste;
+import Metriklibs.Correlator;
 import Metriklibs.EndtestFitnessfilter;
 import Metriklibs.Metriktabellen;
-import data.Best100;
-import data.Best100dat;
+import data.Best100Portfolios;
+import data.Portfolio;
 import data.CorelSetting;
 import data.EndtestResult;
 import data.MFilter;
@@ -26,7 +26,7 @@ import data.meglob;
 import fileActorPack.Filemanager;
 import filterPack.Filterzeitraume;
 
-public class CalOpt100
+public class CalOpt100Sammler
 {
 	// hier werden die besten 100 str ermittelt und gespeichert
 	//in den Metriktabellen sind die ganzen Metriken in mehreren Tabellen
@@ -37,7 +37,7 @@ public class CalOpt100
 	// CommentWork wird für die gr.-Anzeige benötigt
 	private CommentWork cw_glob = new CommentWork();
 	//Die besten Strategien werden hier gespeichert
-	private Best100 best100_glob = null;
+	private Best100Portfolios best100portfolios_glob = null;
 
 	public void readMetriktabellen()
 	{
@@ -83,7 +83,7 @@ public class CalOpt100
 		filtzeitraume_glob.cleanFilterSettings(met_glob);
 	}
 
-	public Best100 startCalculation(int infoflag, int ncalc, Text textcount,
+	public Best100Portfolios startCalculation(int infoflag, int ncalc, Text textcount,
 			Text text1maxprof, Text text1anzrestmenge, MFilter mfilter,
 			int randomflag,CorelSetting corelsetting,EndtestFitnessfilter endfitnessfilter)
 	{
@@ -95,7 +95,7 @@ public class CalOpt100
 		// calopt100: hier sind die korrelationswerte für die metriken drin
 
 		// hier werden die besten 100 gepeichert
-		Best100 best100 = new Best100();
+		Best100Portfolios best100 = new Best100Portfolios();
 
 		JLibsProgressWin jprog = null;
 		if (meglob.showdisplay == 1)
@@ -160,7 +160,7 @@ public class CalOpt100
 			if (Metrikglobalconf.getStopflag_glob() == 1)
 				break;
 		}
-		best100_glob = best100;
+		best100portfolios_glob = best100;
 		if (meglob.showdisplay == 1)
 			jprog.end();
 		// die bestenliste wird jetzt zurückgeliefert
@@ -173,12 +173,12 @@ public class CalOpt100
 		//kopiert die strfiles um die jahresgraphik anzuzeigen
 		
 		
-		if(best100_glob==null)
+		if(best100portfolios_glob==null)
 			return;
-		Best100dat b100d=best100_glob.holeBestElem();
-		if(b100d==null)
+		Portfolio bestPortfolio=best100portfolios_glob.holeBestPortfolio();
+		if(bestPortfolio==null)
 			return;
-		Stratliste stratliste=b100d.getStratliste();
+		Stratliste stratliste=bestPortfolio.getStratliste();
 		
 		if(stratliste==null)
 			return;
@@ -192,7 +192,7 @@ public class CalOpt100
 	{
 		// die Ergebnisse speichern
 		
-		best100_glob.speichereDieResultate();
+		best100portfolios_glob.speichereDieResultate();
 	}
 
 	public void showGraphik()
@@ -221,13 +221,13 @@ public class CalOpt100
 		readMetriktabellen();
 		// als nächstes wird korreliert
 		
-		CorrelationResultliste.CalcPersonCorrelation(met_glob);
+		Correlator.CalcPersonCorrelation(met_glob);
 		if(showflag==1)
-			CorrelationResultliste.zeigeTabelle(Metrikglobalconf.getFilterpath()+"\\correlation.txt");
+			Correlator.zeigeTabelle(Metrikglobalconf.getFilterpath()+"\\correlation.txt");
 	}
 	public void setTable(Table table)
 	{
 		//Hier wird die tabelle zugewiesen
-		best100_glob.setTable(table);
+		best100portfolios_glob.setTable(table);
 	}
 }

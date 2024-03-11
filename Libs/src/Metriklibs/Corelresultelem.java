@@ -1,6 +1,6 @@
 package Metriklibs;
 
-public class Corelresultelem
+public class Corelresultelem implements Comparable<Corelresultelem>
 {
 	//hier ist nur der korrelationswert für ein einziges attribut drin
 	private double val=0;
@@ -23,4 +23,13 @@ public class Corelresultelem
 		this.attribname = attribname;
 	}
 	
+	  public int compareTo(Corelresultelem m) 
+	  {
+	      if( m.val>this.val)
+	    	  return 1;
+	      if(m.val<this.val)
+	    	  return -1;
+	      else
+	    	  return 0;
+	  }
 }
