@@ -1,7 +1,5 @@
 package statistic;
 
-import java.util.Scanner;
-
 //Bibliothek zur statistischen Datenverarbeitung 
 public class Statistics {
 	

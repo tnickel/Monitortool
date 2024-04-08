@@ -1,6 +1,6 @@
 package work;
 
-import Metriklibs.Metriktabelle;
+import Metriklibs.DatabankExportTable;
 
 public class ClusterWork
 {
@@ -35,8 +35,8 @@ public class ClusterWork
 	public void startClustering()
 	{
 		//die metriktabelle einlesen
-		Metriktabelle met= new Metriktabelle();
-		met.readTabelleFile(ClusterCsvFile);
+		DatabankExportTable met= new DatabankExportTable();
+		met.readExportedTableFile(ClusterCsvFile);
 		
 		//die strliste einlesen
 		

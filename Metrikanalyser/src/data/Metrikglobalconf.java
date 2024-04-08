@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Properties;
 
+import hiflsklasse.Tracer;
+
 public class Metrikglobalconf
 {
 	private static Properties prop = new Properties();
@@ -68,8 +70,10 @@ public class Metrikglobalconf
 		
 	
 		userdir_glob=userdir;
+		if((userdir_glob==null)||(userdir_glob.length()<3))
+			Tracer.WriteTrace(10, "Error: userdir_glob<"+userdir_glob+">");
 		propfilename_glob=userdir_glob
-				+ "\\bin\\conf\\conf.prop";
+				+ "\\conf\\conf.prop";
 
 		File pfile= new File(propfilename_glob);
 		if(pfile.exists()==false)
@@ -93,14 +97,20 @@ public class Metrikglobalconf
 	{
 		//		Mbox.Infobox("Möchte die config unter <"+propfilename_glob+"> speichern");
 		
+		if((propfilename_glob==null)||(propfilename_glob.length()<3))
+			Tracer.WriteTrace(10, "Error: configfilename <"+propfilename_glob+">");
+		
 		Writer writer = null;
 		 try
 		{
+			 
+			 
 			writer = new FileWriter( propfilename_glob );
 			prop.store(writer,null);
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
+			Tracer.WriteTrace(10, "Error: exception:configfilename <"+propfilename_glob+">");
 			e.printStackTrace();
 		}
 

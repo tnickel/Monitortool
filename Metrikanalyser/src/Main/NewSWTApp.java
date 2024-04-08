@@ -1,9 +1,5 @@
 package Main;
 
-import gui.DisTool;
-import gui.Mbox;
-import hilfsklasse.SG;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -18,6 +14,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
@@ -28,19 +25,23 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import userinterface.SetConfig;
-import userinterface.SetCorrelationConfig;
-import userinterface.SetFilter;
-import Metriklibs.EndtestFitnessfilter;
-import calcPack.CalOpt100Sammler;
-import calcPack.CalculationOneSetting;
-
 import com.cloudgarden.resource.SWTResourceManager;
 
+import Metriklibs.EndtestFitnessfilter;
+import Metriklibs.StrategienSelector;
+import calcPack.CalOpt100Sammler;
+import calcPack.CalculationOneSetting;
+import data.Best100Portfolios;
 import data.CorelSetting;
 import data.EndtestResult;
 import data.MFilter;
 import data.Metrikglobalconf;
+import gui.DisTool;
+import gui.Mbox;
+import hilfsklasse.SG;
+import userinterface.SetConfig;
+import userinterface.SetCorrelationConfig;
+import userinterface.SetFilter;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -63,6 +64,15 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private Label label2;
 	private Text text1maxprof;
 	private Text text1count;
+	private Combo combo1CorelationType;
+	private Button buttonUseOnlySelectedMetrics;
+	private Button buttonUseAllMetrics;
+	private Composite composite3;
+	private Button buttonAllMetrics;
+	private Button nettoprofitperstrategy;
+	private Label label4;
+	private Text attributnameendtest;
+	private Button userandomplusopti;
 	private Table table1;
 	private Button button1stabil;
 	private Button button1nettorobuststabil;
@@ -108,6 +118,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	CalculationOneSetting calone = new CalculationOneSetting();
 	// in calopt100 werden die besten 100 filterungen ermittelt und gespeichert
 	CalOpt100Sammler calopt100 = new CalOpt100Sammler();
+	StrategienSelector strategienselector_glob=null; 
 
 	//hier werden die fitnessfunktionen für den endtest gespeichert
 	EndtestFitnessfilter endtestfitnessfilter_glob= new EndtestFitnessfilter();
@@ -135,6 +146,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
+			
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				{
@@ -147,7 +159,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button2calcCorrelation = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button2calcCorrelation.setText("CalcCorrelation");
-							button2calcCorrelation.setBounds(116, 102, 106, 23);
+							button2calcCorrelation.setBounds(116, 102, 107, 24);
 							button2calcCorrelation
 							.addSelectionListener(new SelectionAdapter()
 							{
@@ -175,6 +187,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							button1calcgraphic = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button1calcgraphic.setText("Calc & Graphik");
 							button1calcgraphic.setBounds(116, 65, 106, 25);
+							button1calcgraphic.setEnabled(false);
 							button1calcgraphic
 							.addSelectionListener(new SelectionAdapter()
 							{
@@ -209,6 +222,22 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 								}
 							});
 						}
+						{
+							attributnameendtest = new Text(composite1, SWT.BORDER);
+							attributnameendtest.setText("Net profit (OOS)");
+							attributnameendtest.setBounds(425, 102, 125, 23);
+							attributnameendtest.setEnabled(false);
+						}
+						{
+							label4 = new Label(composite1, SWT.NONE);
+							label4.setText("Attributname for Endtest");
+									label4.setBounds(556, 102, 143, 20);
+						}
+						{
+							combo1CorelationType = new Combo(composite1, SWT.NONE);
+							combo1CorelationType.setText("CorrelationType");
+							combo1CorelationType.setBounds(228, 102, 138, 20);
+						}
 					}
 				}
 				{
@@ -222,12 +251,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							group3 = new Group(composite2, SWT.NONE);
 							group3.setLayout(null);
 							group3.setText("Calc and Optimize");
-							group3.setBounds(6, 7, 244, 207);
+							group3.setBounds(6, 12, 244, 248);
 							{
 								button1calcoptimize = new Button(group3, SWT.PUSH
 										| SWT.CENTER);
 								button1calcoptimize.setText("Calc and Optimize");
-								button1calcoptimize.setBounds(93, 169, 127, 25);
+								button1calcoptimize.setBounds(93, 196, 127, 25);
 								button1calcoptimize
 								.addSelectionListener(new SelectionAdapter()
 								{
@@ -240,7 +269,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								text1steps = new Text(group3, SWT.NONE);
-								text1steps.setText("5");
+								text1steps.setText("5000");
 								text1steps.setBounds(12, 20, 69, 21);
 								text1steps.addSelectionListener(new SelectionAdapter()
 								{
@@ -271,19 +300,20 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 										| SWT.LEFT);
 								button2userandom.setText("use random optimization");
 								button2userandom.setBounds(12, 68, 163, 30);
+								button2userandom.setSelection(true);
 							}
 							{
 								button2usecorrelation = new Button(group3, SWT.RADIO
 										| SWT.LEFT);
 								button2usecorrelation.setText("use correl. optimaziation");
 								button2usecorrelation.setBounds(12, 96, 150, 30);
-								button2usecorrelation.setSelection(true);
 							}
 							{
 								button2showbestresult = new Button(group3, SWT.CHECK
 										| SWT.LEFT);
 								button2showbestresult.setText("show best result");
-								button2showbestresult.setBounds(12, 132, 115, 20);
+								button2showbestresult.setBounds(12, 164, 115, 20);
+								button2showbestresult.setEnabled(false);
 							}
 							{
 								button1setCorrelSettings = new Button(group3, SWT.PUSH | SWT.CENTER);
@@ -308,6 +338,11 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 									}
 								});
 							}
+							{
+								userandomplusopti = new Button(group3, SWT.RADIO | SWT.LEFT);
+								userandomplusopti.setText("use random++ optimization");
+								userandomplusopti.setBounds(12, 124, 182, 30);
+							}
 						}
 						{
 							button1stop = new Button(composite2, SWT.PUSH | SWT.CENTER);
@@ -325,61 +360,86 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							group1 = new Group(composite2, SWT.NONE);
 							group1.setLayout(null);
 							group1.setText("fitness");
-							group1.setBounds(256, 12, 169, 164);
+							group1.setBounds(256, 12, 199, 210);
 							{
 								button1nettoprofit = new Button(group1, SWT.RADIO | SWT.LEFT);
-								button1nettoprofit.setText("nettoprofit");
+								button1nettoprofit.setText("nettoprofit (OOS)");
 								button1nettoprofit.setBounds(12, 27, 145, 25);
-								button1nettoprofit.setSelection(true);
 							}
 							{
 								button1nettostabilitaet = new Button(group1, SWT.RADIO | SWT.LEFT);
-								button1nettostabilitaet.setText("nettoprofit * stabilitaet");
-								button1nettostabilitaet.setBounds(12, 51, 145, 30);
+								button1nettostabilitaet.setText("nettoprofit * stabilitaet (OOS)");
+								button1nettostabilitaet.setBounds(12, 85, 180, 30);
 								button1nettostabilitaet.setSelection(false);
+								button1nettostabilitaet.setEnabled(false);
 							}
 							{
 								button1nettorobust = new Button(group1, SWT.RADIO | SWT.LEFT);
-								button1nettorobust.setText("netto robust");
-								button1nettorobust.setBounds(12, 84, 145, 20);
+								button1nettorobust.setText("netto robust (OOS)");
+								button1nettorobust.setBounds(12, 121, 145, 20);
+								button1nettorobust.setEnabled(false);
 							}
 							{
 								button1nettorobuststabil = new Button(group1, SWT.RADIO | SWT.LEFT);
-								button1nettorobuststabil.setText("netto robust * stabilitaet");
-								button1nettorobuststabil.setBounds(12, 110, 145, 20);
+								button1nettorobuststabil.setText("netto robust * stabilitaet (OOS)");
+								button1nettorobuststabil.setBounds(12, 150, 180, 20);
+								button1nettorobuststabil.setEnabled(false);
 							}
 							{
 								button1stabil = new Button(group1, SWT.RADIO | SWT.LEFT);
-								button1stabil.setText("stabilitaet");
-								button1stabil.setBounds(12, 136, 87, 23);
+								button1stabil.setText("stabilitaet (OOS)");
+								button1stabil.setBounds(12, 175, 124, 23);
+								button1stabil.setEnabled(false);
+							}
+							{
+								nettoprofitperstrategy = new Button(group1, SWT.RADIO | SWT.LEFT);
+								nettoprofitperstrategy.setText("nettoprofit per strategy (OOS)");
+								nettoprofitperstrategy.setBounds(12, 55, 175, 30);
+								nettoprofitperstrategy.setSelection(true);
 							}
 						}
 						{
 							group2 = new Group(composite2, SWT.NONE);
 							group2.setLayout(null);
 							group2.setText("result");
-							group2.setBounds(431, 12, 174, 75);
+							group2.setBounds(461, 12, 174, 75);
 							{
 								text1maxprof = new Text(group2, SWT.NONE);
 								text1maxprof.setText("0");
 								text1maxprof.setEditable(false);
-								text1maxprof.setBounds(6, 21, 75, 16);
+								text1maxprof.setBounds(6, 18, 75, 16);
 							}
 							{
 								label2 = new Label(group2, SWT.NONE);
 								label2.setText("bestStrat");
-								label2.setBounds(87, 21, 75, 16);
+								label2.setBounds(87, 18, 75, 16);
 							}
 							{
 								text1anzrestmenge = new Text(group2, SWT.NONE);
 								text1anzrestmenge.setText("0");
 								text1anzrestmenge.setEditable(false);
-								text1anzrestmenge.setBounds(6, 42, 75, 16);
+								text1anzrestmenge.setBounds(6, 39, 75, 16);
 							}
 							{
 								label3 = new Label(group2, SWT.NONE);
 								label3.setText("#strat");
-								label3.setBounds(87, 42, 75, 16);
+								label3.setBounds(87, 39, 75, 16);
+							}
+						}
+						{
+							composite3 = new Composite(composite2, SWT.BORDER);
+							composite3.setLayout(null);
+							composite3.setBounds(12, 272, 238, 65);
+							{
+								buttonUseAllMetrics = new Button(composite3, SWT.RADIO | SWT.LEFT);
+								buttonUseAllMetrics.setText("UseAllMetrics");
+								buttonUseAllMetrics.setSelection(true);
+								buttonUseAllMetrics.setBounds(5, 5, 91, 16);
+							}
+							{
+								buttonUseOnlySelectedMetrics = new Button(composite3, SWT.RADIO | SWT.LEFT);
+								buttonUseOnlySelectedMetrics.setText("UseOnlySelectedMetrics");
+								buttonUseOnlySelectedMetrics.setBounds(5, 26, 148, 16);
 							}
 						}
 					}
@@ -400,7 +460,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 				FormData cTabFolder1LData = new FormData();
 				cTabFolder1LData.left =  new FormAttachment(0, 1000, 21);
 				cTabFolder1LData.top =  new FormAttachment(0, 1000, 22);
-				cTabFolder1LData.width = 689;
+				cTabFolder1LData.width = 852;
 				cTabFolder1LData.height = 489;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				cTabFolder1.setSelection(0);
@@ -484,6 +544,8 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 
 	private void readparam_userinterface()
 	{
+		String[] ITEMS = {  "PearsonsCorrelation", "KendallsCorrelation", "SpearmansCorrelation"};
+		
 		endtestfitnessfilter_glob.setNettoflag(button1nettoprofit.getSelection());
 		endtestfitnessfilter_glob.setNettorobustflag(button1nettorobust.getSelection());
 		endtestfitnessfilter_glob.setNettorobuststabilflag(button1nettorobuststabil.getSelection());
@@ -491,6 +553,9 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		endtestfitnessfilter_glob.setNettorobustflag(button1nettorobust.getSelection());
 		endtestfitnessfilter_glob.setNettorobuststabilflag(button1nettorobuststabil.getSelection());
 		endtestfitnessfilter_glob.setStabilflag(button1stabil.getSelection());
+		endtestfitnessfilter_glob.setNettoperstrategyflag(nettoprofitperstrategy.getSelection());
+		combo1CorelationType.setItems(ITEMS);
+		combo1CorelationType.select(0);
 	}
 	
 	/**
@@ -509,7 +574,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		DisTool dt = new DisTool(display, shell);
 
 		String userdir = System.getProperty("user.dir");
-		String version = "Version V0.013";
+		String version = "Version V0.1.5.0";
 	
 
 		if (args.length > 0)
@@ -548,23 +613,35 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button1scanDir.widgetSelected, event=" + evt);
 		// hier werden die Datenstrukturen eingelesen und aufgebaut
-		calone.readMetriktabellen();
+		
+		
+		calone.readMetriktabellen(strategienselector_glob);
 
 		//Falls keine Config, dann wird die erzeugt
 		if (calone.checkConfigAvailable() == true)
 			calone.readConfig();
 		else
 			calone.genConfig();
-		EndtestResult endresult = calone.startCalculation(0,endtestfitnessfilter_glob);
-		Mbox.Infobox("ready");
+		EndtestResult endresult = calone.startCalculation(strategienselector_glob,0,endtestfitnessfilter_glob);
+		//Mbox.Infobox("ready");
 	}
 
 	private void button1cleanConfigWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button1genConfig.widgetSelected, event=" + evt);
-		// TODO add your code for button1genConfig.widgetSelected
-		calone.readMetriktabellen();
+	
+		strategienselector_glob.setMenge(0);
+		calone.readMetriktabellen(strategienselector_glob);
 		calone.cleanConfig();
+		
+		
+		//die filter anlegen
+		CalOpt100Sammler calopt100 = new CalOpt100Sammler();
+		calopt100.init(strategienselector_glob);
+		
+		
+		
+	
 		Mbox.Infobox("Filter cleaned");
 	}
 
@@ -572,7 +649,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button1calcgraphic.widgetSelected, event=" + evt);
 		// TODO add your code for button1calcgraphic.widgetSelected
-		calone.readMetriktabellen();
+		calone.readMetriktabellen(strategienselector_glob);
 
 		if (calone.checkConfigAvailable() == true)
 			calone.readConfig();
@@ -581,7 +658,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 			calone.genConfig();
 			calone.genStrDirs();
 		}
-		calone.startCalculation(1,endtestfitnessfilter_glob);
+		calone.startCalculation(strategienselector_glob,1,endtestfitnessfilter_glob);
 		calone.showGraphik();
 	}
 
@@ -590,36 +667,51 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		System.out.println("button1calcoptimize.widgetSelected, event=" + evt);
 
 		// Hier wrid die optimale Metrikkombination gesucht
-		int randomflag = 1;
+		int algotype = 2;
 
+		StrategienSelector strategienselector_glob=new StrategienSelector(Metrikglobalconf.getFilterpath()); 
+		
+		
 		// Erst mal alle Metriktabellen einlesen
 		Metrikglobalconf.setStopflag_glob(0);
-		calopt100.readMetriktabellen();
 		readparam_userinterface();
-
-		// falls schon filter da sind die einlesen
-		if (calopt100.checkConfigAvailable() == true)
-			calopt100.readFilterzeitraume();
-		else
-			// wenn keine Filter da sind dann generiere das Standartfile
-			calopt100.genConfig();
+		calopt100.init(strategienselector_glob);
+	
 
 		int stepanzahl = SG.get_zahl(text1steps.getText());
 
 		// correlation selection
 		if (button2usecorrelation.getSelection() == true)
 		{
-			randomflag = 0;
+			//use corelation optimaziation
+			algotype = 1;
 			// korreliere und fülle die globale Klasse
-			calopt100.correlate(0);
+			calopt100.correlate(strategienselector_glob,0,attributnameendtest.getText(),combo1CorelationType.getText());
 		}
+		//random optimaziation
+		else if(button2userandom.getSelection()==true)
+			algotype=0;
+		else
+			//use random+ optimaziation=use top 100 list
+			algotype=2;
+		
+		Best100Portfolios best100portfolios = new Best100Portfolios();
 		// hier wird mn mal nach dem besten gesucht
-		calopt100.startCalculation(1, Integer.valueOf(stepanzahl), text1count,
-				text1maxprof, text1anzrestmenge, mfilter_glob, randomflag,corelsetting_glob,endtestfitnessfilter_glob);
+		calopt100.startOptimizing(best100portfolios, strategienselector_glob,1, Integer.valueOf(stepanzahl), text1count,
+				text1maxprof, text1anzrestmenge, mfilter_glob, algotype,corelsetting_glob,endtestfitnessfilter_glob,buttonUseOnlySelectedMetrics.getSelection());
+		
+		//berechne die besten 100 Strategiekonfigurationen auf unbekannte daten
+		
+		for(int index=1; index<6; index++)
+		{
+		
+			calopt100.calcUnknownData(strategienselector_glob,endtestfitnessfilter_glob,index);
+		}
+		
 		// die n Ergebnisse werden gespeichert
-		calopt100.storeResults();
+		calopt100.storeResults();						
 
-		//
+		
 		
 		// das beste umkopieren
 		calopt100.kopiereBestStrfiles();
@@ -634,7 +726,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		//hier wird die resulttable gesetzt, 
 		//die tabelle ist im resulttab zu finden
 		calopt100.setTable(table1);
-		Mbox.Infobox("ready");
+		//Mbox.Infobox("ready");
 
 	}
 
@@ -678,8 +770,8 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		Metrikglobalconf.setStopflag_glob(0);
 
 		// Dann korrelieren
-		calopt100.correlate(1);
-		Mbox.Infobox("ready");
+		calopt100.correlate(strategienselector_glob,1,attributnameendtest.getText(),combo1CorelationType.getText());
+		//Mbox.Infobox("ready");
 	}
 
 	private void thisPaintControl(PaintEvent evt)

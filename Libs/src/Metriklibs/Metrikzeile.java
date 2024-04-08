@@ -27,6 +27,24 @@ public class Metrikzeile
 		return examplezeile.size();
 	}
 	
+	public int getAttributanz()
+	{
+		return(attributlist.size());
+		
+	}
+	public String getAllAttributs()
+	{
+		//holt alle attriute in einen string aus der metrikzeile
+		int n=attributlist.size();
+		String outzeile="";
+		for(int i=0; i<n; i++)
+		{
+			outzeile=outzeile+attributlist.get(i)+";";
+			
+		}
+		return outzeile;
+	}
+	
 	public void setzeAttribute(String zeile)
 	{
 
@@ -46,15 +64,27 @@ public class Metrikzeile
 
 	public void  baueMetrikzeile(String zeile)
 	{
+		if(zeile.endsWith(";"))
+			zeile=zeile+"0";
 		ArrayList<Metrikentry> metrikzeile = new ArrayList<Metrikentry>();
 		String splitter=calcSplitter(zeile);
 		String[] segs = zeile.split(Pattern.quote(splitter));
 		segs = zeile.split(Pattern.quote(splitter));
 		int anzattribs = segs.length;
+		//Tracer.WriteTrace(20, "len<"+anzattribs+"> zeile<"+zeile.substring(0, 20)+">");
 		
+		
+		//wir vergleichen hier Die Attributsanzahl, das ist die erste Zeile mit den folgezeilen
+		//Alle zeilen sollten die gleiche anzahl einträge haben
 		if(segs.length!=attributlist.size())
-			Tracer.WriteTrace(10, "Error: #attribute<"+segs.length+"> != #values in zeile<"+attributlist.size()+">");
-		
+		{
+			//Hier stimmt die Attributanzahl nicht mit den spalten der folgezeilen überein.
+			Tracer.WriteTrace(20, "segs.length="+segs.length+" atributlist.size="+attributlist.size());
+			Tracer.WriteTrace(20, "Error: #attribute<"+segs.length+"> != #values in zeile<"+attributlist.size()+">");
+			Tracer.WriteTrace(20, "Zeile<"+zeile+">");
+			
+			Tracer.WriteTrace(10, "Error: Corrupt DatabankExport.csv Attribanzahl don´t fit with the entrys");
+		}
 		for (int i = 0; i < anzattribs; i++)
 		{
 			Metrikentry metrikentry = new Metrikentry();
@@ -96,6 +126,13 @@ public class Metrikzeile
 	public Metrikentry holeEntry(int pos)
 	{
 		return (examplezeile.get(pos));
+	}
+	public String holeName()
+	{
+		// Der Strategiename kommt an position 0
+		Metrikentry me=examplezeile.get(0);
+		me.getValue();
+		return(me.getValue());
 	}
 	private String calcSplitter(String zeile)
 	{

@@ -5,7 +5,7 @@ import montool.MonDia;
 import org.eclipse.swt.widgets.Display;
 
 import Metriklibs.Mecalc;
-import Metriklibs.Metriktabelle;
+import Metriklibs.DatabankExportTable;
 
 public class Metriktools
 {
@@ -48,11 +48,11 @@ public class Metriktools
 		Mecalc mecalc= new Mecalc();
 		
 		//die quellen einlesen
-		Metriktabelle met50 = new Metriktabelle();
-		met50.readTabelleFile(conf50quelle);
+		DatabankExportTable met50 = new DatabankExportTable();
+		met50.readExportedTableFile(conf50quelle);
 		
-		Metriktabelle met100 = new Metriktabelle();
-		met100.readTabelleFile(conf100quelle);
+		DatabankExportTable met100 = new DatabankExportTable();
+		met100.readExportedTableFile(conf100quelle);
 		
 		mecalc.calc50_100_write(met50,met100,zieltable,attributname);
 	}

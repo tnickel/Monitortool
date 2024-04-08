@@ -1,10 +1,8 @@
 package Metriklibs;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
 
@@ -13,7 +11,7 @@ import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
 
-public class Correlator
+public class Correlator_dep
 {
 	// hier werden die Ergebnisse festgehalten
 	static ArrayList<Corelresultliste> reslist_glob = new ArrayList<Corelresultliste>();
@@ -76,7 +74,7 @@ public class Correlator
 	public static float holeAttribCorel(int filterindex,String attrib)
 	{
 		//holt für ein Attribut den Korrelationswert
-		Corelresultliste corl=reslist_glob.get(filterindex);
+		Corelresultliste corl=reslist_glob.get(filterindex);																	
 		Corelresultelem coreelem=corl.getElem(attrib);
 
 		if(coreelem==null)
@@ -102,11 +100,15 @@ public class Correlator
 		
 	
 		reslist_glob.clear();
-		Metriktabelle endtable = met.holeEndtestMetriktable();
+		DatabankExportTable endtable = met.holeEndtestMetriktable();
+		//genau hier ist das problem, der Endvektor muss so sortiert sein das an gleicher position die gleichen Attribute stehen
+		//wenn der endvektor anders sortiert ist dann geht es nicht.
+		//hier wird zwar Netprofit(oos) aus der endtable gehole. Es wird aber davon ausgegangen, das die metriknamen in den datenbank zu der der DAtenbank
+		//des endvektors gleich sortiert sind. Dies ist aber nicht so.
 		double[] endvektor = endtable.calcAttribvektor("Net profit (OOS)");
 
 		// anzahl der tabellen bestimmen
-		int anztab = met.getAnz();
+		int anztab = met.getAnzMetriktabellen();
 
 		// es werden die i-filter-tabellen betrachtet, jede tabelle hat eigene
 		// attribute für
@@ -116,7 +118,7 @@ public class Correlator
 			Corelresultliste ci = new Corelresultliste();
 
 			// hole tabelle i
-			Metriktabelle met1 = met.holeNummerI(i);
+			DatabankExportTable met1 = met.holeNummerI(i);
 
 			int attribanz = met1.getAttribAnz();
 			for (int j = 0; j < attribanz; j++)
@@ -143,9 +145,11 @@ public class Correlator
 
 	static public void zeigeTabelle(String fnam)
 	{
+		
 		//hier werden die Ergebnisse ausgegeben
 		//bzw. gespeichert
 		//String fnam=Metrikglobalconf.getFilterpath()+"\\correlation.txt";
+		DecimalFormat df = new DecimalFormat("####.####");
 		File fnamf= new File(fnam);
 		if(fnamf.exists())
 			fnamf.delete();
@@ -165,8 +169,9 @@ public class Correlator
 			for(int j=0; j<anz; j++)
 			{
 				Corelresultelem ce=cr.getElem(j);
+				String formatedzahl=df.format(ce.getVal()).replace(",", ".");
+				inf.writezeile(ce.getAttribname()+"#"+formatedzahl);
 				
-				inf.writezeile(ce.getAttribname()+"#"+ce.getVal());
 			}
 			inf.writezeile("..............#................");
 		}

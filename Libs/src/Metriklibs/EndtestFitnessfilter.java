@@ -7,18 +7,20 @@ public class EndtestFitnessfilter
 	boolean nettorobustflag = false;
 	boolean nettorobuststabilflag = false;
 	boolean stabilflag=false;
-
+	boolean nettoperstrategyflag=false;
+	
 	public EndtestFitnessfilter()
 	{
 	}
 
 	public EndtestFitnessfilter(boolean nettoflag_x, boolean nettostabilflag_x,
-			boolean nettorobustflag_x, boolean nettorobuststabilflag_x)
+			boolean nettorobustflag_x, boolean nettorobuststabilflag_x,boolean nettoperstrategyflag_x)
 	{
 		nettoflag = nettoflag_x;
 		nettostabilflag = nettostabilflag_x;
 		nettorobustflag = nettorobustflag_x;
 		nettorobuststabilflag = nettorobuststabilflag_x;
+		nettoperstrategyflag=nettoperstrategyflag_x;
 	}
 
 	public boolean isNettoflag()
@@ -69,6 +71,16 @@ public class EndtestFitnessfilter
 	public void setStabilflag(boolean stabilflag)
 	{
 		this.stabilflag = stabilflag;
+	}
+
+	public boolean isNettoperstrategyflag()
+	{
+		return nettoperstrategyflag;
+	}
+
+	public void setNettoperstrategyflag(boolean nettoperstrategyflag)
+	{
+		this.nettoperstrategyflag = nettoperstrategyflag;
 	}
 
 }

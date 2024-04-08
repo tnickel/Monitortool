@@ -2,29 +2,31 @@ package calcPack;
 
 import java.io.File;
 
-import work.CommentWork;
 import Metriklibs.EndtestFitnessfilter;
+import Metriklibs.StrategienSelector;
 import Metriklibs.Metriktabellen;
 import data.EndtestResult;
 import data.Metrikglobalconf;
 import data.Stratliste;
 import fileActorPack.Filemanager;
-import filterPack.Filterzeitraume;
+import filterPack.Filterfiles;
+import hilfsklasse.Tracer;
+import work.CommentWork;
 
 public class CalculationOneSetting
 {
 	//hier wird für ein einziges Setting der Filterwert berechnet
 	
 	Metriktabellen met = new Metriktabellen();
-	Filterzeitraume filt= new Filterzeitraume();
+	Filterfiles filt= new Filterfiles();
 	Stratliste stratliste= new Stratliste();
 	//CommentWork wird für die gr.-Anzeige benötigt
 	private CommentWork cw_glob = new CommentWork();
-	public void readMetriktabellen()
+	public void readMetriktabellen(StrategienSelector msel)
 	{
 		//tabellen erst mal einlesen
 		String rpath = Metrikglobalconf.getFilterpath();
- 		met.readAllTabellen(rpath);
+ 		met.readAllTabellen(msel,rpath);
 		
 		//die filterzeiträume aus den Tabellen generieren, bzw
 		//die einlesen wenn die auf platte
@@ -56,7 +58,7 @@ public class CalculationOneSetting
 	}
 	public void readConfig()
 	{
-		filt=new Filterzeitraume();
+		filt=new Filterfiles();
 		//liest die ganzen Metrikfilter ein
 		filt.readFilterSettings(met);
 	}
@@ -65,13 +67,18 @@ public class CalculationOneSetting
 		filt.cleanFilterSettings(met);
 	}
 	
-	public EndtestResult startCalculation(int kopierefilesflag,EndtestFitnessfilter endtestfitnessfilter)
+	public EndtestResult startCalculation(StrategienSelector stratsel,int kopierefilesflag,EndtestFitnessfilter endtestfitnessfilter)
 	{
 		//erst mal die strliste aufbauen
-		stratliste.buildStratliste(met);
+		stratliste.buildStratliste(stratsel,met);
 		//nur strategien nehmen die in der selliste stehen
+		String rpath=Metrikglobalconf.getFilterpath();
+		if((rpath==null)||(rpath.length()<5))
+			Tracer.WriteTrace(10, "Error: please set config in File/Config");
 		stratliste.filterSelfile(Metrikglobalconf.getFilterpath()+"\\filter.txt");
 
+		
+		
 		//dann wird mit allen filtern rausgefiltert
 		stratliste.filterAll(met, filt,0);
 		

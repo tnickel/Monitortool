@@ -1,22 +1,22 @@
 package data;
 
-import filterPack.Filterzeitraume;
-import hilfsklasse.Inf;
-import hilfsklasse.Tracer;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import zeitmessung.Zeitmessung;
+import Metriklibs.DatabankExportTable;
 import Metriklibs.EndtestFitnessfilter;
 import Metriklibs.Filterentry;
-import Metriklibs.Filterzeitraum;
+import Metriklibs.Filterfile;
 import Metriklibs.Metrikentry;
-import Metriklibs.Metriktabelle;
 import Metriklibs.Metriktabellen;
 import Metriklibs.Metrikzeile;
+import Metriklibs.StrategienSelector;
 import Metriklibs.Stratelem;
+import filterPack.Filterfiles;
+import hilfsklasse.Inf;
+import hilfsklasse.Tracer;
+import zeitmessung.Zeitmessung;
 
 public class Stratliste
 {
@@ -33,12 +33,12 @@ public class Stratliste
 		return stratliste_glob.size();
 	}
 
-	public void buildStratliste(Metriktabellen met)
+	public void buildStratliste(StrategienSelector stratsel,Metriktabellen met)
 	{
 
 		// Anhand der ersten metiktabelle wird die Stratliste aufgebaut
 		// hier wird alles aufgenommen was geht
-		stratliste_glob = met.buildStratliste();
+		stratliste_glob = met.buildStratliste(stratsel);
 	}
 
 	public void filterSelfile(String fnam)
@@ -84,7 +84,7 @@ public class Stratliste
 
 	public boolean checkStrAvailable(String strname)
 	{
-		//prüft nach ob der strategiename in der strategieliste ist
+		//prüft nach ob der strategiename in der bestenliste ist
 		
 		strname = strname.replace(".str", "");
 		strname = strname.replace(".sqx", "");
@@ -99,7 +99,7 @@ public class Stratliste
 		return false;
 	}
 
-	public void filterAll(Metriktabellen met, Filterzeitraume filt,
+	public void filterAll(Metriktabellen met, Filterfiles filt,
 			int best100flag)
 	{
 		//metriktabellen: 	Das sind die exportierten Tabelle aus dem SQX
@@ -115,13 +115,13 @@ public class Stratliste
 		{
 			// filtere die Strategieliste mit filter i
 			// die Metriktabelle ist das was der SQ abspeichert
-			Metriktabelle metriki = met.holeNummerI(i);
+			DatabankExportTable metriki = met.holeNummerI(i);
 			if (metriki == null)
 				continue;
 			// der Filterzeitraum ist der Filter für den entsprechenden Zeitraum
 			// der Filterzeitraum beinhaltet die Min-maxwerte nach denen
 			// gefiltert wird
-			Filterzeitraum filteri = filt.holeFilterzeitraumNummerI(i);
+			Filterfile filteri = filt.holeFilterzeitraumNummerI(i);
 			if (filteri == null)
 				continue;
 
@@ -139,21 +139,23 @@ public class Stratliste
 		}
 	}
 
-	private void filtereMitFilterI(Metriktabelle mettab,
-			Filterzeitraum filtzeit, int best100flag, int dismissflag)
+	private void filtereMitFilterI(DatabankExportTable mettab,
+			Filterfile filtzeit, int best100flag, int dismissflag)
 	{
 		// hier wird strategieliste reduziert
 		// mettab: das sind die strategien die zu filtern sind, diese Tabelle welche strategien und metriken beinhaltet kommt vom SQX.
 		// filterzeit: hier sind die filterwerte drin nach den es zu filter gilt
 		// stratliste_glob: aus dieser liste wird rausgeworfen wenn strate nicht
 		// den bedingungen genügt
+		//dismissflag=
 
 		Zeitmessung z = new Zeitmessung(0);
 		
 		// betrachte jede verbleibende strate einzeln
-		int anz = stratliste_glob.size();
-		for (int i = 0; i < anz; i++)
+		int anzStrategien = stratliste_glob.size();
+		for (int i = 0; i < anzStrategien; i++)
 		{
+			
 			/*
 			 * if(i%500==0)
 			 * System.out.println("filtereMitFilterI stratn=<"+i+">");
@@ -162,7 +164,10 @@ public class Stratliste
 			z.showZeitdiff("M1");
 			Stratelem strat = stratliste_glob.get(i);
 			String stratname = strat.getStratname();
+			//eine metrikzeile ist eine zeile aus der dicken Tabelle die der SQ abgelegt hat
 			Metrikzeile met = mettab.holeMetrikzeile(stratname);
+			
+			//System.out.println("Filtere strategy <"+stratname+">");
 			z.showZeitdiff("M2");
 			// plausi
 			if ((met == null) && (dismissflag == 0))
@@ -172,18 +177,19 @@ public class Stratliste
 								+ filtzeit.holeFilename() + ">");
 			z.showZeitdiff("M3");
 			
-			if (pruefeMetrikzeile(met, filtzeit, best100flag, 1) == false)
+			//es wird geprüft ob die Metrikzeile den filterbedingungen genügt.
+			if (pruefeMetrikzeile(stratname,met, filtzeit, best100flag, 1) == false)
 			{
 				// strategie passt nicht und wird rausgeworfen
 				stratliste_glob.remove(i);
 				i--;
-				anz--;
+				anzStrategien--;
 			}
 			z.showZeitdiff("M4");
 		}
 	}
 
-	private Boolean pruefeMetrikzeile(Metrikzeile met, Filterzeitraum filtzeit,
+	private Boolean pruefeMetrikzeile(String stratname,Metrikzeile met, Filterfile filtzeit,
 			int best100flag, int dismissflag)
 	{
 		// prüft ob die metrikzeile den filterbedingungen genügt
@@ -199,19 +205,27 @@ public class Stratliste
 
 		// gehe durch alle Metriken/Attribute
 		int anzentrys = met.getLength();
+		
+		
+		
+		
 		for (int i = 0; i < anzentrys; i++)
 		{
+			//jede Metrikzeile besteht aus n values. Die Metrikzeile ist aus der dicken
+			//Metriktabelle die der SQx exportiert hat.
+			//ein Metrikentry hat nur einen value.
 			Metrikentry meentry = met.holeEntry(i);
 			String me_attribut = meentry.getAttributName();
 
+			//ein Filterentry hat 6 werte, minvalue, maxvalue,minfilevalue,maxfilevalue..
 			Filterentry filterentry = filtzeit.holeFilterEntry(me_attribut);
 			if (checkEntry(meentry, filterentry, best100flag) == false)
 			{
 
-				/*Tracer.WriteTrace(20, "I:attrib<" + me_attribut
-						+ "> strat lost val<" + meentry.getValue()
-						+ "> minval<" + filterentry.getAktMinValue()
-						+ "> maxval<" + filterentry.getAktMaxValue() + ">");*/
+				/* Tracer.WriteTrace(20, "I:Filter out Strategy<"+stratname+"> because attrib<" + me_attribut
+						+ "> val=<" + meentry.getValue()
+						+ "> not in Range: Conditions: minval<" + filterentry.getAktMinValue()
+						+ "> maxval<" + filterentry.getAktMaxValue() + ">"); */
 
 				return false; //die metrikzeile genügt nicht den bedingungen
 			}
@@ -231,6 +245,13 @@ public class Stratliste
 		// hole den Wert der metrik
 		float mevalue = Float.valueOf(meentry.getValue());
 		// und das ist der filter nach dem gefiltert wird
+		if(filterentry==null)
+		{
+			
+			
+			Tracer.WriteTrace(10, "E:Something got wrong with the database.filter-file missing metrikattribut<"+meentry.getAttributName()+"> Please Clean Filter");
+		}
+			
 		float min = filterentry.getMinvalue();
 		float max = filterentry.getMaxvalue();
 
@@ -241,10 +262,17 @@ public class Stratliste
 			max = filterentry.getAktMaxValue();
 		}
 
+		//falls die value=0, dann wird nicht rausgefiltert.
+		if((mevalue==0)||(filterentry.getMinfilevalue()==0)||(filterentry.getMaxfilealue()==0))
+			return true; //wenn mix oder maxfilevalue ==0 ist, bedeutet das das metrik überhaupt nicht verwendet wurde
+						 //somit darf man die strategie nicht rausfiltern.
+						 //z.B. wurde oos überhaupt nicht berechnet. Der filterentry verlangt aber ein oos, hier darf nicht
+						 //weggefiltert werden.
+		
 		if (mevalue < min)
-			return false;
+			return false;//die Strategie ist raus
 		if (mevalue > max)
-			return false;
+			return false;//die Strategie ist raus
 		return true;
 	}
 
@@ -288,6 +316,12 @@ public class Stratliste
 			inf.writezeile("sumval<" + sumval + ">");
 			inf.close();
 		}
+		if(endfitnessfilter.isNettoperstrategyflag()==true)
+		{
+			//falls wir den nettoprofit pro Strategy haben wollen dann, müssen wir die summe noch durch die reststrategien dividieren.
+			sumval=sumval/anz;
+		}
+		
 		endresult.setFitnessvalue(sumval);
 
 		

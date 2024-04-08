@@ -1,17 +1,19 @@
 package Metriklibs;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import hiflsklasse.Tracer;
 
-public class Metriktabellen
+public class Metriktabellen implements Comparator<Metrikzeile> 
 {
 	// hier sind alle Metriktabellen drin
 	// Eine Metriktabelle besteht aus Metrikzeilen
-	// Metrikzeilen sind die EAs mit den entsprechenden Attributen
-	private ArrayList<Metriktabelle> metriktabellen = new ArrayList<Metriktabelle>();
+	// Metrikzeilen: Dies wird aus den Filterfiles von Platte generiert
+	// Filterzeiträume:
+	private ArrayList<DatabankExportTable> metriktabellen = new ArrayList<DatabankExportTable>();
 
-	public int getAnz()
+	public int getAnzMetriktabellen()
 	{
 		return metriktabellen.size();
 	}
@@ -20,10 +22,10 @@ public class Metriktabellen
 		return metriktabellen.size()-1;
 	}
 
-	public void readAllTabellen(String rpath)
+	public void readAllTabellen(StrategienSelector msel,String rpath)
 	{
 		// liest alle Metriktabellen ein
-		metriktabellen = new ArrayList<Metriktabelle>();
+		metriktabellen = new ArrayList<DatabankExportTable>();
 		/*String rpath = Metrikglobalconf.getFilterpath();*/
 
 		if(rpath==null)
@@ -39,26 +41,27 @@ public class Metriktabellen
 		for (int i = 0; i < anz; i++)
 		{
 			String dirnam = rpath + "\\" + fdirs.holeFileSystemName();
-			Metriktabelle mettabelle = new Metriktabelle();
+			DatabankExportTable mettabelle = new DatabankExportTable();
 
 			// Die Tabellen einlesen
-			mettabelle.readTabelle(dirnam);
+			mettabelle.readExportedTable(msel,dirnam);
+			
 			// die eingelesene tabelle in der gesammtliste speichern
 			metriktabellen.add(mettabelle);
-			System.out.println("Read table i="+i+" <"+dirnam+"> ready");
+			//System.out.println("Read table i="+i+" <"+dirnam+"> ready");
 		}
 	}
 
 	
 	
 	
-	public Metriktabelle holeNummerI(int j)
+	public DatabankExportTable holeNummerI(int j)
 	{
 		//holt die Metriktabelle mit der nummer i aus der internen datenstruktur
 		int anz = metriktabellen.size();
 		for (int i = 0; i < anz; i++)
 		{
-			Metriktabelle met = metriktabellen.get(i);
+			DatabankExportTable met = metriktabellen.get(i);
 			String fname = met.holeFilename();
 			if (fname.contains("_" + j + "_"))
 				return (met);
@@ -67,16 +70,16 @@ public class Metriktabellen
 		return null;
 	}
 
-	public void getallFilterzeitraume(ArrayList<Filterzeitraum> filtzeitraume)
+	public void getallFilterfiles(ArrayList<Filterfile> filterfiles)
 	{
 		// fuer alle metriktabellen werden die filterzeitraume generiert und
 		// zurückgeliefert
 
-		int anz = getAnz();
+		int anz = getAnzMetriktabellen();
 		for (int i = 0; i < anz; i++)
 		{
-			Filterzeitraum filt = metriktabellen.get(i).calcFilterzeitraum();
-			filtzeitraume.add(filt);
+			Filterfile filt = metriktabellen.get(i).calcFilterzeitraum();
+			filterfiles.add(filt);
 			if(i%1000==0)
 				System.out.println("get Filtzeitraum i="+i);
 		}
@@ -89,12 +92,16 @@ public class Metriktabellen
 		return (metriktabellen.get(j).holeFilename());
 	}
 
-	public ArrayList<Stratelem> buildStratliste()
+	public ArrayList<Stratelem> buildStratliste(StrategienSelector stratsel)
 	{
 		//die Strategielist wird aus den Metriken von verz _0_ erzeugt
-		return (metriktabellen.get(0).buildStratliste());
+		return (metriktabellen.get(0).buildStratliste(stratsel));
 	}
-
+	public ArrayList<Stratelem> buildAllStratliste()
+	{
+		//die Strategielist wird aus den Metriken von verz _0_ erzeugt
+		return (metriktabellen.get(0).buildAllStratliste());
+	}
 	public int calcanzFilter()
 	{
 		// Sicherheitsscheck
@@ -120,7 +127,7 @@ public class Metriktabellen
 		int anztesttabellen = metriktabellen.size();
 		for (int i = 0; i < anztesttabellen; i++)
 		{
-			Metriktabelle met = metriktabellen.get(i);
+			DatabankExportTable met = metriktabellen.get(i);
 			String fname = met.holeFilename();
 			if (fname.contains("_" + j + "_") == true)
 				return true;
@@ -128,14 +135,61 @@ public class Metriktabellen
 		return false;
 	}
 
-	public Metriktabelle holeEndtestMetriktable()
+	public double[][] holeAttributes(int index)
+	{
+		//die Tabelle wird so aufgebaut das in jeder zeile die werte für ein bestimmtes attribut stehen
+		//zeile0=attriutsvalues für das attribut 0
+		//zeile1=attributesvalues für das attribut 1
+		//die Tabelle muss erst mal sauber sein, sonst können wir nicht weitermahen !!
+		
+		int anz = metriktabellen.size();
+		//wir betrachten hier nur die erste Tabelle
+		DatabankExportTable mettab = metriktabellen.get(index);
+		int anzzeilen=mettab.getAnz();
+		int anzattribs=mettab.getAttribAnz();
+		
+		double[][] attribsvalue=new double[anzattribs][anzzeilen];
+		
+		//und jetzt wird die Tablle gefüllt
+		for(int zeili=0; zeili<anzzeilen; zeili++)
+		{
+			//jede zeile i der matrix hat die werte für ein bestimmtes attribut
+			//wir holen uns eine metrikzeile, und gehen durch die attribute
+			Metrikzeile metrikzeile=mettab.holeMetrikzeilePosI(zeili);
+			for(int j=0; j<anzattribs; j++)
+			{
+				//eine metrikzeile hat n attribute
+				Metrikentry me=metrikzeile.holeEntry(j);
+				
+				//falls da ein floatwert ist
+				if(me.getAttributflag()==2)
+				{
+					attribsvalue[j][zeili]=Float.valueOf(me.getValue());
+				}
+				else
+					attribsvalue[j][zeili]=0;
+			}
+		}
+		return attribsvalue;
+	}
+	
+	public int holeAnzAttributes(int metriktabelleindex)
+	{
+		//gibt die anzahl der attribute zurück die in der metriktabelle sind
+		DatabankExportTable mettab = metriktabellen.get(metriktabelleindex);
+		return(mettab.getAttribAnz());
+		
+	}
+	
+	
+	public DatabankExportTable holeEndtestMetriktable()
 	{
 		// erst mal die endtabelle suchen und zurückliefern
 		int anz = metriktabellen.size();
 		for (int i = 0; i < anz; i++)
 		{
 			String fname = null;
-			Metriktabelle mettab = metriktabellen.get(i);
+			DatabankExportTable mettab = metriktabellen.get(i);
 			fname = mettab.holeFilename();
 			if (fname.contains("_99_") == true)
 				return mettab;
@@ -146,10 +200,11 @@ public class Metriktabellen
 
 	public float holeEndtestValue(String stratname,EndtestFitnessfilter endfitfilter)
 	{
+		//restanzahlstratgien=anzahl der strategien die nach der filterung noch da sind.
 		// holt für den Stratnamen den endtest aus den tabellen
 
 		// hole die endtabelle
-		Metriktabelle endtabelle = holeEndtestMetriktable();
+		DatabankExportTable endtabelle = holeEndtestMetriktable();
 		// hole die passende endzeile
 		Metrikzeile mz = endtabelle.holeMetrikzeile(stratname);
 
@@ -158,6 +213,12 @@ public class Metriktabellen
 		{
 			// jetzt den floatwert für oos
 			val = endtabelle.holeFloatwert(mz,"Net profit (OOS)");
+		}
+		else if(endfitfilter.isNettoperstrategyflag())
+		{
+		
+			val = endtabelle.holeFloatwert(mz,"Net profit (OOS)");
+			
 		}
 		else if(endfitfilter.isNettostabilflag())
 		{
@@ -187,8 +248,13 @@ public class Metriktabellen
 	public String holeEndtestFilnamen()
 	{
 		//holt den Filenamen der Endtesttabelle aus der Datenstruktur
-		Metriktabelle endtabelle = holeEndtestMetriktable();
+		DatabankExportTable endtabelle = holeEndtestMetriktable();
 		String fnam = endtabelle.holeFilename().replace(".csv", ".result");
 		return fnam;
 	}
+	 @Override
+	    public int compare(Metrikzeile p1, Metrikzeile p2) 
+	 {
+	        return 0;
+	    }
 }

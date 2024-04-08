@@ -1,7 +1,7 @@
 package userinterface;
 
 
-import gui.Dialog;
+import java.io.File;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -19,6 +19,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import data.Metrikglobalconf;
+import gui.Dialog;
+import hiflsklasse.FileAccess;
 
 
 /**
@@ -165,6 +167,14 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 		//ok und save
 		
 		String rootverz=tabellenrootverzeichnis.getText();
+		
+		//check gen resultdirs
+		FileAccess.checkDirectory(rootverz+"\\_99_dir\\best100dir");
+		FileAccess.checkDirectory(rootverz+"\\_99_dir\\str__all_sq3_endtestfiles");
+		FileAccess.checkDirectory(rootverz+"\\_99_dir\\str__all_sq4_endtestfiles");
+		FileAccess.checkDirectory(rootverz+"\\_99_dir\\str__selected_sq3_endtestfiles");
+		FileAccess.checkDirectory(rootverz+"\\_99_dir\\str__selected_sq4_endtestfiles");
+		
 		Metrikglobalconf.setFilterpath(rootverz);
 		Metrikglobalconf.save();
 		exitflag_glob=1;

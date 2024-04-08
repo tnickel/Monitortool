@@ -1,16 +1,8 @@
 package data;
 
-import hilfsklasse.FileAccess;
-import hilfsklasse.Inf;
-import hilfsklasse.Swttool;
-import hilfsklasse.Tools;
-import hilfsklasse.Tracer;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import mailer.Foundelem;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -19,9 +11,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-import Metriklibs.Filterzeitraum;
+import Metriklibs.Filterfile;
 import datefunkt.Mondate;
-import filterPack.Filterzeitraume;
+import filterPack.Filterfiles;
+import hilfsklasse.FileAccess;
+import hilfsklasse.Inf;
+import hilfsklasse.Swttool;
+import hilfsklasse.Tracer;
 
 public class Best100Portfolios
 {
@@ -40,7 +36,7 @@ public class Best100Portfolios
 	}
 
 	// diese Datenstruktur speichert die besten 100 portfolios ab
-	public void checkAdd(Stratliste stratliste, Filterzeitraume filt,
+	public void checkAdd(Stratliste stratliste, Filterfiles filt,
 			EndtestResult endresult, MFilter mfilter)
 	{
 		// stratliste: das sind die stratmene die nach den endtestfiltern noch
@@ -99,7 +95,7 @@ public class Best100Portfolios
 		Collections.sort(best100list);
 	}
 
-	private void nimmAuf(Portfolio b100d, Filterzeitraume filt,
+	private void nimmAuf(Portfolio b100d, Filterfiles filt,
 			EndtestResult endresult)
 	{
 		// ein neues element wird in der bestenliste aufgenommen
@@ -131,6 +127,8 @@ public class Best100Portfolios
 		if (b100d.getEndresult() == null)
 			Tracer.WriteTrace(10, "E:inernal no endresult");
 
+		//max 1 nachkommastelle
+		
 		float val = b100d.getEndresult().getFitnessvalue();
 		return val;
 	}
@@ -152,7 +150,21 @@ public class Best100Portfolios
 
 		return bestPortfolio;
 	}
+	public Filterfiles holeFilterFiles(int index)
+	{
+		if (best100list == null)
+			return null;
 
+		if (best100list.size() == 0)
+			return null;
+		Portfolio bestPortfolio = best100list.get(index);
+		if (bestPortfolio.getEndresult() == null)
+			Tracer.WriteTrace(10, "E:inernal no endresult");
+		
+		Filterfiles fi=bestPortfolio.getFilt();
+		return fi;
+	}
+	
 	public int calcAnzStratBestvalue()
 	{
 		// rechnet die anzahl der Strategien des besten ergebnisses aus
@@ -208,6 +220,25 @@ public class Best100Portfolios
 		return true;
 	}
 
+	public Filterfiles holeFilterfiles(int index)
+	{
+		Portfolio best100d = best100list.get(index);
+		Filterfiles fi=best100d.getFilt();
+		return fi;
+		
+	}
+	
+	public Portfolio holePortfolio(int index)
+	{
+		if(index>=best100list.size())
+		{
+			Tracer.WriteTrace(20, "E:index i<"+index+"> bigger than best100list n<"+best100list.size()+">");
+			return null;
+		}
+		Portfolio best100d = best100list.get(index);
+		return best100d;
+	}
+	
 	public void sort()
 	{
 		// hier wird die best 100 liste sortiert
@@ -232,14 +263,14 @@ public class Best100Portfolios
 			// speichere die n-resultate für jeden eintrag ist der best100 liste
 			Portfolio b100d = best100list.get(i);
 
-			Filterzeitraume filtr = b100d.holeFilterzeitraume();
+			Filterfiles filtr = b100d.holeFilterzeitraume();
 
 			// jetzt werden die Ergebnisse gespeichert
 			int anzfil = filtr.getAnz();
 			for (int j = 0; j < anzfil; j++)
 			{
 				// filterzeitraum n=i, jte filter
-				Filterzeitraum fil = filtr.holeFilterzeitraumNummerI(j);
+				Filterfile fil = filtr.holeFilterzeitraumNummerI(j);
 
 				// der filternam wird hier kaputt gemacht, das darf so nicht
 				// sein !!!
@@ -271,7 +302,7 @@ public class Best100Portfolios
 		Color green = dis.getSystemColor(SWT.COLOR_GREEN);
 		Color red = dis.getSystemColor(SWT.COLOR_RED);
 
-		Swttool.baueTabellenkopfDispose(table, "pos#fitness#anzStrat");
+		Swttool.baueTabellenkopfDispose(table, "pos#fitness#anzStrat#unseen1#unseen2#unseen3#unseen4#unseen5");
 
 		int ipos = 0;
 		int anz=best100list.size();
@@ -284,10 +315,11 @@ public class Best100Portfolios
 			// pos
 			item.setText(0, String.valueOf(ipos));
 
-			// Boerblatt
+			// 
 			Portfolio b100d=best100list.get(i);
 
 			float val=b100d.getEndresult().fitnessvalue;
+			
 			Stratliste stratl=b100d.getStratliste();
 			int anzstrat=stratl.anz();
 			//Filterzeitraume fil=b100d.getFilt();
@@ -299,15 +331,20 @@ public class Best100Portfolios
 			//post2 anz Strategien
 			item.setText(2, String.valueOf(anzstrat));
 			
-			
+			//pos3 fitness unknown data
+			item.setText(3,String.valueOf(b100d.getEndresultUnknownData(1)));
+			item.setText(4,String.valueOf(b100d.getEndresultUnknownData(2)));
+			item.setText(5,String.valueOf(b100d.getEndresultUnknownData(3)));
+			item.setText(6,String.valueOf(b100d.getEndresultUnknownData(4)));
+			item.setText(7,String.valueOf(b100d.getEndresultUnknownData(5)));
 		}
 
-		for (int i = 0; i <3; i++)
+		for (int i = 0; i <8; i++)
 		{
 			table.getColumn(i).pack();
 
 		}
 		return ;
 	}
-	
+	//holeCloneBestPortfolio();
 }

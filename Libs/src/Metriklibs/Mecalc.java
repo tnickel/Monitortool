@@ -9,7 +9,7 @@ public class Mecalc
 	//hier werden berechnungen auf der Metriktabelle gemacht 
 	//Was soll das, warum ist nicht beschrieben wozu die berechnungen gebrauht werden und was berechnet wird???
 	//Funktion wird in der Toolbox benutzt
-	public void calc50_100_write(Metriktabelle met50,Metriktabelle met100,String zielfile,String attributname)
+	public void calc50_100_write(DatabankExportTable met50,DatabankExportTable met100,String zielfile,String attributname)
 	{
 		
 		File zfile= new File(zielfile);

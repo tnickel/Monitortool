@@ -2,32 +2,34 @@ package Metriklibs;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
+import compareLibs.ComparatorMetrikzeile;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
-public class Metriktabelle
+public class DatabankExportTable
 {
 	// dies ist die Hauptklasse die alle Tabellen für einen Testzeitraum
 	// eingelesen hat
 	// Eine Tabelle besteht aus zeilen
 	// aufbau: <filename>.csv
 	// hier sind zeilenweise die attribute für jede strategie gespeichert
-	private ArrayList<Metrikzeile> metriktab = new ArrayList<Metrikzeile>();
+	private ArrayList<Metrikzeile> metriktab_glob = new ArrayList<Metrikzeile>();
 	// die Hashmap speichert für jeden Metriknamen die exakte position des
 	// metrikvalues
 	// Dies sind die namen der Zeilen vom Filterfile
-	private HashMap<String, Integer> metrikzeilepos = new HashMap<String, Integer>();
+	private HashMap<String, Integer> hashMapMetrikzeilepos = new HashMap<String, Integer>();
 
 	// speichert die namen des values
 	// dies sind die namen der Spalten vom Filterfile
-	private HashMap<String, Integer> valuemappos = new HashMap<String, Integer>();
+	private HashMap<String, Integer> hashMapValuemappos = new HashMap<String, Integer>();
 
 	// jede Tabelle besitzt einen eindeutigen Filenamen
 	private String filename_glob = null;
 
-	public Metriktabelle()
+	public DatabankExportTable()
 	{
 
 	}
@@ -39,31 +41,31 @@ public class Metriktabelle
 
 	public int getAnz()
 	{
-		return (metriktab.size());
+		return (metriktab_glob.size());
 	}
 
 	public int getAttribAnz()
 	{
-		Metrikzeile met = metriktab.get(0);
+		Metrikzeile met = metriktab_glob.get(0);
 		int anz = met.getLength();
 		return anz;
 	}
 
-	public void readTabelle(String dirnam)
+	public void readExportedTable(StrategienSelector msel,String dirnam)
 	{
 		// hier wird die ganze Tabelle zeilenweise eingelesen und aufgebaut
 		// die attribute aus der ersten Zeile sind hier ja schon bekannt
 		String fnam = holeEinenFilenamen(dirnam);
 		filename_glob = fnam;
-		leseAttributeUndRest(fnam);
+		leseAttributeUndRestSorted(msel,fnam);
 		refreshHashmap();
 		refreshValuemap();
 	}
 
-	public void readTabelleFile(String fnam)
+	public void readExportedTableFile(StrategienSelector msel,String fnam)
 	{
 
-		leseAttributeUndRest(fnam);
+		leseAttributeUndRestSorted(msel,fnam);
 
 	}
 
@@ -71,21 +73,21 @@ public class Metriktabelle
 	{
 		// den index holen
 
-		if (metrikzeilepos == null)
+		if (hashMapMetrikzeilepos == null)
 			return null;
 
 		// falls hashmap noch nicht initialisiert ist mache das
-		if ((metrikzeilepos.size() + 1 < metriktab.size()))
+		if ((hashMapMetrikzeilepos.size() + 1 < metriktab_glob.size()))
 			refreshHashmap();
 
-		if (metrikzeilepos.containsKey(stratname) == false)
+		if (hashMapMetrikzeilepos.containsKey(stratname) == false)
 		{
 			checkHashmap();
 			return null;
 		}
-		int i = metrikzeilepos.get(stratname);
+		int i = hashMapMetrikzeilepos.get(stratname);
 
-		Metrikzeile met = metriktab.get(i);
+		Metrikzeile met = metriktab_glob.get(i);
 		Metrikentry me = met.holeEntry(0);
 		if (me.getValue().equals(stratname) == false)
 			Tracer.WriteTrace(10, "E: Internal Error metrikzeile stratname<"
@@ -98,19 +100,19 @@ public class Metriktabelle
 
 	public Metrikzeile holeMetrikzeilePosI(int i)
 	{
-		Metrikzeile met = metriktab.get(i);
+		Metrikzeile met = metriktab_glob.get(i);
 		return met;
 	}
 
 	public String holeAttribname(int i)
 	{
 		// holt den namen des iten attributes
-		Metrikzeile met = metriktab.get(0);
+		Metrikzeile met = metriktab_glob.get(0);
 		Metrikentry me = met.holeEntry(i);
 		return me.getAttributName();
 	}
 
-	private void leseAttributeUndRest(String filename)
+	private void leseAttributeUndRestSorted(StrategienSelector msel,String filename)
 	{
 		// hier wird die metriktabelle eingelesen, für jedes verzeichniss gibt
 		// es so eine
@@ -127,7 +129,7 @@ public class Metriktabelle
 			Tracer.WriteTrace(10, "I:Metrikfile.csv <" + filename + "> missing");
 
 		// die Attribute für die Klasse setzten
-		String firstzeile = inf.readZeile().replace("\"","");
+		String firstzeile = inf.readZeile().replace("\"","").replace("#","anz");
 		Metrikzeile metzeile = new Metrikzeile();
 		metzeile.setzeAttribute(firstzeile);
 
@@ -141,39 +143,44 @@ public class Metriktabelle
 				break;
 
 			zeile=zeile.replace("\"","");
+			zeile=zeile.replace("#", "anz");
 			
 			metzeile = new Metrikzeile();
 			// die Metrikzeile bauen
 			metzeile.setzeAttribute(firstzeile);
 			metzeile.baueMetrikzeile(zeile);
-
+			
 			// die Zeile hinzunehmen
-			metriktab.add(metzeile);
+			metriktab_glob.add(metzeile);
 		}
 		inf.close();
+		Collections.sort(metriktab_glob,new ComparatorMetrikzeile()); //wir müssen die tabelle noch sortieren nach namen sonst klappt das nicht mit dem endtest.!!!
+		
 		refreshHashmap();
 		refreshValuemap();
 	}
 
 	private void refreshHashmap()
 	{
+		hashMapMetrikzeilepos.clear();
+		
 		// baut die hashmap neu auf
-		int anz = metriktab.size();
+		int anz = metriktab_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
-			Metrikzeile mez = metriktab.get(i);
+			Metrikzeile mez = metriktab_glob.get(i);
 			String attribname = mez.holeEntry(0).getValue();
 
 			// wenn schon drin dann mach nix
-			if (metrikzeilepos.containsKey(attribname) == true)
+			if (hashMapMetrikzeilepos.containsKey(attribname) == true)
 				continue;
 			else
 				// wenn noch nicht drin dann nimm auf
-				metrikzeilepos.put(attribname, i);
+				hashMapMetrikzeilepos.put(attribname, i);
 		}
 		// plausi
-		int mettab_size = metriktab.size();
-		int metrikmap_size = metrikzeilepos.size();
+		int mettab_size = metriktab_glob.size();
+		int metrikmap_size = hashMapMetrikzeilepos.size();
 		if (mettab_size != metrikmap_size)
 		{
 			Tracer.WriteTrace(10, "E:internal plausi error mettabsize<"
@@ -185,11 +192,13 @@ public class Metriktabelle
 
 	private void refreshValuemap()
 	{
+		
+		hashMapValuemappos.clear();
 		// baut die valuemap
-		Metrikzeile mez = metriktab.get(0);
+		Metrikzeile mez = metriktab_glob.get(0);
 		int anzvalues = mez.getLength();
 
-		if (valuemappos.size() != anzvalues)
+		if (hashMapValuemappos.size() != anzvalues)
 		{
 			Tracer.WriteTrace(20, "I: baue valuemap neu auf");
 			// baue die valuemap neu auf
@@ -201,7 +210,7 @@ public class Metriktabelle
 				String name = meentry.getAttributName();
 
 				// speichere name+pos in der map
-				valuemappos.put(name, i);
+				hashMapValuemappos.put(name, i);
 			}
 		}
 	}
@@ -210,24 +219,24 @@ public class Metriktabelle
 	{
 		int foundflag = 0;
 		// plausi
-		int mettab_size = metriktab.size();
-		int metrikmap_size = metrikzeilepos.size();
+		int mettab_size = metriktab_glob.size();
+		int metrikmap_size = hashMapMetrikzeilepos.size();
 		if (mettab_size != metrikmap_size)
 		{
 			Tracer.WriteTrace(10, "E:internal plausi error mettabsize<"
 					+ mettab_size + "> metmapsize<" + metrikmap_size + ">");
 		}
 
-		int anz = metriktab.size();
+		int anz = metriktab_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
-			Metrikzeile mez = metriktab.get(i);
+			Metrikzeile mez = metriktab_glob.get(i);
 			String attribname = mez.holeEntry(0).getValue();
 
 			// wenn schon drin dann mach nix
-			if (metrikzeilepos.containsKey(attribname) == true)
+			if (hashMapMetrikzeilepos.containsKey(attribname) == true)
 			{
-				int pos = metrikzeilepos.get(attribname);
+				int pos = hashMapMetrikzeilepos.get(attribname);
 				if (pos != i)
 					Tracer.WriteTrace(10,
 							"E:internal hashmap pos-check failed attribname<"
@@ -246,7 +255,7 @@ public class Metriktabelle
 	{
 		double[] result = null;
 		// es wird die spalte gesucht welche den attributnamen beinhaltet
-		Metrikzeile mez = metriktab.get(1);
+		Metrikzeile mez = metriktab_glob.get(1);
 
 		int anzspalten = mez.getLength();
 		for (int i = 0; i < anzspalten; i++)
@@ -254,13 +263,13 @@ public class Metriktabelle
 			Metrikentry me = mez.holeEntry(i);
 			if (me.getAttributName().toLowerCase().contains(attribname.toLowerCase()))
 			{
-				// die position gefunden
+				// die spalte gefunden gefunden
 				result = calcAttribvektor(i);
 				return result;
 			}
 		}
 		Tracer.WriteTrace(10,
-				"internal attribname<"+attribname+"> nicht in endtesttabelle gefunden");
+				"internal attribname<"+attribname+"> not found in endtable");
 		return null;
 	}
 
@@ -268,15 +277,15 @@ public class Metriktabelle
 	{
 		// für das ite attribut wird der Attributvektor bestimmt
 		// der attributvektor besteht aus n=anz zeilen floatwerten
-		int tabsize = metriktab.size();
-		double[] vektor = new double[metriktab.size()];
+		int tabsize = metriktab_glob.size();
+		double[] vektor = new double[metriktab_glob.size()];
 
 		// gehe durch die ganze Tabelle und baue den vektor von den einzelnen
 		// Zeilen auf
 		for (int i = 0; i < tabsize; i++)
 		{
 			// betrachte eine zeile der tabelle
-			Metrikzeile mez = metriktab.get(i);
+			Metrikzeile mez = metriktab_glob.get(i);
 			Metrikentry me = mez.holeEntry(attribindex);
 
 			// wenn dies kein floatwert ist dann liefer auch nix zurück
@@ -287,6 +296,44 @@ public class Metriktabelle
 		return vektor;
 	}
 
+	public double[][] calcAttribMatrix()
+	{
+		//gehe durch die Elemente und baue die Matrix auf. Jede zeile ist eine Strategie mit attributen, jede spalte dieser
+		//zeile hat attribute.
+		
+		int tabsize = metriktab_glob.size(); //soviele zeilen sind drin
+		int attribanz=this.getAttribAnz();
+		//die Matrix hat n-spalten, jede spalte beinhaltet eine metrik
+		//davon gibt es n zeilen, jede zeilen steht für ein strategie
+		double[][] matrix = new double[metriktab_glob.size()][attribanz];
+		double val=0;
+		
+		// gehe durch die ganze Tabelle und baue den vektor von den einzelnen
+		// Zeilen auf
+		//gehe durch die Zeilen=Strategien
+		for (int i = 0; i < tabsize; i++)
+		{
+			
+			//gehe durch die attribute, betrachte hier nur eine zeile der Tabelle und
+			//gehe durch die attribute
+			for(int j=0; j<attribanz; j++)
+			{
+				
+				Metrikzeile mez = metriktab_glob.get(i);
+				Metrikentry me = mez.holeEntry(j);
+
+				// wenn dies kein floatwert ist dann liefer auch nix zurück
+				if (me.getAttributflag() != 2)
+					val=0;
+				else
+					val= Double.valueOf(me.getValue());
+				
+				matrix[i][j] = val;
+			}
+		}
+		return matrix;
+	}
+	
 	public String holeEinenFilenamen(String dir)
 	{
 		// holt den einen filenamen aus dem verzeichniss
@@ -324,13 +371,13 @@ public class Metriktabelle
 		int anzsteps = 10;
 
 		MinMaxFilter minmaxf = new MinMaxFilter();
-		int anz = metriktab.size();
+		int anz = metriktab_glob.size();
 
 		// gehe durch die einzelnen Zeilen und ermittele min max für das
 		// attribut
 		for (int i = 0; i < anz; i++)
 		{
-			Metrikzeile metrikzeile = metriktab.get(i);
+			Metrikzeile metrikzeile = metriktab_glob.get(i);
 			float val = holeFloatwert(metrikzeile, attribut);
 
 			if (val > maxval)
@@ -353,15 +400,18 @@ public class Metriktabelle
 		return (minmaxf);
 	}
 
-	public Filterzeitraum calcFilterzeitraum()
+	public Filterfile calcFilterzeitraum()
 	{
+		
+		//was ist ein Filterzeitraum???
+		//Ein Filterzeitraum gilt für eine Metriktabelle, er wird aus der Metriktabelle generiert.
+		//Für jeden dieser bereiche dir0.... dirn... dir99 exisitert ein Filterzeitraum
 		// aus dieser exitierende Metriktabelle wird der Filterzeitrum generiert
 		// der Filterzeitraum beinhaltet die min max werte für ein Attribut
-		Filterzeitraum filtr = new Filterzeitraum();
+		Filterfile filtr = new Filterfile();
 
 		filtr.setFilename(filename_glob);
-
-		Metrikzeile mz = metriktab.get(0);
+		Metrikzeile mz = metriktab_glob.get(0);
 
 		int anzmetriken = mz.getLength();
 		for (int i = 0; i < anzmetriken; i++)
@@ -376,35 +426,63 @@ public class Metriktabelle
 		return filtr;
 	}
 
-	public ArrayList<Stratelem> buildStratliste()
+	public ArrayList<Stratelem> buildStratliste(StrategienSelector stratsel)
 	{
 		ArrayList<Stratelem> stratl = new ArrayList<Stratelem>();
 		// Stratliste mit den Attributsnamen aufbauen
-		int anz = metriktab.size();
+		int anz = metriktab_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
-			Metrikzeile mz = metriktab.get(i);
+			Metrikzeile mz = metriktab_glob.get(i);
 			// der strname ist im ersten attribut
 			String attrib = mz.holeEntry(0).getValue();
+			
+			//es werden nur bestimmte strategien in die strategieliste aufgenommen. beispiel IS oder OOS
+			if(stratsel.containsName(attrib)==false)
+					continue;
+			
 			Stratelem strate = new Stratelem();
 			strate.setStratname(attrib);
 			strate.setActiveflag(1);
 			stratl.add(strate);
 
-			/*
-			 * if (i % 2000 == 0) System.out.println("buildStratlist i=" + i);
-			 */
+			
+			//  if (i % 2000 == 0) System.out.println("buildStratlist i=" + i);
+			 
 		}
 		return stratl;
 	}
+	public ArrayList<Stratelem> buildAllStratliste()
+	{
+		ArrayList<Stratelem> stratl = new ArrayList<Stratelem>();
+		// Stratliste mit den Attributsnamen aufbauen
+		int anz = metriktab_glob.size();
+		for (int i = 0; i < anz; i++)
+		{
+			Metrikzeile mz = metriktab_glob.get(i);
+			// der strname ist im ersten attribut
+			String attrib = mz.holeEntry(0).getValue();
+			
+			
+			
+			Stratelem strate = new Stratelem();
+			strate.setStratname(attrib);
+			strate.setActiveflag(1);
+			stratl.add(strate);
 
+			
+			//  if (i % 2000 == 0) System.out.println("buildStratlist i=" + i);
+			 
+		}
+		return stratl;
+	}
 	public Metrikentry holeMetrikentry(Metrikzeile examplezeile,
 			String valuename)
 	{
 		// aus der metrikzeile wird ein bestimmtes attribut ausgewählt und
 		// an dieser position steht das attribut
 		// mapturbo!
-		int pos = valuemappos.get(valuename);
+		int pos = hashMapValuemappos.get(valuename);
 
 		Metrikentry me = examplezeile.holeEntry(pos);
 
@@ -422,9 +500,13 @@ public class Metriktabelle
 		float fval = 0;
 		// an dieser position steht der floatwert für das attribut
 		// mapturbo!
-		if(valuemappos==null)
+		if(hashMapValuemappos==null)
 			Tracer.WriteTrace(10, "E: internal this is null holeFloatwert");
-		int floatpos = valuemappos.get(valuename);
+		
+		if(hashMapValuemappos.containsKey(valuename)==false)
+				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributs()+">");
+		
+		int floatpos = hashMapValuemappos.get(valuename);
 
 		Metrikentry me = examplezeile.holeEntry(floatpos);
 
@@ -449,4 +531,49 @@ public class Metriktabelle
 		// wenn das kein floatwert hat
 		return 0;
 	}
+	
+	static public ArrayList<Metrikzeile> leseMetriktabelleSimple(String filename)
+	{
+		//Wir brauchen hier nur die Strategienamen aus einem datenbankfile databankExport.csv
+
+		ArrayList<Metrikzeile> stratliste=new ArrayList<Metrikzeile>();
+		
+		
+		Inf inf = new Inf();
+		inf.setFilename(filename);
+
+		// hier wird die metrik
+		File metfile = new File(filename);
+		if (metfile.exists() == false)
+			Tracer.WriteTrace(10, "I:Metrikfile.csv <" + filename + "> missing");
+
+		// die Attribute für die Klasse setzten
+		String firstzeile = inf.readZeile().replace("\"","").replace("#","anz");
+		Metrikzeile metzeile = new Metrikzeile();
+		metzeile.setzeAttribute(firstzeile);
+
+		// dann nach und nach die Metrikzeilen aus den Strings generieren und
+		// die Metriktabelle füllen
+		while (5 == 5)
+		{
+
+			String zeile = inf.readZeile();//.replace("#", "anz");
+			if (zeile == null)
+				break;
+
+			zeile=zeile.replace("\"","");
+			zeile=zeile.replace("#", "anz");
+			
+			metzeile = new Metrikzeile();
+			// die Metrikzeile bauen
+			metzeile.setzeAttribute(firstzeile);
+			metzeile.baueMetrikzeile(zeile);
+			
+			// die Zeile hinzunehmen
+			stratliste.add(metzeile);
+		}
+		inf.close();
+		return stratliste;
+	}
+	
 }
