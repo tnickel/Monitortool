@@ -1,5 +1,7 @@
 package Main;
 
+import java.io.File;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -28,6 +30,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 
 import Metriklibs.EndtestFitnessfilter;
+import Metriklibs.Metriktabellen;
 import Metriklibs.StrategienSelector;
 import calcPack.CalOpt100Sammler;
 import calcPack.CalculationOneSetting;
@@ -38,6 +41,7 @@ import data.MFilter;
 import data.Metrikglobalconf;
 import gui.DisTool;
 import gui.Mbox;
+import hilfsklasse.FileAccess;
 import hilfsklasse.SG;
 import userinterface.SetConfig;
 import userinterface.SetCorrelationConfig;
@@ -64,6 +68,9 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private Label label2;
 	private Text text1maxprof;
 	private Text text1count;
+	private Label label7;
+	private Label label5;
+	private Text anzinstore;
 	private Combo combo1CorelationType;
 	private Button buttonUseOnlySelectedMetrics;
 	private Button buttonUseAllMetrics;
@@ -98,6 +105,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private Label label3;
 	private Button button1calcoptimize;
 	private Button button1calcgraphic;
+	private Button button1writeWeka;
 	private Button button1cleanConfig;
 	private MenuItem aboutMenuItem;
 	private MenuItem contentsMenuItem;
@@ -182,6 +190,17 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 									button1scanallmetricsWidgetSelected(evt);
 								}
 							});
+						}
+						{
+							button1writeWeka = new Button(composite1, SWT.PUSH | SWT.CENTER);
+							button1writeWeka.setText("ExportDataForWeka");
+							button1writeWeka.setBounds(116, 174, 106, 25);
+							button1writeWeka.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									button1writeWekaWidgetSelected(evt);
+								}
+							});
+
 						}
 						{
 							button1calcgraphic = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -402,7 +421,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							group2 = new Group(composite2, SWT.NONE);
 							group2.setLayout(null);
 							group2.setText("result");
-							group2.setBounds(461, 12, 174, 75);
+							group2.setBounds(461, 12, 147, 97);
 							{
 								text1maxprof = new Text(group2, SWT.NONE);
 								text1maxprof.setText("0");
@@ -425,6 +444,17 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 								label3.setText("#strat");
 								label3.setBounds(87, 39, 75, 16);
 							}
+							{
+								anzinstore = new Text(group2, SWT.NONE);
+								anzinstore.setText("0");
+								anzinstore.setBounds(6, 61, 37, 15);
+								anzinstore.setEditable(false);
+							}
+							{
+								label5 = new Label(group2, SWT.NONE);
+								label5.setText("bestlist storragesize");
+								label5.setBounds(43, 61, 105, 19);
+							}
 						}
 						{
 							composite3 = new Composite(composite2, SWT.BORDER);
@@ -441,6 +471,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 								buttonUseOnlySelectedMetrics.setText("UseOnlySelectedMetrics");
 								buttonUseOnlySelectedMetrics.setBounds(5, 26, 148, 16);
 							}
+						}
+						{
+							label7 = new Label(composite2, SWT.NONE);
+							label7.setText("(i)");
+							label7.setBounds(614, 72, 60, 30);
+							label7.setToolTipText("This is the number of found portfolios. This are all portfolios, the the good and the bad portfolios");
 						}
 					}
 				}
@@ -574,7 +610,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		DisTool dt = new DisTool(display, shell);
 
 		String userdir = System.getProperty("user.dir");
-		String version = "Version V0.1.5.0";
+		String version = "Version V0.1.8.1";
 	
 
 		if (args.length > 0)
@@ -630,7 +666,17 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button1genConfig.widgetSelected, event=" + evt);
 	
-		strategienselector_glob.setMenge(0);
+		String rpath=Metrikglobalconf.getFilterpath();
+		FileAccess.checkgenDirectory(rpath+"\\_0_dir");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir\\best100dir");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir\\str__all_sq3_endtestfiles");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir\\str__all_sq4_endtestfiles");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir\\str__selected_sq3_endtestfiles");
+		FileAccess.checkgenDirectory(rpath+"\\_99_dir\\str__selected_sq4_endtestfiles");
+		
+		//strategienselector_glob.setMenge(0);
+		StrategienSelector strategienselector_glob=new StrategienSelector(Metrikglobalconf.getFilterpath(),Metrikglobalconf.getPercent(),Metrikglobalconf.getFixedSeedflag()); 
 		calone.readMetriktabellen(strategienselector_glob);
 		calone.cleanConfig();
 		
@@ -669,7 +715,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		// Hier wrid die optimale Metrikkombination gesucht
 		int algotype = 2;
 
-		StrategienSelector strategienselector_glob=new StrategienSelector(Metrikglobalconf.getFilterpath()); 
+		StrategienSelector strategienselector_glob=new StrategienSelector(Metrikglobalconf.getFilterpath(),Metrikglobalconf.getPercent(),Metrikglobalconf.getFixedSeedflag()); 
 		
 		
 		// Erst mal alle Metriktabellen einlesen
@@ -698,17 +744,24 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		Best100Portfolios best100portfolios = new Best100Portfolios();
 		// hier wird mn mal nach dem besten gesucht
 		calopt100.startOptimizing(best100portfolios, strategienselector_glob,1, Integer.valueOf(stepanzahl), text1count,
-				text1maxprof, text1anzrestmenge, mfilter_glob, algotype,corelsetting_glob,endtestfitnessfilter_glob,buttonUseOnlySelectedMetrics.getSelection());
+				text1maxprof, text1anzrestmenge,anzinstore, mfilter_glob, algotype,corelsetting_glob,endtestfitnessfilter_glob,buttonUseOnlySelectedMetrics.getSelection());
 		
 		//berechne die besten 100 Strategiekonfigurationen auf unbekannte daten
 		
 		for(int index=1; index<6; index++)
 		{
-		
+			//set to unknown data.
+			strategienselector_glob.setPool(index);
+			calopt100.init(strategienselector_glob);
 			calopt100.calcUnknownData(strategienselector_glob,endtestfitnessfilter_glob,index);
 		}
 		
-		// die n Ergebnisse werden gespeichert
+		//alle portfolios wo ein test auf unbekannte daten <0 liefert wird gelöscht
+		if(Metrikglobalconf.getCollectOnlyRobustStrategies()==1)
+			calopt100.removeBadResults(1);
+		else
+			calopt100.removeBadResults(0);
+		// die n Ergebnisse werden gespeichert in best100 dir gespeichert
 		calopt100.storeResults();						
 
 		
@@ -717,9 +770,6 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		calopt100.kopiereBestStrfiles();
 		if (button2showbestresult.getSelection() == true)
 		{
-
-			
-
 			// das beste Ergebniss anzeigen
 			calopt100.showGraphik();
 		}
@@ -769,6 +819,8 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 
 		Metrikglobalconf.setStopflag_glob(0);
 
+		StrategienSelector strategienselector_glob=new StrategienSelector(Metrikglobalconf.getFilterpath(),100,Metrikglobalconf.getFixedSeedflag()); 
+		
 		// Dann korrelieren
 		calopt100.correlate(strategienselector_glob,1,attributnameendtest.getText(),combo1CorelationType.getText());
 		//Mbox.Infobox("ready");
@@ -791,6 +843,13 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private void table1WidgetSelected(SelectionEvent evt) {
 		System.out.println("table1.widgetSelected, event="+evt);
 		//TODO add your code for table1.widgetSelected
+	}
+	
+	private void button1writeWekaWidgetSelected(SelectionEvent evt) {
+		System.out.println("button1writeWeka.widgetSelected, event="+evt);
+		Metriktabellen met=new Metriktabellen();
+		met.readAllTabellen(strategienselector_glob, Metrikglobalconf.getFilterpath());
+		met.exportAllAttributesForWeka(Metrikglobalconf.getFilterpath());
 	}
 
 }

@@ -33,14 +33,27 @@ public class Stratliste
 		return stratliste_glob.size();
 	}
 
+	public String info()
+	{
+		String out="anz Stratgien in the list<"+this.anz()+">";
+		return out;
+	}
+	
 	public void buildStratliste(StrategienSelector stratsel,Metriktabellen met)
 	{
-
+		// wenn takeallpoolflag==1 wird ein bestimmter pool genommen
 		// Anhand der ersten metiktabelle wird die Stratliste aufgebaut
 		// hier wird alles aufgenommen was geht
 		stratliste_glob = met.buildStratliste(stratsel);
 	}
 
+	public void buildAllStratliste(StrategienSelector stratsel,Metriktabellen met)
+	{
+		//alle strategien für einen Pool werden in eine stratgieliste aufgenommen
+		stratliste_glob = met.buildAllStratliste();
+	}
+	
+	
 	public void filterSelfile(String fnam)
 	{
 		// in diesem Hashset sind die Strategien die genommen werden, alles
@@ -301,6 +314,7 @@ public class Stratliste
 		}
 		
 		// gehe durch die Reststartegien und sammle die float-werte
+		//Tracer.WriteTrace(20, "I:**Endtest anz Reststrategien <"+stratliste_glob.size()+">");
 		int anz = stratliste_glob.size();
 		for (int i = 0; i < anz; i++)
 		{

@@ -862,6 +862,24 @@ public class FileAccess
 			dir.delete(); // Ordner löschen
 		}
 	}
+	public static void cleanDirectory(File dir)
+	{
+		File[] files = dir.listFiles();
+		if (files != null)
+		{
+			for (int i = 0; i < files.length; i++)
+			{
+				if (files[i].isDirectory())
+				{
+					deleteDirectory(files[i]); // Verzeichnis leeren 
+				} else
+				{
+					files[i].delete(); // Datei löschen
+				}
+			}
+		
+		}
+	}
 	
 	public static void deleteDirectoryContent(File dir)
 	{

@@ -49,10 +49,10 @@ public class Metriktools
 		
 		//die quellen einlesen
 		DatabankExportTable met50 = new DatabankExportTable();
-		met50.readExportedTableFile(conf50quelle);
+		met50.readExportedTableFile(null,conf50quelle);
 		
 		DatabankExportTable met100 = new DatabankExportTable();
-		met100.readExportedTableFile(conf100quelle);
+		met100.readExportedTableFile(null,conf100quelle);
 		
 		mecalc.calc50_100_write(met50,met100,zieltable,attributname);
 	}

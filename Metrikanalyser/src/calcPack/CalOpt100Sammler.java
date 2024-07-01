@@ -1,5 +1,6 @@
 package calcPack;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Random;
 
@@ -9,8 +10,8 @@ import org.eclipse.swt.widgets.Text;
 
 import Metriklibs.Correlator2;
 import Metriklibs.EndtestFitnessfilter;
-import Metriklibs.StrategienSelector;
 import Metriklibs.Metriktabellen;
+import Metriklibs.StrategienSelector;
 import data.Best100Portfolios;
 import data.CorelSetting;
 import data.EndtestResult;
@@ -24,6 +25,7 @@ import filterPack.Filterfiles;
 import gui.DisTool;
 import gui.JLibsProgressWin;
 import gui.Mbox;
+import hiflsklasse.FileAccess;
 import hilfsklasse.FileAccessDyn;
 import hilfsklasse.Swttool;
 import hilfsklasse.Tracer;
@@ -61,7 +63,7 @@ public class CalOpt100Sammler
 		if ((rpath == null) || (rpath.length() < 5))
 			Tracer.WriteTrace(10, "Error: please set config in File/Config");
 		
-		met_glob.readAllTabellen(msel,rpath);
+		met_glob.readAllTabellen(msel, rpath);
 		
 		// die filterzeiträume aus den Tabellen generieren, bzw
 		// die einlesen wenn die auf platte
@@ -102,9 +104,10 @@ public class CalOpt100Sammler
 		filterfiles_glob.cleanFilterSettings(met_glob);
 	}
 	
-	public Best100Portfolios startOptimizing(Best100Portfolios best100portfolios,StrategienSelector stratsel,int infoflag, int ncalc, Text textcount, Text text1maxprof,
-			Text text1anzrestmenge, MFilter mfilter, int algotype, CorelSetting corelsetting,
-			EndtestFitnessfilter endfitnessfilter, boolean useonlyselectedmetrics)
+	public Best100Portfolios startOptimizing(Best100Portfolios best100portfolios, StrategienSelector stratsel,
+			int infoflag, int ncalc, Text textcount, Text text1maxprof, Text text1anzrestmenge,Text anzinstore, MFilter mfilter,
+			int algotype, CorelSetting corelsetting, EndtestFitnessfilter endfitnessfilter,
+			boolean useonlyselectedmetrics)
 	{
 		// ncalc: Es wird n mal gerechnet und geschaut ob was besseres gefunden
 		// wurde
@@ -117,11 +120,13 @@ public class CalOpt100Sammler
 		
 		Random rand = new Random();
 		// in dieser Datenstruktur werden die 100 Besten portfolios gespeichert
-	
+		
 		DecimalFormat df = new DecimalFormat("#.0");
 		JLibsProgressWin jprog = null;
 		if (meglob.showdisplay == 1)
 			jprog = new JLibsProgressWin("calc", 0, ncalc);
+		
+		Tracer.WriteTrace(20, "Pool2:" + stratsel.getInfo());
 		
 		// suche n mal das beste
 		for (int j = 0; j < ncalc; j++)
@@ -135,7 +140,7 @@ public class CalOpt100Sammler
 			Stratliste stratliste = new Stratliste();
 			// erst mal die strliste mit allen strat aufbauen
 			// die stratliste wird aus den metriken und den filtern erstellt
-			stratliste.buildStratliste(stratsel,met_glob);
+			stratliste.buildStratliste(stratsel, met_glob);
 			
 			// filtere mit dem filterfile falls da
 			stratliste.filterSelfile(Metrikglobalconf.getFilterpath() + "\\filter.txt");
@@ -179,6 +184,7 @@ public class CalOpt100Sammler
 			// metriken
 			// Anhand dieser Filterschranken werden die Strategien aus der gesammtmenge
 			// rausgefiltert
+			
 			stratliste.filterAll(met_glob, filterfiles_glob, 1);
 			
 			// 3:Step3: Mache einen Endtest mit den übrig gebliebenen Strategien.
@@ -198,6 +204,11 @@ public class CalOpt100Sammler
 			// anz strat in Restmenge
 			int anzbestval = best100portfolios.calcAnzStratBestvalue();
 			text1anzrestmenge.setText(String.valueOf(anzbestval));
+			
+			//anz strategien instore
+			int instoreanzahl=best100portfolios.getAnzStrategies();
+			//und anzeigen.
+			anzinstore.setText(String.valueOf(instoreanzahl));
 			
 			if (j % 100 == 0)
 			{
@@ -220,48 +231,106 @@ public class CalOpt100Sammler
 		return best100portfolios;
 	}
 	
-	public void calcUnknownData(StrategienSelector stratselector,EndtestFitnessfilter endfitnessfilter,int index)
+	public void removeBadResults(int delforce)
 	{
-		//der index läuft von 1-5, wir wollen 5 mal ungesehene daten nutzen
-		//hier werden die 100 besten filterrules bewertet
-		//D.h. die Filterrules werden mit ungesehenen daten getestet.
+		// falls deforce=1, dann wird nicht nur bad markiert sondern gelöscht
 		
-		//set to unknown data.
-		stratselector.setMenge(index);
+		// es werden wieder die Ergebnisse entfernt die den filterkriterien nicht
+		// genügen
+		int anzbest = Metrikglobalconf.getmaxBestlist();
 		
-		//0)erst mal eine Stratgieliste mit allen strategien aufbauen
-		//aus dieser Gesammtliste wird dann weggefiltert
-		Stratliste stratliste = new Stratliste();
-		stratliste.buildStratliste(stratselector,met_glob);
-		stratliste.filterSelfile(Metrikglobalconf.getFilterpath() + "\\filter.txt");
-		
-		int anzbest=100;
-		
-		for(int i=0; i<anzbest; i++)
+		for (int i = 0; i < anzbest; i++)
 		{
-			//1) die filterfiles holen, und die sind diesmal in den bestportolios 
-			//die Filterfiles sind die configs mit den schranken
-			
-			//hole erst mal ein portfolio raus
-			Portfolio port=best100portfolios_glob.holePortfolio(i);
-			if(port==null)//ende errreicht
+			Portfolio port = best100portfolios_glob.holePortfolio(i);
+			if (port == null)// ende errreicht
 				break;
-			//dann den filter, den brauchen wir ja zum neuberechnen
-			Filterfiles fi=port.getFilt();
 			
-			//2) und hier wird weggefiltert.
-			stratliste.buildStratliste(stratselector,met_glob);
-			stratliste.filterAll(met_glob, fi, 1);
-			
-			//3) Dann wird mit den reststrategien ein Endtest gemacht
-			EndtestResult endresult = stratliste.Endtest(met_glob, 0, endfitnessfilter);
-			
-			//4) Dieses endresult muss in der bestliste festgehalten werden
-			port.setEndresultUnknownData(endresult,index);
+			for (int index = 1; index < 6; index++)
+			{
+				
+				float v = port.getEndresultUnknownData(index);
+				if (v < 0)
+				{
+					// best100portfolios_glob.delPortfolio(i);
+					best100portfolios_glob.markBad(i);
+					index = 7;
+				}
+			}
 		}
-	
+		if (delforce == 1)
+		{// dann lösche komplett
+			for (int i = 0; i < anzbest; i++)
+			{
+				Portfolio port = best100portfolios_glob.holePortfolio(i);
+				if (port == null)
+					break;
+				if (port.getFlag() < 0)
+				{
+					best100portfolios_glob.delPortfolio(i);
+					i--;
+					anzbest = anzbest - 1;
+				}
+			}
+		}
+		
 	}
 	
+	public void calcUnknownData(StrategienSelector stratselector, EndtestFitnessfilter endfitnessfilter, int index)
+	{
+		// der index läuft von 1-5, wir wollen 5 mal ungesehene daten nutzen
+		// hier werden die 100 besten filterrules bewertet
+		// D.h. die Filterrules werden mit ungesehenen daten getestet.
+		
+		// Wir untersuchen jetzt alle 100 best Ergebnisse. D.h. wir nehmen uns die
+		// Filterrules und schauen wie gut
+		// die Filterrules auf den Pools 1-5 laufen
+		// Wir betrachten hier erst mal Pool mit dem index
+		stratselector.setPool(index);
+		stratselector.getPool();
+		Tracer.WriteTrace(20,
+				"aktpool<" + stratselector.getPool() + "> anzstrat<" + stratselector.getAktPoolAnzStrategies() + ">");
+		
+		// 0)erst mal eine Stratgieliste mit allen strategien aus einem bestimmten Pool
+		// aufbauen.
+		// aus dieser Gesammtliste wird dann weggefiltert
+		Stratliste stratliste = new Stratliste();
+		// wir nehmen alle strategien aus einem pool
+		stratliste.buildStratliste(stratselector, met_glob);
+		Tracer.WriteTrace(20, "I:stratliste info=" + stratliste.info());
+		stratliste.filterSelfile(Metrikglobalconf.getFilterpath() + "\\filter.txt");
+		
+		Tracer.WriteTrace(20, "I0:init<" + stratliste.anz() + ">");
+		int anzbest = Metrikglobalconf.getmaxBestlist();
+		
+		for (int i = 0; i < anzbest; i++)
+		{
+			
+			// 1) die filterfiles holen, und die sind diesmal in den bestportolios
+			// die Filterfiles sind die configs mit den schranken
+			
+			// hole erst mal ein portfolio raus
+			Portfolio port = best100portfolios_glob.holePortfolio(i);
+			if (port == null)// ende errreicht
+				break;
+			// dann den filter, den brauchen wir ja zum neuberechnen
+			Filterfiles fi = port.getFilt();
+			
+			// 2) und hier wird weggefiltert.
+			stratliste.buildStratliste(stratselector, met_glob);
+			// Tracer.WriteTrace(20, "I1:vorher<"+stratliste.anz()+">");
+			stratliste.filterAll(met_glob, fi, 1);
+			// Tracer.WriteTrace(20, "I2:nachher<"+stratliste.anz()+">");
+			
+			// 3) Dann wird mit den reststrategien ein Endtest gemacht
+			// Tracer.WriteTrace(20, "I:**i<"+i+">Endtest anz Reststrategien
+			// <"+stratliste.anz()+">");
+			EndtestResult endresult = stratliste.Endtest(met_glob, 0, endfitnessfilter);
+			
+			// 4) Dieses endresult muss in der bestliste festgehalten werden
+			port.setEndresultUnknownData(endresult, index);
+		}
+		
+	}
 	
 	private void initFilterzeiträume()
 	{
@@ -280,17 +349,51 @@ public class CalOpt100Sammler
 		
 		if (best100portfolios_glob == null)
 			return;
-		Portfolio bestPortfolio = best100portfolios_glob.holeBestPortfolio();
-		if (bestPortfolio == null)
-			return;
-		Stratliste stratliste = bestPortfolio.getStratliste();
+		int counter = 0;
 		
-		if (stratliste == null)
-			return;
+		// Das root-Verzeichniss leeren der sq4_sel-Files leeren
+		// str__selected_sq4_endtestfiles
+		String endfile = met_glob.holeEndtestFilnamen();
+		String endtestdir_sq4_sel = endfile.substring(0, endfile.lastIndexOf("\\") + 1)
+				+ "str__selected_sq4_endtestfiles";
+		FileAccess.cleanDirectory(new File(endtestdir_sq4_sel));
 		
-		// dann wird das beste umkopiert
-		Filemanager.kopiereEndfiles(stratliste, met_glob);
+		int anzbest = Metrikglobalconf.getmaxBestlist();
+		JLibsProgressWin prog = new JLibsProgressWin("Copy Results", 0, anzbest);
+		prog.update(0);
+		for (int i = 0; i < anzbest; i++)
+		{
+			counter++;
+			prog.update(counter);
+			//Swttool.wupdate(Display.getDefault());
+			Portfolio bestPortfolio = best100portfolios_glob.holeBestPortfolio(i);
+			if (bestPortfolio == null)
+			{
+				prog.end();
+				return;
+			}
+				
+			
+			// kopiere nur wenn das portfolio nicht als bad markiert wurde
+			if (bestPortfolio.getFlag() < 0)
+				continue;
+			
+			Stratliste stratliste = bestPortfolio.getStratliste();
+			
+			if (stratliste == null)
+				return;
+			
+			if (stratliste.anz() == 0)
+				Tracer.WriteTrace(10, "E:keine strategien in strateliste!!!-> Stop");
+			
+			// dann wird das beste umkopiert
+			Filemanager.kopiereEndfiles(stratliste, met_glob, i);
+			prog.update(counter);
+		}
 		
+		
+		
+		prog.end();
 	}
 	
 	public void storeResults()
@@ -317,14 +420,14 @@ public class CalOpt100Sammler
 		cw_glob.calcEndtestGraphic();
 	}
 	
-	public void correlate(StrategienSelector msel,int showflag, String entestattribname, String corealalgo)
+	public void correlate(StrategienSelector msel, int showflag, String entestattribname, String corealalgo)
 	{
 		// für jede Metrik wird die person Correlation ermittelt
 		// die metriktabellen wurden schon eingelesen
 		
 		readExportedDatabank(msel);
 		// als nächstes wird korreliert
-		
+		Tracer.WriteTrace(20, "Pool1:" + msel.getInfo());
 		Correlator2.CalcCorrelation(met_glob, entestattribname, corealalgo);
 		
 		int anzstrat = met_glob.holeAnzAttributes(0);

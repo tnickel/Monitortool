@@ -36,7 +36,7 @@ public class ClusterWork
 	{
 		//die metriktabelle einlesen
 		DatabankExportTable met= new DatabankExportTable();
-		met.readExportedTableFile(ClusterCsvFile);
+		met.readExportedTableFile(null,ClusterCsvFile);
 		
 		//die strliste einlesen
 		

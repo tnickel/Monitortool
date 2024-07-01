@@ -87,7 +87,7 @@ public class CalculationOneSetting
 		
 		//die Endtestfiles noch umkopieren
 		if(kopierefilesflag==1)
-			Filemanager.kopiereEndfiles(stratliste,met);
+			Filemanager.kopiereEndfiles(stratliste,met,0);
 		return endresult;
 	}
 	public void showGraphik()

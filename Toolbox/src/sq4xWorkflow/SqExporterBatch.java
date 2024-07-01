@@ -2,6 +2,7 @@ package sq4xWorkflow;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import hiflsklasse.GC;
@@ -104,32 +105,44 @@ public class SqExporterBatch
 			Tracer.WriteTrace(10, "E: error with strategyquant database export see logfile <"+respfile_f.getPath()+">");
 		
 	}
-	
-	private void execExport()
-	{
-		// sqcli.exe -run file=C:/exportbatch.txt
-		String cmd = null;
-		
-		try
-		{
-			cmd = SqRootpath + "\\sqcli.exe" + " -run file=" + tmp_exportbatch;
-			String line = null;
-			
-			Tracer.WriteTrace(20, "Exportdatabase cli cmd<" + cmd + ">");
-			Process p = Runtime.getRuntime().exec(cmd);
-			
-			BufferedReader lsOut = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while ((line = lsOut.readLine()) != null)
-			{
-				System.out.println(line);
-				if(line.contains("Missing license"))
-					Tracer.WriteTrace(10, "E: Problem with license of SQ3 start/stop SQ3 and check it");
-			}
-		} catch (Exception e)
-		{
-			Tracer.WriteTrace(10, "E:export database exception cmd<" + cmd + ">");
-			System.err.println("ls error " + e);
-		}
+	private void execExport() {
+	    String cmd = null;
+
+	    try {
+	        cmd = SqRootpath + "\\sqcli.exe" + " -run file=" + tmp_exportbatch;
+	        String line = null;
+
+	        Tracer.WriteTrace(20, "Exportdatabase cli cmd<" + cmd + ">");
+	        Process p = Runtime.getRuntime().exec(cmd);
+
+	        BufferedReader lsOut = new BufferedReader(new InputStreamReader(p.getInputStream()));
+   	        BufferedReader lsErr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+   	     // Reading error output
+	        while ((line = lsErr.readLine()) != null) {
+	            System.err.println(line);
+	            Tracer.WriteTrace(20, "Error output: " + line);
+	        }
+   	        
+   	        
+	        // Reading standard output
+	        while ((line = lsOut.readLine()) != null) {
+	            System.out.println(line);
+	            if (line.contains("Missing license")) {
+	                Tracer.WriteTrace(10, "E: Problem with license of SQ3 start/stop SQ3 and check it");
+	            }
+	        }
+
+	     
+
+	    } catch (Exception e) {
+	        Tracer.WriteTrace(10, "E:export database exception cmd<" + cmd + ">");
+	        System.err.println("ls error " + e);
+	    }
 	}
+
+	
+	
+	
 	
 }

@@ -24,7 +24,8 @@ public class Best100Portfolios
 	//hier in der liste werden die 100 besten portfolios abgespeicher
 	private ArrayList<Portfolio> best100list = new ArrayList<Portfolio>();
 	private String best100prot_glob = null;
-
+	private int maxbestlist_glob=Metrikglobalconf.getmaxBestlist();
+	
 	public Best100Portfolios()
 	{
 		// lösche das alte protokoll
@@ -34,7 +35,12 @@ public class Best100Portfolios
 		if (b100f.exists())
 			b100f.delete();
 	}
-
+	public int getAnzStrategies()
+	{
+		//ermittelt die zahl wieviel im store gespeichert ist
+		return(best100list.size());
+		
+	}
 	// diese Datenstruktur speichert die besten 100 portfolios ab
 	public void checkAdd(Stratliste stratliste, Filterfiles filt,
 			EndtestResult endresult, MFilter mfilter)
@@ -47,6 +53,14 @@ public class Best100Portfolios
 		// fkt:hier wird geprüft ob man die stratliste noch zu den best100
 		// ergebnissen hinzufügen kann
 
+		//Es wird als erstes geschaut wieviele Strategien in der menge sind
+		//Wenn noch zu wenig übrig dann probiere weiter.
+		int anzStrat=stratliste.anz();
+		if (anzStrat<Metrikglobalconf.getMinStratPortfolio())
+			return;
+		
+		
+		
 		// prüft erst mal die filterbedinungen
 		// prüft im Augenblick nur die anzahl
 		if (mfilter.isAnzstratflag() == true)
@@ -57,7 +71,7 @@ public class Best100Portfolios
 		}
 
 		// prüft ob noch platz ist, wenn ja nimm einfach auf
-		if ((best100list.size() < 100)
+		if ((best100list.size() < maxbestlist_glob)
 				&& (checkIstNeuerWert(endresult) == true))
 		{
 			// es ist noch platz also nehme auf
@@ -85,7 +99,8 @@ public class Best100Portfolios
 				&& (checkIstNeuerWert(endresult) == true))
 		{
 			// dann schmeisse das letzte weg und nimm das neue auf
-			best100list.remove(99);
+			
+			best100list.remove(best100list.size()-1);
 			Portfolio b100d = new Portfolio();
 			b100d.setStratliste(stratliste);
 
@@ -133,9 +148,10 @@ public class Best100Portfolios
 		return val;
 	}
 
-	public Portfolio holeBestPortfolio()
+	public Portfolio holeBestPortfolio(int index)
 	{
 		// das beste steht am anfang
+		//also index 0
 
 		if (best100list == null)
 			return null;
@@ -144,7 +160,12 @@ public class Best100Portfolios
 			return null;
 
 		//an position steht die liste der strategien die am besten abgeschnitten haben
-		Portfolio bestPortfolio = best100list.get(0);
+
+		int anz=best100list.size();
+		if(index>=anz)
+			return null;
+		
+		Portfolio bestPortfolio = best100list.get(index);
 		if (bestPortfolio.getEndresult() == null)
 			Tracer.WriteTrace(10, "E:inernal no endresult");
 
@@ -227,7 +248,15 @@ public class Best100Portfolios
 		return fi;
 		
 	}
-	
+	public void delPortfolio(int index)
+	{
+		best100list.remove(index);
+	}
+	public void markBad(int index)
+	{
+		Portfolio port=best100list.get(index);
+		port.setFlag(-9999);
+	}
 	public Portfolio holePortfolio(int index)
 	{
 		if(index>=best100list.size())
@@ -263,6 +292,10 @@ public class Best100Portfolios
 			// speichere die n-resultate für jeden eintrag ist der best100 liste
 			Portfolio b100d = best100list.get(i);
 
+			//wenn bad markiert dann mache nix damit.
+			if(b100d.getFlag()<0)
+				continue;
+			
 			Filterfiles filtr = b100d.holeFilterzeitraume();
 
 			// jetzt werden die Ergebnisse gespeichert
@@ -301,8 +334,9 @@ public class Best100Portfolios
 		Color black = dis.getSystemColor(SWT.COLOR_BLACK);
 		Color green = dis.getSystemColor(SWT.COLOR_GREEN);
 		Color red = dis.getSystemColor(SWT.COLOR_RED);
+		Color dgreen=dis.getSystemColor(SWT.COLOR_DARK_GREEN);
 
-		Swttool.baueTabellenkopfDispose(table, "pos#fitness#anzStrat#unseen1#unseen2#unseen3#unseen4#unseen5");
+		Swttool.baueTabellenkopfDispose(table, "pos#fitness#anzStrat#Pool1#Pool2#Pool3#Pool4#Pool5#Status");
 
 		int ipos = 0;
 		int anz=best100list.size();
@@ -311,14 +345,18 @@ public class Best100Portfolios
 		{
 			Swttool.wupdate(dis);
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setForeground(black);
+			
+			// 
+			Portfolio b100d=best100list.get(i);
+			float val=b100d.getEndresult().fitnessvalue;
+			
+			if(b100d.getFlag()<0)
+				item.setForeground(black);
+			else
+				item.setForeground(dgreen);
 			// pos
 			item.setText(0, String.valueOf(ipos));
 
-			// 
-			Portfolio b100d=best100list.get(i);
-
-			float val=b100d.getEndresult().fitnessvalue;
 			
 			Stratliste stratl=b100d.getStratliste();
 			int anzstrat=stratl.anz();
@@ -337,9 +375,10 @@ public class Best100Portfolios
 			item.setText(5,String.valueOf(b100d.getEndresultUnknownData(3)));
 			item.setText(6,String.valueOf(b100d.getEndresultUnknownData(4)));
 			item.setText(7,String.valueOf(b100d.getEndresultUnknownData(5)));
+			item.setText(8,String.valueOf(b100d.getFlag()));
 		}
 
-		for (int i = 0; i <8; i++)
+		for (int i = 0; i <9; i++)
 		{
 			table.getColumn(i).pack();
 

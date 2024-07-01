@@ -16,7 +16,7 @@ public class Metrikzeile
 	//hier sind die zeilen der matrix abgebildet
 	private ArrayList<Metrikentry> examplezeile = new ArrayList<Metrikentry>();
 	//hier sind die Namen der Attribute drin
-	private ArrayList<String> attributlist = new ArrayList<String>();
+	private ArrayList<String> attributlistNames = new ArrayList<String>();
 
 	public Metrikzeile()
 	{
@@ -29,21 +29,47 @@ public class Metrikzeile
 	
 	public int getAttributanz()
 	{
-		return(attributlist.size());
+		return(attributlistNames.size());
 		
 	}
-	public String getAllAttributs()
+	public String getAllAttributsNamesAsString()
 	{
 		//holt alle attriute in einen string aus der metrikzeile
-		int n=attributlist.size();
+		int n=attributlistNames.size();
 		String outzeile="";
 		for(int i=0; i<n; i++)
 		{
-			outzeile=outzeile+attributlist.get(i)+";";
-			
+			outzeile=outzeile+attributlistNames.get(i)+";";
 		}
 		return outzeile;
 	}
+	public String getAllAttributsValuesAsString()
+	{
+		//holt alle attriute-values aus der metrikzeile und baue hieraus einen string.
+		int n=attributlistNames.size();
+		String outzeile="";
+		for(int i=0; i<n; i++)
+		{
+			Metrikentry me=examplezeile.get(i);
+			outzeile=outzeile+me.getValue()+";";
+		}
+		return outzeile;
+	}
+	public String getSpecificAttributValueAsString(String attribname)
+	{
+		//holt alle attriute-values aus der metrikzeile und baue hieraus einen string.
+		int n=attributlistNames.size();
+		String outzeile="";
+		for(int i=0; i<n; i++)
+		{
+			Metrikentry me=examplezeile.get(i);
+			if(me.getAttributName().toLowerCase().equals(attribname.toLowerCase()))
+			  return me.getValue();
+		}
+		return outzeile;
+	}
+	
+	
 	
 	public void setzeAttribute(String zeile)
 	{
@@ -58,7 +84,7 @@ public class Metrikzeile
 		int anzattribs = segs.length;
 		for (int i = 0; i < anzattribs; i++)
 		{
-			attributlist.add(segs[i]);
+			attributlistNames.add(segs[i]);
 		}
 	}
 
@@ -76,11 +102,11 @@ public class Metrikzeile
 		
 		//wir vergleichen hier Die Attributsanzahl, das ist die erste Zeile mit den folgezeilen
 		//Alle zeilen sollten die gleiche anzahl einträge haben
-		if(segs.length!=attributlist.size())
+		if(segs.length!=attributlistNames.size())
 		{
 			//Hier stimmt die Attributanzahl nicht mit den spalten der folgezeilen überein.
-			Tracer.WriteTrace(20, "segs.length="+segs.length+" atributlist.size="+attributlist.size());
-			Tracer.WriteTrace(20, "Error: #attribute<"+segs.length+"> != #values in zeile<"+attributlist.size()+">");
+			Tracer.WriteTrace(20, "segs.length="+segs.length+" atributlist.size="+attributlistNames.size());
+			Tracer.WriteTrace(20, "Error: #attribute<"+segs.length+"> != #values in zeile<"+attributlistNames.size()+">");
 			Tracer.WriteTrace(20, "Zeile<"+zeile+">");
 			
 			Tracer.WriteTrace(10, "Error: Corrupt DatabankExport.csv Attribanzahl don´t fit with the entrys");
@@ -89,7 +115,7 @@ public class Metrikzeile
 		{
 			Metrikentry metrikentry = new Metrikentry();
 			metrikentry.setValue(segs[i]);
-			metrikentry.setAttributName(attributlist.get(i));
+			metrikentry.setAttributName(attributlistNames.get(i));
 			metrikzeile.add(metrikentry);
 		}
 		examplezeile=metrikzeile;
@@ -127,7 +153,7 @@ public class Metrikzeile
 	{
 		return (examplezeile.get(pos));
 	}
-	public String holeName()
+	public String holeStratName()
 	{
 		// Der Strategiename kommt an position 0
 		Metrikentry me=examplezeile.get(0);

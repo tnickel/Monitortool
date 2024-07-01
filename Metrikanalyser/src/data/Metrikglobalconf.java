@@ -25,9 +25,11 @@ public class Metrikglobalconf
 	//endtestpath ist das Verzeichniss wo sich das Endtestfile drin befindet
 	static String endtestpath_glob=null;
 	static int stopflag_glob=0;
-	
-
-	
+	static int percent_glob=50;
+	static int fixed_seed_flag_glob=0;
+	static int maxBestlist=100;
+	static int CollectOnlyRobustStrategies_glob=1;
+	static int minStratPortfolio_glob=5;
 	
 	static public String getFilterpath()
 	{
@@ -37,12 +39,57 @@ public class Metrikglobalconf
 		return filterpath_glob;
 	}
 
+	public static int getMinStratPortfolio()
+	{
+		return minStratPortfolio_glob;
+	}
+
+	public static void setMinStratPortfolio(int minStratPortfolio)
+	{
+		prop.setProperty("minstratportfolio", String.valueOf(minStratPortfolio));
+		minStratPortfolio_glob = minStratPortfolio;
+		save();
+	}
+
 	static public void setFilterpath(String filterpath)
 	{
 		filterpath_glob = filterpath;
 		prop.setProperty("filterpath", filterpath_glob);
 		
 		save();
+	}
+	
+	public static int getCollectOnlyRobustStrategies()
+	{
+		return CollectOnlyRobustStrategies_glob;
+	}
+
+	public static void setCollectOnlyRobustStrategies(int val)
+	{
+		Metrikglobalconf.CollectOnlyRobustStrategies_glob = val;
+		prop.setProperty("collectonlyrobuststrategies", String.valueOf(val));
+		save();
+	}
+
+	static public void setPercent(int i)
+	{
+		percent_glob=i;
+		prop.setProperty("percent", String.valueOf(i));
+	}
+	static public int getPercent()
+	{
+		
+		return percent_glob;
+	}
+	static public int getFixedSeedflag()
+	{
+		return fixed_seed_flag_glob;
+		
+	}
+	static public void setFixedSeedflag(int i)
+	{
+		fixed_seed_flag_glob=i;
+		prop.setProperty("fixedseedflag", String.valueOf(fixed_seed_flag_glob));
 	}
 	static public void setEndtestpath(String path)
 	{
@@ -55,6 +102,8 @@ public class Metrikglobalconf
 	
 	
 
+	
+
 	public static int getStopflag_glob()
 	{
 		return stopflag_glob;
@@ -65,6 +114,17 @@ public class Metrikglobalconf
 		Metrikglobalconf.stopflag_glob = stopflag_glob;
 	}
 
+	public static void setMaxbestlist(int max)
+	{
+		Metrikglobalconf.maxBestlist=max;
+		prop.setProperty("maxbestlist", String.valueOf(max));
+	}
+	public static int getmaxBestlist()
+	{
+		return Metrikglobalconf.maxBestlist;
+	}
+	
+	
 	public Metrikglobalconf(String userdir)
 	{
 		
@@ -82,7 +142,29 @@ public class Metrikglobalconf
 		{
 			prop.load(new FileInputStream(propfilename_glob));
 			filterpath_glob = prop.getProperty("filterpath");
+			String percent=prop.getProperty("percent");
+			if(percent!=null)
+				percent_glob=Integer.valueOf(percent);
+			else
+				percent_glob=50;
+			
+			String fixedseed=prop.getProperty("fixedseedflag");
+			
+			if(fixedseed!=null)
+				fixed_seed_flag_glob=Integer.valueOf(fixedseed);
+			else
+				fixed_seed_flag_glob=0;
 
+			String mb=prop.getProperty("maxbestlist");
+			if(mb==null)
+				mb="1000";
+			maxBestlist=Integer.valueOf(mb);
+			
+			if(prop.getProperty("collectonlyrobuststrategies")!=null)
+				CollectOnlyRobustStrategies_glob=Integer.valueOf(prop.getProperty("collectonlyrobuststrategies"));
+			if(prop.getProperty("minstratportfolio")!=null)
+				minStratPortfolio_glob=Integer.valueOf(prop.getProperty("minstratportfolio"));
+			
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -107,6 +189,7 @@ public class Metrikglobalconf
 			 
 			writer = new FileWriter( propfilename_glob );
 			prop.store(writer,null);
+			
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block

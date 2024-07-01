@@ -1,6 +1,7 @@
 package fileActorPack;
 
 import gui.Mbox;
+import hiflsklasse.Tracer;
 import hilfsklasse.FileAccessDyn;
 
 import java.io.File;
@@ -11,15 +12,27 @@ import data.Stratliste;
 public class Filemanager
 {
 	// kopiert die selektierten Endfiles vom full in das selected directory
-	static public void kopiereEndfiles(Stratliste stratliste, Metriktabellen met)
+	static public void kopiereEndfiles(Stratliste stratliste, Metriktabellen met,int index)
 	{
 		// str__all_endtestfiles
 		// str__selected_endtestfiles
 		String endfile = met.holeEndtestFilnamen();
 		String endtestdir_sq4_all = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__all_sq4_endtestfiles";
-		String endtestdir_sq4_sel = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__selected_sq4_endtestfiles";
+		String endtestdir_sq4_sel = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__selected_sq4_endtestfiles"+"\\"+index;
 		String endtestdir_sq3_all = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__all_sq3_endtestfiles";
-		String endtestdir_sq3_sel = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__selected_sq3_endtestfiles";
+		String endtestdir_sq3_sel = endfile.substring(0, endfile.lastIndexOf("\\") + 1) + "str__selected_sq3_endtestfiles"+"\\"+index;
+		
+		//verzeichnisse erstellen
+		File q4dir=new File(endtestdir_sq4_sel);
+		if(q4dir.exists()==false)
+			if(q4dir.mkdir()==false)
+				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q4dir.getAbsolutePath()+"> --> stop");
+		
+		File q3dir=new File(endtestdir_sq3_sel);
+		if(q3dir.exists()==false)
+			if(q3dir.mkdir()==false)
+				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q3dir.getAbsolutePath()+"> --> stop");
+		
 		
 		// beim zielverzeichniss alle *.str files löschen
 		cleanDirAll(endtestdir_sq3_sel,".str");

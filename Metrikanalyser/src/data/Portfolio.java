@@ -15,6 +15,7 @@ public class Portfolio implements Comparable<Portfolio>
 	private Filterfiles filt;
 	private EndtestResult endresult;
 	private float ResultUnknown[]=new float[6];
+	private int flag=0;
 
 	public Stratliste getStratliste()
 	{
@@ -26,6 +27,16 @@ public class Portfolio implements Comparable<Portfolio>
 		if(stratliste==null)
 			Tracer.WriteTrace(10, "internal: not possible stratliste==null");
 		this.stratliste = stratliste;
+	}
+
+	public int getFlag()
+	{
+		return flag;
+	}
+
+	public void setFlag(int flag)
+	{
+		this.flag = flag;
 	}
 
 	public Filterfiles getFilt()

@@ -150,6 +150,14 @@ public class DatabankExportTable
 			metzeile.setzeAttribute(firstzeile);
 			metzeile.baueMetrikzeile(zeile);
 			
+		    String stratname=metzeile.holeStratName();
+		    if(stratname==null)
+		    	break;
+		   /* if(msel==null)
+		    	break;*/
+			 if((msel!=null)&&(msel.containsName(stratname)==false))
+				continue;
+			
 			// die Zeile hinzunehmen
 			metriktab_glob.add(metzeile);
 		}
@@ -193,11 +201,25 @@ public class DatabankExportTable
 	private void refreshValuemap()
 	{
 		
+		if(hashMapValuemappos==null)
+			Tracer.WriteTrace(10, "E:hashMapValuemappos==null-->stop");
+		
 		hashMapValuemappos.clear();
 		// baut die valuemap
+		
+		if(metriktab_glob==null)
+			Tracer.WriteTrace(10, "E:metriktab<_glob==null-->stop");
+		
 		Metrikzeile mez = metriktab_glob.get(0);
+		
+		if(mez==null)
+			Tracer.WriteTrace(10, "I:mez=null-> stop");
+		
 		int anzvalues = mez.getLength();
-
+		if(anzvalues==0)
+			Tracer.WriteTrace(10, "I:anz values==0");
+		
+		
 		if (hashMapValuemappos.size() != anzvalues)
 		{
 			Tracer.WriteTrace(20, "I: baue valuemap neu auf");
@@ -428,6 +450,7 @@ public class DatabankExportTable
 
 	public ArrayList<Stratelem> buildStratliste(StrategienSelector stratsel)
 	{
+		//takeallpoolflag==1, dann wird der ganze pool mi dem index i verwendet.
 		ArrayList<Stratelem> stratl = new ArrayList<Stratelem>();
 		// Stratliste mit den Attributsnamen aufbauen
 		int anz = metriktab_glob.size();
@@ -440,6 +463,8 @@ public class DatabankExportTable
 			//es werden nur bestimmte strategien in die strategieliste aufgenommen. beispiel IS oder OOS
 			if(stratsel.containsName(attrib)==false)
 					continue;
+			
+		
 			
 			Stratelem strate = new Stratelem();
 			strate.setStratname(attrib);
@@ -504,7 +529,7 @@ public class DatabankExportTable
 			Tracer.WriteTrace(10, "E: internal this is null holeFloatwert");
 		
 		if(hashMapValuemappos.containsKey(valuename)==false)
-				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributs()+">");
+				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributsNamesAsString()+">");
 		
 		int floatpos = hashMapValuemappos.get(valuename);
 

@@ -355,7 +355,7 @@ public class Filterfile
 		if (gewname.contains("."))
 			gewname = gewname.substring(0, gewname.indexOf("."));
 		
-		String fp = filterpath + "\\" + gewname + "_" + fname + ".filter";
+		String fp = filterpath + "\\" + fname + "_" + gewname + ".filter";
 		
 		inf.setFilename(fp);
 		File fnam = new File(fp);
