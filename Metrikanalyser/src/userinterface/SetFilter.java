@@ -1,7 +1,5 @@
 package userinterface;
 
-import hilfsklasse.SG;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -18,6 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import data.MFilter;
+import hilfsklasse.SG;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

@@ -3,8 +3,8 @@ package calcPack;
 import java.io.File;
 
 import Metriklibs.EndtestFitnessfilter;
-import Metriklibs.StrategienSelector;
 import Metriklibs.Metriktabellen;
+import Metriklibs.StrategieMengen;
 import data.EndtestResult;
 import data.Metrikglobalconf;
 import data.Stratliste;
@@ -22,7 +22,7 @@ public class CalculationOneSetting
 	Stratliste stratliste= new Stratliste();
 	//CommentWork wird für die gr.-Anzeige benötigt
 	private CommentWork cw_glob = new CommentWork();
-	public void readMetriktabellen(StrategienSelector msel)
+	public void readMetriktabellen(StrategieMengen msel)
 	{
 		//tabellen erst mal einlesen
 		String rpath = Metrikglobalconf.getFilterpath();
@@ -67,7 +67,7 @@ public class CalculationOneSetting
 		filt.cleanFilterSettings(met);
 	}
 	
-	public EndtestResult startCalculation(StrategienSelector stratsel,int kopierefilesflag,EndtestFitnessfilter endtestfitnessfilter)
+	public EndtestResult startCalculation(StrategieMengen stratsel,int kopierefilesflag,EndtestFitnessfilter endtestfitnessfilter)
 	{
 		//erst mal die strliste aufbauen
 		stratliste.buildStratliste(stratsel,met);

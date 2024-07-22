@@ -127,7 +127,7 @@ public class Filterfiles
 		filterfiles_glob.add(filtz);
 	}
 
-	public void modifyRandom(boolean useonlyselectedmetrics)
+	public void modifyLimitsRandom(boolean useonlyselectedmetrics)
 	{
 		// hier werden randommässig die schranken modifiziert
 		// gehe durch alle filterzeiträume und modifiziere
@@ -140,7 +140,22 @@ public class Filterfiles
 			filtzeit.modifyAllAttribRandom(useonlyselectedmetrics);
 		}
 	}
-	public void modifyRandomPlus(boolean useonlyselectedmetrics)
+	
+	public void modifyLimitsRandom2(boolean useonlyselectedmetrics)
+	{
+		// hier werden randommässig die schranken modifiziert
+		// gehe durch alle filterzeiträume und modifiziere
+		int anz = filterfiles_glob.size();
+		for (int i = 0; i < anz; i++)
+		{
+			// filterzeit beinhaltet ein einzelnes verzeichniss
+			Filterfile filtzeit = filterfiles_glob.get(i);
+			// hier werden für jeden Abschnitt die Schranken zufällig geändert
+			filtzeit.modifyAllAttribRandom2(useonlyselectedmetrics);
+		}
+	}
+	
+	public void modifyLimitsRandomPlus(boolean useonlyselectedmetrics)
 	{
 		//Beim RandomPlus wird nicht komplett alles neu gewürfelt, sondern es wird der Filterzeitraum
 		//genommen und an den schranken nur etwas gerüttelt. Wir haben ja jetzt einen Filterzeitraum aus der bestliste geholt
@@ -154,7 +169,7 @@ public class Filterfiles
 			filtzeit.modifyAllAttribRandomPlus(useonlyselectedmetrics);
 		}
 	}
-	public void modifyPersonKorrelation(CorelSetting corelsetting,boolean useonlyselectedmetrics)
+	public void modifyLimitsPersonKorrelation(CorelSetting corelsetting,boolean useonlyselectedmetrics)
 	{
 		// hier werden nach der PersonKorrelation die schranken modifiziert
 		// gehe durch alle filterzeiträume und modifiziere

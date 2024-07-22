@@ -25,11 +25,10 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		return metriktabellen.size() - 1;
 	}
 	
-	public void readAllTabellen(StrategienSelector msel, String rpath)
+	public void readAllTabellen(StrategieMengen msel, String rpath)
 	{
 		// liest alle Metriktabellen ein
 		metriktabellen = new ArrayList<DatabankExportTable>();
-		/* String rpath = Metrikglobalconf.getFilterpath(); */
 		
 		if (rpath == null)
 			Tracer.WriteTrace(10, "E: please set configpath in File/config");
@@ -55,48 +54,87 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		}
 	}
 	
-	public void exportAllAttributesForWeka(String rpath)
+	public void exportAllAttributesForWeka(String exportfile, int maxstrategies, boolean makebinary, String workdir)
 	{
 		// wir brauchen hier tabelle 0 und tabelle 99. Wir brauchen hier alle werte aus
 		// Tabelle 0 und den NetProfit OOS aus der Tabelle 99
 		// wir schreiben die Ergebnisse in ein File, dieses File legen wir im
 		// Verzeichniss 99 ab.
+		// maxstrategies= anz maximaler strategien in dem file
+		// if makebinary==1 dann converiere weka_endtest to 1 falls wert >0, ansonsten
+		// =0
+		// rpath=
 		
 		String ostring = "";
 		Inf inf = new Inf();
-		String fnam="C:\\tmp\\Exported\\ExportedWeka.csv";
-		inf.setFilename(fnam);
-		File fnamf=new File(fnam);
-		if(fnamf.exists())
-			if(fnamf.delete()==false)
-				Tracer.WriteTrace(10, "E:can´t delete file <"+fnamf+">--> stop");
-		
-		//aus diesen Tabellen holen wir die atrribute und values.
+		String outfile = workdir + "\\exported_for_weka.csv";
+		inf.setFilename(outfile);
+		File fnamf = new File(outfile);
+		if (fnamf.exists())
+			if (fnamf.delete() == false)
+				Tracer.WriteTrace(10, "E:can´t delete file <" + outfile + ">--> stop3");
+			
+		// aus diesen Tabellen holen wir die atrribute und values.
 		int anzTabellen = metriktabellen.size();
 		
-		//Wir brauchen die erste und letzte Tabelle
+		// Wir brauchen die erste und letzte Tabelle
 		DatabankExportTable tabelle1 = metriktabellen.get(0);
 		DatabankExportTable tabelle99 = metriktabellen.get(anzTabellen - 1);
+		
+		// in der ersten und letzten Tabelle müssen gleich viele Strategien drin sein.
+		int anz1 = tabelle1.getAnz();
+		int anz2 = tabelle99.getAnz();
+		if (anz1 != anz2)
+			Tracer.WriteTrace(10, "E: error plausicheck table1 #Strategies<" + anz1
+					+ "> should have same number as table99<" + anz2 + "> workdir<" + workdir + ">-->STOP");
+		
+		// plausicheck #antributes
+		anz1 = tabelle1.getAttribAnz();
+		anz2 = tabelle99.getAttribAnz();
+		if (anz2 != anz1)
+			Tracer.WriteTrace(10, "E: error plausicheck table1 #attibs<" + anz1
+					+ "> should have same number as table99<" + anz2 + "> workdir<" + workdir + "> ->STOP");
 		
 		int anztab1 = tabelle1.getAnz();
 		for (int i = 0; i < anztab1; i++)
 		{
+			
 			// hole alle zeilen aus tabelle1
 			Metrikzeile mez1 = tabelle1.holeMetrikzeilePosI(i);
 			String stratname = mez1.holeStratName();
 			
-			// aus dieser metrikzeile brauchen wir nur NetProfit OOS,dazu holen wir uns erst mal die ganze Zeile.
+			// aus dieser metrikzeile brauchen wir nur NetProfit OOS,dazu holen wir uns erst
+			// mal die ganze Zeile.
 			Metrikzeile mez99 = tabelle99.holeMetrikzeile(stratname);
 			
-			//jetzt werden die daten für das schreiben aufbereitet, die kopfzeile muss nur einmal geschrieben werden.
+			// jetzt werden die daten für das schreiben aufbereitet, die kopfzeile muss nur
+			// einmal geschrieben werden.
 			if (i == 0)
 			{// die kopfzeile wird nur einmal geschrieben
-				ostring = mez1.getAllAttributsNamesAsString() +  "Weka Endtest";
+				ostring = mez1.getAllAttributsNamesAsString(",") + "Weka Endtest";
 				inf.writezeile(ostring);
 			}
-			ostring = mez1.getAllAttributsValuesAsString()  
-					+ mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+			
+			if (makebinary == false)
+			{
+				ostring = mez1.getAllAttributsValuesAsString(",")
+						+ mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+			} else
+			{
+				String valstr = "";
+				float val = Float.valueOf(mez99.getSpecificAttributValueAsString("Net Profit (OOS)"));
+				if (val > 0)
+					valstr = "1";
+				else
+					valstr = "0";
+				
+				ostring = mez1.getAllAttributsValuesAsString(",") + valstr;
+			}
 			inf.writezeile(ostring);
+			
+			if (maxstrategies != 0)
+				if (i >= maxstrategies - 1)
+					break;
 		}
 		inf.close();
 	}
@@ -139,7 +177,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		return (metriktabellen.get(j).holeFilename());
 	}
 	
-	public ArrayList<Stratelem> buildStratliste(StrategienSelector stratsel)
+	public ArrayList<Stratelem> buildStratliste(StrategieMengen stratsel)
 	{
 		// die Strategielist wird aus den Metriken von verz _0_ erzeugt
 		return (metriktabellen.get(0).buildStratliste(stratsel));

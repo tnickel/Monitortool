@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Properties;
 
+import org.eclipse.swt.widgets.Shell;
+
 import hiflsklasse.Tracer;
 
 public class Metrikglobalconf
@@ -30,7 +32,67 @@ public class Metrikglobalconf
 	static int maxBestlist=100;
 	static int CollectOnlyRobustStrategies_glob=1;
 	static int minStratPortfolio_glob=5;
+	static String wekafile_glob=null;
 	
+	//variables for the header
+	static Shell shell_glob=null;
+	static String version_glob=null;
+	
+	//temporary configurations
+	static String sqworkflowdir=null;
+	
+	public Metrikglobalconf(String userdir)
+	{
+		
+	
+		userdir_glob=userdir;
+		if((userdir_glob==null)||(userdir_glob.length()<3))
+			Tracer.WriteTrace(10, "Error: userdir_glob<"+userdir_glob+">");
+		propfilename_glob=userdir_glob
+				+ "\\conf\\conf.prop";
+
+		File pfile= new File(propfilename_glob);
+		if(pfile.exists()==false)
+			return;
+		try
+		{
+			prop.load(new FileInputStream(propfilename_glob));
+			filterpath_glob = prop.getProperty("filterpath");
+			String percent=prop.getProperty("percent");
+			if(percent!=null)
+				percent_glob=Integer.valueOf(percent);
+			else
+				percent_glob=50;
+			
+			String fixedseed=prop.getProperty("fixedseedflag");
+			
+			if(fixedseed!=null)
+				fixed_seed_flag_glob=Integer.valueOf(fixedseed);
+			else
+				fixed_seed_flag_glob=0;
+
+			String mb=prop.getProperty("maxbestlist");
+			if(mb==null)
+				mb="1000";
+			maxBestlist=Integer.valueOf(mb);
+			
+			if(prop.getProperty("collectonlyrobuststrategies")!=null)
+				CollectOnlyRobustStrategies_glob=Integer.valueOf(prop.getProperty("collectonlyrobuststrategies"));
+			if(prop.getProperty("minstratportfolio")!=null)
+				minStratPortfolio_glob=Integer.valueOf(prop.getProperty("minstratportfolio"));
+			prop.load(new FileInputStream(propfilename_glob));
+			wekafile_glob = prop.getProperty("wekafile");
+			
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	static public String getFilterpath()
 	{
 		if(filterpath_glob==null)
@@ -125,56 +187,19 @@ public class Metrikglobalconf
 	}
 	
 	
-	public Metrikglobalconf(String userdir)
+	public static String getWekafile_glob()
 	{
-		
-	
-		userdir_glob=userdir;
-		if((userdir_glob==null)||(userdir_glob.length()<3))
-			Tracer.WriteTrace(10, "Error: userdir_glob<"+userdir_glob+">");
-		propfilename_glob=userdir_glob
-				+ "\\conf\\conf.prop";
-
-		File pfile= new File(propfilename_glob);
-		if(pfile.exists()==false)
-			return;
-		try
-		{
-			prop.load(new FileInputStream(propfilename_glob));
-			filterpath_glob = prop.getProperty("filterpath");
-			String percent=prop.getProperty("percent");
-			if(percent!=null)
-				percent_glob=Integer.valueOf(percent);
-			else
-				percent_glob=50;
-			
-			String fixedseed=prop.getProperty("fixedseedflag");
-			
-			if(fixedseed!=null)
-				fixed_seed_flag_glob=Integer.valueOf(fixedseed);
-			else
-				fixed_seed_flag_glob=0;
-
-			String mb=prop.getProperty("maxbestlist");
-			if(mb==null)
-				mb="1000";
-			maxBestlist=Integer.valueOf(mb);
-			
-			if(prop.getProperty("collectonlyrobuststrategies")!=null)
-				CollectOnlyRobustStrategies_glob=Integer.valueOf(prop.getProperty("collectonlyrobuststrategies"));
-			if(prop.getProperty("minstratportfolio")!=null)
-				minStratPortfolio_glob=Integer.valueOf(prop.getProperty("minstratportfolio"));
-			
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return wekafile_glob;
 	}
+
+	public static void setWekafile_glob(String wekafile_glob)
+	{
+		prop.setProperty("wekafile", wekafile_glob);
+		save();
+		Metrikglobalconf.wekafile_glob = wekafile_glob;
+	}
+
+	
 	static public void save()
 	{
 		//		Mbox.Infobox("Möchte die config unter <"+propfilename_glob+"> speichern");
@@ -196,8 +221,22 @@ public class Metrikglobalconf
 			Tracer.WriteTrace(10, "Error: exception:configfilename <"+propfilename_glob+">");
 			e.printStackTrace();
 		}
+	}
 
+	static public void setShell(Shell shell)
+	{
+		shell_glob=shell;
+	}
+
+	
+
+	public static void setVersion(String version_glob)
+	{
+		Metrikglobalconf.version_glob = version_glob;
+	}
+	public static void refreshHeader(String path)
+	{
+		shell_glob.setText("Metrikanalyser " + version_glob+ "       WorkDir="+path);
 		
 	}
-	
 }

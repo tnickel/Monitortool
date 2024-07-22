@@ -11,7 +11,7 @@ import Metriklibs.Filterfile;
 import Metriklibs.Metrikentry;
 import Metriklibs.Metriktabellen;
 import Metriklibs.Metrikzeile;
-import Metriklibs.StrategienSelector;
+import Metriklibs.StrategieMengen;
 import Metriklibs.Stratelem;
 import filterPack.Filterfiles;
 import hilfsklasse.Inf;
@@ -39,7 +39,7 @@ public class Stratliste
 		return out;
 	}
 	
-	public void buildStratliste(StrategienSelector stratsel,Metriktabellen met)
+	public void buildStratliste(StrategieMengen stratsel,Metriktabellen met)
 	{
 		// wenn takeallpoolflag==1 wird ein bestimmter pool genommen
 		// Anhand der ersten metiktabelle wird die Stratliste aufgebaut
@@ -47,7 +47,7 @@ public class Stratliste
 		stratliste_glob = met.buildStratliste(stratsel);
 	}
 
-	public void buildAllStratliste(StrategienSelector stratsel,Metriktabellen met)
+	public void buildAllStratliste(StrategieMengen stratsel,Metriktabellen met)
 	{
 		//alle strategien für einen Pool werden in eine stratgieliste aufgenommen
 		stratliste_glob = met.buildAllStratliste();

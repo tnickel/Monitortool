@@ -32,18 +32,18 @@ public class Metrikzeile
 		return(attributlistNames.size());
 		
 	}
-	public String getAllAttributsNamesAsString()
+	public String getAllAttributsNamesAsString(String delimiter)
 	{
 		//holt alle attriute in einen string aus der metrikzeile
 		int n=attributlistNames.size();
 		String outzeile="";
 		for(int i=0; i<n; i++)
 		{
-			outzeile=outzeile+attributlistNames.get(i)+";";
+			outzeile=outzeile+attributlistNames.get(i)+delimiter;
 		}
 		return outzeile;
 	}
-	public String getAllAttributsValuesAsString()
+	public String getAllAttributsValuesAsString(String delimiter)
 	{
 		//holt alle attriute-values aus der metrikzeile und baue hieraus einen string.
 		int n=attributlistNames.size();
@@ -51,7 +51,7 @@ public class Metrikzeile
 		for(int i=0; i<n; i++)
 		{
 			Metrikentry me=examplezeile.get(i);
-			outzeile=outzeile+me.getValue()+";";
+			outzeile=outzeile+me.getValue()+delimiter;
 		}
 		return outzeile;
 	}

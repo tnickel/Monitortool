@@ -1,13 +1,11 @@
 package fileActorPack;
 
-import gui.Mbox;
-import hiflsklasse.Tracer;
-import hilfsklasse.FileAccessDyn;
-
 import java.io.File;
 
 import Metriklibs.Metriktabellen;
 import data.Stratliste;
+import hiflsklasse.Tracer;
+import hilfsklasse.FileAccessDyn;
 
 public class Filemanager
 {
@@ -26,12 +24,12 @@ public class Filemanager
 		File q4dir=new File(endtestdir_sq4_sel);
 		if(q4dir.exists()==false)
 			if(q4dir.mkdir()==false)
-				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q4dir.getAbsolutePath()+"> --> stop");
+				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q4dir.getAbsolutePath()+"> --> stop1");
 		
 		File q3dir=new File(endtestdir_sq3_sel);
 		if(q3dir.exists()==false)
 			if(q3dir.mkdir()==false)
-				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q3dir.getAbsolutePath()+"> --> stop");
+				Tracer.WriteTrace(10, "E:Can´t generate directory <"+q3dir.getAbsolutePath()+"> --> stop2");
 		
 		
 		// beim zielverzeichniss alle *.str files löschen

@@ -2,7 +2,9 @@ package Metriklibs;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import data.CorelSetting;
@@ -92,12 +94,12 @@ public class Filterfile
 		
 		int countanzmodifications = 0;
 		// die schranken werden zufällig abgeändert
-		int anzStrategien = filterzeitraum.size();
+		int anzFilter = filterzeitraum.size();
 		Random ran = new Random();
 		
 		// gehe hier durch die einzelnen attribute
 		
-		for (int i = 0; i < anzStrategien; i++)
+		for (int i = 0; i < anzFilter; i++)
 		{
 			// gehe durch die einzelnen attribute
 			Filterentry fi = filterzeitraum.get(i);
@@ -121,6 +123,7 @@ public class Filterfile
 			int intran_high = (ran.nextInt(anzsteps)) / 2;
 			// stepsize
 			float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
+
 			float offset1 = (float) intran_low * stepsize;
 			float offset2 = (float) intran_high * stepsize;
 			float offset_low = 0, offset_high = 0;
@@ -147,7 +150,74 @@ public class Filterfile
 		 * );
 		 */
 	}
-	
+	public void modifyAllAttribRandom2(boolean useonlyselectedmetrics)
+	{
+		
+		int countanzmodifications = 0;
+		// die schranken werden zufällig abgeändert
+		int anzFilter = filterzeitraum.size();
+		Random ran = new Random();
+		
+		// gehe hier durch die einzelnen attribute
+		
+		//bestimme anzModifikationen diese ist 1... bis anzFilter;
+		int anzModifications=Integer.valueOf((ran.nextInt(anzFilter)+1)/2);
+		Set<Integer> modmenge = new HashSet<>();  
+		for(int i=0; i<anzModifications; i++)
+		{
+			//wähle einen filter aus, mache nicht so viele änderungen nur die hälfte der filter werden maximal geändert
+			int r=ran.nextInt(anzFilter);
+			modmenge.add(r);
+		}
+		
+		
+		for (int i = 0; i < anzFilter; i++)
+		{
+			// gehe durch die einzelnen attribute
+			Filterentry fi = filterzeitraum.get(i);
+			
+			// nur wenn das optflag gesetzt ist darf was optimiert werden
+			if (useonlyselectedmetrics == true)
+				if (fi.getOptflag() == 0)
+					continue;
+			
+			//ändere nur die filter die geändert werden sollen
+			if(modmenge.contains(i)==false)
+				continue;
+			
+			countanzmodifications++;
+			int anzsteps = fi.getAnzSteps();
+			float minfilevalue = fi.getMinfilevalue();
+			float maxfilevalue = fi.getMaxfilealue();
+			
+			// falls minfile oder maxfilevalue=0, dann wird hier nicht optimiert
+			if ((minfilevalue == 0) || (maxfilevalue == 0))
+				continue;
+			
+			// zufallszahl
+			int intran_low = (ran.nextInt(anzsteps)) / 2;
+			int intran_high = (ran.nextInt(anzsteps)) / 2;
+			// stepsize
+			float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
+
+			float offset1 = (float) intran_low * stepsize;
+			float offset2 = (float) intran_high * stepsize;
+			float offset_low = 0, offset_high = 0;
+			if (offset1 < offset2)
+			{
+				offset_low = offset1;
+				offset_high = offset2;
+			} else
+			{
+				offset_low = offset2;
+				offset_high = offset1;
+			}
+			
+			fi.setAktMinValue(minfilevalue + offset_low);
+			fi.setAktMaxValue(maxfilevalue - offset_high);
+		}
+		
+	}
 	public void modifyAllAttribRandomPlus(boolean useonlyselectedmetrics)
 	{
 		// die schranken werden zufällig verkleinert oder vergrössert
@@ -291,7 +361,8 @@ public class Filterfile
 		// true zürückgeliefert wird
 		
 		// wenn korrelationswert zu gering dann wird nix geändert
-		if (corelval < corelsetting.getMinCorelLevel())
+		//wir nehmen auch negative Korrelationswerte
+		if (Math.abs(corelval) < corelsetting.getMinCorelLevel())
 			return false;
 			
 		// Es wird wkeit=x hoch 1.5 gerechnet

@@ -1,2 +1,8 @@
-#Tue Sep 30 10:55:39 CEST 2014
-filterpath=C\:\\Forex\\metrikanalyser\\data\\analyse2
+#Sat Jul 06 16:26:28 CEST 2024
+fixedseedflag=0
+filterpath=C\:\\forex\\Metrikanalyser\\AnalysesRoot\\AnalyseDemo1
+wekafile=C\:\\tmp\\results\\Neues Textdokument.txt
+percent=50
+minstratportfolio=5
+maxbestlist=1000
+collectonlyrobuststrategies=1

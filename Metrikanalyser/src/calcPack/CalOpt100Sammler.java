@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Text;
 import Metriklibs.Correlator2;
 import Metriklibs.EndtestFitnessfilter;
 import Metriklibs.Metriktabellen;
-import Metriklibs.StrategienSelector;
+import Metriklibs.StrategieMengen;
 import data.Best100Portfolios;
 import data.CorelSetting;
 import data.EndtestResult;
@@ -44,7 +44,7 @@ public class CalOpt100Sammler
 	// Die besten Strategien werden hier gespeichert
 	private Best100Portfolios best100portfolios_glob = null;
 	
-	public void init(StrategienSelector sel)
+	public void initReadMetrikTables(StrategieMengen sel)
 	{
 		
 		readExportedDatabank(sel);
@@ -56,7 +56,7 @@ public class CalOpt100Sammler
 			genConfig();
 	}
 	
-	private void readExportedDatabank(StrategienSelector msel)
+	private void readExportedDatabank(StrategieMengen msel)
 	{
 		// tabellen erst mal einlesen
 		String rpath = Metrikglobalconf.getFilterpath();
@@ -104,7 +104,7 @@ public class CalOpt100Sammler
 		filterfiles_glob.cleanFilterSettings(met_glob);
 	}
 	
-	public Best100Portfolios startOptimizing(Best100Portfolios best100portfolios, StrategienSelector stratsel,
+	public Best100Portfolios startOptimizing(Best100Portfolios best100portfolios, StrategieMengen stratsel,
 			int infoflag, int ncalc, Text textcount, Text text1maxprof, Text text1anzrestmenge,Text anzinstore, MFilter mfilter,
 			int algotype, CorelSetting corelsetting, EndtestFitnessfilter endfitnessfilter,
 			boolean useonlyselectedmetrics)
@@ -119,7 +119,7 @@ public class CalOpt100Sammler
 		// calopt100: hier sind die korrelationswerte für die metriken drin
 		
 		Random rand = new Random();
-		// in dieser Datenstruktur werden die 100 Besten portfolios gespeichert
+		// in dieser Datenstruktur werden die n Besten portfolios gespeichert
 		
 		DecimalFormat df = new DecimalFormat("#.0");
 		JLibsProgressWin jprog = null;
@@ -152,21 +152,31 @@ public class CalOpt100Sammler
 			
 			// 1: Step1: modifiziere die Filter (random oder anders)
 			// modifiziere alle filter
-			if (algotype == 0)
-			{
+			if (algotype == 0) //algotype0=random
+			{   //hier werden die Schranken random gesetzt
 				readFilterFiles();
-				filterfiles_glob.modifyRandom(useonlyselectedmetrics);
-			} else if (algotype == 1)
-			{
+				filterfiles_glob.modifyLimitsRandom(useonlyselectedmetrics);
+			} 
+			if (algotype == 3) //algotype3=random2
+			{   //hier werden die Schranken random gesetzt
 				readFilterFiles();
-				filterfiles_glob.modifyPersonKorrelation(corelsetting, useonlyselectedmetrics);
+				filterfiles_glob.modifyLimitsRandom2(useonlyselectedmetrics);
+			} 
+			
+			
+			else if (algotype == 1)
+			{
+				//hier werden die Schranken mit der person korrelation gesetzt.
+				//altotype=1=> person
+				readFilterFiles();
+				filterfiles_glob.modifyLimitsPersonKorrelation(corelsetting, useonlyselectedmetrics);
 			} else
 			{
 				int randomNumber = rand.nextInt(100);
 				if (randomNumber > 50)
 				{
 					readFilterFiles();
-					filterfiles_glob.modifyRandom(useonlyselectedmetrics);
+					filterfiles_glob.modifyLimitsRandom(useonlyselectedmetrics);
 				} else
 				{
 					
@@ -174,7 +184,7 @@ public class CalOpt100Sammler
 					// falls noch nix in der bestliste
 					if (filterfiles_glob == null)
 						continue;
-					filterfiles_glob.modifyRandomPlus(useonlyselectedmetrics);
+					filterfiles_glob.modifyLimitsRandomPlus(useonlyselectedmetrics);
 				}
 				
 			}
@@ -275,7 +285,7 @@ public class CalOpt100Sammler
 		
 	}
 	
-	public void calcUnknownData(StrategienSelector stratselector, EndtestFitnessfilter endfitnessfilter, int index)
+	public void calcUnknownData(StrategieMengen stratselector, EndtestFitnessfilter endfitnessfilter, int index)
 	{
 		// der index läuft von 1-5, wir wollen 5 mal ungesehene daten nutzen
 		// hier werden die 100 besten filterrules bewertet
@@ -420,10 +430,14 @@ public class CalOpt100Sammler
 		cw_glob.calcEndtestGraphic();
 	}
 	
-	public void correlate(StrategienSelector msel, int showflag, String entestattribname, String corealalgo)
+	public void correlate(StrategieMengen msel, int showflag, String entestattribname, String corealalgo)
 	{
 		// für jede Metrik wird die person Correlation ermittelt
 		// die metriktabellen wurden schon eingelesen
+		//msel=strategienselektor ??
+		//showflag=
+		//entestattribname=
+		//corealgo=
 		
 		readExportedDatabank(msel);
 		// als nächstes wird korreliert

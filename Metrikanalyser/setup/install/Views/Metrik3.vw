@@ -1,7 +1,6 @@
 <View name="Metrik3" originalName="Metrik3">
   <Columns>
     <Column class="AHPR" name="AHPR" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="ActualDD" name="Actual Drawdown" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="ActualDrawdownPct" name="Actual Drawdown / Max DD" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AnnualPctReturn" name="Annual % Return" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AnnualPctReturnDDRatio" name="CAGR/Max DD %" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
@@ -13,7 +12,6 @@
     <Column class="AvgConsecWins" name="Avg Consec. Wins" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgDrawdown" name="Avg. Drawdown" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgLoss" name="Avg. Loss" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="AvgParametersStability" name="Avg. Parameters Stability" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgPctDrawdown" name="Avg. % Drawdown" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgPctProfitPerYear" name="Avg. % Profit Per Year" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgProfitPerDay" name="Avg. Profit Per Day" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
@@ -21,7 +19,6 @@
     <Column class="AvgTradesPerYear" name="Avg. Trades Per Year" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="AvgWin" name="Avg. Win" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="BacktestDuration" name="Backtest Duration (s)" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="BiggestMAE" name="Biggest MAE" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="CAGR" name="CAGR" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="CalmarRatio" name="CalmarRatio" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="Complexity" name="Complexity" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
@@ -34,39 +31,25 @@
     <Column class="EquitySlope" name="EquitySlope" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="ExitQuality" name="Exit quality" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="Expectancy" name="Expectancy" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="Exposure" name="Exposure" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="ExposurePosition" name="Exposure Position" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="Fitness" name="Fitness" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="GrossLoss" name="Gross loss" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="GrossProfit" name="Gross profit" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="KellyFormula" name="Kelly formula" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="LongestTrade" name="Longest trade (days)" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="MaxConsecLosses" name="Max Consec. Losses" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="MaxConsecWins" name="Max Consec. Wins" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="MaxIntradayDrawdown" name="Max Intraday Drawdown" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="NSymmetry" name="NSymmetry" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="NetProfit" name="Net profit" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="NetProfitInPct" name="Net profit in %" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="RExpectancy" name="R Expectancy" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="RExpectancyScore" name="R Expectancy Score" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="RSquared" name="RSquared" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="ReturnDDRatio" name="Ret/DD Ratio" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="SQN" name="SQN" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="SQNScore" name="SQN Score" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="SharpeRatio" name="Sharpe Ratio" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="Stability" name="Stability" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="StabilitySQ3" name="Stability SQ3" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="Stagnation" name="Stagnation" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="StandardDev" name="StandardDev" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="Symmetry" name="Symmetry" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="TSIndex" name="TS Index" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="TSWinLossRatio" name="TS Win/Loss ratio" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="TradesSymmetry" name="Trades Symmetry" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="UlcerPerformanceIndex" name="Ulcer Performance Index" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="WinLossRatio" name="Win/Loss ratio" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="WinningPct" name="Winning Percent" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="WorstParametersStability" name="Worst Parameters Stability" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
     <Column class="WorstYearProfit" name="Worst Year Profit" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
-    <Column class="NetProfit" name="Net profit" sampleType="10" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
+    <Column class="NetProfit" name="Net profit" sampleType="20" direction="0" plType="10" resultType="main" confidenceLevel="50" market="1" subresult="30" showMainResult="true"/>
   </Columns>
 </View>

@@ -213,8 +213,10 @@ public class SqWorkflowMaster extends Sq
 			
 			// modify project
 			offset = i * stepvalue_g;
+			String workflowname = calcWorkflowname(i, offset);
 			
-			String enddate=psq.modifyProject(offset,EndtestnameFromDatabase);
+			
+			String enddate=psq.modifyProject(offset,EndtestnameFromDatabase, workflowname);
 			// save projekt
 			psq.saveToTmpDir();
 			//das ganze muss wieder gezipped werden
@@ -228,7 +230,7 @@ public class SqWorkflowMaster extends Sq
 				e.printStackTrace();
 			}
 			
-			String workflowname = calcWorkflowname(i, offset);
+			
 			
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,enddate);
@@ -264,8 +266,8 @@ public class SqWorkflowMaster extends Sq
 			
 			// modify project
 			offset = Integer.valueOf(strArr[i]);
-			
-			String foundenddate=psq.modifyProject(offset,EndtestDatabaseName);
+			String workflowname = calcWorkflownameFilename(i, offset);
+			String foundenddate=psq.modifyProject(offset,EndtestDatabaseName,workflowname);
 			// save projekt
 			psq.saveToTmpDir();
 			//das ganze muss wieder gezipped werden
@@ -279,7 +281,7 @@ public class SqWorkflowMaster extends Sq
 				e.printStackTrace();
 			}
 			
-			String workflowname = calcWorkflownameFilename(i, offset);
+		
 			// copy to destination
 			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,foundenddate);
 			psq.cleanLogfiles(sqrootdir_g, workflowname);

@@ -51,7 +51,7 @@ public class DatabankExportTable
 		return anz;
 	}
 
-	public void readExportedTable(StrategienSelector msel,String dirnam)
+	public void readExportedTable(StrategieMengen msel,String dirnam)
 	{
 		// hier wird die ganze Tabelle zeilenweise eingelesen und aufgebaut
 		// die attribute aus der ersten Zeile sind hier ja schon bekannt
@@ -62,7 +62,7 @@ public class DatabankExportTable
 		refreshValuemap();
 	}
 
-	public void readExportedTableFile(StrategienSelector msel,String fnam)
+	public void readExportedTableFile(StrategieMengen msel,String fnam)
 	{
 
 		leseAttributeUndRestSorted(msel,fnam);
@@ -112,7 +112,7 @@ public class DatabankExportTable
 		return me.getAttributName();
 	}
 
-	private void leseAttributeUndRestSorted(StrategienSelector msel,String filename)
+	private void leseAttributeUndRestSorted(StrategieMengen msel,String filename)
 	{
 		// hier wird die metriktabelle eingelesen, für jedes verzeichniss gibt
 		// es so eine
@@ -130,8 +130,12 @@ public class DatabankExportTable
 
 		// die Attribute für die Klasse setzten
 		String firstzeile = inf.readZeile().replace("\"","").replace("#","anz");
+		
+		//Filter results stört nur
+		
 		Metrikzeile metzeile = new Metrikzeile();
 		metzeile.setzeAttribute(firstzeile);
+		Tracer.WriteTrace(20, "Metrikzeile header hat <"+metzeile.getAttributanz()+"> Elemente");
 
 		// dann nach und nach die Metrikzeilen aus den Strings generieren und
 		// die Metriktabelle füllen
@@ -139,16 +143,25 @@ public class DatabankExportTable
 		{
 
 			String zeile = inf.readZeile();//.replace("#", "anz");
+			
 			if (zeile == null)
 				break;
 
+			//filter results will be deleted
+			zeile=zeile.replace("\"PASSED\";", "1;");
+			zeile=zeile.replace("\"FAILED\";", "0;");
+			
 			zeile=zeile.replace("\"","");
 			zeile=zeile.replace("#", "anz");
+			zeile=zeile.replace(";;", ";0;");
 			
 			metzeile = new Metrikzeile();
 			// die Metrikzeile bauen
+		
 			metzeile.setzeAttribute(firstzeile);
 			metzeile.baueMetrikzeile(zeile);
+			
+			
 			
 		    String stratname=metzeile.holeStratName();
 		    if(stratname==null)
@@ -448,7 +461,7 @@ public class DatabankExportTable
 		return filtr;
 	}
 
-	public ArrayList<Stratelem> buildStratliste(StrategienSelector stratsel)
+	public ArrayList<Stratelem> buildStratliste(StrategieMengen stratsel)
 	{
 		//takeallpoolflag==1, dann wird der ganze pool mi dem index i verwendet.
 		ArrayList<Stratelem> stratl = new ArrayList<Stratelem>();
@@ -529,7 +542,7 @@ public class DatabankExportTable
 			Tracer.WriteTrace(10, "E: internal this is null holeFloatwert");
 		
 		if(hashMapValuemappos.containsKey(valuename)==false)
-				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributsNamesAsString()+">");
+				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributsNamesAsString(";")+">");
 		
 		int floatpos = hashMapValuemappos.get(valuename);
 
