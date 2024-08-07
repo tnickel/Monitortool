@@ -14,7 +14,7 @@ import hiflsklasse.Tracer;
 public class Correlator_dep
 {
 	// hier werden die Ergebnisse festgehalten
-	static ArrayList<Corelresultliste> reslist_glob = new ArrayList<Corelresultliste>();
+	static ArrayList<Corresultliste> reslist_glob = new ArrayList<Corresultliste>();
 	
 	public static double getPearsonCorrelation(double[] scores1,
 			double[] scores2)
@@ -74,7 +74,7 @@ public class Correlator_dep
 	public static float holeAttribCorel(int filterindex,String attrib)
 	{
 		//holt für ein Attribut den Korrelationswert
-		Corelresultliste corl=reslist_glob.get(filterindex);																	
+		Corresultliste corl=reslist_glob.get(filterindex);																	
 		Corelresultelem coreelem=corl.getElem(attrib);
 
 		if(coreelem==null)
@@ -100,7 +100,7 @@ public class Correlator_dep
 		
 	
 		reslist_glob.clear();
-		DatabankExportTable endtable = met.holeEndtestMetriktable();
+		Metriktabelle endtable = met.holeEndtestMetriktable();
 		//genau hier ist das problem, der Endvektor muss so sortiert sein das an gleicher position die gleichen Attribute stehen
 		//wenn der endvektor anders sortiert ist dann geht es nicht.
 		//hier wird zwar Netprofit(oos) aus der endtable gehole. Es wird aber davon ausgegangen, das die metriknamen in den datenbank zu der der DAtenbank
@@ -115,10 +115,10 @@ public class Correlator_dep
 		// die die korrelation berechnet wird
 		for (int i = 0; i < anztab - 1; i++)
 		{
-			Corelresultliste ci = new Corelresultliste();
+			Corresultliste ci = new Corresultliste();
 
 			// hole tabelle i
-			DatabankExportTable met1 = met.holeNummerI(i);
+			Metriktabelle met1 = met.holeNummerI(i);
 
 			int attribanz = met1.getAttribAnz();
 			for (int j = 0; j < attribanz; j++)
@@ -162,7 +162,7 @@ public class Correlator_dep
 		inf.writezeile("attribname#correlation*******");
 		for(int i=0; i<anzl; i++)
 		{
-			Corelresultliste cr=reslist_glob.get(i);
+			Corresultliste cr=reslist_glob.get(i);
 			cr.SortInternal();
 			
 			int anz=cr.getSize();

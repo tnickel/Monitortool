@@ -1,16 +1,15 @@
 package WekaTools;
 
-import weka.classifiers.Evaluation;
-
 public class WekaClassifierElem
 {
 	//directoryname das wir lernen wollen
 		private String dirname=null;
 		//hier ist die responsemessage drin
-		private double evalval=0;
+		private double correlationval=0;
+		private int copycounter=0;
 		public WekaClassifierElem( double e)
 		{
-			evalval=e;
+			correlationval=e;
 		}
 		public String getDirname()
 		{
@@ -20,13 +19,21 @@ public class WekaClassifierElem
 		{
 			this.dirname = dirname;
 		}
-		public double getEvalval()
+		public double getCorrelationVal()
 		{
-			return evalval;
+			return correlationval;
 		}
-		public void setEvalval(double evalval)
+		public void setCorrelationVal(double evalval)
 		{
-			this.evalval = evalval;
+			this.correlationval = evalval;
+		}
+		public int getCopycounter()
+		{
+			return copycounter;
+		}
+		public void setCopycounter(int copycounter)
+		{
+			this.copycounter = copycounter;
 		}
 		
 }

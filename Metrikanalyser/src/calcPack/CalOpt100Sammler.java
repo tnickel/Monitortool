@@ -71,6 +71,7 @@ public class CalOpt100Sammler
 		// wertebereiche vorgeben wenn man möchte
 		// auch kann man sagen ob man hier die Metrik für die Analyse betrachten möchte,
 		// man setzt dann einfach ein flag.
+		filterfiles_glob = new Filterfiles();
 		filterfiles_glob.genAllFilterzeitraume(met_glob);
 		if (filterfiles_glob.getAnz() < 2)
 			Tracer.WriteTrace(10,
@@ -445,7 +446,7 @@ public class CalOpt100Sammler
 		Correlator2.CalcCorrelation(met_glob, entestattribname, corealalgo);
 		
 		int anzstrat = met_glob.holeAnzAttributes(0);
-		
+		Correlator2.schreibeTabelle(Metrikglobalconf.getFilterpath() + "\\correlation.txt", corealalgo);
 		if (showflag == 1)
 			Correlator2.zeigeTabelle(Metrikglobalconf.getFilterpath() + "\\correlation.txt", corealalgo);
 	}

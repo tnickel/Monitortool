@@ -196,7 +196,7 @@ public class SqGenerateWorkflowMain
 			sxml.setSearchPattern("<Range dateFrom=", " />");
 			memstring_g[i] = sxml.modifyAllPatterns(daysoffset_i);
 			
-			if(memstring_g[i].contains("SaveToFiles")==true)
+			//if(memstring_g[i].contains("SaveToFiles")==true)
 			{
 				Tracer.WriteTrace(20, "Found save to files");
 				if(memstring_g[i].contains("WORKFLOWNAME")==true)

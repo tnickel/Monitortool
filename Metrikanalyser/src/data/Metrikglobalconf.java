@@ -40,6 +40,11 @@ public class Metrikglobalconf
 	
 	//temporary configurations
 	static String sqworkflowdir=null;
+	static String wekalearndatapath="";
+	static String wekalearnlearnerpath="";
+	static String wekaclassidatapath="";
+	static String wekaclassilearnerpath="";
+	static String wekabuildattributespath="";
 	
 	public Metrikglobalconf(String userdir)
 	{
@@ -238,5 +243,67 @@ public class Metrikglobalconf
 	{
 		shell_glob.setText("Metrikanalyser " + version_glob+ "       WorkDir="+path);
 		
+	}
+	public static String getWekalearndatapath()
+	{
+		return wekalearndatapath;
+	}
+	public static void setWekalearndatapath(String wekalearndatapath)
+	{
+		Metrikglobalconf.wekalearndatapath = wekalearndatapath;
+	}
+	public static String getWekalearnmodelpath()
+	{
+		return wekalearnlearnerpath;
+	}
+	public static void setWekalearnlearnerpath(String wekalearnlearnerpath)
+	{
+		Metrikglobalconf.wekalearnlearnerpath = wekalearnlearnerpath;
+	}
+	public static String getWekaclassidatapath()
+	{
+		return wekaclassidatapath;
+	}
+	public static void setWekaclassidatapath(String wekaclassidatapath)
+	{
+		Metrikglobalconf.wekaclassidatapath = wekaclassidatapath;
+	}
+	public static String getWekaclassimodelpath()
+	{
+		return wekaclassilearnerpath;
+	}
+	public static void setWekaclassilearnerpath(String wekaclassilearnerpath)
+	{
+		Metrikglobalconf.wekaclassilearnerpath = wekaclassilearnerpath;
+	}
+	public static String getWekabuildattributespath()
+	{
+		return wekabuildattributespath;
+	}
+	public static void setWekabuildattributespath(String wekabuildattributespath)
+	{
+		Metrikglobalconf.wekabuildattributespath = wekabuildattributespath;
+	}
+	public static boolean isValidMasterRootpath()
+	{
+		String path=filterpath_glob;
+		File dir_f= new File(filterpath_glob+"\\WORKFLOWNAME");
+		if (dir_f.exists()==false)
+			return false;
+		else
+			return true;
+	}
+	public static boolean isValidSubRootpath()
+	{
+		if(isValidMasterRootpath()==true)
+			return false;
+		
+		
+		String path=filterpath_glob;
+		File dir_f= new File(filterpath_glob+"\\_0_dir");
+		if (dir_f.exists()==true)
+			return true;
+		else
+			return false;
 	}
 }

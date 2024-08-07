@@ -1,7 +1,5 @@
 package WekaTools;
 
-import java.util.ArrayList;
-
 import weka.classifiers.Evaluation;
 
 public class WekaResultElem

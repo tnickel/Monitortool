@@ -50,7 +50,7 @@ public class Filterentry
 	{
 		this.minfilevalue = minfilevalue;
 	}
-	public float getMaxfilealue()
+	public float getMaxfilevalue()
 	{
 		return maxfilealue;
 	}

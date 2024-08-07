@@ -10,21 +10,27 @@ public class Metrikzeile
 {
 	// die Filterklasse behinhaltet die Attribute
 	// hier wird nur eine Zeile der Metriktabelle zurückgeliefert
+	// Eine MetrikZeile sieht so aus:
+	//"Strategy 2.2.82";"PASSED";"0.36";"62.36";"0.36";"0.0"
 	private String filename_glob = null;
 	// filtertype =0 => filter, filtertype=1 dann endtest
 	int filtertype = 0;
 	//hier sind die zeilen der matrix abgebildet
-	private ArrayList<Metrikentry> examplezeile = new ArrayList<Metrikentry>();
+	private ArrayList<Metrikentry> metrikzeile_glob = new ArrayList<Metrikentry>();
 	//hier sind die Namen der Attribute drin
 	private ArrayList<String> attributlistNames = new ArrayList<String>();
 
 	public Metrikzeile()
 	{
 	}
-
+	public String getStrategiename()
+	{
+		String stratname=metrikzeile_glob.get(0).getValue();
+		return stratname;
+	}
 	public int  getLength()
 	{
-		return examplezeile.size();
+		return metrikzeile_glob.size();
 	}
 	
 	public int getAttributanz()
@@ -32,25 +38,61 @@ public class Metrikzeile
 		return(attributlistNames.size());
 		
 	}
-	public String getAllAttributsNamesAsString(String delimiter)
+	public void deleteMetricEntry(String attribname)
 	{
-		//holt alle attriute in einen string aus der metrikzeile
 		int n=attributlistNames.size();
-		String outzeile="";
 		for(int i=0; i<n; i++)
 		{
-			outzeile=outzeile+attributlistNames.get(i)+delimiter;
+			//wir müssen sicherstellen das attributename kein komma drin hat
+			String attrib=attributlistNames.get(i);
+			if(attrib.equals(attribname))
+			{
+				attributlistNames.remove(i);
+				metrikzeile_glob.remove(i);
+			}
+			
 		}
-		return outzeile;
+		
 	}
-	public String getAllAttributsValuesAsString(String delimiter)
+	public String getAllAttributsNamesAsString(String delimiter,int extension,Boolean withstratname)
+	{
+		//merken xxxx hier findet die ersetzung statt
+		//holt alle attriute in einen string aus der metrikzeile
+		//was ist extension=exsetzung also z.B. @extension @1
+		//withstratname=falls gewünscht wird die zeile incl. namen geholt.
+		int n=attributlistNames.size();
+		int startindex=0;
+		String outzeile="";
+		if(withstratname==true)
+			startindex=0;
+		else
+			startindex=1;
+			
+		
+		for(int i=startindex; i<n; i++)
+		{
+			//wir müssen sicherstellen das attributename kein komma drin hat
+			String attribname=attributlistNames.get(i).replace(",", "_");
+			
+			outzeile=outzeile+attribname+String.valueOf(extension)+delimiter;
+			outzeile=outzeile.replace(" ", "_");
+		}
+		return outzeile.replace("%", "proz");
+	}
+	public String getAllAttributsValuesAsString(String delimiter,Boolean withstratname)
 	{
 		//holt alle attriute-values aus der metrikzeile und baue hieraus einen string.
 		int n=attributlistNames.size();
 		String outzeile="";
-		for(int i=0; i<n; i++)
+		int startindex=0;
+		
+		if(withstratname==true)
+			startindex=0;
+		else
+			startindex=1;
+		for(int i=startindex; i<n; i++)
 		{
-			Metrikentry me=examplezeile.get(i);
+			Metrikentry me=metrikzeile_glob.get(i);
 			outzeile=outzeile+me.getValue()+delimiter;
 		}
 		return outzeile;
@@ -62,7 +104,7 @@ public class Metrikzeile
 		String outzeile="";
 		for(int i=0; i<n; i++)
 		{
-			Metrikentry me=examplezeile.get(i);
+			Metrikentry me=metrikzeile_glob.get(i);
 			if(me.getAttributName().toLowerCase().equals(attribname.toLowerCase()))
 			  return me.getValue();
 		}
@@ -118,15 +160,15 @@ public class Metrikzeile
 			metrikentry.setAttributName(attributlistNames.get(i));
 			metrikzeile.add(metrikentry);
 		}
-		examplezeile=metrikzeile;
+		metrikzeile_glob=metrikzeile;
 	}
 
 	public Metrikentry holeMetrikentry_dep(String attribut)
 	{
-		int anz = examplezeile.size();
+		int anz = metrikzeile_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
-			Metrikentry me = examplezeile.get(i);
+			Metrikentry me = metrikzeile_glob.get(i);
 			if (me.getAttributName().equals(attribut))
 				return me;
 		}
@@ -151,12 +193,12 @@ public class Metrikzeile
 
 	public Metrikentry holeEntry(int pos)
 	{
-		return (examplezeile.get(pos));
+		return (metrikzeile_glob.get(pos));
 	}
 	public String holeStratName()
 	{
 		// Der Strategiename kommt an position 0
-		Metrikentry me=examplezeile.get(0);
+		Metrikentry me=metrikzeile_glob.get(0);
 		me.getValue();
 		return(me.getValue());
 	}

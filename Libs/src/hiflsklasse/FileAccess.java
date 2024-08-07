@@ -907,7 +907,7 @@ public class FileAccess
 		File[] files = dir.listFiles();
 		if (files != null)
 		{
-			for (int i = 1; i < files.length; i++)
+			for (int i = 0; i < files.length; i++)
 			{
 				File fnam = files[i];
 				if (fnam.getPath().endsWith(postfix))

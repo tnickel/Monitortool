@@ -20,11 +20,11 @@ public class WekaModelTesterSimple {
         String dataPath = "C:/forex/Metrikanalyser/AR/Q105 EURUSD H1 v1.41 org 11-15/Q105 EURUSD H1 v1.41 org 11-15_--00336/exported_for_weka.csv";
 
         // Lade das Modell
-        System.out.println("Loading model from: " + modelPath);
+        //System.out.println("Loading model from: " + modelPath);
         RandomForest forest = (RandomForest) SerializationHelper.read(modelPath);
 
         // Lade die neuen Daten von der CSV-Datei
-        System.out.println("Loading new data from: " + dataPath);
+        //System.out.println("Loading new data from: " + dataPath);
         CSVLoader loader = new CSVLoader();
         loader.setSource(new File(dataPath));
         Instances newData = loader.getDataSet();

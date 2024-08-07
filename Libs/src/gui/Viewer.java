@@ -69,9 +69,6 @@ public class Viewer extends SwtTools
 		table.setHeaderVisible(true);
 		
 		
-		
-		
-		
 		String[] titles = null;
 		
 		if (kopfzeile_glob == null)

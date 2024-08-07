@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Metriklibs.Corelresultelem;
-import Metriklibs.Corelresultliste;
-import Metriklibs.DatabankExportTable;
+import Metriklibs.Corresultliste;
+import Metriklibs.Metriktabelle;
 import Metriklibs.Metriktabellen;
 
 public class CorrelationPearsonChatGpt
@@ -50,17 +50,17 @@ public class CorrelationPearsonChatGpt
 	
 	
 	
-	public static Corelresultliste CalcPersonCorelOnlyOneTable(Metriktabellen met, int index,String endtestattribname)
+	public static Corresultliste CalcPersonCorelOnlyOneTable(Metriktabellen met, int index,String endtestattribname)
 	{
 		//endtestatrribname="Net profit (OOS)"
-		DatabankExportTable endtable = met.holeEndtestMetriktable();
+		Metriktabelle endtable = met.holeEndtestMetriktable();
 		// die profits holen
 		double[] profits = endtable.calcAttribvektor(endtestattribname);
 		double[][] attributes = met.holeAttributes(index);
 		
 		
-		DatabankExportTable met1 = met.holeNummerI(index);
-		Corelresultliste ci = new Corelresultliste();
+		Metriktabelle met1 = met.holeNummerI(index);
+		Corresultliste ci = new Corresultliste();
 		
 		// Calculate Pearson correlation coefficients, in der correlationslist werde die 
 		//Ergebnisse gespeichert, die liste enthält attribute und und den

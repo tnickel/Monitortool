@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import data.CorelSetting;
 import hiflsklasse.Inf;
+import hiflsklasse.Tracer;
 
 public class Filterfile
 {
@@ -17,6 +18,17 @@ public class Filterfile
 	// data//analyse1//_1_name//<name>.filter
 	// ein Filterzeitraum ist eine Liste von Filterelementen. Ein Filterelement ist
 	// eine Metrik mit schranken
+	// Ein filterfile sieht so aus.
+	// Attribut minMalue Maxvalue Minfilevalue Maxfilevalue #Steps aktMinValue
+	// aktMaxValue optflag *Infozeile*
+	// Strategy Name 0.0 0.0 0.0 0.0 10 0.0 0.0 0
+	// Filters result 0.0 1.0 0.0 1.0 10 0.0 1.0 0
+	// AHPR (IS) -0.22 14.95 -0.22 14.95 10 -0.22 14.95 0
+	// Actual Drawdown / Max DD (IS) 32.24 100.0 32.24 100.0 10 32.24 100.0 0
+	// Annual % Return (IS) -0.22 14.95 -0.22 14.95 10 -0.22 14.95 0
+	// Net profit (OOS) 0.0 0.0 0.0 0.0 10 0.0 0.0 0
+	// _______________________________
+	
 	private ArrayList<Filterentry> filterzeitraum = new ArrayList<Filterentry>();
 	// Dies ist der Filename des Filters
 	private String filename_glob = null;
@@ -41,7 +53,7 @@ public class Filterfile
 		String fname = filename_glob.replace(".csv", ".filter");
 		Inf inf = new Inf();
 		inf.setFilename(fname);
-		
+		Tracer.WriteTrace(50, "D:Read Filter<" + fname + ">");
 		while (5 == 5)
 		{
 			String zeile = inf.readZeile();
@@ -112,7 +124,7 @@ public class Filterfile
 			countanzmodifications++;
 			int anzsteps = fi.getAnzSteps();
 			float minfilevalue = fi.getMinfilevalue();
-			float maxfilevalue = fi.getMaxfilealue();
+			float maxfilevalue = fi.getMaxfilevalue();
 			
 			// falls minfile oder maxfilevalue=0, dann wird hier nicht optimiert
 			if ((minfilevalue == 0) || (maxfilevalue == 0))
@@ -123,7 +135,7 @@ public class Filterfile
 			int intran_high = (ran.nextInt(anzsteps)) / 2;
 			// stepsize
 			float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
-
+			
 			float offset1 = (float) intran_low * stepsize;
 			float offset2 = (float) intran_high * stepsize;
 			float offset_low = 0, offset_high = 0;
@@ -150,6 +162,7 @@ public class Filterfile
 		 * );
 		 */
 	}
+	
 	public void modifyAllAttribRandom2(boolean useonlyselectedmetrics)
 	{
 		
@@ -160,16 +173,16 @@ public class Filterfile
 		
 		// gehe hier durch die einzelnen attribute
 		
-		//bestimme anzModifikationen diese ist 1... bis anzFilter;
-		int anzModifications=Integer.valueOf((ran.nextInt(anzFilter)+1)/2);
-		Set<Integer> modmenge = new HashSet<>();  
-		for(int i=0; i<anzModifications; i++)
+		// bestimme anzModifikationen diese ist 1... bis anzFilter;
+		int anzModifications = Integer.valueOf((ran.nextInt(anzFilter) + 1) / 2);
+		Set<Integer> modmenge = new HashSet<>();
+		for (int i = 0; i < anzModifications; i++)
 		{
-			//wähle einen filter aus, mache nicht so viele änderungen nur die hälfte der filter werden maximal geändert
-			int r=ran.nextInt(anzFilter);
+			// wähle einen filter aus, mache nicht so viele änderungen nur die hälfte der
+			// filter werden maximal geändert
+			int r = ran.nextInt(anzFilter);
 			modmenge.add(r);
 		}
-		
 		
 		for (int i = 0; i < anzFilter; i++)
 		{
@@ -180,15 +193,15 @@ public class Filterfile
 			if (useonlyselectedmetrics == true)
 				if (fi.getOptflag() == 0)
 					continue;
-			
-			//ändere nur die filter die geändert werden sollen
-			if(modmenge.contains(i)==false)
+				
+			// ändere nur die filter die geändert werden sollen
+			if (modmenge.contains(i) == false)
 				continue;
 			
 			countanzmodifications++;
 			int anzsteps = fi.getAnzSteps();
 			float minfilevalue = fi.getMinfilevalue();
-			float maxfilevalue = fi.getMaxfilealue();
+			float maxfilevalue = fi.getMaxfilevalue();
 			
 			// falls minfile oder maxfilevalue=0, dann wird hier nicht optimiert
 			if ((minfilevalue == 0) || (maxfilevalue == 0))
@@ -199,7 +212,7 @@ public class Filterfile
 			int intran_high = (ran.nextInt(anzsteps)) / 2;
 			// stepsize
 			float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
-
+			
 			float offset1 = (float) intran_low * stepsize;
 			float offset2 = (float) intran_high * stepsize;
 			float offset_low = 0, offset_high = 0;
@@ -218,6 +231,7 @@ public class Filterfile
 		}
 		
 	}
+	
 	public void modifyAllAttribRandomPlus(boolean useonlyselectedmetrics)
 	{
 		// die schranken werden zufällig verkleinert oder vergrössert
@@ -239,7 +253,7 @@ public class Filterfile
 				
 			int anzsteps = fi.getAnzSteps();
 			float minfilevalue = fi.getMinfilevalue();
-			float maxfilevalue = fi.getMaxfilealue();
+			float maxfilevalue = fi.getMaxfilevalue();
 			
 			float aktminvalue = fi.getAktMinValue();
 			float aktmaxvalue = fi.getAktMaxValue();
@@ -287,81 +301,87 @@ public class Filterfile
 		}
 	}
 	
-	public void modifySchrankePersonCorel(int filterindex, CorelSetting corelsetting, boolean useonlyselectedmetrics)
-	{
-		// die schranken werden zufällig abgeändert
-		// filterindex=i dies ist z.B. _1__dir
-		//
-		int attribanzahl = filterzeitraum.size();
-		Random ran = new Random();
-		
-		// gehe hier durch die einzelnen attribute
-		for (int i = 0; i < attribanzahl; i++)
-		{
-			
-			// gehe durch die einzelnen attribute
-			Filterentry fi = filterzeitraum.get(i);
-			String attrib = fi.getAttribut();
-			
-			// nur wenn das optflag gesetzt ist darf was optimiert werden
-			if (useonlyselectedmetrics == true)
-				if (fi.getOptflag() == 0)
-					continue;
-					
-			// jedes Attribut hat einen correlationswert, wir brauchen diesen Wert da wir
-			// nur Attribute ändern dürfen die
-			// aussreichende korrelationswerte aufweisen. Attribute die zu niedrig
-			// korreliert sind wollen wir nicht beachten.
-			float corelval = Correlator2.holeAttribCorel(filterindex, attrib);
-			
-			// dann überlege ob dieser Wert überhaupt verändert wird
-			// je höher die correlation desto grösser ist die wkeit das hier geändert wird
-			if (checkcorelschranke(corelval, corelsetting) == false)
-			{
-				fi.setOptflag(0);
-				continue;
-			}
-			
-			int anzsteps = corelsetting.getAnzSteps();// steps werden auf 100 festgesetzt fi.getAnzSteps();
-			
-			// filevalue=akt schranke
-			float minfilevalue = fi.getMinfilevalue();
-			float maxfilevalue = fi.getMaxfilealue();
-			// zufallszahl
-			int intran_low = (ran.nextInt(anzsteps)) / 2;
-			int intran_high = (ran.nextInt(anzsteps)) / 2;
-			// stepsize
-			float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
-			float offset1 = (float) intran_low * stepsize;
-			float offset2 = (float) intran_high * stepsize;
-			float offset_low = 0, offset_high = 0;
-			if (offset1 < offset2)
-			{
-				offset_low = offset1;
-				offset_high = offset2;
-			} else
-			{
-				offset_low = offset2;
-				offset_high = offset1;
-			}
-			// die schranken von oben und unten entsprechend anpassen
-			/*
-			 * System.out.println("filname<" + filename_glob + "> min<" + (minfilevalue +
-			 * offset_low) + "> max<" + (maxfilevalue - offset_high) + ">");
-			 */
-			fi.setAktMinValue(minfilevalue + offset_low);
-			fi.setAktMaxValue(maxfilevalue - offset_high);
-			fi.setOptflag(1);
-		}
+	public void modifySchrankePersonCorel(int filterindex, CorelSetting corelsetting, boolean useonlyselectedmetrics) {
+	    int attribanzahl = filterzeitraum.size();
+	    Random ran = new Random();
+
+	   
+
+	    // Gehe hier durch die einzelnen Attribute
+	    for (int i = 0; i < attribanzahl; i++) {
+	        // Gehe durch die einzelnen Attribute
+	        Filterentry fi = filterzeitraum.get(i);
+	        String attrib = fi.getAttribut();
+
+	        // Nur wenn das Optflag gesetzt ist, darf etwas optimiert werden
+	        if (useonlyselectedmetrics) {
+	            if (fi.getOptflag() == 0) {
+	                continue;
+	            }
+	        }
+
+	        // Jedes Attribut hat einen Korrelationswert, wir brauchen diesen Wert, da wir
+	        // nur Attribute ändern dürfen, die
+	        // ausreichende Korrelationswerte aufweisen. Attribute, die zu niedrig
+	        // korreliert sind, wollen wir nicht beachten.
+	        float corelval;
+	        try {
+	            corelval = Correlator2.holeAttribCorel(filterindex, attrib);
+	        } catch (IndexOutOfBoundsException e) {
+	            // Handle the exception if filterindex or attrib are out of bounds
+	            System.err.println("IndexOutOfBoundsException: " + e.getMessage());
+	            continue;
+	        }
+
+	        // Dann überlege, ob dieser Wert überhaupt verändert wird
+	        // Je höher die Korrelation, desto größer ist die Wahrscheinlichkeit, dass hier geändert wird
+	        if (!checkcorelschranke(corelval, corelsetting)) {
+	            fi.setOptflag(0);
+	            continue;
+	        }
+
+	        int anzsteps = corelsetting.getAnzSteps(); // Steps werden auf 100 festgesetzt fi.getAnzSteps();
+
+	        // Filevalue = akt Schranke
+	        float minfilevalue = fi.getMinfilevalue();
+	        float maxfilevalue = fi.getMaxfilevalue(); // Korrigierter Methodenname
+
+	        // Falls minfile oder maxfilevalue = 0, dann wird hier nicht optimiert
+	        if (minfilevalue == 0 || maxfilevalue == 0) {
+	            continue;
+	        }
+
+	        // Zufallszahl
+	        int intran_low = ran.nextInt(anzsteps) / 2;
+	        int intran_high = ran.nextInt(anzsteps) / 2;
+	        // Stepsize
+	        float stepsize = Math.abs(maxfilevalue - minfilevalue) / anzsteps;
+
+	        float offset1 = intran_low * stepsize;
+	        float offset2 = intran_high * stepsize;
+	        float offset_low = 0, offset_high = 0;
+	        if (offset1 < offset2) {
+	            offset_low = offset1;
+	            offset_high = offset2;
+	        } else {
+	            offset_low = offset2;
+	            offset_high = offset1;
+	        }
+
+	        // Die Schranken von oben und unten entsprechend anpassen
+	        fi.setAktMinValue(minfilevalue + offset_low);
+	        fi.setAktMaxValue(maxfilevalue - offset_high);
+	        fi.setOptflag(1);
+	    }
 	}
-	
+
 	private Boolean checkcorelschranke(float corelval, CorelSetting corelsetting)
 	{
 		// corelval: ist der korrelationswert, je höher, desto höher ist die wkeit das
 		// true zürückgeliefert wird
 		
 		// wenn korrelationswert zu gering dann wird nix geändert
-		//wir nehmen auch negative Korrelationswerte
+		// wir nehmen auch negative Korrelationswerte
 		if (Math.abs(corelval) < corelsetting.getMinCorelLevel())
 			return false;
 			
@@ -447,7 +467,7 @@ public class Filterfile
 		{
 			Filterentry fi = filterzeitraum.get(i);
 			inf.writezeile(fi.getAttribut() + "\t" + fi.getAktMinValue() + "\t" + fi.getAktMaxValue() + "\t"
-					+ fi.getMinfilevalue() + "\t" + fi.getMaxfilealue() + "\t" + fi.getAnzSteps() + "\t"
+					+ fi.getMinfilevalue() + "\t" + fi.getMaxfilevalue() + "\t" + fi.getAnzSteps() + "\t"
 					+ fi.getAktMinValue() + "\t" + fi.getAktMaxValue() + "\t" + fi.getOptflag());
 		}
 		
@@ -455,10 +475,10 @@ public class Filterfile
 		for (int i = 0; i < anz; i++)
 		{
 			Filterentry fi = filterzeitraum.get(i);
-			if ((fi.getAktMinValue() == fi.getMinfilevalue()) && (fi.getAktMaxValue() == fi.getMaxfilealue()))
+			if ((fi.getAktMinValue() == fi.getMinfilevalue()) && (fi.getAktMaxValue() == fi.getMaxfilevalue()))
 				marker = "";
 			else
-				marker = "\t\tvalue modified original range =  " + fi.getMinfilevalue() + "---" + fi.getMaxfilealue();
+				marker = "\t\tvalue modified original range =  " + fi.getMinfilevalue() + "---" + fi.getMaxfilevalue();
 			
 			inf.writezeile(
 					fi.getAktMinValue() + " < " + fi.getAttribut() + " < " + fi.getAktMaxValue() + "  " + marker);

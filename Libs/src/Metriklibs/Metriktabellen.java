@@ -13,22 +13,22 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	// Eine Metriktabelle besteht aus Metrikzeilen
 	// Metrikzeilen: Dies wird aus den Filterfiles von Platte generiert
 	// Filterzeiträume:
-	private ArrayList<DatabankExportTable> metriktabellen = new ArrayList<DatabankExportTable>();
+	private ArrayList<Metriktabelle> metriktabellen_glob = new ArrayList<Metriktabelle>();
 	
 	public int getAnzMetriktabellen()
 	{
-		return metriktabellen.size();
+		return metriktabellen_glob.size();
 	}
 	
 	public int getAnzFilter()
 	{
-		return metriktabellen.size() - 1;
+		return metriktabellen_glob.size() - 1;
 	}
 	
 	public void readAllTabellen(StrategieMengen msel, String rpath)
 	{
 		// liest alle Metriktabellen ein
-		metriktabellen = new ArrayList<DatabankExportTable>();
+		metriktabellen_glob = new ArrayList<Metriktabelle>();
 		
 		if (rpath == null)
 			Tracer.WriteTrace(10, "E: please set configpath in File/config");
@@ -39,22 +39,23 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		FileAccessDyn fdirs = new FileAccessDyn();
 		fdirs.initFileSystemList(rpath, 0);
 		
+		//alle Tabellen einlesen
 		int anz = fdirs.holeFileAnz();
 		for (int i = 0; i < anz; i++)
 		{
 			String dirnam = rpath + "\\" + fdirs.holeFileSystemName();
-			DatabankExportTable mettabelle = new DatabankExportTable();
+			Metriktabelle mettabelle = new Metriktabelle();
 			
 			// Die Tabellen einlesen
 			mettabelle.readExportedTable(msel, dirnam);
 			
 			// die eingelesene tabelle in der gesammtliste speichern
-			metriktabellen.add(mettabelle);
-			// System.out.println("Read table i="+i+" <"+dirnam+"> ready");
+			metriktabellen_glob.add(mettabelle);
+			Tracer.WriteTrace(50,"Read table i="+i+" <"+dirnam+"> ready");
 		}
 	}
 	
-	public void exportAllAttributesForWeka(String exportfile, int maxstrategies, boolean makebinary, String workdir)
+	public void exportAllAttributesForWeka(String exportfile, int maxstrategies,  String workdir)
 	{
 		// wir brauchen hier tabelle 0 und tabelle 99. Wir brauchen hier alle werte aus
 		// Tabelle 0 und den NetProfit OOS aus der Tabelle 99
@@ -64,6 +65,10 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// if makebinary==1 dann converiere weka_endtest to 1 falls wert >0, ansonsten
 		// =0
 		// rpath=
+		//wir dürfen max 100 databankExport.csv haben
+		//goodattribs: Wenn die attribliste !=null dann dürfen nur attribute exportiert werden die in der Attribliste sind.
+		//Die attribliste beinhaltet die teilmenge der Attribute die mit höchster korrelation und vorkommen aus der Megaliste über alle workflows
+		Metriktabelle[] databankExportTable = new Metriktabelle[100];
 		
 		String ostring = "";
 		Inf inf = new Inf();
@@ -75,62 +80,74 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 				Tracer.WriteTrace(10, "E:can´t delete file <" + outfile + ">--> stop3");
 			
 		// aus diesen Tabellen holen wir die atrribute und values.
-		int anzTabellen = metriktabellen.size();
+		int anzTabellen = metriktabellen_glob.size();
 		
-		// Wir brauchen die erste und letzte Tabelle
-		DatabankExportTable tabelle1 = metriktabellen.get(0);
-		DatabankExportTable tabelle99 = metriktabellen.get(anzTabellen - 1);
+		// Wir brauchen die tablle auf und nehmen die letzte noch hinzu
+		for(int i=1; i<=anzTabellen-1; i++)
+		{
+			databankExportTable[i]=metriktabellen_glob.get(i-1);
+		}
+		databankExportTable[99]=metriktabellen_glob.get(anzTabellen - 1);
+		
 		
 		// in der ersten und letzten Tabelle müssen gleich viele Strategien drin sein.
-		int anz1 = tabelle1.getAnz();
-		int anz2 = tabelle99.getAnz();
+		int anz1 = databankExportTable[1].getAnz();
+		int anz2 = databankExportTable[99].getAnz();
 		if (anz1 != anz2)
-			Tracer.WriteTrace(10, "E: error plausicheck table1 #Strategies<" + anz1
+			Tracer.WriteTrace(20, "E: error plausicheck table1 #Strategies<" + anz1
 					+ "> should have same number as table99<" + anz2 + "> workdir<" + workdir + ">-->STOP");
 		
-		// plausicheck #antributes
-		anz1 = tabelle1.getAttribAnz();
-		anz2 = tabelle99.getAttribAnz();
-		if (anz2 != anz1)
-			Tracer.WriteTrace(10, "E: error plausicheck table1 #attibs<" + anz1
-					+ "> should have same number as table99<" + anz2 + "> workdir<" + workdir + "> ->STOP");
 		
-		int anztab1 = tabelle1.getAnz();
-		for (int i = 0; i < anztab1; i++)
+		
+		int anzZeilen = databankExportTable[1].getAnz();
+		for (int i = 0; i < anzZeilen; i++)
 		{
 			
 			// hole alle zeilen aus tabelle1
-			Metrikzeile mez1 = tabelle1.holeMetrikzeilePosI(i);
+			Metrikzeile mez1 = databankExportTable[1].holeMetrikzeilePosI(i);
 			String stratname = mez1.holeStratName();
 			
 			// aus dieser metrikzeile brauchen wir nur NetProfit OOS,dazu holen wir uns erst
 			// mal die ganze Zeile.
-			Metrikzeile mez99 = tabelle99.holeMetrikzeile(stratname);
+			Metrikzeile mez99 = databankExportTable[99].getMetrikzeile(stratname);
 			
 			// jetzt werden die daten für das schreiben aufbereitet, die kopfzeile muss nur
 			// einmal geschrieben werden.
 			if (i == 0)
 			{// die kopfzeile wird nur einmal geschrieben
-				ostring = mez1.getAllAttributsNamesAsString(",") + "Weka Endtest";
+				ostring="Strategy_Name,";
+				for(int j=1; j<anzTabellen; j++)
+				{
+					
+					Metrikzeile mezi = databankExportTable[j].holeMetrikzeilePosI(i);
+										
+					//hier wird die j-te tabelle ausgelesen, am anfang ist der name string. für den header brauchen wir den namestring nicht.
+					ostring=ostring+ mezi.getAllAttributsNamesAsString(",",j,false);
+				}	
+				ostring=ostring+"Weka Endtest";
 				inf.writezeile(ostring);
 			}
-			
-			if (makebinary == false)
+			ostring="";
+			String firstname="";
+			for(int j=1; j<anzTabellen; j++)
 			{
-				ostring = mez1.getAllAttributsValuesAsString(",")
-						+ mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
-			} else
-			{
-				String valstr = "";
-				float val = Float.valueOf(mez99.getSpecificAttributValueAsString("Net Profit (OOS)"));
-				if (val > 0)
-					valstr = "1";
-				else
-					valstr = "0";
+				if(j==1)
+					firstname=databankExportTable[j].holeMetrikzeilePosI(i).getStrategiename();
 				
-				ostring = mez1.getAllAttributsValuesAsString(",") + valstr;
+				
+				//wir müssen hier noch prüfen ob der Namestring gleich ist, wir wollen ja nicht alles vermischen.
+				//in den internen datenstrukturen sollten die tabellen gleich sortiert sein
+				
+				String nextname=databankExportTable[j].holeMetrikzeilePosI(i).getStrategiename();
+				
+				if(firstname.equals(nextname)==false)
+					Tracer.WriteTrace(10, "E: datatables are not sorted names not equal <"+firstname+"> != <"+nextname+">");
+				
+				ostring = ostring+databankExportTable[j].holeMetrikzeilePosI(i).getAllAttributsValuesAsString(",",false);
+						
 			}
-			inf.writezeile(ostring);
+			ostring=ostring+mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+			inf.writezeile(firstname+","+ostring);
 			
 			if (maxstrategies != 0)
 				if (i >= maxstrategies - 1)
@@ -139,13 +156,13 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		inf.close();
 	}
 	
-	public DatabankExportTable holeNummerI(int j)
+	public Metriktabelle holeNummerI(int j)
 	{
 		// holt die Metriktabelle mit der nummer i aus der internen datenstruktur
-		int anz = metriktabellen.size();
+		int anz = metriktabellen_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
-			DatabankExportTable met = metriktabellen.get(i);
+			Metriktabelle met = metriktabellen_glob.get(i);
 			String fname = met.holeFilename();
 			if (fname.contains("_" + j + "_"))
 				return (met);
@@ -163,10 +180,10 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		int anz = getAnzMetriktabellen();
 		for (int i = 0; i < anz; i++)
 		{
-			Filterfile filt = metriktabellen.get(i).calcFilterzeitraum();
+			Filterfile filt = metriktabellen_glob.get(i).calcFilterzeitraum();
 			filterfiles.add(filt);
 			if (i % 1000 == 0)
-				System.out.println("get Filtzeitraum i=" + i);
+				Tracer.WriteTrace(50, "get Filtzeitraum i=" + i);
 		}
 		return;
 	}
@@ -174,19 +191,19 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	public String getFilename(int j)
 	{
 		// holt den Filenamen der Metriktabelle j
-		return (metriktabellen.get(j).holeFilename());
+		return (metriktabellen_glob.get(j).holeFilename());
 	}
 	
 	public ArrayList<Stratelem> buildStratliste(StrategieMengen stratsel)
 	{
 		// die Strategielist wird aus den Metriken von verz _0_ erzeugt
-		return (metriktabellen.get(0).buildStratliste(stratsel));
+		return (metriktabellen_glob.get(0).buildStratliste(stratsel));
 	}
 	
 	public ArrayList<Stratelem> buildAllStratliste()
 	{
 		// die Strategielist wird aus den Metriken von verz _0_ erzeugt
-		return (metriktabellen.get(0).buildAllStratliste());
+		return (metriktabellen_glob.get(0).buildAllStratliste());
 	}
 	
 	public int calcanzFilter()
@@ -211,10 +228,10 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	{
 		// tabellenname muss _1_xxx enthalten
 		// prüft ob tabelle nr j in der Tabellenmenge vorhanden ist
-		int anztesttabellen = metriktabellen.size();
+		int anztesttabellen = metriktabellen_glob.size();
 		for (int i = 0; i < anztesttabellen; i++)
 		{
-			DatabankExportTable met = metriktabellen.get(i);
+			Metriktabelle met = metriktabellen_glob.get(i);
 			String fname = met.holeFilename();
 			if (fname.contains("_" + j + "_") == true)
 				return true;
@@ -230,9 +247,9 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// zeile1=attributesvalues für das attribut 1
 		// die Tabelle muss erst mal sauber sein, sonst können wir nicht weitermahen !!
 		
-		int anz = metriktabellen.size();
+		int anz = metriktabellen_glob.size();
 		// wir betrachten hier nur die erste Tabelle
-		DatabankExportTable mettab = metriktabellen.get(index);
+		Metriktabelle mettab = metriktabellen_glob.get(index);
 		int anzzeilen = mettab.getAnz();
 		int anzattribs = mettab.getAttribAnz();
 		
@@ -263,19 +280,19 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	public int holeAnzAttributes(int metriktabelleindex)
 	{
 		// gibt die anzahl der attribute zurück die in der metriktabelle sind
-		DatabankExportTable mettab = metriktabellen.get(metriktabelleindex);
+		Metriktabelle mettab = metriktabellen_glob.get(metriktabelleindex);
 		return (mettab.getAttribAnz());
 		
 	}
 	
-	public DatabankExportTable holeEndtestMetriktable()
+	public Metriktabelle holeEndtestMetriktable()
 	{
 		// erst mal die endtabelle suchen und zurückliefern
-		int anz = metriktabellen.size();
+		int anz = metriktabellen_glob.size();
 		for (int i = 0; i < anz; i++)
 		{
 			String fname = null;
-			DatabankExportTable mettab = metriktabellen.get(i);
+			Metriktabelle mettab = metriktabellen_glob.get(i);
 			fname = mettab.holeFilename();
 			if (fname.contains("_99_") == true)
 				return mettab;
@@ -291,9 +308,9 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// holt für den Stratnamen den endtest aus den tabellen
 		
 		// hole die endtabelle
-		DatabankExportTable endtabelle = holeEndtestMetriktable();
+		Metriktabelle endtabelle = holeEndtestMetriktable();
 		// hole die passende endzeile
-		Metrikzeile mz = endtabelle.holeMetrikzeile(stratname);
+		Metrikzeile mz = endtabelle.getMetrikzeile(stratname);
 		
 		float val = 0, val2 = 0;
 		if (endfitfilter.isNettoflag())
@@ -329,7 +346,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	public String holeEndtestFilnamen()
 	{
 		// holt den Filenamen der Endtesttabelle aus der Datenstruktur
-		DatabankExportTable endtabelle = holeEndtestMetriktable();
+		Metriktabelle endtabelle = holeEndtestMetriktable();
 		String fnam = endtabelle.holeFilename().replace(".csv", ".result");
 		return fnam;
 	}

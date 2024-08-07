@@ -40,6 +40,8 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 	private Text tabellenrootverzeichnis;
 	private Label label3;
 	private Text minstratportfolio;
+	private Label label6;
+	private Text text1dirncount;
 	private Label label5;
 	private Label label4;
 	private Button button2autogenverzeichnisse;
@@ -109,14 +111,34 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 		try {
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
-			this.setSize(792, 419);
+			this.setSize(792, 455);
+			{
+				label6 = new Label(this, SWT.NONE);
+				FormData label6LData = new FormData();
+				label6LData.left =  new FormAttachment(0, 1000, 45);
+				label6LData.top =  new FormAttachment(0, 1000, 367);
+				label6LData.width = 40;
+				label6LData.height = 16;
+				label6.setLayoutData(label6LData);
+				label6.setText("# _x_dir");
+			}
+			{
+				text1dirncount = new Text(this, SWT.NONE);
+				FormData text1dirncountLData = new FormData();
+				text1dirncountLData.left =  new FormAttachment(0, 1000, 20);
+				text1dirncountLData.top =  new FormAttachment(0, 1000, 367);
+				text1dirncountLData.width = 13;
+				text1dirncountLData.height = 16;
+				text1dirncount.setLayoutData(text1dirncountLData);
+				text1dirncount.setText("1");
+			}
 			{
 				label5 = new Label(this, SWT.NONE);
 				FormData label5LData = new FormData();
 				label5LData.left =  new FormAttachment(0, 1000, 20);
-				label5LData.top =  new FormAttachment(0, 1000, 314);
+				label5LData.top =  new FormAttachment(0, 1000, 305);
 				label5LData.width = 464;
-				label5LData.height = 16;
+				label5LData.height = 26;
 				label5.setLayoutData(label5LData);
 				label5.setText("Configure here the directory where the generated workflows are stored in 2Generator....");
 			}
@@ -124,7 +146,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 				label4 = new Label(this, SWT.NONE);
 				FormData label4LData = new FormData();
 				label4LData.left =  new FormAttachment(0, 1000, 20);
-				label4LData.top =  new FormAttachment(0, 1000, 386);
+				label4LData.top =  new FormAttachment(0, 1000, 398);
 				label4LData.width = 314;
 				label4LData.height = 16;
 				label4.setLayoutData(label4LData);
@@ -133,9 +155,9 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 			{
 				button2autogenverzeichnisse = new Button(this, SWT.PUSH | SWT.CENTER);
 				FormData button2autogenverzeichnisseLData = new FormData();
-				button2autogenverzeichnisseLData.left =  new FormAttachment(0, 1000, 20);
+				button2autogenverzeichnisseLData.left =  new FormAttachment(0, 1000, 123);
 				button2autogenverzeichnisseLData.top =  new FormAttachment(0, 1000, 365);
-				button2autogenverzeichnisseLData.width = 417;
+				button2autogenverzeichnisseLData.width = 314;
 				button2autogenverzeichnisseLData.height = 21;
 				button2autogenverzeichnisse.setLayoutData(button2autogenverzeichnisseLData);
 				button2autogenverzeichnisse.setText("AutoGenDirectorys");
@@ -272,7 +294,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 				styledText1LData.left =  new FormAttachment(0, 1000, 20);
 				styledText1LData.top =  new FormAttachment(0, 1000, 142);
 				styledText1LData.width = 498;
-				styledText1LData.height = 143;
+				styledText1LData.height = 125;
 				styledText1.setLayoutData(styledText1LData);
 				styledText1.setText("Info:\r\nthe rootdirectory is the directory with the strategies I want to analyse.\r\nFor example:\r\n\r\nset \r\nc:\\Forex\\Metrikanalyser\\Analyse1\r\nas rootdirectory\r\n\r\nThe Analyse1-directory contains\r\n\r\n[_1_directory] \r\ndatabank.csv\r\n\r\n[_2_directory]\r\ndatabank.csv\r\n\r\n[_99_directory]\r\ndatabank.csv (this datafile contains the endtest)\r\n[str__all_endtestfiles] (here are the *.strfiles)\r\n[str__selected_endtestfiles]");
 				styledText1.setWordWrap(true);
@@ -377,6 +399,11 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 		if (dirnam != null)
 		{
 			Metrikglobalconf.setFilterpath(dirnam);
+			Metrikglobalconf.setWekalearndatapath(dirnam+"\\exported_for_weka.csv");
+			Metrikglobalconf.setWekalearnlearnerpath(dirnam+"\\randomForest.model");
+			Metrikglobalconf.setWekaclassidatapath(dirnam+"\\exported_for_weka.csv");
+			Metrikglobalconf.setWekaclassilearnerpath(dirnam+"\\randomForest.model");
+			Metrikglobalconf.setWekabuildattributespath(dirnam+"\\exported_for_weka.csv");
 			Metrikglobalconf.refreshHeader(dirnam);
 			tabellenrootverzeichnis.setText(dirnam);
 		}
@@ -395,7 +422,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 	private void button2autogenverzeichnisseWidgetSelected(SelectionEvent evt) {
 		System.out.println("button2autogenverzeichnisse.widgetSelected, event="+evt);
 		
-		AutoGenVerzeichnisse.GenVerzeichnisse(text1sqworkflowdir.getText());
+		AutoGenVerzeichnisse.GenVerzeichnisse(text1sqworkflowdir.getText(),Integer.valueOf(text1dirncount.getText()));
 		
 		//TODO add your code for button2autogenverzeichnisse.widgetSelected
 	}

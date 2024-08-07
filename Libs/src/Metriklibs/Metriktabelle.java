@@ -9,7 +9,7 @@ import compareLibs.ComparatorMetrikzeile;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
-public class DatabankExportTable
+public class Metriktabelle
 {
 	// dies ist die Hauptklasse die alle Tabellen für einen Testzeitraum
 	// eingelesen hat
@@ -29,7 +29,7 @@ public class DatabankExportTable
 	// jede Tabelle besitzt einen eindeutigen Filenamen
 	private String filename_glob = null;
 
-	public DatabankExportTable()
+	public Metriktabelle()
 	{
 
 	}
@@ -69,7 +69,7 @@ public class DatabankExportTable
 
 	}
 
-	public Metrikzeile holeMetrikzeile(String stratname)
+	public Metrikzeile getMetrikzeile(String stratname)
 	{
 		// den index holen
 
@@ -100,12 +100,14 @@ public class DatabankExportTable
 
 	public Metrikzeile holeMetrikzeilePosI(int i)
 	{
+		//holt die zeile i aus der Tabelle.
 		Metrikzeile met = metriktab_glob.get(i);
 		return met;
 	}
 
 	public String holeAttribname(int i)
 	{
+		//hole den Attributnamen der zeile i aus der Tabelle
 		// holt den namen des iten attributes
 		Metrikzeile met = metriktab_glob.get(0);
 		Metrikentry me = met.holeEntry(i);
@@ -118,7 +120,9 @@ public class DatabankExportTable
 		// es so eine
 		// tabelle, auch für den endtest
 		// hier wird erst nur der Zeilenkopf gelesen
-
+		// falls msel==null dann wir die strategie auf jeden fall aufgenommen
+		
+		
 		filename_glob = filename;
 		Inf inf = new Inf();
 		inf.setFilename(filename);
@@ -131,11 +135,12 @@ public class DatabankExportTable
 		// die Attribute für die Klasse setzten
 		String firstzeile = inf.readZeile().replace("\"","").replace("#","anz");
 		
+		
 		//Filter results stört nur
 		
 		Metrikzeile metzeile = new Metrikzeile();
 		metzeile.setzeAttribute(firstzeile);
-		Tracer.WriteTrace(20, "Metrikzeile header hat <"+metzeile.getAttributanz()+"> Elemente");
+		Tracer.WriteTrace(50, "Metrikzeile header hat <"+metzeile.getAttributanz()+"> Elemente");
 
 		// dann nach und nach die Metrikzeilen aus den Strings generieren und
 		// die Metriktabelle füllen
@@ -166,8 +171,7 @@ public class DatabankExportTable
 		    String stratname=metzeile.holeStratName();
 		    if(stratname==null)
 		    	break;
-		   /* if(msel==null)
-		    	break;*/
+		   
 			 if((msel!=null)&&(msel.containsName(stratname)==false))
 				continue;
 			
@@ -235,7 +239,7 @@ public class DatabankExportTable
 		
 		if (hashMapValuemappos.size() != anzvalues)
 		{
-			Tracer.WriteTrace(20, "I: baue valuemap neu auf");
+			Tracer.WriteTrace(50, "I: baue valuemap neu auf");
 			// baue die valuemap neu auf
 			for (int i = 0; i < anzvalues; i++)
 			{
@@ -542,7 +546,7 @@ public class DatabankExportTable
 			Tracer.WriteTrace(10, "E: internal this is null holeFloatwert");
 		
 		if(hashMapValuemappos.containsKey(valuename)==false)
-				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributsNamesAsString(";")+">");
+				Tracer.WriteTrace(10, "value<"+valuename+"> not in tableline <"+examplezeile.getAllAttributsNamesAsString(";",0,true)+">");
 		
 		int floatpos = hashMapValuemappos.get(valuename);
 

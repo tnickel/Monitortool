@@ -12,6 +12,8 @@ import hiflsklasse.Tracer;
 
 public class Filterfiles
 {
+	// Die Klasse Filterfiles ist die oberklasse von Filterfile
+	// Die Klasse Beinhaltet alle Filterfiles für einen Workflow
 	// die Filterzeiträume beinhalten für jede Metrik einen min/max wert
 	// Die filterzeiträume werden für das anschliessende filtern benötigt.
 	// Es gibt nur n-filterzeiträume, ein filterzeitraum deckt also viel ab
@@ -43,6 +45,8 @@ public class Filterfiles
 
 	public void readFilterSettings(Metriktabellen met)
 	{
+		filterfiles_glob.clear();
+		//Tracer.WriteTrace(10, "Filterfiles einlesen");
 		// hier werden alle metrikfilter wenn sie schon da sind eingelesen
 		int anzmetrikfilterfiles = met.getAnzMetriktabellen();
 		for (int i = 0; i < anzmetrikfilterfiles; i++)
@@ -52,6 +56,7 @@ public class Filterfiles
 			Filterfile filterzeit = new Filterfile();
 			String filtername = met.getFilename(i).replace(".csv", ".filter");
 			filterzeit.setFilename(filtername);
+			Tracer.WriteTrace(50, "D:Read filterfile<"+filtername+">");
 
 			// falls endtest dann setzte globalen pfad
 			if (filtername.contains("_99_"))
@@ -175,7 +180,7 @@ public class Filterfiles
 		// gehe durch alle filterzeiträume und modifiziere
 		int anz = filterfiles_glob.size();
 		//anz-1 da letzte tabelle die profittabelle sind
-		for (int i = 0; i < anz-1; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			// filterzeit beinhaltet ein einzelnes verzeichniss
 			Filterfile filtzeit = filterfiles_glob.get(i);

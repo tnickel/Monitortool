@@ -43,7 +43,7 @@ public class StrategieMengen
 		
 		// wir lesen die letzte Tabelle ein, wir brauchen ja nur die namen der
 		// strategien
-		metriktab_glob = DatabankExportTable.leseMetriktabelleSimple(rpath + "\\_99_dir\\databankExport.csv");
+		metriktab_glob = Metriktabelle.leseMetriktabelleSimple(rpath + "\\_99_dir\\databankExport.csv");
 		Random rand=null;
 		
 		if(fixedseedflag==1)

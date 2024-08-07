@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import Metriklibs.DatabankExportTable;
 import Metriklibs.EndtestFitnessfilter;
 import Metriklibs.Filterentry;
 import Metriklibs.Filterfile;
 import Metriklibs.Metrikentry;
+import Metriklibs.Metriktabelle;
 import Metriklibs.Metriktabellen;
 import Metriklibs.Metrikzeile;
 import Metriklibs.StrategieMengen;
@@ -128,7 +128,7 @@ public class Stratliste
 		{
 			// filtere die Strategieliste mit filter i
 			// die Metriktabelle ist das was der SQ abspeichert
-			DatabankExportTable metriki = met.holeNummerI(i);
+			Metriktabelle metriki = met.holeNummerI(i);
 			if (metriki == null)
 				continue;
 			// der Filterzeitraum ist der Filter für den entsprechenden Zeitraum
@@ -152,7 +152,7 @@ public class Stratliste
 		}
 	}
 
-	private void filtereMitFilterI(DatabankExportTable mettab,
+	private void filtereMitFilterI(Metriktabelle mettab,
 			Filterfile filtzeit, int best100flag, int dismissflag)
 	{
 		// hier wird strategieliste reduziert
@@ -178,7 +178,7 @@ public class Stratliste
 			Stratelem strat = stratliste_glob.get(i);
 			String stratname = strat.getStratname();
 			//eine metrikzeile ist eine zeile aus der dicken Tabelle die der SQ abgelegt hat
-			Metrikzeile met = mettab.holeMetrikzeile(stratname);
+			Metrikzeile met = mettab.getMetrikzeile(stratname);
 			
 			//System.out.println("Filtere strategy <"+stratname+">");
 			z.showZeitdiff("M2");
@@ -276,7 +276,7 @@ public class Stratliste
 		}
 
 		//falls die value=0, dann wird nicht rausgefiltert.
-		if((mevalue==0)||(filterentry.getMinfilevalue()==0)||(filterentry.getMaxfilealue()==0))
+		if((mevalue==0)||(filterentry.getMinfilevalue()==0)||(filterentry.getMaxfilevalue()==0))
 			return true; //wenn mix oder maxfilevalue ==0 ist, bedeutet das das metrik überhaupt nicht verwendet wurde
 						 //somit darf man die strategie nicht rausfiltern.
 						 //z.B. wurde oos überhaupt nicht berechnet. Der filterentry verlangt aber ein oos, hier darf nicht

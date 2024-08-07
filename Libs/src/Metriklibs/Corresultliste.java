@@ -3,7 +3,7 @@ package Metriklibs;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Corelresultliste 
+public class Corresultliste 
 {
 	//diese liste beinhaltet für einen filter die korrelationswerte
 	ArrayList<Corelresultelem> clist = new ArrayList<Corelresultelem>();

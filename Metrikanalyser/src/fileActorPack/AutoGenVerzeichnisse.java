@@ -10,7 +10,7 @@ public class AutoGenVerzeichnisse
 {
 	// Hier werden im Metrikanalyser in ..AnalysesRoot die Verzeichnisse erstellt
 	// Die Verzeichnissnamen werden aus den Workflownamen generiert
-	static public void GenVerzeichnisse(String sqxworkflowrootdir)
+	static public void GenVerzeichnisse(String sqxworkflowrootdir,int anzdirn)
 	{
 		
 		String filterpath = Metrikglobalconf.getFilterpath();
@@ -50,7 +50,7 @@ public class AutoGenVerzeichnisse
 						String targetDir = filterpath + "\\" + dirName;
 						
 						// Verzeichnisstruktur erstellen
-						genStructure(targetDir);
+						genStructure(targetDir,anzdirn);
 					}
 				}
 			} else
@@ -59,11 +59,11 @@ public class AutoGenVerzeichnisse
 						.println("Das angegebene Verzeichnis ist leer oder der Inhalt konnte nicht abgerufen werden.");
 			}
 			
-			genStructure(filterpath + "\\WORKFLOWNAME");
+			genStructure(filterpath + "\\WORKFLOWNAME",anzdirn);
 		}
 	}
 	
-	private static void genStructure(String zieldir)
+	private static void genStructure(String zieldir,int anzdirn)
 	{
 		File zieldir_f = new File(zieldir);
 		if (zieldir_f.exists() == false)
@@ -72,7 +72,12 @@ public class AutoGenVerzeichnisse
 			if (zieldir_f.mkdir() == false)
 				Tracer.WriteTrace(10, "E:Error can´t generate <" + zieldir_f.getAbsolutePath() + ">");
 			
-			FileAccess.checkgenDirectory(zieldir + "\\_0_dir");
+			
+			for(int i=0; i<anzdirn; i++)
+			{
+				FileAccess.checkgenDirectory(zieldir + "\\_"+i+"_dir");
+				
+			}
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\best100dir");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__all_sq3_endtestfiles");
