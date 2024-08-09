@@ -437,8 +437,8 @@ public class WekaLearn
 					{
 						strategyNameValue = String.valueOf(normalizedNewData.instance(i).value(strategyNameAttr));
 					}
-					//System.out.println("Instance " + i + ": Strategy_Name=" + strategyNameValue + ", Actual class="
-					//		+ actualClassValue + ", Predicted class=" + predictedClassValue);
+					System.out.println("Instance " + i + ": Strategy_Name=" + strategyNameValue + ", Actual class="
+							+ actualClassValue + ", Predicted class=" + predictedClassValue);
 
 					
 					
