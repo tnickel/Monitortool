@@ -7,6 +7,17 @@ public class WekaClassifierElem
 		//hier ist die responsemessage drin
 		private double correlationval=0;
 		private int copycounter=0;
+		private double selectedFilesProfit=0;
+		private double allFilesProfit=0;
+		
+		public double getAllFilesProfit()
+		{
+			return allFilesProfit;
+		}
+		public void setAllFilesProfit(double allFilesProfit)
+		{
+			this.allFilesProfit = allFilesProfit;
+		}
 		public WekaClassifierElem( double e)
 		{
 			correlationval=e;
@@ -34,6 +45,14 @@ public class WekaClassifierElem
 		public void setCopycounter(int copycounter)
 		{
 			this.copycounter = copycounter;
+		}
+		public double getSelectedFilesProfit()
+		{
+			return selectedFilesProfit;
+		}
+		public void setSelectedFilesProfit(double val)
+		{
+			this.selectedFilesProfit = val;
 		}
 		
 }

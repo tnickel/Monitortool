@@ -73,6 +73,7 @@ public class AutoGenVerzeichnisse
 				Tracer.WriteTrace(10, "E:Error can´t generate <" + zieldir_f.getAbsolutePath() + ">");
 			
 			
+			
 			for(int i=0; i<anzdirn; i++)
 			{
 				FileAccess.checkgenDirectory(zieldir + "\\_"+i+"_dir");
@@ -80,11 +81,12 @@ public class AutoGenVerzeichnisse
 			}
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\best100dir");
-			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__all_sq3_endtestfiles");
+			//FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__all_sq3_endtestfiles");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__all_sq4_endtestfiles");
-			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__selected_sq3_endtestfiles");
+			//FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__selected_sq3_endtestfiles");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__selected_sq4_endtestfiles");
-			
+			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\badcounter");
+			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\goodcounter");
 		}
 		
 	}

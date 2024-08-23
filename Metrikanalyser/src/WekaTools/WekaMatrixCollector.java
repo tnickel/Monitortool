@@ -55,7 +55,7 @@ public class WekaMatrixCollector
 		return copycountsum;
 	}
 	
-	public double WriteProtokoll()
+	public double WriteProtokoll1()
 	{
 		double cor_sum = 0;
 		int anz_values = 0;
@@ -67,31 +67,12 @@ public class WekaMatrixCollector
 		Inf inf = new Inf();
 		inf.setFilename(protokollfileGlob);
 		
-		for (x = 0; x < 100; x++)
-		{
-			WekaClassifierElem elem = matrix[x][0];
-			if (elem != null)
-				if (elem.getCorrelationVal() != 0)
-					continue;
-				else
-					break;
-		}
-		for (y = 0; y < 100; y++)
-		{
-			WekaClassifierElem elem = matrix[0][y];
-			if (elem != null)
-				if (elem.getCorrelationVal() != 0)
-					continue;
-				else
-					break;
-		}
-		if (x != y)
-			Tracer.WriteTrace(10, "E:Matrix should quadratic x<" + x + "> != y<" + y + ">");
+		
 		
 		String zeile = "";
-		for (int j = 0; j < x; j++)
+		for (int j = 0; j < 100; j++)
 		{
-			for (int i = 0; i < x; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				WekaClassifierElem elem = matrix[i][j];
 				if (elem != null)
@@ -114,6 +95,58 @@ public class WekaMatrixCollector
 		inf.close();
 		return round(cor_sum/anz_values);
 		
+	}
+	
+	
+	public void WriteProtokoll2Profit(String outfile)
+	{
+		int x = 0, y = 0;
+		FileAccess.FileDelete(outfile, 1);
+		Inf inf = new Inf();
+		inf.setFilename(outfile);
+		
+		
+		for (int j = 0; j < 100; j++)
+		{
+			for (int i = 0; i < 100; i++)
+			{
+				WekaClassifierElem elem = matrix[i][j];
+				if (elem != null)
+				{
+					
+					Double val = round(elem.getSelectedFilesProfit());
+					if(val!=0)
+					inf.appendzeile(outfile,"period<"+j+"|"+i+">  allProfitval<"+elem.getAllFilesProfit()+"> selProfit \t\t<"+val+"> anzStrat<"+elem.getCopycounter()+">",true);
+				}
+				
+			}
+			
+		}
+	}
+	public void WriteProtokoll3Values(String outfile)
+	{
+		int x = 0, y = 0;
+		FileAccess.FileDelete(outfile, 1);
+		Inf inf = new Inf();
+		inf.setFilename(outfile);
+		
+		
+		for (int j = 0; j < 100; j++)
+		{
+			for (int i = 0; i < 100; i++)
+			{
+				WekaClassifierElem elem = matrix[i][j];
+				if (elem != null)
+				{
+					
+					Double val = round(elem.getSelectedFilesProfit());
+					if(val!=0)
+					inf.appendzeile(outfile,i+"#"+ val,true);
+				}
+				
+			}
+			
+		}
 	}
 	
 	private double round(double value)

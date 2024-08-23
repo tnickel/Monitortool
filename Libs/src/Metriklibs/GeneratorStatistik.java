@@ -55,18 +55,21 @@ public class GeneratorStatistik
 			String goodcounterfile = workdir + "\\_99_dir\\goodcounter\\DatabankExport.csv";
 			if(new File(goodcounterfile).exists()==false)
 			{
-				Tracer.WriteTrace(10, "E: no goodcounterfile <"+goodcounterfile+"> available");
-				return;
+				Tracer.WriteTrace(20, "E: no goodcounterfile <"+goodcounterfile+"> available");
+				
 			}
 			String badcounterfile = workdir + "\\_99_dir\\badcounter\\DatabankExport.csv";
 			if(new File(badcounterfile).exists()==false)
 			{
-				Tracer.WriteTrace(10, "E: no badcounterfile <"+badcounterfile+"> available");
-				return;
+				Tracer.WriteTrace(20, "E: no badcounterfile <"+badcounterfile+"> available");
+				
 			}
+			int goodcounter=1, badcounter=1;
 			
-			int goodcounter=countLinesInFile(goodcounterfile)-1;
-			int badcounter=countLinesInFile(badcounterfile)-1;
+			if(FileAccess.FileAvailable(goodcounterfile))
+				goodcounter=countLinesInFile(goodcounterfile)-1;
+			if(FileAccess.FileAvailable(badcounterfile))
+				badcounter=countLinesInFile(badcounterfile)-1;
 			inf.writezeile(number+"#"+goodcounter+"#"+badcounter);
 			sum_good=sum_good+goodcounter;
 			sum_bad=sum_bad+badcounter;
@@ -86,7 +89,7 @@ public class GeneratorStatistik
 		
 	}
 	
-	private int countLinesInFile(String filePath)
+	public int countLinesInFile(String filePath)
 	{
 		int lines = 0;
 		

@@ -216,6 +216,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button button9copyinshared;
 	private Label label34;
 	private Text GetEnddateFromDatabase;
 	private Label label33;
@@ -1740,6 +1741,12 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								label34.setBounds(934, 328, 205, 21);
 								label34.setToolTipText("If you klick \"Step2 Generate SQ Workflow\" Toolbox read the dates out of the SQX-Database and write this information into the SQX-Workflow directory.\r\nFor example.\r\nC:\\forex\\Toolbox\\SQ\\2 Generator\\user\\projects\\Nick31_35 optimize_+00014\\Enddate.txt\r\n\r\nThis datafile Enddate.txt will be used in the \"3 Collect Result\" Step.");
 							}
+							{
+								button9copyinshared = new Button(group2filter, SWT.CHECK | SWT.LEFT);
+								button9copyinshared.setText("CopyMasterworkflow in Shared Drive");
+								button9copyinshared.setBounds(1170, 586, 281, 30);
+								button9copyinshared.setSelection(true);
+							}
 						}
 					}
 				}
@@ -1921,7 +1928,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
 		shell.open();
-		shell.setText("Toolbox V1.3.4.1    "+userdir);
+		shell.setText("Toolbox V1.3.6.0    "+userdir);
 		
 		while (!shell.isDisposed())
 		{
@@ -2476,6 +2483,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 			sqprojects.genWorkflow(GetEnddateFromDatabase.getText());
 			refreshProjectfilesanzahlMessages();
 		}
+		if (button9copyinshared.getSelection()==true)
+			sqprojects.copyMasterfile(FilterSourceDir.getText(),text4shareddrive.getText());
 	}
 	
 	private void button7setWidgetSelected(SelectionEvent evt)
@@ -2526,7 +2535,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		if (sqr.exists() == false)
 		{
 			Tracer.WriteTrace(10,
-					"This is not an valid SQ installation licenseFile.lic is missing under <" + licfile + ">");
+					"This is not an valid SQ installation StrategyQuantX.exe is missing under <" + licfile + ">");
 			return;
 		}
 		sqprojects.setSqrootdir(sqrootdir);

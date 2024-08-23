@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import FileTools.Counter;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
@@ -39,8 +40,11 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		FileAccessDyn fdirs = new FileAccessDyn();
 		fdirs.initFileSystemList(rpath, 0);
 		
+		int zeilcount=0;
 		//alle Tabellen einlesen
 		int anz = fdirs.holeFileAnz();
+		if(anz==0)
+			Tracer.WriteTrace(10, "No directorys in <"+rpath+"> --> stop");
 		for (int i = 0; i < anz; i++)
 		{
 			String dirnam = rpath + "\\" + fdirs.holeFileSystemName();
@@ -49,13 +53,23 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			// Die Tabellen einlesen
 			mettabelle.readExportedTable(msel, dirnam);
 			
+			//alle tabellen müssen die gleiche zeilenanzahl haben, wir haben ja die gleichen Strategien
+			if(i==0)
+				zeilcount=mettabelle.getAnz();
+			else
+				if (mettabelle.getAnz()!=zeilcount)
+				Tracer.WriteTrace(10, "E:Databank inconsistent linenumbers: table name<"+dirnam+"> #lines <"+mettabelle.getAnz()+"> != first table lines<"+zeilcount+">");
+			
+			if(zeilcount==0)
+				Tracer.WriteTrace(10, "E: Metriktable has 0 entrys path<"+dirnam+">");
+			
 			// die eingelesene tabelle in der gesammtliste speichern
 			metriktabellen_glob.add(mettabelle);
 			Tracer.WriteTrace(50,"Read table i="+i+" <"+dirnam+"> ready");
 		}
 	}
 	
-	public void exportAllAttributesForWeka(String exportfile, int maxstrategies,  String workdir)
+	public void exportAllAttributesForWeka(String exportfile, int maxstrategies,  String workdir,boolean usebadendtest)
 	{
 		// wir brauchen hier tabelle 0 und tabelle 99. Wir brauchen hier alle werte aus
 		// Tabelle 0 und den NetProfit OOS aus der Tabelle 99
@@ -67,6 +81,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// rpath=
 		//wir dürfen max 100 databankExport.csv haben
 		//goodattribs: Wenn die attribliste !=null dann dürfen nur attribute exportiert werden die in der Attribliste sind.
+		//usebadentest: falls das flag gesetzt wird, wird der endtest kaputt gemacht
 		//Die attribliste beinhaltet die teilmenge der Attribute die mit höchster korrelation und vorkommen aus der Megaliste über alle workflows
 		Metriktabelle[] databankExportTable = new Metriktabelle[100];
 		
@@ -82,7 +97,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// aus diesen Tabellen holen wir die atrribute und values.
 		int anzTabellen = metriktabellen_glob.size();
 		
-		// Wir brauchen die tablle auf und nehmen die letzte noch hinzu
+		// Wir bauen die tabelle auf und nehmen die letzte noch hinzu
 		for(int i=1; i<=anzTabellen-1; i++)
 		{
 			databankExportTable[i]=metriktabellen_glob.get(i-1);
@@ -146,7 +161,14 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 				ostring = ostring+databankExportTable[j].holeMetrikzeilePosI(i).getAllAttributsValuesAsString(",",false);
 						
 			}
-			ostring=ostring+mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+		
+			
+			
+			if(usebadendtest==false)
+			  ostring=ostring+mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+			else
+				ostring=ostring+"0.5";
+			
 			inf.writezeile(firstname+","+ostring);
 			
 			if (maxstrategies != 0)
@@ -354,6 +376,8 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 	@Override
 	public int compare(Metrikzeile p1, Metrikzeile p2)
 	{
+		
+		Tracer.WriteTrace(10, "I: not implemented");
 		return 0;
 	}
 }

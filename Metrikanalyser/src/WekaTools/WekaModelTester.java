@@ -47,7 +47,7 @@ public class WekaModelTester
 	        // Klassifiziere die neuen Daten
 	        for (int i = 0; i < newData.numInstances(); i++) {
 	            double predictedValue = inputMappedClassifier.classifyInstance(newData.instance(i));
-	            System.out.println("Instance " + i + ": Predicted class=" + predictedValue);
+	            //System.out.println("Instance " + i + ": Predicted class=" + predictedValue);
 	        }
 	    }
 	

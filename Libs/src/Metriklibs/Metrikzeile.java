@@ -74,7 +74,10 @@ public class Metrikzeile
 			//wir müssen sicherstellen das attributename kein komma drin hat
 			String attribname=attributlistNames.get(i).replace(",", "_");
 			
-			outzeile=outzeile+attribname+String.valueOf(extension)+delimiter;
+			if(extension>=0)
+				outzeile=outzeile+attribname+String.valueOf(extension)+delimiter;
+			else
+				outzeile=outzeile+attribname+delimiter;
 			outzeile=outzeile.replace(" ", "_");
 		}
 		return outzeile.replace("%", "proz");

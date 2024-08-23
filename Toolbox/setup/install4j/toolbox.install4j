@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/Toolbox/setup/install4j/pictures" />
-  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.3.4.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
+  <application name="Monitortool/Toolbox" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Toolbox" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="1.3.6.0" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8" />
   <files>
     <mountPoints>
       <mountPoint id="115" />
@@ -325,7 +325,7 @@ return true; </property>
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/1 Master</string>
+                          <string>${installer:sys.installationDir}/SQ/1Master</string>
                         </object>
                       </property>
                       <property name="directoryFilter">
@@ -364,7 +364,7 @@ return true;
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/2 Generator</string>
+                          <string>${installer:sys.installationDir}/SQ/2Generator</string>
                         </object>
                       </property>
                       <property name="directoryFilter">
@@ -401,7 +401,7 @@ return true;
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/3 Results</string>
+                          <string>${installer:sys.installationDir}/SQ/3Results</string>
                         </object>
                       </property>
                       <property name="directoryFilter">
@@ -438,7 +438,7 @@ return true;
                     <serializedBean>
                       <property name="file">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/1 Master/StrategyQuantX.exe</string>
+                          <string>${installer:sys.installationDir}/sq/1Master/StrategyQuantX.exe</string>
                         </object>
                       </property>
                       <property name="name" type="string">Toolbox 1 SQ Master</property>
@@ -449,7 +449,7 @@ return true;
                     <serializedBean>
                       <property name="file">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/2 Generator/StrategyQuantX.exe</string>
+                          <string>${installer:sys.installationDir}/sq/2Generator/StrategyQuantX.exe</string>
                         </object>
                       </property>
                       <property name="name" type="string">Toolbox 2 SQ Generator</property>
@@ -460,7 +460,7 @@ return true;
                     <serializedBean>
                       <property name="file">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/3 Results/StrategyQuantX.exe</string>
+                          <string>${installer:sys.installationDir}/sq/3Results/StrategyQuantX.exe</string>
                         </object>
                       </property>
                       <property name="name" type="string">Toolbox 3 SQ Results</property>
@@ -489,7 +489,7 @@ return true;
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/1 Master</string>
+                          <string>${installer:sys.installationDir}/SQ/1Master</string>
                         </object>
                       </property>
                       <property name="files" type="array" class="java.io.File" length="1">
@@ -506,7 +506,7 @@ return true;
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/2 Generator</string>
+                          <string>${installer:sys.installationDir}/SQ/2Generator</string>
                         </object>
                       </property>
                       <property name="files" type="array" class="java.io.File" length="1">
@@ -523,7 +523,7 @@ return true;
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/SQ/3 Results</string>
+                          <string>${installer:sys.installationDir}/SQ/3Results</string>
                         </object>
                       </property>
                       <property name="files" type="array" class="java.io.File" length="1">
@@ -623,7 +623,7 @@ return true;</property>
                     <serializedBean>
                       <property name="destinationFile">
                         <object class="java.io.File">
-                          <string>${installer:sys.installationDir}/sq/1 Master/user/projects</string>
+                          <string>${installer:sys.installationDir}/sq/1Master/user/projects</string>
                         </object>
                       </property>
                       <property name="files" type="array" class="java.io.File" length="1">

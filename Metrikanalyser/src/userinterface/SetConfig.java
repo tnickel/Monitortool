@@ -130,7 +130,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 				text1dirncountLData.width = 13;
 				text1dirncountLData.height = 16;
 				text1dirncount.setLayoutData(text1dirncountLData);
-				text1dirncount.setText("1");
+				text1dirncount.setText("5");
 			}
 			{
 				label5 = new Label(this, SWT.NONE);
@@ -190,7 +190,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 				text1sqworkflowdirLData.width = 306;
 				text1sqworkflowdirLData.height = 16;
 				text1sqworkflowdir.setLayoutData(text1sqworkflowdirLData);
-				text1sqworkflowdir.setText("C:\\forex\\Toolbox\\SQ\\2 Generator\\user\\projects");
+				text1sqworkflowdir.setText("C:\\forex\\Toolbox\\SQ\\2Generator\\user\\projects");
 			}
 			{
 				label3 = new Label(this, SWT.NONE);

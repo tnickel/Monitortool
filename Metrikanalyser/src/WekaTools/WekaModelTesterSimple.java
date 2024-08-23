@@ -92,7 +92,7 @@ public class WekaModelTesterSimple {
             }
             actualValues.add(actualValue);
             predictedValues.add(predictedValue);
-            System.out.println("Instance " + i + ": Actual class=" + actualValue + ", Predicted class=" + predictedValue);
+            //System.out.println("Instance " + i + ": Actual class=" + actualValue + ", Predicted class=" + predictedValue);
         }
 
         // Calculate and print correlation

@@ -168,8 +168,10 @@ public class SqGenerateWorkflowMain
 		FileAccess.deleteDirectoryContentPostfix(logdir_f, ".log");
 	}
 	
-	public String modifyProject(int daysoffset_i,String EndtestDatabaseName,String workflowname)
+	public String modifyProject(int daysoffset_i,String EndtestDatabaseName,String workflowname,String projectdiri)
 	{
+		
+		String projectdir=projectdiri;
 		//workflowname=24.2.24prod[ 1100-1500 ] 1.05 4M_Metrikanalyser_+00000
 		String FoundEndtestdate=null;
 		for (int i = 0; i < anzfiles_g; i++)
@@ -196,11 +198,21 @@ public class SqGenerateWorkflowMain
 			sxml.setSearchPattern("<Range dateFrom=", " />");
 			memstring_g[i] = sxml.modifyAllPatterns(daysoffset_i);
 			
-			//if(memstring_g[i].contains("SaveToFiles")==true)
 			{
-				Tracer.WriteTrace(20, "Found save to files");
-				if(memstring_g[i].contains("WORKFLOWNAME")==true)
+				
+				if(memstring_g[i].contains("PROJECTDIR")==true)
 				{
+					Tracer.WriteTrace(50, "Found PROJECTDIR");
+					memstring_g[i]=memstring_g[i].replace("PROJECTDIR", projectdir);
+				}
+					//Tracer.WriteTrace(10, "I:Found projectdir in <"+EndtestDatabaseName+">");
+			}
+			{
+				
+				if(memstring_g[i].contains("WORKFLOWNAME")==true)
+					
+				{
+					Tracer.WriteTrace(50, "Found WORKFLOWNAME");
 					memstring_g[i]=memstring_g[i].replace("WORKFLOWNAME", workflowname);
 				}
 					//Tracer.WriteTrace(10, "I:Found workflowname in <"+EndtestDatabaseName+">");

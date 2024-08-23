@@ -2,6 +2,10 @@ package sq4xWorkflow;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DecimalFormat;
 
 import org.eclipse.swt.widgets.Display;
@@ -9,15 +13,11 @@ import org.eclipse.swt.widgets.Display;
 import FileTools.Filefunkt;
 import FileTools.SqZipper;
 import data.Toolboxconf;
-import graphic.SumChart;
 import gui.Viewer;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 import work.JToolboxProgressWin;
-import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 
 public class SqWorkflowMaster extends Sq
 // this is the masterclass for all sq4x handling
@@ -32,8 +32,8 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setMasterfile(String masterfile_g)
 	{
-		//the masterfile is the sourcefile which contains the workflow
-		//The workflow generator works with this file
+		// the masterfile is the sourcefile which contains the workflow
+		// The workflow generator works with this file
 		this.masterfile_g = masterfile_g;
 	}
 	
@@ -49,7 +49,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setResultdir(String resultdir_g)
 	{
-		//the resultdir is the directory where the calculated workflows will be stored
+		// the resultdir is the directory where the calculated workflows will be stored
 		this.resultdir_g = resultdir_g;
 	}
 	
@@ -60,7 +60,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setSharedDrive(String dir)
 	{
-		//the shared drive directory is the directory where the backups will be shared
+		// the shared drive directory is the directory where the backups will be shared
 		this.shareddrive_g = dir;
 	}
 	
@@ -71,7 +71,7 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setBackupDrive(String dir)
 	{
-		//in this directory, the backups will be copied
+		// in this directory, the backups will be copied
 		this.backupdrive_g = dir;
 	}
 	
@@ -94,13 +94,13 @@ public class SqWorkflowMaster extends Sq
 	
 	public void setStepvalue(String steps)
 	{
-		//this is the step for the day-stepping
+		// this is the step for the day-stepping
 		this.stepvalue_g = Integer.valueOf(steps);
 	}
 	
 	public void setOutputname(String outputname)
 	{
-		//outputname for the workflow
+		// outputname for the workflow
 		this.outputname_g = outputname;
 	}
 	
@@ -129,10 +129,10 @@ public class SqWorkflowMaster extends Sq
 			return -1;
 		
 		File dir = new File(sqrootdir_g + "\\user\\projects");
-				
+		
 		String[] dirl = dir.list();
-
-		if((dirl==null)||(dirl.length<1))
+		
+		if ((dirl == null) || (dirl.length < 1))
 			return -1;
 		int fileanz = dirl.length;
 		return fileanz;
@@ -155,28 +155,24 @@ public class SqWorkflowMaster extends Sq
 	public void genWorkflow(String EndtestDatabaseName)
 	{
 		// This is the masterfunction for the workflow generation
-		//the results will be stored first in the tmp-directory
-
-		//deleteProjectfiles();
+		// the results will be stored first in the tmp-directory
 		
-		File tmpdir_f=new File("c:\\tmp");
-		if(tmpdir_f.exists()==false)
-			if(tmpdir_f.mkdir()==false)
+		// deleteProjectfiles();
+		
+		File tmpdir_f = new File("c:\\tmp");
+		if (tmpdir_f.exists() == false)
+			if (tmpdir_f.mkdir() == false)
 				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
-		
-		
-		tmpdir_f=new File("c:\\tmp\\sq");
-		if(tmpdir_f.exists()==false)
-			if(tmpdir_f.mkdir()==false)
+			
+		tmpdir_f = new File("c:\\tmp\\sq");
+		if (tmpdir_f.exists() == false)
+			if (tmpdir_f.mkdir() == false)
 				Tracer.WriteTrace(10, "E:error can´t generate c:\\tmp - directory --> stop");
-		
-		
-		
+			
 		// some initialisation progressslider and dfformat
 		
-		
-		//unzipp all
-		SqZipper sqzip=new SqZipper();
+		// unzipp all
+		SqZipper sqzip = new SqZipper();
 		try
 		{
 			sqzip.unzip(masterfile_g, "c:\\tmp\\sq");
@@ -188,25 +184,25 @@ public class SqWorkflowMaster extends Sq
 		
 		// start new projectfile
 		Tracer.WriteTrace(20, "I:read masterfile<" + masterfile_g + ">");
-	
 		
-		
-		if(Toolboxconf.getPropAttribute("shiftdays").equals("true"))
-			LoopDeltaD(sqzip,EndtestDatabaseName);
+		if (Toolboxconf.getPropAttribute("shiftdays").equals("true"))
+			LoopDeltaD(sqzip, EndtestDatabaseName, outputname_g);
 		else
-			LoopDeltaDFile(sqzip,EndtestDatabaseName);
-		
+			LoopDeltaDFile(sqzip, EndtestDatabaseName, outputname_g);
 		
 	}
-	private void LoopDeltaD(SqZipper sqzip,String EndtestnameFromDatabase)
+	
+	private void LoopDeltaD(SqZipper sqzip, String EndtestnameFromDatabase, String projectdir)
 	{
-		//Endtestnamefromdatabase=Diese Datenbasis wollen wir auswerten, hier wollen wir das startdatum und das Endatum wissen.
+		// projectdir=Q109 EURUSD M1 weka12cprod
+		// Endtestnamefromdatabase=Diese Datenbasis wollen wir auswerten, hier wollen
+		// wir das startdatum und das Endatum wissen.
 		int anzsteps = Math.abs(futurecount_g) + Math.abs(backcount_g) + 1;
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
 		
 		int offset = 0;
 		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain("c:\\tmp\\sq");
-		//generate many workflow, to this in the loop
+		// generate many workflow, to this in the loop
 		for (int i = -backcount_g, loopcount = 0; i <= futurecount_g; i++, loopcount++)
 		{
 			jp.update(loopcount);
@@ -215,13 +211,12 @@ public class SqWorkflowMaster extends Sq
 			offset = i * stepvalue_g;
 			String workflowname = calcWorkflowname(i, offset);
 			
-			
-			String enddate=psq.modifyProject(offset,EndtestnameFromDatabase, workflowname);
+			String enddate = psq.modifyProject(offset, EndtestnameFromDatabase, workflowname, projectdir);
 			// save projekt
 			psq.saveToTmpDir();
-			//das ganze muss wieder gezipped werden
+			// das ganze muss wieder gezipped werden
 			
-		    try
+			try
 			{
 				sqzip.zip("c:\\tmp\\sq", "c:\\tmp\\workflow_tmp.zip");
 			} catch (IOException e)
@@ -230,36 +225,34 @@ public class SqWorkflowMaster extends Sq
 				e.printStackTrace();
 			}
 			
-			
-			
 			// copy to destination
-			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,enddate);
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip", workflowname, enddate);
 			
-			//logfiles nicht löschen da hier drin wichtig informationen sind
-			//psq.cleanLogfiles(sqrootdir_g, workflowname);
+			// logfiles nicht löschen da hier drin wichtig informationen sind
+			// psq.cleanLogfiles(sqrootdir_g, workflowname);
 			psq.Reset();
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
 		}
 		jp.end();
 		
 	}
-	private void LoopDeltaDFile(SqZipper sqzip,String EndtestDatabaseName)
+	
+	private void LoopDeltaDFile(SqZipper sqzip, String EndtestDatabaseName, String projectdir)
 	{
-		//Das DeltaDfile ist ein configfile wo die Shifts vorgegeben werden
+		// Das DeltaDfile ist ein configfile wo die Shifts vorgegeben werden
 		Inf inf = new Inf();
 		inf.setFilename(Toolboxconf.getPropAttribute("deltadaysfile"));
-		String line=inf.readZeile();
+		String line = inf.readZeile();
 		inf.close();
 		
-	    String[] strArr = line.split(",");
-	    	
+		String[] strArr = line.split(",");
 		
 		int anzsteps = strArr.length;
 		JToolboxProgressWin jp = new JToolboxProgressWin("calc Workflows", 0, (int) anzsteps);
 		
 		int offset = 0;
 		SqGenerateWorkflowMain psq = new SqGenerateWorkflowMain("c:\\tmp\\sq");
-		//generate many workflow, to this in the loop
+		// generate many workflow, to this in the loop
 		for (int i = 0, loopcount = 0; i < anzsteps; i++, loopcount++)
 		{
 			jp.update(loopcount);
@@ -267,12 +260,12 @@ public class SqWorkflowMaster extends Sq
 			// modify project
 			offset = Integer.valueOf(strArr[i]);
 			String workflowname = calcWorkflownameFilename(i, offset);
-			String foundenddate=psq.modifyProject(offset,EndtestDatabaseName,workflowname);
+			String foundenddate = psq.modifyProject(offset, EndtestDatabaseName, workflowname, projectdir);
 			// save projekt
 			psq.saveToTmpDir();
-			//das ganze muss wieder gezipped werden
+			// das ganze muss wieder gezipped werden
 			
-		    try
+			try
 			{
 				sqzip.zip("c:\\tmp\\sq", "c:\\tmp\\workflow_tmp.zip");
 			} catch (IOException e)
@@ -281,9 +274,8 @@ public class SqWorkflowMaster extends Sq
 				e.printStackTrace();
 			}
 			
-		
 			// copy to destination
-			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip",workflowname,foundenddate);
+			psq.copyToSq(sqrootdir_g, "c:\\tmp\\workflow_tmp.zip", workflowname, foundenddate);
 			psq.cleanLogfiles(sqrootdir_g, workflowname);
 			psq.Reset();
 			Tracer.WriteTrace(20, "I:generated workflow <" + workflowname + ">");
@@ -291,28 +283,32 @@ public class SqWorkflowMaster extends Sq
 		jp.end();
 	}
 	
-	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,String databankname,String cpart,int normation,boolean fullreportflag,String outputname,int maxstepsback)
+	public void collectResults(Boolean copygoogledriveflag, Boolean copybackupflag, Boolean showresultsflag,
+			String databankname, String cpart, int normation, boolean fullreportflag, String outputname,
+			int maxstepsback)
 	{
-		//normation: 0-no normation
-		//normation= n  then calculate  res=(sumwin/anz-strategies) * n
+		// normation: 0-no normation
+		// normation= n then calculate res=(sumwin/anz-strategies) * n
 		// Die Resultsfiles werden aus den SQ workflowverzeichnissen geholt
 		// die normalen results in das erste Zielverzeichniss vom SQ kopieren
-		// maxdaysback: dient dazu die analyse nur bis zu einem bestimmten punk in die vergangenheit laufen zu lassen
+		// maxdaysback: dient dazu die analyse nur bis zu einem bestimmten punk in die
+		// vergangenheit laufen zu lassen
 		
-		//Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein bestimmtes verzeichniss vom sq
+		// Step1: wir sammeln alles aus dem workflows und sammeln die daten in ein
+		// bestimmtes verzeichniss vom sq
 		SqCollectStoreResultsMain sr = new SqCollectStoreResultsMain();
-		//resultdir=verzeichniss wo das hin soll
+		// resultdir=verzeichniss wo das hin soll
 		sr.setResultdir(resultdir_g);
-		//sqrootdir ist das rootdir des sqs den wir verwenden
+		// sqrootdir ist das rootdir des sqs den wir verwenden
 		sr.setSqRoodir(sqrootdir_g);
-		//databankname sagt uns was wir einsammeln wollen
+		// databankname sagt uns was wir einsammeln wollen
 		sr.collectResults(databankname);
 		
 		// get resultrootpath out of resultdir
 		String resultroothpath = getSqRootpath(resultdir_g);
 		
-		//Step2: dann exportieren wir die gesammelten daten mit dem sqli interface
-		//Falls showresults angewählt ist wird das ganze noch schön ausgegeben
+		// Step2: dann exportieren wir die gesammelten daten mit dem sqli interface
+		// Falls showresults angewählt ist wird das ganze noch schön ausgegeben
 		
 		// Datenbank wird exportiert
 		// wird mit cli befehlen gemacht siehe
@@ -320,7 +316,7 @@ public class SqWorkflowMaster extends Sq
 		
 		if (showresultsflag == true)
 		{
-			//die results werden exportiert
+			// die results werden exportiert
 			SqExporterBatch se = new SqExporterBatch();
 			se.setSqRootpath(resultroothpath);
 			se.setSqWorkflowDir(resultroothpath + "\\user\\projects");
@@ -328,22 +324,23 @@ public class SqWorkflowMaster extends Sq
 			
 			// baut aus dem exportierten datenbankfile eine verkleinerte Resultliste auf
 			SqDatabaseHandler sb = new SqDatabaseHandler(sqrootdir_g);
-			sb.SqReadBaseList(se.getDatabankfile(),sqrootdir_g,cpart,databankname,normation);
-			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv",databankname,normation,fullreportflag,outputname,cpart,maxstepsback);
+			sb.SqReadBaseList(se.getDatabankfile(), sqrootdir_g, cpart, databankname, normation);
+			sb.writeResultlist("c:\\tmp\\DatabankExportResultlist.csv", databankname, normation, fullreportflag,
+					outputname, cpart, maxstepsback);
 			sb.ShowChart();
-		
+			
 		}
 		// copy the results to goggledrive
 		if ((shareddrive_g != null) && (copygoogledriveflag == true))
 		{
-			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to shared drive<\"+sharedrive_g+\">");
-			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag,databankname);
+			Tracer.WriteTrace(20, "I:copy strategies <" + sqrootdir_g + "> to shared drive<\"+sharedrive_g+\">");
+			copyDrive(sqrootdir_g, shareddrive_g, outputname_g, masterfile_g, showresultsflag, databankname);
 		}
 		// copy the results to backupdrive
 		if ((backupdrive_g != null) && (copybackupflag == true))
 		{
-			Tracer.WriteTrace(20, "I:copy strategies <"+sqrootdir_g+"> to backup drive<\"+backupdrive_g+\">");
-			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag,databankname);
+			Tracer.WriteTrace(20, "I:copy strategies <" + sqrootdir_g + "> to backup drive<\"+backupdrive_g+\">");
+			copyDrive(sqrootdir_g, backupdrive_g, outputname_g, masterfile_g, showresultsflag, databankname);
 		}
 		// zeige verkleinerte resultliste
 		if (showresultsflag == true)
@@ -354,8 +351,32 @@ public class SqWorkflowMaster extends Sq
 		
 	}
 	
+	public void copyMasterfile(String sourcefile, String shareddrive)
+	{
+		String projdir = sourcefile.substring(0, sourcefile.lastIndexOf("\\"));
+		projdir = projdir.substring(projdir.lastIndexOf("\\") + 1);
+		String dstdir = shareddrive + "\\" + projdir;
+		
+		String destfile = dstdir + "\\" + projdir + ".cfx";
+		
+		FileAccess.checkgenDirectory(dstdir);
+		
+		Path quellePfad = Paths.get(sourcefile);
+		Path zielPfad = Paths.get(destfile);
+		
+		try
+		{
+			Files.copy(quellePfad, zielPfad, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	private void copyDrive(String sqrootdir, String shareddrive, String outputname, String masterfile,
-			Boolean showresultsflag,String databankname)
+			Boolean showresultsflag, String databankname)
 	{
 		// sqrootdir: is the path to the sq, this is the rootpath
 		// shareddrive: is the path to the backup/shared-drive
@@ -364,20 +385,20 @@ public class SqWorkflowMaster extends Sq
 		// verzeichnissstruktur in googledrive herstellen
 		String destdir = shareddrive + "\\" + outputname;
 		String portfolios = destdir + "\\portfolios";
-		String projects=destdir+"\\projects";
+		String projects = destdir + "\\projects";
 		
 		// check if destdir exists
 		File wfdir_f = new File(destdir);
 		if (wfdir_f.exists() == false)
-			if(wfdir_f.mkdir()==false)
-				Tracer.WriteTrace(10, "E: can´t create directory <"+wfdir_f.getPath()+"> --> stop");
-		
+			if (wfdir_f.mkdir() == false)
+				Tracer.WriteTrace(10, "E: can´t create directory <" + wfdir_f.getPath() + "> --> stop");
+			
 		// make dir portfolios for storing all portfolios
 		File wfport_f = new File(portfolios);
 		if (wfport_f.exists() == false)
-			if(wfport_f.mkdir()==false)
-				Tracer.WriteTrace(10, "E: can´t create directory <"+wfport_f.getPath()+"> --> stop");
-		
+			if (wfport_f.mkdir() == false)
+				Tracer.WriteTrace(10, "E: can´t create directory <" + wfport_f.getPath() + "> --> stop");
+			
 		// results in portfolios ins googledrive kopieren
 		SqCollectStoreResultsMain gr = new SqCollectStoreResultsMain();
 		gr.setResultdir(portfolios);
@@ -393,13 +414,13 @@ public class SqWorkflowMaster extends Sq
 			gr.copyResultfile("c:\\tmp\\DatabankExport.csv", shareddrive + "\\" + outputname);
 			gr.copyResultfile("c:\\tmp\\DatabankExportResultlist.csv", shareddrive + "\\" + outputname);
 		}
-		//das ganze Projects kopieren
-		//projects erzeugen
-		File sqrootdir_f=new File(sqrootdir+"\\user\\projects");
+		// das ganze Projects kopieren
+		// projects erzeugen
+		File sqrootdir_f = new File(sqrootdir + "\\user\\projects");
 		File projects_f = new File(projects);
 		if (projects_f.exists() == false)
-			if(projects_f.mkdir()==false)
-				Tracer.WriteTrace(10, "E: can´t create directory <"+projects_f.getPath()+"> --> stop");
+			if (projects_f.mkdir() == false)
+				Tracer.WriteTrace(10, "E: can´t create directory <" + projects_f.getPath() + "> --> stop");
 		try
 		{
 			FileAccess.CopyDirectory4(sqrootdir_f, projects_f);
@@ -422,11 +443,12 @@ public class SqWorkflowMaster extends Sq
 		
 		return wfname;
 	}
+	
 	private String calcWorkflownameFilename(int index, int offset)
 	{
 		DecimalFormat df = new DecimalFormat("00000");
 		String wfname = null;
-		if(index>0)
+		if (index > 0)
 			wfname = outputname_g + "_-" + df.format(offset);
 		else
 			wfname = outputname_g + "_+" + df.format(offset);
