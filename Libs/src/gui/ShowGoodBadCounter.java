@@ -1,5 +1,20 @@
 package gui;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -12,25 +27,38 @@ public class ShowGoodBadCounter extends JPanel {
     private final ArrayList<Integer> periodNumbers = new ArrayList<>();
     private final ArrayList<Integer> goodCounters = new ArrayList<>();
     private final ArrayList<Integer> badCounters = new ArrayList<>();
-    private final StringBuilder fileContent = new StringBuilder();
-
-    private final int leftMargin = 60; // Linker Rand für die Y-Achse
-    private final int rightShift = 20; // Zusätzliche Verschiebung nach rechts
+    private final ArrayList<Double> cumulativeRatios = new ArrayList<>();
+    private double minRatio = Double.MAX_VALUE;
+    private double maxRatio = Double.MIN_VALUE;
 
     public ShowGoodBadCounter(String filePath) {
         readDataFromFile(filePath);
-        setPreferredSize(new Dimension(1600, 800)); // Standardgröße des Diagramms
+        calculateCumulativeRatios();
+
+        setLayout(new BorderLayout());
+
+        // Erstellen des Balkendiagramms
+        JFreeChart barChart = createBarChart();
+        ChartPanel barChartPanel = new ChartPanel(barChart);
+
+        // Erstellen des Liniendiagramms
+        JFreeChart lineChart = createLineChart();
+        ChartPanel lineChartPanel = new ChartPanel(lineChart);
+
+        // Hinzufügen der Diagramme zum Panel
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, barChartPanel, lineChartPanel);
+        splitPane.setResizeWeight(0.75); // Verhältnis 75% für Balkendiagramm, 25% für Liniendiagramm
+        splitPane.setDividerLocation(0.75); // Festlegen der Divider-Position
+        add(splitPane, BorderLayout.CENTER);
     }
 
     private void readDataFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                fileContent.append(line).append("\n");
-                if (line.contains("goodcounter"))
+                if (line.contains("goodcounter") || line.contains("###")) {
                     continue;
-                if (line.contains("###"))
-                    continue;
+                }
 
                 String[] parts = line.split("#");
                 if (parts.length == 3) {
@@ -48,73 +76,115 @@ public class ShowGoodBadCounter extends JPanel {
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    private void calculateCumulativeRatios() {
+        int cumulativeGood = 0;
+        int cumulativeBad = 0;
 
-        int width = getWidth();
-        int height = getHeight();
-        int barWidth = (width - leftMargin - rightShift) / (goodCounters.size() * 2);
+        System.out.println("Period | Cumulative Good | Cumulative Bad | Cumulative Ratio");
 
-        int maxCounter = Math.max(getMax(goodCounters), getMax(badCounters));
-        int scale = Math.max((height - 40) / maxCounter, 1); // Anpassung der Skalierung, min. 1
-
-        Font originalFont = g.getFont();
-        Font axisFont = originalFont.deriveFont(originalFont.getSize() * 1.5f);
-        g.setFont(axisFont);
-
-        // Y-Achse
-        g.setColor(Color.BLACK);
-        g.drawLine(leftMargin, 10, leftMargin, height - 30);
-        for (int i = 0; i <= maxCounter; i += 20) {
-            int y = height - 30 - i * scale;
-            g.drawLine(leftMargin - 5, y, leftMargin, y);
-            g.drawString(Integer.toString(i), leftMargin - 40, y + 5);
-        }
-
-        // X-Achse
-        g.drawLine(leftMargin, height - 30, width - rightShift, height - 30);
-        for (int i = 0; i < periodNumbers.size(); i++) {
-            int x = width - (rightShift + i * 2 * barWidth + barWidth / 2);
-            g.drawLine(x, height - 25, x, height - 30);
-            g.drawString(Integer.toString(periodNumbers.get(i)), x - 10, height - 10);
-        }
-
-        // Zeichne Balken mit Debug-Markierungen
         for (int i = 0; i < goodCounters.size(); i++) {
-            int goodHeight = Math.max(1, goodCounters.get(i) * scale);
-            int badHeight = Math.max(1, badCounters.get(i) * scale);
+            cumulativeGood += goodCounters.get(i);
+            cumulativeBad += badCounters.get(i);
 
-            // Debug: Zeichne eine Linie an der Position jedes Balkens
-            int xPosition = width - (rightShift + i * 2 * barWidth + barWidth * 2);
-            g.setColor(Color.BLUE);
-            g.drawLine(xPosition, height - 30 - 10, xPosition, height - 30 + 10);
+            double ratio = (cumulativeGood + cumulativeBad) == 0 ? 0.0 : (double) cumulativeGood / (cumulativeGood + cumulativeBad);
+            cumulativeRatios.add(ratio);
 
-            // Zeichne goodCounter-Balken (grün)
-            g.setColor(Color.GREEN);
-            g.fillRect(xPosition, height - 30 - goodHeight, barWidth, goodHeight);
+            // Aktualisiere Min- und Max-Werte
+            if (ratio < minRatio) minRatio = ratio;
+            if (ratio > maxRatio) maxRatio = ratio;
 
-            // Zeichne badCounter-Balken (rot)
-            xPosition = width - (rightShift + i * 2 * barWidth + barWidth);
-            g.setColor(Color.RED);
-            g.fillRect(xPosition, height - 30 - badHeight, barWidth, badHeight);
+            // Ausgabe zur Überprüfung
+            System.out.println(periodNumbers.get(i) + " | " + cumulativeGood + " | " + cumulativeBad + " | " + ratio);
         }
-
-        g.setFont(originalFont);
     }
 
-    private int getMax(ArrayList<Integer> list) {
-        int max = Integer.MIN_VALUE;
-        for (int value : list) {
-            if (value > max) {
-                max = value;
-            }
+    private double calculateTotalRatio() {
+        int totalGood = 0;
+        int totalBad = 0;
+
+        for (int good : goodCounters) {
+            totalGood += good;
         }
-        return max;
+
+        for (int bad : badCounters) {
+            totalBad += bad;
+        }
+
+        return (totalGood + totalBad) == 0 ? 0.0 : (double) totalGood / (totalGood + totalBad);
     }
 
-    public String getFileContent() {
-        return fileContent.toString();
+    private JFreeChart createBarChart() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (int i = 0; i < periodNumbers.size(); i++) {
+            dataset.addValue(goodCounters.get(i), "Good", periodNumbers.get(i));
+            dataset.addValue(badCounters.get(i), "Bad", periodNumbers.get(i));
+        }
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Good vs Bad Counters",   // Chart title
+                "Period",                 // X-Axis Label
+                "Count",                  // Y-Axis Label
+                dataset,                  // Dataset
+                PlotOrientation.VERTICAL, // Plot orientation
+                true,                     // Show legend
+                true,                     // Use tooltips
+                false                     // Configure chart to generate URLs?
+        );
+
+        CategoryPlot plot = (CategoryPlot) barChart.getPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        // Entfernen des Schattens von den Balken
+        renderer.setShadowVisible(false);
+
+        // Farben für die Balken festlegen
+        renderer.setSeriesPaint(0, Color.GREEN); // Good -> Grün
+        renderer.setSeriesPaint(1, Color.RED);   // Bad -> Rot
+
+        // Abstand zwischen den Balken, die zur gleichen Kategorie gehören, verringern
+        renderer.setItemMargin(0.1); // 10% Abstand zwischen den Balken in einer Kategorie
+
+        // X-Achse Labels besser lesbar machen
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setCategoryLabelPositions(
+                CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 2.0) // 90 Grad
+        );
+
+        // Schriftgröße der Labels erhöhen
+        domainAxis.setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+
+        return barChart;
+    }
+
+    private JFreeChart createLineChart() {
+        XYSeries series = new XYSeries("Cumulative Good/Bad Ratio");
+
+        for (int i = 0; i < periodNumbers.size(); i++) {
+            double ratio = cumulativeRatios.get(i);
+            series.add(i, ratio); // Verwenden des Index als X-Wert für die Synchronisation
+        }
+
+        XYSeriesCollection dataset = new XYSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Cumulative Good/Bad Ratio Over Time",
+                "Period",
+                "Ratio",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        rangeAxis.setRange(minRatio, maxRatio); // Dynamisch basierend auf den Min/Max-Ratios
+
+        return chart;
     }
 
     public static void main(String[] args) {
@@ -125,33 +195,20 @@ public class ShowGoodBadCounter extends JPanel {
 
         String filePath = args[0];
 
-        // Hauptfenster
+        // Erstellen und Anzeigen des Fensters
         JFrame frame = new JFrame("Show Good and Bad Counter");
 
-        // Panel für das Diagramm
+        // Erstellen des Panels mit den Diagrammen
         ShowGoodBadCounter chartPanel = new ShowGoodBadCounter(filePath);
 
-        // Panel für den Text
-        JTextArea textArea = new JTextArea(chartPanel.getFileContent());
-        textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(1600, 400)); // Größe des Textfensters
+        // Summenverhältnis berechnen und in der Überschrift anzeigen
+        double totalRatio = chartPanel.calculateTotalRatio();
+        frame.setTitle("Show Good and Bad Counter - Good/Bad Ratio = " + String.format("%.6f", totalRatio));
 
-        // JSplitPane für die Aufteilung
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, chartPanel, scrollPane);
-        splitPane.setDividerLocation(600); // Teilt den Platz 600px für das Diagramm, Rest für Text
-        splitPane.setResizeWeight(0.5); // Gleichmäßige Gewichtung für Diagramm und Text
-
-        // Layout-Manager für das Hauptfenster
-        frame.setLayout(new BorderLayout());
-
-        // Einfügen des SplitPanes in das Hauptfenster
-        frame.add(splitPane, BorderLayout.CENTER);
-
-        // Fenster konfigurieren
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Hinzufügen des Panels zum Frame
+        frame.setContentPane(chartPanel);
         frame.setSize(1600, 1200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
-
