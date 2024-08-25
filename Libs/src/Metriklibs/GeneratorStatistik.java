@@ -1,11 +1,16 @@
 package Metriklibs;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import gui.JLibsProgressWin;
 import gui.ShowGoodBadCounter;
@@ -16,14 +21,15 @@ import hiflsklasse.Tracer;
 public class GeneratorStatistik
 {
 	private String logfile_goodbad_glob=null;
+	private String workflowname_glob=null;
 	private float goodfaktor_glob=0;
 	public GeneratorStatistik()
 	{
 	}
 	
-	public void collectGoodBad(String filterpath)
+	public void collectGoodBad(String filterpath,String Workflowname)
 	{
-		
+		workflowname_glob=Workflowname;
 		FileAccessDyn fdirs = new FileAccessDyn();
 		fdirs.initFileSystemList(filterpath, 0);
 		
@@ -106,19 +112,42 @@ public class GeneratorStatistik
 		
 		return lines;
 	}
-	public void showGoodBadcounter()
-	{
-		 
+	public void showGoodBadcounter() {
 
-	        JFrame frame = new JFrame("Show Good and Bad Counter faktor="+goodfaktor_glob);
-	        ShowGoodBadCounter panel = new ShowGoodBadCounter(logfile_goodbad_glob);
-	        frame.add(panel);
-	        frame.setSize(1600, 1200);
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setVisible(true);
-		
-		
-		
-	
+	    JFrame frame = new JFrame("Show Good and Bad Counter faktor=" + goodfaktor_glob);
+	    frame.setLayout(new BorderLayout());
+
+	    // Erstellen des ShowGoodBadCounter-Panels
+	    ShowGoodBadCounter panel = new ShowGoodBadCounter(logfile_goodbad_glob);
+	    double totalratio=panel.calculateTotalRatio();
+	    
+	    // Erstes Textfeld erstellen
+	    JTextField textField1 = new JTextField(workflowname_glob);
+	    textField1.setHorizontalAlignment(JTextField.LEFT);
+	    textField1.setFont(new Font("SansSerif", Font.BOLD, 35));
+
+	    // Den total ratio factor auf 3 Dezimalstellen runden
+	    String formattedRatio = String.format("%.3f", totalratio);
+
+	    
+	    // Zweites Textfeld erstellen
+	    JTextField textField2 = new JTextField("total ratio factor="+formattedRatio);
+	    textField2.setHorizontalAlignment(JTextField.LEFT);
+	    textField2.setFont(new Font("SansSerif", Font.PLAIN, 35));
+
+	    // Panel erstellen, um die Textfelder zu enthalten
+	    JPanel textPanel = new JPanel();
+	    textPanel.setLayout(new GridLayout(2, 1)); // 2 Zeilen, 1 Spalte
+	    textPanel.add(textField1);
+	    textPanel.add(textField2);
+
+	    // Hinzufügen des Panels und des Textfeld-Panels zum Frame
+	    frame.add(panel, BorderLayout.CENTER);
+	    frame.add(textPanel, BorderLayout.SOUTH);
+
+	    frame.setSize(3200, 1500);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setVisible(true);
 	}
+
 }

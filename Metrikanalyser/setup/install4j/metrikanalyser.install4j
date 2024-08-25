@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures" />
-  <application name="Monitortool/MetrikAnalyser" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Metrikanalyser" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.1.13.5" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
+  <application name="Monitortool/MetrikAnalyser" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Metrikanalyser" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.1.13.6" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />

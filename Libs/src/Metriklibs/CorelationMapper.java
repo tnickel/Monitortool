@@ -70,13 +70,13 @@ public class CorelationMapper
 				crs.setAnzvorkommen(counter);
 				
 				// wenn das neue objekt gut war.
-				if (newval > 0.2)
+				if (newval > 0.15)
 				{
 					int gcounter = crs.getAnzgut() + 1;
 					crs.setAnzgut(gcounter);
 				}
 				// wenn das neue extrem schlecht war.
-				if (newval < -0.2)
+				if (newval < -0.15)
 				{
 					int bcounter = crs.getAnzbad() + 1;
 					crs.setAnzbad(bcounter);
@@ -90,8 +90,9 @@ public class CorelationMapper
 	public Attribliste CalcgoodAttribliste()
 	{
 		//wir brauchen eine liste mit den attributen mit hoher korrelation und hohem vorkommen.
-		//ein element ist gut wenn es mindestens 7 mal über dem schwellwert von 0.2 war und
+		//ein element ist gut wenn es mindestens 5 mal über dem schwellwert von 0.15 war und
 		//eine summenkorrelation von 1 aufweisst.
+		//Summenkorrelation ist die aufsummierung über alle workflows für eine bestimmte metrik
 		
 		Attribliste attriblist = new Attribliste();
 		

@@ -1,6 +1,8 @@
 package Main;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -50,6 +52,7 @@ import hiflsklasse.SWTwindow;
 import hilfsklasse.FileAccess;
 import hilfsklasse.SG;
 import hilfsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import userinterface.SetConfig;
 import userinterface.SetCorrelationConfig;
 import userinterface.SetFilter;
@@ -149,6 +152,9 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Label label14;
+	private Text text3maxattribs;
+	private Combo combo1attributreduction;
 	private Label label11;
 	private Button button3takenbest;
 	private Text text1;
@@ -353,12 +359,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							cLabel1 = new CLabel(composite1, SWT.NONE);
 							cLabel1.setText("Number of Trees");
-							cLabel1.setBounds(1037, 49, 102, 30);
+							cLabel1.setBounds(1037, 62, 102, 14);
 						}
 						{
 							button4exportallattributes = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4exportallattributes.setText("ExportDataForWeka");
-							button4exportallattributes.setBounds(899, 19, 128, 19);
+							button4exportallattributes.setBounds(899, 12, 128, 19);
 						}
 						{
 							button4learnallwekaexported = new Button(composite1, SWT.CHECK | SWT.LEFT);
@@ -574,7 +580,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3useonlyrelevantmetric = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3useonlyrelevantmetric.setText("UseOnlyRelevantMetric");
-							button3useonlyrelevantmetric.setBounds(898, 39, 83, 19);
+							button3useonlyrelevantmetric.setBounds(899, 35, 174, 19);
 							button3useonlyrelevantmetric.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
 									button3useonlyrelevantmetricWidgetSelected(evt);
@@ -590,7 +596,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3usebadendtest = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3usebadendtest.setText("UseBadEndtest");
-							button3usebadendtest.setBounds(1039, 12, 123, 30);
+							button3usebadendtest.setBounds(1038, 7, 102, 30);
 						}
 						{
 							button3showcounter = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -616,6 +622,26 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							label11 = new Label(composite1, SWT.NONE);
 							label11.setText("Take the N best Strategies with min Profit");
 							label11.setBounds(1070, 159, 237, 17);
+						}
+						{
+							combo1attributreduction = new Combo(composite1, SWT.NONE);
+							combo1attributreduction.setText("Select Reduction Algo");
+							combo1attributreduction.setBounds(1070, 36, 154, 20);
+							combo1attributreduction.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									combo1attributreductionWidgetSelected(evt);
+								}
+							});
+						}
+						{
+							text3maxattribs = new Text(composite1, SWT.NONE);
+							text3maxattribs.setText("3000");
+							text3maxattribs.setBounds(1146, 12, 44, 18);
+						}
+						{
+							label14 = new Label(composite1, SWT.NONE);
+							label14.setText("Max Strategies");
+							label14.setBounds(1196, 12, 92, 17);
 						}
 					}
 				}
@@ -919,6 +945,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 					}
 				}
 			}
+			initGui();
 			readparam_userinterface();
 			this.layout();
 		} catch (Exception e)
@@ -927,8 +954,18 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		}
 	}
 	
+	private void initGui()
+	{
+		combo1attributreduction.add("TN Selectionfilter");
+		combo1attributreduction.add("Greedy");
+		
+	}
+	
 	private void readparam_userinterface()
 	{
+		
+		
+		
 		String[] ITEMS =
 		{ "PearsonsCorrelation", "KendallsCorrelation", "SpearmansCorrelation" };
 		
@@ -974,7 +1011,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		
 		// 4) Metrikglobalconf setzen
 		Metrikglobalconf.setShell(shell);
-		Metrikglobalconf.setVersion("Version V0.1.13.4");
+		Metrikglobalconf.setVersion("Version V0.1.13.5");
 		Metrikglobalconf.refreshHeader(userdir);
 		
 		System.out.println("akueller pfad=" + userdir);
@@ -1335,7 +1372,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		int anztrees=Integer.valueOf(text1trees.getText());
 		AutoWorkflow aw=new AutoWorkflow(strategienselector_glob,text5.getText());
 		if(button4exportallattributes.getSelection())
-		  aw.ExportAllAttributesWeka(button3usebadendtest.getSelection());
+		  aw.ExportAllAttributesWeka(button3usebadendtest.getSelection(),Integer.valueOf(text3maxattribs.getText()));
 		
 		
 		 if(button3useonlyrelevantmetric.getSelection())
@@ -1426,14 +1463,22 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	
 	private void button3useonlyrelevantmetricWidgetSelected(SelectionEvent evt) {
 		System.out.println("button3useonlyrelevantmetric.widgetSelected, event="+evt);
-		//TODO add your code for button3useonlyrelevantmetric.widgetSelected
+		if(button3useonlyrelevantmetric.getSelection()==true)
+			combo1attributreduction.setEnabled(true);
+		else
+			combo1attributreduction.setEnabled(false);
 	}
 	
 	private void button3showcounterWidgetSelected(SelectionEvent evt) {
 		System.out.println("button3showcounter.widgetSelected, event="+evt);
 		//show godd and badcounter
 		GeneratorStatistik gstat=new GeneratorStatistik();
-		gstat.collectGoodBad(Metrikglobalconf.getFilterpath());
+		gstat.collectGoodBad(Metrikglobalconf.getFilterpath(),Metrikglobalconf.getFilterpath());
 		gstat.showGoodBadcounter();
+	}
+	
+	private void combo1attributreductionWidgetSelected(SelectionEvent evt) {
+		System.out.println("combo1attributreduction.widgetSelected, event="+evt);
+		//TODO add your code for combo1attributreduction.widgetSelected
 	}
 }

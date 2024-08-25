@@ -99,7 +99,7 @@ public class WekaLearn
 			options[4] = "-S";
 			options[5] = "1"; // Seed for the random number generator
 			options[6] = "-num-slots";
-			options[7] = "32"; // Number of slots
+			options[7] = "4"; // Number of slots
 			
 			forest.setOptions(options);
 			

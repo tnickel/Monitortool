@@ -36,9 +36,9 @@ public class AutoWorkflow
 		strategienselector_glob = strategienselector;
 	}
 	
-	public void FullAnalysis(boolean usebad)
+	public void FullAnalysis(boolean usebad,int maxstrategies)
 	{
-		ExportAllAttributesWeka(usebad);
+		ExportAllAttributesWeka(usebad,maxstrategies);
 	}
 	
 	static public void DeleteAllEndtestfiles()
@@ -361,7 +361,7 @@ public class AutoWorkflow
 		}
 	}
 	
-	public void ExportAllAttributesWeka(boolean usebadendtest)
+	public void ExportAllAttributesWeka(boolean usebadendtest,int maxstrategies)
 	{
 		// wir müssen hier durch alle Verzeichnisse laufen und dann jedes mal
 		// exportieren.
@@ -382,10 +382,10 @@ public class AutoWorkflow
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
-			ExportOneWorkflow(maxeportattributes_glob, workfile, workdir,usebadendtest);
+			ExportOneWorkflow(maxstrategies, workfile, workdir,usebadendtest);
 		}
 		jp.end();
-		Tracer.WriteTrace(20, "All attribute exported");
+		Tracer.WriteTrace(20, "All workflows exported");
 	}
 	public void FilterRelevantMetrics(String endtestattribname, String corealgotype,
 			boolean showoutputflag)
