@@ -57,6 +57,11 @@ public class Metriktabelle
 		// hier wird die ganze Tabelle zeilenweise eingelesen und aufgebaut
 		// die attribute aus der ersten Zeile sind hier ja schon bekannt
 		String fnam = holeEinenFilenamen(dirnam);
+		if(fnam==null)
+		{
+			Tracer.WriteTrace(20, "E: no exported table file in <"+dirnam+">");
+			return;
+		}
 		filename_glob = fnam;
 		leseAttributeUndRestSorted(msel, fnam);
 		
@@ -394,8 +399,10 @@ public class Metriktabelle
 		if (count_csv > 1)
 			Tracer.WriteTrace(10, "E:nur 1 csv-file in Verz<" + dir + "> erlaubt");
 		if (count_csv < 1)
+		{
 			Tracer.WriteTrace(10, "E: no csv-file in directory<" + dir + ">");
-		
+			return null;
+		}
 		return dir + "\\" + found_csv;
 	}
 	

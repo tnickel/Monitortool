@@ -1,8 +1,6 @@
 package start;
 
 import java.io.File;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -43,13 +41,13 @@ import data.Metriktools;
 import data.RtTools;
 import data.Toolboxconf;
 import data.TradefilterVerarbeitung;
+import gui.CfxDateViewer;
 import gui.Guitools;
 import gui.Mbox;
 import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
-import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -216,6 +214,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button button9showfile;
 	private Button button9copyinshared;
 	private Label label34;
 	private Text GetEnddateFromDatabase;
@@ -1327,7 +1326,7 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								button7calc = new Button(group2filter, SWT.PUSH | SWT.CENTER);
-								button7calc.setText("Step2 Generate SQ Workflow");
+								button7calc.setText("Step2 Generate SQ Workflows");
 								button7calc.setBounds(1170, 501, 285, 79);
 								button7calc.setToolTipText("SQworkflow modifies SQ 4.X Workflows\r\n");
 								button7calc.addSelectionListener(new SelectionAdapter() {
@@ -1746,6 +1745,16 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 								button9copyinshared.setText("CopyMasterworkflow in Shared Drive");
 								button9copyinshared.setBounds(1170, 586, 281, 30);
 								button9copyinshared.setSelection(true);
+							}
+							{
+								button9showfile = new Button(group2filter, SWT.PUSH | SWT.CENTER);
+								button9showfile.setText("ShowFile");
+								button9showfile.setBounds(1072, 112, 60, 30);
+								button9showfile.addSelectionListener(new SelectionAdapter() {
+									public void widgetSelected(SelectionEvent evt) {
+										button9showfileWidgetSelected(evt);
+									}
+								});
 							}
 						}
 					}
@@ -2861,6 +2870,15 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		}
 		else
 			  Toolboxconf.setPropAttribute("maxstepsback", "0");
+	}
+	
+	private void button9showfileWidgetSelected(SelectionEvent evt) {
+		System.out.println("button9showfile.widgetSelected, event="+evt);
+		  try {
+	            CfxDateViewer.processCfxFile(Display.getDefault(),FilterSourceDir.getText());
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	}
 
 	final Runnable inittimer = new Runnable() {

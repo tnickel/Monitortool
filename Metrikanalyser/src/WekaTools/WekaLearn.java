@@ -51,7 +51,7 @@ public class WekaLearn
 			}
 			
 			// Debug-Ausgabe für Klassenattribut
-			System.out.println("Klassenattribut gesetzt auf Index: " + idata.classIndex() + ", Name: "
+			System.out.println("Class attribut will be set to Index: " + idata.classIndex() + ", Name: "
 					+ idata.classAttribute().name());
 			
 			// Überprüfen, ob das Klassenattribut in den Trainingsdaten enthalten ist
@@ -67,8 +67,8 @@ public class WekaLearn
 			
 			if (classAttrInData)
 			{
-				System.out.println("Warnung: Das zu klassifizierende Attribut '" + idata.classAttribute().name()
-						+ "' ist in den Trainingsdaten enthalten.");
+				System.out.println("Warnung: This is the attribut to classified '" + idata.classAttribute().name()
+						+ "' is in the trainings data.");
 			} else
 			{
 				System.out.println("Security-Check: The attribut to classify  '" + idata.classAttribute().name()
@@ -87,7 +87,7 @@ public class WekaLearn
 			}
 			
 			// Debug-Ausgabe für Normalisierung
-			System.out.println("Daten wurden normalisiert.");
+			System.out.println("Data will be normalized");
 			
 			// Erstelle und konfiguriere den RandomForest-Klassifikator
 			RandomForest forest = new RandomForest();
@@ -104,7 +104,7 @@ public class WekaLearn
 			forest.setOptions(options);
 			
 			// Debug-Ausgabe für Optionen
-			System.out.println("RandomForest Optionen gesetzt: " + java.util.Arrays.toString(forest.getOptions()));
+			System.out.println("RandomForest option set: " + java.util.Arrays.toString(forest.getOptions()));
 			
 			// Trainiere das Modell
 			forest.buildClassifier(data);
@@ -117,8 +117,8 @@ public class WekaLearn
 			eval.crossValidateModel(forest, data, crossvalidateinstanzanz, new Random(1));
 			
 			// Ausgabe der Evaluierung
-			System.out.println(eval.toSummaryString("\nErgebnisse\n======\n", false));
-			String summary = eval.toSummaryString("\nErgebnisse\n======\n", false);
+			System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+			String summary = eval.toSummaryString("\nResults\n======\n", false);
 			wres.addWekaEvalResp(index, eval, modeloutpath, csvtrainingFile);
 			
 			// Modell speichern
@@ -131,11 +131,13 @@ public class WekaLearn
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+			Tracer.WriteTrace(10, "E:Weka exception<"+e.getMessage()+">-->Stop");
 		}
 	}
 	
 	private static void checkFeatureImportance(Instances data, String file) throws Exception
 	{
+		int onceflag=0;
 		// Verwende CorrelationAttributeEval, um numerische Klassen zu unterstützen
 		AttributeSelection attrSelection = new AttributeSelection();
 		CorrelationAttributeEval eval = new CorrelationAttributeEval(); // Korrelation als Evaluator
@@ -153,12 +155,13 @@ public class WekaLearn
 		{
 			double importance = eval.evaluateAttribute(i);
 			//System.out.println("Feature: " + data.attribute(i).name() + " - Correlation: " + importance);
-			if (importance > maxFeatureImportanceThreshold)
+			if ((importance > maxFeatureImportanceThreshold)&&(onceflag==0))
 			{
 				System.out.println(
 						"Warnung: Feature '" + data.attribute(i).name() + "' has a high correlation of " + importance);
 				Tracer.WriteTrace(10, "Warnung: Feature '" + data.attribute(i).name() + "' has a high correlation of "
 						+ importance + " i=" + i + "file<" + file + ">");
+				onceflag=1;
 			}
 		}
 	}
@@ -429,7 +432,7 @@ public class WekaLearn
 	
 	public static WekaClassifierElem classifyNewDataCopyStrategies(String datadir, String modelPath, String newDataPath,
 			int instanzanzCrossvalidationk, double minprofit, boolean allowcopyflag, boolean normflag, boolean takebestflag,
-			int anzbest) throws Exception
+			int anzbest,String attribfilename, boolean useminprofitPlusTakeNBestflag) throws Exception
 	{
 		// instanzanzCrossvalidation = Anzahl der Instanzen bei der Cross-Validierung.
 		// Bei 500er Batchsize sollte man instanzanzahl auf 3 setzen.
@@ -557,7 +560,10 @@ public class WekaLearn
 			
 			double correlation = calculateCorrelation(actualValues, predictedValues);
 			System.out.println("Correlation coefficient: " + correlation);
-			if(takebestflag==false)
+			
+			if(useminprofitPlusTakeNBestflag==true)
+				bestlist.filterBest("minval+takebest", anzbest);
+			else if(takebestflag==false)
 				bestlist.filterBest("minval",0);
 			else
 				bestlist.filterBest("takebest", anzbest);

@@ -122,7 +122,7 @@ public class PeriodGewinnchart {
         PeriodGewinnchart chartCreator = new PeriodGewinnchart();
         JPanel chartPanel = chartCreator.createChartPanel(filePath);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.add(chartPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -134,7 +134,7 @@ public class PeriodGewinnchart {
           PeriodGewinnchart chartCreator = new PeriodGewinnchart();
           JPanel chartPanel = chartCreator.createChartPanel(filePath);
 
-          frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+          frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
           frame.add(chartPanel);
           frame.pack();
           frame.setLocationRelativeTo(null);

@@ -69,7 +69,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		}
 	}
 	
-	public void exportAllAttributesForWeka(String exportfile, int maxstrategies,  String workdir,boolean usebadendtest)
+	public void exportAllAttributesForWeka(String exportfile, int maxstrategies,  String workdir,boolean usebadendtest,String endtestattibname)
 	{
 		// wir brauchen hier tabelle 0 und tabelle 99. Wir brauchen hier alle werte aus
 		// Tabelle 0 und den NetProfit OOS aus der Tabelle 99
@@ -83,6 +83,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		//goodattribs: Wenn die attribliste !=null dann dürfen nur attribute exportiert werden die in der Attribliste sind.
 		//usebadentest: falls das flag gesetzt wird, wird der endtest kaputt gemacht
 		//Die attribliste beinhaltet die teilmenge der Attribute die mit höchster korrelation und vorkommen aus der Megaliste über alle workflows
+		//subset=es wird nur ein subset benötigt. Es werden also nicht alle _0_dir.... _n_dir ausgewertet sondern nur ein teil davon
 		Metriktabelle[] databankExportTable = new Metriktabelle[100];
 		
 		String ostring = "";
@@ -121,6 +122,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			// hole alle zeilen aus tabelle1
 			Metrikzeile mez1 = databankExportTable[1].holeMetrikzeilePosI(i);
 			String stratname = mez1.holeStratName();
+		
 			
 			// aus dieser metrikzeile brauchen wir nur NetProfit OOS,dazu holen wir uns erst
 			// mal die ganze Zeile.
@@ -155,6 +157,8 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 				
 				String nextname=databankExportTable[j].holeMetrikzeilePosI(i).getStrategiename();
 				
+				//Tracer.WriteTrace(20, "Bearbeite zeile<"+nextname+">");
+				
 				if(firstname.equals(nextname)==false)
 					Tracer.WriteTrace(10, "E: datatables are not sorted names not equal <"+firstname+"> != <"+nextname+">");
 				
@@ -165,7 +169,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			
 			
 			if(usebadendtest==false)
-			  ostring=ostring+mez99.getSpecificAttributValueAsString("Net Profit (OOS)");
+			  ostring=ostring+mez99.getSpecificAttributValueAsString(endtestattibname);
 			else
 				ostring=ostring+"0.5";
 			

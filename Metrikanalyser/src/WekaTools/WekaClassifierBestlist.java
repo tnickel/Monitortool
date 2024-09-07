@@ -72,8 +72,9 @@ public class WekaClassifierBestlist
 	public void filterBest(String mode, int takebestn)
 	{
 		// number=
-		
-		if (mode.equals("minval"))
+		if(mode.equals("minval+takebest"))
+			filterMinvalPlusTakebest(takebestn);
+		else if (mode.equals("minval"))
 			filterMinval();
 		else if (mode.equals("takebest"))
 			filterBest(takebestn);
@@ -107,6 +108,37 @@ public class WekaClassifierBestlist
 		}
 		Tracer.WriteTrace(20, "xready");
 	}
+	
+	private void filterMinvalPlusTakebest(int maxbest)
+	{
+		
+		//Nimm die n besten aus der sortierten bestliste
+		
+		double sum=0;
+		// Sortieren mit Comparable
+		Collections.sort(bestlist);
+		int anz = bestlist.size();
+		for (int i = 0; i < maxbest; i++)
+		{
+			ClassifiedElem ce = bestlist.get(i);
+			double aktval = ce.getActualValue();
+			double predval=ce.getPredictValue();
+			if (ce.getPredictValue() > minprofit_glob)
+			{ //nimm die n besten nur auf wenn der predicted value höher ist.
+			
+				ce.setSelected(1);
+				sum=sum+aktval;
+				String stratname=ce.getSourcepath();
+				stratname=stratname.substring(stratname.lastIndexOf("\\"));
+				Tracer.WriteTrace(20, "<"+i+"> of 10 best: name<"+stratname+"> aktval<"+aktval+">");
+				if(i==maxbest-1)
+					Tracer.WriteTrace(20, "name<"+stratname+"> sum<"+sum+">");
+				selectedStrategiesCounter_glob++;
+			}
+		}
+		Tracer.WriteTrace(20, "xready");
+	}
+	
 	
 	private void filterMinval()
 	{

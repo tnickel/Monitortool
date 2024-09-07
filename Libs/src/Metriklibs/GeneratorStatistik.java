@@ -14,11 +14,12 @@ import javax.swing.JTextField;
 
 import gui.JLibsProgressWin;
 import gui.ShowGoodBadCounter;
+import hiflsklasse.BasicWekaTools;
 import hiflsklasse.FileAccess;
 import hiflsklasse.Inf;
 import hiflsklasse.Tracer;
 
-public class GeneratorStatistik
+public class GeneratorStatistik extends BasicWekaTools
 {
 	private String logfile_goodbad_glob=null;
 	private String workflowname_glob=null;
@@ -87,13 +88,7 @@ public class GeneratorStatistik
 		inf.close();
 	}
 	
-	private boolean isValidWorkdir(String dir)
-	{
-		if ((dir.endsWith("endtest")) || (dir.endsWith("long")) || (dir.endsWith("workflowname")))
-			return false;
-		return true;
-		
-	}
+	
 	
 	public int countLinesInFile(String filePath)
 	{
@@ -146,7 +141,7 @@ public class GeneratorStatistik
 	    frame.add(textPanel, BorderLayout.SOUTH);
 
 	    frame.setSize(3200, 1500);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    frame.setVisible(true);
 	}
 

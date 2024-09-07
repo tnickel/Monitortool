@@ -36,9 +36,9 @@ public class AutoWorkflow
 		strategienselector_glob = strategienselector;
 	}
 	
-	public void FullAnalysis(boolean usebad,int maxstrategies)
+	public void FullAnalysis(boolean usebad, int maxstrategies,String endtestattribname)
 	{
-		ExportAllAttributesWeka(usebad,maxstrategies);
+		ExportAllAttributesWeka(usebad, maxstrategies,endtestattribname);
 	}
 	
 	static public void DeleteAllEndtestfiles()
@@ -58,11 +58,11 @@ public class AutoWorkflow
 		
 	}
 	
-	public void PredictAllWeka(int instanzanzahlcrossvalidate,boolean reducedflag,boolean normflag)
+	public void PredictAllWeka(int instanzanzahlcrossvalidate, boolean normflag, String wekaattribfilename)
 	{
 		// hier wird durch das Verzeichnis gegangen und die vorhersagen auf den eigenen
 		// gelerten daten gemacht.
-		//if reducedflag==1 dann wurden die metriken reduziert
+		
 		WekaResultCollector wres = new WekaResultCollector(
 				Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictResults.txt");
 		
@@ -71,9 +71,8 @@ public class AutoWorkflow
 		
 		int anz = fdirs.holeFileAnz();
 		
-	
 		int progcount = 0;
-		JLibsProgressWin jp = new JLibsProgressWin("Workflow predict", 0, anz );
+		JLibsProgressWin jp = new JLibsProgressWin("Workflow predict", 0, anz);
 		
 		for (int i = 0; i < anz; i++)
 		{
@@ -82,13 +81,14 @@ public class AutoWorkflow
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
-			WekaClassifierElem ws = PredictOneWeka(workdir, wres, i, instanzanzahlcrossvalidate,reducedflag,normflag);
+			WekaClassifierElem ws = PredictOneWeka(workdir, wres, i, instanzanzahlcrossvalidate, normflag,
+					wekaattribfilename);
 		}
 		jp.end();
 		wres.writeProtokoll();
 	}
 	
-	public void PredictAllMatrixWeka(int instanzanzahlcrossvalidate,boolean reducedflag,boolean normflag)
+	public void PredictAllMatrixWeka(int instanzanzahlcrossvalidate, boolean normflag, String wekaattribfilename)
 	{
 		// hier wird i,j durchgelaufen und jeder mit jeden evaluiert, also klassifiziert
 		// und das ganze in der Matrix abgespeichert.
@@ -114,7 +114,7 @@ public class AutoWorkflow
 			verzl.add(workdir);
 			
 		}
-		String csvfile="";
+		String csvfileDest = "";
 		
 		// 2ter Schritt, gehe durch die Matrik und klassifiziere alles und speichere
 		anz = verzl.size();
@@ -126,17 +126,15 @@ public class AutoWorkflow
 				progcount++;
 				jp.update(progcount);
 				// PredictOneWeka( workdir, wres,i,instanzanzahlcrossvalidate);
-				String workdir1 = verzl.get(i);
-				String workdir2 = verzl.get(j);
+				String workdirSource = verzl.get(i);
+				String workdirDest = verzl.get(j);
 				try
 				{
-					if(reducedflag==false)
-						csvfile=workdir2 + "\\exported_for_weka.csv";
-					else
-						csvfile=workdir2 + "\\exported_for_weka_reduced.csv";
 					
-					WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(workdir1 + "\\randomforest.model",
-							csvfile, instanzanzahlcrossvalidate,normflag,null);
+					csvfileDest = workdirDest + "\\"+wekaattribfilename;
+					
+					WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(workdirSource + "\\randomforest.model",
+							csvfileDest, instanzanzahlcrossvalidate, normflag, workdirDest);
 					wcollect.AddResult(i, j, wc);
 				} catch (Exception e)
 				{
@@ -146,18 +144,19 @@ public class AutoWorkflow
 			}
 		jp.end();
 		// 3ter Schritt gib die Ergebniss aus.
-		Double averageval=wcollect.WriteProtokoll1();
-		HeatMapMatrix hm = new HeatMapMatrix("Heatmap Matrix average value="+averageval, outfile);
+		Double averageval = wcollect.WriteProtokoll1();
+		HeatMapMatrix hm = new HeatMapMatrix("Heatmap Matrix average value=" + averageval, outfile);
 		hm.start(outfile);
 	}
 	
-	public void PredictLastPeriod(int instanzanzahlcrossvalidate,boolean reducedflag,boolean normflag,String workdir)
+	public void PredictLastPeriod(int instanzanzahlcrossvalidate, boolean reducedflag, boolean normflag, String workdir,
+			String attribfilename)
 	{
 		// Hier wollen wir nicht die ganze Matrik lernen sondern mit den daten der
 		// vorherigen Periode die aktuelle vorhersagen
 		// Dies ist ja auch der eigentliche Anwendungsfall. Mit der Matrix haben wir uns
 		// immer nur so einen Überblick verschafft.
-		//if normflag==1 dann wird normalisiert
+		// if normflag==1 dann wird normalisiert
 		WekaMatrixCollector wcollect = new WekaMatrixCollector(
 				Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriod.txt");
 		
@@ -189,15 +188,14 @@ public class AutoWorkflow
 			
 			String modeldir = verzl.get(i);
 			String datadir = verzl.get(i - 1);
-			String csvfile=datadir + "\\exported_for_weka.csv";
-			if(reducedflag==true)
-				csvfile=datadir + "\\exported_for_weka_reduced.csv";
+			String csvfile = datadir + "\\"+attribfilename;
+		
 			try
 			{
 				Tracer.WriteTrace(20, "____________________________________________________________");
 				Tracer.WriteTrace(20, "predict period<" + datadir + "> with learned data from<" + modeldir + ">");
-				WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(modeldir + "\\randomforest.model",
-						csvfile, instanzanzahlcrossvalidate,normflag,null);
+				WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(modeldir + "\\randomforest.model", csvfile,
+						instanzanzahlcrossvalidate, normflag, workdir);
 				wcollect.AddResult(i, 0, wc);
 			} catch (Exception e)
 			{
@@ -210,17 +208,20 @@ public class AutoWorkflow
 		wcollect.WriteProtokoll1();
 	}
 	
-	public void PredictLastPeriodCopyStrategies(int instanzanzahlcrossvalidate, double minprofit,boolean copyflag,boolean reducedflag,boolean normflag,boolean takebestflag, int anzbest)
+	public void PredictLastPeriodCopyStrategies(int instanzanzahlcrossvalidate, double minprofit, boolean copyflag,
+			boolean normflag, boolean takebestflag, int anzbest, String attribfilename, boolean useminprofitPlusTakeNBestflag)
 	{
 		// Hier wollen wir nicht die ganze Matrik lernen sondern mit den daten der
 		// vorherigen Periode die aktuelle vorhersagen
 		// Dies ist ja auch der eigentliche Anwendungsfall. Mit der Matrix haben wir uns
 		// immer nur so einen Überblick verschafft.
-		// takenbestflag= falls das gesetzt ist werden die n besten strategien genommen die minprofit überschritten hatten
+		// takenbestflag= falls das gesetzt ist werden die n besten strategien genommen
+		// die minprofit überschritten hatten
 		// anzbest= ist die anzahl der strategien die wir kopieren wollen.
+		// button3useminprofittakenbest= if this flag is set then use both, takeminprofit + take n best
 		String outfile_str = Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriod2.txt";
 		String profitfile_str = Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodProfit.txt";
-		String profitfileVal_str=Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodVal.txt";
+		String profitfileVal_str = Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodVal.txt";
 		WekaMatrixCollector wcollect = new WekaMatrixCollector(outfile_str);
 		
 		FileAccessDyn fdirs = new FileAccessDyn();
@@ -249,16 +250,15 @@ public class AutoWorkflow
 			
 			String modeldir = verzl.get(i);
 			String datadir = verzl.get(i - 1);
-			String csvfile=datadir + "\\exported_for_weka.csv";
-			if(reducedflag==true)
-				csvfile=datadir + "\\exported_for_weka_reduced.csv";
+			String csvfile = datadir + "\\exported_for_weka.csv";
+			
 			try
 			{
 				Tracer.WriteTrace(20, "_________________________________________________________________");
 				Tracer.WriteTrace(20, "predict period<" + datadir + "> with learned data from<" + modeldir + ">");
 				WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewDataCopyStrategies(datadir,
-						modeldir + "\\randomforest.model", csvfile,
-					instanzanzahlcrossvalidate, minprofit,copyflag,normflag,takebestflag,anzbest);
+						modeldir + "\\randomforest.model", csvfile, instanzanzahlcrossvalidate, minprofit, copyflag,
+						normflag, takebestflag, anzbest, attribfilename,useminprofitPlusTakeNBestflag);
 				
 				wcollect.AddResult(i, 0, wc);
 			} catch (Exception e)
@@ -270,36 +270,32 @@ public class AutoWorkflow
 		jp.end();
 		// 3ter Schritt gib die Ergebniss aus.
 		// es werden hier zwei unterschiedliche protokolle geschrieben
-		double val=wcollect.WriteProtokoll1();
+		double val = wcollect.WriteProtokoll1();
 		wcollect.WriteProtokoll2Profit(profitfile_str);
 		wcollect.WriteProtokoll3Values(profitfileVal_str);
-		PeriodGewinnchart pergew=new PeriodGewinnchart();
+		PeriodGewinnchart pergew = new PeriodGewinnchart();
 		pergew.createChartPanel(profitfileVal_str);
 		pergew.show(profitfileVal_str);
 		
-		int copycount=wcollect.GetCopyCounterSum();
-	
+		int copycount = wcollect.GetCopyCounterSum();
 		
-		
-		
-		HeatMapLine heatMapLine = new HeatMapLine("Heatmap Prediction averagevalue="+val+"count="+copycount, outfile_str);
+		HeatMapLine heatMapLine = new HeatMapLine("Heatmap Prediction averagevalue=" + val + "count=" + copycount,
+				outfile_str);
 		heatMapLine.start(outfile_str);
 		
 	}
 	
 	private WekaClassifierElem PredictOneWeka(String workdir, WekaResultCollector wres, int index,
-			int instanzanzahlcrossvalidate,boolean reducedflag,boolean normflag)
+			int instanzanzahlcrossvalidate, boolean normflag, String wekaattribfilename)
 	{
-		String csvfile="";
-		if(reducedflag==false)
-			csvfile=workdir + "\\exported_for_weka.csv";
-		else
-			csvfile=workdir + "\\exported_for_weka_reduced.csv";
+		String csvfile = "";
+		
+		csvfile = workdir + "\\" + wekaattribfilename;
 		
 		try
 		{
-			WekaClassifierElem ws = WekaTools.WekaLearn.classifyNewData(workdir + "\\randomforest.model",
-					csvfile, instanzanzahlcrossvalidate,normflag,workdir);
+			WekaClassifierElem ws = WekaTools.WekaLearn.classifyNewData(workdir + "\\randomforest.model", csvfile,
+					instanzanzahlcrossvalidate, normflag, workdir);
 			return ws;
 		} catch (Exception e)
 		{
@@ -309,7 +305,8 @@ public class AutoWorkflow
 		}
 	}
 	
-	public void LearnAllWekaExported(int instanzanzahlcrossvalidate, int anztrees,boolean userelevantmetrics,boolean usenorm)
+	public void LearnAllWekaExported(int instanzanzahlcrossvalidate, int anztrees, boolean usenorm,
+			String wekaattribfilename)
 	{
 		WekaResultCollector wres = new WekaResultCollector(
 				Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestLearnerResults.txt");
@@ -319,9 +316,8 @@ public class AutoWorkflow
 		
 		int anz = fdirs.holeFileAnz();
 		
-		
 		int progcount = 0;
-		JLibsProgressWin jp = new JLibsProgressWin("Learn Workflow", 0, anz );
+		JLibsProgressWin jp = new JLibsProgressWin("Learn Workflow", 0, anz);
 		
 		for (int i = 0; i < anz; i++)
 		{
@@ -330,42 +326,39 @@ public class AutoWorkflow
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
-			LearnOneWekaExported(workdir, instanzanzahlcrossvalidate, wres, i, anztrees,userelevantmetrics,usenorm);
+			LearnOneWekaExported(workdir, instanzanzahlcrossvalidate, wres, i, anztrees, usenorm, wekaattribfilename);
 		}
 		jp.end();
 		wres.writeProtokoll();
 	}
 	
 	private void LearnOneWekaExported(String workdir, int instanzanzahlcrossvalidate, WekaResultCollector wres,
-			int index, int anztrees,boolean userelevantmetrics,boolean usenorm)
+			int index, int anztrees, boolean usenorm, String wekaattribfilename)
 	{
-		String csvfile ="";
+		String csvfile = "";
 		String randomForestmodelFile = workdir + "\\randomForest.model";
-
 		
-		if(userelevantmetrics==true)
-			csvfile = workdir + "\\exported_for_weka_reduced.csv";
-		else
-		 csvfile = workdir + "\\exported_for_weka.csv";
+		csvfile = workdir + "\\" + wekaattribfilename;
 		try
 		{
 			
-				WekaTools.WekaLearn.loadAndTrainModel(csvfile, randomForestmodelFile, instanzanzahlcrossvalidate, wres,
-					index, anztrees,usenorm);
-			
+			WekaTools.WekaLearn.loadAndTrainModel(csvfile, randomForestmodelFile, instanzanzahlcrossvalidate, wres,
+					index, anztrees, usenorm);
 			
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Tracer.WriteTrace(10, "E: Weka error<"+e.getMessage()+">");
 		}
 	}
 	
-	public void ExportAllAttributesWeka(boolean usebadendtest,int maxstrategies)
+	public void ExportAllAttributesWeka(boolean usebadendtest, int maxstrategies, String endtestattribname)
 	{
 		// wir müssen hier durch alle Verzeichnisse laufen und dann jedes mal
 		// exportieren.
 		// holt die liste der Verzeichnisse
+		//subset=ist ein string der nur ein subset definiert.
 		FileAccessDyn fdirs = new FileAccessDyn();
 		fdirs.initFileSystemList(Metrikglobalconf.getFilterpath(), 0);
 		
@@ -373,7 +366,7 @@ public class AutoWorkflow
 		// gehe durch alle workflows
 		
 		int progcount = 0;
-		JLibsProgressWin jp = new JLibsProgressWin("Generate all Metrics for Weka", 0, anz );
+		JLibsProgressWin jp = new JLibsProgressWin("Generate all Metrics for Weka", 0, anz);
 		for (int i = 0; i < anz; i++)
 		{
 			String workdir = (Metrikglobalconf.getFilterpath() + "\\" + fdirs.holeFileSystemName()).toLowerCase();
@@ -382,71 +375,67 @@ public class AutoWorkflow
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
-			ExportOneWorkflow(maxstrategies, workfile, workdir,usebadendtest);
+			ExportOneWorkflow(maxstrategies, workfile, workdir, usebadendtest,endtestattribname);
 		}
 		jp.end();
 		Tracer.WriteTrace(20, "All workflows exported");
 	}
-	public void FilterRelevantMetrics(String endtestattribname, String corealgotype,
-			boolean showoutputflag)
+	
+	public void FilterRelevantMetrics(String endtestattribname, String corealgotype, boolean showoutputflag)
 	{
-		//erst mal die Megamatrix aufbauen
-		CalcCorrelationAllWorkflows cal= new CalcCorrelationAllWorkflows();
-		cal.CalcCorrelationAllWorkflows(endtestattribname, corealgotype,showoutputflag);
-		Attribliste attribliste=cal.getGoodAttribliste();
+		// erst mal die Megamatrix aufbauen
+		CalcCorrelationAllWorkflows cal = new CalcCorrelationAllWorkflows();
+		cal.CalcCorrelationAllWorkflows(endtestattribname, corealgotype, showoutputflag);
+		Attribliste attribliste = cal.getGoodAttribliste();
 		
-		
-		//dann die attribute speichern
+		// dann die attribute speichern
 		FileAccessDyn fdirs = new FileAccessDyn();
 		fdirs.initFileSystemList(Metrikglobalconf.getFilterpath(), 0);
-		
-		
 		
 		int anz = fdirs.holeFileAnz();
 		
 		int progcount = 0;
-		JLibsProgressWin jp = new JLibsProgressWin("Filter relevant Metrics", 0, anz );
+		JLibsProgressWin jp = new JLibsProgressWin("Filter relevant Metrics", 0, anz);
 		// gehe durch alle workflows
 		for (int i = 0; i < anz; i++)
 		{
 			String workdir = (Metrikglobalconf.getFilterpath() + "\\" + fdirs.holeFileSystemName()).toLowerCase();
 			String workfile = workdir + "\\exported_for_weka.csv";
-			String outfile= workdir+"\\exported_for_weka_reduced.csv";
+			String outfile = workdir + "\\exported_for_weka_reduced.csv";
 			jp.update(i);
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
 			try
 			{
-				CSVProcessor processor = new CSVProcessor(
-						workfile);
+				CSVProcessor processor = new CSVProcessor(workfile);
 				
-				List<String> attributesToKeep=			attribliste.getAttribliste();																							
+				List<String> attributesToKeep = attribliste.getAttribliste();
 				processor.filterAttributes(attributesToKeep);
-			
-				processor.saveToFile(
-						outfile);
-				Tracer.WriteTrace(20, "I: Convert <"+workfile+"> to <"+outfile+">");
-			} catch (IOException | CsvValidationException  e)
+				
+				processor.saveToFile(outfile);
+				Tracer.WriteTrace(20, "I: Convert <" + workfile + "> to <" + outfile + ">");
+			} catch (IOException | CsvValidationException e)
 			{
 				e.printStackTrace();
 			}
 		}
 		jp.end();
 	}
-	public void ExportOneWorkflow(int maxeport, String attribfile, String workdir,boolean usebadendtest)
+	
+	public void ExportOneWorkflow(int maxeport, String attribfile, String workdir, boolean usebadendtest,String endtestattribname)
 	{
 		// temprootdir ist z.B.
 		// C:\forex\Metrikanalyser\AR\Q105 EURUSD H1 v1.41 org 11-15\Q105 EURUSD H1
 		// v1.41 org 11-15_+00000
 		
-		Tracer.WriteTrace(20, "I:WekaExport:generate file<"+attribfile+"> ");
+		Tracer.WriteTrace(20, "I:WekaExport:generate file<" + attribfile + "> ");
 		Metriktabellen met = new Metriktabellen();
 		// alle tabelle auf einmal einlesen
 		met.readAllTabellen(strategienselector_glob, workdir);
 		// der letzte parameter ist false da wir nicht binar exportieren wollen
 		// temprootdir ist das aktuelle verzeichniss wo wir arbeiten
-		met.exportAllAttributesForWeka(attribfile, maxeport, workdir,usebadendtest);
+		met.exportAllAttributesForWeka(attribfile, maxeport, workdir, usebadendtest,endtestattribname);
 	}
 	
 	private boolean isValidWorkdir(String dir)

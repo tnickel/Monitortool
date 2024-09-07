@@ -327,7 +327,7 @@ public class StartServer extends javax.swing.JFrame
 			e.printStackTrace();
 		}
 		init();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	private void init()

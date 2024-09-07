@@ -88,7 +88,7 @@ public class Correlator_dep
 			Tracer.WriteTrace(10, "internal error, müssen gleich sein");
 		return((float)coreelem.getVal());
 	}
-	public static void CalcPersonCorrelation(Metriktabellen met)
+	public static void CalcPersonCorrelation(Metriktabellen met,String endtestattribname)
 	{
 
 		// für die Metriktabellen wird die korrelation berechnet
@@ -105,7 +105,7 @@ public class Correlator_dep
 		//wenn der endvektor anders sortiert ist dann geht es nicht.
 		//hier wird zwar Netprofit(oos) aus der endtable gehole. Es wird aber davon ausgegangen, das die metriknamen in den datenbank zu der der DAtenbank
 		//des endvektors gleich sortiert sind. Dies ist aber nicht so.
-		double[] endvektor = endtable.calcAttribvektor("Net profit (OOS)");
+		double[] endvektor = endtable.calcAttribvektor(endtestattribname);
 
 		// anzahl der tabellen bestimmen
 		int anztab = met.getAnzMetriktabellen();

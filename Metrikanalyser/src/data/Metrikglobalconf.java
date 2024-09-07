@@ -33,6 +33,7 @@ public class Metrikglobalconf
 	static int CollectOnlyRobustStrategies_glob=1;
 	static int minStratPortfolio_glob=5;
 	static String wekafile_glob=null;
+	static String endtestattributname_glob="";
 	
 	//variables for the header
 	static Shell shell_glob=null;
@@ -86,7 +87,9 @@ public class Metrikglobalconf
 			if(prop.getProperty("minstratportfolio")!=null)
 				minStratPortfolio_glob=Integer.valueOf(prop.getProperty("minstratportfolio"));
 			prop.load(new FileInputStream(propfilename_glob));
+			
 			wekafile_glob = prop.getProperty("wekafile");
+			endtestattributname_glob=prop.getProperty("endtestattributname");
 			
 		} catch (FileNotFoundException e)
 		{
@@ -283,6 +286,16 @@ public class Metrikglobalconf
 	public static void setWekabuildattributespath(String wekabuildattributespath)
 	{
 		Metrikglobalconf.wekabuildattributespath = wekabuildattributespath;
+	}
+	
+	public static String getEndtestattributname()
+	{
+		return endtestattributname_glob;
+	}
+	public static void setEndtestattributname(String endtestattributname)
+	{
+		Metrikglobalconf.endtestattributname_glob = endtestattributname;
+		prop.setProperty("endtestattributname", endtestattributname);
 	}
 	public static boolean isValidMasterRootpath()
 	{

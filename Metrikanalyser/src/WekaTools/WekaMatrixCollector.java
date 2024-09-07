@@ -104,7 +104,7 @@ public class WekaMatrixCollector
 		FileAccess.FileDelete(outfile, 1);
 		Inf inf = new Inf();
 		inf.setFilename(outfile);
-		
+		inf.appendzeile(outfile, "period\tallProfitval\tselProfitval\tanzStrategies", true);
 		
 		for (int j = 0; j < 100; j++)
 		{
@@ -116,7 +116,7 @@ public class WekaMatrixCollector
 					
 					Double val = round(elem.getSelectedFilesProfit());
 					if(val!=0)
-					inf.appendzeile(outfile,"period<"+j+"|"+i+">  allProfitval<"+elem.getAllFilesProfit()+"> selProfit \t\t<"+val+"> anzStrat<"+elem.getCopycounter()+">",true);
+					inf.appendzeile(outfile,i+ "\t"+elem.getAllFilesProfit()+"\t"+val+"\t"+elem.getCopycounter(),true);
 				}
 				
 			}

@@ -111,6 +111,7 @@ public class Metrikzeile
 			if(me.getAttributName().toLowerCase().equals(attribname.toLowerCase()))
 			  return me.getValue();
 		}
+		Tracer.WriteTrace(10, "E:Attribname <"+attribname+"> not found in file");
 		return outzeile;
 	}
 	

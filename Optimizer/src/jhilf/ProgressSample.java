@@ -14,7 +14,7 @@ public class ProgressSample
 	public static void main(String args[])
 	{
 		JFrame f = new JFrame("JProgressBar Sample");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Container content = f.getContentPane();
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setValue(25);

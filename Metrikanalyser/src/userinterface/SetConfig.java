@@ -406,6 +406,7 @@ public class SetConfig extends org.eclipse.swt.widgets.Composite {
 			Metrikglobalconf.setWekabuildattributespath(dirnam+"\\exported_for_weka.csv");
 			Metrikglobalconf.refreshHeader(dirnam);
 			tabellenrootverzeichnis.setText(dirnam);
+			
 		}
 	}
 	

@@ -221,7 +221,7 @@ public class ShowGoodBadCounter extends JPanel
 		// Hinzufügen des Panels zum Frame
 		frame.setContentPane(chartPanel);
 		frame.setSize(1600, 1200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 	}
 }

@@ -33,7 +33,7 @@ public class JProgressBarDemo
 		frame.setLayout(new FlowLayout());
 		frame.getContentPane().add(pb);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(300, 200);
 		frame.setVisible(true);
 
