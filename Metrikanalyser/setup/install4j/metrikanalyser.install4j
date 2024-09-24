@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.11" transformSequenceNumber="8">
-  <directoryPresets config="D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures" />
-  <application name="Monitortool/MetrikAnalyser" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Metrikanalyser" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.1.15.3" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
+  <directoryPresets config="D:/git/Monitortool/Metrikanalyser/setup" />
+  <application name="Monitortool/MetrikAnalyser" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Metrikanalyser" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.1.16.6" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
@@ -22,6 +22,8 @@
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/Tools" entryMode="subdir" subDirectory="Tools" />
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/AnalysesRoot" entryMode="subdir" subDirectory="AnalysesRoot" />
       <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/install" entryMode="subdir" subDirectory="Install" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/logs" entryMode="subdir" subDirectory="logs" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/j64_fast" entryMode="subdir" subDirectory="j64_fast" />
     </entries>
   </files>
   <installerGui>

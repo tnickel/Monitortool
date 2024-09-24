@@ -52,7 +52,7 @@ public class Metriktabelle
 		return anz;
 	}
 	
-	public void readExportedTable(StrategieMengen msel, String dirnam)
+	public boolean readExportedTable(StrategieMengen msel, String dirnam)
 	{
 		// hier wird die ganze Tabelle zeilenweise eingelesen und aufgebaut
 		// die attribute aus der ersten Zeile sind hier ja schon bekannt
@@ -60,7 +60,7 @@ public class Metriktabelle
 		if(fnam==null)
 		{
 			Tracer.WriteTrace(20, "E: no exported table file in <"+dirnam+">");
-			return;
+			return false;
 		}
 		filename_glob = fnam;
 		leseAttributeUndRestSorted(msel, fnam);
@@ -69,6 +69,7 @@ public class Metriktabelle
 		//this.WriteMetriktabelle(fnam + "sorted");
 		refreshHashmap();
 		refreshValuemap();
+		return true;
 	}
 	
 	public void readExportedTableFile(StrategieMengen msel, String fnam)

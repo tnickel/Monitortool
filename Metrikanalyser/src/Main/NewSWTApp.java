@@ -1,7 +1,7 @@
 package Main;
 
 import java.io.File;
-import java.util.List;
+import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 
@@ -54,7 +54,6 @@ import data.Metrikglobalconf;
 import gui.DisTool;
 import gui.Mbox;
 import gui.ProfitTableViewer;
-import hiflsklasse.CheckboxSelector;
 import hiflsklasse.SWTwindow;
 import hilfsklasse.FileAccess;
 import hilfsklasse.SG;
@@ -160,6 +159,14 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button button3dirfilter;
+	private Label label17;
+	private Label label17goodbadfactorResult;
+	private Text text3goodbadfactorResult;
+	private Label label17predCorrResult;
+	private Text text3predCorrelationResult;
+	private Label label16;
+	private Text text3learnedResult;
 	private Button button3useminprofittakenbest;
 	private Button button3showpredictvalues;
 	private Combo combo1endtestattributename;
@@ -226,7 +233,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			this.setSize(1375, 623);
+			this.setSize(1397, 656);
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
@@ -374,7 +381,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button4batchexportlearn = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button4batchexportlearn.setText("Autobatch ExportAndLearn");
-							button4batchexportlearn.setBounds(964, 220, 214, 65);
+							button4batchexportlearn.setBounds(915, 218, 247, 65);
 							button4batchexportlearn.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -421,7 +428,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button4autobatchallworkflowscorrelation = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button4autobatchallworkflowscorrelation.setText("Autobatch AllWorkflowsCorrelation");
-							button4autobatchallworkflowscorrelation.setBounds(962, 327, 200, 37);
+							button4autobatchallworkflowscorrelation.setBounds(915, 295, 247, 37);
 							button4autobatchallworkflowscorrelation.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -586,7 +593,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							cLabel2 = new CLabel(composite1, SWT.NONE);
 							cLabel2.setText("Work all WEKA Workflows automaticaly");
-							cLabel2.setBounds(947, 493, 243, 34);
+							cLabel2.setBounds(915, 374, 348, 34);
 						}
 						{
 							text1minprofit = new Text(composite1, SWT.NONE);
@@ -619,7 +626,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3useNormalisation = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3useNormalisation.setText("Use Normalisation");
-							button3useNormalisation.setBounds(969, 430, 207, 30);
+							button3useNormalisation.setBounds(35, 525, 207, 30);
 							button3useNormalisation.setSelection(true);
 						}
 						{
@@ -630,7 +637,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3showcounter = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button3showcounter.setText("Show Good/Bad-Counter");
-							button3showcounter.setBounds(962, 376, 200, 30);
+							button3showcounter.setBounds(915, 338, 247, 30);
 							button3showcounter.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -661,7 +668,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							label14 = new Label(composite1, SWT.NONE);
 							label14.setText("Max Strategies");
-							label14.setBounds(1196, 12, 92, 17);
+							label14.setBounds(1196, 12, 84, 17);
 						}
 						{
 							text3wekaattribfilename = new Text(composite1, SWT.NONE);
@@ -705,6 +712,55 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							button3useminprofittakenbest = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3useminprofittakenbest.setText("Use Minprofit + Take N Best");
 							button3useminprofittakenbest.setBounds(915, 182, 187, 30);
+						}
+						{
+							text3learnedResult = new Text(composite1, SWT.BORDER);
+							text3learnedResult.setText("0.0");
+							text3learnedResult.setBounds(915, 499, 60, 23);
+							text3learnedResult.setEditable(false);
+						}
+						{
+							label16 = new Label(composite1, SWT.NONE);
+							label16.setText("Learned Correlation Result");
+							label16.setBounds(1031, 506, 251, 20);
+						}
+						{
+							text3predCorrelationResult = new Text(composite1, SWT.BORDER);
+							text3predCorrelationResult.setText("0.0");
+							text3predCorrelationResult.setBounds(915, 530, 60, 25);
+							text3predCorrelationResult.setEditable(false);
+						}
+						{
+							label17predCorrResult = new Label(composite1, SWT.NONE);
+							label17predCorrResult.setText("Prediction Correlation Result");
+							label17predCorrResult.setBounds(1031, 530, 251, 17);
+						}
+						{
+							text3goodbadfactorResult = new Text(composite1, SWT.BORDER);
+							text3goodbadfactorResult.setText("0.0");
+							text3goodbadfactorResult.setBounds(915, 470, 60, 23);
+							text3goodbadfactorResult.setEditable(false);
+						}
+						{
+							label17goodbadfactorResult = new Label(composite1, SWT.NONE);
+							label17goodbadfactorResult.setText("Good/Bad factor Result");
+							label17goodbadfactorResult.setBounds(1031, 476, 163, 18);
+						}
+						{
+							label17 = new Label(composite1, SWT.NONE);
+							label17.setText("Results_________________________________");
+							label17.setBounds(915, 450, 258, 20);
+						}
+						{
+							button3dirfilter = new Button(composite1, SWT.PUSH | SWT.CENTER);
+							button3dirfilter.setText("Set DirFilter");
+							button3dirfilter.setBounds(1280, 7, 60, 24);
+							button3dirfilter.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
+							button3dirfilter.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									button3dirfilterWidgetSelected(evt);
+								}
+							});
 						}
 					}
 				}
@@ -991,9 +1047,9 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 					}
 				}
 				FormData cTabFolder1LData = new FormData();
-				cTabFolder1LData.left = new FormAttachment(0, 1000, 21);
-				cTabFolder1LData.top = new FormAttachment(0, 1000, 22);
-				cTabFolder1LData.width = 1338;
+				cTabFolder1LData.left =  new FormAttachment(0, 1000, 21);
+				cTabFolder1LData.top =  new FormAttachment(0, 1000, 22);
+				cTabFolder1LData.width = 1360;
 				cTabFolder1LData.height = 558;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				cTabFolder1.setSelection(0);
@@ -1137,7 +1193,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		
 		// 4) Metrikglobalconf setzen
 		Metrikglobalconf.setShell(shell);
-		Metrikglobalconf.setVersion("Version V0.1.15.1");
+		Metrikglobalconf.setVersion("Version V0.1.16.0");
 		Metrikglobalconf.refreshHeader(userdir);
 		
 		System.out.println("akueller pfad=" + userdir);
@@ -1501,6 +1557,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private void button4batchexportlearnWidgetSelected(SelectionEvent evt)
 	{
 		System.out.println("button4batchexportlearn.widgetSelected, event=" + evt);
+		DecimalFormat df = new DecimalFormat("#.###");
 		// AutoBatch
 		String globpath = Metrikglobalconf.getFilterpath();
 		String last10Chars = globpath.substring(Math.max(0, globpath.length() - 10));
@@ -1511,13 +1568,16 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		int anztrees = Integer.valueOf(text1trees.getText());
 		AutoWorkflow aw = new AutoWorkflow(strategienselector_glob, text5.getText());
 		if (button4exportallattributes.getSelection())
+		{
 			aw.ExportAllAttributesWeka(button3usebadendtest.getSelection(), Integer.valueOf(text3maxattribs.getText()),
 					Metrikglobalconf.getEndtestattributname());
-		
+		}
 		if (button4learnallwekaexported.getSelection())
-			aw.LearnAllWekaExported(Integer.valueOf(text1crossvalidateanz.getText()), anztrees,
+		{
+			double learnresult=aw.LearnAllWekaExported(Integer.valueOf(text1crossvalidateanz.getText()), anztrees,
 					button3useNormalisation.getSelection(), text3wekaattribfilename.getText());
-		
+			text3learnedResult.setText(df.format(learnresult));
+		}
 		if (button4predictallweka.getSelection())
 			aw.PredictAllWeka(Integer.valueOf(text1crossvalidateanz.getText()), button3useNormalisation.getSelection(),
 					text3wekaattribfilename.getText());
@@ -1527,12 +1587,14 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 					button3useNormalisation.getSelection(), text3wekaattribfilename.getText());
 		
 		if (button4predictalllastperiod.getSelection())
+		{
 			// aw.PredictLastPeriod(Integer.valueOf(text1crossvalidateanz.getText()));
-			aw.PredictLastPeriodCopyStrategies(Integer.valueOf(text1crossvalidateanz.getText()),
+			double result=aw.PredictLastPeriodCopyStrategies(Integer.valueOf(text1crossvalidateanz.getText()),
 					Double.valueOf(text1minprofit.getText()), button3copyStrategies.getSelection(),
 					button3useNormalisation.getSelection(), button3takenbest.getSelection(),
 					Integer.valueOf(text1.getText()), text3wekaattribfilename.getText(),button3useminprofittakenbest.getSelection());
-		
+			text3predCorrelationResult.setText(df.format(result));
+		}
 	}
 	
 	private void button4autobatchallworkflowscorrelationWidgetSelected(SelectionEvent evt)
@@ -1615,6 +1677,9 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		GeneratorStatistik gstat = new GeneratorStatistik();
 		gstat.collectGoodBad(Metrikglobalconf.getFilterpath(), Metrikglobalconf.getFilterpath());
 		gstat.showGoodBadcounter();
+		DecimalFormat df = new DecimalFormat("#.###");
+		String goodfaktor = df.format(gstat.getGoodfaktor());
+		text3goodbadfactorResult.setText(goodfaktor);
 	}
 	
 	private void button3reduceAttribsWidgetSelected(SelectionEvent evt)
@@ -1642,6 +1707,11 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		String fnam=Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodProfit.txt";
 		ProfitTableViewer pt=new ProfitTableViewer();
 		pt.createProfitTable(getShell().getDisplay(), fnam);
+	}
+	
+	private void button3dirfilterWidgetSelected(SelectionEvent evt) {
+		System.out.println("button3dirfilter.widgetSelected, event="+evt);
+		//TODO add your code for button3dirfilter.widgetSelected
 	}
 
 }

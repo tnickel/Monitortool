@@ -28,6 +28,13 @@ public class GeneratorStatistik extends BasicWekaTools
 	{
 	}
 	
+	public float getGoodfaktor()
+	{
+		return goodfaktor_glob;
+	}
+
+
+
 	public void collectGoodBad(String filterpath,String Workflowname)
 	{
 		workflowname_glob=Workflowname;

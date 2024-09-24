@@ -12,6 +12,7 @@ public class WekaResultCollector
 {
 	private ArrayList<WekaResultElem> results;
 	private String protokollfile_glob = null;
+	private double avgsum_glob=0;
 	
 	public WekaResultCollector(String protokollfile)
 	{
@@ -26,16 +27,23 @@ public class WekaResultCollector
 		results = new ArrayList<>();
 	}
 	
+	public double getAvgsum()
+	{
+		return avgsum_glob;
+	}
+
+
+
 	public void addWekaRespDir(int index, String dir)
 	{
 		WekaResultElem wr = getOrCreateResultElem(index);
 		wr.setDirname(dir);
 	}
 	
-	public void addWekaEvalResp(int index, Evaluation eval,String forest,String data)
+	public void addWekaEvalResp(int index, Evaluation eval,String forestpath,String data)
 	{
 		WekaResultElem wr = getOrCreateResultElem(index);
-		wr.setEvaluation(eval,forest,data);
+		wr.setEvaluation(eval,forestpath,data);
 		
 	}
 	
@@ -91,19 +99,15 @@ public class WekaResultCollector
 				dirnam=dirnam.substring(dirnam.indexOf("_"));
 				
 				String corvalstring=df.format(res.getEvaluation().correlationCoefficient());
-				
-				
 				fa2.appendZeile(protokollfile_glob, dirnam+"\t\t="+corvalstring, true);
 				avgsum=avgsum+Math.abs(res.getEvaluation().correlationCoefficient());
-				
-				
-				
 			} catch (Exception e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		avgsum_glob=avgsum/anz;
 		fa2.appendZeile(protokollfile_glob,"-------------------------------------------",true);
 		fa2.appendZeile(protokollfile_glob,"Avg correlation ="+avgsum/anz,true);
 		fa2.close();

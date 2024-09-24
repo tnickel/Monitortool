@@ -51,7 +51,8 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			Metriktabelle mettabelle = new Metriktabelle();
 			
 			// Die Tabellen einlesen
-			mettabelle.readExportedTable(msel, dirnam);
+			if(mettabelle.readExportedTable(msel, dirnam)==false)
+				continue;
 			
 			//alle tabellen müssen die gleiche zeilenanzahl haben, wir haben ja die gleichen Strategien
 			if(i==0)

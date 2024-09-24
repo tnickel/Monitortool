@@ -83,6 +83,11 @@ public class AutoWorkflow
 			
 			WekaClassifierElem ws = PredictOneWeka(workdir, wres, i, instanzanzahlcrossvalidate, normflag,
 					wekaattribfilename);
+			if(ws==null)
+			{
+				Tracer.WriteTrace(20, "E: no prediction possible <"+workdir+">");
+				continue;
+			}
 		}
 		jp.end();
 		wres.writeProtokoll();
@@ -135,6 +140,9 @@ public class AutoWorkflow
 					
 					WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(workdirSource + "\\randomforest.model",
 							csvfileDest, instanzanzahlcrossvalidate, normflag, workdirDest);
+					if(wc==null)
+						continue;
+					
 					wcollect.AddResult(i, j, wc);
 				} catch (Exception e)
 				{
@@ -196,6 +204,11 @@ public class AutoWorkflow
 				Tracer.WriteTrace(20, "predict period<" + datadir + "> with learned data from<" + modeldir + ">");
 				WekaClassifierElem wc = WekaTools.WekaLearn.classifyNewData(modeldir + "\\randomforest.model", csvfile,
 						instanzanzahlcrossvalidate, normflag, workdir);
+				if (wc==null)
+				{
+					Tracer.WriteTrace(20, "E: no classification possible <"+modeldir+">");
+					continue;
+				}
 				wcollect.AddResult(i, 0, wc);
 			} catch (Exception e)
 			{
@@ -208,7 +221,7 @@ public class AutoWorkflow
 		wcollect.WriteProtokoll1();
 	}
 	
-	public void PredictLastPeriodCopyStrategies(int instanzanzahlcrossvalidate, double minprofit, boolean copyflag,
+	public double PredictLastPeriodCopyStrategies(int instanzanzahlcrossvalidate, double minprofit, boolean copyflag,
 			boolean normflag, boolean takebestflag, int anzbest, String attribfilename, boolean useminprofitPlusTakeNBestflag)
 	{
 		// Hier wollen wir nicht die ganze Matrik lernen sondern mit den daten der
@@ -260,6 +273,12 @@ public class AutoWorkflow
 						modeldir + "\\randomforest.model", csvfile, instanzanzahlcrossvalidate, minprofit, copyflag,
 						normflag, takebestflag, anzbest, attribfilename,useminprofitPlusTakeNBestflag);
 				
+				if(wc==null)
+				{
+					Tracer.WriteTrace(20, "E: no classification possible <"+modeldir+">");
+					continue;
+				}
+				
 				wcollect.AddResult(i, 0, wc);
 			} catch (Exception e)
 			{
@@ -282,7 +301,7 @@ public class AutoWorkflow
 		HeatMapLine heatMapLine = new HeatMapLine("Heatmap Prediction averagevalue=" + val + "count=" + copycount,
 				outfile_str);
 		heatMapLine.start(outfile_str);
-		
+		return val;
 	}
 	
 	private WekaClassifierElem PredictOneWeka(String workdir, WekaResultCollector wres, int index,
@@ -305,7 +324,7 @@ public class AutoWorkflow
 		}
 	}
 	
-	public void LearnAllWekaExported(int instanzanzahlcrossvalidate, int anztrees, boolean usenorm,
+	public double LearnAllWekaExported(int instanzanzahlcrossvalidate, int anztrees, boolean usenorm,
 			String wekaattribfilename)
 	{
 		WekaResultCollector wres = new WekaResultCollector(
@@ -326,13 +345,15 @@ public class AutoWorkflow
 			if (isValidWorkdir(workdir) == false)
 				continue;
 			
-			LearnOneWekaExported(workdir, instanzanzahlcrossvalidate, wres, i, anztrees, usenorm, wekaattribfilename);
+			if(LearnOneWekaExported(workdir, instanzanzahlcrossvalidate, wres, i, anztrees, usenorm, wekaattribfilename)==false)
+				Tracer.WriteTrace(10, "E:Weka learner problem <"+wekaattribfilename+">");
 		}
 		jp.end();
 		wres.writeProtokoll();
+		return (wres.getAvgsum());
 	}
 	
-	private void LearnOneWekaExported(String workdir, int instanzanzahlcrossvalidate, WekaResultCollector wres,
+	private boolean LearnOneWekaExported(String workdir, int instanzanzahlcrossvalidate, WekaResultCollector wres,
 			int index, int anztrees, boolean usenorm, String wekaattribfilename)
 	{
 		String csvfile = "";
@@ -342,15 +363,18 @@ public class AutoWorkflow
 		try
 		{
 			
-			WekaTools.WekaLearn.loadAndTrainModel(csvfile, randomForestmodelFile, instanzanzahlcrossvalidate, wres,
-					index, anztrees, usenorm);
+			if(WekaTools.WekaLearn.loadAndTrainModel(csvfile, randomForestmodelFile, instanzanzahlcrossvalidate, wres,
+					index, anztrees, usenorm)==false)
+				return false;
 			
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Tracer.WriteTrace(10, "E: Weka error<"+e.getMessage()+">");
+			
 		}
+		return true;
 	}
 	
 	public void ExportAllAttributesWeka(boolean usebadendtest, int maxstrategies, String endtestattribname)
@@ -436,6 +460,8 @@ public class AutoWorkflow
 		// der letzte parameter ist false da wir nicht binar exportieren wollen
 		// temprootdir ist das aktuelle verzeichniss wo wir arbeiten
 		met.exportAllAttributesForWeka(attribfile, maxeport, workdir, usebadendtest,endtestattribname);
+		met=null;
+		System.gc();
 	}
 	
 	private boolean isValidWorkdir(String dir)
