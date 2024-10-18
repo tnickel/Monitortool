@@ -37,6 +37,8 @@ public class Correlator2
 		// anzahl der tabellen bestimmen
 		int anzMetriktabellen = met.getAnzMetriktabellen();
 		
+		Tracer.WriteTrace(50, "I: es gibt #Metriktabellen<"+anzMetriktabellen+">");
+		
 		// es werden die i-filter-tabellen betrachtet, jede tabelle hat eigene
 		// attribute für
 		// die die korrelation berechnet wird
@@ -55,6 +57,8 @@ public class Correlator2
 		{
 			for (int indexFiltertabelle = 0; indexFiltertabelle < anzMetriktabellen - 1; indexFiltertabelle++)
 			{
+				
+				Tracer.WriteTrace(50, "I:Korreliere Tabelle i<"+indexFiltertabelle+">");
 				// hier geht er durch die metriktabelle und berechnet für _n_dir tabelle die
 				// korrelationen=corliste und speichert diese im corworkflow
 				corListe = Math3.CalcCorelOnlyOneTable(met, indexFiltertabelle, endtestattribname, correlalgotype);

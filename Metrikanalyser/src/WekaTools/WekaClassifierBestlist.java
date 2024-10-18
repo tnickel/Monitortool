@@ -160,6 +160,9 @@ public class WekaClassifierBestlist
 		int anz = bestlist.size();
 		copycounter_glob = 0;
 		
+		if (copyflag_glob == false)
+			return;
+		
 		for (int i = 0; i < anz; i++)
 		{
 			ClassifiedElem ce = bestlist.get(i);
@@ -172,7 +175,7 @@ public class WekaClassifierBestlist
 			if (new File(s1path).exists())
 			{
 				Filefunkt fc = new Filefunkt();
-				if (copyflag_glob == true)
+				
 				{
 					try
 					{
@@ -189,7 +192,8 @@ public class WekaClassifierBestlist
 					}
 					
 				}
-			}
+			} else
+				Tracer.WriteTrace(10, "E: I tried to copy file <"+s1path+"> to Selected_Files, but this file is not available--> Stop");
 			
 		}
 		if (copyflag_glob == true)

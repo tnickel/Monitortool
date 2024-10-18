@@ -70,7 +70,8 @@ public class CalcCorrelationAllWorkflows
 			// die logfiles gesammelt werden
 			if (dirnam.contains("WORKFLOWNAME"))
 				continue;
-			
+		
+			Tracer.WriteTrace(20, "I: calc correlation for workflow subdir<"+aktsubdir+">");
 			CoreWorkflowResult corelWorkflowResult = CorelateOneWorkflow(endtestattribname, corealgotype, aktsubdir);
 			
 			// im cmappper werden alle ergebnisse gesammelt, hier findet dann auch die

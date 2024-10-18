@@ -27,31 +27,28 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 public class WekaLearn
 {
 	
-	
-
 	public static boolean loadAndTrainModel(String csvtrainingFile, String modeloutpath, int crossvalidateinstanzanz,
-	        WekaResultCollector wres, int index, int anztrees, boolean usenorm) throws Exception
-	{
-	    try
-	    {
-	        wres.addWekaRespDir(index, csvtrainingFile.substring(0, csvtrainingFile.lastIndexOf("\\")));
-	        
+	        WekaResultCollector wres, int index, int anztrees, boolean usenorm, String depth, String minLeafInstances) throws Exception {
+	    try {
+	        if (wres != null) {
+	            wres.addWekaRespDir(index, csvtrainingFile.substring(0, csvtrainingFile.lastIndexOf("\\")));
+	        }
+
 	        // Lade den Datensatz von einer CSV-Datei
 	        CSVLoader loader = new CSVLoader();
 	        loader.setSource(new File(csvtrainingFile));
 	        Instances idata = loader.getDataSet();
 	        Instances data = null;
-	        
-	        if (!new File(csvtrainingFile).exists())
-	        {
+
+	        if (!new File(csvtrainingFile).exists()) {
 	            Tracer.WriteTrace(10, "E: file <" + csvtrainingFile + "> not available for learning ");
 	            return false;
 	        }
-	        
+
 	        // Debug-Ausgabe für Datensatz
 	        System.out.println("Datensatz geladen: " + idata.numInstances() + " Instanzen, " + idata.numAttributes()
 	                + " Attribute.");
-	        
+
 	        // Konvertiere das "Strategy_Name"-Attribut in nominal, falls erforderlich
 	        Attribute strategyNameAttr = idata.attribute("Strategy_Name");
 	        if (strategyNameAttr != null && idata.attribute(strategyNameAttr.index()).isNumeric()) {
@@ -60,56 +57,49 @@ public class WekaLearn
 	            convert.setInputFormat(idata);
 	            idata = Filter.useFilter(idata, convert);
 	        }
-	        
+
 	        // Setze die Klassenattributsindex (letztes Attribut)
-	        if (idata.classIndex() == -1)
-	        {
+	        if (idata.classIndex() == -1) {
 	            idata.setClassIndex(idata.numAttributes() - 1);
 	        }
-	        
+
 	        // Debug-Ausgabe für Klassenattribut
 	        System.out.println("Class attribut will be set to Index: " + idata.classIndex() + ", Name: "
 	                + idata.classAttribute().name());
-	        
+
 	        // Überprüfen, ob das Klassenattribut in den Trainingsdaten enthalten ist
 	        boolean classAttrInData = false;
-	        for (int i = 0; i < idata.numAttributes() - 1; i++)
-	        {
-	            if (idata.attribute(i).name().equals(idata.classAttribute().name()))
-	            {
+	        for (int i = 0; i < idata.numAttributes() - 1; i++) {
+	            if (idata.attribute(i).name().equals(idata.classAttribute().name())) {
 	                classAttrInData = true;
 	                break;
 	            }
 	        }
-	        
-	        if (classAttrInData)
-	        {
+
+	        if (classAttrInData) {
 	            System.out.println("Warnung: This is the attribut to classified '" + idata.classAttribute().name()
 	                    + "' is in the trainings data.");
 	            Tracer.WriteTrace(10, "E:weka_endtest is in training data-->Stop");
-	        } else
-	        {
+	        } else {
 	            System.out.println("Security-Check: The attribut to classify  '" + idata.classAttribute().name()
 	                    + "' is not in the trainings data-> Check ok");
 	        }
-	        
+
 	        // Normalisiere die Daten, falls erforderlich
-	        if (usenorm == true)
-	        {
+	        if (usenorm == true) {
 	            Normalize normalize = new Normalize();
 	            normalize.setInputFormat(idata);
 	            data = Filter.useFilter(idata, normalize);
-	        } else
-	        {
+	        } else {
 	            data = idata;
 	        }
-	        
+
 	        // Debug-Ausgabe für Normalisierung
 	        Tracer.WriteTrace(20, "Data will be normalized");
-	        
+
 	        // Erstelle und konfiguriere den RandomForest-Klassifikator
 	        RandomForest forest = new RandomForest();
-	        String[] options = new String[8];
+	        String[] options = new String[12];  // Array auf 12 erhöhen
 	        options[0] = "-I";
 	        options[1] = String.valueOf(anztrees); // Anzahl der Bäume im Wald
 	        options[2] = "-K";
@@ -118,30 +108,39 @@ public class WekaLearn
 	        options[5] = "1"; // Seed für den Zufallszahlengenerator
 	        options[6] = "-num-slots";
 	        options[7] = "16"; // Anzahl der Threads/Slots
-	        
+	        options[8] = "-depth";
+	        options[9] = depth; // Maximale Tiefe der Bäume (z.B. 10)
+	        options[10] = "-N";
+	        options[11] = minLeafInstances; // Minimale Anzahl von Instanzen pro Blatt (z.B. 5)
+
 	        forest.setOptions(options);
-	        
+
 	        // Debug-Ausgabe für Optionen
 	        System.out.println("RandomForest option set: " + java.util.Arrays.toString(forest.getOptions()));
-	        
+
 	        // Trainiere das Modell
 	        forest.buildClassifier(data);
-	        
+
 	        // Feature-Importanz überprüfen (falls erforderlich)
 	        checkFeatureImportance(data, csvtrainingFile);
-	        
+
 	        // Evaluiere das Modell
-	        Evaluation eval = new Evaluation(data);
-	        eval.crossValidateModel(forest, data, crossvalidateinstanzanz, new Random(1));
-	        
-	        // Ausgabe der Evaluierung
-	        System.out.println(eval.toSummaryString("\nResults\n======\n", false));
-	        String summary = eval.toSummaryString("\nResults\n======\n", false);
-	        wres.addWekaEvalResp(index, eval, modeloutpath, csvtrainingFile);
-	        
+	        Evaluation eval = null;
+	        if (crossvalidateinstanzanz != 0) {
+	            eval = new Evaluation(data);
+	            eval.crossValidateModel(forest, data, crossvalidateinstanzanz, new Random(1));
+
+	            // Ausgabe der Evaluierung
+	            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+	            String summary = eval.toSummaryString("\nResults\n======\n", false);
+	        }
+	        if (wres != null) {
+	            wres.addWekaEvalResp(index, eval, modeloutpath, csvtrainingFile);
+	        }
+
 	        // Modell speichern
 	        SerializationHelper.write(modeloutpath, forest);
-	        
+
 	        // Speicherbereinigung
 	        idata = null;
 	        data = null;
@@ -150,10 +149,10 @@ public class WekaLearn
 	        eval = null;
 	        System.gc();
 	        return true;
-	        
-	    } catch (Exception e)
-	    {
+
+	    } catch (Exception e) {
 	        e.printStackTrace();
+	        Tracer.WriteTrace(20, "I: tried to learn <" + csvtrainingFile + "> in <" + modeloutpath + ">");
 	        Tracer.WriteTrace(10, "E:Weka exception<" + e.getMessage() + ">-->Stop");
 	        return false;
 	    }
@@ -187,7 +186,7 @@ public class WekaLearn
 				System.out.println(
 						"Warnung: Feature '" + data.attribute(i).name() + "' has a high correlation of " + importance);
 				Tracer.WriteTrace(10, "Warnung: Feature '" + data.attribute(i).name() + "' has a high correlation of "
-						+ importance + " i=" + i + "file<" + file + ">");
+						+ importance + " i=" + i + "file<" + file + "> to weka_endtest");
 				onceflag = 1;
 			}
 		}
@@ -312,10 +311,10 @@ public class WekaLearn
 			int instanzanzCrossvalidation, boolean normflag, String workdir) throws Exception
 	{
 		String classifyresultsfile = null;
-		String goodbadpredictionfile=null;
+		String goodbadpredictionfile = null;
 		
 		Inf inf = null;
-		Inf goodbadinf=null;
+		Inf goodbadinf = null;
 		if (workdir != null)
 		{
 			classifyresultsfile = workdir + "\\classifyresults.txt";
@@ -445,7 +444,7 @@ public class WekaLearn
 			if (workdir != null)
 				inf.close();
 			
-			WriteGoodBadPrediction(goodbadinf,predictedValues);
+			WriteGoodBadPrediction(goodbadinf, predictedValues);
 			goodbadinf.close();
 			System.out.print("Generate Statistics...");
 			// Calculate and print summary metrics
@@ -476,190 +475,199 @@ public class WekaLearn
 		}
 	}
 	
-	static private void WriteGoodBadPrediction(Inf inf,ArrayList<Double> predictedValues)
+	static private void WriteGoodBadPrediction(Inf inf, ArrayList<Double> predictedValues)
 	{
-		int anz=predictedValues.size();
-		int anzgood=0;
-		int anzbad=0;
-		for(int i=0; i<anz; i++)
+		int anz = predictedValues.size();
+		int anzgood = 0;
+		int anzbad = 0;
+		for (int i = 0; i < anz; i++)
 		{
-			double val=predictedValues.get(i);
-			if(val>0)
+			double val = predictedValues.get(i);
+			if (val > 0)
 				anzgood++;
-			else if(val<=0)
+			else if (val <= 0)
 				anzbad++;
 			else
 				Tracer.WriteTrace(10, "E:internal error 4954943775");
 			
 		}
 		inf.writezeile("Goodcounter#Badcounter");
-		inf.writezeile(anzgood+"#"+anzbad);
-		
+		inf.writezeile(anzgood + "#" + anzbad);
 		
 	}
-
-	public static WekaClassifierElem classifyNewDataCopyStrategies(String datadir, String modelPath, String newDataPath,
-	        int instanzanzCrossvalidationk, double minprofit, boolean allowcopyflag, boolean normflag,
-	        boolean takebestflag, int anzbest, String attribfilename, boolean useminprofitPlusTakeNBestflag)
-	        throws Exception
-	{
-	    String spath = datadir + "\\_99_dir\\str__selected_sq4_endtestfiles";
-	    String predictionlog = datadir + "\\_99_dir\\prediction_log.txt";
-
-	    FileAccess.FileDelete(predictionlog, 1);
-	    Inf inf = new Inf();
-	    inf.setFilename(predictionlog);
-
-	    FileAccess.cleanDirectory(new File(spath));
-
-	    double sumAllFilesProfit = 0;
-
-	    try
-	    {
-	        // Load the model
-	        RandomForest forest = (RandomForest) SerializationHelper.read(modelPath);
-
-	        // Load the new data from a CSV file
-	        Tracer.WriteTrace(20,
-	                "Loading new data to classify from: " + newDataPath + " use learner from:" + modelPath);
-	        CSVLoader loader = new CSVLoader();
-	        loader.setSource(new File(newDataPath));
-	        Instances inewData = loader.getDataSet();
-	        Instances newData = null;
-
-	        // Convert the "Strategy_Name" attribute to nominal if necessary
-	        Attribute strategyNameAttr = inewData.attribute("Strategy_Name");
-	        if (strategyNameAttr != null && inewData.attribute(strategyNameAttr.index()).isNumeric()) {
-	            // Convert the numeric "Strategy_Name" attribute to nominal
-	            NumericToNominal convert = new NumericToNominal();
-	            convert.setAttributeIndices(String.valueOf(strategyNameAttr.index() + 1)); // Weka is 1-based for filters
-	            convert.setInputFormat(inewData);
-	            inewData = Filter.useFilter(inewData, convert);
-	        }
-
-	        // Set the class attribute index (last attribute)
-	        if (inewData.classIndex() == -1)
-	        {
-	            inewData.setClassIndex(inewData.numAttributes() - 1);
-	        }
-
-	        if (normflag == true)
-	        {
-	            // Normalize the data
-	            Normalize normalize = new Normalize();
-	            normalize.setInputFormat(inewData);
-	            newData = Filter.useFilter(inewData, normalize);
-	        }
-	        else
-	        {
-	            newData = inewData;
-	        }
-
-	        // Variables to calculate metrics
-	        ArrayList<Double> actualValues = new ArrayList<>();
-	        ArrayList<Double> predictedValues = new ArrayList<>();
-
-	        WekaClassifierBestlist bestlist = new WekaClassifierBestlist();
-	        bestlist.setCopyflag(allowcopyflag);
-	        bestlist.setMinprofit(minprofit);
-
-	        WekaClassifierElem wekaclassify = new WekaClassifierElem(0);
-	        // Classify the new data
-	        for (int i = 0; i < newData.numInstances(); i++)
-	        {
-	            double actualValue = newData.instance(i).classValue();
-	            double predictedValue = forest.classifyInstance(newData.instance(i));
-	            actualValues.add(actualValue);
-	            predictedValues.add(predictedValue);
-
-	            // Get the actual class value
-	            String actualClassValue;
-	            if (newData.classAttribute().isNominal() || newData.classAttribute().isString())
-	            {
-	                actualClassValue = newData.classAttribute().value((int) actualValue);
-	            }
-	            else
-	            {
-	                actualClassValue = String.valueOf(actualValue);
-	            }
-
-	            // Get the predicted class value
-	            String predictedClassValue;
-	            if (newData.classAttribute().isNominal())
-	            {
-	                predictedClassValue = newData.classAttribute().value((int) predictedValue);
-	            }
-	            else
-	            {
-	                predictedClassValue = String.valueOf(predictedValue);
-	            }
-
-	            // Handling the "Strategy_Name" attribute
-	            if (strategyNameAttr != null)
-	            {
-	                String strategyNameValue;
-	                if (strategyNameAttr.isNominal() || strategyNameAttr.isString())
-	                {
-	                    strategyNameValue = newData.instance(i).stringValue(strategyNameAttr);
-	                }
-	                else
-	                {
-	                    strategyNameValue = String.valueOf(newData.instance(i).value(strategyNameAttr));
-	                }
-	                inf.writezeile("Instance " + i + ": Strategy_Name=" + strategyNameValue + ", Actual class="
-	                        + actualClassValue + ", Predicted class=" + predictedClassValue);
-
-	                sumAllFilesProfit = sumAllFilesProfit + Double.valueOf(actualClassValue);
-
-	                // Copy Strategy path
-	                String s1path = datadir + "\\_99_dir\\str__all_sq4_endtestfiles\\" + strategyNameValue + ".sqx";
-	                String s2path = datadir + "\\_99_dir\\str__selected_sq4_endtestfiles\\" + strategyNameValue
-	                        + ".sqx";
-
-	                bestlist.add(s1path, s2path, Double.valueOf(predictedClassValue), Double.valueOf(actualClassValue));
-
-	                inf.writezeile("Instance " + i + ": Strategy_Name=" + strategyNameValue + " Actual class="
-	                        + actualClassValue + ", Predicted class=" + predictedClassValue + "\t");
-
-	            }
-	            else
-	            {
-	                System.out.println("Attribute 'Strategy_Name' not found in instance " + i);
-	            }
-	        }
-	        inf.close();
-
-	        int n = newData.numInstances();
-
-	        double correlation = calculateCorrelation(actualValues, predictedValues);
-	        System.out.println("Correlation coefficient: " + correlation);
-
-	        if (useminprofitPlusTakeNBestflag == true)
-	            bestlist.filterBest("minval+takebest", anzbest);
-	        else if (takebestflag == false)
-	            bestlist.filterBest("minval", 0);
-	        else
-	            bestlist.filterBest("takebest", anzbest);
-
-	        bestlist.copyFiles();
-	        wekaclassify.setCorrelationVal(correlation);
-	        wekaclassify.setCopycounter(bestlist.getCopycounter());
-	        wekaclassify.setSelectedFilesProfit(bestlist.getSumSelectedProfits());
-	        wekaclassify.setAllFilesProfit(sumAllFilesProfit);
-	        forest = null;
-	        inewData = null;
-	        newData = null;
-	        System.gc();
-	        return wekaclassify;
-
-	    } catch (Exception e)
-	    {
-	        e.printStackTrace();
-	        return new WekaClassifierElem(0);
-	    }
-	}
-
 	
+	public static WekaClassifierElem classifyNewDataCopyStrategies(String datadir, String modelPath, String newDataPath,
+			int instanzanzCrossvalidationk, double minprofit, boolean allowcopyflag, boolean normflag,
+			boolean takebestflag, int anzbest, String attribfilename, boolean useminprofitPlusTakeNBestflag,int prediction_index)
+			throws Exception
+	{
+		String spath = datadir + "\\_99_dir\\str__selected_sq4_endtestfiles";
+		String predictionlog = datadir + "\\_99_dir\\prediction_log_"+prediction_index+".txt";
+		
+		FileAccess.FileDelete(predictionlog, 1);
+		Inf inf = new Inf();
+		inf.setFilename(predictionlog);
+		inf.writezeile("Strategiename#actual Class#predicted Class");
+		
+		FileAccess.cleanDirectory(new File(spath));
+		
+		double sumAllFilesProfit = 0;
+		
+		try
+		{
+			// Load the model
+			RandomForest forest = (RandomForest) SerializationHelper.read(modelPath);
+			forest.setDebug(true);
+			Tracer.WriteTrace(50, "I: Forest max depth=" + forest.getMaxDepth());
+			Tracer.WriteTrace(50, "I:#Features=" + forest.getNumFeatures());
+			Tracer.WriteTrace(50, "I: Forest info=" + forest.getTechnicalInformation());
+			
+			// Load the new data from a CSV file
+			Tracer.WriteTrace(20,
+					"Loading new data to classify from: " + newDataPath + " use learner from:" + modelPath);
+			CSVLoader loader = new CSVLoader();
+			loader.setSource(new File(newDataPath));
+			Instances inewData = loader.getDataSet();
+			Instances newData = null;
+			
+			// Convert the "Strategy_Name" attribute to nominal if necessary
+			Attribute strategyNameAttr = inewData.attribute("Strategy_Name");
+			if (strategyNameAttr != null && inewData.attribute(strategyNameAttr.index()).isNumeric())
+			{
+				// Convert the numeric "Strategy_Name" attribute to nominal
+				NumericToNominal convert = new NumericToNominal();
+				convert.setAttributeIndices(String.valueOf(strategyNameAttr.index() + 1)); // Weka is 1-based for
+																							// filters
+				convert.setInputFormat(inewData);
+				inewData = Filter.useFilter(inewData, convert);
+			}
+			
+			// Set the class attribute index (last attribute)
+			if (inewData.classIndex() == -1)
+			{
+				inewData.setClassIndex(inewData.numAttributes() - 1);
+			}
+			
+			if (normflag == true)
+			{
+				// Normalize the data
+				Normalize normalize = new Normalize();
+				normalize.setInputFormat(inewData);
+				newData = Filter.useFilter(inewData, normalize);
+			} else
+			{
+				newData = inewData;
+			}
+			
+			// Variables to calculate metrics
+			ArrayList<Double> actualValues = new ArrayList<>();
+			ArrayList<Double> predictedValues = new ArrayList<>();
+			
+			WekaClassifierBestlist bestlist = new WekaClassifierBestlist();
+			bestlist.setCopyflag(allowcopyflag);
+			bestlist.setMinprofit(minprofit);
+			
+			Tracer.WriteTrace(20, "I: I classifier #instances = " + newData.numInstances() + " #attributes = "
+					+ newData.numAttributes());
+			
+			WekaClassifierElem wekaclassify = new WekaClassifierElem(0);
+			
+			try
+			{
+				// Classify the new data
+				for (int i = 0; i < newData.numInstances(); i++)
+				{
+					double actualValue = newData.instance(i).classValue();
+					double predictedValue = forest.classifyInstance(newData.instance(i));
+					actualValues.add(actualValue);
+					predictedValues.add(predictedValue);
+					
+					// Get the actual class value
+					String actualClassValue;
+					if (newData.classAttribute().isNominal() || newData.classAttribute().isString())
+					{
+						actualClassValue = newData.classAttribute().value((int) actualValue);
+					} else
+					{
+						actualClassValue = String.valueOf(actualValue);
+					}
+					
+					// Get the predicted class value
+					String predictedClassValue;
+					if (newData.classAttribute().isNominal())
+					{
+						predictedClassValue = newData.classAttribute().value((int) predictedValue);
+					} else
+					{
+						predictedClassValue = String.valueOf(predictedValue);
+					}
+					
+					// Handling the "Strategy_Name" attribute
+					if (strategyNameAttr != null)
+					{
+						String strategyNameValue;
+						if (strategyNameAttr.isNominal() || strategyNameAttr.isString())
+						{
+							strategyNameValue = newData.instance(i).stringValue(strategyNameAttr);
+						} else
+						{
+							strategyNameValue = String.valueOf(newData.instance(i).value(strategyNameAttr));
+						}
+					
+						
+						sumAllFilesProfit = sumAllFilesProfit + Double.valueOf(actualClassValue);
+						
+						// Copy Strategy path
+						String s1path = datadir + "\\_99_dir\\str__all_sq4_endtestfiles\\" + strategyNameValue + ".sqx";
+						String s2path = datadir + "\\_99_dir\\str__selected_sq4_endtestfiles\\" + strategyNameValue
+								+ ".sqx";
+						
+						bestlist.add(s1path, s2path, Double.valueOf(predictedClassValue),
+								Double.valueOf(actualClassValue));
+						
+						inf.writezeile( strategyNameValue + "#"
+								+ actualClassValue + "#" + predictedClassValue);
+						
+					} else
+					{
+						System.out.println("Attribute 'Strategy_Name' not found in instance " + i);
+					}
+				}
+				inf.close();
+			} catch (ArrayIndexOutOfBoundsException e)
+			{
+				Tracer.WriteTrace(20, "E: Weka classifier error <" + e.getMessage() + ">");
+				Tracer.WriteTrace(10, "E: Classifier error<" + e.getLocalizedMessage());
+			}
+			int n = newData.numInstances();
+			
+			double correlation = calculateCorrelation(actualValues, predictedValues);
+			System.out.println("Correlation coefficient: " + correlation);
+			
+			if (useminprofitPlusTakeNBestflag == true)
+				bestlist.filterBest("minval+takebest", anzbest);
+			else if (takebestflag == false)
+				bestlist.filterBest("minval", 0);
+			else
+				bestlist.filterBest("takebest", anzbest);
+			
+			bestlist.copyFiles();
+			wekaclassify.setCorrelationVal(correlation);
+			wekaclassify.setCopycounter(bestlist.getCopycounter());
+			wekaclassify.setSelectedFilesProfit(bestlist.getSumSelectedProfits());
+			wekaclassify.setAllFilesProfit(sumAllFilesProfit);
+			forest = null;
+			inewData = null;
+			newData = null;
+			System.gc();
+			return wekaclassify;
+			
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return new WekaClassifierElem(0);
+		}
+	}
 	
 	// Method to calculate the correlation between actual and predicted values
 	private static double calculateCorrelation(ArrayList<Double> actualValues, ArrayList<Double> predictedValues)

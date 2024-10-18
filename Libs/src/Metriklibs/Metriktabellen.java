@@ -45,9 +45,18 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		int anz = fdirs.holeFileAnz();
 		if(anz==0)
 			Tracer.WriteTrace(10, "No directorys in <"+rpath+"> --> stop");
+	
+		String dirnam=null;
 		for (int i = 0; i < anz; i++)
 		{
-			String dirnam = rpath + "\\" + fdirs.holeFileSystemName();
+			
+			//die tabellen werden hier nicht richtig eingelesen, wir wir müssen sicherstellen das tabelle i in position i eingelesen wird und tabelle 99 als letztes
+			
+			if(i<anz-1)
+				dirnam = rpath + "\\" + "_"+i+"_dir";
+			else
+				dirnam=rpath + "\\" + "_99_dir";
+			
 			Metriktabelle mettabelle = new Metriktabelle();
 			
 			// Die Tabellen einlesen
@@ -66,7 +75,9 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			
 			// die eingelesene tabelle in der gesammtliste speichern
 			metriktabellen_glob.add(mettabelle);
+			Tracer.SetTraceLevel(20);
 			Tracer.WriteTrace(50,"Read table i="+i+" <"+dirnam+"> ready");
+			Tracer.WriteTrace(50, "--------------------------------------------");
 		}
 	}
 	
@@ -99,21 +110,32 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		// aus diesen Tabellen holen wir die atrribute und values.
 		int anzTabellen = metriktabellen_glob.size();
 		
+		Tracer.WriteTrace(50, "I: we have # dir_n directorys="+anzTabellen);
+		
 		// Wir bauen die tabelle auf und nehmen die letzte noch hinzu
-		for(int i=1; i<=anzTabellen-1; i++)
+		for(int i=0; i<=anzTabellen-1; i++)
 		{
-			databankExportTable[i]=metriktabellen_glob.get(i-1);
+			databankExportTable[i]=metriktabellen_glob.get(i);
 		}
 		databankExportTable[99]=metriktabellen_glob.get(anzTabellen - 1);
 		
 		
 		// in der ersten und letzten Tabelle müssen gleich viele Strategien drin sein.
-		int anz1 = databankExportTable[1].getAnz();
+		int anz1 = databankExportTable[0].getAnz();
 		int anz2 = databankExportTable[99].getAnz();
 		if (anz1 != anz2)
 			Tracer.WriteTrace(20, "E: error plausicheck table1 #Strategies<" + anz1
 					+ "> should have same number as table99<" + anz2 + "> workdir<" + workdir + ">-->STOP");
 		
+		//in allen Tabellen müssen gleich viele Strategien drin sefin
+		
+		for(int i=1; i<anzTabellen; i++)
+		{
+			int anztable=databankExportTable[i].getAnz();
+			if (anztable!=anz1)
+				Tracer.WriteTrace(20, "E: error plausicheck table<"+i+"> #Strategies<" + anztable
+						+ "> should have same number <"+anz1+">" + anz2 + "> workdir<" + workdir + ">-->STOP");
+		}
 		
 		
 		int anzZeilen = databankExportTable[1].getAnz();
@@ -121,7 +143,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 		{
 			
 			// hole alle zeilen aus tabelle1
-			Metrikzeile mez1 = databankExportTable[1].holeMetrikzeilePosI(i);
+			Metrikzeile mez1 = databankExportTable[0].holeMetrikzeilePosI(i);
 			String stratname = mez1.holeStratName();
 		
 			
@@ -134,7 +156,7 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			if (i == 0)
 			{// die kopfzeile wird nur einmal geschrieben
 				ostring="Strategy_Name,";
-				for(int j=1; j<anzTabellen; j++)
+				for(int j=0; j<anzTabellen-1; j++)
 				{
 					
 					Metrikzeile mezi = databankExportTable[j].holeMetrikzeilePosI(i);
@@ -147,9 +169,9 @@ public class Metriktabellen implements Comparator<Metrikzeile>
 			}
 			ostring="";
 			String firstname="";
-			for(int j=1; j<anzTabellen; j++)
+			for(int j=0; j<anzTabellen-1; j++)
 			{
-				if(j==1)
+				if(j==0)
 					firstname=databankExportTable[j].holeMetrikzeilePosI(i).getStrategiename();
 				
 				

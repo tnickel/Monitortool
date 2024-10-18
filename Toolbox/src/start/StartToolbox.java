@@ -1,6 +1,8 @@
 package start;
 
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -48,6 +50,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
+import java.awt.event.ActionEvent;
 import montool.MonDia;
 import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
@@ -2879,6 +2882,13 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
+	}
+	
+	private void button9WidgetSelected(SelectionEvent evt) {
+		System.out.println("button9.widgetSelected, event="+evt);
+		
+		
+		//TODO add your code for button9.widgetSelected
 	}
 
 	final Runnable inittimer = new Runnable() {

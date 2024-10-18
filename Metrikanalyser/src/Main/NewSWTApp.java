@@ -1,6 +1,7 @@
 package Main;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -36,6 +37,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 
 import Batch.AutoWorkflow;
+import Klassifikator.PredictionLogAnalyzer;
 import Metriklibs.EndtestFitnessfilter;
 import Metriklibs.GeneratorStatistik;
 import Metriklibs.Metriktabellen;
@@ -54,8 +56,10 @@ import data.Metrikglobalconf;
 import gui.DisTool;
 import gui.Mbox;
 import gui.ProfitTableViewer;
+import gui.SimpleTextEditor;
 import hiflsklasse.SWTwindow;
 import hilfsklasse.FileAccess;
+import hilfsklasse.Inf;
 import hilfsklasse.SG;
 import hilfsklasse.Tracer;
 import java.awt.event.ActionEvent;
@@ -159,7 +163,17 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
-	private Button button3dirfilter;
+	private Button button5usewightedsum;
+	private Button button5PredictAll;
+	private Label label19;
+	private Text text3minleaves;
+	private Label label18;
+	private Text text3depth;
+	private Label label19selektor;
+	private Button button5editselektor;
+	private Button button5attributereduction;
+	private Button button4;
+	private Button button3;
 	private Label label17;
 	private Label label17goodbadfactorResult;
 	private Text text3goodbadfactorResult;
@@ -233,7 +247,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			this.setSize(1397, 656);
+			this.setSize(1441, 692);
 			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
@@ -381,7 +395,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button4batchexportlearn = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button4batchexportlearn.setText("Autobatch ExportAndLearn");
-							button4batchexportlearn.setBounds(915, 218, 247, 65);
+							button4batchexportlearn.setBounds(915, 260, 247, 65);
 							button4batchexportlearn.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -392,12 +406,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							text1trees = new Text(composite1, SWT.NONE);
 							text1trees.setText("100");
-							text1trees.setBounds(988, 55, 43, 21);
+							text1trees.setBounds(1060, 65, 43, 17);
 						}
 						{
 							cLabel1 = new CLabel(composite1, SWT.NONE);
 							cLabel1.setText("Number of Trees");
-							cLabel1.setBounds(1031, 55, 102, 14);
+							cLabel1.setBounds(1115, 65, 102, 14);
 						}
 						{
 							button4exportallattributes = new Button(composite1, SWT.CHECK | SWT.LEFT);
@@ -407,28 +421,32 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button4learnallwekaexported = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4learnallwekaexported.setText("WekaLearn");
-							button4learnallwekaexported.setBounds(899, 54, 83, 19);
+							button4learnallwekaexported.setBounds(899, 71, 83, 19);
 						}
 						{
 							button4predictallweka = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4predictallweka.setText("Weka Predict");
-							button4predictallweka.setBounds(899, 71, 154, 20);
+							button4predictallweka.setBounds(899, 90, 121, 20);
 						}
 						{
 							button4predictalllastperiod = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4predictalllastperiod.setText("Predict all last Period");
-							button4predictalllastperiod.setBounds(898, 105, 133, 26);
-							button4predictalllastperiod.setSelection(true);
+							button4predictalllastperiod.setBounds(898, 150, 149, 26);
+							button4predictalllastperiod.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									button4predictalllastperiodWidgetSelected(evt);
+								}
+							});
 						}
 						{
 							button4predictallwekamatrix = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4predictallwekamatrix.setText("predictallwekamatrix");
-							button4predictallwekamatrix.setBounds(899, 90, 172, 16);
+							button4predictallwekamatrix.setBounds(899, 114, 149, 16);
 						}
 						{
 							button4autobatchallworkflowscorrelation = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button4autobatchallworkflowscorrelation.setText("Autobatch AllWorkflowsCorrelation");
-							button4autobatchallworkflowscorrelation.setBounds(915, 295, 247, 37);
+							button4autobatchallworkflowscorrelation.setBounds(915, 337, 247, 37);
 							button4autobatchallworkflowscorrelation.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -593,12 +611,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							cLabel2 = new CLabel(composite1, SWT.NONE);
 							cLabel2.setText("Work all WEKA Workflows automaticaly");
-							cLabel2.setBounds(915, 374, 348, 34);
+							cLabel2.setBounds(915, 416, 348, 34);
 						}
 						{
 							text1minprofit = new Text(composite1, SWT.NONE);
 							text1minprofit.setText("0");
-							text1minprofit.setBounds(914, 130, 44, 19);
+							text1minprofit.setBounds(915, 176, 44, 19);
 						}
 						{
 							button4DeleteAllEndtestfilesInMetrikanalyser = new Button(composite1,
@@ -615,13 +633,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							label8 = new Label(composite1, SWT.NONE);
 							label8.setText("Min Profit");
-							label8.setBounds(964, 130, 60, 17);
+							label8.setBounds(965, 176, 60, 17);
 						}
 						{
 							button3copyStrategies = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3copyStrategies.setText("CopyStratgegies");
-							button3copyStrategies.setBounds(1036, 103, 140, 30);
-							button3copyStrategies.setSelection(true);
+							button3copyStrategies.setBounds(1053, 150, 119, 30);
 						}
 						{
 							button3useNormalisation = new Button(composite1, SWT.CHECK | SWT.LEFT);
@@ -637,7 +654,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3showcounter = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button3showcounter.setText("Show Good/Bad-Counter");
-							button3showcounter.setBounds(915, 338, 247, 30);
+							button3showcounter.setBounds(915, 380, 247, 30);
 							button3showcounter.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -648,17 +665,17 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							text1 = new Text(composite1, SWT.NONE);
 							text1.setText("10");
-							text1.setBounds(1012, 159, 41, 20);
+							text1.setBounds(1012, 201, 41, 20);
 						}
 						{
 							button3takenbest = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3takenbest.setText("Take N Best");
-							button3takenbest.setBounds(915, 153, 85, 30);
+							button3takenbest.setBounds(915, 195, 85, 30);
 						}
 						{
 							label11 = new Label(composite1, SWT.NONE);
 							label11.setText("Take the N best Strategies with min Profit");
-							label11.setBounds(1070, 159, 256, 17);
+							label11.setBounds(1070, 201, 313, 17);
 						}
 						{
 							text3maxattribs = new Text(composite1, SWT.NONE);
@@ -701,9 +718,10 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3showpredictvalues = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button3showpredictvalues.setText("Show Predictvalues");
-							button3showpredictvalues.setBounds(1194, 115, 132, 18);
+							button3showpredictvalues.setBounds(1196, 158, 132, 18);
 							button3showpredictvalues.addSelectionListener(new SelectionAdapter() {
-								public void widgetSelected(SelectionEvent evt) {
+								public void widgetSelected(SelectionEvent evt)
+								{
 									button3showpredictvaluesWidgetSelected(evt);
 								}
 							});
@@ -711,7 +729,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3useminprofittakenbest = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3useminprofittakenbest.setText("Use Minprofit + Take N Best");
-							button3useminprofittakenbest.setBounds(915, 182, 187, 30);
+							button3useminprofittakenbest.setBounds(915, 224, 315, 30);
 						}
 						{
 							text3learnedResult = new Text(composite1, SWT.BORDER);
@@ -752,15 +770,51 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							label17.setBounds(915, 450, 258, 20);
 						}
 						{
-							button3dirfilter = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							button3dirfilter.setText("Set DirFilter");
-							button3dirfilter.setBounds(1280, 7, 60, 24);
-							button3dirfilter.setFont(SWTResourceManager.getFont("Segoe UI", 7, 0, false, false));
-							button3dirfilter.addSelectionListener(new SelectionAdapter() {
+							button3 = new Button(composite1, SWT.CHECK | SWT.LEFT);
+							button3.setText("take random");
+							button3.setBounds(1286, 7, 106, 30);
+							button3.setGrayed(true);
+							button3.setEnabled(false);
+						}
+						{
+							button5attributereduction = new Button(composite1, SWT.CHECK | SWT.LEFT);
+							button5attributereduction.setText("Attribute Reduction");
+							button5attributereduction.setBounds(899, 52, 149, 21);
+						}
+						{
+							text3depth = new Text(composite1, SWT.NONE);
+							text3depth.setText("5");
+							text3depth.setBounds(1060, 82, 43, 17);
+						}
+						{
+							label18 = new Label(composite1, SWT.NONE);
+							label18.setText("Depth");
+							label18.setBounds(1116, 82, 60, 21);
+						}
+						{
+							text3minleaves = new Text(composite1, SWT.NONE);
+							text3minleaves.setText("5");
+							text3minleaves.setBounds(1060, 97, 44, 17);
+						}
+						{
+							label19 = new Label(composite1, SWT.NONE);
+							label19.setText("Min Leaves");
+							label19.setBounds(1116, 98, 60, 17);
+						}
+						{
+							button5PredictAll = new Button(composite1, SWT.CHECK | SWT.LEFT);
+							button5PredictAll.setText("PredictAllPeriods");
+							button5PredictAll.setBounds(898, 133, 150, 18);
+							button5PredictAll.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
-									button3dirfilterWidgetSelected(evt);
+									button5PredictAllWidgetSelected(evt);
 								}
 							});
+						}
+						{
+							button5usewightedsum = new Button(composite1, SWT.CHECK | SWT.LEFT);
+							button5usewightedsum.setText("UseWeighted Sum");
+							button5usewightedsum.setBounds(1054, 133, 146, 15);
 						}
 					}
 				}
@@ -1041,6 +1095,32 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							text3reducerInputfile.setText("exported_for_weka.csv");
 							text3reducerInputfile.setBounds(12, 109, 210, 20);
 						}
+						{
+							button4 = new Button(composite4, SWT.PUSH | SWT.CENTER);
+							button4.setText("Multilearner");
+							button4.setBounds(235, 257, 257, 30);
+							button4.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt)
+								{
+									button4WidgetSelected(evt);
+								}
+							});
+						}
+						{
+							button5editselektor = new Button(composite4, SWT.PUSH | SWT.CENTER);
+							button5editselektor.setText("Edit Selector");
+							button5editselektor.setBounds(12, 221, 116, 30);
+							button5editselektor.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									button5editselektorWidgetSelected(evt);
+								}
+							});
+						}
+						{
+							label19selektor = new Label(composite4, SWT.BORDER);
+							label19selektor.setText("Edit Selector");
+							label19selektor.setBounds(140, 221, 352, 24);
+						}
 					}
 					{
 						
@@ -1048,8 +1128,8 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 				}
 				FormData cTabFolder1LData = new FormData();
 				cTabFolder1LData.left =  new FormAttachment(0, 1000, 21);
-				cTabFolder1LData.top =  new FormAttachment(0, 1000, 22);
-				cTabFolder1LData.width = 1360;
+				cTabFolder1LData.top =  new FormAttachment(0, 1000, 20);
+				cTabFolder1LData.width = 1404;
 				cTabFolder1LData.height = 558;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				cTabFolder1.setSelection(0);
@@ -1175,8 +1255,10 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 			if (args[0] != null)
 				userdir = args[0];
 			
-		Tracer.SetTraceLevel(60);
-		Tracer.WriteTrace(20, "userdir=<" + userdir + ">");
+		Tracer.SetTraceLevel(20);
+		Tracer.WriteTrace(50, "userdir=<" + userdir + ">");
+		
+		Tracer.WriteTrace(50, "!!!!!!!!! DEBUG !!!!!!!!!!");
 		
 		// 2)gobal config with userdir
 		Metrikglobalconf meconf = new Metrikglobalconf(userdir);
@@ -1193,7 +1275,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		
 		// 4) Metrikglobalconf setzen
 		Metrikglobalconf.setShell(shell);
-		Metrikglobalconf.setVersion("Version V0.1.16.0");
+		Metrikglobalconf.setVersion("Version V0.1.19.0");
 		Metrikglobalconf.refreshHeader(userdir);
 		
 		System.out.println("akueller pfad=" + userdir);
@@ -1493,8 +1575,8 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		String filenam = SWTwindow.FileDialog(getDisplay(), dd);
 		if (filenam == null)
 			filenam = dd;
-		if (filenam.endsWith(".model") == false)
-			Tracer.WriteTrace(10, "E: filenam should end with .model");
+		if (filenam.endsWith(".csv") == false)
+			Tracer.WriteTrace(10, "E: filenam should end with .c");
 		
 		wekaLearnDatafile.setText(filenam);
 	}
@@ -1521,6 +1603,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("WekaLearn.widgetSelected, event=" + evt);
 		int anztrees = Integer.valueOf(text1trees.getText());
+	
 		String csvdatafile = wekaLearnDatafile.getText().toString();
 		String learnerfile = text1learnmodelfile.getText().toString();
 		
@@ -1529,7 +1612,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 			WekaResultCollector wres = new WekaResultCollector("c:\\tmp\\wekaresult.txt");
 			WekaTools.WekaLearn.loadAndTrainModel(csvdatafile, learnerfile,
 					Integer.valueOf(text1crossvalidateanz.getText()), wres, 0, anztrees,
-					button3useNormalisation.getSelection());
+					button3useNormalisation.getSelection(),text3depth.getText(),text3minleaves.getText());
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -1572,10 +1655,15 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 			aw.ExportAllAttributesWeka(button3usebadendtest.getSelection(), Integer.valueOf(text3maxattribs.getText()),
 					Metrikglobalconf.getEndtestattributname());
 		}
+		if(button5attributereduction.getSelection())
+		{
+			aw.FilterRelevantMetrics(Metrikglobalconf.getEndtestattributname(),combo1CorelationType.getText(), false);
+		}
+		
 		if (button4learnallwekaexported.getSelection())
 		{
-			double learnresult=aw.LearnAllWekaExported(Integer.valueOf(text1crossvalidateanz.getText()), anztrees,
-					button3useNormalisation.getSelection(), text3wekaattribfilename.getText());
+			double learnresult = aw.LearnAllWekaExported(Integer.valueOf(text1crossvalidateanz.getText()), anztrees,
+					button3useNormalisation.getSelection(), text3wekaattribfilename.getText(),text3depth.getText(),text3minleaves.getText());
 			text3learnedResult.setText(df.format(learnresult));
 		}
 		if (button4predictallweka.getSelection())
@@ -1585,15 +1673,34 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		if (button4predictallwekamatrix.getSelection())
 			aw.PredictAllMatrixWeka(Integer.valueOf(text1crossvalidateanz.getText()),
 					button3useNormalisation.getSelection(), text3wekaattribfilename.getText());
-		
+	
 		if (button4predictalllastperiod.getSelection())
 		{
 			// aw.PredictLastPeriod(Integer.valueOf(text1crossvalidateanz.getText()));
-			double result=aw.PredictLastPeriodCopyStrategies(Integer.valueOf(text1crossvalidateanz.getText()),
+			double result = aw.PredictLastPeriodCopyStrategies(Integer.valueOf(text1crossvalidateanz.getText()),
 					Double.valueOf(text1minprofit.getText()), button3copyStrategies.getSelection(),
 					button3useNormalisation.getSelection(), button3takenbest.getSelection(),
-					Integer.valueOf(text1.getText()), text3wekaattribfilename.getText(),button3useminprofittakenbest.getSelection());
+					Integer.valueOf(text1.getText()), text3wekaattribfilename.getText(),
+					button3useminprofittakenbest.getSelection());
 			text3predCorrelationResult.setText(df.format(result));
+		}
+		if (	button5PredictAll.getSelection())
+		{
+			// aw.PredictLastPeriod(Integer.valueOf(text1crossvalidateanz.getText()));
+			double result = aw.PredictAllPeriods(Integer.valueOf(text1crossvalidateanz.getText()),
+					Double.valueOf(text1minprofit.getText()), button3copyStrategies.getSelection(),
+					button3useNormalisation.getSelection(), button3takenbest.getSelection(),
+					Integer.valueOf(text1.getText()), text3wekaattribfilename.getText(),
+					button3useminprofittakenbest.getSelection());
+			
+			try
+			{
+				PredictionLogAnalyzer.processDirectories(new File(Metrikglobalconf.getFilterpath()),button5usewightedsum.getSelection());
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -1702,16 +1809,57 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		Metrikglobalconf.save();
 	}
 	
-	private void button3showpredictvaluesWidgetSelected(SelectionEvent evt) {
-		System.out.println("button3showpredictvalues.widgetSelected, event="+evt);
-		String fnam=Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodProfit.txt";
-		ProfitTableViewer pt=new ProfitTableViewer();
+	private void button3showpredictvaluesWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button3showpredictvalues.widgetSelected, event=" + evt);
+		String fnam = Metrikglobalconf.getFilterpath() + "\\Workflowname\\ForestPredictPastPeriodProfit.txt";
+		ProfitTableViewer pt = new ProfitTableViewer();
 		pt.createProfitTable(getShell().getDisplay(), fnam);
 	}
 	
-	private void button3dirfilterWidgetSelected(SelectionEvent evt) {
-		System.out.println("button3dirfilter.widgetSelected, event="+evt);
-		//TODO add your code for button3dirfilter.widgetSelected
+	private void button3dirfilterWidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button3dirfilter.widgetSelected, event=" + evt);
+		// TODO add your code for button3dirfilter.widgetSelected
+	}
+	
+	private void button4WidgetSelected(SelectionEvent evt)
+	{
+		System.out.println("button4.widgetSelected, event=" + evt);
+		// Multilearner
+		int anztrees = Integer.valueOf(text1trees.getText());
+		AutoWorkflow aw = new AutoWorkflow(strategienselector_glob, text5.getText());
+		aw.BuildMultilearner(5,
+				Integer.valueOf(text1crossvalidateanz.getText()), anztrees, button3useNormalisation.getSelection(),text3depth.getText(),text3minleaves.getText());
+		
+	}
+	
+	private void button5editselektorWidgetSelected(SelectionEvent evt) {
+		System.out.println("button5editselektor.widgetSelected, event="+evt);
+	    // Launch the editor
+		String selfile=Metrikglobalconf.getFilterpath()+"\\workflowname\\_99_dir\\Multilearn\\selectorfile.txt";
+		String multilearndir=Metrikglobalconf.getFilterpath()+"\\workflowname\\_99_dir\\Multilearn";
+		
+		if(new File(multilearndir).exists()==false)
+			new File(multilearndir).mkdir();
+		
+        SimpleTextEditor editor = new SimpleTextEditor(Display.getDefault(), selfile);
+        editor.openEditor();
+        Inf inf= new Inf();
+        inf.setFilename(selfile);
+        String selinfo=inf.readZeile();
+        label19selektor.setText(selinfo);
+        inf.close();
+	}
+	
+	private void button5PredictAllWidgetSelected(SelectionEvent evt) {
+		System.out.println("button5PredictAll.widgetSelected, event="+evt);
+		button4predictalllastperiod.setSelection(false);
+	}
+	
+	private void button4predictalllastperiodWidgetSelected(SelectionEvent evt) {
+		System.out.println("button4predictalllastperiod.widgetSelected, event="+evt);
+		button5PredictAll.setSelection(false);
 	}
 
 }

@@ -87,6 +87,7 @@ public class AutoGenVerzeichnisse
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\str__selected_sq4_endtestfiles");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\badcounter");
 			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\goodcounter");
+			FileAccess.checkgenDirectory(zieldir + "\\_99_dir\\Multilearn");
 		}
 		
 	}

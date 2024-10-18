@@ -14,6 +14,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,7 +53,30 @@ public class FileAccess
 		}
 		
 	}
-	
+	 public static boolean FileRename(String currentFileName, String newFileName) {
+	        // Erstellen von File-Objekten für die alte und die neue Datei
+	        File oldFile = new File(currentFileName);
+	        File newFile = new File(newFileName);
+
+	        // Überprüfen, ob die alte Datei existiert
+	        if (!oldFile.exists()) {
+	            System.out.println("Die Datei " + currentFileName + " existiert nicht.");
+	            Tracer.WriteTrace(10, "E: can´t rename because file don´t exists <"+currentFileName+">");
+	            return false;
+	        }
+
+	        // Versuchen, die Datei umzubenennen
+	        boolean renamed = oldFile.renameTo(newFile);
+	        if (renamed) {
+	            System.out.println("Die Datei wurde erfolgreich umbenannt.");
+	        } else {
+	            System.out.println("Fehler beim Umbenennen der Datei.");
+	            Tracer.WriteTrace(10, "E: error in rename file from <"+currentFileName+"> to <"+newFileName+">");
+	        }
+
+	        return renamed;
+	    }
+
 	public static boolean checkOlderXDays(File file, int x)
 	{
 		// file:filenamen
@@ -639,6 +665,28 @@ public class FileAccess
 			
 		}
 	}
+	static public boolean FileDelete2(String filename, int errorstopflag)
+	{
+		
+		File fo = null;
+		
+		fo = new File(filename);
+		
+		if (fo.exists() == false)
+			return (false);
+		
+		if (fo.delete() == true)
+			return (true);
+		else
+		{
+			if (errorstopflag == 0)
+				Tracer.WriteTrace(20, "W:can´t delete file <" + filename + ">");
+			else
+				Tracer.WriteTrace(10, "W:can´t delete file <" + filename + ">");
+			return (false);
+			
+		}
+	}
 	
 	static public boolean FilesDelete(String directory, String postfix)
 	{
@@ -862,6 +910,7 @@ public class FileAccess
 			dir.delete(); // Ordner löschen
 		}
 	}
+	
 	public static void cleanDirectory(File dir)
 	{
 		File[] files = dir.listFiles();
@@ -871,13 +920,13 @@ public class FileAccess
 			{
 				if (files[i].isDirectory())
 				{
-					deleteDirectory(files[i]); // Verzeichnis leeren 
+					deleteDirectory(files[i]); // Verzeichnis leeren
 				} else
 				{
 					files[i].delete(); // Datei löschen
 				}
 			}
-		
+			
 		}
 	}
 	
@@ -972,32 +1021,21 @@ public class FileAccess
 	
 	static public boolean copyFile(String quelle, String ziel)
 	{
-		File source = new File(convsonderz(quelle));
-		File dest = new File(convsonderz(ziel));
+		quelle = convsonderz(quelle);
+		ziel = convsonderz(ziel);
 		
-		if (dest.exists())
-			if (dest.delete() == false)
-				Tracer.WriteTrace(10, "E:cant delete destfile<" + dest.getAbsolutePath() + ">");
-			
-		FileReader fileReader = null;
-		FileWriter fileWriter = null;
+		Path sourcePath = Paths.get(quelle);
+		Path destinationPath = Paths.get(ziel);
+		
 		try
 		{
-			fileReader = new FileReader(source);
-			fileWriter = new FileWriter(dest);
-			long length = source.length();
-			for (int i = 0; i < length; i++)
-				fileWriter.write(fileReader.read());
-			
-			fileWriter.close();
-			fileReader.close();
-			
+			Files.copy(sourcePath, destinationPath);
 			return true;
+			
 		} catch (IOException e)
 		{
-			
-			e.printStackTrace();
-			return (false);
+			Tracer.WriteTrace(10,"E:Fehler beim Kopieren der Datei: " + e.getMessage());
+			return false;
 		}
 		
 	}
@@ -1266,15 +1304,16 @@ public class FileAccess
 	}
 	
 	public static void CopyDirectory4(File src, File dest) throws IOException
-	//copy directory and all subdirectorys
+	// copy directory and all subdirectorys
 	{
-		  if(!src.exists()){
-
-	           Tracer.WriteTrace(10,"Directory does not exist.<"+src.getPath()+">");
-	           //just exit
-	           System.exit(0);
-		  }
-	    if (src.isDirectory())
+		if (!src.exists())
+		{
+			
+			Tracer.WriteTrace(10, "Directory does not exist.<" + src.getPath() + ">");
+			// just exit
+			System.exit(0);
+		}
+		if (src.isDirectory())
 		{
 			
 			// if directory not exists, create it

@@ -105,7 +105,7 @@ public class CorelationMapper
 			
 			double corsum=Math.abs(statElem.getCorsumme());
 			int anz=Math.max(statElem.anzgut,statElem.anzbad);
-			if((anz>7) && (corsum>1))
+			if(anz>5)
 			{
 				attriblist.add(key.replace("@", "").replace(" ", "_"));
 				Tracer.WriteTrace(20 , "I: Erweitere gutliste attrib<"+key+"> sum<"+corsum+"> anz<"+anz+">");

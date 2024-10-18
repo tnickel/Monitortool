@@ -56,14 +56,11 @@ public class Metriktabelle
 	{
 		// hier wird die ganze Tabelle zeilenweise eingelesen und aufgebaut
 		// die attribute aus der ersten Zeile sind hier ja schon bekannt
-		String fnam = holeEinenFilenamen(dirnam);
-		if(fnam==null)
-		{
-			Tracer.WriteTrace(20, "E: no exported table file in <"+dirnam+">");
-			return false;
-		}
-		filename_glob = fnam;
-		leseAttributeUndRestSorted(msel, fnam);
+		String fnam="DatabankExport.csv";
+		
+		filename_glob = dirnam+"\\"+fnam;
+		Tracer.WriteTrace(50, "Read metriktable dir<"+dirnam+"> fnam<"+fnam+">");
+		leseAttributeUndRestSorted(msel, filename_glob);
 		
 		//this is only a check
 		//this.WriteMetriktabelle(fnam + "sorted");
@@ -146,6 +143,9 @@ public class Metriktabelle
 		Metrikzeile metzeile = new Metrikzeile();
 		metzeile.setzeAttribute(firstzeile);
 		Tracer.WriteTrace(50, "Metrikzeile header hat <" + metzeile.getAttributanz() + "> Elemente");
+		
+		if((filename_glob.contains("_99_dir"))&&(firstzeile.contains("Net profit (OOS)")==false))
+			Tracer.WriteTrace(10, "Missing attribute 'Net profit (OOS) in \nfile <"+filename_glob+">");
 		
 		// dann nach und nach die Metrikzeilen aus den Strings generieren und
 		// die Metriktabelle füllen
