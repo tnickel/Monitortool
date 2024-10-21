@@ -14,7 +14,7 @@ public class WekaClassifierBestlist
 	private ArrayList<ClassifiedElem> bestlist = new ArrayList<ClassifiedElem>();
 	private int copycounter_glob = 0;
 	private int selectedStrategiesCounter_glob = 0;
-	//private double sumSelectedProfits_glob = 0;
+	// private double sumSelectedProfits_glob = 0;
 	private double minprofit_glob = 0;
 	
 	public WekaClassifierBestlist()
@@ -50,15 +50,15 @@ public class WekaClassifierBestlist
 	
 	public double getSumSelectedProfits()
 	{
-		double sum_profi=0;
+		double sum_profi = 0;
 		int anz = bestlist.size();
 		for (int i = 0; i < anz; i++)
 		{
 			ClassifiedElem ce = bestlist.get(i);
-			if(ce.getSelected()==1)
+			if (ce.getSelected() == 1)
 			{
 				double aktval = ce.getActualValue();
-				sum_profi=sum_profi+aktval;
+				sum_profi = sum_profi + aktval;
 			}
 		}
 		return sum_profi;
@@ -72,7 +72,7 @@ public class WekaClassifierBestlist
 	public void filterBest(String mode, int takebestn)
 	{
 		// number=
-		if(mode.equals("minval+takebest"))
+		if (mode.equals("minval+takebest"))
 			filterMinvalPlusTakebest(takebestn);
 		else if (mode.equals("minval"))
 			filterMinval();
@@ -85,9 +85,9 @@ public class WekaClassifierBestlist
 	private void filterBest(int maxbest)
 	{
 		
-		//Nimm die n besten aus der sortierten bestliste
+		// Nimm die n besten aus der sortierten bestliste
 		
-		double sum=0;
+		double sum = 0;
 		// Sortieren mit Comparable
 		Collections.sort(bestlist);
 		int anz = bestlist.size();
@@ -97,12 +97,12 @@ public class WekaClassifierBestlist
 			double aktval = ce.getActualValue();
 			ce.setSelected(1);
 			
-			sum=sum+aktval;
-			String stratname=ce.getSourcepath();
-			stratname=stratname.substring(stratname.lastIndexOf("\\"));
-			Tracer.WriteTrace(20, "<"+i+"> of 10 best: name<"+stratname+"> aktval<"+aktval+">");
-			if(i==maxbest-1)
-				Tracer.WriteTrace(20, "name<"+stratname+"> sum<"+sum+">");
+			sum = sum + aktval;
+			String stratname = ce.getSourcepath();
+			stratname = stratname.substring(stratname.lastIndexOf("\\"));
+			Tracer.WriteTrace(20, "<" + i + "> of 10 best: name<" + stratname + "> aktval<" + aktval + ">");
+			if (i == maxbest - 1)
+				Tracer.WriteTrace(20, "name<" + stratname + "> sum<" + sum + ">");
 			selectedStrategiesCounter_glob++;
 			
 		}
@@ -112,9 +112,9 @@ public class WekaClassifierBestlist
 	private void filterMinvalPlusTakebest(int maxbest)
 	{
 		
-		//Nimm die n besten aus der sortierten bestliste
+		// Nimm die n besten aus der sortierten bestliste
 		
-		double sum=0;
+		double sum = 0;
 		// Sortieren mit Comparable
 		Collections.sort(bestlist);
 		int anz = bestlist.size();
@@ -122,23 +122,22 @@ public class WekaClassifierBestlist
 		{
 			ClassifiedElem ce = bestlist.get(i);
 			double aktval = ce.getActualValue();
-			double predval=ce.getPredictValue();
+			double predval = ce.getPredictValue();
 			if (ce.getPredictValue() > minprofit_glob)
-			{ //nimm die n besten nur auf wenn der predicted value höher ist.
-			
+			{ // nimm die n besten nur auf wenn der predicted value höher ist.
+				
 				ce.setSelected(1);
-				sum=sum+aktval;
-				String stratname=ce.getSourcepath();
-				stratname=stratname.substring(stratname.lastIndexOf("\\"));
-				Tracer.WriteTrace(20, "<"+i+"> of 10 best: name<"+stratname+"> aktval<"+aktval+">");
-				if(i==maxbest-1)
-					Tracer.WriteTrace(20, "name<"+stratname+"> sum<"+sum+">");
+				sum = sum + aktval;
+				String stratname = ce.getSourcepath();
+				stratname = stratname.substring(stratname.lastIndexOf("\\"));
+				Tracer.WriteTrace(20, "<" + i + "> of 10 best: name<" + stratname + "> aktval<" + aktval + ">");
+				if (i == maxbest - 1)
+					Tracer.WriteTrace(20, "name<" + stratname + "> sum<" + sum + ">");
 				selectedStrategiesCounter_glob++;
 			}
 		}
 		Tracer.WriteTrace(20, "xready");
 	}
-	
 	
 	private void filterMinval()
 	{
@@ -160,9 +159,6 @@ public class WekaClassifierBestlist
 		int anz = bestlist.size();
 		copycounter_glob = 0;
 		
-		if (copyflag_glob == false)
-			return;
-		
 		for (int i = 0; i < anz; i++)
 		{
 			ClassifiedElem ce = bestlist.get(i);
@@ -172,29 +168,30 @@ public class WekaClassifierBestlist
 			String s1path = ce.getSourcepath();
 			String s2path = ce.getDestpath();
 			
-			if (new File(s1path).exists())
+			if (copyflag_glob == true)
 			{
-				Filefunkt fc = new Filefunkt();
-				
+				if (new File(s1path).exists())
 				{
-					try
+					Filefunkt fc = new Filefunkt();
 					{
-						fc.copyFile(new File(s1path), new File(s2path));
+						try
+						{
+							fc.copyFile(new File(s1path), new File(s2path));
+							
+						} catch (IOException e)
+						{
+							// TODO Auto-generated catch block
+							
+							e.printStackTrace();
+							Tracer.WriteTrace(20, e.getMessage());
+							Tracer.WriteTrace(10, "E:error copy file <" + s1path + "> to <" + s2path + ">");
+						}
 						
-						
-					} catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						
-						e.printStackTrace();
-						Tracer.WriteTrace(20, e.getMessage());
-						Tracer.WriteTrace(10, "E:error copy file <" + s1path + "> to <" + s2path + ">");
 					}
-					
-				}
-			} else
-				Tracer.WriteTrace(10, "E: I tried to copy file <"+s1path+"> to Selected_Files, but this file is not available--> Stop");
-			
+				} else
+					Tracer.WriteTrace(10, "E: I tried to copy file <" + s1path
+							+ "> to Selected_Files, but this file is not available--> Stop");
+			}
 		}
 		if (copyflag_glob == true)
 			Tracer.WriteTrace(20, "I: I have copied <" + copycounter_glob + "|" + anz + "> strategies");

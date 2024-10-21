@@ -26,12 +26,10 @@ public class CalcCorrelationAllWorkflows
 	private String endtestattribname_glob = null;
 	private String corealgotype_glob = null;
 	CorelationMapper cmapperCollect_glob = new CorelationMapper();
-	public CalcCorrelationAllWorkflows()
-	{
-	}
+	
 	
 	public CorelationMapper CalcCorrelationAllWorkflows(String endtestattribname, String corealgotype,
-			boolean showoutputflag)
+			boolean showoutputflag,String sortcriteria)
 	{
 		// Check Tableroot
 		if (Metrikglobalconf.isValidMasterRootpath() == false)
@@ -94,9 +92,9 @@ public class CalcCorrelationAllWorkflows
 		return cmapperCollect_glob;
 	}
 	
-	public Attribliste getGoodAttribliste()
+	public Attribliste getGoodAttribliste(int mingoodbad, double stabil)
 	{
-		Attribliste attribgut=cmapperCollect_glob.CalcgoodAttribliste();
+		Attribliste attribgut=cmapperCollect_glob.CalcgoodAttribliste(mingoodbad,stabil);
 		return attribgut;
 		
 		

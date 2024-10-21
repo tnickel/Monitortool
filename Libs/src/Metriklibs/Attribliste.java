@@ -26,4 +26,11 @@ public class Attribliste
 	{
 		return new ArrayList<>(liste); // Return a copy to maintain encapsulation
 	}
+	public int getSize()
+	{
+		if(liste!=null)
+			return(liste.size());
+			else
+				return 0;
+	}
 }

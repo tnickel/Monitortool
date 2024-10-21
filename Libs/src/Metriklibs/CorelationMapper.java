@@ -65,7 +65,7 @@ public class CorelationMapper
 				crs.setCorsumme(corsumme);
 				//wir wollen hier infostrings abspeichern, wir wollen wissen wie die corsumme zustande gekommen ist
 				crs.ExtendExplainString(newval);
-				// den counter erhöhen
+				// den counter erhöhen;
 				int counter = crs.getAnzvorkommen() + 1;
 				crs.setAnzvorkommen(counter);
 				
@@ -82,12 +82,14 @@ public class CorelationMapper
 					crs.setAnzbad(bcounter);
 				}
 				
+				crs.calcStabil();
+				
 				// das modifizierte objekt wieder zurückputten
 				map.put(key, crs);
 			}
 		}
 	}
-	public Attribliste CalcgoodAttribliste()
+	public Attribliste CalcgoodAttribliste(int mingoodbad,double stabilmax)
 	{
 		//wir brauchen eine liste mit den attributen mit hoher korrelation und hohem vorkommen.
 		//ein element ist gut wenn es mindestens 5 mal über dem schwellwert von 0.15 war und
@@ -96,16 +98,19 @@ public class CorelationMapper
 		
 		Attribliste attriblist = new Attribliste();
 		
+		Tracer.WriteTrace(20, "#attribute before reduction =<"+map.size()+">");
+		
 		for (Map.Entry<String, CoreResultStatistikElem> entry : map.entrySet())
 		{
 			String key = entry.getKey();
 			CoreResultStatistikElem statElem = (CoreResultStatistikElem) entry.getValue();
+			double stabil=statElem.getStabil();
 
 			//Jetzt wird geprüft ob das Element eine hohe correlation auffweisst
 			
 			double corsum=Math.abs(statElem.getCorsumme());
 			int anz=Math.max(statElem.anzgut,statElem.anzbad);
-			if(anz>5)
+			if((anz>mingoodbad)&&(stabil<stabilmax))
 			{
 				attriblist.add(key.replace("@", "").replace(" ", "_"));
 				Tracer.WriteTrace(20 , "I: Erweitere gutliste attrib<"+key+"> sum<"+corsum+"> anz<"+anz+">");
@@ -113,6 +118,7 @@ public class CorelationMapper
 			
 		
 		}
+		Tracer.WriteTrace(20, "#attribute after reduction =<"+attriblist.getSize()+">");
 		return attriblist;
 		
 	}

@@ -106,7 +106,7 @@ public class PredictionLogAnalyzer
             @Override
             public boolean accept(File dir, String name)
             {
-                return name.startsWith("prediction_log");
+                return name.startsWith("prediction_log_");
             }
         });
 
@@ -211,7 +211,67 @@ public class PredictionLogAnalyzer
 
         System.out.println("Ergebnisse gespeichert in: " + outputFile.getAbsolutePath());
 
+        writeSummedActuals(predictionDir, strategyActuals);
         writeForestPredictPastPeriodProfit(strategyActuals, workflowDir, predictionDir, strategyPredictions);
+    }
+
+    private static void writeSummedActuals(File predictionDir, Map<String, List<Double>> strategyActuals) throws IOException
+    {
+        File outputFile = new File(predictionDir, "sum_real.txt");
+
+        BufferedWriter writer = null;
+        try
+        {
+            writer = new BufferedWriter(new FileWriter(outputFile));
+
+            // Sortiere die Strategien nach den summierten Actual-Werten in absteigender
+            // Reihenfolge
+            List<Map.Entry<String, List<Double>>> sortedEntries = new ArrayList<>(strategyActuals.entrySet());
+            Collections.sort(sortedEntries, new Comparator<Map.Entry<String, List<Double>>>() {
+                @Override
+                public int compare(Map.Entry<String, List<Double>> e1, Map.Entry<String, List<Double>> e2)
+                {
+                    double sum1 = useWeightedSum ? calculateWeightedSum(e1.getValue()) : calculateUnweightedSum(e1.getValue());
+                    double sum2 = useWeightedSum ? calculateWeightedSum(e2.getValue()) : calculateUnweightedSum(e2.getValue());
+                    return Double.compare(sum2, sum1);
+                }
+            });
+
+            for (Map.Entry<String, List<Double>> entry : sortedEntries)
+            {
+                String strategyName = entry.getKey();
+                List<Double> actuals = entry.getValue();
+
+                // Berechne die Summe der Actual-Werte (gewichtete oder ungewichtete)
+                double sum = useWeightedSum ? calculateWeightedSum(actuals) : calculateUnweightedSum(actuals);
+
+                // Erstelle die Zeile im gewünschten Format
+                StringBuilder actualsList = new StringBuilder();
+                for (int i = 0; i < actuals.size(); i++)
+                {
+                    if (i == 0)
+                    {
+                        actualsList.append(actuals.get(i));
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                String line = strategyName + "#" + sum + "#" + actualsList.toString();
+                writer.write(line);
+                writer.newLine();
+            }
+        } finally
+        {
+            if (writer != null)
+            {
+                writer.close();
+            }
+        }
+
+        System.out.println("Ergebnisse gespeichert in: " + outputFile.getAbsolutePath());
     }
 
     private static double calculateWeightedSum(List<Double> values)

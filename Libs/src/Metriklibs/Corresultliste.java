@@ -8,6 +8,9 @@ public class Corresultliste
 	//diese liste beinhaltet für einen filter die korrelationswerte
 	ArrayList<Corelresultelem> clist = new ArrayList<Corelresultelem>();
 	
+	
+	
+	
 	public void addElem(Corelresultelem ce)
 	{
 		clist.add(ce);

@@ -565,14 +565,14 @@ public class AutoWorkflow
 		Tracer.WriteTrace(20, "All workflows learned and Multilearner build");
 	}
 	
-	public void FilterRelevantMetrics(String endtestattribname, String corealgotype, boolean showoutputflag)
+	public void FilterRelevantMetrics(String endtestattribname, String corealgotype, boolean showoutputflag,String mingoodbad,String stabilvalue)
 	{
 		// die unnützen metriken werden rausgeworfen
 		
 		// erst mal die Megamatrix aufbauen
 		CalcCorrelationAllWorkflows cal = new CalcCorrelationAllWorkflows();
-		cal.CalcCorrelationAllWorkflows(endtestattribname, corealgotype, showoutputflag);
-		Attribliste attribliste = cal.getGoodAttribliste();
+		cal.CalcCorrelationAllWorkflows(endtestattribname, corealgotype, showoutputflag,"coresum");
+		Attribliste attribliste = cal.getGoodAttribliste(Integer.valueOf(mingoodbad),Double.valueOf(stabilvalue));
 		
 		// dann die attribute speichern
 		FileAccessDyn fdirs = new FileAccessDyn();

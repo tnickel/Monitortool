@@ -1,5 +1,8 @@
 package Metriklibs;
 
+import Klassifikator.StabilityFromStringCalculator;
+import hiflsklasse.Tracer;
+
 public class CoreResultStatistikElem extends Corelresultelem
 {
 	//Dieses Statistikelement speichert das folgende
@@ -15,6 +18,7 @@ public class CoreResultStatistikElem extends Corelresultelem
 	//corsumme: ist die korrelationsumem, hier werden alle korrelationswerte aufsummiert
 	 double corsumme=0;
 	 String explainstring="";
+	 double stabil=0;
 	
 	public void ExtendExplainString(double newval)
 	{
@@ -22,6 +26,13 @@ public class CoreResultStatistikElem extends Corelresultelem
 		 String formattedString = String.format("%.2f", newval).replace(",", ".");
 	
 		 explainstring=explainstring+formattedString+" ";
+		 
+		
+	}
+	
+	public void calcStabil()
+	{
+		stabil=StabilityFromStringCalculator.calculateStabilityFromString(explainstring);
 	}
 	
 	public String getExplainString()
@@ -63,6 +74,16 @@ public class CoreResultStatistikElem extends Corelresultelem
 	public void setAnzbad(int anzbad)
 	{
 		this.anzbad = anzbad;
+	}
+
+	public double getStabil()
+	{
+		return stabil;
+	}
+
+	public void setStabil(double stabil)
+	{
+		this.stabil = stabil;
 	}
 	
 }

@@ -3,8 +3,6 @@ package Main;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -57,12 +55,12 @@ import gui.DisTool;
 import gui.Mbox;
 import gui.ProfitTableViewer;
 import gui.SimpleTextEditor;
+import gui.WekaAttributeGrapher;
 import hiflsklasse.SWTwindow;
 import hilfsklasse.FileAccess;
 import hilfsklasse.Inf;
 import hilfsklasse.SG;
 import hilfsklasse.Tracer;
-import java.awt.event.ActionEvent;
 import userinterface.SetConfig;
 import userinterface.SetCorrelationConfig;
 import userinterface.SetFilter;
@@ -163,6 +161,12 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private MenuItem exitMenuItem;
 	private MenuItem closeFileMenuItem;
 	private MenuItem saveFileMenuItem;
+	private Button button5ShowMetrics;
+	private Label label21;
+	private Text text3stabilval;
+	private Label label20;
+	private Text text3mingoodbad;
+	private Button button5sortstabil;
 	private Button button5usewightedsum;
 	private Button button5PredictAll;
 	private Label label19;
@@ -405,7 +409,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						}
 						{
 							text1trees = new Text(composite1, SWT.NONE);
-							text1trees.setText("100");
+							text1trees.setText("20");
 							text1trees.setBounds(1060, 65, 43, 17);
 						}
 						{
@@ -416,7 +420,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button4exportallattributes = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button4exportallattributes.setText("ExportDataForWeka");
-							button4exportallattributes.setBounds(899, 12, 128, 19);
+							button4exportallattributes.setBounds(899, -1, 128, 19);
 						}
 						{
 							button4learnallwekaexported = new Button(composite1, SWT.CHECK | SWT.LEFT);
@@ -638,7 +642,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3copyStrategies = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3copyStrategies.setText("CopyStratgegies");
-							button3copyStrategies.setBounds(1053, 150, 119, 30);
+							button3copyStrategies.setBounds(1053, 150, 131, 30);
 						}
 						{
 							button3useNormalisation = new Button(composite1, SWT.CHECK | SWT.LEFT);
@@ -649,7 +653,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3usebadendtest = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3usebadendtest.setText("UseBadEndtest");
-							button3usebadendtest.setBounds(1038, 7, 102, 30);
+							button3usebadendtest.setBounds(1038, -6, 102, 30);
 						}
 						{
 							button3showcounter = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -680,22 +684,22 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							text3maxattribs = new Text(composite1, SWT.NONE);
 							text3maxattribs.setText("3000");
-							text3maxattribs.setBounds(1146, 12, 44, 18);
+							text3maxattribs.setBounds(1146, -1, 44, 18);
 						}
 						{
 							label14 = new Label(composite1, SWT.NONE);
 							label14.setText("Max Strategies");
-							label14.setBounds(1196, 12, 84, 17);
+							label14.setBounds(1196, -1, 84, 17);
 						}
 						{
 							text3wekaattribfilename = new Text(composite1, SWT.NONE);
 							text3wekaattribfilename.setText("exported_for_weka.csv");
-							text3wekaattribfilename.setBounds(899, 36, 291, 17);
+							text3wekaattribfilename.setBounds(899, 23, 291, 17);
 						}
 						{
 							button3setwekaattribfilename = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button3setwekaattribfilename.setText("SetWekaAttribFilename");
-							button3setwekaattribfilename.setBounds(1196, 36, 130, 17);
+							button3setwekaattribfilename.setBounds(1196, 23, 130, 17);
 						}
 						{
 							combo1endtestattributename = new Combo(composite1, SWT.NONE);
@@ -718,7 +722,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3showpredictvalues = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							button3showpredictvalues.setText("Show Predictvalues");
-							button3showpredictvalues.setBounds(1196, 158, 132, 18);
+							button3showpredictvalues.setBounds(1196, 158, 196, 18);
 							button3showpredictvalues.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt)
 								{
@@ -772,14 +776,14 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 						{
 							button3 = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button3.setText("take random");
-							button3.setBounds(1286, 7, 106, 30);
+							button3.setBounds(1286, -6, 106, 30);
 							button3.setGrayed(true);
 							button3.setEnabled(false);
 						}
 						{
 							button5attributereduction = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button5attributereduction.setText("Attribute Reduction");
-							button5attributereduction.setBounds(899, 52, 149, 21);
+							button5attributereduction.setBounds(899, 46, 149, 21);
 						}
 						{
 							text3depth = new Text(composite1, SWT.NONE);
@@ -815,6 +819,42 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 							button5usewightedsum = new Button(composite1, SWT.CHECK | SWT.LEFT);
 							button5usewightedsum.setText("UseWeighted Sum");
 							button5usewightedsum.setBounds(1054, 133, 146, 15);
+						}
+						{
+							button5sortstabil = new Button(composite1, SWT.CHECK | SWT.LEFT);
+							button5sortstabil.setText("sortstabil");
+							button5sortstabil.setBounds(1184, 342, 144, 30);
+						}
+						{
+							text3mingoodbad = new Text(composite1, SWT.NONE);
+							text3mingoodbad.setText("3");
+							text3mingoodbad.setBounds(1054, 46, 25, 19);
+						}
+						{
+							label20 = new Label(composite1, SWT.NONE);
+							label20.setText("MinGoodBad");
+							label20.setBounds(1085, 48, 88, 17);
+						}
+						{
+							text3stabilval = new Text(composite1, SWT.NONE);
+							text3stabilval.setText("0.2");
+							text3stabilval.setBounds(1179, 48, 26, 19);
+						}
+						{
+							label21 = new Label(composite1, SWT.NONE);
+							label21.setText("StabilValue");
+							label21.setBounds(1217, 48, 82, 19);
+							label21.setToolTipText("Lower Value means harder condition. Avalue of 0.2 is a good value");
+						}
+						{
+							button5ShowMetrics = new Button(composite1, SWT.PUSH | SWT.CENTER);
+							button5ShowMetrics.setText("ShowMetrics");
+							button5ShowMetrics.setBounds(1293, 48, 99, 19);
+							button5ShowMetrics.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									button5ShowMetricsWidgetSelected(evt);
+								}
+							});
 						}
 					}
 				}
@@ -1275,7 +1315,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		
 		// 4) Metrikglobalconf setzen
 		Metrikglobalconf.setShell(shell);
-		Metrikglobalconf.setVersion("Version V0.1.19.0");
+		Metrikglobalconf.setVersion("Version V0.1.20.0");
 		Metrikglobalconf.refreshHeader(userdir);
 		
 		System.out.println("akueller pfad=" + userdir);
@@ -1657,7 +1697,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		}
 		if(button5attributereduction.getSelection())
 		{
-			aw.FilterRelevantMetrics(Metrikglobalconf.getEndtestattributname(),combo1CorelationType.getText(), false);
+			aw.FilterRelevantMetrics(Metrikglobalconf.getEndtestattributname(),combo1CorelationType.getText(), false,text3mingoodbad.getText(),text3stabilval.getText());
 		}
 		
 		if (button4learnallwekaexported.getSelection())
@@ -1708,7 +1748,11 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	{
 		System.out.println("button4autobatchallworkflowscorrelation.widgetSelected, event=" + evt);
 		CalcCorrelationAllWorkflows cal = new CalcCorrelationAllWorkflows();
-		cal.CalcCorrelationAllWorkflows(attributnameendtest.getText(), combo1CorelationType.getText(), true);
+		String sortcriteria="coresum";
+		if(button5sortstabil.getSelection()==true)
+			sortcriteria="stabil";
+		
+		cal.CalcCorrelationAllWorkflows(attributnameendtest.getText(), combo1CorelationType.getText(), true,sortcriteria);
 		
 	}
 	
@@ -1860,6 +1904,14 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 	private void button4predictalllastperiodWidgetSelected(SelectionEvent evt) {
 		System.out.println("button4predictalllastperiod.widgetSelected, event="+evt);
 		button5PredictAll.setSelection(false);
+	}
+	
+	private void button5ShowMetricsWidgetSelected(SelectionEvent evt) {
+		System.out.println("button5ShowMetrics.widgetSelected, event="+evt);
+		String path=Metrikglobalconf.getFilterpath();
+		WekaAttributeGrapher.displayGraphs(path);
+		
+		
 	}
 
 }
