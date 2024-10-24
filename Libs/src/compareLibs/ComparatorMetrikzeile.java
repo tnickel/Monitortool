@@ -2,9 +2,7 @@ package compareLibs;
 
 import java.util.Comparator;
 
-import Metriklibs.Metrikentry;
 import Metriklibs.Metrikzeile;
-import hiflsklasse.Tracer;
 
 public class ComparatorMetrikzeile implements Comparator<Metrikzeile>
 {

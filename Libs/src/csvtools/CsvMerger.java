@@ -7,9 +7,6 @@ package csvtools;
  * Wenn ein Strategiename in beiden Eingabedateien vorkommt, wird der Name aus der zweiten Datei durch Anhängen eines Buchstabens
  * geändert, um die Eindeutigkeit sicherzustellen. Die zusammengeführte Datei behält die Kopfzeile der ersten Eingabedatei bei.
  */
-import java.io.*;
-import java.util.*;
-
 /**
  * CsvMerger ist eine Hilfsklasse, die zwei CSV-Dateien zu einer zusammenführt und sicherstellt, dass die Strategienamen eindeutig sind.
  * 
@@ -17,9 +14,6 @@ import java.util.*;
  * Wenn ein Strategiename in beiden Eingabedateien vorkommt, wird der Name aus der ersten Datei durch Anhängen eines Buchstabens
  * geändert, um die Eindeutigkeit sicherzustellen.
  */
-import java.io.*;
-import java.util.*;
-
 /**
  * CsvMerger ist eine Hilfsklasse, die zwei CSV-Dateien zu einer zusammenführt und sicherstellt, dass die Strategienamen eindeutig sind.
  * 
@@ -27,9 +21,6 @@ import java.util.*;
  * Wenn ein Strategiename in beiden Eingabedateien vorkommt, wird der Name aus der ersten Datei durch Anhängen eines Buchstabens
  * geändert, um die Eindeutigkeit sicherzustellen. Falls die zweite Datei nicht existiert, wird sie neu angelegt.
  */
-import java.io.*;
-import java.util.*;
-
 /**
  * CsvMerger ist eine Hilfsklasse, die zwei CSV-Dateien zu einer zusammenführt und sicherstellt, dass die Strategienamen eindeutig sind.
  * 
@@ -37,8 +28,16 @@ import java.util.*;
  * Wenn ein Strategiename in beiden Eingabedateien vorkommt, wird der Name aus der ersten Datei durch Anhängen eines Buchstabens
  * geändert, um die Eindeutigkeit sicherzustellen. Falls die zweite Datei nicht existiert, wird sie neu angelegt.
  */
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CsvMerger {
 

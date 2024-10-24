@@ -48,12 +48,12 @@ public class Statliste implements Comparator<CoreResultStatistikElem>
 		
 		// Hier statliste sortieren
 		Collections.sort(statliste, this);
-		inf.writezeile("attributename#anzgood#anzbad#corsum#Stabil  #Explain***");
+		inf.writezeile("attributename#anzgood#anzbad#corsum#StdDev  #Explain***");
 		for (CoreResultStatistikElem elem : statliste)
 		{
 			inf.writezeile(elem.getAttribname() + "#" + elem.getAnzgut() + " of " + elem.getAnzvorkommen() + "#"
 					+ elem.getAnzbad() + " of " + elem.getAnzvorkommen() + "#" + elem.getCorsumme() + "#"
-					+ String.format("%.3f", elem.getStabil()).replace(",", ".") + "#" + elem.getExplainString());
+					+ String.format("%.3f", elem.getStdDev()).replace(",", ".") + "#" + elem.getExplainString());
 			
 		}
 		
@@ -67,8 +67,8 @@ public class Statliste implements Comparator<CoreResultStatistikElem>
 		
 		if (sortcriteria_glob.equals("stabil"))
 		{
-			pval1 = p1.getStabil();
-			pval2 = p2.getStabil();
+			pval1 = p1.getStdDev();
+			pval2 = p2.getStdDev();
 			if (pval1 > pval2)
 				return 1;
 			else if (pval1 < pval2)

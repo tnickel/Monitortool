@@ -17,7 +17,7 @@ public class Corelresultelem implements Comparable<Corelresultelem>
 		this.val = val;
 	}
 	
-	public double getStabil()
+	public double getStdDev()
 	{
 		return stabil;
 	}

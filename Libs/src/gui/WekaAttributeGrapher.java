@@ -1,5 +1,30 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -9,70 +34,40 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.ui.ApplicationFrame;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 public class WekaAttributeGrapher extends ApplicationFrame {
 
-    private int lastScrollPosition = 0;
+    private Map<String, Map<String, JFreeChart>> attributeChartsMap;
+    private JPanel chartsContainer;
 
     public WekaAttributeGrapher(String title, String rootPath) {
         super(title);
-        JTabbedPane tabbedPane = new JTabbedPane();
-tabbedPane.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 26));
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.setDividerLocation(200);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel chartsContainer = new JPanel();
-        chartsContainer.setLayout(new BoxLayout(chartsContainer, BoxLayout.Y_AXIS));
-
-        JScrollPane chartsScrollPane = new JScrollPane(chartsContainer);
-chartsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-chartsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        chartsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
-        // Alle Unterverzeichnisse durchsuchen und CSV-Dateien finden
+        // Obere Liste der Attribute
+        DefaultListModel<String> listModel = new DefaultListModel<String>();
+        attributeChartsMap = new LinkedHashMap<String, Map<String, JFreeChart>>();
         List<File> csvFiles = findCSVFiles(new File(rootPath));
-
-        Map<String, Map<String, JFreeChart>> attributeChartsMap = new LinkedHashMap<String, Map<String, JFreeChart>>();
         for (File csvFile : csvFiles) {
             List<String[]> data = readCSV(csvFile.getAbsolutePath());
             if (data != null && data.size() > 1) {
-                // Die erste Zeile enthält die Attributnamen
                 String[] headers = data.get(0);
                 String directoryName = csvFile.getParentFile().getName();
 
-                // Listen für positive und negative Werte initialisieren
                 List<List<Double>> positiveValues = new ArrayList<List<Double>>();
                 List<List<Double>> negativeValues = new ArrayList<List<Double>>();
 
-                // Initialisieren von Listen für jedes numerische Attribut (Strategienamen überspringen)
                 for (int i = 1; i < headers.length - 1; i++) {
                     positiveValues.add(new ArrayList<Double>());
                     negativeValues.add(new ArrayList<Double>());
                 }
 
-                // Verarbeiten der Datenzeilen
                 for (int i = 1; i < data.size(); i++) {
                     String[] row = data.get(i);
                     if (row.length < headers.length) {
-                        // Überspringen von Zeilen mit unzureichenden Spalten
                         continue;
                     }
                     try {
@@ -88,67 +83,77 @@ chartsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAY
                                     negativeValues.get(j - 1).add(attributeValue);
                                 }
                             } catch (NumberFormatException e) {
-                                // Überspringen von nicht-numerischen Attributen
                             }
                         }
                     } catch (NumberFormatException e) {
-                        // Überspringen der gesamten Zeile, wenn der Endtest-Wert nicht numerisch ist
                     }
                 }
 
-                // Erstellen und Hinzufügen von Diagrammen für jedes Attribut
                 for (int i = 1; i < headers.length - 1; i++) {
                     String attributeName = headers[i];
-
-                    // Erstellen des Histogramms für positive und negative Werte
                     JFreeChart chart = createHistogramWithLines(attributeName, positiveValues.get(i - 1), negativeValues.get(i - 1));
 
                     if (!attributeChartsMap.containsKey(attributeName)) {
                         attributeChartsMap.put(attributeName, new LinkedHashMap<String, JFreeChart>());
+                        listModel.addElement(attributeName);
                     }
                     attributeChartsMap.get(attributeName).put(directoryName, chart);
                 }
             }
         }
 
-        // Erstellen der Tabs, wobei jedes Attribut in einem eigenen Scrollbereich dargestellt wird
-        for (Map.Entry<String, Map<String, JFreeChart>> entry : attributeChartsMap.entrySet()) {
-            String attributeName = entry.getKey();
-            Map<String, JFreeChart> charts = entry.getValue();
+        final JList<String> attributeList = new JList<String>(listModel);
+        attributeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        attributeList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    String selectedAttribute = attributeList.getSelectedValue();
+                    updateChartsContainer(selectedAttribute);
+                }
+            }
+        });
+        JScrollPane listScrollPane = new JScrollPane(attributeList);
+        listScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-            JPanel chartPanel = new JPanel();
-            chartPanel.setLayout(new BoxLayout(chartPanel, BoxLayout.Y_AXIS));
+        // Untere Anzeige der Diagramme
+        chartsContainer = new JPanel();
+        chartsContainer.setLayout(new BoxLayout(chartsContainer, BoxLayout.Y_AXIS));
+        JScrollPane chartsScrollPane = new JScrollPane(chartsContainer);
+        chartsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        chartsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        chartsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        splitPane.setTopComponent(listScrollPane);
+        splitPane.setBottomComponent(chartsScrollPane);
+
+        setContentPane(splitPane);
+    }
+
+    private void updateChartsContainer(String attributeName) {
+        chartsContainer.removeAll();
+        if (attributeName != null && attributeChartsMap.containsKey(attributeName)) {
+            Map<String, JFreeChart> charts = attributeChartsMap.get(attributeName);
             for (Map.Entry<String, JFreeChart> chartEntry : charts.entrySet()) {
                 String directoryName = chartEntry.getKey();
                 JFreeChart chart = chartEntry.getValue();
 
                 ChartPanel chartPanelForAttribute = new ChartPanel(chart);
-                chartPanelForAttribute.setPreferredSize(new Dimension(800, 400)); // Kleinere Diagrammgröße für bessere Darstellung
+                chartPanelForAttribute.setPreferredSize(new Dimension(400, 200));
                 chartPanelForAttribute.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), directoryName, 0, 0, new java.awt.Font("Dialog", java.awt.Font.BOLD, 24)));
-                chartPanel.add(chartPanelForAttribute);
+                chartsContainer.add(chartPanelForAttribute);
             }
-
-            JScrollPane scrollPane = new JScrollPane(chartPanel);
-scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-            tabbedPane.addTab(attributeName, scrollPane);
         }
-
-        mainPanel.add(tabbedPane, BorderLayout.CENTER);
-        chartsScrollPane.getViewport().setViewPosition(new java.awt.Point(0, 0));
-        setContentPane(mainPanel);
+        chartsContainer.revalidate();
+        chartsContainer.repaint();
     }
 
-    // Methode zum Erstellen eines Histogramms mit Linien
     private JFreeChart createHistogramWithLines(String attributeName, List<Double> positiveValues, List<Double> negativeValues) {
         HistogramDataset dataset = new HistogramDataset();
 
-        // Hinzufügen der positiven Werte
         double[] positiveArray = listToPrimitiveArray(positiveValues);
         dataset.addSeries("Positive Values", positiveArray, 20);
 
-        // Hinzufügen der negativen Werte
         double[] negativeArray = listToPrimitiveArray(negativeValues);
         dataset.addSeries("Negative Values", negativeArray, 20);
 
@@ -163,7 +168,6 @@ scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 false
         );
 
-        // Linien hinzufügen, um die Verteilungen besser sichtbar zu machen
         XYPlot plot = chart.getXYPlot();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, true);
@@ -177,7 +181,6 @@ scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return chart;
     }
 
-    // Hilfsmethode zum Konvertieren von List<Double> zu double[]
     private double[] listToPrimitiveArray(List<Double> list) {
         double[] array = new double[list.size()];
         for (int i = 0; i < list.size(); i++) {
@@ -186,7 +189,6 @@ scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return array;
     }
 
-    // Verbesserte Methode zum Lesen der CSV-Datei mit OpenCSV
     private List<String[]> readCSV(String filePath) {
         List<String[]> data = new ArrayList<String[]>();
         CSVReader reader = null;
@@ -209,7 +211,6 @@ scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         return data;
     }
 
-    // Methode zum Finden aller CSV-Dateien im Verzeichnis
     private List<File> findCSVFiles(File root) {
         List<File> csvFiles = new ArrayList<File>();
         if (root.isDirectory()) {
@@ -235,8 +236,8 @@ scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     public static void displayGraphs(String rootPath) {
         WekaAttributeGrapher grapher = new WekaAttributeGrapher("Weka Attribute Grapher", rootPath);
         grapher.pack();
-        grapher.setSize(1200, 800); // Setzen Sie eine feste Größe für bessere Konsistenz
+        grapher.setSize(1200, 800);
         grapher.setVisible(true);
-        grapher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        grapher.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 }

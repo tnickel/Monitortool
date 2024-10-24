@@ -5,9 +5,6 @@ import java.util.List;
 
 import hiflsklasse.Tracer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CoreWorkflowResult
 {
 	// Hier werden die Ergebnisse für einen Workflow gespeichert

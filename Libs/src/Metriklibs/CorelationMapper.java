@@ -104,7 +104,7 @@ public class CorelationMapper
 		{
 			String key = entry.getKey();
 			CoreResultStatistikElem statElem = (CoreResultStatistikElem) entry.getValue();
-			double stabil=statElem.getStabil();
+			double stabil=statElem.getStdDev();
 
 			//Jetzt wird geprüft ob das Element eine hohe correlation auffweisst
 			

@@ -1,9 +1,5 @@
 package Metriklibs;
 
-import java.util.List;
-
-import hiflsklasse.Tracer;
-
 import java.util.ArrayList;
 
 public class Attribliste

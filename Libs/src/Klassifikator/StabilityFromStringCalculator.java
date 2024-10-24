@@ -50,6 +50,6 @@ public class StabilityFromStringCalculator {
         double stability = calculateStabilityFromString(explainString);
 
         // Ausgabe der Stabilität
-        System.out.println("Stabilität: " + stability);
+        System.out.println("StandartDev: " + stability);
     }
 }

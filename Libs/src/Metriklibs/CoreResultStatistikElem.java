@@ -1,7 +1,6 @@
 package Metriklibs;
 
 import Klassifikator.StabilityFromStringCalculator;
-import hiflsklasse.Tracer;
 
 public class CoreResultStatistikElem extends Corelresultelem
 {
@@ -76,7 +75,7 @@ public class CoreResultStatistikElem extends Corelresultelem
 		this.anzbad = anzbad;
 	}
 
-	public double getStabil()
+	public double getStdDev()
 	{
 		return stabil;
 	}

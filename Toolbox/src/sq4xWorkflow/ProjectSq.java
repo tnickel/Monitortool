@@ -2,7 +2,7 @@ package sq4xWorkflow;
 
 import java.io.File;
 
-import FileTools.ProjZipper;
+import FileTools.ProjZipperMem_depricated;
 import hiflsklasse.Inf;
 
 public class Project
