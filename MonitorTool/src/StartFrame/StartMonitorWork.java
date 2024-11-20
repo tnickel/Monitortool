@@ -815,7 +815,7 @@ public class StartMonitorWork
 		
 		// verschlüsseln
 		Crypto crypto = new Crypto();
-		crypto.setProvider();
+		
 		try
 		{
 			crypto.encryptFile(fnamzip2, datenfilenamecr, "f15q8t93");

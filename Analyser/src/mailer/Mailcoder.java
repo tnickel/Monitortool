@@ -1,12 +1,5 @@
 package mailer;
 
-import hilfsklasse.FileAccess;
-import hilfsklasse.FileAccessDyn;
-import hilfsklasse.Inf;
-import hilfsklasse.Swttool;
-import hilfsklasse.Tools;
-import hilfsklasse.Tracer;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,12 +8,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import mainPackage.GC;
-
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ProgressBar;
 
-import sun.misc.BASE64Decoder;
+import hilfsklasse.FileAccess;
+import hilfsklasse.FileAccessDyn;
+import hilfsklasse.Inf;
+import hilfsklasse.Swttool;
+import hilfsklasse.Tools;
+import hilfsklasse.Tracer;
+import mainPackage.GC;
+
+import java.util.Base64;
 
 public class Mailcoder
 {
@@ -33,46 +32,20 @@ public class Mailcoder
 		rpath_glob = rootpath;
 	}
 
-	static public void schreibePdfDatei(String ausgabefile, Inf eingabefeld)
-	{
-		// fnam: ausgabedatei
-		// inf: eingabefeld
-		// Hier wird eine Pdf-Datei erzeugt, das eingabefeld wird decodiert
-		// und in einer datei mit passenden namen abgelegt
-
-		String line = null;
-		FileOutputStream fos = null;
-		try
-		{
-			fos = new FileOutputStream(new File(ausgabefile));
-			// rest in datei schreiben
-			while ((line = eingabefeld.readZeile()) != null)
-			{
-				byte[] bytes2;
-				bytes2 = new BASE64Decoder().decodeBuffer(line);
-				fos.write(bytes2);
-				if (line.length() == 0)
-					break;
-			}
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try
-		{
-			fos.close();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	 public static void schreibePdfDatei(String ausgabefile, Inf eingabefeld) {
+	        String line;
+	        try (FileOutputStream fos = new FileOutputStream(new File(ausgabefile))) {
+	            while ((line = eingabefeld.readZeile()) != null) {
+	                if (line.isEmpty()) {
+	                    break;
+	                }
+	                byte[] bytes2 = Base64.getDecoder().decode(line);
+	                fos.write(bytes2);
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 	static private Boolean endMailboxcheck(String line, String boundarray)
 	{

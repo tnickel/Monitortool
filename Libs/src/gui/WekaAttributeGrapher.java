@@ -1,10 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -139,7 +136,7 @@ public class WekaAttributeGrapher extends ApplicationFrame {
                 JFreeChart chart = chartEntry.getValue();
 
                 ChartPanel chartPanelForAttribute = new ChartPanel(chart);
-                chartPanelForAttribute.setPreferredSize(new Dimension(400, 200));
+                chartPanelForAttribute.setPreferredSize(new Dimension(400, 400));
                 chartPanelForAttribute.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), directoryName, 0, 0, new java.awt.Font("Dialog", java.awt.Font.BOLD, 24)));
                 chartsContainer.add(chartPanelForAttribute);
             }

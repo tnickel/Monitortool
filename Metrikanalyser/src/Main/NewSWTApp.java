@@ -1315,7 +1315,7 @@ public class NewSWTApp extends org.eclipse.swt.widgets.Composite
 		
 		// 4) Metrikglobalconf setzen
 		Metrikglobalconf.setShell(shell);
-		Metrikglobalconf.setVersion("Version V0.1.20.0");
+		Metrikglobalconf.setVersion("Version V0.1.20.1");
 		Metrikglobalconf.refreshHeader(userdir);
 		
 		System.out.println("akueller pfad=" + userdir);

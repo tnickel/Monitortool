@@ -412,7 +412,7 @@ class ClientHandler implements Callable<String>
 
 		// Schritt3: dann verschlüsseln
 		Crypto crypto = new Crypto();
-		crypto.setProvider();
+		
 		try
 		{
 			crypto.encryptFile(zipverz + "\\" + zipfilename, zipverz + "\\"
@@ -496,7 +496,7 @@ class ClientHandler implements Callable<String>
 
 		// Schritt3: dann verschlüsseln
 		Crypto crypto = new Crypto();
-		crypto.setProvider();
+	
 		try
 		{
 			crypto.encryptFile(zipverz + "\\" + zipfilename, zipverz + "\\"

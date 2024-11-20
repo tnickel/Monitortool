@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Libs"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Analyser"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Toolbox"/>
@@ -11,5 +10,6 @@
 	<classpathentry kind="lib" path="D:/git/external_libs/weka.jar"/>
 	<classpathentry kind="lib" path="D:/git/external_libs/commons-lang3-3.15.0-bin/commons-lang3-3.15.0/commons-lang3-3.15.0.jar"/>
 	<classpathentry kind="lib" path="D:/git/external_libs/opencsv-5.9.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

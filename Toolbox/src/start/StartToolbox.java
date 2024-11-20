@@ -1,8 +1,6 @@
 package start;
 
 import java.io.File;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -50,9 +48,7 @@ import hiflsklasse.FileAccess;
 import hiflsklasse.SG;
 import hiflsklasse.SWTwindow;
 import hiflsklasse.Tracer;
-import java.awt.event.ActionEvent;
 import montool.MonDia;
-import pricedataseries.PriceDataSeries;
 import sq4xWorkflow.SqGoogle;
 import sq4xWorkflow.SqWorkflowMaster;
 import work.CommentWork;
@@ -2434,8 +2430,8 @@ public class StartToolbox extends org.eclipse.swt.widgets.Composite
 		// pdc convert data
 		// PriceDataSeries.PriceGmtConvertion(Integer.valueOf(text3.getText()),
 		// pdc_inputfile_glob, pdc_outputfile_glob);
-		PriceDataSeries.PriceGmtConvertion(Integer.valueOf(text3.getText()),
-				"F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_part.csv", "F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_out.csv");
+		//PriceDataSeries.PriceGmtConvertion(Integer.valueOf(text3.getText()),
+		//		"F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_part.csv", "F:\\Kurse\\Asikury\\EURUSD_Asirikuy_M1_out.csv");
 	}
 	
 	private void getInterfaceData()
