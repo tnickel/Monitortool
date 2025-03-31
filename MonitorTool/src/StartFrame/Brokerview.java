@@ -362,18 +362,18 @@ public class Brokerview
 	}
 	private String getAccountNumber(Metaconfig meconf)
 	{
-		Tracer.WriteTrace(20, "1:");
+		
 		if(meconf==null)
 			Tracer.WriteTrace(10, "E: internal meconf==null-->Stop");
-		Tracer.WriteTrace(20, "2:");
+		
 		String fnam=meconf.getMqldata()+"\\Files\\Kontoinformation.txt";
 		if(new File(fnam).exists()==false)
 			return("no info");
-		Tracer.WriteTrace(20, "3:");
+	
 		String kontoinf=null;
 		if(fnam.contains("mt4"))
 		{
-			Tracer.WriteTrace(20, "4:");
+			
 			Inf inf=new Inf();
 			inf.setFilename(fnam);
 			kontoinf=inf.readZeile();
@@ -381,17 +381,17 @@ public class Brokerview
 		}
 		else if (fnam.contains("mt5"))
 		{
-			Tracer.WriteTrace(20, "5:");
+			
 			Inf inf=new Inf();
 			inf.setFilename(fnam);
 			kontoinf=inf.readZeile("utf-16");
 			inf.close();
 			
 		}
-		Tracer.WriteTrace(20, "6:");
+		
 		if((kontoinf==null)||(kontoinf.length()<2))
 			return("no info2");
-		Tracer.WriteTrace(20, "7:");
+		
 		String[] parts = kontoinf.split("#");
 		
 		if(parts.length<2)
@@ -399,7 +399,7 @@ public class Brokerview
 			Tracer.WriteTrace(20, "E:internal konfoinfo is to short -> stop");
 			return "no info3";
 		}
-		Tracer.WriteTrace(20, "8:");
+	
 		return parts[2];
 	}
 	
