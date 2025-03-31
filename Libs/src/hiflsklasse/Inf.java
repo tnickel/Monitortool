@@ -339,45 +339,93 @@ public class Inf
 	
 	public void saveXST(Object data)
 	{
-		FileWriter toFile = null;
-		xstream = new XStream(new DomDriver());
-		File file = new File(filename_glob);
-		try
-		{
-			toFile = new FileWriter(file);
-			toFile.write(xstream.toXML(data));
-			toFile.flush();
-			toFile.close();
-			
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-			try
-			{
-				if (toFile != null)
-					toFile.close();
-			} catch (IOException e1)
-			{
-				e1.printStackTrace();
-			}
-		}
+	    FileWriter toFile = null;
+	    xstream = new XStream(new DomDriver());
+	    
+	    // Erweiterte Sicherheitseinstellungen für alle benötigten Pakete
+	    xstream.allowTypesByWildcard(new String[] {
+	        "data.*",
+	        "StartFrame.*",
+	        "hiflsklasse.*",
+	        "Panels.*",
+	        "Sync.*",
+	        "aut.*",
+	        "datefunkt.*",
+	        "filter.*",
+	        "gui.*",
+	        "modtools.*",
+	        "mtools.*",
+	        "network.*",
+	        "swtHilfsfenster.*",
+	        "java.util.*",
+	        "java.lang.*"
+	    });
+	    
+	    // Keine Referenzen verwenden, um Probleme mit OrderRetainingMap zu vermeiden
+	    xstream.setMode(XStream.NO_REFERENCES);
+	    
+	    File file = new File(filename_glob);
+	    try
+	    {
+	        toFile = new FileWriter(file);
+	        toFile.write(xstream.toXML(data));
+	        toFile.flush();
+	        toFile.close();
+	    } 
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	        try
+	        {
+	            if (toFile != null)
+	                toFile.close();
+	        } 
+	        catch (IOException e1)
+	        {
+	            e1.printStackTrace();
+	        }
+	    }
 	}
 	
 	public Object loadXST()
 	{
-		Object temp = null;
-		File file = new File(filename_glob);
-		xstream = new XStream(new DomDriver());
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			temp = (Object) xstream.fromXML(reader);
-			reader.close();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return temp;
+	    Object temp = null;
+	    File file = new File(filename_glob);
+	    xstream = new XStream(new DomDriver());
+	    
+	    // Erweiterte Sicherheitseinstellungen für alle benötigten Pakete
+	    xstream.allowTypesByWildcard(new String[] {
+	        "data.*",
+	        "StartFrame.*",
+	        "hiflsklasse.*",
+	        "Panels.*",
+	        "Sync.*",
+	        "aut.*",
+	        "datefunkt.*",
+	        "filter.*",
+	        "gui.*",
+	        "modtools.*",
+	        "mtools.*",
+	        "network.*",
+	        "swtHilfsfenster.*",
+	        "java.util.*",
+	        "java.lang.*"
+	    });
+	    
+	    // Keine Referenzen verwenden, um Probleme mit OrderRetainingMap zu vermeiden
+	    xstream.setMode(XStream.NO_REFERENCES);
+	    
+	    try
+	    {
+	        BufferedReader reader = new BufferedReader(new FileReader(file));
+	        temp = (Object) xstream.fromXML(reader);
+	        reader.close();
+	    } 
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return temp;
 	}
 	
 }
