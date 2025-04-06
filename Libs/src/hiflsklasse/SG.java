@@ -43,6 +43,23 @@ public class SG
 			return false;
 		}
 	}
+	
+	// Neue Methode für Long-Zahlen
+	public static long get_long_zahl(String keyword)
+	{
+		if (keyword == null)
+			return -1;
+
+		if (keyword.contains(" "))
+			keyword = keyword.replace(" ", "");
+
+		if (is_zahl(keyword) == true)
+		{
+			return (Long.valueOf(keyword));
+		} else
+			return (-1);
+	}
+	
 	public static int get_zahl(String keyword)
 	{
 		if (keyword == null)
@@ -53,7 +70,15 @@ public class SG
 
 		if (is_zahl(keyword) == true)
 		{
-			return (Integer.valueOf(keyword));
+			try {
+				return (Integer.valueOf(keyword));
+			} catch (NumberFormatException e) {
+				// Wenn die Zahl zu groß für Integer ist, versuche einen Long zu verwenden
+				// und gib dann einen sinnvollen Integer-Wert zurück
+				long longValue = Long.valueOf(keyword);
+				// Rückgabe eines speziellen Wertes oder Modulo-Operation
+				return (int)(longValue % Integer.MAX_VALUE);
+			}
 		} else
 			return (-1);
 	}

@@ -294,10 +294,10 @@ public class TableViewBasic
 				tr.setMagic(ersatzmagic);
 				String transnumber = String.valueOf(tr.getTransactionnumber());
 				String transsubnumber = transnumber.substring(4);
-				tr.setTransactionnumber(SG.get_zahl("99" + transsubnumber));
+				// Hier wird long statt int verwendet
+				tr.setTransactionnumber((int)SG.get_long_zahl("99" + transsubnumber));
 				tl.addTradeElem(tr);
 			}
 		}
-		
 	}
 }
