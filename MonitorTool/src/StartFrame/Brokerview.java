@@ -453,63 +453,135 @@ public class Brokerview
 		}
 	}
 
-	private  void  postprocess()
+	private void postprocess()
 	{
-		// die config abspeichern
+	    // die config abspeichern
+	    String rootPath = Rootpath.getRootpath();
+	    File fnam = new File(rootPath + "\\conf\\brokerconf.xml");
+	    File fnamold = new File(rootPath + "\\conf\\brokerconf.old");
+	    File fnamtmp = new File(rootPath + "\\conf\\brokerconf.tmp");
+	    File fnambackup = new File(rootPath + "\\conf\\brokerconf.backup." + System.currentTimeMillis());
 
-		File fnam = new File(Rootpath.getRootpath() + "\\conf\\brokerconf.xml");
-		File fnamold = new File(Rootpath.getRootpath()
-				+ "\\conf\\brokerconf.old");
-		File fnamtmp = new File(Rootpath.getRootpath()
-				+ "\\conf\\brokerconf.tmp");
+	    // Prüfen, ob das metatraderlist-Objekt valide ist
+	    if(metatraderlist == null || metatraderlist.getsize() == 0) {
+	        Tracer.WriteTrace(10, "E:postprocess: metatraderlist ist leer oder null, speichere nicht ab");
+	        return;
+	    }
 
-		// speichere als temp
-		Inf inf = new Inf();
-		inf.setFilename(fnamtmp.getPath());
-		inf.saveXST(metatraderlist);
-		inf.close();
+	    try {
+	        // Erstelle ein Backup der aktuellen XML falls vorhanden
+	        if(fnam.exists() && fnam.length() > 0) {
+	            FileAccess.copyFile(fnam.getAbsolutePath(), fnambackup.getAbsolutePath());
+	            Tracer.WriteTrace(20, "I:postprocess: Backup erstellt: " + fnambackup.getAbsolutePath());
+	        }
 
-		// wenn *.tmp < 0.5 *old ist, dann stimmt was nicht, breche ab.
-		double lenold=fnamold.length();
-		double lentmp=fnamtmp.length();
-		
-		if(lentmp>(lenold/2))
-		{ 
-			//das neue ist länger, dann ist alles ok, das alte kann gelöscht werden
-			if (fnamold.exists())
-				if(fnamold.delete()==false)
-					Tracer.WriteTrace(10, "E:postprocess:cant delete file <"+fnamold+">");
-			
-			// *.xml nach *.old umbenennen
-			if (fnam.exists() == true)
-				if(fnam.renameTo(fnamold)==false)
-					Tracer.WriteTrace(10, "E:postprocess:cant rename file <"+fnam+">");
+	        // speichere als temp
+	        Inf inf = new Inf();
+	        inf.setFilename(fnamtmp.getPath());
+	        inf.saveXST(metatraderlist);
+	        inf.close();
 
-			if(fnamtmp.renameTo(fnam)==false)
-				Tracer.WriteTrace(10, "E:postprocess:cant rename file <"+fnam+">");
-		}
-		else
-		{
-			//es hat nicht geklappt, das alte ist länger *.old
-			//es hat also gecrashed
-			Tracer.WriteTrace(20, "E:Fatal error problem with datafile <"+fnamold.getAbsolutePath()+"> I restore It");
-			
-			//fnamtmp löschen
-			if((fnamtmp.exists())&&(fnamtmp.delete()==false))
-				Tracer.WriteTrace(10, "E:postprocess:cant delete <"+fnamtmp.getAbsolutePath()+">");
+	        // Validitätsprüfung der temporären Datei
+	        if(!fnamtmp.exists() || fnamtmp.length() == 0) {
+	            Tracer.WriteTrace(10, "E:postprocess: Temporäre Datei konnte nicht erstellt werden oder ist leer");
+	            return;
+	        }
 
-			//das zielfile sollte nicht da sein
-			if((fnam.exists())&&(fnam.delete()==false))
-				Tracer.WriteTrace(10, "E:postprocess:cant delete <"+fnamtmp.getAbsolutePath()+">");
-			
-			//aus *.old wieder das zielfile herstellen
-			if(FileAccess.copyFile(fnamold.getAbsolutePath(), fnam.getAbsolutePath())==false)
-				Tracer.WriteTrace(10, "E:postprocess:cant copy from<"+fnamold.getAbsolutePath()+"> to<"+fnam.getAbsolutePath()+">");
-			
-		}
-		
-		
+	        // Größenvergleich mit der alten Datei
+	        double lenold = fnamold.exists() ? fnamold.length() : 0;
+	        double lentmp = fnamtmp.length();
+	        double lenxml = fnam.exists() ? fnam.length() : 0;
+	        
+	        Tracer.WriteTrace(20, "I:postprocess: Dateigrößen - tmp: " + lentmp + ", old: " + lenold + ", xml: " + lenxml);
+
+	        // Wenn keine alte Datei existiert oder die neue temp-Datei nicht zu klein ist
+	        if(!fnamold.exists() || lentmp > (lenold * 0.5)) { 
+	            // Das neue ist ok, das alte kann gelöscht werden
+	            if(fnamold.exists()) {
+	                if(fnamold.delete()) {
+	                    Tracer.WriteTrace(20, "I:postprocess: Alte Datei gelöscht: " + fnamold.getAbsolutePath());
+	                } else {
+	                    Tracer.WriteTrace(10, "E:postprocess: Kann alte Datei nicht löschen <" + fnamold.getAbsolutePath() + ">");
+	                }
+	            }
+	            
+	            // *.xml nach *.old umbenennen
+	            if(fnam.exists()) {
+	                if(fnam.renameTo(fnamold)) {
+	                    Tracer.WriteTrace(20, "I:postprocess: Aktuelle Datei zu .old umbenannt");
+	                } else {
+	                    Tracer.WriteTrace(10, "E:postprocess: Kann Datei nicht umbenennen <" + fnam.getAbsolutePath() + ">");
+	                    // Versuche alternativ eine Kopie zu erstellen
+	                    if(FileAccess.copyFile(fnam.getAbsolutePath(), fnamold.getAbsolutePath())) {
+	                        fnam.delete();
+	                        Tracer.WriteTrace(20, "I:postprocess: Alternative Kopie erstellt und Original gelöscht");
+	                    }
+	                }
+	            }
+
+	            // Temp-Datei zur neuen XML-Datei umbenennen
+	            if(fnamtmp.renameTo(fnam)) {
+	                Tracer.WriteTrace(20, "I:postprocess: Temp-Datei zu XML umbenannt");
+	            } else {
+	                Tracer.WriteTrace(10, "E:postprocess: Kann temp nicht umbenennen <" + fnamtmp.getAbsolutePath() + ">");
+	                // Versuche alternativ eine Kopie zu erstellen
+	                if(FileAccess.copyFile(fnamtmp.getAbsolutePath(), fnam.getAbsolutePath())) {
+	                    fnamtmp.delete();
+	                    Tracer.WriteTrace(20, "I:postprocess: Alternative Kopie von temp zu XML erstellt");
+	                } else {
+	                    // Wenn alles fehlschlägt, versuche das Backup wiederherzustellen
+	                    if(fnambackup.exists()) {
+	                        FileAccess.copyFile(fnambackup.getAbsolutePath(), fnam.getAbsolutePath());
+	                        Tracer.WriteTrace(10, "E:postprocess: Backup wiederhergestellt nach Fehler");
+	                    }
+	                }
+	            }
+	        } else {
+	            // Es hat nicht geklappt, das alte ist länger *.old
+	            Tracer.WriteTrace(10, "E:Fatal error problem with datafile <" + fnamold.getAbsolutePath() + "> I restore It");
+	            
+	            // Detailliertere Fehlerinformationen
+	            Tracer.WriteTrace(10, "E:postprocess: tmp=" + lentmp + " old=" + lenold + " Verhältnis=" + (lentmp/lenold));
+	            
+	            // fnamtmp löschen
+	            if(fnamtmp.exists() && !fnamtmp.delete()) {
+	                Tracer.WriteTrace(10, "E:postprocess: Kann Temp-Datei nicht löschen <" + fnamtmp.getAbsolutePath() + ">");
+	            }
+
+	            // Das zielfile sollte nicht da sein oder muss gelöscht werden
+	            if(fnam.exists() && !fnam.delete()) {
+	                Tracer.WriteTrace(10, "E:postprocess: Kann Zieldatei nicht löschen <" + fnam.getAbsolutePath() + ">");
+	            }
+	            
+	            // Aus *.old wieder das zielfile herstellen
+	            if(fnamold.exists()) {
+	                if(!FileAccess.copyFile(fnamold.getAbsolutePath(), fnam.getAbsolutePath())) {
+	                    Tracer.WriteTrace(10, "E:postprocess: Kann nicht von <" + fnamold.getAbsolutePath() + "> nach <" + fnam.getAbsolutePath() + "> kopieren");
+	                    
+	                    // Wenn auch das fehlschlägt, versuche das Backup wiederherzustellen
+	                    if(fnambackup.exists()) {
+	                        FileAccess.copyFile(fnambackup.getAbsolutePath(), fnam.getAbsolutePath());
+	                        Tracer.WriteTrace(10, "E:postprocess: Backup wiederhergestellt nach Fehler");
+	                    }
+	                }
+	            } else if(fnambackup.exists()) {
+	                // Wenn keine .old existiert, aber ein Backup vorhanden ist
+	                FileAccess.copyFile(fnambackup.getAbsolutePath(), fnam.getAbsolutePath());
+	                Tracer.WriteTrace(10, "I:postprocess: Backup wiederhergestellt (keine .old Datei)");
+	            }
+	        }
+	    } catch(Exception e) {
+	        Tracer.WriteTrace(10, "E:postprocess: Exception beim Speichern der Broker-Konfiguration: " + e.getMessage());
+	        e.printStackTrace();
+	        
+	        // Versuch der Wiederherstellung aus dem Backup
+	        if(fnambackup.exists()) {
+	            FileAccess.copyFile(fnambackup.getAbsolutePath(), fnam.getAbsolutePath());
+	            Tracer.WriteTrace(10, "E:postprocess: Backup nach Exception wiederhergestellt");
+	        }
+	    }
 	}
+	
 
 	private String getStatus(Metaconfig me, TableItem item, Display dis)
 	{

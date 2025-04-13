@@ -221,42 +221,48 @@ public class FileAccessDyn
 
 	public String convsonderz(String name)
 	{
-		String retstr = null;
+	    String retstr = null;
 
-		if(name==null)
-			Tracer.WriteTrace(10, "E: internal error 1725 name==null");
-		
-		if (name.contains("?") == true)
-		{
-			while (name.contains("?") == true)
-			{
-				// wandle alle ? um
-				String left = null, right = null;
-				left = name.substring(0, name.indexOf("?"));
-				right = name.substring(name.indexOf("?") + 1, name.length());
-				retstr = left + "%3F" + right;
-				name = retstr;
-			}
-			return name;
-		}
+	    // Prüfe auf null
+	    if(name == null) {
+	        Tracer.WriteTrace(10, "E: internal error 1725 name==null");
+	        return "";  // Leeren String zurückgeben statt null
+	    }
+	    
+	    // Prüfe auf leeren String
+	    if(name.isEmpty()) {
+	        return name;  // Leeren String unverändert zurückgeben
+	    }
 
-		if (name.contains(".gzip.gzip"))
-		{
-			Tracer.WriteTrace(10, "Error: double gzip error fname<" + name
-					+ ">");
-			return null;
-		}
-		// I:\ sowas soll erlaubt sein, deswegen substiring von 2
-		else if (name.substring(2, name.length()).contains(":") == true)
-		{
-			// entferne aus den hinteren teil die : zeichen und dersetzte durch
-			// _
-			name = name.substring(0, 2)
-					+ name.substring(2, name.length()).replaceAll(":", "_");
-			return name;
+	    if (name.contains("?") == true)
+	    {
+	        while (name.contains("?") == true)
+	        {
+	            // wandle alle ? um
+	            String left = null, right = null;
+	            left = name.substring(0, name.indexOf("?"));
+	            right = name.substring(name.indexOf("?") + 1, name.length());
+	            retstr = left + "%3F" + right;
+	            name = retstr;
+	        }
+	        return name;
+	    }
 
-		} else
-			return name;
+	    if (name.contains(".gzip.gzip"))
+	    {
+	        Tracer.WriteTrace(10, "Error: double gzip error fname<" + name + ">");
+	        return null;
+	    }
+	    
+	    // Prüfe, ob der String mindestens 3 Zeichen lang ist, bevor substring(2, ...) aufgerufen wird
+	    else if (name.length() > 2 && name.substring(2, name.length()).contains(":") == true)
+	    {
+	        // entferne aus den hinteren teil die : zeichen und dersetzte durch _
+	        name = name.substring(0, 2) + name.substring(2, name.length()).replaceAll(":", "_");
+	        return name;
+	    }
+	    else
+	        return name;
 	}
 
 	public BufferedWriter WriteFileOpenAppend(String filename)
@@ -295,45 +301,75 @@ public class FileAccessDyn
 	//Verzeichniss-Bearbeitung ********************
 	public void initFileSystemList(String directoryPath, int flag)
 	{// erstellt eine Liste aller Verzeichnissnamen für einen pfad
-		// flag = 0 => liste der Verzeichnisse wird erstellt
-		// flag = 1 => liste der Dateien wird erstellt
-		int i = 0;
-		verzpos = 0;
-		threadverzliste.clear();
-		maxentry = 0;
-		File directoryFile = new File(convsonderz(directoryPath));
-		if (directoryFile.exists())
-		{
-			File[] filesEntries = directoryFile.listFiles();
-			maxthreadentrys_all_types = filesEntries.length;
+	    // flag = 0 => liste der Verzeichnisse wird erstellt
+	    // flag = 1 => liste der Dateien wird erstellt
+	    
+	    try {
+	        int i = 0;
+	        verzpos = 0;
+	        threadverzliste.clear();
+	        maxentry = 0;
+	        
+	        // Sicherstellen, dass directoryPath nicht null ist
+	        if (directoryPath == null) {
+	            Tracer.WriteTrace(10, "E: initFileSystemList directoryPath is null");
+	            return;
+	        }
+	        
+	        // Vorsichtig convsonderz aufrufen, für den Fall, dass der Pfad nicht gültig ist
+	        String convertedPath = directoryPath;
+	        try {
+	            convertedPath = convsonderz(directoryPath);
+	        } catch (Exception e) {
+	            Tracer.WriteTrace(10, "E: Error converting special characters in path: " + directoryPath + " - " + e.getMessage());
+	            // Verwende den Original-Pfad, wenn convsonderz fehlschlägt
+	            convertedPath = directoryPath;
+	        }
+	        
+	        File directoryFile = new File(convertedPath);
+	        if (directoryFile.exists() && directoryFile.isDirectory())
+	        {
+	            File[] filesEntries = directoryFile.listFiles();
+	            
+	            if (filesEntries == null) {
+	                Tracer.WriteTrace(10, "E: Cannot list files in directory: " + directoryPath);
+	                return;
+	            }
+	            
+	            maxthreadentrys_all_types = filesEntries.length;
 
-			for (i = 0; i < maxthreadentrys_all_types; i++)
-			{
+	            for (i = 0; i < maxthreadentrys_all_types; i++)
+	            {
+	                File fileEntry = filesEntries[i];
 
-				File fileEntry = filesEntries[i];
-
-				if (fileEntry.exists() == true)
-				{
-					if ((fileEntry.isDirectory()) && (flag == 0))
-					{
-						/*
-						 * System.out.println("Entering directory \"" +
-						 * fileEntry + "\"...");
-						 */
-						threadverzliste.add(fileEntry);
-						maxentry = maxentry + 1;
-					} else if ((fileEntry.isFile()) && (flag == 1))
-					{
-						/*
-						 * System.out.println("Entering File \"" + fileEntry +
-						 * "\"...");
-						 */
-						threadverzliste.add(fileEntry);
-						maxentry = maxentry + 1;
-					}
-				}
-			}
-		}
+	                if (fileEntry != null && fileEntry.exists() == true)
+	                {
+	                    if ((fileEntry.isDirectory()) && (flag == 0))
+	                    {
+	                        /*
+	                         * System.out.println("Entering directory \"" +
+	                         * fileEntry + "\"...");
+	                         */
+	                        threadverzliste.add(fileEntry);
+	                        maxentry = maxentry + 1;
+	                    } else if ((fileEntry.isFile()) && (flag == 1))
+	                    {
+	                        /*
+	                         * System.out.println("Entering File \"" + fileEntry +
+	                         * "\"...");
+	                         */
+	                        threadverzliste.add(fileEntry);
+	                        maxentry = maxentry + 1;
+	                    }
+	                }
+	            }
+	        } else {
+	            Tracer.WriteTrace(20, "W: Directory does not exist or is not a directory: " + directoryPath);
+	        }
+	    } catch (Exception e) {
+	        Tracer.WriteTrace(10, "E: Exception in initFileSystemList: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
 
 	public void holeFileSystemNameReset()
