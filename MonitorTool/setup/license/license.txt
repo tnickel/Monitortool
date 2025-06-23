@@ -24,7 +24,7 @@ NO WARRANTY. ANY USE BY LICENSEE IS AT THE LICENSEE'S OWN RISK. PRODUCT IS PROVI
 
 USAGE STATISTICS
 This version is a beta version. We want to improve this software.
-You allow us to collect anonymous usage statistics to help us to provide a better quality product. The information collected is not used to identify or contact you. The monitortool connect to a update server to get new updates and send protokollfiles,data and anonymous user information to this server.  If you set a valid email adress in file/config/emailadress this email adress is sent to the server. This email can be used to give you additional information for product improvement and other documentation. If you dont want this email-service you can leave this field empty. 
+You allow us to collect anonymous usage statistics to help us to provide a better quality product. The information collected is not used to identify or contact you. The monitortool connect to a update server to get new updates and send protokollfiles,data and anonymous user information to this server.  If you set a valid email address in file/config/emailadress this email address is sent to the server. This email can be used to give you additional information for product improvement and other documentation. If you dont want this email-service you can leave this field empty. 
 This software modify data in the metatrader directorys. Some information will be send anonymous to the update server.
 All information who was sent to the updateserver will only used to improve the monitortool and not given to a third person.
 
