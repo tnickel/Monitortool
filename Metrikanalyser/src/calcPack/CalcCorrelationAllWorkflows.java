@@ -10,7 +10,7 @@ import Metriklibs.CorelationMapper;
 import Metriklibs.Correlator2;
 import Metriklibs.Metriktabellen;
 import Metriklibs.Statliste;
-import data.ExportedDatabanknotUsefull;
+// import data.ExportedDatabanknotUsefull;
 import data.Metrikglobalconf;
 import filterPack.Filterfiles;
 import gui.Viewer;
@@ -22,7 +22,7 @@ public class CalcCorrelationAllWorkflows
 	Metriktabellen met_glob = new Metriktabellen();
 	// hier sind die Filterzeiträume gespeichert
 	Filterfiles filterfiles_glob = new Filterfiles(); // wir brauchen hier keine filterifles
-	ExportedDatabanknotUsefull expdatabank_glob = new ExportedDatabanknotUsefull();
+	// ExportedDatabanknotUsefull expdatabank_glob = new ExportedDatabanknotUsefull();
 	private String endtestattribname_glob = null;
 	private String corealgotype_glob = null;
 	CorelationMapper cmapperCollect_glob = new CorelationMapper();
@@ -105,8 +105,8 @@ public class CalcCorrelationAllWorkflows
 		// endtestattribname= name der zu lernenden variable
 		// algotype: es gibt 3 algotypen
 		// aktsubir: Das ist das Direktory wo wir drin arbeiten
-		ExportedDatabanknotUsefull expdatabank_glob = new ExportedDatabanknotUsefull();
-		expdatabank_glob.readExportedDatabank(met_glob, null, null, aktsubdir);
+		// ExportedDatabanknotUsefull expdatabank_glob = new ExportedDatabanknotUsefull();
+		// expdatabank_glob.readExportedDatabank(met_glob, null, null, aktsubdir);
 		// als nächstes wird korreliert
 		CoreWorkflowResult cwres = Correlator2.CalcCorrelation(met_glob, endtestattribname, corealgotype);
 		Correlator2.schreibeTabelle(aktsubdir + "\\correlation.txt", corealgotype);

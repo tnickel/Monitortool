@@ -76,7 +76,7 @@ public class IndiCalculation
 
 		os.setGewinnsumme(gewinnsumme);
 		os.setProfitfaktor((float) tradeliste_opt.calcProfitfactor());
-		os.setDrawdownproz((float) tradeliste_opt.calcDrawdownProz());
+		os.setDrawdownproz((float) tradeliste_opt.calcDrawdownProz_dep());
 		os.setAnzSelectTrades(postrades);
 		os.setProfitfaktoranzahl((float) tradeliste_opt.calcProfitfactor()
 				* postrades);

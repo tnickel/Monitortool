@@ -116,7 +116,7 @@ public class TradeMonitorWork
 				+ pro.getMagic() + ":" + ea.getInfo() + ":" + pro.getComment();
 
 		Profitanzeige profanz = new Profitanzeige("Gewinnverlauf",
-				eatradeliste, headline, null);
+				eatradeliste, headline, null, null, null, null, 0);
 
 		// das demopanel im hauptscreen unten rechtes anzeigen
 		// JPanel jp = Profitanzeige.createDemoPanel(eatradeliste, headline);

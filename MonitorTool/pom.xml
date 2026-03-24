@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.tnickel.monitortool</groupId>
+        <artifactId>monitortool-parent</artifactId>
+        <version>0.721</version>
+    </parent>
+
+    <artifactId>monitortool</artifactId>
+    <name>MonitorTool</name>
+    <description>Haupt-GUI zur Echtzeit-Ueberwachung von Trading-Aktivitaeten</description>
+
+    <dependencies>
+        <!-- Interne Module -->
+        <dependency>
+            <groupId>de.tnickel.monitortool</groupId>
+            <artifactId>libs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.tnickel.monitortool</groupId>
+            <artifactId>analyser</artifactId>
+        </dependency>
+
+        <!-- Externe Dependencies -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jcommon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>local</groupId>
+            <artifactId>appframework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>local</groupId><artifactId>swt</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -126,7 +126,7 @@ public class ServerProtokoll
 			
 			//Entschlüsseln
 			Crypto crypto= new Crypto();
-			crypto.setProvider();
+			// crypto.setProvider();
 			try
 			{
 				crypto.decryptFile(fzipnacr, fzipna, "f15q8t93");
@@ -173,7 +173,7 @@ public class ServerProtokoll
 
 			//Entschlüsseln
 			Crypto crypto= new Crypto();
-			crypto.setProvider();
+			// crypto.setProvider();
 			try
 			{
 				crypto.decryptFile(fzipnacr, fzipna, "f15q8t93");

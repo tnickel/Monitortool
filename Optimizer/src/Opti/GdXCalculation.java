@@ -66,7 +66,7 @@ public class GdXCalculation
 	
 		os.setgdx(periodx);
 		os.setProfitfaktor((float)tradeliste_opt.calcProfitfactor());
-		os.setDrawdownproz((float)tradeliste_opt.calcDrawdownProz());
+		os.setDrawdownproz((float)tradeliste_opt.calcDrawdownProz_dep());
 		//tradeliste.setgdx(periodx);
 		return os;
 	}

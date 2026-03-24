@@ -38,7 +38,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.xml.ws.Action;
+import org.jdesktop.application.Action; import org.jdesktop.application.Application; import org.jdesktop.application.SingleFrameApplication;
 
 import charttool.StaticMultiProfitPanel;
 import data.Algoliste;
