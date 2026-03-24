@@ -405,7 +405,30 @@ public class EaConfigDis extends javax.swing.JPanel
 		
 			
 			
-			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			try {
+				Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			} catch (Exception ex) {
+				// Resource injection failed silently
+			}
+			// Always set texts explicitly as resource injection may not work
+			jButton1.setText("Set Lotsize");
+			jButton2deleteEA.setText("Delete EA");
+			jButton2tradecopyonoff.setText("Tradecopy on/off");
+			jButton2copytoautocreator.setText("Copy to Autocreator");
+			jButton2showtradelist.setText("Show Tradelist");
+			jLabel3broker.setText("Broker");
+			jLabel3currency.setText("Currency");
+			jLabel3magic.setText("Magic");
+			jLabel3channel.setText("Channel");
+			jLabel3info.setText("Info");
+			jLabel3.setText("TP/SL");
+			jLabel4.setText("Prof7");
+			jLabel4pf.setText("Profitfaktor");
+			jLabel4profit.setText("Profit All");
+			jLabel5.setText("Prof30");
+			jLabel6.setText("EaType");
+			jLabel6locked.setText("Ea is locked");
+			jLabel7pkz1.setText("pkz1");
 			init();
 		} catch (Exception e)
 		{

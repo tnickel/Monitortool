@@ -94,7 +94,8 @@ public class Eaclass
 		//diese ist der prefix für die FSB portfolio eas, die ersten 6 stellen
 		//z.b. 210401 sind die base magic number fuer den portfolio ea
 		//z.B. P01 EURUSD M1 210401.mq4
-		String magicpref = String.valueOf(magic).substring(0, 6);
+		String magicStr = String.valueOf(magic);
+		String magicpref = magicStr.length() >= 6 ? magicStr.substring(0, 6) : magicStr;
 		return magicpref;
 	}
 	

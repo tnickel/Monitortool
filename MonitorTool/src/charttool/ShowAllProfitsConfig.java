@@ -3,6 +3,8 @@ package charttool;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -49,9 +51,10 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 		tv_glob = tv;
 		JFrame frame = new JFrame("indicator");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(5, 5));
+		frame.getContentPane().setLayout(new BorderLayout());
 		
-		DemoPanel panel = new DemoPanel(new GridLayout(100, 6));
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		int anz = alltradelist.size();
 		
@@ -80,7 +83,10 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			if (on == 1)
 			addSubtitle(chart);
 			
-			panel.add(new ChartPanel(chart));
+			JPanel rowPanel = new JPanel(new BorderLayout());
+			ChartPanel chartPanel = new ChartPanel(chart);
+			chartPanel.setPreferredSize(new Dimension(500, 350));
+			rowPanel.add(chartPanel, BorderLayout.CENTER);
 			
 			String filedata = "";
 			if (meconf != null && meconf.getMqlquellverz() != null)
@@ -90,9 +96,9 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			EaConfigDis panel2 = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv,
 					tv, tv.getEaliste(), eatradeliste, comment, ea, chart, null);
 			
-			frame.getContentPane().setLayout(new BorderLayout());
-			frame.getContentPane().add(panel, BorderLayout.WEST);
-			frame.getContentPane().add(panel2, BorderLayout.EAST);
+			panel2.setPreferredSize(new Dimension(850, 350));
+			rowPanel.add(panel2, BorderLayout.EAST);
+			panel.add(rowPanel);
 			
 		}
 		// http://java-tutorial.org/jscrollpane.html
