@@ -180,9 +180,9 @@ public class StartMonitorWork
 		
 		Tracer.WriteTrace(20, "Info: Profittable anzeigen");
 		pfts = tv_glob.ShowProfitTable();
-		prof7.setText(pfts.getProf7());
-		prof30.setText(pfts.getProf30());
-		profall.setText(pfts.getProfAll());
+		if (prof7 != null) prof7.setText(pfts.getProf7());
+		if (prof30 != null) prof30.setText(pfts.getProf30());
+		if (profall != null) profall.setText(pfts.getProfAll());
 		if (onlyopenflag == 1)
 		{
 			tv_glob.dumpProfitliste("ProfitlisteVorCheck");
@@ -236,9 +236,9 @@ public class StartMonitorWork
 		tv_glob.CalcProfitTable(brokername, 1);
 		// die profittabelle anzeigen
 		pfts = tv_glob.ShowProfitTable();
-		prof7.setText(pfts.getProf7());
-		prof30.setText(pfts.getProf30());
-		profall.setText(pfts.getProfAll());
+		if (prof7 != null) prof7.setText(pfts.getProf7());
+		if (prof30 != null) prof30.setText(pfts.getProf30());
+		if (profall != null) profall.setText(pfts.getProfAll());
 		
 	}
 	

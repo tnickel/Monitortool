@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import org.jfree.chart.ChartFactory;
@@ -29,6 +28,7 @@ import org.jfree.ui.RefineryUtilities;
 import org.jfree.ui.VerticalAlignment;
 import org.jfree.util.UnitType;
 
+import Panels.EaConfigDis;
 import StartFrame.Brokerview;
 import StartFrame.Tableview;
 import data.Ea;
@@ -82,13 +82,13 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			
 			panel.add(new ChartPanel(chart));
 			
-			JPanel panel2 = new JPanel();
-			JTextArea txtfeld = new JTextArea(10, 15);
-			txtfeld.setText("Hallo");
-			panel2.add(txtfeld);
-			JTextArea txtfeld2 = new JTextArea(10, 25);
-			txtfeld2.setText("Hallo2");
-			panel2.add(txtfeld2);
+			String filedata = "";
+			if (meconf != null && meconf.getMqlquellverz() != null)
+			{
+				filedata = meconf.getMqlquellverz();
+			}
+			EaConfigDis panel2 = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv,
+					tv, tv.getEaliste(), eatradeliste, comment, ea, chart, null);
 			
 			frame.getContentPane().setLayout(new BorderLayout());
 			frame.getContentPane().add(panel, BorderLayout.WEST);

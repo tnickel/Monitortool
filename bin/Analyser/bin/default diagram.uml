@@ -1,0 +1,2182 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:JavaProfile_1="http:///_aZXakH6MEdmbwasWWc4yvw.profile.uml2" xmlns:Omondo_1="http:///_zrN_0SUoEdmNXYQzyImvfA.profile.uml2" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xsi:schemaLocation="http:///_aZXakH6MEdmbwasWWc4yvw.profile.uml2 platform:/plugin/com.omondo.uml.core/profiles/Java.profile.uml#_aZhLlH6MEdmbwasWWc4yvw http:///_zrN_0SUoEdmNXYQzyImvfA.profile.uml2 platform:/plugin/com.omondo.uml.core/profiles/Omondo.profile.uml#_zrN_1iUoEdmNXYQzyImvfA">
+  <uml:Package xmi:id="_ggEowDJBEd2ZOb6R4LLjLA" name="Kurse" clientDependency="_gpm_QDJBEd2ZOb6R4LLjLA _guhUcTJBEd2ZOb6R4LLjLA _gurFcTJBEd2ZOb6R4LLjLA">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8NDJCEd2ZOb6R4LLjLA" name="DownloadKurse">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D0IMQDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D0bHMTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D0k4MTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_D03zIjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D1BkITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D1UfETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D1eQETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D1naATJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D168ATJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_DzrgUDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_Dz1RUDJCEd2ZOb6R4LLjLA" name="urlstr" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_Dz1RUTJCEd2ZOb6R4LLjLA" name="tdblimit" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Dz1RUjJCEd2ZOb6R4LLjLA" name="froot" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_Dz1RUzJCEd2ZOb6R4LLjLA" name="p" visibility="private" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_D2XA6TJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2XA5zJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2XA6DJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Dz1RVDJCEd2ZOb6R4LLjLA" name="filename" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_Dz1RVTJCEd2ZOb6R4LLjLA" name="tdb" visibility="private" isStatic="true" type="_DUGBWDJCEd2ZOb6R4LLjLA" association="_D2XA4TJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2N28DJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2XA4DJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Dz1RVjJCEd2ZOb6R4LLjLA" name="downloader" visibility="private" isStatic="true" type="_Dhp8MjJCEd2ZOb6R4LLjLA" association="_D2XA5TJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2XA4zJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2XA5DJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_Dz1RVzJCEd2ZOb6R4LLjLA" name="LadeThreadsDBKurse" visibility="public" concurrency="concurrent" raisedException="_DvXBADJCEd2ZOb6R4LLjLA"/>
+      <ownedOperation xmi:id="_Dz-bQDJCEd2ZOb6R4LLjLA" name="DownloadKurse" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_Dz-bQTJCEd2ZOb6R4LLjLA" name="LadeKurs" visibility="public" concurrency="concurrent" raisedException="_DvXBADJCEd2ZOb6R4LLjLA">
+        <ownedParameter xmi:id="_RfyZEDJEEd2ZOb6R4LLjLA" name="symb" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RfyZETJEEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_RfyZEjJEEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RfyZEzJEEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_D2XA4TJCEd2ZOb6R4LLjLA" memberEnd="_Dz1RVTJCEd2ZOb6R4LLjLA _D2XA4jJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_D2XA4jJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8NDJCEd2ZOb6R4LLjLA" association="_D2XA4TJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_D2XA5TJCEd2ZOb6R4LLjLA" memberEnd="_Dz1RVjJCEd2ZOb6R4LLjLA _D2XA5jJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_D2XA5jJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8NDJCEd2ZOb6R4LLjLA" association="_D2XA5TJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_D2XA6TJCEd2ZOb6R4LLjLA" memberEnd="_Dz1RUzJCEd2ZOb6R4LLjLA _D2XA6jJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_D2XA6jJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8NDJCEd2ZOb6R4LLjLA" association="_D2XA6TJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+  </uml:Package>
+  <uml:Package xmi:id="_ggEowjJBEd2ZOb6R4LLjLA" name="mainPackage" clientDependency="_gvkdUDJBEd2ZOb6R4LLjLA _gvtnQTJBEd2ZOb6R4LLjLA _gv3YQTJBEd2ZOb6R4LLjLA _gwBJQTJBEd2ZOb6R4LLjLA"/>
+  <uml:Package xmi:id="_ggEowzJBEd2ZOb6R4LLjLA" name="hilfsklasse">
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DTpVYDJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DUGBVTJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DUPLQjJCEd2ZOb6R4LLjLA" name="PostingObj"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DVIjITJCEd2ZOb6R4LLjLA" name="Posting"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8MTJCEd2ZOb6R4LLjLA" name="Tools" clientDependency="_DsO0hTJCEd2ZOb6R4LLjLA _DshvcTJCEd2ZOb6R4LLjLA _Ds0qYjJCEd2ZOb6R4LLjLA _Ds-bYjJCEd2ZOb6R4LLjLA _DtRWUTJCEd2ZOb6R4LLjLA _DtbHUTJCEd2ZOb6R4LLjLA _DtuCQTJCEd2ZOb6R4LLjLA _Dt3zQTJCEd2ZOb6R4LLjLA _DuKuMTJCEd2ZOb6R4LLjLA">
+      <ownedOperation xmi:id="_DroXkDJCEd2ZOb6R4LLjLA" name="nteilstring" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DroXkTJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DroXkjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DroXkzJCEd2ZOb6R4LLjLA" name="trenner" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DroXlDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DryIkDJCEd2ZOb6R4LLjLA" name="position">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryIkTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DryIkjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryIkzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DryIlDJCEd2ZOb6R4LLjLA" name="get_aktdate" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DryIlTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryIljJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DryIlzJCEd2ZOb6R4LLjLA" name="get_year" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DryImDJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryImTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DryImjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryImzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DryInDJCEd2ZOb6R4LLjLA" name="is_zahl" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DryInTJCEd2ZOb6R4LLjLA" name="keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DryInjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_Dr75kDJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75kTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Dr75kjJCEd2ZOb6R4LLjLA" name="get_day" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_Dr75kzJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75lDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_Dr75lTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75ljJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Dr75lzJCEd2ZOb6R4LLjLA" name="get_datestring" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_Dr75mDJCEd2ZOb6R4LLjLA" name="milisecs">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75mTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_Dr75mjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75mzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Dr75nDJCEd2ZOb6R4LLjLA" name="get_mindate" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_Dr75nTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dr75njJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Dr75nzJCEd2ZOb6R4LLjLA" name="get_month" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DsFDgDJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DsFDgTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DsFDgjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DsFDgzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DsFDhDJCEd2ZOb6R4LLjLA" name="countZeichen" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DsFDhTJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DsFDhjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DsFDhzJCEd2ZOb6R4LLjLA" name="trenner" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DsFDiDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DsFDiTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DsFDijJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DsFDizJCEd2ZOb6R4LLjLA" name="Tools" visibility="public" concurrency="concurrent"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8MzJCEd2ZOb6R4LLjLA" name="Inf">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DyfNhzJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DyyIcjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dy75cTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_DzO0YTJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_DyWDkDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DyWDkTJCEd2ZOb6R4LLjLA" name="bw" visibility="private" type="_DU1oMTJCEd2ZOb6R4LLjLA"/>
+      <ownedOperation xmi:id="_DyWDkjJCEd2ZOb6R4LLjLA" name="close" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DyWDkzJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyWDlDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DyWDlTJCEd2ZOb6R4LLjLA" name="writezeile" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DyWDljJCEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyfNgDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DyfNgTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyfNgjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DyfNgzJCEd2ZOb6R4LLjLA" name="Inf" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_DyfNhDJCEd2ZOb6R4LLjLA" name="setFilename" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DyfNhTJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyfNhjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8NjJCEd2ZOb6R4LLjLA" name="GetKeywords">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EKCK0DJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EKVFwTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EKe2wjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EKoAsTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_EK7isjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ELEsoTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ELYOoTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ELhYkTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EL0TgTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EL-EgTJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_EIZMEDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EIi9EDJCEd2ZOb6R4LLjLA" name="part1" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EIi9ETJCEd2ZOb6R4LLjLA" name="retstring" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EIi9EjJCEd2ZOb6R4LLjLA" name="zeile" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EIsHADJCEd2ZOb6R4LLjLA" name="inf" visibility="private" isStatic="true" type="_DU-yIjJCEd2ZOb6R4LLjLA"/>
+      <ownedOperation xmi:id="_EIsHATJCEd2ZOb6R4LLjLA" name="GetUrlAktName" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EIsHAjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIsHAzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EIsHBDJCEd2ZOb6R4LLjLA" name="GetSymbol" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EIsHBTJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIsHBjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EIsHBzJCEd2ZOb6R4LLjLA" name="GetPostline1200" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EIsHCDJCEd2ZOb6R4LLjLA" name="suchstring" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIsHCTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EIsHCjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIsHCzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EIsHDDJCEd2ZOb6R4LLjLA" name="CheckKeyword" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EIsHDTJCEd2ZOb6R4LLjLA" name="keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14ADJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI14ATJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14AjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EI14AzJCEd2ZOb6R4LLjLA" name="GetKeywordPartMaxdist" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EI14BDJCEd2ZOb6R4LLjLA" name="Keyword1" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14BTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI14BjJCEd2ZOb6R4LLjLA" name="Keyword2" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14BzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI14CDJCEd2ZOb6R4LLjLA" name="maxdist">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14CTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI14CjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14CzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EI14DDJCEd2ZOb6R4LLjLA" name="GetWkn" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EI14DTJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI14DjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EI_pADJCEd2ZOb6R4LLjLA" name="GetThreadId" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EI_pATJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pAjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EI_pAzJCEd2ZOb6R4LLjLA" name="GetThreadLineX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EI_pBDJCEd2ZOb6R4LLjLA" name="suchstring" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pBTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI_pBjJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pBzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EI_pCDJCEd2ZOb6R4LLjLA" name="GetKeywordPart2" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EI_pCTJCEd2ZOb6R4LLjLA" name="Keyword1" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pCjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI_pCzJCEd2ZOb6R4LLjLA" name="Keyword2" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pDDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EI_pDTJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EI_pDjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJIy8DJCEd2ZOb6R4LLjLA" name="GetSeitenzahl" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJIy8TJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy8jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJIy8zJCEd2ZOb6R4LLjLA" name="GetKeywordPart" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJIy9DJCEd2ZOb6R4LLjLA" name="Keyword1" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy9TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJIy9jJCEd2ZOb6R4LLjLA" name="Keyword2" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy9zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJIy-DJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy-TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJIy-jJCEd2ZOb6R4LLjLA" name="GetKeyword" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJIy-zJCEd2ZOb6R4LLjLA" name="Keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy_DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJIy_TJCEd2ZOb6R4LLjLA" name="min">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJIy_jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJSj8DJCEd2ZOb6R4LLjLA" name="max">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj8TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJSj8jJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj8zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJSj9DJCEd2ZOb6R4LLjLA" name="SetLoadHtmlFilename" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJSj9TJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj9jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJSj9zJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj-DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJSj-TJCEd2ZOb6R4LLjLA" name="removePoint" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJSj-jJCEd2ZOb6R4LLjLA" name="keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj-zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJSj_DJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJSj_TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJbt4DJCEd2ZOb6R4LLjLA" name="GetMasterId" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJbt4TJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJbt4jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJbt4zJCEd2ZOb6R4LLjLA" name="is_zahl" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJbt5DJCEd2ZOb6R4LLjLA" name="keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJbt5TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJbt5jJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJbt5zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJbt6DJCEd2ZOb6R4LLjLA" name="GetKeywordTd" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJbt6TJCEd2ZOb6R4LLjLA" name="Keyword" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJbt6jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJbt6zJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJbt7DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJbt7TJCEd2ZOb6R4LLjLA" name="GetThreadIdFromUserHtmlPosting" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJbt7jJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle4DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJle4TJCEd2ZOb6R4LLjLA" name="GetBenutzername" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJle4jJCEd2ZOb6R4LLjLA" name="z" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle4zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJle5DJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle5TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJle5jJCEd2ZOb6R4LLjLA" name="GetFullLine" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJle5zJCEd2ZOb6R4LLjLA" name="suchstring" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle6DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJle6TJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle6jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJle6zJCEd2ZOb6R4LLjLA" name="GetAktName" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJle7DJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJle7TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJle7jJCEd2ZOb6R4LLjLA" name="GetDate" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJvP4DJCEd2ZOb6R4LLjLA" name="z" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJvP4TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJvP4jJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJvP4zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EJvP5DJCEd2ZOb6R4LLjLA" name="GetPostlineN" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EJvP5TJCEd2ZOb6R4LLjLA" name="n">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJvP5jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJvP5zJCEd2ZOb6R4LLjLA" name="suchstring" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJvP6DJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EJvP6TJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EJvP6jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Dq4wsjJCEd2ZOb6R4LLjLA" memberEnd="_DlhvkzJCEd2ZOb6R4LLjLA _Dq4wszJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_Dq4wszJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DTpVYDJCEd2ZOb6R4LLjLA" association="_Dq4wsjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+  </uml:Package>
+  <uml:Package xmi:id="_ggEoxDJBEd2ZOb6R4LLjLA" name="stores" clientDependency="_gwUEMDJBEd2ZOb6R4LLjLA _gwUEMjJBEd2ZOb6R4LLjLA">
+    <packagedElement xmi:type="uml:Class" xmi:id="_DSdCkDJCEd2ZOb6R4LLjLA" name="PostDB" clientDependency="_DVIjIzJCEd2ZOb6R4LLjLA _DVbeETJCEd2ZOb6R4LLjLA _DVlPEjJCEd2ZOb6R4LLjLA _DV4KATJCEd2ZOb6R4LLjLA _DWB7ATJCEd2ZOb6R4LLjLA _DWU18TJCEd2ZOb6R4LLjLA _DWem8TJCEd2ZOb6R4LLjLA _DWxh4TJCEd2ZOb6R4LLjLA _DW7S4TJCEd2ZOb6R4LLjLA _DXON0TJCEd2ZOb6R4LLjLA _DXXXwTJCEd2ZOb6R4LLjLA _DXq5wTJCEd2ZOb6R4LLjLA _DX90sTJCEd2ZOb6R4LLjLA _DYHlsTJCEd2ZOb6R4LLjLA _DYagoTJCEd2ZOb6R4LLjLA _DYjqkTJCEd2ZOb6R4LLjLA _DY3MkTJCEd2ZOb6R4LLjLA _DZAWgTJCEd2ZOb6R4LLjLA">
+      <ownedAttribute xmi:id="_DTWacDJCEd2ZOb6R4LLjLA" name="fa" visibility="private" isStatic="true" type="_DTpVYDJCEd2ZOb6R4LLjLA" association="_DhNQRjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DhNQRDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DhNQRTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DTpVYTJCEd2ZOb6R4LLjLA" name="userid_aktthreadpos" visibility="private" isStatic="true" type="_DTyfUzJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DTyfVDJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DTyfVTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DTyfVjJCEd2ZOb6R4LLjLA" name="userpos_reverse" visibility="package" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DT8QUTJCEd2ZOb6R4LLjLA" name="nextfreeuserid" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DT8QUjJCEd2ZOb6R4LLjLA" name="userpos" visibility="package" isStatic="true" type="_DTyfUzJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DUGBUDJCEd2ZOb6R4LLjLA" name="udb" visibility="private" isStatic="true" type="_DUGBUTJCEd2ZOb6R4LLjLA" association="_DhNQTjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DhNQTDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DhNQTTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DUGBUjJCEd2ZOb6R4LLjLA" name="tdblimit" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DUGBUzJCEd2ZOb6R4LLjLA" name="froot" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DUGBVDJCEd2ZOb6R4LLjLA" name="p" visibility="private" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_DhNQQjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DhNQQDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DhNQQTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DUGBVjJCEd2ZOb6R4LLjLA" name="breakdate" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DUGBVzJCEd2ZOb6R4LLjLA" name="tdb" visibility="package" isStatic="true" type="_DUGBWDJCEd2ZOb6R4LLjLA" association="_DhNQSjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DhNQSDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DhNQSTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DUPLQDJCEd2ZOb6R4LLjLA" name="breakdatePostindex" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_DUPLQTJCEd2ZOb6R4LLjLA" name="addPosting" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DUPLQzJCEd2ZOb6R4LLjLA" name="posting" type="_DUPLQjJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUPLRDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DUY8QDJCEd2ZOb6R4LLjLA" name="PostDB" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_DUitQDJCEd2ZOb6R4LLjLA" name="CleanPostDB" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_DUitQTJCEd2ZOb6R4LLjLA" name="WritePostDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DUitQjJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUitQzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DUitRDJCEd2ZOb6R4LLjLA" name="BuildPostDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DUitRTJCEd2ZOb6R4LLjLA" name="maxpage">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUitRjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DUitRzJCEd2ZOb6R4LLjLA" name="breakdate_str" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUitSDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DUitSTJCEd2ZOb6R4LLjLA" name="ReadPostDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DUitSjJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUitSzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DUitTDJCEd2ZOb6R4LLjLA" name="BuildPostDBthread" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DUitTTJCEd2ZOb6R4LLjLA" name="maxpage">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUr3MDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DUr3MTJCEd2ZOb6R4LLjLA" name="breakdate_str" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUr3MjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_DUr3MzJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DUr3NDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DUGBUTJCEd2ZOb6R4LLjLA" name="UserDB">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D321sDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D3__oTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D4ThojJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_D4crkjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D4vmgTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D45XgTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D5MScjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D5WDcTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D5o-YTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D5yvYTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D6FqUTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D6PbUTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D6iWQTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D6sHQTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D6_CMTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D7IMITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D7buIjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_D7k4EjJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_D2XA6zJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_D2qi4DJCEd2ZOb6R4LLjLA" name="Antworten" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2qi4jJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2qi4TJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs0DJCEd2ZOb6R4LLjLA" name="Blogs" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2zs0jJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2zs0TJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs0zJCEd2ZOb6R4LLjLA" name="Postings" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2zs1TJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2zs1DJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs1jJCEd2ZOb6R4LLjLA" name="UserId" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2zs2DJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2zs1zJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs2TJCEd2ZOb6R4LLjLA" name="RegistriertSeit" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2zs2zJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2zs2jJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs3DJCEd2ZOb6R4LLjLA" name="pageusername" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D2zs3jJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D2zs3TJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D2zs3zJCEd2ZOb6R4LLjLA" name="Threads" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D29d0TJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D29d0DJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D29d0jJCEd2ZOb6R4LLjLA" name="useranz" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D29d0zJCEd2ZOb6R4LLjLA" name="Themen" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D29d1TJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D29d1DJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_D29d1jJCEd2ZOb6R4LLjLA" name="at" visibility="private" isStatic="true" type="_Dhp8NjJCEd2ZOb6R4LLjLA" association="_D8LVAjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D8LVADJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D8LVATJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_D29d1zJCEd2ZOb6R4LLjLA" name="ShowUser" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_D29d2DJCEd2ZOb6R4LLjLA" name="writeFilestore" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_D29d2TJCEd2ZOb6R4LLjLA" name="AddNewUsernamesFromFile" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D29d2jJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D29d2zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D29d3DJCEd2ZOb6R4LLjLA" name="contains" visibility="package" isStatic="true" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3HO0DJCEd2ZOb6R4LLjLA" name="str" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO0TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3HO0jJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO0zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3HO1DJCEd2ZOb6R4LLjLA" name="DownloadUserWebsidesStep2" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3HO1TJCEd2ZOb6R4LLjLA" name="overwritewebid">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO1jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3HO1zJCEd2ZOb6R4LLjLA" name="add_user" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3HO2DJCEd2ZOb6R4LLjLA" name="uname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO2TJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3HO2jJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO2zJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3HO3DJCEd2ZOb6R4LLjLA" name="get_username" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3HO3TJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3HO3jJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3QYwDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3QYwTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3QYwjJCEd2ZOb6R4LLjLA" name="get_postanz" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3QYwzJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3QYxDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3QYxTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3QYxjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3QYxzJCEd2ZOb6R4LLjLA" name="SyncUserwebsidesToUserstore" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_D3QYyDJCEd2ZOb6R4LLjLA" name="get_date" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3QYyTJCEd2ZOb6R4LLjLA" name="unam" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3QYyjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3QYyzJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3QYzDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3QYzTJCEd2ZOb6R4LLjLA" name="BuildUserDBdepricated" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_D3aJwDJCEd2ZOb6R4LLjLA" name="DownloadUserWebsidesStep1" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3aJwTJCEd2ZOb6R4LLjLA" name="overwritewebid">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3aJwjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3aJwzJCEd2ZOb6R4LLjLA" name="check_username" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3aJxDJCEd2ZOb6R4LLjLA" name="uname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3aJxTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3aJxjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3aJxzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3aJyDJCEd2ZOb6R4LLjLA" name="get_useranzahl" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3aJyTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3aJyjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_D3aJyzJCEd2ZOb6R4LLjLA" name="UserDB" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_D3aJzDJCEd2ZOb6R4LLjLA" name="get_antworten" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_D3aJzTJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3aJzjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_D3jTsDJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D3jTsTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DUGBWDJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DhNQQjJCEd2ZOb6R4LLjLA" memberEnd="_DUGBVDJCEd2ZOb6R4LLjLA _DhNQQzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DhNQQzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DSdCkDJCEd2ZOb6R4LLjLA" association="_DhNQQjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DhNQRjJCEd2ZOb6R4LLjLA" memberEnd="_DTWacDJCEd2ZOb6R4LLjLA _DhNQRzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DhNQRzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DSdCkDJCEd2ZOb6R4LLjLA" association="_DhNQRjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DhNQSjJCEd2ZOb6R4LLjLA" memberEnd="_DUGBVzJCEd2ZOb6R4LLjLA _DhNQSzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DhNQSzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DSdCkDJCEd2ZOb6R4LLjLA" association="_DhNQSjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DhNQTjJCEd2ZOb6R4LLjLA" memberEnd="_DUGBUDJCEd2ZOb6R4LLjLA _DhNQTzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DhNQTzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DSdCkDJCEd2ZOb6R4LLjLA" association="_DhNQTjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8MDJCEd2ZOb6R4LLjLA" name="ThreadsDB_Hilfsklasse">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DiZjEDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DiseATJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Di2PATJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_DjJJ8jJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DjcE4TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Djl14TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dj4w0TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DkCh0TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DkVcwTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DkemsTJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_DhzGITJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_Dh83IDJCEd2ZOb6R4LLjLA" name="urlstr" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DiGBEDJCEd2ZOb6R4LLjLA" name="i" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBETJCEd2ZOb6R4LLjLA" name="ThreadsDB" visibility="package" type="_DUGBWDJCEd2ZOb6R4LLjLA" association="_DlFDpjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DlFDpDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DlFDpTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBEjJCEd2ZOb6R4LLjLA" name="flength" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBEzJCEd2ZOb6R4LLjLA" name="tdblimit" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBFDJCEd2ZOb6R4LLjLA" name="j" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBFTJCEd2ZOb6R4LLjLA" name="p" visibility="package" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_DlFDqjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DlFDqDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DlFDqTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBFjJCEd2ZOb6R4LLjLA" name="froot" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_DiGBFzJCEd2ZOb6R4LLjLA" name="trys" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_DiGBGDJCEd2ZOb6R4LLjLA" name="Wpage" visibility="package" type="_Dhp8MjJCEd2ZOb6R4LLjLA" association="_DlFDojJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DlFDoDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DlFDoTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_DiGBGTJCEd2ZOb6R4LLjLA" name="startDownloadAllFromThreadsDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DiPyEDJCEd2ZOb6R4LLjLA" name="maxpage">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DiPyETJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DiPyEjJCEd2ZOb6R4LLjLA" name="ThreadsDB_Hilfsklasse" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_DiPyEzJCEd2ZOb6R4LLjLA" name="analyseGetAllUsernamesFromThreadsDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DiPyFDJCEd2ZOb6R4LLjLA" name="maxpage">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DiPyFTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DiPyFjJCEd2ZOb6R4LLjLA" name="GetPrimeDataFromFristThreadPage" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_DiPyFzJCEd2ZOb6R4LLjLA" name="forceflag">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DiPyGDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_DiPyGTJCEd2ZOb6R4LLjLA" name="BesucheAlleThreadseiten" visibility="public" concurrency="concurrent"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8NTJCEd2ZOb6R4LLjLA" name="AktDB">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EFQ_kDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EFj6gTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EFtrgTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_EGAmcjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EGKXcTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EGdSYTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EGnDYTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EG5-UTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EHDIQTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EHWqQTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EHf0MTJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_EEEswDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EEXnsDJCEd2ZOb6R4LLjLA" name="wkn" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEXnsjJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEXnsTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXnszJCEd2ZOb6R4LLjLA" name="aktname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEXntTJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEXntDJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXntjJCEd2ZOb6R4LLjLA" name="maxcounter" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXntzJCEd2ZOb6R4LLjLA" name="aktcounter" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXnuDJCEd2ZOb6R4LLjLA" name="masterid" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEXnujJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEXnuTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXnuzJCEd2ZOb6R4LLjLA" name="p" visibility="package" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_EIGRIjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EIGRIDJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EIGRITJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEXnvDJCEd2ZOb6R4LLjLA" name="froot" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EEhYsDJCEd2ZOb6R4LLjLA" name="filename" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_EEhYsTJCEd2ZOb6R4LLjLA" name="status" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEhYszJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEhYsjJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEhYtDJCEd2ZOb6R4LLjLA" name="threadid" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEhYtjJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEhYtTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEhYtzJCEd2ZOb6R4LLjLA" name="symbol" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEhYuTJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEhYuDJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_EEhYujJCEd2ZOb6R4LLjLA" name="threadfullname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEhYvDJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EEhYuzJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_EEhYvTJCEd2ZOb6R4LLjLA" name="GetStatus" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EEhYvjJCEd2ZOb6R4LLjLA" name="tid">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEqioDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EEqioTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEqiojJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EEqiozJCEd2ZOb6R4LLjLA" name="SearchSymbIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EEqipDJCEd2ZOb6R4LLjLA" name="symb" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEqipTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EEqipjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEqipzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EEqiqDJCEd2ZOb6R4LLjLA" name="Reset" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_EEqiqTJCEd2ZOb6R4LLjLA" name="WriteAktDB" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EEqiqjJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EEqiqzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EEqirDJCEd2ZOb6R4LLjLA" name="AktDB" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_EEqirTJCEd2ZOb6R4LLjLA" name="StoreNewKurs" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EE0ToDJCEd2ZOb6R4LLjLA" name="tid">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0ToTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TojJCEd2ZOb6R4LLjLA" name="symb" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TozJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TpDJCEd2ZOb6R4LLjLA" name="aktnam" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TpTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TpjJCEd2ZOb6R4LLjLA" name="wk" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TpzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TqDJCEd2ZOb6R4LLjLA" name="masteri">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TqTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TqjJCEd2ZOb6R4LLjLA" name="stat">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TqzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TrDJCEd2ZOb6R4LLjLA" name="postname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TrTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE0TrjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE0TrzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EE-EoDJCEd2ZOb6R4LLjLA" name="GetThreadIdIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EE-EoTJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE-EojJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE-EozJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE-EpDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_EE-EpTJCEd2ZOb6R4LLjLA" name="GetAktNameIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_EE-EpjJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE-EpzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_EE-EqDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EE-EqTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DhzGIDJCEd2ZOb6R4LLjLA" name="KurswerteDB">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ETRmYDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ETawUTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ETuSUTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_ET3cQjJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EUKXMTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EUUIMTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EUnDITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EUw0ITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EVDvETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EVNgETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EVgbATJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_ERxxkDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_ESFTkDJCEd2ZOb6R4LLjLA" name="maxKursSymbols" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESFTkTJCEd2ZOb6R4LLjLA" name="enddatum" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESFTkzJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESFTkjJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESOdgDJCEd2ZOb6R4LLjLA" name="breakindex" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESOdgjJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESOdgTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESOdgzJCEd2ZOb6R4LLjLA" name="gesvolumen" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESOdhTJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESOdhDJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESOdhjJCEd2ZOb6R4LLjLA" name="startdatum" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESOdiDJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESOdhzJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESOdiTJCEd2ZOb6R4LLjLA" name="froot" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_ESOdijJCEd2ZOb6R4LLjLA" name="p" visibility="package" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_EV9G8jJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EV9G8DJCEd2ZOb6R4LLjLA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EV9G8TJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESOdizJCEd2ZOb6R4LLjLA" name="breakdate" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESOdjTJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESOdjDJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESYOgDJCEd2ZOb6R4LLjLA" name="searchcounter" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESYOgTJCEd2ZOb6R4LLjLA" name="anzwerte" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESYOgzJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESYOgjJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESYOhDJCEd2ZOb6R4LLjLA" name="steigfaktor" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESYOhjJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESYOhTJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ESYOhzJCEd2ZOb6R4LLjLA" name="symbol" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESYOiTJCEd2ZOb6R4LLjLA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ESYOiDJCEd2ZOb6R4LLjLA"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_ESYOijJCEd2ZOb6R4LLjLA" name="getSymbIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ESh_gDJCEd2ZOb6R4LLjLA" name="sym" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_gTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESh_gjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_gzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ESh_hDJCEd2ZOb6R4LLjLA" name="getBreakdateIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ESh_hTJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_hjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESh_hzJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_iDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ESh_iTJCEd2ZOb6R4LLjLA" name="SpeichereKurs" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ESh_ijJCEd2ZOb6R4LLjLA" name="symb" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_izJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESh_jDJCEd2ZOb6R4LLjLA" name="startd" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESh_jTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESh_jjJCEd2ZOb6R4LLjLA" name="endd" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJcDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESrJcTJCEd2ZOb6R4LLjLA" name="bd" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJcjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESrJczJCEd2ZOb6R4LLjLA" name="anz">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJdDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESrJdTJCEd2ZOb6R4LLjLA" name="gesvol">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJdjJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESrJdzJCEd2ZOb6R4LLjLA" name="steigf">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJeDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ESrJeTJCEd2ZOb6R4LLjLA" name="getSymbolIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ESrJejJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJezJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ESrJfDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ESrJfTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ESrJfjJCEd2ZOb6R4LLjLA" name="Reset" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ES06cDJCEd2ZOb6R4LLjLA" name="KurswerteDB" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ES06cTJCEd2ZOb6R4LLjLA" name="WriteKurswerte" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ES06cjJCEd2ZOb6R4LLjLA" name="IstSymbVorhanden" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ES06czJCEd2ZOb6R4LLjLA" name="sym" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES06dDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ES06dTJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES06djJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ES06dzJCEd2ZOb6R4LLjLA" name="searchNextKursSteigf" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ES06eDJCEd2ZOb6R4LLjLA" name="minsteigfaktor">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES06eTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ES06ejJCEd2ZOb6R4LLjLA" name="minanzwerte">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES06ezJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ES06fDJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES06fTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ES06fjJCEd2ZOb6R4LLjLA" name="getSteigfaktorIDX" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ES-EYDJCEd2ZOb6R4LLjLA" name="index">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES-EYTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ES-EYjJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ES-EYzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DlFDojJCEd2ZOb6R4LLjLA" memberEnd="_DiGBGDJCEd2ZOb6R4LLjLA _DlFDozJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DlFDozJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8MDJCEd2ZOb6R4LLjLA" association="_DlFDojJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DlFDpjJCEd2ZOb6R4LLjLA" memberEnd="_DiGBETJCEd2ZOb6R4LLjLA _DlFDpzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DlFDpzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8MDJCEd2ZOb6R4LLjLA" association="_DlFDpjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DlFDqjJCEd2ZOb6R4LLjLA" memberEnd="_DiGBFTJCEd2ZOb6R4LLjLA _DlFDqzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DlFDqzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8MDJCEd2ZOb6R4LLjLA" association="_DlFDqjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_D8LVAjJCEd2ZOb6R4LLjLA" memberEnd="_D29d1jJCEd2ZOb6R4LLjLA _D8LVAzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_D8LVAzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DUGBUTJCEd2ZOb6R4LLjLA" association="_D8LVAjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_EClfAjJCEd2ZOb6R4LLjLA" memberEnd="_D9Es5jJCEd2ZOb6R4LLjLA _EClfAzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_EClfAzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DUGBWDJCEd2ZOb6R4LLjLA" association="_EClfAjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_EIGRIjJCEd2ZOb6R4LLjLA" memberEnd="_EEXnuzJCEd2ZOb6R4LLjLA _EIGRIzJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_EIGRIzJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8NTJCEd2ZOb6R4LLjLA" association="_EIGRIjJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_EV9G8jJCEd2ZOb6R4LLjLA" memberEnd="_ESOdijJCEd2ZOb6R4LLjLA _EV9G8zJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_EV9G8zJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_DhzGIDJCEd2ZOb6R4LLjLA" association="_EV9G8jJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+  </uml:Package>
+  <uml:Package xmi:id="_ggEoxTJBEd2ZOb6R4LLjLA" name="internetPackage" clientDependency="_gvQ7UDJBEd2ZOb6R4LLjLA">
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dhp8NzJCEd2ZOb6R4LLjLA" name="Downloader">
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EODvMDJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EOM5ITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EOgbITJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EOplETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EO9HETJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EPGRATJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_EPZL8TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EPi88TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EP134jJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EP_o4jJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EQSj0TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EQcU0TJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EQvPwTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_EQ5AwTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ERL7sTJCEd2ZOb6R4LLjLA"/>
+      <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_ERVssTJCEd2ZOb6R4LLjLA"/>
+      <generalization xmi:id="_ENdSQDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_ENdSQTJCEd2ZOb6R4LLjLA" name="out" visibility="private" isStatic="true" type="_DU1oMTJCEd2ZOb6R4LLjLA"/>
+      <ownedAttribute xmi:id="_ENdSQjJCEd2ZOb6R4LLjLA" name="onlineflag" visibility="private" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ENnDQDJCEd2ZOb6R4LLjLA" name="htmlfile" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+      <ownedOperation xmi:id="_ENnDQTJCEd2ZOb6R4LLjLA" name="OpenProxy" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ENnDQjJCEd2ZOb6R4LLjLA" name="CloseFile" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ENnDQzJCEd2ZOb6R4LLjLA" name="GetFileLength" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ENnDRDJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENnDRTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ENnDRjJCEd2ZOb6R4LLjLA" name="GetFileLengthz" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ENnDRzJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENnDSDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ENnDSTJCEd2ZOb6R4LLjLA" name="Downloader" visibility="public" concurrency="concurrent"/>
+      <ownedOperation xmi:id="_ENnDSjJCEd2ZOb6R4LLjLA" name="DownloadHtmlPage" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ENnDSzJCEd2ZOb6R4LLjLA" name="urlname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENnDTDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ENw0QDJCEd2ZOb6R4LLjLA" name="umbruchflag">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENw0QTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ENw0QjJCEd2ZOb6R4LLjLA" name="timeout">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENw0QzJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_ENw0RDJCEd2ZOb6R4LLjLA" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENw0RTJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_ENw0RjJCEd2ZOb6R4LLjLA" name="SetFilename" visibility="public" concurrency="concurrent">
+        <ownedParameter xmi:id="_ENw0RzJCEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ENw0SDJCEd2ZOb6R4LLjLA" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Du6VFjJCEd2ZOb6R4LLjLA" name="LoadWebpageThread"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DvXBAjJCEd2ZOb6R4LLjLA" name="TimeControlTask"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DyMSkDJCEd2ZOb6R4LLjLA" memberEnd="_Du6VFTJCEd2ZOb6R4LLjLA _DyMSkTJCEd2ZOb6R4LLjLA">
+      <ownedEnd xmi:id="_DyMSkTJCEd2ZOb6R4LLjLA" name="ownedEnd" type="_Dhp8MjJCEd2ZOb6R4LLjLA" association="_DyMSkDJCEd2ZOb6R4LLjLA"/>
+    </packagedElement>
+  </uml:Package>
+  <uml:Class xmi:id="_DTpVYDJCEd2ZOb6R4LLjLA" name="FileAccess">
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dm3MUzJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DnKuUTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_DnT4QTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DnnaQTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dn6VMTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DoDfITJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DoXBITJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DogLETJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DoztEjJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Do83ATJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DpPx8TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DpjT8TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dpsd4TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dp__4TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DqJJ0TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DqcEwDJCEd2ZOb6R4LLjLA"/>
+    <generalization xmi:id="_DlO0oDJCEd2ZOb6R4LLjLA" general="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_DlhvkDJCEd2ZOb6R4LLjLA" name="unixflag" visibility="package" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DlhvkTJCEd2ZOb6R4LLjLA" name="maxentry" visibility="package" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DlhvkjJCEd2ZOb6R4LLjLA" name="maxthreadentrys_all_types" visibility="package" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DlhvkzJCEd2ZOb6R4LLjLA" name="p" visibility="private" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_Dq4wsjJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dq4wsDJCEd2ZOb6R4LLjLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Dq4wsTJCEd2ZOb6R4LLjLA" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DlhvlDJCEd2ZOb6R4LLjLA" name="verzpos" visibility="package" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_DlhvlTJCEd2ZOb6R4LLjLA" name="threadverzliste" visibility="private" isStatic="true" type="_Dlq5gDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dlq5gTJCEd2ZOb6R4LLjLA" value="*"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_Dlq5gjJCEd2ZOb6R4LLjLA" name="checkgenDirectory" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM-QNDJDEd2ZOb6R4LLjLA" name="directory" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QNTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dlq5hTJCEd2ZOb6R4LLjLA" name="FileAvailable" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DNHaIjJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaIzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DNHaJDJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaJTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dlq5ijJCEd2ZOb6R4LLjLA" name="holeFileSystemName" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DNHaJjJDEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaJzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dlq5jTJCEd2ZOb6R4LLjLA" name="FileAvailable_" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM0fPDJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fPTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM-QMDJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QMTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl0qgzJCEd2ZOb6R4LLjLA" name="initFileSystemList" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM0fODJDEd2ZOb6R4LLjLA" name="directoryPath" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fOTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM0fOjJDEd2ZOb6R4LLjLA" name="flag">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fOzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl0qiDJCEd2ZOb6R4LLjLA" name="UnZippFile" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DNHaLDJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNRLIDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DNRLITJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNRLIjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl0qjTJCEd2ZOb6R4LLjLA" name="convsonderz" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DNHaKDJDEd2ZOb6R4LLjLA" name="name" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaKTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DNHaKjJDEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaKzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl-bgzJCEd2ZOb6R4LLjLA" name="ReadFileClose" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMquMTJDEd2ZOb6R4LLjLA" name="inf" type="_DU-yIjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquMjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl-bhjJCEd2ZOb6R4LLjLA" name="ReadFileZeile" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMhkSDJDEd2ZOb6R4LLjLA" name="inf" type="_DU-yIjJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMhkSTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DMhkSjJDEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquMDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Dl-bizJCEd2ZOb6R4LLjLA" name="ReadFileOpen" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DNRLIzJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNRLJDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DNRLJTJDEd2ZOb6R4LLjLA" type="_DU-yIjJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNRLJjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmHlczJCEd2ZOb6R4LLjLA" name="FileLength" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMquOzJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquPDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM0fMDJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fMTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmHleDJCEd2ZOb6R4LLjLA" name="FileDelete" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMquNzJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquODJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DMquOTJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquOjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmRWcjJCEd2ZOb6R4LLjLA" name="getFilenameEnd" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM-QOjJDEd2ZOb6R4LLjLA" name="fnam" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QOzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DNHaIDJDEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DNHaITJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmRWdzJCEd2ZOb6R4LLjLA" name="ZippFile" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMhkQjJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMhkQzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DMhkRDJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMhkRTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmRWfDJCEd2ZOb6R4LLjLA" name="WriteFileClose" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM-QMjJDEd2ZOb6R4LLjLA" name="ouf" type="_DU1oMTJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QMzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmbHcDJCEd2ZOb6R4LLjLA" name="WriteFileOpenUnziped" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMXzQDJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMXzQTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DMhkQDJDEd2ZOb6R4LLjLA" type="_DU1oMTJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMhkQTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmbHdTJCEd2ZOb6R4LLjLA" name="FileAccess" visibility="public" concurrency="concurrent"/>
+    <ownedOperation xmi:id="_DmbHdjJCEd2ZOb6R4LLjLA" name="holeFileAnz" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMhkRjJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMhkRzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmbHeTJCEd2ZOb6R4LLjLA" name="WriteFileZeile" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DMquMzJDEd2ZOb6R4LLjLA" name="ouf" type="_DU1oMTJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquNDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DMquNTJDEd2ZOb6R4LLjLA" name="zeile" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMquNjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmkRYTJCEd2ZOb6R4LLjLA" name="WriteFileOpen" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM-QNjJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QNzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM-QODJDEd2ZOb6R4LLjLA" type="_DU1oMTJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM-QOTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DmkRZjJCEd2ZOb6R4LLjLA" name="copyFile" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_DM0fMjJDEd2ZOb6R4LLjLA" name="quelle" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fMzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM0fNDJDEd2ZOb6R4LLjLA" name="ziel" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fNTJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_DM0fNjJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DM0fNzJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+  </uml:Class>
+  <uml:Class xmi:id="_DUGBWDJCEd2ZOb6R4LLjLA" name="ThreadsDB" clientDependency="_D_JwgDJCEd2ZOb6R4LLjLA _D_dSgTJCEd2ZOb6R4LLjLA _D_mccTJCEd2ZOb6R4LLjLA _D_5XYTJCEd2ZOb6R4LLjLA _EADIYTJCEd2ZOb6R4LLjLA _EAWDUTJCEd2ZOb6R4LLjLA _EAf0UjJCEd2ZOb6R4LLjLA _EAyvQTJCEd2ZOb6R4LLjLA _EA8gQTJCEd2ZOb6R4LLjLA _EBPbMTJCEd2ZOb6R4LLjLA _EBZMMjJCEd2ZOb6R4LLjLA _EBsHITJCEd2ZOb6R4LLjLA _EB14ITJCEd2ZOb6R4LLjLA">
+    <generalization xmi:id="_D8oA8DJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9Es4DJCEd2ZOb6R4LLjLA" name="pageanz" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9Es4jJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Es4TJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Es4zJCEd2ZOb6R4LLjLA" name="maxzaehler" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Es5DJCEd2ZOb6R4LLjLA" name="dbfilename" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9Es5TJCEd2ZOb6R4LLjLA" name="rootpath" visibility="package" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9Es5jJCEd2ZOb6R4LLjLA" name="p" visibility="package" isStatic="true" type="_DUGBVTJCEd2ZOb6R4LLjLA" association="_EClfAjJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EClfADJCEd2ZOb6R4LLjLA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EClfATJCEd2ZOb6R4LLjLA" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9N20DJCEd2ZOb6R4LLjLA" name="aname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9N20TJCEd2ZOb6R4LLjLA" name="threadid" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9N20zJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9N20jJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9N21DJCEd2ZOb6R4LLjLA" name="uname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9N21TJCEd2ZOb6R4LLjLA" name="symbol" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9N21zJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9N21jJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9N22DJCEd2ZOb6R4LLjLA" name="marker" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9N22jJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9N22TJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9N22zJCEd2ZOb6R4LLjLA" name="fname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_D9N23DJCEd2ZOb6R4LLjLA" name="aktzaehler" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn0DJCEd2ZOb6R4LLjLA" name="datearray" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9Xn0jJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Xn0TJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn0zJCEd2ZOb6R4LLjLA" name="masterid" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9Xn1TJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Xn1DJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn1jJCEd2ZOb6R4LLjLA" name="tdblimit" visibility="package" isLeaf="true" isStatic="true" isReadOnly="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn1zJCEd2ZOb6R4LLjLA" name="state" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9Xn2TJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Xn2DJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn2jJCEd2ZOb6R4LLjLA" name="anames" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9Xn3DJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Xn2zJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_D9Xn3TJCEd2ZOb6R4LLjLA" name="urlaktname" visibility="private" isStatic="true" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxwDJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D9Xn3jJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_D9gxwTJCEd2ZOb6R4LLjLA" name="gettdblimit" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9gxwjJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxwzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D9gxxDJCEd2ZOb6R4LLjLA" name="HoleThreadIDausVerzeichniss" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9gxxTJCEd2ZOb6R4LLjLA" name="threadname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxxjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D9gxxzJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxyDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D9gxyTJCEd2ZOb6R4LLjLA" name="GetSymbolIDX" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9gxyjJCEd2ZOb6R4LLjLA" name="idx">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxyzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D9gxzDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9gxzTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D9gxzjJCEd2ZOb6R4LLjLA" name="Reset" visibility="public" concurrency="concurrent"/>
+    <ownedOperation xmi:id="_D9qiwDJCEd2ZOb6R4LLjLA" name="WriteThreadsDB" visibility="public" concurrency="concurrent"/>
+    <ownedOperation xmi:id="_D9qiwTJCEd2ZOb6R4LLjLA" name="SetzeErsteAkt" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9qiwjJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9qiwzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D9qixDJCEd2ZOb6R4LLjLA" name="checkThreadinDB" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9qixTJCEd2ZOb6R4LLjLA" name="tname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9qixjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D9qixzJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D9qiyDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D9qiyTJCEd2ZOb6R4LLjLA" name="SetUrlAktName" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D9qiyjJCEd2ZOb6R4LLjLA" name="name" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TwDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D90TwTJCEd2ZOb6R4LLjLA" name="GetNextUrlName" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D90TwjJCEd2ZOb6R4LLjLA" name="index">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TwzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D90TxDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TxTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D90TxjJCEd2ZOb6R4LLjLA" name="GetSymbol" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D90TxzJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TyDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D90TyTJCEd2ZOb6R4LLjLA" name="GetAktThreadanz" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D90TyjJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TyzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D90TzDJCEd2ZOb6R4LLjLA" name="GetThreadName" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D90TzTJCEd2ZOb6R4LLjLA" name="id">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D90TzjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D99dsDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D99dsTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D99dsjJCEd2ZOb6R4LLjLA" name="checkThreadid_available" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D99dszJCEd2ZOb6R4LLjLA" name="tid">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D99dtDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D99dtTJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D99dtjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D99dtzJCEd2ZOb6R4LLjLA" name="GetSeitenzahl" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D99duDJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D99duTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D99dujJCEd2ZOb6R4LLjLA" name="getMarkedThread" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-HOsDJCEd2ZOb6R4LLjLA" name="minIDX">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOsTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-HOsjJCEd2ZOb6R4LLjLA" name="searchstate">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOszJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-HOtDJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOtTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-HOtjJCEd2ZOb6R4LLjLA" name="BuildThreadDB" visibility="public" concurrency="concurrent"/>
+    <ownedOperation xmi:id="_D-HOtzJCEd2ZOb6R4LLjLA" name="GetAktThreadName" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-HOuDJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOuTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-HOujJCEd2ZOb6R4LLjLA" name="AddThread" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-HOuzJCEd2ZOb6R4LLjLA" name="thread" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOvDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-HOvTJCEd2ZOb6R4LLjLA" name="tid">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-HOvjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-Q_sDJCEd2ZOb6R4LLjLA" name="date" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_sTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-Q_sjJCEd2ZOb6R4LLjLA" name="status">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_szJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-Q_tDJCEd2ZOb6R4LLjLA" name="mid">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_tTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-Q_tjJCEd2ZOb6R4LLjLA" name="symb" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_tzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-Q_uDJCEd2ZOb6R4LLjLA" name="urlakt" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_uTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-Q_ujJCEd2ZOb6R4LLjLA" name="setAllState" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-Q_uzJCEd2ZOb6R4LLjLA" name="st">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-Q_vDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-Q_vTJCEd2ZOb6R4LLjLA" name="MarkThread" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-aJoDJCEd2ZOb6R4LLjLA" name="id">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJoTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-aJojJCEd2ZOb6R4LLjLA" name="state">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJozJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-aJpDJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJpTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-aJpjJCEd2ZOb6R4LLjLA" name="SetAktIDX" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-aJpzJCEd2ZOb6R4LLjLA" name="index">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJqDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-aJqTJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJqjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-aJqzJCEd2ZOb6R4LLjLA" name="SetSeitenzahl" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-aJrDJCEd2ZOb6R4LLjLA" name="anz">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-aJrTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-aJrjJCEd2ZOb6R4LLjLA" name="SetState" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-j6oDJCEd2ZOb6R4LLjLA" name="st">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-j6oTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-j6ojJCEd2ZOb6R4LLjLA" name="ThreadsDB" visibility="public" concurrency="concurrent"/>
+    <ownedOperation xmi:id="_D-j6ozJCEd2ZOb6R4LLjLA" name="SetNextAkt" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-j6pDJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-j6pTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-j6pjJCEd2ZOb6R4LLjLA" name="GetSavePageName_genDir" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-j6pzJCEd2ZOb6R4LLjLA" name="index">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-j6qDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_D-j6qTJCEd2ZOb6R4LLjLA" type="_DT8QUDJCEd2ZOb6R4LLjLA" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-j6qjJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-j6qzJCEd2ZOb6R4LLjLA" name="SetMasterId" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-j6rDJCEd2ZOb6R4LLjLA" name="mid">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-j6rTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-j6rjJCEd2ZOb6R4LLjLA" name="get_akt_threadid" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-tEkDJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-tEkTJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-tEkjJCEd2ZOb6R4LLjLA" name="SetSymbol" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-tEkzJCEd2ZOb6R4LLjLA" name="sym" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-tElDJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_D-tElTJCEd2ZOb6R4LLjLA" name="getnextFreeThreadpos" visibility="private" concurrency="concurrent">
+      <ownedParameter xmi:id="_D-tEljJCEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D-tElzJCEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+  </uml:Class>
+  <uml:Class xmi:id="_Dhp8MjJCEd2ZOb6R4LLjLA" name="DownloadManager">
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DvXBBDJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dvp78TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dvzs8jJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DwGn4TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DwQY4TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DwjT0jJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DwtE0TJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Abstraction" href="platform:/resource/Analyser/Analyser.uml#_Dw__wTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DxJwwTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DxcrsTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dxl1oTJCEd2ZOb6R4LLjLA"/>
+    <clientDependency xmi:type="uml:Usage" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_Dx5XoTJCEd2ZOb6R4LLjLA"/>
+    <generalization xmi:id="_DuxLIDJCEd2ZOb6R4LLjLA" general="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+    <ownedAttribute xmi:id="_Du6VEDJCEd2ZOb6R4LLjLA" name="timer" visibility="private" type="_Du6VETJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Du6VEzJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Du6VEjJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Du6VFDJCEd2ZOb6R4LLjLA" name="onlineflag" visibility="private" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Du6VFTJCEd2ZOb6R4LLjLA" name="tpointer" visibility="private" type="_Du6VFjJCEd2ZOb6R4LLjLA" association="_DyMSkDJCEd2ZOb6R4LLjLA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Du6VGDJCEd2ZOb6R4LLjLA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Du6VFzJCEd2ZOb6R4LLjLA"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Du6VGTJCEd2ZOb6R4LLjLA" name="maxthreads" visibility="package" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Du6VGjJCEd2ZOb6R4LLjLA" name="threadpos" visibility="protected" isStatic="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_Du6VGzJCEd2ZOb6R4LLjLA" name="DownloadHtmlPage" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_C_jfQDJDEd2ZOb6R4LLjLA" name="urlname" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_tQQDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_C_tQQTJDEd2ZOb6R4LLjLA" name="filename" type="_DT8QUDJCEd2ZOb6R4LLjLA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_tQQjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_C_tQQzJDEd2ZOb6R4LLjLA" name="umbruchflag">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_tQRDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_C_tQRTJDEd2ZOb6R4LLjLA" name="timeout">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_tQRjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_C_tQRzJDEd2ZOb6R4LLjLA" name="singlethreadflag">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_tQSDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_C_tQSTJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_3BQDJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DvEGHDJCEd2ZOb6R4LLjLA" name="getfreethread" visibility="public" concurrency="concurrent">
+      <ownedParameter xmi:id="_C_3BQTJDEd2ZOb6R4LLjLA" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C_3BQjJDEd2ZOb6R4LLjLA" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_DvNQAjJCEd2ZOb6R4LLjLA" name="DownloadManager" visibility="public" concurrency="concurrent"/>
+  </uml:Class>
+  <uml:Class xmi:id="_DUGBVTJCEd2ZOb6R4LLjLA" name="Prop"/>
+  <uml:Class xmi:id="_DT8QUDJCEd2ZOb6R4LLjLA" name="String" isLeaf="true"/>
+  <uml:Class xmi:id="_DvXBADJCEd2ZOb6R4LLjLA" name="InterruptedException"/>
+  <uml:Package xmi:id="_DTpVYzJCEd2ZOb6R4LLjLA" name="util">
+    <packagedElement xmi:type="uml:Interface" xmi:id="_DTpVZTJCEd2ZOb6R4LLjLA" name="List" isAbstract="true">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_DTpVZjJCEd2ZOb6R4LLjLA" parameter="_DTyfUDJCEd2ZOb6R4LLjLA">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_DTyfUDJCEd2ZOb6R4LLjLA" parameteredElement="_DTyfUTJCEd2ZOb6R4LLjLA">
+          <ownedParameteredElement xmi:type="uml:DataType" xmi:id="_DTyfUTJCEd2ZOb6R4LLjLA" name="E" templateParameter="_DTyfUDJCEd2ZOb6R4LLjLA"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DTyfVzJCEd2ZOb6R4LLjLA" name="HashMap">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_DTyfWDJCEd2ZOb6R4LLjLA" parameter="_DTyfWTJCEd2ZOb6R4LLjLA _DTyfWzJCEd2ZOb6R4LLjLA">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_DTyfWTJCEd2ZOb6R4LLjLA" parameteredElement="_DTyfWjJCEd2ZOb6R4LLjLA">
+          <ownedParameteredElement xmi:type="uml:DataType" xmi:id="_DTyfWjJCEd2ZOb6R4LLjLA" name="K" templateParameter="_DTyfWTJCEd2ZOb6R4LLjLA"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_DTyfWzJCEd2ZOb6R4LLjLA" parameteredElement="_DTyfXDJCEd2ZOb6R4LLjLA">
+          <ownedParameteredElement xmi:type="uml:DataType" xmi:id="_DTyfXDJCEd2ZOb6R4LLjLA" name="V" templateParameter="_DTyfWzJCEd2ZOb6R4LLjLA"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yJTJCEd2ZOb6R4LLjLA" name="ArrayList">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_DU-yJjJCEd2ZOb6R4LLjLA" parameter="_DU-yJzJCEd2ZOb6R4LLjLA">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_DU-yJzJCEd2ZOb6R4LLjLA" parameteredElement="_DVIjIDJCEd2ZOb6R4LLjLA">
+          <ownedParameteredElement xmi:type="uml:DataType" xmi:id="_DVIjIDJCEd2ZOb6R4LLjLA" name="E" templateParameter="_DU-yJzJCEd2ZOb6R4LLjLA"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DsO0gjJCEd2ZOb6R4LLjLA" name="GregorianCalendar"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DsO0gzJCEd2ZOb6R4LLjLA" name="Date"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Du6VETJCEd2ZOb6R4LLjLA" name="Timer"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DvXBATJCEd2ZOb6R4LLjLA" name="Properties"/>
+  </uml:Package>
+  <uml:Package xmi:id="_DTyfUjJCEd2ZOb6R4LLjLA" name="lang">
+    <packagedElement xmi:type="uml:Class" xmi:id="_DTyfUzJCEd2ZOb6R4LLjLA" name="Integer" isLeaf="true"/>
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DT8QUDJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yITJCEd2ZOb6R4LLjLA" name="StringBuilder" isLeaf="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yIzJCEd2ZOb6R4LLjLA" name="System" isLeaf="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DsO0hDJCEd2ZOb6R4LLjLA" name="NumberFormatException"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DvNQAzJCEd2ZOb6R4LLjLA" name="Thread">
+      <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_DvXBAzJCEd2ZOb6R4LLjLA" name="State" isLeaf="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" href="file:/D:/offline/Analyser/src/default%20diagram.uml#_DvXBADJCEd2ZOb6R4LLjLA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D3tEsDJCEd2ZOb6R4LLjLA" name="Exception"/>
+  </uml:Package>
+  <uml:Package xmi:id="_DU1oMDJCEd2ZOb6R4LLjLA" name="io">
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU1oMTJCEd2ZOb6R4LLjLA" name="BufferedWriter"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yIDJCEd2ZOb6R4LLjLA" name="FileNotFoundException"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yIjJCEd2ZOb6R4LLjLA" name="BufferedReader"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DU-yJDJCEd2ZOb6R4LLjLA" name="IOException"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_DVIjIjJCEd2ZOb6R4LLjLA" name="PrintStream"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dlq5gDJCEd2ZOb6R4LLjLA" name="File"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dm3MUDJCEd2ZOb6R4LLjLA" name="FileWriter"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dm3MUTJCEd2ZOb6R4LLjLA" name="FileInputStream"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Dm3MUjJCEd2ZOb6R4LLjLA" name="FileReader"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EN5-MjJCEd2ZOb6R4LLjLA" name="Reader" isAbstract="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EN5-NDJCEd2ZOb6R4LLjLA" name="InputStream" isAbstract="true"/>
+  </uml:Package>
+  <uml:Package xmi:id="_DsO0gDJCEd2ZOb6R4LLjLA" name="text">
+    <packagedElement xmi:type="uml:Class" xmi:id="_DsO0gTJCEd2ZOb6R4LLjLA" name="SimpleDateFormat"/>
+  </uml:Package>
+  <uml:Package xmi:id="_EN5-MDJCEd2ZOb6R4LLjLA" name="net">
+    <packagedElement xmi:type="uml:Class" xmi:id="_EN5-MTJCEd2ZOb6R4LLjLA" name="URL" isLeaf="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EN5-MzJCEd2ZOb6R4LLjLA" name="HttpURLConnection" isAbstract="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EN5-NTJCEd2ZOb6R4LLjLA" name="MalformedURLException"/>
+  </uml:Package>
+  <uml:Usage xmi:id="_gpm_QDJBEd2ZOb6R4LLjLA" supplier="_ggEoxTJBEd2ZOb6R4LLjLA" client="_ggEowDJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_guhUcTJBEd2ZOb6R4LLjLA" supplier="_ggEoxDJBEd2ZOb6R4LLjLA" client="_ggEowDJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gurFcTJBEd2ZOb6R4LLjLA" supplier="_ggEowzJBEd2ZOb6R4LLjLA" client="_ggEowDJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gvQ7UDJBEd2ZOb6R4LLjLA" supplier="_ggEowzJBEd2ZOb6R4LLjLA" client="_ggEoxTJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gvkdUDJBEd2ZOb6R4LLjLA" supplier="_ggEoxDJBEd2ZOb6R4LLjLA" client="_ggEowjJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gvtnQTJBEd2ZOb6R4LLjLA" supplier="_ggEoxTJBEd2ZOb6R4LLjLA" client="_ggEowjJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gv3YQTJBEd2ZOb6R4LLjLA" supplier="_ggEowDJBEd2ZOb6R4LLjLA" client="_ggEowjJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gwBJQTJBEd2ZOb6R4LLjLA" supplier="_ggEowzJBEd2ZOb6R4LLjLA" client="_ggEowjJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gwUEMDJBEd2ZOb6R4LLjLA" supplier="_ggEoxTJBEd2ZOb6R4LLjLA" client="_ggEoxDJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_gwUEMjJBEd2ZOb6R4LLjLA" supplier="_ggEowzJBEd2ZOb6R4LLjLA" client="_ggEoxDJBEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DVIjIzJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DVbeETJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DVlPEjJCEd2ZOb6R4LLjLA" supplier="_DTpVYDJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DV4KATJCEd2ZOb6R4LLjLA" supplier="_DU-yJTJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DWB7ATJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DWU18TJCEd2ZOb6R4LLjLA" supplier="_DTpVZTJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DWem8TJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DWxh4TJCEd2ZOb6R4LLjLA" supplier="_DUPLQjJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DW7S4TJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DXON0TJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DXXXwTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DXq5wTJCEd2ZOb6R4LLjLA" supplier="_DUGBWDJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DX90sTJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DYHlsTJCEd2ZOb6R4LLjLA" supplier="_DTyfVzJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DYagoTJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DYjqkTJCEd2ZOb6R4LLjLA" supplier="_DUGBUTJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DY3MkTJCEd2ZOb6R4LLjLA" supplier="_DVIjITJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DZAWgTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_DSdCkDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DiZjEDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DiseATJCEd2ZOb6R4LLjLA" supplier="_DVIjITJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Di2PATJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DjcE4TJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Djl14TJCEd2ZOb6R4LLjLA" supplier="_DUGBWDJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dj4w0TJCEd2ZOb6R4LLjLA" supplier="_Dhp8MjJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DkCh0TJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DkVcwTJCEd2ZOb6R4LLjLA" supplier="_DSdCkDJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DkemsTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8MDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dm3MUzJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DnKuUTJCEd2ZOb6R4LLjLA" supplier="_Dlq5gDJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DnnaQTJCEd2ZOb6R4LLjLA" supplier="_DTpVZTJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dn6VMTJCEd2ZOb6R4LLjLA" supplier="_DU-yJTJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DoDfITJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DoXBITJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DogLETJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DoztEjJCEd2ZOb6R4LLjLA" supplier="_Dm3MUDJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Do83ATJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DpPx8TJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DpjT8TJCEd2ZOb6R4LLjLA" supplier="_Dm3MUTJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dpsd4TJCEd2ZOb6R4LLjLA" supplier="_Dm3MUjJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dp__4TJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DqJJ0TJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DqcEwDJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_DTpVYDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DsO0hTJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DshvcTJCEd2ZOb6R4LLjLA" supplier="_DsO0hDJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Ds0qYjJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Ds-bYjJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DtRWUTJCEd2ZOb6R4LLjLA" supplier="_DsO0gTJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DtbHUTJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DtuCQTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dt3zQTJCEd2ZOb6R4LLjLA" supplier="_DsO0gzJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DuKuMTJCEd2ZOb6R4LLjLA" supplier="_DsO0gjJCEd2ZOb6R4LLjLA" client="_Dhp8MTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DvXBBDJCEd2ZOb6R4LLjLA" supplier="_DvXBAjJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dvp78TJCEd2ZOb6R4LLjLA" supplier="_DvNQAzJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dvzs8jJCEd2ZOb6R4LLjLA" supplier="_DvXBADJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DwGn4TJCEd2ZOb6R4LLjLA" supplier="_Du6VFjJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DwQY4TJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DwjT0jJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DwtE0TJCEd2ZOb6R4LLjLA" supplier="_DvXBAzJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DxJwwTJCEd2ZOb6R4LLjLA" supplier="_Du6VETJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DxcrsTJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dxl1oTJCEd2ZOb6R4LLjLA" supplier="_DvXBATJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dx5XoTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8MjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DyfNhzJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8MzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_DyyIcjJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_Dhp8MzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_Dy75cTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_Dhp8MzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D0IMQDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D0bHMTJCEd2ZOb6R4LLjLA" supplier="_DvXBADJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D0k4MTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D1BkITJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D1UfETJCEd2ZOb6R4LLjLA" supplier="_DUGBWDJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D1eQETJCEd2ZOb6R4LLjLA" supplier="_Dhp8MjJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D1naATJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D168ATJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8NDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D321sDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D3__oTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D4ThojJCEd2ZOb6R4LLjLA" supplier="_DvNQAzJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D4vmgTJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D45XgTJCEd2ZOb6R4LLjLA" supplier="_Dm3MUTJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D5MScjJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D5WDcTJCEd2ZOb6R4LLjLA" supplier="_Dhp8MDJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D5o-YTJCEd2ZOb6R4LLjLA" supplier="_Dhp8MjJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D5yvYTJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D6FqUTJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D6PbUTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D6iWQTJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D6sHQTJCEd2ZOb6R4LLjLA" supplier="_DvXBADJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D6_CMTJCEd2ZOb6R4LLjLA" supplier="_Dhp8NjJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D7IMITJCEd2ZOb6R4LLjLA" supplier="_D3tEsDJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D7buIjJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D7k4EjJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_DUGBUTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D_JwgDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D_dSgTJCEd2ZOb6R4LLjLA" supplier="_DVIjITJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D_mccTJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_D_5XYTJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EADIYTJCEd2ZOb6R4LLjLA" supplier="_DTpVYDJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EAWDUTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EAf0UjJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EAyvQTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EA8gQTJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EBPbMTJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EBZMMjJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EBsHITJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EB14ITJCEd2ZOb6R4LLjLA" supplier="_D3tEsDJCEd2ZOb6R4LLjLA" client="_DUGBWDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EFQ_kDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EFj6gTJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EFtrgTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EGKXcTJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EGdSYTJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EGnDYTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EG5-UTJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EHDIQTJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EHWqQTJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EHf0MTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8NTJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EKCK0DJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EKVFwTJCEd2ZOb6R4LLjLA" supplier="_DsO0hDJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EKe2wjJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EKoAsTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ELEsoTJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ELYOoTJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ELhYkTJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EL0TgTJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EL-EgTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8NjJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EODvMDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EOM5ITJCEd2ZOb6R4LLjLA" supplier="_Dlq5gDJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EOgbITJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EOplETJCEd2ZOb6R4LLjLA" supplier="_EN5-MzJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EO9HETJCEd2ZOb6R4LLjLA" supplier="_EN5-NDJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EPGRATJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EPi88TJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EP134jJCEd2ZOb6R4LLjLA" supplier="_EN5-MjJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EP_o4jJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EQSj0TJCEd2ZOb6R4LLjLA" supplier="_EN5-MTJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EQcU0TJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EQvPwTJCEd2ZOb6R4LLjLA" supplier="_EN5-NTJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EQ5AwTJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ERL7sTJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ERVssTJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_Dhp8NzJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ETRmYDJCEd2ZOb6R4LLjLA" supplier="_DU-yITJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ETawUTJCEd2ZOb6R4LLjLA" supplier="_DU-yIDJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_ETuSUTJCEd2ZOb6R4LLjLA" supplier="_DU-yIzJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EUKXMTJCEd2ZOb6R4LLjLA" supplier="_DVIjIjJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EUUIMTJCEd2ZOb6R4LLjLA" supplier="_DU1oMTJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EUnDITJCEd2ZOb6R4LLjLA" supplier="_DU-yJDJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EUw0ITJCEd2ZOb6R4LLjLA" supplier="_DUGBVTJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EVDvETJCEd2ZOb6R4LLjLA" supplier="_DU-yIjJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EVNgETJCEd2ZOb6R4LLjLA" supplier="_DTyfUzJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <uml:Usage xmi:id="_EVgbATJCEd2ZOb6R4LLjLA" supplier="_DT8QUDJCEd2ZOb6R4LLjLA" client="_DhzGIDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f0DJEEd2ZOb6R4LLjLA" base_Element="_gpm_QDJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f0TJEEd2ZOb6R4LLjLA" base_Element="_guhUcTJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f0jJEEd2ZOb6R4LLjLA" base_Element="_gurFcTJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f0zJEEd2ZOb6R4LLjLA" base_Element="_gvQ7UDJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f1DJEEd2ZOb6R4LLjLA" base_Element="_gvkdUDJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f1TJEEd2ZOb6R4LLjLA" base_Element="_gvtnQTJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f1jJEEd2ZOb6R4LLjLA" base_Element="_gv3YQTJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f1zJEEd2ZOb6R4LLjLA" base_Element="_gwBJQTJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f2DJEEd2ZOb6R4LLjLA" base_Element="_gwUEMDJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f2TJEEd2ZOb6R4LLjLA" base_Element="_gwUEMjJBEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f2jJEEd2ZOb6R4LLjLA" base_Element="_DVIjIzJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4f2zJEEd2ZOb6R4LLjLA" base_Usage="_DVbeETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f3DJEEd2ZOb6R4LLjLA" base_Element="_DVbeETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f3TJEEd2ZOb6R4LLjLA" base_Element="_DVlPEjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f3jJEEd2ZOb6R4LLjLA" base_Element="_DV4KATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f3zJEEd2ZOb6R4LLjLA" base_Element="_DWB7ATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f4DJEEd2ZOb6R4LLjLA" base_Element="_DWU18TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f4TJEEd2ZOb6R4LLjLA" base_Element="_DWem8TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f4jJEEd2ZOb6R4LLjLA" base_Element="_DWxh4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f4zJEEd2ZOb6R4LLjLA" base_Element="_DW7S4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f5DJEEd2ZOb6R4LLjLA" base_Element="_DXON0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f5TJEEd2ZOb6R4LLjLA" base_Element="_DXXXwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f5jJEEd2ZOb6R4LLjLA" base_Element="_DXq5wTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f5zJEEd2ZOb6R4LLjLA" base_Element="_DX90sTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f6DJEEd2ZOb6R4LLjLA" base_Element="_DYHlsTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f6TJEEd2ZOb6R4LLjLA" base_Element="_DYagoTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f6jJEEd2ZOb6R4LLjLA" base_Element="_DYjqkTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f6zJEEd2ZOb6R4LLjLA" base_Element="_DY3MkTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f7DJEEd2ZOb6R4LLjLA" base_Element="_DZAWgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f7TJEEd2ZOb6R4LLjLA" base_Element="_DiZjEDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f7jJEEd2ZOb6R4LLjLA" base_Element="_DiseATJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4f7zJEEd2ZOb6R4LLjLA" base_Usage="_Di2PATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f8DJEEd2ZOb6R4LLjLA" base_Element="_Di2PATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f8TJEEd2ZOb6R4LLjLA" base_Element="_DjcE4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f8jJEEd2ZOb6R4LLjLA" base_Element="_Djl14TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f8zJEEd2ZOb6R4LLjLA" base_Element="_Dj4w0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f9DJEEd2ZOb6R4LLjLA" base_Element="_DkCh0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f9TJEEd2ZOb6R4LLjLA" base_Element="_DkVcwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f9jJEEd2ZOb6R4LLjLA" base_Element="_DkemsTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f9zJEEd2ZOb6R4LLjLA" base_Element="_Dm3MUzJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f-DJEEd2ZOb6R4LLjLA" base_Element="_DnKuUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f-TJEEd2ZOb6R4LLjLA" base_Element="_DnnaQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f-jJEEd2ZOb6R4LLjLA" base_Element="_Dn6VMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f-zJEEd2ZOb6R4LLjLA" base_Element="_DoDfITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f_DJEEd2ZOb6R4LLjLA" base_Element="_DoXBITJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4f_TJEEd2ZOb6R4LLjLA" base_Usage="_DogLETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f_jJEEd2ZOb6R4LLjLA" base_Element="_DogLETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4f_zJEEd2ZOb6R4LLjLA" base_Element="_DoztEjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gADJEEd2ZOb6R4LLjLA" base_Element="_Do83ATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gATJEEd2ZOb6R4LLjLA" base_Element="_DpPx8TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gAjJEEd2ZOb6R4LLjLA" base_Element="_DpjT8TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gAzJEEd2ZOb6R4LLjLA" base_Element="_Dpsd4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gBDJEEd2ZOb6R4LLjLA" base_Element="_Dp__4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gBTJEEd2ZOb6R4LLjLA" base_Element="_DqJJ0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gBjJEEd2ZOb6R4LLjLA" base_Element="_DqcEwDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gBzJEEd2ZOb6R4LLjLA" base_Element="_DsO0hTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gCDJEEd2ZOb6R4LLjLA" base_Usage="_DshvcTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gCTJEEd2ZOb6R4LLjLA" base_Element="_DshvcTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gCjJEEd2ZOb6R4LLjLA" base_Usage="_Ds0qYjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gCzJEEd2ZOb6R4LLjLA" base_Element="_Ds0qYjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gDDJEEd2ZOb6R4LLjLA" base_Element="_Ds-bYjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gDTJEEd2ZOb6R4LLjLA" base_Element="_DtRWUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gDjJEEd2ZOb6R4LLjLA" base_Element="_DtbHUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gDzJEEd2ZOb6R4LLjLA" base_Element="_DtuCQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gEDJEEd2ZOb6R4LLjLA" base_Element="_Dt3zQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gETJEEd2ZOb6R4LLjLA" base_Element="_DuKuMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gEjJEEd2ZOb6R4LLjLA" base_Element="_DvXBBDJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gEzJEEd2ZOb6R4LLjLA" base_Usage="_Dvp78TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gFDJEEd2ZOb6R4LLjLA" base_Element="_Dvp78TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gFTJEEd2ZOb6R4LLjLA" base_Element="_Dvzs8jJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gFjJEEd2ZOb6R4LLjLA" base_Element="_DwGn4TJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gFzJEEd2ZOb6R4LLjLA" base_Usage="_DwQY4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gGDJEEd2ZOb6R4LLjLA" base_Element="_DwQY4TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gGTJEEd2ZOb6R4LLjLA" base_Element="_DwjT0jJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gGjJEEd2ZOb6R4LLjLA" base_Element="_DwtE0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gGzJEEd2ZOb6R4LLjLA" base_Element="_DxJwwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gHDJEEd2ZOb6R4LLjLA" base_Element="_DxcrsTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gHTJEEd2ZOb6R4LLjLA" base_Element="_Dxl1oTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gHjJEEd2ZOb6R4LLjLA" base_Element="_Dx5XoTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gHzJEEd2ZOb6R4LLjLA" base_Usage="_DyfNhzJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gIDJEEd2ZOb6R4LLjLA" base_Element="_DyfNhzJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gITJEEd2ZOb6R4LLjLA" base_Element="_DyyIcjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gIjJEEd2ZOb6R4LLjLA" base_Element="_Dy75cTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gIzJEEd2ZOb6R4LLjLA" base_Element="_D0IMQDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gJDJEEd2ZOb6R4LLjLA" base_Element="_D0bHMTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gJTJEEd2ZOb6R4LLjLA" base_Usage="_D0k4MTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gJjJEEd2ZOb6R4LLjLA" base_Element="_D0k4MTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gJzJEEd2ZOb6R4LLjLA" base_Element="_D1BkITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gKDJEEd2ZOb6R4LLjLA" base_Element="_D1UfETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gKTJEEd2ZOb6R4LLjLA" base_Element="_D1eQETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gKjJEEd2ZOb6R4LLjLA" base_Element="_D1naATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gKzJEEd2ZOb6R4LLjLA" base_Element="_D168ATJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gLDJEEd2ZOb6R4LLjLA" base_Element="_D321sDJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gLTJEEd2ZOb6R4LLjLA" base_Usage="_D3__oTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gLjJEEd2ZOb6R4LLjLA" base_Element="_D3__oTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gLzJEEd2ZOb6R4LLjLA" base_Usage="_D4ThojJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gMDJEEd2ZOb6R4LLjLA" base_Element="_D4ThojJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gMTJEEd2ZOb6R4LLjLA" base_Element="_D4vmgTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gMjJEEd2ZOb6R4LLjLA" base_Usage="_D45XgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gMzJEEd2ZOb6R4LLjLA" base_Element="_D45XgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gNDJEEd2ZOb6R4LLjLA" base_Element="_D5MScjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gNTJEEd2ZOb6R4LLjLA" base_Element="_D5WDcTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gNjJEEd2ZOb6R4LLjLA" base_Element="_D5o-YTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gNzJEEd2ZOb6R4LLjLA" base_Element="_D5yvYTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gODJEEd2ZOb6R4LLjLA" base_Element="_D6FqUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gOTJEEd2ZOb6R4LLjLA" base_Element="_D6PbUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gOjJEEd2ZOb6R4LLjLA" base_Element="_D6iWQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gOzJEEd2ZOb6R4LLjLA" base_Element="_D6sHQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gPDJEEd2ZOb6R4LLjLA" base_Element="_D6_CMTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gPTJEEd2ZOb6R4LLjLA" base_Usage="_D7IMITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gPjJEEd2ZOb6R4LLjLA" base_Element="_D7IMITJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gPzJEEd2ZOb6R4LLjLA" base_Usage="_D7buIjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gQDJEEd2ZOb6R4LLjLA" base_Element="_D7buIjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gQTJEEd2ZOb6R4LLjLA" base_Element="_D7k4EjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gQjJEEd2ZOb6R4LLjLA" base_Element="_D_JwgDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gQzJEEd2ZOb6R4LLjLA" base_Element="_D_dSgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gRDJEEd2ZOb6R4LLjLA" base_Element="_D_mccTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gRTJEEd2ZOb6R4LLjLA" base_Element="_D_5XYTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gRjJEEd2ZOb6R4LLjLA" base_Element="_EADIYTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gRzJEEd2ZOb6R4LLjLA" base_Usage="_EAWDUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gSDJEEd2ZOb6R4LLjLA" base_Element="_EAWDUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gSTJEEd2ZOb6R4LLjLA" base_Element="_EAf0UjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gSjJEEd2ZOb6R4LLjLA" base_Element="_EAyvQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gSzJEEd2ZOb6R4LLjLA" base_Element="_EA8gQTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gTDJEEd2ZOb6R4LLjLA" base_Usage="_EBPbMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gTTJEEd2ZOb6R4LLjLA" base_Element="_EBPbMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gTjJEEd2ZOb6R4LLjLA" base_Element="_EBZMMjJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gTzJEEd2ZOb6R4LLjLA" base_Element="_EBsHITJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gUDJEEd2ZOb6R4LLjLA" base_Usage="_EB14ITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gUTJEEd2ZOb6R4LLjLA" base_Element="_EB14ITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gUjJEEd2ZOb6R4LLjLA" base_Element="_EFQ_kDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gUzJEEd2ZOb6R4LLjLA" base_Element="_EFj6gTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gVDJEEd2ZOb6R4LLjLA" base_Usage="_EFtrgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gVTJEEd2ZOb6R4LLjLA" base_Element="_EFtrgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gVjJEEd2ZOb6R4LLjLA" base_Element="_EGKXcTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gVzJEEd2ZOb6R4LLjLA" base_Element="_EGdSYTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gWDJEEd2ZOb6R4LLjLA" base_Element="_EGnDYTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gWTJEEd2ZOb6R4LLjLA" base_Element="_EG5-UTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gWjJEEd2ZOb6R4LLjLA" base_Element="_EHDIQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gWzJEEd2ZOb6R4LLjLA" base_Element="_EHWqQTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gXDJEEd2ZOb6R4LLjLA" base_Element="_EHf0MTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gXTJEEd2ZOb6R4LLjLA" base_Element="_EKCK0DJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gXjJEEd2ZOb6R4LLjLA" base_Usage="_EKVFwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gXzJEEd2ZOb6R4LLjLA" base_Element="_EKVFwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gYDJEEd2ZOb6R4LLjLA" base_Element="_EKe2wjJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gYTJEEd2ZOb6R4LLjLA" base_Usage="_EKoAsTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gYjJEEd2ZOb6R4LLjLA" base_Element="_EKoAsTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gYzJEEd2ZOb6R4LLjLA" base_Element="_ELEsoTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gZDJEEd2ZOb6R4LLjLA" base_Element="_ELYOoTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gZTJEEd2ZOb6R4LLjLA" base_Element="_ELhYkTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gZjJEEd2ZOb6R4LLjLA" base_Element="_EL0TgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gZzJEEd2ZOb6R4LLjLA" base_Element="_EL-EgTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gaDJEEd2ZOb6R4LLjLA" base_Element="_EODvMDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gaTJEEd2ZOb6R4LLjLA" base_Element="_EOM5ITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gajJEEd2ZOb6R4LLjLA" base_Element="_EOgbITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gazJEEd2ZOb6R4LLjLA" base_Element="_EOplETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gbDJEEd2ZOb6R4LLjLA" base_Element="_EO9HETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gbTJEEd2ZOb6R4LLjLA" base_Element="_EPGRATJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gbjJEEd2ZOb6R4LLjLA" base_Usage="_EPi88TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gbzJEEd2ZOb6R4LLjLA" base_Element="_EPi88TJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Import xmi:id="_bJ4gcDJEEd2ZOb6R4LLjLA" base_Usage="_EP134jJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gcTJEEd2ZOb6R4LLjLA" base_Element="_EP134jJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gcjJEEd2ZOb6R4LLjLA" base_Element="_EP_o4jJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gczJEEd2ZOb6R4LLjLA" base_Element="_EQSj0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gdDJEEd2ZOb6R4LLjLA" base_Element="_EQcU0TJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gdTJEEd2ZOb6R4LLjLA" base_Element="_EQvPwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gdjJEEd2ZOb6R4LLjLA" base_Element="_EQ5AwTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gdzJEEd2ZOb6R4LLjLA" base_Element="_ERL7sTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4geDJEEd2ZOb6R4LLjLA" base_Element="_ERVssTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4geTJEEd2ZOb6R4LLjLA" base_Element="_ETRmYDJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gejJEEd2ZOb6R4LLjLA" base_Element="_ETawUTJCEd2ZOb6R4LLjLA"/>
+  <Omondo_1:Omondo__Access xmi:id="_bJ4gezJEEd2ZOb6R4LLjLA" base_Usage="_ETuSUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gfDJEEd2ZOb6R4LLjLA" base_Element="_ETuSUTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gfTJEEd2ZOb6R4LLjLA" base_Element="_EUKXMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gfjJEEd2ZOb6R4LLjLA" base_Element="_EUUIMTJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4gfzJEEd2ZOb6R4LLjLA" base_Element="_EUnDITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4ggDJEEd2ZOb6R4LLjLA" base_Element="_EUw0ITJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4ggTJEEd2ZOb6R4LLjLA" base_Element="_EVDvETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4ggjJEEd2ZOb6R4LLjLA" base_Element="_EVNgETJCEd2ZOb6R4LLjLA"/>
+  <JavaProfile_1:JavaProfile__AutoDetected xmi:id="_bJ4ggzJEEd2ZOb6R4LLjLA" base_Element="_EVgbATJCEd2ZOb6R4LLjLA"/>
+  <uml:Package xmi:id="_bKCQ0DJEEd2ZOb6R4LLjLA" name="MyProfiles">
+    <profileApplication xmi:id="_fU-HnjJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRgDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Archetype.profile.uml#_f6v3QOROEduiB7qvAtFfTA"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Archetype.profile.uml#_j-cLoORNEduiB7qvAtFfTA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRgTJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRgjJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Service_3.2_SN.profile.uml#_6VpgcCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Service_3.2_SN.profile.uml#_RgMRQCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRgzJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRhDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Presentation_3.2_SN.profile.uml#_4Um1wCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Presentation_3.2_SN.profile.uml#_RgVcjiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRhTJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRhjJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Xml_3.2_SN.profile.uml#_7JNEVSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Xml_3.2_SN.profile.uml#_RgVfXCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRhzJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRiDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRiTJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRijJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Meta_3.2_SN.profile.uml#_7sFH4CK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Meta_3.2_SN.profile.uml#_RgVcYiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVHRizJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVHRjDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Webservice_3.2_SN.profile.uml#_6jgWRSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Webservice_3.2_SN.profile.uml#_RgVmWCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRCgDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRCgTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/UML2.profile.uml#_dhEUENSUEdqN9tnr0j3PAQ"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/UML2.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRCgjJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRCgzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Common_3.2_SN.profile.uml#_7hMtlSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Common_3.2_SN.profile.uml#_RgfPHCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRChDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRChTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Meta.profile.uml#_kycnUIE4EduiecUdqhZMrw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Meta.profile.uml#_EJn30IE0EduiecUdqhZMrw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRChjJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRChzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Persistence_3.2_SN.profile.uml#_AevloCK6EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Persistence_3.2_SN.profile.uml#_RgVfdiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRCiDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRCiTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Process_3.2_SN.profile.uml#_7D2DMCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Process_3.2_SN.profile.uml#_RgfOnSK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRCijJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRCizJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo.profile.uml#_zrN_1iUoEdmNXYQzyImvfA"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo.profile.uml#_zrN_0iUoEdmNXYQzyImvfA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_fVRCjDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_fVRCjTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Java.profile.uml#_aZhLlH6MEdmbwasWWc4yvw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Java.profile.uml#_aZhLkH6MEdmbwasWWc4yvw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0CGkTJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0CGkjJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Xml_3.2_SN.profile.uml#_7JNEVSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Xml_3.2_SN.profile.uml#_RgVfXCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0CGkzJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0CGlDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Persistence_3.2_SN.profile.uml#_AevloCK6EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Persistence_3.2_SN.profile.uml#_RgVfdiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3kDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3kTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Meta.profile.uml#_kycnUIE4EduiecUdqhZMrw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Meta.profile.uml#_EJn30IE0EduiecUdqhZMrw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3kjJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3kzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/UML2.profile.uml#_dhEUENSUEdqN9tnr0j3PAQ"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/org.eclipse.uml2.uml.resources/profiles/UML2.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3lDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3lTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Service_3.2_SN.profile.uml#_6VpgcCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Service_3.2_SN.profile.uml#_RgMRQCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3ljJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3lzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Webservice_3.2_SN.profile.uml#_6jgWRSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Webservice_3.2_SN.profile.uml#_RgVmWCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3mDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3mTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo.profile.uml#_zrN_1iUoEdmNXYQzyImvfA"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo.profile.uml#_zrN_0iUoEdmNXYQzyImvfA"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3mjJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3mzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Process_3.2_SN.profile.uml#_7D2DMCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Process_3.2_SN.profile.uml#_RgfOnSK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3nDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3nTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3njJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3nzJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Java.profile.uml#_aZhLlH6MEdmbwasWWc4yvw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Java.profile.uml#_aZhLkH6MEdmbwasWWc4yvw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3oDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3oTJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Presentation_3.2_SN.profile.uml#_4Um1wCK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Presentation_3.2_SN.profile.uml#_RgVcjiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3ojJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0L3ozJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Common_3.2_SN.profile.uml#_7hMtlSK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Common_3.2_SN.profile.uml#_RgfPHCK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0L3pDJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0VokDJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Meta_3.2_SN.profile.uml#_7sFH4CK5EdujMN-Mf6X4Bw"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Omondo_Meta_3.2_SN.profile.uml#_RgVcYiK2Edu07u_JJk0LDQ"/>
+    </profileApplication>
+    <profileApplication xmi:id="_g0VokTJBEd2ZOb6R4LLjLA">
+      <eAnnotations xmi:id="_g0VokjJBEd2ZOb6R4LLjLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="platform:/plugin/com.omondo.uml.core/profiles/Archetype.profile.uml#_f6v3QOROEduiB7qvAtFfTA"/>
+      </eAnnotations>
+      <appliedProfile href="platform:/plugin/com.omondo.uml.core/profiles/Archetype.profile.uml#_j-cLoORNEduiB7qvAtFfTA"/>
+    </profileApplication>
+  </uml:Package>
+</xmi:XMI>

@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<install4j version="8.0.11" transformSequenceNumber="8">
+  <directoryPresets config="D:/git/Monitortool/Metrikanalyser/setup" />
+  <application name="Monitortool/MetrikAnalyser" applicationId="8100-5905-0187-9867" mediaDir="//ds918/Forex/tmp" compression="9" shortName="Metrikanalyser" publisher="Thomas Nickel" publisherWeb="https://monitortool.jimdofree.com/" version="0.1.20.1" autoSave="true" macVolumeId="b47bb94d2307a995" javaMinVersion="1.8" javaMaxVersion="1.8">
+    <searchSequence>
+      <registry />
+      <envVar name="JAVA_HOME" />
+      <envVar name="JDK_HOME" />
+      <directory location="jre1.8.0_251" />
+    </searchSequence>
+  </application>
+  <files>
+    <mountPoints>
+      <mountPoint id="115" />
+    </mountPoints>
+    <entries>
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/jre1.8.0_251" entryMode="subdir" subDirectory="jre1.8.0_251" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/doku" entryMode="subdir" subDirectory="doku" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/data" entryMode="subdir" subDirectory="data" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/SqConfig" overwriteMode="5" overrideOverwriteMode="true" entryMode="subdir" subDirectory="Conf" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/bin" entryMode="subdir" subDirectory="bin" excludeSuffixes="*.conf" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/Tools" entryMode="subdir" subDirectory="Tools" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/AnalysesRoot" entryMode="subdir" subDirectory="AnalysesRoot" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/install" entryMode="subdir" subDirectory="Install" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/logs" entryMode="subdir" subDirectory="logs" />
+      <dirEntry mountPoint="115" file="D:/git/Monitortool/Metrikanalyser/setup/j64_fast" overwriteMode="1" overrideOverwriteMode="true" entryMode="subdir" subDirectory="j64_fast" />
+    </entries>
+  </files>
+  <installerGui>
+    <applications>
+      <application id="installer" beanClass="com.install4j.runtime.beans.applications.InstallerApplication" styleId="41">
+        <serializedBean>
+          <property name="frameHeight" type="int" value="540" />
+          <property name="frameWidth" type="int" value="800" />
+        </serializedBean>
+        <styleOverrides>
+          <styleOverride name="Custom watermark" enabled="true">
+            <formComponent name="Watermark" id="947" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" insetTop="0" insetLeft="5" insetBottom="0" useExternalParametrization="true" externalParametrizationName="Custom watermark" externalParametrizationMode="include">
+              <serializedBean>
+                <property name="enabledTitleText" type="boolean" value="false" />
+                <property name="labelText" type="string">install4j</property>
+              </serializedBean>
+              <externalParametrizationPropertyNames>
+                <propertyName>labelText</propertyName>
+              </externalParametrizationPropertyNames>
+            </formComponent>
+          </styleOverride>
+        </styleOverrides>
+        <startup>
+          <screen id="1" beanClass="com.install4j.runtime.beans.screens.StartupScreen" rollbackBarrierExitCode="0">
+            <actions>
+              <action id="22" beanClass="com.install4j.runtime.beans.actions.misc.RequestPrivilegesAction" actionElevationType="none" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="obtainIfAdminWin" type="boolean" value="false" />
+                </serializedBean>
+              </action>
+            </actions>
+          </screen>
+        </startup>
+        <screens>
+          <screen id="2" beanClass="com.install4j.runtime.beans.screens.WelcomeScreen" styleId="41" rollbackBarrierExitCode="0">
+            <styleOverrides>
+              <styleOverride name="Customize banner image" enabled="true">
+                <group id="640" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
+                  <serializedBean>
+                    <property name="backgroundColor">
+                      <object class="java.awt.Color">
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="borderSides">
+                      <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                        <property name="bottom" type="boolean" value="true" />
+                      </object>
+                    </property>
+                    <property name="imageEdgeBackgroundColor">
+                      <object class="java.awt.Color">
+                        <int>25</int>
+                        <int>143</int>
+                        <int>220</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="imageEdgeBorder" type="boolean" value="true" />
+                    <property name="imageFile">
+                      <object class="com.install4j.api.beans.ExternalFile">
+                        <string>D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures/metrikanalyser.png</string>
+                      </object>
+                    </property>
+                    <property name="insets">
+                      <object class="java.awt.Insets">
+                        <int>5</int>
+                        <int>10</int>
+                        <int>10</int>
+                        <int>10</int>
+                      </object>
+                    </property>
+                  </serializedBean>
+                  <externalParametrizationPropertyNames>
+                    <propertyName>imageAnchor</propertyName>
+                    <propertyName>imageEdgeBackgroundColor</propertyName>
+                    <propertyName>imageFile</propertyName>
+                  </externalParametrizationPropertyNames>
+                </group>
+              </styleOverride>
+            </styleOverrides>
+            <actions>
+              <action id="7" beanClass="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction" rollbackBarrierExitCode="0" multiExec="true">
+                <serializedBean>
+                  <property name="excludedVariables" type="array" elementType="string" length="1">
+                    <element index="0">sys.installationDir</element>
+                  </property>
+                </serializedBean>
+                <condition>context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
+              </action>
+            </actions>
+            <formComponents>
+              <formComponent id="3" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent">
+                <serializedBean>
+                  <property name="labelText" type="string">${form:welcomeMessage}</property>
+                </serializedBean>
+                <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent id="4" beanClass="com.install4j.runtime.beans.formcomponents.ConsoleHandlerFormComponent">
+                <serializedBean>
+                  <property name="consoleScript">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">String message = context.getMessage("ConsoleWelcomeLabel", context.getApplicationName());
+return console.askOkCancel(message, true);
+</property>
+                    </object>
+                  </property>
+                </serializedBean>
+              </formComponent>
+              <formComponent id="5" beanClass="com.install4j.runtime.beans.formcomponents.UpdateAlertComponent" useExternalParametrization="true" externalParametrizationName="Update Alert" externalParametrizationMode="include">
+                <externalParametrizationPropertyNames>
+                  <propertyName>updateCheck</propertyName>
+                </externalParametrizationPropertyNames>
+              </formComponent>
+              <formComponent id="6" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetTop="20">
+                <serializedBean>
+                  <property name="labelText" type="string">${i18n:ClickNext}</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="8" beanClass="com.install4j.runtime.beans.screens.InstallationDirectoryScreen" styleId="41" rollbackBarrierExitCode="0">
+            <styleOverrides>
+              <styleOverride name="Customize banner image" enabled="true">
+                <group id="949" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
+                  <serializedBean>
+                    <property name="backgroundColor">
+                      <object class="java.awt.Color">
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="borderSides">
+                      <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                        <property name="bottom" type="boolean" value="true" />
+                      </object>
+                    </property>
+                    <property name="imageEdgeBackgroundColor">
+                      <object class="java.awt.Color">
+                        <int>25</int>
+                        <int>143</int>
+                        <int>220</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="imageEdgeBorder" type="boolean" value="true" />
+                    <property name="imageFile">
+                      <object class="com.install4j.api.beans.ExternalFile">
+                        <string>D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures/metrikanalyser_small_h.png</string>
+                      </object>
+                    </property>
+                    <property name="insets">
+                      <object class="java.awt.Insets">
+                        <int>5</int>
+                        <int>10</int>
+                        <int>10</int>
+                        <int>10</int>
+                      </object>
+                    </property>
+                  </serializedBean>
+                  <externalParametrizationPropertyNames>
+                    <propertyName>imageAnchor</propertyName>
+                    <propertyName>imageEdgeBackgroundColor</propertyName>
+                    <propertyName>imageFile</propertyName>
+                  </externalParametrizationPropertyNames>
+                </group>
+              </styleOverride>
+            </styleOverrides>
+            <condition>!context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
+            <actions>
+              <action id="11" beanClass="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction" rollbackBarrierExitCode="0" multiExec="true">
+                <serializedBean>
+                  <property name="excludedVariables" type="array" elementType="string" length="1">
+                    <element index="0">sys.installationDir</element>
+                  </property>
+                </serializedBean>
+                <condition>context.getVariable("sys.responseFile") == null</condition>
+              </action>
+            </actions>
+            <formComponents>
+              <formComponent id="9" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="25">
+                <serializedBean>
+                  <property name="labelText" type="string">${i18n:SelectDirLabel(${compiler:sys.fullName})}</property>
+                </serializedBean>
+              </formComponent>
+              <formComponent id="10" beanClass="com.install4j.runtime.beans.formcomponents.InstallationDirectoryChooserComponent" useExternalParametrization="true" externalParametrizationName="Installation Directory Chooser" externalParametrizationMode="include">
+                <serializedBean>
+                  <property name="allowSpacesOnUnix" type="boolean" value="true" />
+                  <property name="requestFocus" type="boolean" value="true" />
+                </serializedBean>
+                <initScript>String instdir=(String)context.getVariable("sys.installationDir");
+
+
+String winprgdir=(String)context.getVariable("sys.programFilesDir");
+String windprgdata=(String)context.getVariable("sys.programDataDir");
+
+if((instdir.contains(winprgdir))||(instdir.contains(windprgdata)))
+ {
+   Util.showMessage("Please don´t install Toolbox into the windows dir, please use different dir for example c:\\Forex\\Metrikanalyser");
+   instdir="C:\\Forex\\Metrikanalyser"; 
+ }
+
+configurationObject.setText(instdir);
+
+</initScript>
+                <externalParametrizationPropertyNames>
+                  <propertyName>suggestAppDir</propertyName>
+                  <propertyName>validateApplicationId</propertyName>
+                  <propertyName>existingDirWarning</propertyName>
+                  <propertyName>checkWritable</propertyName>
+                  <propertyName>manualEntryAllowed</propertyName>
+                  <propertyName>checkFreeSpace</propertyName>
+                  <propertyName>showRequiredDiskSpace</propertyName>
+                  <propertyName>showFreeDiskSpace</propertyName>
+                  <propertyName>allowSpacesOnUnix</propertyName>
+                  <propertyName>validationScript</propertyName>
+                  <propertyName>standardValidation</propertyName>
+                </externalParametrizationPropertyNames>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="929" beanClass="com.install4j.runtime.beans.screens.AdditionalConfirmationsScreen" styleId="41" rollbackBarrierExitCode="0">
+            <styleOverrides>
+              <styleOverride name="Customize banner image" enabled="true">
+                <group id="950" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
+                  <serializedBean>
+                    <property name="backgroundColor">
+                      <object class="java.awt.Color">
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="borderSides">
+                      <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                        <property name="bottom" type="boolean" value="true" />
+                      </object>
+                    </property>
+                    <property name="imageEdgeBackgroundColor">
+                      <object class="java.awt.Color">
+                        <int>25</int>
+                        <int>143</int>
+                        <int>220</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="imageEdgeBorder" type="boolean" value="true" />
+                    <property name="imageFile">
+                      <object class="com.install4j.api.beans.ExternalFile">
+                        <string>D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures/metrikanalyser_small_h.png</string>
+                      </object>
+                    </property>
+                    <property name="insets">
+                      <object class="java.awt.Insets">
+                        <int>5</int>
+                        <int>10</int>
+                        <int>10</int>
+                        <int>10</int>
+                      </object>
+                    </property>
+                  </serializedBean>
+                  <externalParametrizationPropertyNames>
+                    <propertyName>imageAnchor</propertyName>
+                    <propertyName>imageEdgeBackgroundColor</propertyName>
+                    <propertyName>imageFile</propertyName>
+                  </externalParametrizationPropertyNames>
+                </group>
+              </styleOverride>
+            </styleOverrides>
+            <formComponents>
+              <formComponent name="Copy SQ userdata too" id="934" beanClass="com.install4j.runtime.beans.formcomponents.CheckboxComponent">
+                <serializedBean>
+                  <property name="checkboxText" type="string">Install Metrikanalyser Demo1</property>
+                  <property name="initiallySelected" type="boolean" value="true" />
+                  <property name="variableName" type="string">SQ.copyExample</property>
+                </serializedBean>
+              </formComponent>
+              <formComponent id="933" beanClass="com.install4j.runtime.beans.formcomponents.DirectoryChooserComponent">
+                <serializedBean>
+                  <property name="allowEmpty" type="boolean" value="true" />
+                  <property name="directoryDescription" type="string">Set SQX installation Directory</property>
+                  <property name="initialBrowserDirectory" type="string">c:\Forex</property>
+                  <property name="manualEntryAllowed" type="boolean" value="false" />
+                  <property name="nextOnEnter" type="boolean" value="true" />
+                  <property name="standardValidation" type="boolean" value="false" />
+                  <property name="validationScript">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">String sqroot=(String)file.toString();
+
+
+File sqroot_f=new File(sqroot);
+if(sqroot_f.isDirectory()==false)
+ {
+   Util.showMessage("E: not a valid directory &lt;"+sqroot_f.getPath()+"&gt;");
+   return false;
+ }
+ 
+
+File lic_f=new File(sqroot+"\\StrategyQuantX.exe");
+if(lic_f.isFile()==false)
+ {
+   Util.showMessage("E: StrategyQuantX.exe is missing in &lt;"+sqroot_f.getPath()+"&gt;");
+   return false;
+ }
+ 
+ 
+ 
+ return true;
+ </property>
+                    </object>
+                  </property>
+                  <property name="variableName" type="string">SqxRootDirectory</property>
+                </serializedBean>
+              </formComponent>
+              <formComponent name="Info" id="930" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10" useExternalParametrization="true" externalParametrizationName="Install Demo">
+                <serializedBean>
+                  <property name="labelText" type="string">If you click "Install Metrikanalyser Demo1" a Demo1 will be installed.
+You should give me the path of you SQX installation.
+ 
+The Installer do in this case two steps.
+1) Installs a additional Workflow "Metrikanalyser Demo01" in your slected SQX 
+2) Installs an additional View "Metrik2" in you selected SQX
+3) Install some Demonstratiofiles in Metrikanalyesr under C:\Forex\Metrikanalyser\AnalysesRoot\AnalyseDemo1</property>
+                </serializedBean>
+                <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent id="938" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" />
+            </formComponents>
+          </screen>
+          <screen id="15" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true" rollbackBarrierExitCode="0">
+            <actions>
+              <action name="check tmp-dir" id="752" beanClass="com.install4j.runtime.beans.actions.control.RunScriptAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true" failureStrategy="askQuit" errorMessage="Error: not possible to create c:\tmp directory, Metrikanalyser need c:\tmp">
+                <serializedBean>
+                  <property name="script">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">//check c:/tmp-dir
+File tmpdir_f=new File("c:\\tmp");
+if(tmpdir_f.exists()==false)
+  return(tmpdir_f.mkdir());
+
+
+return true; </property>
+                    </object>
+                  </property>
+                </serializedBean>
+              </action>
+              <action id="17" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
+              <action id="116" beanClass="com.install4j.runtime.beans.actions.text.ReplaceInstallerVariablesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="askQuit">
+                <serializedBean>
+                  <property name="failIfNoReplacement" type="boolean" value="true" />
+                  <property name="files" type="array" class="java.io.File" length="2">
+                    <element index="0">
+                      <object class="java.io.File">
+                        <string>${installer:sys.installationDir}/bin/startmetrikanalyser.bat</string>
+                      </object>
+                    </element>
+                    <element index="1">
+                      <object class="java.io.File">
+                        <string>${installer:sys.installationDir}/bin/startmetrikanalyser_debug.bat</string>
+                      </object>
+                    </element>
+                  </property>
+                </serializedBean>
+              </action>
+              <action id="19" beanClass="com.install4j.runtime.beans.actions.desktop.RegisterAddRemoveAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="itemName" type="string">${compiler:sys.fullName} ${compiler:sys.version}</property>
+                </serializedBean>
+              </action>
+              <action id="927" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0" multiExec="true">
+                <serializedBean>
+                  <property name="allUsers" type="boolean" value="true" />
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/startMetrikanalyser.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">${compiler:sys.fullName}MetrikAnalyser</property>
+                </serializedBean>
+              </action>
+              <action id="928" beanClass="com.install4j.runtime.beans.actions.desktop.CreateDesktopLinkAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="file">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin/startMetrikAnalyser.bat</string>
+                    </object>
+                  </property>
+                  <property name="name" type="string">Start MetrikAnalyser</property>
+                  <property name="runAsAdministrator" type="boolean" value="true" />
+                </serializedBean>
+              </action>
+              <group name="InstallDemo1" id="943" beanClass="com.install4j.runtime.beans.groups.ActionGroup">
+                <serializedBean>
+                  <property name="conditionExpression">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">return(context.getBooleanVariable("SQ.copyExample"));</property>
+                    </object>
+                  </property>
+                  <property name="defaultErrorMessage" type="string">Errror installing Demodata Demo1</property>
+                </serializedBean>
+                <beans>
+                  <action id="942" beanClass="com.install4j.runtime.beans.actions.misc.CheckRunningProcessesAction" actionElevationType="none" rollbackBarrierExitCode="0" failureStrategy="quit">
+                    <serializedBean>
+                      <property name="additionalExecutables" type="array" class="java.io.File" length="2">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>StrategyQuantX.exe</string>
+                          </object>
+                        </element>
+                        <element index="1">
+                          <object class="java.io.File">
+                            <string>StrategyQuantX_nocheck.exe</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="closeStrategy" type="enum" class="com.install4j.runtime.beans.actions.misc.CloseStrategy" value="ASK_ONLY" />
+                    </serializedBean>
+                  </action>
+                  <action name="Copy users demo1" id="939" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                    <serializedBean>
+                      <property name="destinationFile">
+                        <object class="java.io.File">
+                          <string>${installer:SqxRootDirectory}/user/projects</string>
+                        </object>
+                      </property>
+                      <property name="files" type="array" class="java.io.File" length="1">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>${installer:sys.installationDir}/install/ExampleWorkflows</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="showProgress" type="boolean" value="true" />
+                    </serializedBean>
+                  </action>
+                  <action name="Copy Views" id="941" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                    <serializedBean>
+                      <property name="destinationFile">
+                        <object class="java.io.File">
+                          <string>${installer:SqxRootDirectory}/user/settings/views/databanks</string>
+                        </object>
+                      </property>
+                      <property name="files" type="array" class="java.io.File" length="1">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>${installer:sys.installationDir}/install/Views</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="NEVER" />
+                      <property name="showProgress" type="boolean" value="true" />
+                    </serializedBean>
+                  </action>
+                  <action name="Copy config Demo1" id="944" beanClass="com.install4j.runtime.beans.actions.files.CopyFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                    <serializedBean>
+                      <property name="destinationFile">
+                        <object class="java.io.File">
+                          <string>${installer:sys.installationDir}/Conf</string>
+                        </object>
+                      </property>
+                      <property name="files" type="array" class="java.io.File" length="1">
+                        <element index="0">
+                          <object class="java.io.File">
+                            <string>${installer:sys.installationDir}/install/Conf</string>
+                          </object>
+                        </element>
+                      </property>
+                      <property name="overwriteMode" type="enum" class="com.install4j.api.context.OverwriteMode" value="NEVER" />
+                      <property name="showProgress" type="boolean" value="true" />
+                    </serializedBean>
+                  </action>
+                </beans>
+              </group>
+            </actions>
+            <formComponents>
+              <formComponent id="16" beanClass="com.install4j.runtime.beans.formcomponents.ProgressComponent">
+                <serializedBean>
+                  <property name="initialStatusMessage" type="string">${i18n:WizardPreparing}</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="20" beanClass="com.install4j.runtime.beans.screens.FinishedScreen" styleId="41" rollbackBarrierExitCode="0" finishScreen="true">
+            <styleOverrides>
+              <styleOverride name="Customize banner image" enabled="true">
+                <group id="945" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
+                  <serializedBean>
+                    <property name="backgroundColor">
+                      <object class="java.awt.Color">
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="borderSides">
+                      <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                        <property name="bottom" type="boolean" value="true" />
+                      </object>
+                    </property>
+                    <property name="imageAnchor" type="enum" class="com.install4j.api.beans.Anchor" value="NORTH" />
+                    <property name="imageEdgeBackgroundColor">
+                      <object class="java.awt.Color">
+                        <int>153</int>
+                        <int>153</int>
+                        <int>153</int>
+                        <int>255</int>
+                      </object>
+                    </property>
+                    <property name="imageEdgeBorder" type="boolean" value="true" />
+                    <property name="imageFile">
+                      <object class="com.install4j.api.beans.ExternalFile">
+                        <string>D:/git/Monitortool/Metrikanalyser/install4j/pictures/task completed2.PNG</string>
+                      </object>
+                    </property>
+                    <property name="insets">
+                      <object class="java.awt.Insets">
+                        <int>5</int>
+                        <int>10</int>
+                        <int>10</int>
+                        <int>10</int>
+                      </object>
+                    </property>
+                  </serializedBean>
+                  <externalParametrizationPropertyNames>
+                    <propertyName>imageAnchor</propertyName>
+                    <propertyName>imageEdgeBackgroundColor</propertyName>
+                    <propertyName>imageFile</propertyName>
+                  </externalParametrizationPropertyNames>
+                </group>
+              </styleOverride>
+            </styleOverrides>
+            <formComponents>
+              <formComponent id="21" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
+                <serializedBean>
+                  <property name="labelText" type="string">${form:finishedMessage}</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+        </screens>
+      </application>
+      <application id="uninstaller" beanClass="com.install4j.runtime.beans.applications.UninstallerApplication">
+        <serializedBean>
+          <property name="customMacosExecutableName" type="string">${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</property>
+          <property name="useCustomMacosExecutableName" type="boolean" value="true" />
+        </serializedBean>
+        <startup>
+          <screen id="23" beanClass="com.install4j.runtime.beans.screens.StartupScreen" rollbackBarrierExitCode="0">
+            <actions>
+              <action id="33" beanClass="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction" rollbackBarrierExitCode="0" />
+              <action id="34" beanClass="com.install4j.runtime.beans.actions.misc.RequireInstallerPrivilegesAction" actionElevationType="none" rollbackBarrierExitCode="0" />
+            </actions>
+          </screen>
+        </startup>
+        <screens>
+          <screen id="24" beanClass="com.install4j.runtime.beans.screens.UninstallWelcomeScreen" styleId="41" rollbackBarrierExitCode="0">
+            <formComponents>
+              <formComponent id="25" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
+                <serializedBean>
+                  <property name="labelText" type="string">${form:welcomeMessage}</property>
+                </serializedBean>
+                <visibilityScript>!context.isConsole()</visibilityScript>
+              </formComponent>
+              <formComponent id="26" beanClass="com.install4j.runtime.beans.formcomponents.ConsoleHandlerFormComponent">
+                <serializedBean>
+                  <property name="consoleScript">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <property name="value" type="string">String message = context.getMessage("ConfirmUninstall", context.getApplicationName());
+return console.askYesNo(message, true);
+</property>
+                    </object>
+                  </property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="27" beanClass="com.install4j.runtime.beans.screens.UninstallationScreen" rollbackBarrierExitCode="0">
+            <actions>
+              <action id="29" beanClass="com.install4j.runtime.beans.actions.UninstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" />
+            </actions>
+            <formComponents>
+              <formComponent id="28" beanClass="com.install4j.runtime.beans.formcomponents.ProgressComponent">
+                <serializedBean>
+                  <property name="initialStatusMessage" type="string">${i18n:UninstallerPreparing}</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+          <screen id="32" beanClass="com.install4j.runtime.beans.screens.UninstallFailureScreen" rollbackBarrierExitCode="0" finishScreen="true" />
+          <screen id="30" beanClass="com.install4j.runtime.beans.screens.UninstallSuccessScreen" styleId="41" rollbackBarrierExitCode="0" finishScreen="true">
+            <formComponents>
+              <formComponent id="31" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
+                <serializedBean>
+                  <property name="labelText" type="string">${form:successMessage}</property>
+                </serializedBean>
+              </formComponent>
+            </formComponents>
+          </screen>
+        </screens>
+      </application>
+    </applications>
+    <styles defaultStyleId="41">
+      <style name="Standard" id="35" beanClass="com.install4j.runtime.beans.styles.FormStyle">
+        <formComponents>
+          <formComponent name="Header" id="36" beanClass="com.install4j.runtime.beans.styles.NestedStyleComponent" insetTop="0" insetBottom="0">
+            <serializedBean>
+              <property name="styleId" type="string">48</property>
+            </serializedBean>
+          </formComponent>
+          <group name="Main" id="37" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup">
+            <serializedBean>
+              <property name="imageFile">
+                <object class="com.install4j.api.beans.ExternalFile">
+                  <string>D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures/metrikanalyser_small_h.png</string>
+                </object>
+              </property>
+            </serializedBean>
+            <beans>
+              <formComponent id="38" beanClass="com.install4j.runtime.beans.styles.ContentComponent" insetTop="10" insetLeft="20" insetBottom="10" insetRight="20" />
+              <formComponent name="Watermark" id="39" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" insetTop="0" insetLeft="5" insetBottom="0" useExternalParametrization="true" externalParametrizationName="Custom watermark" externalParametrizationMode="include">
+                <serializedBean>
+                  <property name="enabledTitleText" type="boolean" value="false" />
+                  <property name="labelText" type="string">install4j</property>
+                </serializedBean>
+                <externalParametrizationPropertyNames>
+                  <propertyName>labelText</propertyName>
+                </externalParametrizationPropertyNames>
+              </formComponent>
+              <formComponent name="Footer" id="40" beanClass="com.install4j.runtime.beans.styles.NestedStyleComponent" insetTop="0" insetBottom="0">
+                <serializedBean>
+                  <property name="styleId" type="string">52</property>
+                </serializedBean>
+              </formComponent>
+            </beans>
+          </group>
+        </formComponents>
+      </style>
+      <style name="Banner" id="41" beanClass="com.install4j.runtime.beans.styles.FormStyle">
+        <formComponents>
+          <group id="42" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize banner image" externalParametrizationMode="include">
+            <serializedBean>
+              <property name="backgroundColor">
+                <object class="java.awt.Color">
+                  <int>255</int>
+                  <int>255</int>
+                  <int>255</int>
+                  <int>255</int>
+                </object>
+              </property>
+              <property name="borderSides">
+                <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                  <property name="bottom" type="boolean" value="true" />
+                </object>
+              </property>
+              <property name="imageEdgeBackgroundColor">
+                <object class="java.awt.Color">
+                  <int>25</int>
+                  <int>143</int>
+                  <int>220</int>
+                  <int>255</int>
+                </object>
+              </property>
+              <property name="imageEdgeBorder" type="boolean" value="true" />
+              <property name="imageFile">
+                <object class="com.install4j.api.beans.ExternalFile">
+                  <string>D:/git/Monitortool/Metrikanalyser/setup/install4j/pictures/metrikanalyser_small_h.png</string>
+                </object>
+              </property>
+              <property name="insets">
+                <object class="java.awt.Insets">
+                  <int>5</int>
+                  <int>10</int>
+                  <int>10</int>
+                  <int>10</int>
+                </object>
+              </property>
+            </serializedBean>
+            <beans>
+              <formComponent id="43" beanClass="com.install4j.runtime.beans.styles.ScreenTitleComponent" insetTop="0">
+                <serializedBean>
+                  <property name="labelFontSizePercent" type="int" value="130" />
+                  <property name="labelFontStyle" type="enum" class="com.install4j.runtime.beans.formcomponents.FontStyle" value="BOLD" />
+                  <property name="labelFontType" type="enum" class="com.install4j.runtime.beans.formcomponents.FontType" value="DERIVED" />
+                </serializedBean>
+              </formComponent>
+              <formComponent id="44" beanClass="com.install4j.runtime.beans.formcomponents.SeparatorComponent" />
+              <formComponent id="45" beanClass="com.install4j.runtime.beans.styles.ContentComponent" insetTop="10" insetBottom="0" />
+            </beans>
+            <externalParametrizationPropertyNames>
+              <propertyName>imageAnchor</propertyName>
+              <propertyName>imageEdgeBackgroundColor</propertyName>
+              <propertyName>imageFile</propertyName>
+            </externalParametrizationPropertyNames>
+          </group>
+          <formComponent id="46" beanClass="com.install4j.runtime.beans.styles.NestedStyleComponent" insetBottom="0">
+            <serializedBean>
+              <property name="styleId" type="string">52</property>
+            </serializedBean>
+          </formComponent>
+        </formComponents>
+      </style>
+      <group name="Style components" id="47" beanClass="com.install4j.runtime.beans.groups.StyleGroup">
+        <beans>
+          <style name="Standard header" id="48" beanClass="com.install4j.runtime.beans.styles.FormStyle">
+            <serializedBean>
+              <property name="fillVertical" type="boolean" value="false" />
+              <property name="standalone" type="boolean" value="false" />
+              <property name="verticalAnchor" type="enum" class="com.install4j.api.beans.Anchor" value="NORTH" />
+            </serializedBean>
+            <formComponents>
+              <group id="49" beanClass="com.install4j.runtime.beans.groups.VerticalFormComponentGroup" useExternalParametrization="true" externalParametrizationName="Customize title bar" externalParametrizationMode="include">
+                <serializedBean>
+                  <property name="backgroundColor">
+                    <object class="java.awt.Color">
+                      <int>255</int>
+                      <int>255</int>
+                      <int>255</int>
+                      <int>255</int>
+                    </object>
+                  </property>
+                  <property name="borderSides">
+                    <object class="com.install4j.runtime.beans.formcomponents.BorderSides">
+                      <property name="bottom" type="boolean" value="true" />
+                    </object>
+                  </property>
+                  <property name="imageAnchor" type="enum" class="com.install4j.api.beans.Anchor" value="NORTHEAST" />
+                  <property name="imageEdgeBorderWidth" type="int" value="2" />
+                  <property name="imageFile">
+                    <object class="com.install4j.api.beans.ExternalFile">
+                      <string>icon:${installer:sys.installerApplicationMode}_header.png</string>
+                    </object>
+                  </property>
+                  <property name="imageInsets">
+                    <object class="java.awt.Insets">
+                      <int>0</int>
+                      <int>5</int>
+                      <int>1</int>
+                      <int>1</int>
+                    </object>
+                  </property>
+                  <property name="insets">
+                    <object class="java.awt.Insets">
+                      <int>0</int>
+                      <int>20</int>
+                      <int>0</int>
+                      <int>10</int>
+                    </object>
+                  </property>
+                </serializedBean>
+                <beans>
+                  <formComponent name="Title" id="50" beanClass="com.install4j.runtime.beans.styles.ScreenTitleComponent">
+                    <serializedBean>
+                      <property name="labelFontStyle" type="enum" class="com.install4j.runtime.beans.formcomponents.FontStyle" value="BOLD" />
+                      <property name="labelFontType" type="enum" class="com.install4j.runtime.beans.formcomponents.FontType" value="DERIVED" />
+                    </serializedBean>
+                  </formComponent>
+                  <formComponent name="Subtitle" id="51" beanClass="com.install4j.runtime.beans.styles.ScreenTitleComponent" insetLeft="8">
+                    <serializedBean>
+                      <property name="titleType" type="enum" class="com.install4j.runtime.beans.styles.TitleType" value="SUB_TITLE" />
+                    </serializedBean>
+                  </formComponent>
+                </beans>
+                <externalParametrizationPropertyNames>
+                  <propertyName>backgroundColor</propertyName>
+                  <propertyName>foregroundColor</propertyName>
+                  <propertyName>imageAnchor</propertyName>
+                  <propertyName>imageFile</propertyName>
+                  <propertyName>imageOverlap</propertyName>
+                </externalParametrizationPropertyNames>
+              </group>
+            </formComponents>
+          </style>
+          <style name="Standard footer" id="52" beanClass="com.install4j.runtime.beans.styles.FormStyle">
+            <serializedBean>
+              <property name="fillVertical" type="boolean" value="false" />
+              <property name="standalone" type="boolean" value="false" />
+              <property name="verticalAnchor" type="enum" class="com.install4j.api.beans.Anchor" value="SOUTH" />
+            </serializedBean>
+            <formComponents>
+              <group id="53" beanClass="com.install4j.runtime.beans.groups.HorizontalFormComponentGroup">
+                <serializedBean>
+                  <property name="alignFirstLabel" type="boolean" value="false" />
+                  <property name="insets">
+                    <object class="java.awt.Insets">
+                      <int>3</int>
+                      <int>5</int>
+                      <int>8</int>
+                      <int>5</int>
+                    </object>
+                  </property>
+                </serializedBean>
+                <beans>
+                  <formComponent id="54" beanClass="com.install4j.runtime.beans.formcomponents.SpringComponent" />
+                  <formComponent name="Back button" id="55" beanClass="com.install4j.runtime.beans.styles.StandardControlButtonComponent">
+                    <serializedBean>
+                      <property name="buttonText" type="string">&lt; ${i18n:ButtonBack}</property>
+                      <property name="controlButtonType" type="enum" class="com.install4j.api.context.ControlButtonType" value="PREVIOUS" />
+                    </serializedBean>
+                  </formComponent>
+                  <formComponent name="Next button" id="56" beanClass="com.install4j.runtime.beans.styles.StandardControlButtonComponent">
+                    <serializedBean>
+                      <property name="buttonText" type="string">${i18n:ButtonNext} &gt;</property>
+                      <property name="controlButtonType" type="enum" class="com.install4j.api.context.ControlButtonType" value="NEXT" />
+                    </serializedBean>
+                  </formComponent>
+                  <formComponent name="Cancel button" id="57" beanClass="com.install4j.runtime.beans.styles.StandardControlButtonComponent" insetLeft="5">
+                    <serializedBean>
+                      <property name="buttonText" type="string">${i18n:ButtonCancel}</property>
+                      <property name="controlButtonType" type="enum" class="com.install4j.api.context.ControlButtonType" value="CANCEL" />
+                    </serializedBean>
+                  </formComponent>
+                </beans>
+              </group>
+            </formComponents>
+          </style>
+        </beans>
+      </group>
+    </styles>
+  </installerGui>
+  <mediaSets>
+    <windows name="Windows" id="58">
+      <jreBundle usePack200="false" jreBundleSource="preCreated" includedJre="C:/Users/Thomas Nickel/.install4j8/jres/windows-amd64-1.8.0_251.tar.gz" manualJreEntry="true" />
+    </windows>
+  </mediaSets>
+</install4j>
