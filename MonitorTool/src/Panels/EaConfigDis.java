@@ -131,12 +131,13 @@ public class EaConfigDis extends javax.swing.JPanel
 		{
 			eaconf_glob = eaconf;
 			this.setLayout(new BorderLayout(0, 4));
+			this.setBackground(new Color(37, 45, 62));
 			this.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 			
 			// === TOP: Connection Status ===
 			jTextField1connection = new JTextField();
 			jTextField1connection.setFont(new Font("Segoe UI", Font.BOLD, 14));
-			jTextField1connection.setBackground(new Color(60, 63, 65));
+			jTextField1connection.setBackground(new Color(27, 33, 48));
 			jTextField1connection.setForeground(Color.WHITE);
 			jTextField1connection.setHorizontalAlignment(JTextField.CENTER);
 			jTextField1connection.setEditable(false);
@@ -144,12 +145,13 @@ public class EaConfigDis extends javax.swing.JPanel
 			
 			// === CENTER: Info Fields ===
 			JPanel centerPanel = new JPanel(new GridBagLayout());
+			centerPanel.setBackground(new Color(37, 45, 62));
 			centerPanel.setBorder(BorderFactory.createTitledBorder(
-					BorderFactory.createLineBorder(new Color(150, 150, 150)),
+					BorderFactory.createLineBorder(new Color(70, 90, 120)),
 					"EA Configuration",
 					TitledBorder.LEFT, TitledBorder.TOP,
 					new Font("Segoe UI", Font.BOLD, 11),
-					new Color(70, 70, 70)));
+					new Color(140, 165, 200)));
 			
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.insets = new Insets(2, 6, 2, 6);
@@ -263,6 +265,7 @@ public class EaConfigDis extends javax.swing.JPanel
 			
 			// === BOTTOM: Action Buttons ===
 			JPanel bottomPanel = new JPanel(new GridBagLayout());
+			bottomPanel.setBackground(new Color(37, 45, 62));
 			bottomPanel.setBorder(BorderFactory.createEmptyBorder(4, 0, 0, 0));
 			GridBagConstraints bgbc = new GridBagConstraints();
 			bgbc.insets = new Insets(2, 4, 2, 4);
@@ -315,6 +318,25 @@ public class EaConfigDis extends javax.swing.JPanel
 			bgbc.gridwidth = 1;
 			
 			this.add(bottomPanel, BorderLayout.SOUTH);
+			
+			// Apply Financial Blue theme to all labels
+			java.awt.Color labelFg = new Color(200, 210, 225);
+			java.awt.Color fieldBg = new Color(232, 236, 240);
+			java.awt.Color fieldFg = new Color(20, 25, 35);
+			java.awt.Color btnBg = new Color(184, 204, 228);
+			java.awt.Color btnFg = new Color(20, 25, 35);
+			
+			for (java.awt.Component comp : centerPanel.getComponents()) {
+				if (comp instanceof JLabel) { comp.setForeground(labelFg); }
+				if (comp instanceof JTextField) { comp.setBackground(fieldBg); comp.setForeground(fieldFg); }
+				if (comp instanceof JButton) { comp.setBackground(btnBg); comp.setForeground(btnFg); }
+			}
+			for (java.awt.Component comp : bottomPanel.getComponents()) {
+				if (comp instanceof JLabel) { comp.setForeground(labelFg); }
+				if (comp instanceof JTextField) { comp.setBackground(fieldBg); comp.setForeground(fieldFg); }
+				if (comp instanceof JButton) { comp.setBackground(btnBg); comp.setForeground(btnFg); }
+			}
+			jLabel6locked.setForeground(new Color(255, 80, 80));
 			
 			init();
 		} catch (Exception e)
@@ -542,7 +564,7 @@ public class EaConfigDis extends javax.swing.JPanel
 		
 		if (ea_glob.getOn() == 1)
 		{
-			Tracer.WriteTrace(10, "Error: can´t delete EA because it is connected to realaccount");
+			Tracer.WriteTrace(10, "Error: canÂ´t delete EA because it is connected to realaccount");
 		}else  
 		if(meconf.getAccounttype()==4)
 		{

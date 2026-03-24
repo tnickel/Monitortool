@@ -636,11 +636,6 @@ public class Installer
 			Metaconfig meRealconf, Ealiste eal)
 	{
 		
-		// quellnam: B29 EURUSD M1 0.19036.mq4
-		// quellverz:
-		// C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FinFx
-		// zielverz: z.b. //Core8/MT4_finfx oder
-		// c:\forex\mt4\metatrader1\mql4\experts
 		
 		// mache ein Init des Realaccounts, wenn schon historyexporter.exe da
 		// ist dann mache nix
@@ -970,13 +965,6 @@ public class Installer
 	private MqlPatch writeMqlFileZwischenspeicher(String quellnam, String quellverz, String zwischenspeichernam,
 			int realpatchflag, Metaconfig meconf, Metaconfig meRealconf, Ea ea)
 	{
-		// Hier wird nur in dem Zwischenspeicher gespeichert
-		// quellnam: B29 EURUSD M1 0.19036.mq4
-		// quellverz:
-		// C:\Forex\Strategien_ImEinsatz\GeneticBuilder\03_ImEinsatz\SYSTEM_AT_DEMOS_CORE8\FinFx
-		// zielverz: //Core8/MT4_finfx
-		// zwischenspeichernam: install
-		// falls realpatchflag == 1 wird das ex4 gelöscht
 		
 		// zielverzeichniss wo das mql hin installiert wird
 		String zielverzexpert = null;
@@ -1318,11 +1306,6 @@ public class Installer
 	
 	public void restoreuserdata(Display dis, Brokerview brokerview)
 	{
-		// der bereich \\copyFromAppdata.... wird in userdata
-		// userdata/454545454545/.... zurückkopiert
-		// Diesen Vorgang macht man wenn man die Metatraderverzeichnisse auf einem
-		// neuen Rechner von Hand kopiert hat und den Userdatabereich noch restoren
-		// möchte
 		
 		// Sicherheitsabfrage
 		MessageBox dialog = new MessageBox(dis.getActiveShell(), SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);

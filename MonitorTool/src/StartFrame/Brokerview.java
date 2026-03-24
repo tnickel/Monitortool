@@ -495,7 +495,7 @@ public class Brokerview
 	        Tracer.WriteTrace(20, "I:postprocess: Dateigrößen - tmp: " + lentmp + ", old: " + lenold + ", xml: " + lenxml);
 
 	        // Wenn keine alte Datei existiert oder die neue temp-Datei nicht zu klein ist
-	        if(!fnamold.exists() || lentmp > (lenold * 0.5)) { 
+	        if(!fnam.exists() || lenxml == 0 || lentmp > (lenxml * 0.5)) { 
 	            // Das neue ist ok, das alte kann gelöscht werden
 	            if(fnamold.exists()) {
 	                if(fnamold.delete()) {
@@ -541,7 +541,7 @@ public class Brokerview
 	            Tracer.WriteTrace(10, "E:Fatal error problem with datafile <" + fnamold.getAbsolutePath() + "> I restore It");
 	            
 	            // Detailliertere Fehlerinformationen
-	            Tracer.WriteTrace(10, "E:postprocess: tmp=" + lentmp + " old=" + lenold + " Verhältnis=" + (lentmp/lenold));
+	            Tracer.WriteTrace(10, "E:postprocess: tmp=" + lentmp + " xml=" + lenxml + " old=" + lenold + " Verhältnis=" + (lentmp/lenold));
 	            
 	            // fnamtmp löschen
 	            if(fnamtmp.exists() && !fnamtmp.delete()) {

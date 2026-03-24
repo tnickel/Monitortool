@@ -52,8 +52,10 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 		JFrame frame = new JFrame("indicator");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());
+		frame.getContentPane().setBackground(new java.awt.Color(27, 33, 48));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new java.awt.Color(27, 33, 48));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		int anz = alltradelist.size();
@@ -84,7 +86,9 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			addSubtitle(chart);
 			
 			JPanel rowPanel = new JPanel(new BorderLayout());
+			rowPanel.setBackground(new java.awt.Color(27, 33, 48));
 			ChartPanel chartPanel = new ChartPanel(chart);
+			chartPanel.setBackground(new java.awt.Color(27, 33, 48));
 			chartPanel.setPreferredSize(new Dimension(500, 350));
 			rowPanel.add(chartPanel, BorderLayout.CENTER);
 			
@@ -101,10 +105,13 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			
 		}
 		// http://java-tutorial.org/jscrollpane.html
-		JScrollPane scrollPane = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		// JScrollPane wird dem Dialog hinzugefügt
+		scrollPane.getViewport().setBackground(new java.awt.Color(27, 33, 48));
+		scrollPane.setBackground(new java.awt.Color(27, 33, 48));
+		scrollPane.setBorder(null);
 		frame.getContentPane().add(scrollPane);
 		
 		frame.pack();

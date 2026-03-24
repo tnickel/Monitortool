@@ -204,7 +204,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			this.setSize(1700, 854);
-			this.setBackground(SWTResourceManager.getColor(192, 192, 192));
+			this.setBackground(SWTResourceManager.getColor(27, 33, 48));
 			FormLayout thisLayout = new FormLayout();
 			this.setLayout(thisLayout);
 			{
@@ -1540,6 +1540,7 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 			initlic();
 			checkconfig();
 			init();
+			applyProfessionalStyling();
 
 			tradefilterrefresh();
 			Mlist ml = new Mlist(messagelist, dis_glob);
@@ -1709,6 +1710,67 @@ public class StartMonitor extends org.eclipse.swt.widgets.Composite
 		GlobalVar.setIpthreadflag(0);
 	}
 
+
+	private void applyProfessionalStyling()
+	{
+		// Professional Financial Blue color scheme
+		org.eclipse.swt.graphics.Color bgDark = SWTResourceManager.getColor(27, 33, 48);
+		org.eclipse.swt.graphics.Color bgMedium = SWTResourceManager.getColor(42, 53, 72);
+		org.eclipse.swt.graphics.Color bgButton = SWTResourceManager.getColor(184, 204, 228);
+		org.eclipse.swt.graphics.Color fgLight = SWTResourceManager.getColor(200, 210, 225);
+		org.eclipse.swt.graphics.Color fgWhite = SWTResourceManager.getColor(230, 235, 245);
+		org.eclipse.swt.graphics.Color bgInput = SWTResourceManager.getColor(232, 236, 240);
+		org.eclipse.swt.graphics.Color accent = SWTResourceManager.getColor(74, 144, 217);
+		org.eclipse.swt.graphics.Color fgDark = SWTResourceManager.getColor(20, 25, 35);
+		
+		// Apply to all child controls
+		for (org.eclipse.swt.widgets.Control child : this.getChildren())
+		{
+			if (child instanceof Button)
+			{
+				Button btn = (Button) child;
+				if ((btn.getStyle() & SWT.CHECK) != 0)
+				{
+					btn.setBackground(bgDark);
+					btn.setForeground(fgWhite);
+				}
+				else
+				{
+					btn.setBackground(bgButton);
+					btn.setForeground(fgDark);
+				}
+			}
+			else if (child instanceof Label)
+			{
+				child.setBackground(bgDark);
+				child.setForeground(fgLight);
+			}
+			else if (child instanceof Text)
+			{
+				child.setBackground(bgInput);
+				child.setForeground(fgDark);
+			}
+			else if (child instanceof Combo)
+			{
+				child.setBackground(bgInput);
+				child.setForeground(fgDark);
+			}
+			else if (child instanceof org.eclipse.swt.widgets.Table)
+			{
+				child.setBackground(SWTResourceManager.getColor(30, 38, 56));
+				child.setForeground(SWTResourceManager.getColor(210, 218, 233));
+				((org.eclipse.swt.widgets.Table)child).setHeaderBackground(SWTResourceManager.getColor(42, 53, 72));
+				((org.eclipse.swt.widgets.Table)child).setHeaderForeground(SWTResourceManager.getColor(180, 195, 220));
+			}
+		}
+		
+		// Title bar area
+		if (statustext != null)
+		{
+			statustext.setBackground(accent);
+			statustext.setForeground(fgWhite);
+		}
+	}
 	private void init()
 	{
 		MetaStarter.KillAllMetatrader(0);

@@ -670,7 +670,42 @@ public class SwtEditBrokerConfig
 	}
 	initBrokereditM(actionmode);
 	refreshbuttons(actionmode);
-	sh.open();
+	// Apply Financial Blue theme
+		org.eclipse.swt.graphics.Color bgDark = SWTResourceManager.getColor(27, 33, 48);
+		org.eclipse.swt.graphics.Color bgButton = SWTResourceManager.getColor(184, 204, 228);
+		org.eclipse.swt.graphics.Color fgLight = SWTResourceManager.getColor(200, 210, 225);
+		org.eclipse.swt.graphics.Color fgWhite = SWTResourceManager.getColor(230, 235, 245);
+		org.eclipse.swt.graphics.Color bgInput = SWTResourceManager.getColor(232, 236, 240);
+		org.eclipse.swt.graphics.Color fgDarkBtn = SWTResourceManager.getColor(20, 25, 35);
+		sh.setBackground(bgDark);
+		for (org.eclipse.swt.widgets.Control child : sh.getChildren())
+		{
+			if (child instanceof Button)
+			{
+				Button btn = (Button) child;
+				if ((btn.getStyle() & SWT.CHECK) != 0)
+				{ btn.setBackground(bgDark); btn.setForeground(fgLight); }
+				else
+				{ btn.setBackground(bgButton); btn.setForeground(fgDarkBtn); }
+			}
+			else if (child instanceof Label)
+			{ child.setBackground(bgDark); child.setForeground(fgLight); }
+			else if (child instanceof Text)
+			{ child.setBackground(bgInput); child.setForeground(fgDarkBtn); }
+			else if (child instanceof Combo)
+			{ child.setBackground(bgInput); child.setForeground(fgDarkBtn); }
+			else if (child instanceof org.eclipse.swt.widgets.Table)
+			{
+				child.setBackground(SWTResourceManager.getColor(30, 38, 56));
+				child.setForeground(SWTResourceManager.getColor(210, 218, 233));
+			}
+			else if (child instanceof org.eclipse.swt.widgets.List)
+			{
+				child.setBackground(SWTResourceManager.getColor(30, 38, 56));
+				child.setForeground(SWTResourceManager.getColor(210, 218, 233));
+			}
+		}
+		sh.open();
 	
 	
 	

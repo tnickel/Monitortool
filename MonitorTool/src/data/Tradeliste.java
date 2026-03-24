@@ -273,23 +273,6 @@ public class Tradeliste
 	
 	private Trade calcStrTrade(String tradezeile)
 	{
-		// aus der Tradezeile wird der Trade gewonnen
-		// <Order> (schon gelesen)
-		// <type>2</type>
-		// <originalType>2</originalType>
-		// <volume>1.0</volume>
-		// <openPrice>6740.5</openPrice>
-		// <closePrice>6772.5</closePrice>
-		// <stoploss>6772.5</stoploss>
-		// <takeprofit>6447.5</takeprofit>
-		// <openTime>1342771259</openTime>
-		// <closeTime>1342778226</closeTime>
-		// <closeType>2</closeType>
-		// <barsInTrade>1</barsInTrade>
-		// <pl>-32.0</pl>
-		// <outOfSample>false</outOfSample>
-		// <status>1</status>
-		// </Order>
 		
 		int direction = 0;
 		float profit = 0.0f;
@@ -349,15 +332,6 @@ public class Tradeliste
 		// 1,SHORT Stop - 2013.04.22 04:17:03,2013.04.22
 		// 04:18:29,1.30621,2013.04.22 09:53:45,1.30621,0.0,SL,false
 		
-		// 0/1,
-		// 1/SHORT Stop - 2013.04.22 04:17:03,2
-		// 2/2013.04.22 04:18:29,
-		// 3/1.30621,
-		// 4/2013.04.22 09:53:45,
-		// 5/1.30621,
-		// 6/0.0,
-		// 7/SL,
-		// 8/false
 		
 		String eingabe = line;
 		String[] parts = eingabe.split(Pattern.quote(","));
@@ -996,38 +970,6 @@ public class Tradeliste
 		return tradetime;
 	}
 	
-	public double calcDrawdownProz_dep()
-	{
-		// berechnet den maximalen prozentualen Drawdown
-		
-		double sumgewinn = 1000;
-		double maxdrawdownprozent = 0;
-		
-		int anz = tradeliste.size();
-		for (int i = 0; i < anz; i++)
-		{
-			Trade tr = tradeliste.get(i);
-			
-			if (tr.getProfit() > 0)
-				sumgewinn = sumgewinn + tr.getProfit();
-			if (tr.getProfit() < 0)
-			{
-				double verlusttrade = tr.getProfit();
-				
-				// den drawdown berechnen
-				// summgewinn=100%
-				// verlusttrade=x%
-				
-				double verlustproz = Math.abs((100 / sumgewinn) * verlusttrade);
-				
-				// falls grösseren verlustprozent gefunden
-				if (verlustproz > maxdrawdownprozent)
-					maxdrawdownprozent = verlustproz;
-			}
-			
-		}
-		return maxdrawdownprozent;
-	}
 	public double calcDrawdown()
 	{
 		

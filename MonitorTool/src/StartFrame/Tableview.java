@@ -160,17 +160,6 @@ public class Tableview extends TableViewBasic
 	{
 		// Hier werden die Trades für einen Broker eingelesen
 		
-		// nocanceledflag: falls dies flag gesetzt ist werden keine canceled
-		// orders angezeigt
-		// normflag:falls normflag =true werden die gewinne auf 0.1 Lot
-		// umgerechnet
-		// fnam: verzeichnissname das geshared wurde
-		// broker: brokername der angezeigt wird
-		// showopenorders: falls open orders aktiviert ist dann werden auch die
-		// open orders geladen
-		// falls nostopflag ==1 ist dann wird nicht gestoppt
-		// showflag=0; wenn 0 dann wird nix auf dem display ausgegeben
-		// onlytodayflag==true, dann werden nur Trades verwenden wo heute ein close ist
 		
 		// Hier wird eine Tabelle in einer Struktur eingeladen
 		
@@ -389,11 +378,6 @@ public class Tableview extends TableViewBasic
 			{
 				Tracer.WriteTrace(20, "CheckProfitliste: broker <"+prof.getBroker()+"> ist ein Realbroker und wird überprüft");
 				
-				// Dann hole für dies profitelement die tradeliste
-				// das müssen wir so machen da ein channel mehrere Trades beinhalten kann.
-				// d.h. z.B. unter kanal 8 können mehrere offene Trades sein und wir müssen
-				// jetzt checken ob diese
-				// trades auch im demokonto zugehörige Eas haben die eingeschaltet sind.
 				
 				// beim realbroker ist die magic der chanel
 				
@@ -706,21 +690,6 @@ public class Tableview extends TableViewBasic
 			int sideflag, Text pftext, Text ddtext)
 	
 	{
-		// hier wird die einzeltradeliste in einer tabelle dargestellt
-		// ausserdem wird der profitfaktor und der drawdown ausgegeben
-		// einzeltradeliste: dies ist die liste mit den Trades
-		// dis: display
-		// table: dies ist die table die aufgebaut wird
-		// marklines: dies ist die marklinestruktur die die farben berechenet
-		// sideflag: 0, dann ist dies die linke seite der tabelle, 1 = rechte seite der
-		// tabelle
-		// gelben Hintergrund dargestellt
-		// pftext:profitfaktor anzeigen wenn !=null
-		// ddtext:drawdown anzeigen wenn !=null
-		// farbanzeige:
-		// gemeinsammer bereich farblich anzeigen (grau) marklines=1
-		// gleiche Trades farblich anzeigen (dunkelgrün) marklines=2
-		// prozentanzeige wie die beiden Strategien harmonieren
 		
 		table.removeAll();
 		table.clearAll();
@@ -906,14 +875,6 @@ public class Tableview extends TableViewBasic
 		// falls eatl.size==0, dann wurde nix gefunden, dann schaue in den comments nach
 		// der magic
 		
-		// 3) Fall3, Broker ist ein Realbroker, dann wird man die magic auf dem
-		// realbroker möglicherweise nicht
-		// finden, dann schaue zusätzlich in den comment nach und übernimm die trades
-		// wenn dort ein teil der magic vor
-		// kommt.
-		// die Funktion sieht ungefähr wie bei fall 2 aus nur das hier noch der comment
-		// als oder abgefragt wird
-		// ermittle erste den channel der angezeigt werden soll
 		if ((eatl.getsize() == 0)&&(comment!=null))
 		{  //3.1 autocreator ea on realaccount
 			zeilcount = tl.getsize();
@@ -1120,62 +1081,6 @@ public class Tableview extends TableViewBasic
 		
 	}
 	
-	private void ToggleOnOffEa_dep(int magic, String selbroker)
-	{
-		
-		// selbroker = selektierter broker
-		int ret = -1;
-		// den realbroker toggeln
-		
-		String realbroker = null, demobroker = null;
-		
-		// der selektierte broker ist ein demobroker
-		if (brokerview_glob.getAccounttype(selbroker) != 2)
-		{
-			realbroker = brokerview_glob.getConBroker(selbroker);
-			if (realbroker == null)
-			{
-				// einen demobroker kann man nicht ein ausschalten der muss schon mit einem
-				// realbroker verbunden sein
-				Mbox.Infobox("no connected Realbroker for magic<" + magic + "> broker<" + selbroker + ">");
-				return;
-			}
-			demobroker = selbroker;
-		} else
-		{// selektierter broker ist ein realbroker
-			realbroker = selbroker;
-			demobroker = eal_glob.getInstFrom(magic, realbroker);
-		}
-		
-		// Ab hier sind real und demobroker separiert !!!
-		// den demobroker toggln
-		
-		// das flag auf demobroker umdrehen
-		eal_glob.toggleOn(magic, demobroker);
-		
-		// es gibt den falls das es für den realbroker keinen demobroker gibt
-		// Hier kann man trotzdem den realbroker ein/ausschalten
-		if (demobroker == null)
-		{
-			Mlist.add("W: realbroker<" + realbroker + "> don´t have a con. demobroker", 1);
-			eal_glob.toggleOn(magic, demobroker);
-		}
-		
-		// hier wird im Netzwerk auf dem Realaccount geschaltet
-		if (ret == 1)
-		{
-			Mlist.add("switch ON EA<" + magic + "> on realbroker<" + realbroker + ">", 1);
-			// EA wurde eingeschaltet
-			networker_glob.RealBroSwitchOnEa(brokerview_glob, magic, realbroker);
-		} else if (ret == 0)
-		{
-			Mlist.add("switch OFF EA<" + magic + "> on realbroker<" + realbroker + ">", 1);
-			// EA wurde ausgeschaltet
-			networker_glob.RealBroSwitchOffEa(brokerview_glob, magic, realbroker);
-		} else
-			Tracer.WriteTrace(10, "internal error 3004545");
-		
-	}
 	
 	public String getSourcedir(String selbroker)
 	{

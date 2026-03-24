@@ -128,11 +128,6 @@ public class StartMonitorWork
 	{
 		// forceloadflag=1, dann werden die trades neu eingeladen
 		DisTool.waitCursor();
-		// dis.getActiveShell().setCursor(new Cursor(Display.getCurrent(),
-		// SWT.CURSOR_WAIT));
-		// falls profitnormalisierung==true dann werden die gewinne auf lotsize
-		// 0.1 umgerechnet
-		//onlytodayflag: if true, than read only trades from today, which close today
 		ProfitTableStatistik pfts = null;
 		
 		buildBrokerliste(table3, forceloadflag);
@@ -667,12 +662,6 @@ public class StartMonitorWork
 	public void checkGd20_dep(Table table1, Table table2, Display dis, Text anzincommingtrades, Text anzeas,
 			org.eclipse.swt.widgets.Label broker, int showflag)
 	{
-		// prüft bei allen ea´s ob der gd20 überschritten worden ist.
-		// setze in der ea liste den wert.
-		// 0=gd20 unterschritten
-		// 1=gd20 einmal überschritten
-		// 2=gd20 zweimal überschritten
-		// showflag=0 dann wird nix auf dem display angezeigt
 		AutomaticCheck_dep gd20 = new AutomaticCheck_dep(tv_glob, brokerview_glob, table1, dis, anzincommingtrades,
 				anzeas);
 		AutomaticCheck_dep.runAutomatic_dep(showflag, 0,false);
