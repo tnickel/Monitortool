@@ -96,7 +96,6 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 			EaConfigDis panel2 = new EaConfigDis(i, magic, trade.getSymbol(), filedata, on, broker, bv,
 					tv, tv.getEaliste(), eatradeliste, comment, ea, chart, null);
 			
-			panel2.setPreferredSize(new Dimension(850, 350));
 			rowPanel.add(panel2, BorderLayout.EAST);
 			panel.add(rowPanel);
 			
@@ -109,6 +108,10 @@ public class ShowAllProfitsConfig extends ApplicationFrame
 		frame.getContentPane().add(scrollPane);
 		
 		frame.pack();
+		java.awt.Toolkit tk = java.awt.Toolkit.getDefaultToolkit();
+		java.awt.Dimension screenSize = tk.getScreenSize();
+		frame.setSize(screenSize.width, screenSize.height - 40);
+		frame.setLocationRelativeTo(null);
 		
 		frame.setVisible(true);
 	}
